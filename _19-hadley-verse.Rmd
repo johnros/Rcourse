@@ -1,0 +1,147 @@
+# The Hadley-verse {#hadley}
+
+
+
+### readr
+
+### tidyr
+
+### dplyr package 
+`dplyr` makes the manipulation of data.frames a breeze.
+It is very fast, and straightforward to use.
+
+Install the package:
+```{r}
+# install.packages('dplyr')
+```
+
+The following examples are taken from:
+https://github.com/justmarkham/dplyr-tutorial/blob/master/dplyr-tutorial.Rmd
+```{r}
+# install.packages('nycflights13')
+library(nycflights13)
+dim(flights)
+View(flights)
+names(flights)
+class(flights) # a tbl_df is an extension of the data.frame class
+library(dplyr) # calling dplyr
+
+filter(flights, month == 1, day == 1) #dplyr style
+flights[flights$month == 1 & flights$day == 1, ] # old style
+flights %>% filter(month == 1, day == 1) # dplyr with magrittr style (yes!)
+
+filter(flights, month == 1 | month == 2)
+slice(flights, 1:10) # selects rows
+
+arrange(flights, year, month, day) # sort
+arrange(flights, desc(arr_delay)) # sort descending
+
+select(flights, year, month, day) # select columns
+select(flights, year:day) # select column range
+select(flights, -(year:day)) # drop columns
+rename(flights, tail_num = tailnum) # rename variables
+# add a new computed colume
+mutate(flights,
+  gain = arr_delay - dep_delay,
+  speed = distance / air_time * 60) 
+# you can refer to columns just created!
+mutate(flights,
+  gain = arr_delay - dep_delay,
+  gain_per_hour = gain / (air_time / 60)
+)
+# keep only new variables
+transmute(flights,
+  gain = arr_delay - dep_delay,
+  gain_per_hour = gain / (air_time / 60)
+)
+# simple statistics
+summarise(flights,
+  delay = mean(dep_delay, na.rm = TRUE)
+  )
+
+sample_n(flights, 10) # random subsample
+sample_frac(flights, 0.01) # random subsample
+```
+
+Subgroup operations
+```{r}
+by_tailnum <- group_by(flights, tailnum)
+by_tailnum %>% class # a groupping object
+delay <- summarise(by_tailnum,
+  count = n(),
+  avg.dist = mean(distance, na.rm = TRUE),
+  avg.delay = mean(arr_delay, na.rm = TRUE))
+delay <- filter(delay, count > 20, avg.dist < 2000)
+View(delay)
+
+destinations <- group_by(flights, dest)
+summarise(destinations,
+  planes = n_distinct(tailnum),
+  flights = n()
+)
+
+# Grouping works in a hirarchy. summarise() peels outer layer.
+daily <- group_by(flights, year, month, day)
+(per_day   <- summarise(daily, flights = n()))
+(per_month <- summarise(per_day, flights = sum(flights)))
+(per_year  <- summarise(per_month, flights = sum(flights)))
+```
+
+
+
+
+
+Two table operations
+```{r}
+airlines %>% View
+flights2 <- flights %>% select(year:day, hour, origin, dest, tailnum, carrier)
+
+flights2 %>% left_join(airlines) # join on left table with automatic matching.
+
+flights2 %>% left_join(weather)
+
+flights2 %>% left_join(planes, by = "tailnum") # with named matching
+
+flights2 %>% left_join(airports, c("dest" = "faa"))
+
+flights2 %>% left_join(airports, c("origin" = "faa"))
+```
+
+Types of join
+```{r}
+(df1 <- data_frame(x = c(1, 2), y = 2:1))
+(df2 <- data_frame(x = c(1, 3), a = 10, b = "a"))
+
+df1 %>% inner_join(df2) # SELECT * FROM x JOIN y ON x.a = y.a
+
+df1 %>% left_join(df2) # SELECT * FROM x LEFT JOIN y ON x.a = y.a
+
+df1 %>% right_join(df2) # SELECT * FROM x RIGHT JOIN y ON x.a = y.a
+df2 %>% left_join(df1) 
+
+df1 %>% full_join(df2) # SELECT * FROM x FULL JOIN y ON x.a = y.a
+
+# return only unmatched cases
+flights %>%
+  anti_join(planes, by = "tailnum") %>% 
+  count(tailnum, sort = TRUE) 
+# SELECT * FROM x WHERE NOT EXISTS (SELECT 1 FROM y WHERE x.a = y.a)
+
+df1 %>% semi_join(df2, by = "x")  # SELECT * FROM x WHERE EXISTS (SELECT 1 FROM y WHERE x.a = y.a)
+```
+
+Set operations
+```{r}
+(df1 <- data_frame(x = 1:2, y = c(1L, 1L)))
+(df2 <- data_frame(x = 1:2, y = 1:2))
+
+intersect(df1, df2) # SELECT * FROM x INTERSECT SELECT * FROM y
+
+union(df1, df2) # SELECT * FROM x UNION SELECT * FROM y
+
+setdiff(df1, df2) # SELECT * FROM x EXCEPT SELECT * FROM y
+
+setdiff(df2, df1)
+```
+
+Leaving dplyr for now...
