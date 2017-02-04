@@ -1,21 +1,51 @@
 # Introduction {#intro}
 
-You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
 
-Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
 
-```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
-par(mar = c(4, 4, .1, .1))
-plot(pressure, type = 'b', pch = 19)
-```
+## What is R? {#what-r}
 
-Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
+R was not designed to be a bona-fide programming language. 
+It is an evolution of the S language, developped at Bell labs (later Lucent) as a wrapper for the endless collection of statistical libraries they wrote in Fortran.
 
-```{r nice-tab, tidy=FALSE}
-knitr::kable(
-  head(iris, 20), caption = 'Here is a nice table!',
-  booktabs = TRUE
-)
-```
+As of 2011, half of R's libraries are [actually written in C](https://wrathematics.github.io/2011/08/27/how-much-of-r-is-written-in-r/). 
 
-You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015].
+
+
+For more on the history of R see [AT&T's site](http://www.research.att.com/articles/featured_stories/2013_09/201309_SandR.html?fbid=Yxy4qyQzmMa), John Chamber's talk at [UserR! 2014](https://www.youtube.com/watch?v=_hcpuRB5nGs) or the Introduction to the excellent @venables2013modern.
+
+## The R Ecosystem {#ecosystem}
+
+A large part of R's success is due to the ease in which a user, or a firm, can augment it. 
+This led to a large community of users, developpers, and protagonists. 
+Some of the most important parts of R's ecosystem include:
+
+- [CRAN](https://cran.r-project.org/): 
+a repository for R pcakges, mirrored worldwide.
+
+- [R-help](https://www.r-project.org/mail.html): 
+an immensly active mailing list. 
+Nowdays being replaced by StackExchange meta-site. 
+Look for the R tags in the [StackOverflow](http://stackoverflow.com/) and [CrossValidated](http://stats.stackexchange.com/) sites.
+
+- [TakViews](https://cran.r-project.org/web/views/): 
+part of CRAN that collects packages per topic. 
+- [Bioconductor](https://www.bioconductor.org/): 
+A CRAN-like repository dedicated to the life sciences. 
+
+- [Books](https://www.r-project.org/doc/bib/R-books.html): 
+An insane amount of books written on the language. Some are free, some are not. 
+
+- [The Israeli-R-user-group](https://groups.google.com/forum/#!forum/israel-r-user-group): 
+just like the name suggests.
+
+- Commercial R: being open source and lacking support may seem like a problem that would prehibit R from being adopted for commercial applications. 
+This void is filled by several very succesfull commercial versions such as [Microsoft R](https://mran.microsoft.com/open/), with its accompanying CRAN equivalent called [MRAN](https://mran.microsoft.com/),  [Tibco's Spotfire](http://spotfire.tibco.com/discover-spotfire/what-does-spotfire-do/predictive-analytics/tibco-enterprise-runtime-for-r-terr), and [others](https://en.wikipedia.org/wiki/R_(programming_language)#Commercial_support_for_R).
+
+- [RStudio](https://www.rstudio.com/products/rstudio/download-server/): since its easliest days R came equipped with a minimal text editor. 
+It later recieved plugins for major integrated developpment environments (IDEs) such as Eclipse, WinEdit and even [VisualStudio](https://www.visualstudio.com/vs/rtvs/). 
+None of these, however, had the impact of the RStudio IDE. 
+Written completely in JavaScript, the RStudio IDE allows the seamless integration of cutting edge web-design technologies, remote access, and other killer features, making it todays most popular IDE for R.
+
+
+
+## R Basics 
