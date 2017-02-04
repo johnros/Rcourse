@@ -49,3 +49,123 @@ Written completely in JavaScript, the RStudio IDE allows the seamless integratio
 
 
 ## R Basics 
+
+We now start with the basics of R. 
+If you have any experience at all with R, you can probably skip this section.
+
+First, make sure you work with the RStudio IDE.
+Some useful pointers for this IDE include:
+- Ctrl+return to run lines from editor.
+- alt+shift+k for RStudio keyboard shortcuts.
+- Ctrl+alt+j to navigate between sections
+- tab for auto-completion
+- Ctrl+1 to skip to editor. 
+- Ctrl+2 to skip to console.
+- Ctrl+8 to skip to the environment list.
+- Code Folding:
+  - alt+l collapse chunk.
+  - alt+shift+l unfold chunk.
+  - alt+o collapse all.
+  - alt+shift+o unfold all.
+
+
+### Simple calculator
+R can be used as a simple calculator.
+```{r}
+10+5
+70*81
+2**4
+2^4
+log(10)       					
+log(16, 2)    					
+log(1000, 10)   				
+```
+
+
+### Probability calculator 
+R can be used as a probability calculator. 
+You probably wish you knew this when you did your Intro To Probability.
+
+The binomial distribution function:
+```{r}
+dbinom(x=3, size=10, prob=0.5) 	# Compute P(X=3) for X~B(n=10, p=0.5) 
+```
+Notice that arguments do not need to be named explicitely
+```{r}
+dbinom(3, 10, 0.5)
+```
+The binomial cummulative distribution function (CDF):
+```{r}
+pbinom(q=3, size=10, prob=0.5) # Compute P(X<=3) for X~B(n=10, p=0.5)  	
+```
+The binomial quantil function:
+```{r}
+qbinom(p=0.1718, size=10, prob=0.5) # For X~B(n=10, p=0.5) returns k such that P(X<=k)=0.1718
+```
+Generate random variables:
+```{r}
+rbinom(n=1, size=10, prob=0.5) 	
+rbinom(n=10, size=10, prob=0.5)
+rbinom(n=100, size=10, prob=0.5)
+```
+
+R has many built-in distributions. 
+Their names may change, but the prefixed do not:
+
+- __d__ prefix for the distribution function.
+- __p__ prefix for the CDF.
+- __q__ prefix for the quantile function (i.e., the inverse CDF).
+- __r__ prefix to generate sandom samples. 
+
+
+
+## Getting help
+One of the most important parts of working with a language, is to know where to find help. 
+R has several in-line facilities, besides the various help resources in the R [ecosystem](#ecosystem).
+
+
+Get help for a particular function.
+```{r, eval=FALSE}
+?dbinom 
+help(dbinom)
+```
+
+Search local help files for a particular string.
+```{r, eval=FALSE}
+??binomial
+help.search('dbinom') 
+```
+
+Load a menu with several important manuals:
+```{r, eval=FALSE}
+help.start() 
+```
+
+
+## Variable asignment:
+Assignments into a variable named "x":
+```{r}
+x = rbinom(n=1000, size=10, prob=0.5) # Works. Bad style.
+x <- rbinom(n=1000, size=10, prob=0.5) # Asignments into a variable named "x"
+```
+More on style: http://adv-r.had.co.nz/Style.html
+
+
+Print contents:
+```{r}
+x
+print(x)  
+(x <- rbinom(n=1000, size=10, prob=0.5))  # Assign and print.
+```
+
+
+Operate on the object
+```{r}
+mean(x)  
+var(x)  
+hist(x)  
+rm(x) # remove variable
+```
+
+
+For more information on distributions see http://cran.r-project.org/web/views/Distributions.html
