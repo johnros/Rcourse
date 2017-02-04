@@ -104,9 +104,7 @@ qbinom(p=0.1718, size=10, prob=0.5) # For X~B(n=10, p=0.5) returns k such that P
 ```
 Generate random variables:
 ```{r}
-rbinom(n=1, size=10, prob=0.5) 	
 rbinom(n=10, size=10, prob=0.5)
-rbinom(n=100, size=10, prob=0.5)
 ```
 
 R has many built-in distributions. 
@@ -119,7 +117,7 @@ Their names may change, but the prefixed do not:
 
 
 
-### Getting help
+### Getting Help
 One of the most important parts of working with a language, is to know where to find help. 
 R has several in-line facilities, besides the various help resources in the R [ecosystem](#ecosystem).
 
@@ -140,12 +138,15 @@ help.start()
 ```
 
 
-### Variable asignment:
+### Variable Asignment
 Assignment of some output into an object named "x":
 ```{r}
-x = rbinom(n=1000, size=10, prob=0.5) # Works. Bad style.
-x <- rbinom(n=1000, size=10, prob=0.5) 
+x = rbinom(n=10, size=10, prob=0.5) # Works. Bad style.
+x <- rbinom(n=10, size=10, prob=0.5) 
 ```
+If you are familiar with other programming languages you may prefer the '=' assignment rather than the '<-' assignment. 
+We recommend you make the effort to change your preferences. 
+This is because thinking with '<-' helps to read your code, distinguishes between assignments and function arguments: `function(argument=value)`, and understand things like `<<-` and `->`. 
 
 
 ```{remark}
@@ -154,32 +155,87 @@ We do not discuss style guidelines in this text, but merely remind the reader th
 See [Hadley's style guide](http://adv-r.had.co.nz/Style.html) for more. 
 ```
 
-
-```{remark}
-__<--__:
-If you are familiar with other programming languages you may prefer the '=' assignment rather than the '<-' assignment. 
-We recommend you make the effort to change your preferences. 
-This is because thinking with '<-' helps to read your code, distinguishes between assignemtns and function arguments: `function(argument=value)`, and understand things like `<<-` and `->`. 
-```
-
-
-
-
-Print contents:
+To print the contents of an object just type its name
 ```{r}
 x
-print(x)  
-(x <- rbinom(n=1000, size=10, prob=0.5))  # Assign and print.
 ```
-
+which is an implicit call to 
+```{r}
+print(x)  
+```
+Alternatively, you can assign and print simultaneously
+```{r}
+(x <- rbinom(n=10, size=10, prob=0.5))  # Assign and print.
+```
 
 Operate on the object
 ```{r}
-mean(x)  
-var(x)  
-hist(x)  
+mean(x)  # compute mean
+var(x)  # compute variance
+hist(x) # plot histogram
+```
+
+R saves every object you create in RAM^[S and S-Plus used to save objects on disk. Working from RAM has advantages and disatvantages. More on this in Chapter \@ref(memory).]. 
+The collection of all such objects is the __workspace__ which you can inspect with 
+```{r}
+ls()
+```
+or with ctrl+8 in RStudio. 
+To remove objects from the workspace:
+```{r}
 rm(x) # remove variable
+ls() # verify
+```
+You may think that if an object is removed then its memory is freed. 
+This is almost true, and depends on a negotiation mechanism between R and the operating system. 
+R's memory management is discussed in Chapter \@ref(memory). 
+
+
+### Piping 
+Because R originates in Unix and Linux environments, it inherits much of its falvor.
+[Piping](http://ryanstutorials.net/linuxtutorial/piping.php) is an idea take from the linux shell which allows to use the output of one expression as the input to another.
+Piping thus makes code easier to read and write. 
+
+```{remark}
+Volleyball fans may be confused with the idea of spiking a ball from the 3-meter line, also called [piping](https://www.youtube.com/watch?v=GWW15Nr1lQM). 
+So:
+(a) These are very different things.
+(b) If you can pipe, [ASA-BGU](http://in.bgu.ac.il/sport/Pages/asa.aspx) is looking for you!
+```
+
+Prerequisits:
+```{r}
+library(magrittr)
+x <- rbinom(n=1000, size=10, prob=0.5)
+```
+
+Examples
+```{r, eval=FALSE}
+x %>% var() # Instead of var(x)
+x %>% hist()  # Instead of hist(x)
+x %>% mean() %>% round(2) %>% add(10) 
 ```
 
 
-For more information on distributions see http://cran.r-project.org/web/views/Distributions.html
+The next example^[Taken from  http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html] demonstrates the benefits of piping.
+The next two chunks of code do the same thing.
+Try parsing them in your mind:
+```{r, eval=FALSE}
+# Functional (onion) style
+car_data <- 
+  transform(aggregate(. ~ cyl, 
+                      data = subset(mtcars, hp > 100), 
+                      FUN = function(x) round(mean(x, 2))), 
+            kpl = mpg*0.4251)
+```
+
+```{r, eval=FALSE}
+# Piping (magrittr) style
+car_data <- 
+  mtcars %>%
+  subset(hp > 100) %>%
+  aggregate(. ~ cyl, data = ., FUN = . %>% mean %>% round(2)) %>%
+  transform(kpl = mpg %>% multiply_by(0.4251)) %>%
+  print
+```
+
