@@ -279,8 +279,26 @@ plot(x2~x1)
 ```
 
 Like the univariate `stripchart`, the scatter plot will be an uninformative mess in the presence of a lot of data. 
-A nice bivariate counterpart of the univariate histogram is the _hexbin plot_, which tessellates the 
+A nice bivariate counterpart of the univariate histogram is the _hexbin plot_, which tessellates the bivariate plane with hexagons.
+```{r}
+library(hexbin)
+n <- 2e5
+x1 <- rexp(n)
+x2 <- 2* x1 + 4 + rnorm(n)
+plot(hexbin(x = x1, y = x2))
+```
+
 
 
 #### Multivariate Continous Data
+Visualizing multivariate data is a tremendous challenge given that we cannot grap $4$ dimensional spaces, nor can the computer screen present more than $2$ dimensional spaces.
+We thus have several options: 
+(i) To project the data to 2D. This is discussed in the Dimensionality Reduction section (\@ref(dim-reduce)).
+(ii) To visualize not the data, but the summaries. Like the covariance matrix.
+
+Since the covariance matrix, $\hat \Sigma$ is a matrix, it can be visualized as a matrix.
+```{r}
+covariance <- cov(longley) # The covariance of the longley dataset
+lattice::levelplot(covariance)
+```
 
