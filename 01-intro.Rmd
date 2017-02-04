@@ -5,7 +5,7 @@
 ## What is R? {#what-r}
 
 R was not designed to be a bona-fide programming language. 
-It is an evolution of the S language, developped at Bell labs (later Lucent) as a wrapper for the endless collection of statistical libraries they wrote in Fortran.
+It is an evolution of the S language, developed at Bell labs (later Lucent) as a wrapper for the endless collection of statistical libraries they wrote in Fortran.
 
 As of 2011, half of R's libraries are [actually written in C](https://wrathematics.github.io/2011/08/27/how-much-of-r-is-written-in-r/). 
 
@@ -16,15 +16,15 @@ For more on the history of R see [AT&T's site](http://www.research.att.com/artic
 ## The R Ecosystem {#ecosystem}
 
 A large part of R's success is due to the ease in which a user, or a firm, can augment it. 
-This led to a large community of users, developpers, and protagonists. 
+This led to a large community of users, developers, and protagonists. 
 Some of the most important parts of R's ecosystem include:
 
 - [CRAN](https://cran.r-project.org/): 
-a repository for R pcakges, mirrored worldwide.
+a repository for R packages, mirrored worldwide.
 
 - [R-help](https://www.r-project.org/mail.html): 
-an immensly active mailing list. 
-Nowdays being replaced by StackExchange meta-site. 
+an immensely active mailing list. 
+Noways being replaced by StackExchange meta-site. 
 Look for the R tags in the [StackOverflow](http://stackoverflow.com/) and [CrossValidated](http://stats.stackexchange.com/) sites.
 
 - [TakViews](https://cran.r-project.org/web/views/): 
@@ -38,13 +38,13 @@ An insane amount of books written on the language. Some are free, some are not.
 - [The Israeli-R-user-group](https://groups.google.com/forum/#!forum/israel-r-user-group): 
 just like the name suggests.
 
-- Commercial R: being open source and lacking support may seem like a problem that would prehibit R from being adopted for commercial applications. 
-This void is filled by several very succesfull commercial versions such as [Microsoft R](https://mran.microsoft.com/open/), with its accompanying CRAN equivalent called [MRAN](https://mran.microsoft.com/),  [Tibco's Spotfire](http://spotfire.tibco.com/discover-spotfire/what-does-spotfire-do/predictive-analytics/tibco-enterprise-runtime-for-r-terr), and [others](https://en.wikipedia.org/wiki/R_(programming_language)#Commercial_support_for_R).
+- Commercial R: being open source and lacking support may seem like a problem that would prohibit R from being adopted for commercial applications. 
+This void is filled by several very successful commercial versions such as [Microsoft R](https://mran.microsoft.com/open/), with its accompanying CRAN equivalent called [MRAN](https://mran.microsoft.com/),  [Tibco's Spotfire](http://spotfire.tibco.com/discover-spotfire/what-does-spotfire-do/predictive-analytics/tibco-enterprise-runtime-for-r-terr), and [others](https://en.wikipedia.org/wiki/R_(programming_language)#Commercial_support_for_R).
 
-- [RStudio](https://www.rstudio.com/products/rstudio/download-server/): since its easliest days R came equipped with a minimal text editor. 
-It later recieved plugins for major integrated developpment environments (IDEs) such as Eclipse, WinEdit and even [VisualStudio](https://www.visualstudio.com/vs/rtvs/). 
+- [RStudio](https://www.rstudio.com/products/rstudio/download-server/): since its earliest days R came equipped with a minimal text editor. 
+It later received plugins for major integrated development environments (IDEs) such as Eclipse, WinEdit and even [VisualStudio](https://www.visualstudio.com/vs/rtvs/). 
 None of these, however, had the impact of the RStudio IDE. 
-Written completely in JavaScript, the RStudio IDE allows the seamless integration of cutting edge web-design technologies, remote access, and other killer features, making it todays most popular IDE for R.
+Written completely in JavaScript, the RStudio IDE allows the seamless integration of cutting edge web-design technologies, remote access, and other killer features, making it today's most popular IDE for R.
 
 
 
@@ -90,15 +90,15 @@ The binomial distribution function:
 ```{r}
 dbinom(x=3, size=10, prob=0.5) 	# Compute P(X=3) for X~B(n=10, p=0.5) 
 ```
-Notice that arguments do not need to be named explicitely
+Notice that arguments do not need to be named explicitly
 ```{r}
 dbinom(3, 10, 0.5)
 ```
-The binomial cummulative distribution function (CDF):
+The binomial cumulative distribution function (CDF):
 ```{r}
 pbinom(q=3, size=10, prob=0.5) # Compute P(X<=3) for X~B(n=10, p=0.5)  	
 ```
-The binomial quantil function:
+The binomial quantile function:
 ```{r}
 qbinom(p=0.1718, size=10, prob=0.5) # For X~B(n=10, p=0.5) returns k such that P(X<=k)=0.1718
 ```
@@ -115,11 +115,11 @@ Their names may change, but the prefixed do not:
 - __d__ prefix for the distribution function.
 - __p__ prefix for the CDF.
 - __q__ prefix for the quantile function (i.e., the inverse CDF).
-- __r__ prefix to generate sandom samples. 
+- __r__ prefix to generate random samples. 
 
 
 
-## Getting help
+### Getting help
 One of the most important parts of working with a language, is to know where to find help. 
 R has several in-line facilities, besides the various help resources in the R [ecosystem](#ecosystem).
 
@@ -129,26 +129,40 @@ Get help for a particular function.
 ?dbinom 
 help(dbinom)
 ```
-
-Search local help files for a particular string.
+If you don't know the name of the function you are looking for, search local help files for a particular string:
 ```{r, eval=FALSE}
 ??binomial
 help.search('dbinom') 
 ```
-
-Load a menu with several important manuals:
+Or load a menu where you can navigate local help in a web-based fashion:
 ```{r, eval=FALSE}
 help.start() 
 ```
 
 
-## Variable asignment:
-Assignments into a variable named "x":
+### Variable asignment:
+Assignment of some output into an object named "x":
 ```{r}
 x = rbinom(n=1000, size=10, prob=0.5) # Works. Bad style.
-x <- rbinom(n=1000, size=10, prob=0.5) # Asignments into a variable named "x"
+x <- rbinom(n=1000, size=10, prob=0.5) 
 ```
-More on style: http://adv-r.had.co.nz/Style.html
+
+
+```{remark}
+__Style__:
+We do not discuss style guidelines in this text, but merely remind the reader that good style is extremely important. When you write code, think of other readers, but also think of future self.
+See [Hadley's style guide](http://adv-r.had.co.nz/Style.html) for more. 
+```
+
+
+```{remark}
+__<--__:
+If you are familiar with other programming languages you may prefer the '=' assignment rather than the '<-' assignment. 
+We recommend you make the effort to change your preferences. 
+This is because thinking with '<-' helps to read your code, distinguishes between assignemtns and function arguments: `function(argument=value)`, and understand things like `<<-` and `->`. 
+```
+
+
 
 
 Print contents:
