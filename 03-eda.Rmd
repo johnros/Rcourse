@@ -1,1 +1,355 @@
 # Exploratory Data Analysis {#eda}
+
+Exploratory Data Analysis (EDA) is a term cast by [John W. Tukey](https://en.wikipedia.org/wiki/John_Tukey) in his seminal book @tukey1977exploratory.
+It is the practice of inspecting, feeling, and feeling your data before stating hypotheses, fitting predictors, and other more ambitious inferential goals.
+It typically includes the computation of simple _summary statistics_ which capture some property of interest in the data, and _visualization_.
+EDA can be thought of as an assumption free, purely algorithmic practice.
+
+In this text we present EDA techniques along the following lines:
+
+- How we explore: with a summary statistic or visually.
+- How many variable analyzed simultaneously: univariate, bivariate, or multivariate.
+- What type of variable: categorical or continous.
+
+
+## Summary Statistics
+
+### Categorical Variables
+Categorical variable do not admit any mathematical operations on them. 
+We cannot sum them, or even sort them. 
+We can only __count__ them. 
+As such, summaries of categorical variables will always start with the counting of the frequency of each category.
+
+#### Univariate 
+```{r}
+gender <- c(rep('Boy', 10), rep('Girl', 12))
+drink <- c(rep('Coke', 5), rep('Sprite', 3), rep('Coffee', 6), rep('Tea', 7), rep('Water', 1))  
+age <-  sample(c('Young', 'Old'), size = length(gender), replace = TRUE)
+
+table(gender)
+table(drink)
+table(age)
+```
+
+If instead of the level counts you want the proportions, you can use `prop.table`
+```{r}
+prop.table(table(gender))
+```
+
+
+#### Bivariate
+```{r}
+cbind(gender, drink) %>% head # inspect the raw data
+table1 <- table(gender, drink) 
+table1										
+```
+
+#### Multivariate
+You may be wondering how does R handle tables with more than two dimensions.
+It is indeed not trivial, and R offers several solutions.
+```{r}
+table2.1 <- table(gender, drink, age) # A multilevel table. 
+table2.1
+table.2.2 <- ftable(gender, drink, age) # A human readable table.
+table.2.2
+```
+
+If you want proportions instead of counts, you need to specify the denominator, i.e., the margins. 
+```{r}
+prop.table(table1, margin = 1)
+prop.table(table1, margin = 2)
+```
+
+
+### Continous Variable
+Continous variables admit many more operations than categorical.
+We can thus compute sums, means, quantiles, and more.
+
+#### Univariate
+We dintinguish between several types of summaries, each capturing a different proprty of the data.
+
+#### Summary of location
+Capture the "location" of the data. These include:
+```{definition}
+The mean, or average, of a sample $x$ of lenth $n$, denoted $\bar x$ is defined as 
+$$ \bar x := n^{-1} \sum x_i $$
+```
+
+The sample mean is __non robust__. 
+A single large observation may inflate the mean indefinitely.
+For this reason, we define several other summaries of location, which are more robust, i.e., less affected by "contaminations" of the data.
+
+We start by defining the sample quantiles, themselves __not__ a summary of location.
+```{definition}
+The $\alpha$ quantile of a sample $x$, denoted $x_\alpha$, is (non uniquely) defined as a value above $100 \alpha \%$ of the sample, and below $100 (1-\alpha) \%$.
+```
+
+We emphasise that sample quantiles are non-uniquely defined. See `?quantile` for the 9(!) different definitions that R provides. 
+
+We can now define another summary of location, the median.
+```{definition}
+The median of a sample $x$, denoted $x_{0.5}$ is the $\alpha=0.5$ quantile of the sample.
+```
+
+A whole family of summaries of locations is the __alpha trimmed mean__.
+```{definition}
+The $\alpha$ trimmed mean of a sample $x$, denoted $\bar x_\alpha$ is the average of the sample after removing the $\alpha$ largest and $\alpha$ smallest observations.
+```
+The simple mean and median are instances of the alpha trimmed mean: $\bar x_0$ and $\bar x_{0.5}$ respectively.
+
+Here are the R imlementations:
+```{r}
+x <- rexp(100)
+mean(x) # simple mean
+median(x) # median
+mean(x, trim = 0.2) # alpha trimmed mean with alpha=0.2
+```
+
+
+#### Summary of scale
+The scale of the data can be thought of its variability. 
+
+```{definition}
+The standard deviation of a sample $x$, denoted $S(x)$, is defined as 
+$$ S(x):=\sqrt{(n-1)^{-1} \sum (x_i-\bar x)^2} $$
+```
+
+For reasons of robustnes, we define other, more robust, measures of scale.
+```{definition}
+The Median Absolute Deviation from the median, denoted as $MAD(x)$, is defined as
+$$MAD(x):= c \: |x-x_{0.5}|_{0.5} $$
+```
+where $c$ is some constant, typically set to $c=1.4826$ so that the MAD is a robust estimate of $S(x)$.
+
+```{definition}
+The Inter Quantile Range of a sample $x$, denoted as $IQR(x)$, is defined as 
+$$ IQR(x):= x_{0.75}-x_{0.25} $$
+```
+
+Here are the R implementations
+```{r}
+sd(x) # standard deviation
+mad(x) # MAD
+IQR(x) # IQR
+```
+
+
+
+#### Summary of Asymmetry
+The symmatry of a univariate sample is easily understood.
+Summaries of assymetry, also known as _skewness_ quantify the daparture of the $x$ from a symmetric distribution.
+
+```{definition}
+The Yule measure of assymetry, denoted $Yule(x)$ is defined as 
+$$Yule(x) := \frac{1/2 \: (x_{0.75}+x_{0.25}) - x_{0.5} }{1/2 \: IQR(x)} $$
+```
+
+Here is an R implementation
+```{r}
+yule <- function(x){
+  numerator <- 0.5 * (quantile(x,0.75) + quantile(x,0.25))-median(x) 
+  denominator <- 0.5* IQR(x)
+  numerator/denominator
+}
+yule(x)
+```
+
+
+#### Bivariate
+When dealing with bivariate, or multivariate data, we can obviously compute univariate summaries for each variable. 
+This is __not__ the topic of this section, in which we want to summarize the association __between__ the variables, and not withing them.
+
+```{definition}
+The covariance between two samples, $x$ and $y$, of same length $n$, is defined as 
+$$Cov(x,y):= (n-1)^{-1} \sum (x_i-\bar x)(y_i-\bar y)  $$
+```
+We emphasize this is not the covariance you learned about in probability classes, since it is not the covariance between two _random variables_ but rather, between two _samples_. 
+For this reasons, some authors call it the _empirical_ covariance. 
+
+```{definition}
+Peasrson's correlation coefficient, a.k.a. Pearson's moment product correlation, or simply, the correlation, denoted by is defined as 
+$$r(x,y):=\frac{Cov(x,y)}{S(x)S(y)} $$
+```
+If you find this definition enigmatic, just think of the correlation as the covariance between $x$ and $y$ after transforming each to the unitless scale of z-scores.
+
+```{definition}
+The z-scores of a sample $x$ are defined as the mean-centered, scale normalized observations:
+$$z_i(x):= \frac{x_i-\bar x}{S(x)}$$ 
+```
+We thus have that $r(x,y)=Cov(z(x),z(y))$. 
+
+
+#### Multivariate 
+The covariance is a simple summary of association between two variables, but it certainly may not capture the whole "story".
+Things get more complicated when summarizing the relation between multiple variables. 
+The most common summary of relation, is the __covariance matrix__, but we warn that only the simplest multivariate relations are fully summarized by this matrix. 
+
+```{definition}
+Given $n$ observations on $p$ variables, the covariance matrix of the sample, denoted $\hat \Sigma$ is defined as 
+$$\hat \Sigma_{i,j}=Cov(x_i,x_j)$$
+where $x_i,x_j$ are the $n$ observations on variables $x_i$ and $x_j$ respectively.
+```
+
+
+
+
+
+## Visualization
+Summarizing the story in a variable to a single number clearly conceals much of the story in the data. 
+This is akin to inspecting a person by its caricature, instead of a picture. 
+Visualizing the data, when possible, is more informative. 
+
+### Categorical Variables
+Recalling that with categorical variables we can only count the frequency of each level, the plotting of such variables are typically variations on the _bar plot_.
+
+#### Univariate
+```{r}
+plot(table(age))
+```
+
+
+
+#### Bivariate
+
+#### Multivariate 
+
+### Continous Variables
+
+#### Univariate
+
+#### Bivariate
+
+#### Multivariate 
+
+
+
+
+
+
+
+              
+
+##  Exploring Continous Variables 
+
+Generating and exploring data
+```{r}
+sample1 <- rnorm(100) 							
+table(sample1) 									
+hist(sample1, freq=T, main='Counts')      	
+hist(sample1, freq=F, main='Frequencies') 	
+lines(density(sample1))                  	
+rug(sample1)
+```
+
+
+## The Boxplot 
+```{r}
+boxplot(sample1)	
+```
+
+
+
+Several different visualizations:
+```{r}
+sample2<-rnorm(1000)     
+stem(sample2)          
+hist(sample2)          
+plot(density(sample2))  
+rug(sample2)
+```
+
+
+
+True data 
+```{r}
+URL <- 'http://statweb.stanford.edu/~tibs/ElemStatLearn/datasets/bone.data'
+bone <- read.table(URL, header = TRUE)
+names(bone)
+summary(bone) 			
+stripchart(bone['age'])
+stem(bone[, 'age']) 									
+hist(bone[, 'age'], prob=T) 							
+# lines(density(bone[, 'age'])) 
+# with(bone, rug(age))
+
+ind<-bone[, 'gender']=='male'
+
+boxplot(bone$age~bone$gender)
+```
+
+
+## Graphical parameters 
+```{r}
+rm(age, gender, drink)
+attach(bone) 
+stripchart(age)
+stripchart(age~gender)
+stripchart(age~gender, v=T)
+
+boxplot(age~gender)
+boxplot(age~gender, horizontal=T, col=c('pink','lightblue') )
+title(main='Amazing Boxplots!')
+title(sub="Well actually.. I've seen better Boxplots")
+
+plot(density(age), main='')
+plot(density(age), main='', type='h')
+plot(density(age), main='', type='o')
+plot(density(age), main='', type='p')
+plot(density(age), main='', type='l')
+
+plot(density(age),main='')
+rug(age)
+boxplot(age, add=T, horizontal=T, at=0.02, boxwex=0.05, col='grey')
+title(expression(alpha==f[i] (beta)))
+
+detach(bone) 
+```
+
+
+## Integer data 
+Integer data will most certainly produce overlaps if plotted. Either add hitter, or treat as discrete.
+```{r}
+r.age<-round(age)
+plot(density(r.age))
+rug(r.age)
+plot(density(r.age, from=9))
+rug(jitter(r.age))
+hist(r.age)
+rug(jitter(r.age))
+```
+
+
+## Plotting
+
+### Preparing data for plotting
+2D data can be in either _wide_ or _long_ format. 
+Most R functions are designed for long formats. 
+Let's start by trying to plot in the wide format.
+Notice each dosage is plotted separately (yes, I could have looped).
+```{r}
+wide.data<-data.frame(id=1:4, age=c(40,50,60,50), dose1=c(1,2,1,2),dose2=c(2,1,2,1), dose4=c(3,3,3,3))
+wide.data
+
+plot(dose1~age, data=wide.data, ylim=range(c(dose1,dose2,dose4)), ylab='')
+points(dose2~age, data=wide.data, pch=2)
+points(dose4~age, data=wide.data, pch=3)
+```
+
+
+Plotting in long format is much easier. 
+I will first convert the data manually.
+```{r}
+(dose.type<-c(
+		rep('dose1', length(wide.data$dose1)),
+		rep('dose2', length(wide.data$dose2)),
+		rep('dose4', length(wide.data$dose4))))
+(dose<- c(wide.data$dose1,wide.data$dose2,wide.data$dose4))
+(long.id<- rep(wide.data$id,3))
+(long.age<- rep(wide.data$age,3))
+
+long.data <- data.frame(long.id, long.age, dose.type, dose)
+View(long.data)
+
+plot(dose~long.age, data=long.data, pch=as.numeric(dose.type))
+```
+I will now try to avoid this manual reshaping.

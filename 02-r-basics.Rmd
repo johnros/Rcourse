@@ -131,6 +131,14 @@ The collection of all such objects is the __workspace__ which you can inspect wi
 ls()
 ```
 or with ctrl+8 in RStudio. 
+
+If you lost your object, you can use `ls` with a text patter to search for
+```{r}
+ls(pattern='x')
+```
+
+
+
 To remove objects from the workspace:
 ```{r}
 rm(x) # remove variable
@@ -502,6 +510,55 @@ See the section on Sparse Representation (\@ref(sparse)) and Out-of-Ram Algorith
 R can does not need to read from text files; it can read directly from a data base.
 This is very useful since it allows the filtering, selecting and joining operations to rely on the databased optimized algorithms.
 See [here](https://rforanalytics.wordpress.com/useful-links-for-r/odbc-databases-for-r/).
+
+
+
+
+## Functions
+One of the most basic building blocks of programming is the ability of writing your own functions.
+A function in R, like everthing else, is a an object accesible using its name.
+We first define a simple function that sums its two arguments
+```{r}
+my.sum <- function(x,y) {
+  x+y
+}
+my.sum(10,2)
+```
+
+From this example you may notice that:
+
+- The function `function` tells R to construc a function object.
+- The arguments of the `function`, i.e. `(x,y)`, need to be named but we are not required to specify their type. 
+- A typical R function does not change objects^[This is a classical _functional programming_ paradigm. If you are used to _object oriented_ programming, you may want to read about [references classes](http://adv-r.had.co.nz/R5.html) which may be required if you are planning to compute with very compilicated objects.] but rather creates new ones. 
+To save the output pf `my.sum` we will need to assign it using the `<-` operator.
+- The function will output its last evaluated expression. 
+
+
+
+## Looping 
+The real power of scripting is when repeated operations are done by iteration.
+R supports the usual `for`, `while`, and `repated` loops. 
+Here is an embarasingly simple example
+```{r}
+for (i in 1:5){
+    print(i)
+    }
+```
+
+
+## Recursion 
+The R compiler is really not designed for recursion, and you will rarely need to do so.  
+See the RCpp Chapter \@ref(rcpp) for linking C code, which is better suited for recursion. 
+If you really insist to write recursions in R, make sure to use the `Recall` function, as this 
+Fibonacci series example demonstrates. 
+```{r, cache=TRUE}
+fib<-function(n) {
+    if (n < 2) fn<-1 
+    else fn<-Recall(n - 1) + Recall(n - 2) 
+    return(fn)
+} 
+fib(10)
+```
 
 
 
