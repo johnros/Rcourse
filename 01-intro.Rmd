@@ -239,3 +239,203 @@ car_data <-
   print
 ```
 
+
+
+### Vector creation and manipulation 
+The most basic building block in R is the __vector__.
+We will now see how to create them, and access their elements (i.e. subsetting).
+Here are three ways to create the same arbitrary vector:
+```{r, eval=FALSE}
+c(10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21) # manually
+10:21 # the `:` operator 							
+seq(from=10, to=21, by=1) # the seq() function
+```
+Lets assign it to the object named "x":
+```{r}
+x <- c(10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21) 	
+```
+In the case you made a computation you do not want to repeat, you can assign AFTER the computation is finished, since everything is saved by the `.Last.value' variable. 
+```{r, results='hold'}
+c(1,2,3)
+y<- .Last.value 
+y
+```
+
+```{remark}
+In line with the linux look and feel, variables starting with a dot (.) are saved but are hidden.
+To show them see `?ls`.
+```
+
+
+Operations usually work element-wise:
+```{r}
+x+2
+x*2    
+x^2    
+sqrt(x)  
+log(x)   
+```
+
+
+### Search paths and packages
+R can be easily extended with packages, which are merely a set of functions and other objects, which can be loaded or unloaded at will.
+Let's look at the function `sum`. 
+We can see its contents by calling it without arguments:
+```{r}
+print(read.csv)
+```
+Nevermind what the function does. 
+Note the `environment: namespace:utils` line at the end. 
+It tells us that this function is part of the __utils__ package.
+We did not need to know this because it is loaded by default.
+Here are the packages that are currently loaded:
+```{r}
+search()
+```
+Other packages can be loaded via the `library` function, or downloaded from the internet using the `install.packages` function before loading with `library`. 
+R's package import mechanishm is quite powerful, and is one of the reasons for R's success. 
+
+
+
+### Simple plotting 
+R has many plotting facilities. 
+We start with the simplest facilities, namely, the `plot` function from the __graphics__ package, which is loaded by default. 
+```{r}
+x<- 1:100; y<- 3+sin(x) # Create arbitrary data
+plot(x = x, y = y) # x,y syntax  						
+```
+Given an x argument and a y argument, `plot` tries to present a scatter plot.
+We call this the "x,y" syntax.
+R has another, unique, syntax to state functional relations.
+We call it the "tilde" syntax, which originates in works of @wilkinson1973symbolic. 
+```{r}
+plot(y ~ x) # y~x syntax 
+```
+
+The syntax `y~x` is read as "y is a function of x".
+We will prefer the `y~x` syntax over the `x,y` syntax since it is easier to read, and will be very useful when we discuss more complicated models. 
+
+
+
+
+Here are some arguments that control the plot's appearance:
+```{r}
+plot(y~x, type='l', main='Plotting a connected line') # main title
+plot(y~x, type='h', main='Sticks plot', xlab='Insert x axis label', ylab='Insert y axis label') # axes labels
+plot(y~x, pch=5) # Point type with pcf
+plot(y~x, pch=10, type='p', col='blue', cex=4) # More point parameters
+abline(3, 0.002) # add linear line with slope b and intercept a
+```
+
+For more plotting options run these
+```{r, eval=FALSE}
+example(plot)
+example(points)
+?plot
+help(package='graphics')
+```
+
+When your plotting gets serious, go to Chapter \@ref(plotting).
+
+
+### Object types
+We already saw that the basic building block of R objects is the vector.
+Vectors can be of the following types:
+
+- __character__ Where each element is a string. 
+- __numeric__ Where each element is a "real" number in double precision floating point. 
+- __integer__ Where each element is an integer. 
+- __logical__ Where each element is either TRUE, FALSE, or NA^[R uses a [three valued logic](https://en.wikipedia.org/wiki/Three-valued_logic) where a missing value (NA) is neither TRUE, nor FALSE.]
+- __complex__ Where each element is a complex number. 
+- __list__ Where each element is an arbitrary R object.
+
+Vectors can be combined into larger objects. 
+A `matrix` can be thought of as the binding of several vectors of the same type. 
+If vectors of different types (but same length) are binded, we get a `data frame` which is the most fundamental object in R for data analysis. 
+
+### Data Frames 
+Creating a simple data frame:
+```{r, results='hold'}
+x<- 1:100; y<- 3 + sin(x) 
+frame1 <- data.frame(x=x, sin=y)	
+```
+
+Lets inspect our data frame:
+```{r}
+head(frame1)
+```
+
+Now using the RStudio Excel-like viewer:
+```{r, eval=FALSE}
+frame1 %>% View() 
+```
+We highly advise against editing the data this way since there will be no documentation of the changes you made.
+###
+
+class(frame1) # the object is of type data.frame
+dim(frame1)  							
+dim(x)
+length(frame1)
+length(x)
+
+str(frame1) # the inner structure of an object
+attributes(frame1) # get the object's meta data
+```
+
+### Exctraction 
+single element:
+```{r}
+frame1[1, 2]    						
+frame1[2, 1]     						
+```
+
+Extract _column_ by index:
+```{r}
+frame1[1, ]      						
+frame1[,1] %>% t
+frame1[,1] %>% t %>% dim
+```
+
+Extract column by name:
+```{r}
+names(frame1)   						
+frame1[, 'sin']
+dim(frame1[, 'sin'])  # extract as a vector. no dim attribute.
+frame1['sin'] 
+dim(frame1['x',]) # extract as a data.frame. has dim attribute.
+frame1[,1:2] %>% class
+frame1[2] %>% class
+frame1[2, ] # extract a row
+
+frame1$sin %>% class
+```
+
+`subset()` does the same
+```{r}
+subset(frame1, select=sin) 
+subset(frame1, select=2)
+subset(frame1, select= c(2,0))
+```
+
+
+Sanity conservation notice!
+Always think if you want to extract a vector or a frame:
+- Note the difference between `[]` and `[[]]` extraction!
+- Note the difference between `frame[,1]` and `frame[1]`.
+```{r}
+a <- frame1[1]
+b <- frame1[[1]]
+a==b # Seems identical. But not really:
+class(a)
+class(b)
+# Causes different behaviour:
+a[1]
+b[1]
+```
+
+More about extraction: http://adv-r.had.co.nz/Subsetting.html
+
+
+
+
+
