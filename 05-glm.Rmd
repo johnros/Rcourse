@@ -1,1 +1,51 @@
 # Generalized Linear Models {#glm}
+
+```{example}
+Consider the relation between cigarettes smoked, and the occurance of lung cancer. 
+Do we expect it to be liner? Probably not.
+Do we expect the variability to be constant about the trend, be it linear or not? Probably not.
+```
+
+
+
+## Problem Setup
+
+In the Linear Models Chapter \@ref(linear), we assumed the generative process to be 
+\begin{align}
+  y|x=x'\beta+\varepsilon
+  (\#eq:linear-mean-again)
+\end{align}
+
+This does not allow for assumingly non-linear relations, nor does it allow for the variablity of $\varepsilon$ to change with $x$.
+Generalize linear models (GLM), as the name suggests, are a generalization that allow that.
+
+```{remark}
+Do not confuse _generalized linear models_ with _non-linear regression_, or _generalized least squares_.
+These are different things, that we will not discuss.
+```
+
+To undestand GLM, we recall that with the normality of $\varepsilon$, Eq.\@ref(eq:linear-mean-again) implies that 
+$$
+ y|x \sim \mathcal{N}(x'\beta, \sigma^2)
+$$
+For the above example, we would like something in the lines of 
+$$
+ y|x \sim Binom(1,p(x))
+$$
+More generally, for some distribution $F(\theta)$, with a parameter $\theta$, we would like
+\begin{align}
+  y|x \sim F(\theta(x))
+\end{align}
+
+Possible examples include 
+$$
+ y|x \sim Poisson(\lambda(x)) \\
+ y|x \sim Exp(\lambda(x)) \\
+ y|x \sim \mathcal{N}(\mu(x),\sigma^2(x)) 
+$$
+In this text, these distributions are the only ones we will discuss, even thought GLMS are slightly more general.
+Also, constrain $\theta$ to be some function, $g$, of a linear combination of the $x$'s. 
+Formally, $\theta(x)=g(x'\beta)$.
+The function $g$ is called the _link_ function.
+
+
