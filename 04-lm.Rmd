@@ -108,3 +108,27 @@ We emphasize that these assumptions are only needed for inference on $\hat \beta
 
 ## OLS Estimation 
 
+We are now ready to estimate some linear models with R.
+We will use the `whiteside` data from the __MASS__ package,recording the outside temperature and gas consumption, before and after insulation.
+```{r, cache=TRUE}
+library(MASS)
+head(whiteside) # inspect the data
+```
+We do the OLS estimation with `lm` function, possibly the most important function in R.
+```{r}
+lm.1 <- lm(Gas~Temp, data=whiteside) # OLS estimation 
+```
+Things to note:
+
+- We used the tilde syntax `Gas~Temp`, reading "gas as linear function of temperature".
+- The `data` argument tells R where to look for the variables Gas and Temp.
+- The result is assigned to the object `lm.1`.
+
+Alternative formulations with the same results would be
+```{r, eval=FALSE}
+lm.1 <- lm(y=Gas, x=Temp, data=whiteside) 
+lm.1 <- lm(y=whiteside$Gas, x=whiteside$Temp)  
+```
+
+
+
