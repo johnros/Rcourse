@@ -274,8 +274,14 @@ You can inspect these dummy variables with the `model.matrix` command.
 head(model.matrix(lm.2))
 ```
 
+If you are more familiar with the ANOVA literature, or that you don't want the effects of each level seperatly, but rather, the effect of __all__ the levels of each factor, use the `anova` command.
+```{r}
+anova(lm.2)
+```
 
-As in any two-way ANOVA, we may want to ask if different genders respond differently to different treatments. 
+
+
+As in any two-way ANOVA, we may want to ask if different age groups respond differently to different treatments. 
 In the statistical parlance, this is called an _interaction_, or more persicely, an _interaction of order 2_.
 ```{r}
 lm.3 <- lm(StressReduction~Treatment+Age+Treatment:Age-1,data=data)
@@ -295,11 +301,39 @@ summary(lm.3)
 ```
 Things to note:
 
-- There are still 5 main effects, but also 4 interactions. 
-This is because when allowing a different average response for every $Treatment*Age$ combination, we are effectively estimating $3*2=6$ 
+- There are still $5$ main effects, but also $4$ interactions. 
+This is because when allowing a different average response for every $Treatment*Age$ combination, we are effectively estimating $3*3=9$ cell means, even if they are not parametrized as cell means, but rather as main effect and interactions. 
+- The interactions do not seem to be significant.
+
+Asking if all the interactions are significant, is asking if the different age groups have the same response to different treatments. 
+Can we answer that based on the various interactions? 
+We might, but it is possible that no single interaction is significat, while thei combination is. 
+To test for all the interactions together, we can simply check if the model without interactions is (significatly) better than a model with interactions. I.e., compare `lm.2` to `lm.3`.
+This is done with the `anova` command.
+```{r}
+anova(lm.2,lm.3, test='F')
+```
+We see that `lm.3` is __not__ significatly better than `lm.2`, so that we can conclude that there are no interactions: different ages have the same response to different treatmetns.
 
 
 ### Testing a Hypothesis on a Single Contrast
+Returning to `lm.2`.
+```{r}
+coef(summary(lm.2))
+```
+We see that the effect of the various treatments is rather similar. 
+It is possible that all treatments actually have the same effect.
+Comparing the levels of a factor is called a _contrast_.
+Let's test if the medical treatment, has in fact, the same effect as the physical treatment.
+```{r}
+contrasts(data$Treatment)
+my.contrast <- matrix(c(-1/2,0,1/2), nrow = 3, ncol = 1)
+lm.4 <- lm(StressReduction ~ C(Treatment,contr = my.contrast) + Age - 1,data=data)
+summary(lm.4)
+```
+
+
+
 
 
 ### Constructing a Confidence Interval on a Single Contrast
@@ -307,4 +341,8 @@ This is because when allowing a different average response for every $Treatment*
 
 ### Testing a Hypothesis on a Multiple Contrasts
 
+
+## Bibliographic Notes
+Like any other topic in this book, you can consult @venables2013modern for more on linear models.
+For the theory of linear models, I like @greene2003econometric.
 
