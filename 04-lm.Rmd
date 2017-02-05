@@ -205,17 +205,57 @@ summary(lm.1)
 Things to note:
 
 - The estimated $\hat \beta$ is reported in the `Coefficients' table, which has point estimates, stendard errors, t-statistics, and the p-values of a two-sided hypothesis test for each coefficient $H_{0,j}:\beta_j=0, j=1,\dots,p$.
-
 - The $R^2$ is reported at the bottom. The "Adjusted R-squared" is a variation that compensates for the model's complexity.
-
 - The original call to `lm` is saved in the `Call` section.
-
 - Some summary statistics of the residuals ($y_i-\hat y_i$) in the `Residuals` section.
-
 - The "residuals standard error"^[Sometimes known as the Root Mean Squared Error (RMSE).] is $\sqrt{(n-p)^{-1} \sum_i (y_i-\hat y_i)^2}$. 
 The "degrees of freedom" are $n-p$ which can be thought of as the hardness of the problem. 
 
-As the name suggests, `summary` is merely a summary. The full `summary(lm.1)` object is a monstrous object. Its various elements can be queried using `str(lm.1)`.
+As the name suggests, `summary` is merely a summary. The full `summary(lm.1)` object is a monstrous object. 
+Its various elements can be queried using `str(sumary(lm.1))`.
+
+Can we check the assumptions required for inference?
+Some.
+Let's start with the linearity assumption.
+If we were wrong, and the data is not arranged about a linear line, the residuals will have some shape.
+```{r}
+plot(residuals(lm.1)~whiteside[whiteside$Insul=='Before',]$Temp); abline(0,0, lty=2)
+```
+I can't say I see any shape.
+Let's fit a __wrong__ model, just to see what "shape" means.
+```{r}
+lm.1.1 <- lm(Gas~I(Temp^2), data=whiteside[whiteside$Insul=='Before',])
+plot(residuals(lm.1.1)~whiteside[whiteside$Insul=='Before',]$Temp); abline(0,0, lty=2)
+```
+Things to note:
+
+- We used `I(Temp)^2` to specify the model $Gas_i=\beta_0 + \beta_1 Temp^2+ \varepsilon$.
+- The residuals have a "belly". 
+Because they are not a cloud of noise around the linear trend, and we have the wrong model.
+
+To the next assumption.
+We assumed $\varepsilon_i$ are independent of everything else.
+The residuals, $y_i-\hat y_i$ can be thought of a sample of $\varepsilon_i$. 
+When diagnosing the linearity assumption, we already saw their distribution does not vary with the $x$'s, `Temp` in our case. 
+They may be correlated with themseslves; a positive departure from the model, may be followed by a series of positive departures etc.
+Dignosing these _auto-correlations_ is a real art, which is not part of our course. 
+
+The last assumption we required is normality. 
+As previously stated, if $n \gg p$, this assumption is not realy needed. 
+If $n \sim p$, i.e., $n$ is in the order of $p$, we need to verify this assumption.
+My favorite tool for this task is the _qqplot_.
+A qqplot compares the quantiles of the sample with the respective quantiles of an assumed distribution.
+If quantiles align along a line, the assumed distribution if OK.
+If quantiles depart from a line, then clearly the assumed distribution does not fit the sample.
+```{r}
+qqnorm(resid((lm.1)))
+```
+The `qqnorm` function plots a qqplot against a normal distribution.
+Judging from the figure, the normality assumption is quite plausable. 
+Let's try the same on a non-normal sample, namely a uniformly distributed sample, to see how that would look.
+```{r}
+qqnorm(runif(100))
+```
 
 
 ### Testing a Hypothesis on a Single Coefficient
@@ -228,6 +268,9 @@ coefs.lm1 <- summary.lm1$coefficients
 coefs.lm1
 ```
 We see that the p-value for $H_{0,1}:\hat \beta_1=0$ against a two sided alternative is effectively `r round(coefs.lm1[2,4],2)`.
+
+
+
 
 ### Constructing a Confidence Interval on a Single Coefficient
 Since the `summary` function gives us the standard errors of $\hat \beta$, we can immediatly compute $\hat \beta_j \pm 2 \sqrt{Var[\hat \beta_j]}$ to get ourselves a (roughly) $95\%$ confidence interval.
@@ -264,8 +307,11 @@ summary(lm.2)
 Things to note:
 
 - The  `StressReduction~.` syntax is read as "Stress reduction as a function of everything else".
+
 - The `StressReduction~.-1` means that I do not want an intercept in the model, so that the baseline response is 0.
+
 - All the (main) effects seem to be significant. 
+
 - The data has 2 factors, but the coefficients table has 4 predictors. This is because `lm` noticed that `Treatment` and `Age` are factors. 
 Their numerical values are meaningless, and it has thus constructed a dummy variable for each level of each factor. 
 The names of the effect are a concatenation of the factor's name, and its level.
@@ -273,6 +319,8 @@ You can inspect these dummy variables with the `model.matrix` command.
 ```{r}
 head(model.matrix(lm.2))
 ```
+If you don't want the default dummy coding, look at `?contrasts`.
+
 
 If you are more familiar with the ANOVA literature, or that you don't want the effects of each level seperatly, but rather, the effect of __all__ the levels of each factor, use the `anova` command.
 ```{r}
@@ -326,20 +374,19 @@ It is possible that all treatments actually have the same effect.
 Comparing the levels of a factor is called a _contrast_.
 Let's test if the medical treatment, has in fact, the same effect as the physical treatment.
 ```{r}
-contrasts(data$Treatment)
-my.contrast <- matrix(c(-1/2,0,1/2), nrow = 3, ncol = 1)
-lm.4 <- lm(StressReduction ~ C(Treatment,contr = my.contrast) + Age - 1,data=data)
+library(multcomp)
+my.contrast <- matrix(c(-1,0,1,0,0), nrow =  1)
+lm.4 <- glht(lm.2, linfct=my.contrast)
 summary(lm.4)
 ```
 
+Things to note:
+
+- A contrast is a linear function of the coefficients. In our example $H_0:\beta_1-\beta_3=0$, which justifies the construction of `my.contrast'.
+- We used the `glht` fuction (generalized linear hypothesis test) from the package __multcompt__.
+- The contrast is significant, i.e., the effect of a medical treatment, is different than that of a physical treatment.
 
 
-
-
-### Constructing a Confidence Interval on a Single Contrast
-
-
-### Testing a Hypothesis on a Multiple Contrasts
 
 
 ## Bibliographic Notes
