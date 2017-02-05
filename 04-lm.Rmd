@@ -91,7 +91,7 @@ Personally, I prefer the matrix notation because it suggests of the geometry of 
 The reader is referred to @friedman2001elements, Sec 3.2, for more on the geometry of OLS.
 ```
 
-Different software suits solve Eq\@ref(eq:ols) in different ways so that we skip the details of how exactly it is solved. 
+Different software suits, and even different R packages, solve Eq.\@ref(eq:ols) in different ways so that we skip the details of how exactly it is solved. 
 
 The last matter we need to attend is how to do inference on $\hat \beta_{OLS}$.
 For that, we will need some assumptions on $\varepsilon$.
@@ -191,4 +191,24 @@ Obviously, R does provide the means to compute something as basic as $R^2$, but 
 
 
 ## Inference
-The 
+To perform inference on $\hat \beta$ in order to test hypotheses and construct confidence intervals, we need to quantify the uncertinaly in the reported $\hat \beta$.
+This is exactly what Eq.\@ref(eq:ols-distribution) gives us.
+
+Luckily, we don't need to manipulate multivariate distributions manyally, and everything we need is already implemented. 
+The most important function is `summary` which gives us an overview of the model's fit.
+We emphasize that that fitting a model with `lm` is an assumption free algorithmic step. 
+Inference using `summary` is __not__ assumption free, and requires the set of assumptions leading to Eq.\@ref(eq:ols-distribution).
+```{r}
+summary(lm.1)
+```
+
+Things to note:
+
+- The estimated $\hat \beta$ is reported in the `Coefficients' table, which has point estimates, stendard errors, t-statistics, and the p-values of a two-sided hypothesis test for each coefficient $H_{0,j}:\beta_j=0, j=1,\dots,p$.
+- The $R^2$ is reported at the bottom.
+- The original call to `lm` is saved in the `Call` section.
+- Some summary statistics of the residuals ($y_i-\hat y_i$) in the `Residuals` section.
+- The "residuals standard error"^[Sometimes known as the Root Mean Squared Error (RMSE).], is $\sqrt{(n-p)^{-1} \sum_i (y_i-\hat y_i)^2}$. 
+The "degrees of freedom" are $n-p$ which can be thought of as the hardness of the problem. 
+
+
