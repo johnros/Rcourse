@@ -116,7 +116,7 @@ head(whiteside) # inspect the data
 ```
 We do the OLS estimation with `lm` function, possibly the most important function in R.
 ```{r}
-lm.1 <- lm(Gas~Temp, data=whiteside) # OLS estimation 
+lm.1 <- lm(Gas~Temp, data=whiteside[whiteside$Insul=='Before',]) # OLS estimation 
 ```
 Things to note:
 
@@ -126,9 +126,31 @@ Things to note:
 
 Alternative formulations with the same results would be
 ```{r, eval=FALSE}
-lm.1 <- lm(y=Gas, x=Temp, data=whiteside) 
-lm.1 <- lm(y=whiteside$Gas, x=whiteside$Temp)  
+lm.1 <- lm(y=Gas, x=Temp, data=whiteside[whiteside$Insul=='Before',]) 
+lm.1 <- lm(y=whiteside[whiteside$Insul=='Before',]$Gas, x=whiteside[whiteside$Insul=='Before',]$Temp)  
 ```
 
+The output is an object of class `lm`.
+```{r}
+class(lm.1)
+```
+Objects of class `lm` are very complicated. 
+It stored a lot of information which will be later used for inference, plotting, etc.
+The `str` function, short for "structure" shows us the various elements of the object.
+```{r}
+str(lm.1)
+```
+At this point, we only want $\hat \beta_{OLS}$ which can be extracted with the `coef` function.
+```{r}
+coef(lm.1)
+```
 
+Things to note:
+
+- R automatically adds an `(Intercept)` term. 
+This means we estimate $y_i=\beta_0 + \beta_1 Gas + \varepsilon$ and not $y_i=\beta_1 Gas + \varepsilon$. 
+This makes sense because we are interested in the variability of the gas consumption about its mean, and not about zero.
+
+- The effect of temperature, i.e., $\hat \beta_1$, is `r coef(lm.1)[[2]]`. 
+The negative sign means that the higher the temperature, the less gas is consumed. 
 
