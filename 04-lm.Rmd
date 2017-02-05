@@ -1,5 +1,6 @@
 # Linear Models {#lm}
 
+## Problem Setup
 
 ```{example}
 Consider a randomized experiment designed to study the effects of temperature and pressure on the  diameter of a bottle cap.
@@ -90,4 +91,20 @@ Personally, I prefer the matrix notation because it suggests of the geometry of 
 The reader is referred to @friedman2001elements, Sec 3.2, for more on the geometry of OLS.
 ```
 
-Different software suits solve Eq\@ref(ols) in different ways so that we skip the details of 
+Different software suits solve Eq\@ref(ols) in different ways so that we skip the details of how exactly it is solved. 
+
+The last matter we need to attend is how to do inference on $\hat \beta_{OLS}$.
+For that, we will need some assumptions on $\varepsilon$.
+A typical set of assumptions is the following:
+
+1. __Independence__: we assume $\varepsilon_i$ are independent of everything else. 
+Think of them as the measurement error of an instrument: it is indepndent of the measured value and of previous measurements. 
+1. __Centered__: we assume that $E[\varepsilon]=0$, meaning there is no systematics error. 
+1. __Normality__: we will typically assume that $\varepsilon \sim \mathcal{N}(0,\sigma^2)$, but we will later see that this is not really required. 
+
+We emphasize that these assumptions are only needed for inference on $\hat \beta$ and not for the estimation itself, which is done by the purely algorithmic framwork of OLS.
+
+
+
+## OLS Estimation 
+
