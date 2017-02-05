@@ -237,12 +237,69 @@ coefs.lm1[2,1] + c(-1,1) * coefs.lm1[2,2]
 ```
 
 
-### Testing a Hypothesis on a Single Contrast
+### Multiple Regression
 
-```{example}
+The data we now use^[The example is taken from http://rtutorialseries.blogspot.co.il/2011/02/r-tutorial-series-two-way-anova-with.html] contains a hypothetical sample of $60$ participants who are divided into three stress reduction treatment groups (mental, physical, and medical) and two gender groups (male and female). 
+The stress reduction values are represented on a scale that ranges from 1 to 5. 
+This dataset can be conceptualized as a comparison between three stress treatment programs, one using mental methods, one using physical training, and one using medication across genders. 
+The values represent how effective the treatment programs were at reducing participant's stress levels, with higher numbers indicating higher effectiveness.
 
+```{r, cache=TRUE}
+data <- read.csv('dataset_anova_twoWay_comparisons.csv')
+head(data)
 ```
 
+How many observations per group?
+```{r}
+table(data$Treatment, data$Age)
+```
+
+
+Since we have two factorial predictors, this multiple regression is nothing but a _two way ANOVA_.
+Let's fit the model and inspect it.
+```{r}
+lm.2 <- lm(StressReduction~.-1,data=data)
+summary(lm.2)
+```
+Things to note:
+
+- The  `StressReduction~.` syntax is read as "Stress reduction as a function of everything else".
+- The `StressReduction~.-1` means that I do not want an intercept in the model, so that the baseline response is 0.
+- All the (main) effects seem to be significant. 
+- The data has 2 factors, but the coefficients table has 4 predictors. This is because `lm` noticed that `Treatment` and `Age` are factors. 
+Their numerical values are meaningless, and it has thus constructed a dummy variable for each level of each factor. 
+The names of the effect are a concatenation of the factor's name, and its level.
+You can inspect these dummy variables with the `model.matrix` command. 
+```{r}
+head(model.matrix(lm.2))
+```
+
+
+As in any two-way ANOVA, we may want to ask if different genders respond differently to different treatments. 
+In the statistical parlance, this is called an _interaction_, or more persicely, an _interaction of order 2_.
+```{r}
+lm.3 <- lm(StressReduction~Treatment+Age+Treatment:Age-1,data=data)
+```
+The syntax `StressReduction~Treatment+Age+Treatment:Age-1` tells R to include main effects of Treatment, Age, and their interactions.
+Here are other ways to specify the same model.
+```{r, eval=FALSE}
+lm.3 <- lm(StressReduction ~ Treatment * Age - 1,data=data)
+lm.3 <- lm(StressReduction~(.)^2 - 1,data=data)
+```
+The syntax `Treatment * Age` means "mains effecs with second order interactions".
+The syntax `(.)^2` means "everything with second order interactions"
+
+Lets inspect the model
+```{r}
+summary(lm.3)
+```
+Things to note:
+
+- There are still 5 main effects, but also 4 interactions. 
+This is because when allowing a different average response for every $Treatment*Age$ combination, we are effectively estimating $3*2=6$ 
+
+
+### Testing a Hypothesis on a Single Contrast
 
 
 ### Constructing a Confidence Interval on a Single Contrast
