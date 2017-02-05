@@ -205,10 +205,49 @@ summary(lm.1)
 Things to note:
 
 - The estimated $\hat \beta$ is reported in the `Coefficients' table, which has point estimates, stendard errors, t-statistics, and the p-values of a two-sided hypothesis test for each coefficient $H_{0,j}:\beta_j=0, j=1,\dots,p$.
-- The $R^2$ is reported at the bottom.
+
+- The $R^2$ is reported at the bottom. The "Adjusted R-squared" is a variation that compensates for the model's complexity.
+
 - The original call to `lm` is saved in the `Call` section.
+
 - Some summary statistics of the residuals ($y_i-\hat y_i$) in the `Residuals` section.
-- The "residuals standard error"^[Sometimes known as the Root Mean Squared Error (RMSE).], is $\sqrt{(n-p)^{-1} \sum_i (y_i-\hat y_i)^2}$. 
+
+- The "residuals standard error"^[Sometimes known as the Root Mean Squared Error (RMSE).] is $\sqrt{(n-p)^{-1} \sum_i (y_i-\hat y_i)^2}$. 
 The "degrees of freedom" are $n-p$ which can be thought of as the hardness of the problem. 
+
+As the name suggests, `summary` is merely a summary. The full `summary(lm.1)` object is a monstrous object. Its various elements can be queried using `str(lm.1)`.
+
+
+### Testing a Hypothesis on a Single Coefficient
+The first inferential test we consider is a hypothesis test on a single coefficient. 
+In our gas example, we may want to test that the temperature has no effect on the gas consumption.
+The answer for that is given immediatly by `summary(lm.1)`
+```{r}
+summary.lm1 <- summary(lm.1)
+coefs.lm1 <- summary.lm1$coefficients
+coefs.lm1
+```
+We see that the p-value for $H_{0,1}:\hat \beta_1=0$ against a two sided alternative is effectively `r round(coefs.lm1[2,4],2)`.
+
+### Constructing a Confidence Interval on a Single Coefficient
+Since the `summary` function gives us the standard errors of $\hat \beta$, we can immediatly compute $\hat \beta_j \pm 2 \sqrt{Var[\hat \beta_j]}$ to get ourselves a (roughly) $95\%$ confidence interval.
+In our example the interval is
+```{r}
+coefs.lm1[2,1] + c(-1,1) * coefs.lm1[2,2]
+```
+
+
+### Testing a Hypothesis on a Single Contrast
+
+```{example}
+
+```
+
+
+
+### Constructing a Confidence Interval on a Single Contrast
+
+
+### Testing a Hypothesis on a Multiple Contrasts
 
 
