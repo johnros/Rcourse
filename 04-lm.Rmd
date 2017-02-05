@@ -147,6 +147,7 @@ The `str` function, short for "structure" shows us the various elements of the o
 ```{r}
 str(lm.1)
 ```
+
 At this point, we only want $\hat \beta_{OLS}$ which can be extracted with the `coef` function.
 ```{r}
 coef(lm.1)
@@ -178,6 +179,7 @@ The coefficient of determination, denoted $R^2$, is defined as
 \end{align}
 Where $\hat y_i$ is the model's prediction, $\hat y_i = x_i \hat \beta$.
 ```
+
 It can be easily computed
 ```{r}
 R2 <- function(y, y.hat){
@@ -187,6 +189,7 @@ R2 <- function(y, y.hat){
 }
 R2(whiteside[whiteside$Insul=='Before',]$Gas, predict(lm.1))
 ```
+
 Obviously, R does provide the means to compute something as basic as $R^2$, but I will let you find it for yourselves. 
 
 
@@ -221,12 +224,14 @@ If we were wrong, and the data is not arranged about a linear line, the residual
 ```{r}
 plot(residuals(lm.1)~whiteside[whiteside$Insul=='Before',]$Temp); abline(0,0, lty=2)
 ```
+
 I can't say I see any shape.
 Let's fit a __wrong__ model, just to see what "shape" means.
 ```{r}
 lm.1.1 <- lm(Gas~I(Temp^2), data=whiteside[whiteside$Insul=='Before',])
 plot(residuals(lm.1.1)~whiteside[whiteside$Insul=='Before',]$Temp); abline(0,0, lty=2)
 ```
+
 Things to note:
 
 - We used `I(Temp)^2` to specify the model $Gas_i=\beta_0 + \beta_1 Temp^2+ \varepsilon$.
@@ -250,6 +255,7 @@ If quantiles depart from a line, then clearly the assumed distribution does not 
 ```{r}
 qqnorm(resid((lm.1)))
 ```
+
 The `qqnorm` function plots a qqplot against a normal distribution.
 Judging from the figure, the normality assumption is quite plausable. 
 Let's try the same on a non-normal sample, namely a uniformly distributed sample, to see how that would look.
