@@ -1,1 +1,93 @@
 # Linear Models {#lm}
+
+
+```{example}
+Consider a randomized experiment designed to study the effects of temperature and pressure on the  diameter of a bottle cap.
+```
+
+```{example}
+Consider the prediction of rental prices given an appartment's attributes. 
+```
+
+Both examples require some statistical model, but they are very different.
+The first is a _causal inference_ problem: we want to design an intervention so that we need to recover the causal effect of temperature and pressure.
+The second is a _prediction_ problem. We don't care about the causal effects, we just want good predictions.
+
+In this chapter we discuss the causal problem in 
+This means that when we assume a model, we assume it is the actual _data generating process_.
+The second type of problems is discussed in the Supervised Learning Chapter (\@ref(supervised)).
+
+
+Lets present the linear model.
+We assume that a response^[The "response" is also know as the "dependent" variable, of the "labels" in the machine learning literature.] variable is the sum of effects of some factors^[The "factors" are also known as the "independent variable", the "design", the "features" and the "attributes".].
+Denoting the dependent by $y$, the factors by $x$, and the effects by $\beta$ the linear model assumption implies that 
+
+
+\begin{align}
+  E[y]=\sum_j x_j \beta_j=x'\beta .
+  (\#eq:linear-mean)
+\end{align}
+Clearly, there may be other factors that affet the the caps' diameters. 
+We thus introduce an error term^[The "error term" is also known as the "noise", or the "common causes of variability".], denoted by $\varepsilon$, to capture the effects of all unmodeled factors.
+The implied generative process of a sample of $i=1,\dots,n$ observations it thus
+\begin{align}
+  y_i = \sum x_{i,j} \beta_j + \varepsilon_i , i=1,\dots,n .
+  (\#eq:linear-observed)
+\end{align}
+or in matrix notation
+\begin{align}
+  y = X \beta + \varepsilon .
+  (\#eq:linear-matrix)
+\end{align}
+
+
+Lets demonstrate Eq.\@ref(eq:linear-observed):
+
+In our cap example, assuming that pressure and temperature have two levels each (say, high and low), we would write $x_{i,1}=1$ if the pressure of the $i$'th measurement was set to high, and $x_{i,1}=-1$ if the pressure was set to low. 
+Similarly, we would write $x_{i,2}=1$, and $x_{i,2}=-1$, if the temperature was set to high, or low, respectively.
+The coding with $\{-1,1\}$ is known as _effect coding_.
+If you prefer coding with $\{0,1\}$, this is known as _dummy coding_.
+
+In Gosset's classical regression problem, where we try to seek the relation between the heights of sons and fathers then $p=1$, $y_i$ is the height of the $i$'th father, and $x_i$ the height of the $i$'th son.
+
+
+There are many reasons these models are so popular:
+
+1. Before the computer age, these were pretty much the only models that could actually be computed^[By "computed" we mean what statisticians call "fitted", or "estimated", and computer scientists call "learned".]. 
+The whole Analysis of Variance (ANOVA) literature is an instance of linear models.
+
+1. For purposes of prediction, where the actual data generating process is not of primary importance, they are popular because they simply work. 
+Why is that? 
+They are simple so that they do not require a lot of data to be computed. 
+Put differnetly, they may be biased, but their variance is small enough to make them more accurate than other models.
+
+1. For categorical or factorial predictors, __any__ functional relation can be cast as a linear model.
+
+1. For the purpose of _screening_, where we only want to show the existance of an effect, and are less interested in the magnitude of the effect, a linear model is enough.
+
+1. If the true generative relation is not linear, but smooth enough, then the linear function is a good approximation via Taylor's theorem.
+
+
+There are still two matters we have to attend: 
+How the estimate $\beta$, and how to perform inference.
+
+In linear models the estimation of $\beta$ is done using the method of least squares. 
+For this reason, a linear model with least squares estimation is known as Ordinary Least Sqaures (OLS).
+The OLS problem:
+
+\begin{align}
+  \hat \beta_{OLS}:= \argmin_\beta \{ \sum_i (y_i-x_i'\beta)^2 \},
+  (\#eq:ols)
+\end{align}
+and in matrix notation
+\begin{align}
+  \hat \beta_{OLS}:= \argmin_\beta \{ \Vert y-X\beta \Vert^2_2 \}.
+  (\#eq:ols-matrix)
+\end{align}
+
+```{remark}
+Personally, I prefer the matrix notation because it suggests of the geometry of the problem. 
+The reader is referred to @friedman2001elements, Sec 3.2, for more on the geometry of OLS.
+```
+
+Different software suits solve Eq\@ref(ols) in different ways so that we skip the details of 
