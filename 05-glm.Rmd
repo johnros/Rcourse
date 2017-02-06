@@ -102,7 +102,8 @@ head(PlantGrowth)
 
 We will now `attach` the data so that its contents is available in the workspace (don't forget to `detach` afterwards, or you can expect some conflicting object names).
 We will also use the `cut` function to create a two-class response variable for Light, and Heavy plants (we are doing logistic regression, so we need a two-class respose).
-We then inspect visually inspect the distribution of weights for each treatmet. 
+As a general rule of thumb, when we discretize continous variables, we lose information. 
+for pedagogical reasons, however, we will proceed with this bad practice. 
 ```{r}
 attach(PlantGrowth)
 weight.factor<- cut(weight, 2, labels=c('Light', 'Heavy'))
@@ -114,8 +115,6 @@ Let's fit a logistic regression, and inspect the output.
 ```{r}
 glm.1<- glm(weight.factor~group, family=binomial)
 summary(glm.1)
-prop.table(table(group, weight.factor), margin=1)
-log(0.6/0.4)- log(0.2/0.8)
 ```
 
 Things to note:
@@ -126,6 +125,7 @@ Things to note:
 - As usual, we get the coefficients table, but recall that they are to be interpreted as (log) odd-ratios.
 - As usual, we get the significance for the test of no-effect, versus a two-sided alternative. 
 - The residuals of `glm` are slightly different than the `lm` residuals, and called _Deviance Residuals_. 
+- For help see `?summary.glm`.
 
 Like for linear models, we can use an ANOVA table to check if treatments have any effect, and not one treatment at a time. 
 In the case of GLMS, this is called an _analysis of deviance_ table. 
@@ -136,72 +136,79 @@ anova(glm.1, test='LRT')
 Things to note:
 
 - The `anova` function, like the `summary` function, are content-aware and produce a different output for the `glm` class than for the `lm` class.
-- In GLMs, 
-- 
+- In GLMs there is no canonical test (like the F test for `lm`). 
+We thus specify the type of test desired with the `test` argument. 
+- The distribution of the weights of the plants does vary with the treatment given, as we may see from the significance of the `group` factor.
+- Readers familiar with ANOVA tables, should know that we computed the GLM equivalent of a type I sum- of-squares. 
+Run `drop1(glm.1, test='Chisq')` for a GLM equivalent of a type III sum-of-squares. 
+- For help see `?anova.glm`.
 
+
+Let's predict the probability of a heavy plant for each treatment.
 ```{r}
-(predict.1<- predict(glm.1))
-exp(predict.1)/(exp(predict.1)+1)
 predict(glm.1, type='response')
-
 ```
 
-# For help see ?predict.glm
+Things to note:
 
-# Analysis of Deviance ("ANOVA table")
-anova(glm.1)
-anova(glm.1, test='Chisq') # Equivalent to Type I sum of squares
-drop1(glm.1, test='Chisq') # Equivalent to Type III sum of squares
+- Like the `summary` and `anova` functions, the `predict` function is aware that its input is of `glm` class. 
+- In GLMs there are many types of predictions. The `type` argument controls which type is returned. 
+- How do I know we are predicting the probability of a heavy plant, and not a light plant? Just run `contrasts(weight.factor)` to see which of the categories of the factor `weight.factor` is encoded as 1, and which as 0.
+- For help see `?predict.glm`.
 
-# Analysis of residuals:
-residuals(glm.1, type='response')
-residuals(glm.1, type='deviance')
-residuals.1<- residuals(glm.1, type='pearson')
-# For help see residuals.glm
 
+Let's detach the data so it is no longer in our workspace, and object names do not collide. 
+```{r}
 detach(PlantGrowth)
+```
 
 
-
-# Same with continous predictors:
-rm(list=ls())
+We gave an example with a factorial (i.e. discrete) predictor.
+We can do the same with mltiple continous predictors.
+```{r}
 data('Pima.te', package='MASS') # Loads data
 head(Pima.te)
-plot(Pima.te)
-glm.1<- step(glm(type~., data=Pima.te, family=binomial))
-summary(glm.1)
-coef(glm.1)
+```
 
-anova(glm.1, test='Chisq')
-plot(glm.1)
 
-residuals.1<- residuals(glm.1, type='pearson')
-plot(residuals.1~Pima.te$npreg); abline(0,0, lty=2); lines(lowess(residuals.1~Pima.te$npreg), col='red')
-plot(residuals.1~Pima.te$glu); abline(0,0, lty=2); lines(lowess(residuals.1~Pima.te$glu), col='red')
-plot(residuals.1~Pima.te$bmi); abline(0,0, lty=2); lines(lowess(residuals.1~Pima.te$bmi), col='red')
-plot(residuals.1~Pima.te$ped); abline(0,0, lty=2); lines(lowess(residuals.1~Pima.te$ped), col='red')
-
-glm.2<- step(glm(type~.^2, data=Pima.te, family=binomial))
+```{r}
+glm.2<- step(glm(type~., data=Pima.te, family=binomial))
 summary(glm.2)
+```
+
+Things to note:
+
+- We used the `~.` syntax to tell R to fit a model with all the available predictors.
+- Since we want to focus on significant predictors, we used the `step` function to perform a _step-wise_ regression, i.e. sequantially remove non-significant predictors. 
+The function reports each model it has checked, and the variable it has decided to remove at each step.
+- The output of `step` is a single model, with the subset of significant predictors. 
 
 
 
+## Poisson Regression
 
-## Other binomial regressions:
-glm(type~., data=Pima.te, family=binomial(link='logit')) # Logistic CDF
-glm(type~., data=Pima.te, family=binomial(link='probit')) # Gaissuain CDF
-glm(type~., data=Pima.te, family=binomial(link='cauchit')) # Cauchy CDF
-glm(type~., data=Pima.te, family=binomial(link='cloglog')) # Complementary log-log
+Poisson regression means we fit a model assuming $y|x &\sim Poisson(\lambda(x)) \\$.
+Put differently, we assume that for each treatment, encoded as a combinations of predictors $x$, the response is Poisson distributed with a rate that depends on the predictors. 
 
+The typical link function for Poisson regression is $g(t)=e^t$.
+This means that we assume $y|x \sim Poisson(\lambda = e^{x'\beta})$
 
+We take the example from `?glm`.
+```{r}
+counts <- c(18,17,15,20,10,20,25,13,12)
+outcome <- gl(3,1,9)
+treatment <- gl(3,3)
+d.AD <- data.frame(treatment, outcome, counts)
+head(d.AD)
+```
 
+Things to note:
 
+- 
 
-
-
-
-
-
+## main-effects fit as Poisson GLM with offset
+<!-- glm(Claims ~ District + Group + Age + offset(log(Holders)), -->
+<!--     data = Insurance, family = poisson) -->
 
 
 
