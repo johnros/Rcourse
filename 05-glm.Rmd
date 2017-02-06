@@ -18,7 +18,7 @@ In the Linear Models Chapter \@ref(linear), we assumed the generative process to
   (\#eq:linear-mean-again)
 \end{align}
 
-This does not allow for assumingly non-linear relations, nor does it allow for the variablity of $\varepsilon$ to change with $x$.
+This does not allow for assumingly non-linear relations, nor does it allow for the variability of $\varepsilon$ to change with $x$.
 Generalize linear models (GLM), as the name suggests, are a generalization that allow that.
 
 ```{remark}
@@ -26,7 +26,7 @@ Do not confuse _generalized linear models_ with _non-linear regression_, or _gen
 These are different things, that we will not discuss.
 ```
 
-To undestand GLM, we recall that with the normality of $\varepsilon$, Eq.\@ref(eq:linear-mean-again) implies that 
+To understand GLM, we recall that with the normality of $\varepsilon$, Eq.\@ref(eq:linear-mean-again) implies that 
 $$
  y|x \sim \mathcal{N}(x'\beta, \sigma^2)
 $$
@@ -53,7 +53,7 @@ The function $g$ is called the _link_ function.
 
 ## Logistic Regression
 
-The best known of the GLM class of models is the _logistic regression_ that deals with Binomial, or more precisely, Brenoulli distributed data. 
+The best known of the GLM class of models is the _logistic regression_ that deals with Binomial, or more precisely, Bernoulli distributed data. 
 The link function implied by the logistic regression is the logistic function
 \begin{align}
   g(t)=\frac{e^t}{(1+e^t)}
@@ -65,7 +65,7 @@ The link function implied by the logistic regression is the logistic function
   (\#eq:logistic)
 \end{align}
 
-Before we fit such a model, we try to justify this contruction, in particular, this enigmatic link function in Eq.\@ref(eq:logistic-link).
+Before we fit such a model, we try to justify this construction, in particular, this enigmatic link function in Eq.\@ref(eq:logistic-link).
 Let's look at the simplest possible case: the comparison of two groups indexed by $x$: $x=0$ for the first, and $x=1$ for the second.
 \begin{align}
    p(x=0)=P(y=1|x=0) &= \frac{e^{\beta_0}}{(1+e^{\beta_0})} (\#eq:odds-one) \\ 
@@ -82,14 +82,15 @@ Let's look at the simplest possible case: the comparison of two groups indexed b
 \end{align}
 
 The magnitudes in Eqs.\@ref(eq:odds-one) and \@ref(eq:odds-two), are known as the _odds_. 
-Odds are the same as probabilities, but instead of of telling me there is a $66\%$ of succeess, they tell me the odds of success are "2 to 1".
+Odds are the same as probabilities, but instead of of telling me there is a $66\%$ of success, they tell me the odds of success are "2 to 1".
 
 The magnitude in Eq.\@ref(eq:odds-ratio) is known as the _odds ratio_. 
 The odds ratio compares between the probabilities of two groups, only that it does not compare  them in probability scale, but rather in odds scale. 
 
 The magnitude in Eq.\@ref(eq:log-odds-ratio) is known as the _log odds ratio_.
-Besides some nice theoretical properties of log odds ratios, which we will not discuss, they are important since it demistifies the choice of the link function in \@ref(eq:logistic-link): __it allows us to interpret $\beta$ of the logistic regression as the odds-ratios (in log scale)__.
+Besides some nice theoretical properties of log odds ratios, which we will not discuss, they are important since it demystifies the choice of the link function in \@ref(eq:logistic-link): __it allows us to interpret $\beta$ of the logistic regression as the odds-ratios (in log scale)__.
 
+Another popular link function is the normal quantile function, a.k.a., the Gaussian inverse CDF, leading to _probit regression_ instead of logistic regression.
 
 
 ### Logistic Regression with R
@@ -101,8 +102,8 @@ head(PlantGrowth)
 ```
 
 We will now `attach` the data so that its contents is available in the workspace (don't forget to `detach` afterwards, or you can expect some conflicting object names).
-We will also use the `cut` function to create a two-class response variable for Light, and Heavy plants (we are doing logistic regression, so we need a two-class respose).
-As a general rule of thumb, when we discretize continous variables, we lose information. 
+We will also use the `cut` function to create a two-class response variable for Light, and Heavy plants (we are doing logistic regression, so we need a two-class response).
+As a general rule of thumb, when we discretize continuous variables, we lose information. 
 for pedagogical reasons, however, we will proceed with this bad practice. 
 ```{r}
 attach(PlantGrowth)
@@ -125,7 +126,7 @@ Things to note:
 - As usual, we get the coefficients table, but recall that they are to be interpreted as (log) odd-ratios.
 - As usual, we get the significance for the test of no-effect, versus a two-sided alternative. 
 - The residuals of `glm` are slightly different than the `lm` residuals, and called _Deviance Residuals_. 
-- For help see `?summary.glm`.
+- For help see `?glm`, `?family`, and `?summary.glm`.
 
 Like for linear models, we can use an ANOVA table to check if treatments have any effect, and not one treatment at a time. 
 In the case of GLMS, this is called an _analysis of deviance_ table. 
@@ -164,7 +165,7 @@ detach(PlantGrowth)
 
 
 We gave an example with a factorial (i.e. discrete) predictor.
-We can do the same with mltiple continous predictors.
+We can do the same with multiple continuous predictors.
 ```{r}
 data('Pima.te', package='MASS') # Loads data
 head(Pima.te)
@@ -179,7 +180,7 @@ summary(glm.2)
 Things to note:
 
 - We used the `~.` syntax to tell R to fit a model with all the available predictors.
-- Since we want to focus on significant predictors, we used the `step` function to perform a _step-wise_ regression, i.e. sequantially remove non-significant predictors. 
+- Since we want to focus on significant predictors, we used the `step` function to perform a _step-wise_ regression, i.e. sequentially remove non-significant predictors. 
 The function reports each model it has checked, and the variable it has decided to remove at each step.
 - The output of `step` is a single model, with the subset of significant predictors. 
 
@@ -187,31 +188,65 @@ The function reports each model it has checked, and the variable it has decided 
 
 ## Poisson Regression
 
-Poisson regression means we fit a model assuming $y|x &\sim Poisson(\lambda(x)) \\$.
+Poisson regression means we fit a model assuming $y|x \sim Poisson(\lambda(x))$.
 Put differently, we assume that for each treatment, encoded as a combinations of predictors $x$, the response is Poisson distributed with a rate that depends on the predictors. 
 
 The typical link function for Poisson regression is $g(t)=e^t$.
-This means that we assume $y|x \sim Poisson(\lambda = e^{x'\beta})$
-
-We take the example from `?glm`.
+This means that we assume $y|x \sim Poisson(\lambda(x) = e^{x'\beta})$.
+Why is this a good choice?
+We again resort to the two-group case, encoded by $x=1$ and $x=0$, to understand this model:
+$\lambda(x=1)=e^{\beta_0+\beta_1}=e^{beta_0} \; e^{\beta_1}= \lambda(x=0) \; e^{\beta_1}$.
+We thus see that this link function implies that a change in $x$ __multiples__ the rate of events. 
+For our example^[Taken from http://www.theanalysisfactor.com/generalized-linear-models-in-r-part-6-poisson-regression-count-variables/] we inspect the number of infected high-school kids, as a function of the days since the outbreak.
 ```{r}
-counts <- c(18,17,15,20,10,20,25,13,12)
-outcome <- gl(3,1,9)
-treatment <- gl(3,3)
-d.AD <- data.frame(treatment, outcome, counts)
-head(d.AD)
+cases <-  
+structure(list(Days = c(1L, 2L, 3L, 3L, 4L, 4L, 4L, 6L, 7L, 8L, 
+8L, 8L, 8L, 12L, 14L, 15L, 17L, 17L, 17L, 18L, 19L, 19L, 20L, 
+23L, 23L, 23L, 24L, 24L, 25L, 26L, 27L, 28L, 29L, 34L, 36L, 36L, 
+42L, 42L, 43L, 43L, 44L, 44L, 44L, 44L, 45L, 46L, 48L, 48L, 49L, 
+49L, 53L, 53L, 53L, 54L, 55L, 56L, 56L, 58L, 60L, 63L, 65L, 67L, 
+67L, 68L, 71L, 71L, 72L, 72L, 72L, 73L, 74L, 74L, 74L, 75L, 75L, 
+80L, 81L, 81L, 81L, 81L, 88L, 88L, 90L, 93L, 93L, 94L, 95L, 95L, 
+95L, 96L, 96L, 97L, 98L, 100L, 101L, 102L, 103L, 104L, 105L, 
+106L, 107L, 108L, 109L, 110L, 111L, 112L, 113L, 114L, 115L), 
+    Students = c(6L, 8L, 12L, 9L, 3L, 3L, 11L, 5L, 7L, 3L, 8L, 
+    4L, 6L, 8L, 3L, 6L, 3L, 2L, 2L, 6L, 3L, 7L, 7L, 2L, 2L, 8L, 
+    3L, 6L, 5L, 7L, 6L, 4L, 4L, 3L, 3L, 5L, 3L, 3L, 3L, 5L, 3L, 
+    5L, 6L, 3L, 3L, 3L, 3L, 2L, 3L, 1L, 3L, 3L, 5L, 4L, 4L, 3L, 
+    5L, 4L, 3L, 5L, 3L, 4L, 2L, 3L, 3L, 1L, 3L, 2L, 5L, 4L, 3L, 
+    0L, 3L, 3L, 4L, 0L, 3L, 3L, 4L, 0L, 2L, 2L, 1L, 1L, 2L, 0L, 
+    2L, 1L, 1L, 0L, 0L, 1L, 1L, 2L, 2L, 1L, 1L, 1L, 1L, 0L, 0L, 
+    0L, 1L, 1L, 0L, 0L, 0L, 0L, 0L)), .Names = c("Days", "Students"
+), class = "data.frame", row.names = c(NA, -109L))
+attach(cases)
+head(cases) 
 ```
+
+And visually:
+```{r}
+plot(Days, Students, xlab = "DAYS", ylab = "STUDENTS", pch = 16)
+```
+
+We now fit a model to check for the change in the rate of events as a function of the days since the outbreak.
+```{r}
+glm.3 <- glm(Students ~ Days, family = poisson)
+summary(glm.3)
+```
+
 
 Things to note:
 
-- 
+- We used `family=poisson` in the `glm` function to tell R that we assume a Poisson distribution.
+- The coefficients table is there as usual. 
+When interpreting the table, we need to recall that the effect, i.e. the $\hat \beta$, are __multiplicative__ by assumption.
+- Each day __decreases__ the rate of events by a factor of about `r abs(round(summary(glm.3)$coef[2,1],2))`.
+- For more information see `?glm` and `?family`.
 
-## main-effects fit as Poisson GLM with offset
-<!-- glm(Claims ~ District + Group + Age + offset(log(Holders)), -->
-<!--     data = Insurance, family = poisson) -->
+## Extensions
 
-
-
+As we already implied, GLMs are a very wide class of models.
+We do not need to use the default link function,but more importantly, we are not constrained to Binomial, or Poisson distributed response.
+For exponential, gamma, and other response distributions, see `?glm` or the references in the Bibliographic Notes section.
 
 
 ## Bibliographic Notes
