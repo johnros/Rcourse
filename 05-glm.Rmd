@@ -40,26 +40,59 @@ More generally, for some distribution $F(\theta)$, with a parameter $\theta$, we
 \end{align}
 
 Possible examples include 
-$$
- y|x \sim Poisson(\lambda(x)) \\
- y|x \sim Exp(\lambda(x)) \\
- y|x \sim \mathcal{N}(\mu(x),\sigma^2(x)) 
-$$
-In this text, these distributions are the only ones we will discuss, even thought GLMS are slightly more general.
-Also, constrain $\theta$ to be some function, $g$, of a linear combination of the $x$'s. 
-Formally, $\theta(x)=g(x'\beta)$.
+\begin{align}
+ y|x &\sim Poisson(\lambda(x)) \\
+ y|x &\sim Exp(\lambda(x)) \\
+ y|x &\sim \mathcal{N}(\mu(x),\sigma^2(x)) 
+\end{align}
+
+GLMs constrain $\theta$ to be some function, $g$, of a linear combination of the $x$'s. 
+Formally, $$\theta(x)=g(x'\beta)$$, where $$x'\beta=\beta_0 + \sum_j x_j \beta_j$$. 
 The function $g$ is called the _link_ function.
 
 
 ## Logistic Regression
 
 The best known of the GLM class of models is the _logistic regression_ that deals with Binomial, or more precisely, Brenoulli distributed data. 
+The link function implied by the logistic regression is the logistic function
+\begin{align}
+  g(t)=\frac{e^t}{(1+e^t)}
+  (\#eq:logistic-link)  
+\end{align}
+ implying that 
+\begin{align}
+  y|x \sim Binom \left( 1, p=\frac{e^{x'\beta}}{1+e^{x'\beta}} \right)
+  (\#eq:logistic)
+\end{align}
+
+Before we fit such a model, we try to justify this contruction, in particular, this enigmatic link function in Eq.\@ref(eq:logistic-link).
+Let's look at the simplest possible case: the comparison of two groups indexed by $x$: $x=0$ for the first, and $x=1$ for the second.
+\begin{align}
+   p(x=0)=P(y=1|x=0) &= \frac{e^{\beta_0}}{(1+e^{\beta_0})} (\#eq:odds-one) \\ 
+   \Rightarrow 
+   \frac{P(y=1|x=0)}{P(y=0|x=0)} &= e^{\beta_0} \\
+   p(x=1)= P(y=1|x=1) &= \frac{e^{\beta_0+\beta_1}}{(1+e^{\beta_0+\beta_1})} \\
+   \Rightarrow 
+   \frac{P(y=1|x=1)}{P(y=0|x=1)} &= e^{\beta_0+\beta_1} (\#eq:odds-two)\\
+   \Rightarrow 
+   \frac{P(y=1|x=1)/P(y=0|x=1)}{P(y=1|x=0)/P(y=0|x=0)} 
+   &= e^{\beta_1}  (\#eq:odds-ratio) \\
+   \Rightarrow 
+   \log \frac{P(y=1|x=1)/P(y=0|x=1)}{P(y=1|x=0)/P(y=0|x=0)} &= \beta_1. (\#eq:log-odds-ratio)
+\end{align}
+
+The magnitudes in Eqs.\@ref(eq:odds-one) and \@ref(eq:odds-two)  , is known as the _odds_. 
+It is the same as a probability, but instead of of telling me there is a $66\%$ of succeess, it tells me the odds of success are "2 to 1".
+
+The magnitude in Eq.\@ref(eq:odds-ratio) is knon as the _odds ratio_. 
+It can be thought of as the compariosn between the probabilities of two groups, only that it does not compare probabilities but rather odds. 
+
+The magnitude in Eq.\@ref(eq:log-odds-ratio) is known as the _log odds ratio_.
+Besides some theoretical properties of the log odds ratio we will not discuss, it is important since it demistifies the choice of the link function in \@ref(eq:logistic-link): it allows us to interpret $\beta$ as the odds-ratios (in log scale).
 
 
+### Logistic Regression with R
 
-
-
-## Logistic regression
 attach(PlantGrowth)
 weight.factor<- cut(weight, 2, labels=c('Light', 'Heavy'))
 plot(weight.factor)
@@ -139,38 +172,6 @@ glm(type~., data=Pima.te, family=binomial(link='cloglog')) # Complementary log-l
 
 
 
-## Poisson regression:
-# Dobson (1990) Page 93: Randomized Controlled Trial :
-counts <- c(18,17,15,20,10,20,25,13,12)
-outcome <- gl(3,1,9)
-(treatment <- gl(3,3))
-(d.AD <- data.frame(treatment, outcome, counts))
-glm.D93 <- glm(counts ~ outcome + treatment, family=poisson())
-anova(glm.D93)
-summary(glm.D93)
 
-
-
-
-require(MASS)
-## main-effects fit as Poisson GLM with offset
-glm(Claims ~ District + Group + Age + offset(log(Holders)),
-    data = Insurance, family = poisson)
-
-
-
-# Other Poisson Link functions:
-glm(counts ~ outcome + treatment, family=poisson(link=log))
-glm(counts ~ outcome + treatment, family=poisson(link=sqrt))
-glm(counts ~ outcome + treatment, family=poisson(link=identity))
-
-
-
-
-# A Gamma example, from McCullagh & Nelder (1989, pp. 300-2)
-clotting <- data.frame(
-  u = c(5,10,15,20,30,40,60,80,100),
-  lot1 = c(118,58,42,35,27,25,21,19,18),
-  lot2 = c(69,35,26,21,18,16,13,12,12))
-summary(glm(lot1 ~ log(u), data=clotting, family=Gamma))
-summary(glm(lot2 ~ log(u), data=clotting, family=Gamma))
+## Bibliographic Notes
+glm
