@@ -118,6 +118,7 @@ We are now ready to estimate some linear models with R.
 We will use the `whiteside` data from the __MASS__ package,recording the outside temperature and gas consumption, before and after insulation.
 ```{r, cache=TRUE}
 library(MASS)
+data(whiteside)
 head(whiteside) # inspect the data
 ```
 We do the OLS estimation with `lm` function, possibly the most important function in R.
@@ -333,7 +334,12 @@ If you are more familiar with the ANOVA literature, or that you don't want the e
 anova(lm.2)
 ```
 
+Things to note:
 
+- The ANOVA table, unlike the `summary` function, tests if any of the levels of a factor has an effect, and not one level at a time. 
+- The significance of each factor is computed using an F-test. 
+- The degrees of freedom, encoding the nubmer of levels of a factor, is given in the `Df` column.
+- The StressReduction seems to vary for different ages and treatments, since both factors are significant.
 
 As in any two-way ANOVA, we may want to ask if different age groups respond differently to different treatments. 
 In the statistical parlance, this is called an _interaction_, or more precisely, an _interaction of order 2_.

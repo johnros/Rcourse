@@ -81,37 +81,71 @@ Let's look at the simplest possible case: the comparison of two groups indexed b
    \log \frac{P(y=1|x=1)/P(y=0|x=1)}{P(y=1|x=0)/P(y=0|x=0)} &= \beta_1. (\#eq:log-odds-ratio)
 \end{align}
 
-The magnitudes in Eqs.\@ref(eq:odds-one) and \@ref(eq:odds-two)  , is known as the _odds_. 
-It is the same as a probability, but instead of of telling me there is a $66\%$ of succeess, it tells me the odds of success are "2 to 1".
+The magnitudes in Eqs.\@ref(eq:odds-one) and \@ref(eq:odds-two), are known as the _odds_. 
+Odds are the same as probabilities, but instead of of telling me there is a $66\%$ of succeess, they tell me the odds of success are "2 to 1".
 
-The magnitude in Eq.\@ref(eq:odds-ratio) is knon as the _odds ratio_. 
-It can be thought of as the compariosn between the probabilities of two groups, only that it does not compare probabilities but rather odds. 
+The magnitude in Eq.\@ref(eq:odds-ratio) is known as the _odds ratio_. 
+The odds ratio compares between the probabilities of two groups, only that it does not compare  them in probability scale, but rather in odds scale. 
 
 The magnitude in Eq.\@ref(eq:log-odds-ratio) is known as the _log odds ratio_.
-Besides some theoretical properties of the log odds ratio we will not discuss, it is important since it demistifies the choice of the link function in \@ref(eq:logistic-link): it allows us to interpret $\beta$ as the odds-ratios (in log scale).
+Besides some nice theoretical properties of log odds ratios, which we will not discuss, they are important since it demistifies the choice of the link function in \@ref(eq:logistic-link): __it allows us to interpret $\beta$ of the logistic regression as the odds-ratios (in log scale)__.
+
 
 
 ### Logistic Regression with R
 
+Let's get us some data. 
+The `PlantGrowth` data records the weight of plants under three conditions: control, treatment1, and treatment2.
+```{r}
+head(PlantGrowth)
+```
+
+We will now `attach` the data so that its contents is available in the workspace (don't forget to `detach` afterwards, or you can expect some conflicting object names).
+We will also use the `cut` function to create a two-class response variable for Light, and Heavy plants (we are doing logistic regression, so we need a two-class respose).
+We then inspect visually inspect the distribution of weights for each treatmet. 
+```{r}
 attach(PlantGrowth)
 weight.factor<- cut(weight, 2, labels=c('Light', 'Heavy'))
-plot(weight.factor)
 plot(table(group, weight.factor))
+```
 
-contrasts(group)
-options(contrasts=c(unordered='contr.treatment', ordered='contr.poly'))
-contrasts(group)
 
-# Fitting and interpreting a logistic regression:
+Let's fit a logistic regression, and inspect the output.
+```{r}
 glm.1<- glm(weight.factor~group, family=binomial)
 summary(glm.1)
 prop.table(table(group, weight.factor), margin=1)
 log(0.6/0.4)- log(0.2/0.8)
+```
 
-# Predictions
+Things to note:
+
+- The `glm` function is our workhorse for all GLM models.
+- The `family` argument of `glm` tells R the output is binomial, thus, performing a logistic regression.
+- The `summary` function is content aware. It gives a different output for `glm` class objects than for other objects, such as the `lm` we saw in Chapter \@ref(linear).
+- As usual, we get the coefficients table, but recall that they are to be interpreted as (log) odd-ratios.
+- As usual, we get the significance for the test of no-effect, versus a two-sided alternative. 
+- The residuals of `glm` are slightly different than the `lm` residuals, and called _Deviance Residuals_. 
+
+Like for linear models, we can use an ANOVA table to check if treatments have any effect, and not one treatment at a time. 
+In the case of GLMS, this is called an _analysis of deviance_ table. 
+```{r}
+anova(glm.1, test='LRT')
+```
+
+Things to note:
+
+- The `anova` function, like the `summary` function, are content-aware and produce a different output for the `glm` class than for the `lm` class.
+- In GLMs, 
+- 
+
+```{r}
 (predict.1<- predict(glm.1))
-exp(predict.1)/(exp(predict.1)+1) 
+exp(predict.1)/(exp(predict.1)+1)
 predict(glm.1, type='response')
+
+```
+
 # For help see ?predict.glm
 
 # Analysis of Deviance ("ANOVA table")
@@ -157,7 +191,7 @@ summary(glm.2)
 glm(type~., data=Pima.te, family=binomial(link='logit')) # Logistic CDF
 glm(type~., data=Pima.te, family=binomial(link='probit')) # Gaissuain CDF
 glm(type~., data=Pima.te, family=binomial(link='cauchit')) # Cauchy CDF
-glm(type~., data=Pima.te, family=binomial(link='cloglog')) # Complementary log-log 
+glm(type~., data=Pima.te, family=binomial(link='cloglog')) # Complementary log-log
 
 
 
@@ -174,4 +208,5 @@ glm(type~., data=Pima.te, family=binomial(link='cloglog')) # Complementary log-l
 
 
 ## Bibliographic Notes
-glm
+The ultimate reference on GLMs is @mccullagh1984generalized. 
+For a less technical exposition, we refer to the usual @venables2013modern.
