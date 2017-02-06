@@ -28,7 +28,7 @@ Denoting the dependent by $y$, the factors by $x$, and the effects by $\beta$ th
   E[y]=\sum_j x_j \beta_j=x'\beta .
   (\#eq:linear-mean)
 \end{align}
-Clearly, there may be other factors that affet the the caps' diameters. 
+Clearly, there may be other factors that affect the the caps' diameters. 
 We thus introduce an error term^[The "error term" is also known as the "noise", or the "common causes of variability".], denoted by $\varepsilon$, to capture the effects of all unmodeled factors.
 The implied generative process of a sample of $i=1,\dots,n$ observations it thus
 \begin{align}
@@ -60,11 +60,11 @@ The whole Analysis of Variance (ANOVA) literature is an instance of linear model
 1. For purposes of prediction, where the actual data generating process is not of primary importance, they are popular because they simply work. 
 Why is that? 
 They are simple so that they do not require a lot of data to be computed. 
-Put differnetly, they may be biased, but their variance is small enough to make them more accurate than other models.
+Put differently, they may be biased, but their variance is small enough to make them more accurate than other models.
 
 1. For categorical or factorial predictors, __any__ functional relation can be cast as a linear model.
 
-1. For the purpose of _screening_, where we only want to show the existance of an effect, and are less interested in the magnitude of the effect, a linear model is enough.
+1. For the purpose of _screening_, where we only want to show the existence of an effect, and are less interested in the magnitude of the effect, a linear model is enough.
 
 1. If the true generative relation is not linear, but smooth enough, then the linear function is a good approximation via Taylor's theorem.
 
@@ -73,7 +73,7 @@ There are still two matters we have to attend:
 How the estimate $\beta$, and how to perform inference.
 
 In linear models the estimation of $\beta$ is done using the method of least squares. 
-For this reason, a linear model with least squares estimation is known as Ordinary Least Sqaures (OLS).
+For this reason, a linear model with least squares estimation is known as Ordinary Least Squares (OLS).
 The OLS problem:
 
 \begin{align}
@@ -98,11 +98,11 @@ For that, we will need some assumptions on $\varepsilon$.
 A typical set of assumptions is the following:
 
 1. __Independence__: we assume $\varepsilon_i$ are independent of everything else. 
-Think of them as the measurement error of an instrument: it is indepndent of the measured value and of previous measurements. 
-1. __Centered__: we assume that $E[\varepsilon]=0$, meaning there is no systematics error. 
+Think of them as the measurement error of an instrument: it is independent of the measured value and of previous measurements. 
+1. __Centered__: we assume that $E[\varepsilon]=0$, meaning there is no systematic error. 
 1. __Normality__: we will typically assume that $\varepsilon \sim \mathcal{N}(0,\sigma^2)$, but we will later see that this is not really required. 
 
-We emphasize that these assumptions are only needed for inference on $\hat \beta$ and not for the estimation itself, which is done by the purely algorithmic framwork of OLS.
+We emphasize that these assumptions are only needed for inference on $\hat \beta$ and not for the estimation itself, which is done by the purely algorithmic framework of OLS.
 
 Given the above assumptions, we can apply some probability theory and linear algebra to get
 \begin{align}
@@ -110,7 +110,7 @@ Given the above assumptions, we can apply some probability theory and linear alg
   (\#eq:ols-distribution)
 \end{align}
 
-The reason I am not too strick about the normality assumption above, is that Eq.\@ref(eq:ols-distribution) is approximately correct even if $\varepsilon$ is not normal, provided that there are many more observations than factors ($n \gg p$).
+The reason I am not too strict about the normality assumption above, is that Eq.\@ref(eq:ols-distribution) is approximately correct even if $\varepsilon$ is not normal, provided that there are many more observations than factors ($n \gg p$).
 
 ## OLS Estimation 
 
@@ -194,10 +194,10 @@ Obviously, R does provide the means to compute something as basic as $R^2$, but 
 
 
 ## Inference
-To perform inference on $\hat \beta$ in order to test hypotheses and construct confidence intervals, we need to quantify the uncertinaly in the reported $\hat \beta$.
+To perform inference on $\hat \beta$ in order to test hypotheses and construct confidence intervals, we need to quantify the uncertainly in the reported $\hat \beta$.
 This is exactly what Eq.\@ref(eq:ols-distribution) gives us.
 
-Luckily, we don't need to manipulate multivariate distributions manyally, and everything we need is already implemented. 
+Luckily, we don't need to manipulate multivariate distributions manually, and everything we need is already implemented. 
 The most important function is `summary` which gives us an overview of the model's fit.
 We emphasize that that fitting a model with `lm` is an assumption free algorithmic step. 
 Inference using `summary` is __not__ assumption free, and requires the set of assumptions leading to Eq.\@ref(eq:ols-distribution).
@@ -207,7 +207,7 @@ summary(lm.1)
 
 Things to note:
 
-- The estimated $\hat \beta$ is reported in the `Coefficients' table, which has point estimates, stendard errors, t-statistics, and the p-values of a two-sided hypothesis test for each coefficient $H_{0,j}:\beta_j=0, j=1,\dots,p$.
+- The estimated $\hat \beta$ is reported in the `Coefficients' table, which has point estimates, standard errors, t-statistics, and the p-values of a two-sided hypothesis test for each coefficient $H_{0,j}:\beta_j=0, j=1,\dots,p$.
 - The $R^2$ is reported at the bottom. The "Adjusted R-squared" is a variation that compensates for the model's complexity.
 - The original call to `lm` is saved in the `Call` section.
 - Some summary statistics of the residuals ($y_i-\hat y_i$) in the `Residuals` section.
@@ -242,11 +242,11 @@ To the next assumption.
 We assumed $\varepsilon_i$ are independent of everything else.
 The residuals, $y_i-\hat y_i$ can be thought of a sample of $\varepsilon_i$. 
 When diagnosing the linearity assumption, we already saw their distribution does not vary with the $x$'s, `Temp` in our case. 
-They may be correlated with themseslves; a positive departure from the model, may be followed by a series of positive departures etc.
-Dignosing these _auto-correlations_ is a real art, which is not part of our course. 
+They may be correlated with themselves; a positive departure from the model, may be followed by a series of positive departures etc.
+Diagnosing these _auto-correlations_ is a real art, which is not part of our course. 
 
 The last assumption we required is normality. 
-As previously stated, if $n \gg p$, this assumption is not realy needed. 
+As previously stated, if $n \gg p$, this assumption is not really needed. 
 If $n \sim p$, i.e., $n$ is in the order of $p$, we need to verify this assumption.
 My favorite tool for this task is the _qqplot_.
 A qqplot compares the quantiles of the sample with the respective quantiles of an assumed distribution.
@@ -257,7 +257,7 @@ qqnorm(resid((lm.1)))
 ```
 
 The `qqnorm` function plots a qqplot against a normal distribution.
-Judging from the figure, the normality assumption is quite plausable. 
+Judging from the figure, the normality assumption is quite plausible. 
 Let's try the same on a non-normal sample, namely a uniformly distributed sample, to see how that would look.
 ```{r}
 qqnorm(runif(100))
@@ -267,7 +267,7 @@ qqnorm(runif(100))
 ### Testing a Hypothesis on a Single Coefficient
 The first inferential test we consider is a hypothesis test on a single coefficient. 
 In our gas example, we may want to test that the temperature has no effect on the gas consumption.
-The answer for that is given immediatly by `summary(lm.1)`
+The answer for that is given immediately by `summary(lm.1)`
 ```{r}
 summary.lm1 <- summary(lm.1)
 coefs.lm1 <- summary.lm1$coefficients
@@ -279,7 +279,7 @@ We see that the p-value for $H_{0,1}:\hat \beta_1=0$ against a two sided alterna
 
 
 ### Constructing a Confidence Interval on a Single Coefficient
-Since the `summary` function gives us the standard errors of $\hat \beta$, we can immediatly compute $\hat \beta_j \pm 2 \sqrt{Var[\hat \beta_j]}$ to get ourselves a (roughly) $95\%$ confidence interval.
+Since the `summary` function gives us the standard errors of $\hat \beta$, we can immediately compute $\hat \beta_j \pm 2 \sqrt{Var[\hat \beta_j]}$ to get ourselves a (roughly) $95\%$ confidence interval.
 In our example the interval is
 ```{r}
 coefs.lm1[2,1] + c(-1,1) * coefs.lm1[2,2]
@@ -328,7 +328,7 @@ head(model.matrix(lm.2))
 If you don't want the default dummy coding, look at `?contrasts`.
 
 
-If you are more familiar with the ANOVA literature, or that you don't want the effects of each level seperatly, but rather, the effect of __all__ the levels of each factor, use the `anova` command.
+If you are more familiar with the ANOVA literature, or that you don't want the effects of each level separately, but rather, the effect of __all__ the levels of each factor, use the `anova` command.
 ```{r}
 anova(lm.2)
 ```
@@ -336,7 +336,7 @@ anova(lm.2)
 
 
 As in any two-way ANOVA, we may want to ask if different age groups respond differently to different treatments. 
-In the statistical parlance, this is called an _interaction_, or more persicely, an _interaction of order 2_.
+In the statistical parlance, this is called an _interaction_, or more precisely, an _interaction of order 2_.
 ```{r}
 lm.3 <- lm(StressReduction~Treatment+Age+Treatment:Age-1,data=data)
 ```
@@ -346,7 +346,7 @@ Here are other ways to specify the same model.
 lm.3 <- lm(StressReduction ~ Treatment * Age - 1,data=data)
 lm.3 <- lm(StressReduction~(.)^2 - 1,data=data)
 ```
-The syntax `Treatment * Age` means "mains effecs with second order interactions".
+The syntax `Treatment * Age` means "mains effects with second order interactions".
 The syntax `(.)^2` means "everything with second order interactions"
 
 Lets inspect the model
@@ -361,13 +361,13 @@ This is because when allowing a different average response for every $Treatment*
 
 Asking if all the interactions are significant, is asking if the different age groups have the same response to different treatments. 
 Can we answer that based on the various interactions? 
-We might, but it is possible that no single interaction is significat, while thei combination is. 
-To test for all the interactions together, we can simply check if the model without interactions is (significatly) better than a model with interactions. I.e., compare `lm.2` to `lm.3`.
+We might, but it is possible that no single interaction is significant, while the combination is. 
+To test for all the interactions together, we can simply check if the model without interactions is (significantly) better than a model with interactions. I.e., compare `lm.2` to `lm.3`.
 This is done with the `anova` command.
 ```{r}
 anova(lm.2,lm.3, test='F')
 ```
-We see that `lm.3` is __not__ significatly better than `lm.2`, so that we can conclude that there are no interactions: different ages have the same response to different treatmetns.
+We see that `lm.3` is __not__  better than `lm.2`, so that we can conclude that there are no interactions: different ages have the same response to different treatments.
 
 
 ### Testing a Hypothesis on a Single Contrast
@@ -389,7 +389,7 @@ summary(lm.4)
 Things to note:
 
 - A contrast is a linear function of the coefficients. In our example $H_0:\beta_1-\beta_3=0$, which justifies the construction of `my.contrast'.
-- We used the `glht` fuction (generalized linear hypothesis test) from the package __multcompt__.
+- We used the `glht` function (generalized linear hypothesis test) from the package __multcompt__.
 - The contrast is significant, i.e., the effect of a medical treatment, is different than that of a physical treatment.
 
 
