@@ -2,7 +2,7 @@
 
 Machine learning is very similar to statistics, but it is certainly not the same.
 As the name suggests, in machine learning we want machines to learn.
-This means that we want to replace hard-coded expoert algorithm, with data-driven self-learned algorithm.
+This means that we want to replace hard-coded expert algorithm, with data-driven self-learned algorithm.
 
 There are many learning setups, that depend on what is available to the machine. 
 The most common setup, discussed in this chapter, is _supervised learning_.
@@ -10,7 +10,7 @@ The name takes from the fact that by giving the machine data samples with known 
 If we think of the inputs as predictors, and outcomes as predicted, it is no wonder that supervised learning is very similar to statistical prediction.
 When asked "are these the same?" I like to give the example of internet fraud.
 If you take a sample of fraud "attacks", a statistical formulation of the problem is highly unlikely. 
-This is because fraud events are not randomly drawn from some distribution, but rather, arrive from an adversary learning the defences and adapting to it. 
+This is because fraud events are not randomly drawn from some distribution, but rather, arrive from an adversary learning the defenses and adapting to it. 
 This instance of supervised learning belongs in game theory, more than it does in statistics. 
 
 Other types of machine learning problems include:
@@ -34,10 +34,10 @@ Other types of machine learning problems include:
 ## Problem setup
 
 Given $n$ samples with inputs $x$ from some space $\mathcal{X}$ and desired outcome, $y$, from some space $\mathcal{Y}$.
-Sampes, $(x,y)$ have some distribution we denote $P$.
+Samples, $(x,y)$ have some distribution we denote $P$.
 We want to learn a function that maps inputs to outputs. 
-This function is called a _hypothesis_, and we denote it with $f:\mathcal{X} \to \mathcal{Y}$.
-We also choose some other function that fines us for errorous prediction.
+This function is called a _hypothesis_, and we denote it with $f$ that belongs to a hypothesis class $\mathcal{F}$ such that $f:\mathcal{X} \to \mathcal{Y}$.
+We also choose some other function that fines us for erroneous prediction.
 This function is called the _loss_, and we denote it by $l:\mathcal{Y}\times \mathcal{Y} \to \mathcal{R}^+$.
 
 ```{remark}
@@ -75,6 +75,19 @@ Making things more explicit again by using a linear hypothesis with squared loss
   \hat f := argmin_\beta \{ \sum_i (x_\beta-y_i)^2 \}
 \end{align}
 
+If we don't assume any structure on the hypothesis, $f$, then $\hat f$ from \@ref(erm) will interpolate the data, and will be a very bad predictor. 
+We say, it will _overfit_ the observed data, and will have bad performance on new data.
+
+We have several means avoid overfitting:
+
+1. Restrict the hypothesis class $\mathcal{F}$ (such as linear functions).
+1. Penalize for the complexity of $f$.
+1. Assess the loss on an independent sample. 
+
+### Commoon Hypothesis Classes
+
+
+### Common Complexity Penalties
 
 
 ## Supervised Learning in R
