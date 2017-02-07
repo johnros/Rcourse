@@ -1,1 +1,54 @@
 # Linear Mixed Models {#lme}
+
+```{example, label='fixed-effects'}
+Consider the problem of testing for a change in the distribution of the bottle caps produced.
+Bottle caps are produced by several machines. 
+We could standardize by removing each machine's average. 
+This first practice implies the within-machine variability is the only source of variability. 
+Alternatively, we could ignore the machine of origin. 
+This second practice implies there are two sources of variability: the within-machine variability, and the between-machine variability.
+The former practice is known as a _fixed effects_  model.
+The latter as a _random effects_ model.
+```
+
+
+```{example, label='random-effects'}
+Consider a crossover^[If you are unfamiliar with design of experiments, have a look at Chapter 6 of my Quality Engineering [class notes](https://github.com/johnros/qualityEngineering/blob/master/Class_notes/notes.pdf).] experimenal design where each subject is given 2 types of diets, and his/hers health condition is recorded.
+We could standardize by removing each subject's average, before comparing the diets (think of a paired t-test).
+This first practice implies the within-subject variability is the only source of variability.
+Alternatively, we could ignore the subject of origin. 
+When doing so, we need to recall that observations from the same subject will be correlated.
+This second practice implies there are two sources of variability: the within-subject variability and the betwee-subject variability.
+```
+
+The unifying theme of the above two examples, is that the variability we want to infer against has several sources. 
+This is typical in mixed models, which are so popular, that they have earned many names:
+
+- __Mixed Effects__: 
+Because we may have both _fixed effects_ we want to estimate and remove, and _random effects_ which contribute to the variability. 
+- __Variance Components__: 
+Because as the examples show, variance has more than a single source (like in the Linear Modles of Chapter \@ref(linear)).
+- __Hirarchial Models__: 
+Because as Example \@ref(ex:random-effects) demonstrates, we can think of the sampling as hirarchial-- first sample a subject, and then sample its response. 
+- __Repeated Measures__: 
+Because we many have several measurements from each unit, like in \@ref(ex:random-effects).
+- __Longitudinal Data__: 
+Because we follow units over time, like in Example \@ref(ex:random-effects).
+- __Panel Data__:
+Is the term typically used in econometrics for such logitudinal data. 
+
+
+We now emphasize: 
+
+1. Mixed effect models are a way to infer against the right level of variability.
+Using a naive linear model (which assumes a single source of variability) instead of a mixed effects model, probably means your inference is overly conservative. 
+1. A mixed effect models, as we will later see, is typically specified via its fixed and random effects. 
+It is possible, however, to specify a mixed effects model by putting all the fixed effects into a linear model, and putting all the random effects into the covariance between $\varepsilon$.
+For more on this view, see Chapter 8 in (the excellent) @weiss2005modeling.
+
+
+
+
+## Bibliographic Notes
+@weiss2005modeling
+@searle2009variance

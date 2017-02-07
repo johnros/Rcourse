@@ -21,3 +21,7 @@ preview_chapter('04-lm.Rmd',"bookdown::pdf_book" )
 preview_chapter('05-glm.Rmd',"bookdown::gitbook" )
 preview_chapter('05-glm.Rmd',"bookdown::word_document2" )
 preview_chapter('05-glm.Rmd',"bookdown::pdf_book" )
+
+preview_chapter('06-lme.Rmd',"bookdown::gitbook" )
+preview_chapter('06-lme.Rmd',"bookdown::word_document2" )
+preview_chapter('06-lme.Rmd',"bookdown::pdf_book" )
