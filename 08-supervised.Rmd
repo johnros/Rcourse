@@ -44,15 +44,35 @@ This function is called the _loss_, and we denote it by $l:\mathcal{Y}\times \ma
 The _hypothesis_ in machine learning is only vaguely related the hypothese in statistical testing, which is quite confusing.
 ```
 
-The fundamental task in supervised (statistical) learning is to recover a hypothesis that minimizes the average loss:
+```{remark}
+The _hypothesis_ in machine learning is not a bona-fide statistical model in that we don't assume it is the data generating process, but rather some function which we choose for its good predictive performance. 
+```
+
+
+The fundamental task in supervised (statistical) learning is to recover a hypothesis that minimizes the average loss. 
+This is know as the _risk minimization problem_.
 \begin{align}
   f^* := argmin_f \{ E_P[l(f(x),y)] \}
   (\#eq:risk)  
 \end{align}
 
-To make things more explicit, $f$ may be a linear function, and $l$ a squared error loss, in which case problem \@ref(risk) collapses to 
+To make things more explicit, $f$ may be a linear function, and $l$ a squared error loss, in which case problem \@ref(eq:risk) collapses to 
 \begin{align}
-  f^* := argmin_f \{ E_P[(x'\beta-y)^2] \}
+  f^* := argmin_\beta \{ E_P[(x'\beta-y)^2] \}
+\end{align}
+
+Another fundamental problem is that we do not know the distribution of all possible inputs and outputs, $P$.
+We typically only have a sample of $(x_i,y_i), i=1,\dots,n$.
+We thus state the _empirical_ counterpart of \@ref(eq:risk), which consists of minimizing the average loss.
+This is known as the _empirical risk miminization_ problem.
+\begin{align}
+  \hat f := argmin_f \{ \sum_i l(f(x_i),y_i) \}
+  (\#eq:erm)  
+\end{align}
+
+Making things more explicit again by using a linear hypothesis with squared loss, we see that the empirical risk minimization problem collapses to an ordinary least squares problem:
+\begin{align}
+  \hat f := argmin_\beta \{ \sum_i (x_\beta-y_i)^2 \}
 \end{align}
 
 
