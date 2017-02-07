@@ -135,6 +135,7 @@ Things to note:
 - As usual, `summary` is content aware and has a different behavior for `lme` class objects.
 - The syntax `Yield ~ 1  | Batch` tells R to fit a model with a global intercept (`1`) and a random Batch effect (`|Batch`). More on that later. 
 - The output distinguishes between random effects, a source of variability, and fixed effect, white's coefficients we want to study.
+- Were we not interested in the variance components, an (almost) equivalent `lm` formulation is `lm(Yield ~ Batch)`.
 
 Some utility functions let us query the `lme` object. 
 The function `coef` will work, but will return a cumbersome output. Better use `fixef` to extract the fixed effects, and `ranef` to extract the random effects.
@@ -175,6 +176,13 @@ lme.2 <- lmer ( diameter ~  1+ (1| plate ) + (1| sample ) , Penicillin )
 fixef(lme.2) # Fixed effects
 ranef(lme.2) # Random effects
 ```
+
+Things to note:
+
+- The syntax `1+ (1| plate ) + (1| sample )` fits a global intercept (mean), a random plate effect, and a random sample effect.
+- Were we not interested in the variance components, an (almost) equivalent `lm` formulation is `lm(diameter ~ plate + sample)`.
+
+
 
 Since we have two random effect, we may compute the variability of the global mean (the only fixed effect) as we did before. 
 Perhaps more interestingly, we can compute the variability in the response, for a particular plate or sample type.
@@ -220,6 +228,12 @@ The fixed effect can thus be thought of as the average slope over subjects.
 ```{r}
 lme.3 <- lmer ( Reaction ~ Days + ( Days | Subject ) , data= sleepstudy )
 ```
+
+Things to note:
+
+- We used the `Days|Subect` syntax to tell R we want to fit the model `~Days` within each subject.
+- Were we fitting the model for purposes of prediction only, an (almost) equivalent `lm`formulation is `lm(Reaction~Days*Subject)`.
+
 
 The fixed (i.e. average) day effect is:
 
@@ -310,5 +324,5 @@ print(xyplot(Reaction ~ Days | Subject, sleepstudy, aspect = "xy",
 
 ## Bibliographic Notes
 Most of the examples in this chapter are from the documentation of the __lme4__ package [@lme4]. 
-@weiss2005modeling
-@searle2009variance
+For a more theoretical view see @weiss2005modeling or @searle2009variance.
+As usual, a hands on view can be found in @venables2013modern.
