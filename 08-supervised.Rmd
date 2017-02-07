@@ -157,6 +157,7 @@ In these examples, I will use two data sets from the __ElemStatLearn__ package:
 `spam` for categorical predictions (spam mail or not spam?), and `prostate` for continuous predictions (size of cancerous tumor).
 In `spam` we will try to decide if a mail is spam or not. 
 In `prostate` we will try to predict the size of a cancerous tumor.
+You can now call `?prostate` and `?spam` to learn more about these data sets.
 
 Some pre-processing. The pacakge __dplyr__ will be exaplained in the Hadley-verse Chapter \@ref(hadley).
 ```{r}
@@ -167,11 +168,11 @@ data("spam")
 library(magrittr) # for piping
 library(dplyr) # for handeling data frames
 
-# Continous outcome:
-prostate.train <- prostate %>% 
+# Preparing prostate data
+prostate.train <- prostate %>% # make train sample
   filter(train) %>% 
-  select(-train)
-prostate.test <- prostate %>% 
+  select(-train) 
+prostate.test <- prostate %>% # make test sample
   filter(!train) %>% 
   select(-train)
 y.train <- prostate.train$lcavol
@@ -180,8 +181,7 @@ y.test <- prostate.test$lcavol
 X.test <- prostate.test %>% select(-lcavol) %>% as.matrix
 
 
-
-# Categorical outcome:
+# Preparing spam data:
 n <- nrow(spam)
 
 train.prop <- 0.66
@@ -198,22 +198,12 @@ X.test.spam <- spam.test %>% select(-spam) %>% as.matrix
 spam.dummy <- spam %>% mutate(spam=as.numeric(spam=='spam'))
 spam.train.dummy <- spam.dummy[train.ind,]
 spam.test.dummy <- spam.dummy[!train.ind,]
-
 ```
 
 
-
-```{r}
-source('make_samples.R')
-```
-You can now call `?prostate` and `?spam` to learn more about these data sets.
 
 We also load some utility packages and functions that we will require down the road. 
-```{r preamble}
-library(magrittr) # for piping
-library(dplyr) # for handeling data frames
-
-# My own utility functions:
+```{r}
 l2 <- function(x) x^2 %>% sum %>% sqrt 
 l1 <- function(x) abs(x) %>% sum  
 MSE <- function(x) x^2 %>% mean 
@@ -221,8 +211,45 @@ missclassification <- function(tab) sum(tab[c(2,3)])/sum(tab)
 ```
 
 
+Starting with OLS regression, and a train-test data approach. 
+Notice the bettern in-sample MSE than the out-of-sample. 
+That is overfitting in action.
+```{r OLS Regression}
+ols.1 <- lm(lcavol~. ,data = prostate.train)
+MSE( predict(ols.1)- prostate.train$lcavol) # Train error:
+MSE( predict(ols.1, newdata = prostate.test)- prostate.test$lcavol)# Test error:
+```
 
+Now using v-fold:
+```{r }
+folds <- 10
+fold.assignment <- sample(1:5, nrow(prostate), replace = TRUE)
+errors <- NULL
 
+for (k in 1:folds){
+  prostate.cross.train <- prostate[fold.assignment!=k,]
+  prostate.cross.test <-  prostate[fold.assignment==k,] 
+  .ols <- lm(lcavol~. ,data = prostate.cross.train)
+  .predictions <- predict(.ols, newdata=prostate.cross.test)
+  .errors <-  .predictions - prostate.cross.test$lcavol
+  errors <- c(errors, .errors)
+}
+
+# Cross validated prediction error:
+MSE(errors)
+```
+
+Let's try all possible models, and choose the best performer
+```{r}
+library(leaps)
+
+regfit.full <- prostate.train %>% 
+  regsubsets(lcavol~.,data = ., method = 'exhaustive') # best subset selection
+summary(regfit.full)
+plot(regfit.full, scale = "Cp")
+```
+
+```
 
 
 
