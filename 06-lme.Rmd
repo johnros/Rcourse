@@ -97,12 +97,13 @@ The summary of the mixed-model
 summary.lme.5 <- summary(lme.5)
 summary.lme.5
 ```
-Look at the standrd error of the global mean, i.e., the intercept:
+Look at the standard error of the global mean, i.e., the intercept:
 for `lm` it is `r summary.lm.5$coefficients[1,2]`, and for `lme` it is `summary.lme.5$coefficients[1,2]`.
 Why this difference? 
 Because `lm` discounts the group effect, while it should treat it as another source of variability.
 Clearly, inference using `lm` is overly optimistic.
 
+### A Single Random Effect
 
 We will use the `Dyestuff` data from the package, which encodes the yield, in grams, of a coloring solution (dyestuff), produced in 6 batches using 5 different preparations.
 ```{r}
@@ -125,15 +126,17 @@ summary(lme.1)
 
 Things to note:
 
-- As usual, `summary` is content aware and has a different behaviour for `lme` class objects.
-- The syntax `Yield ~ 1  | Batch` tellls R to fit a model with a global intercept (`1`) and a random Batch effect (`|Batch`). More on that later. 
-- The output distinguishes between random effects, a source of variability, and fixed effect, which's coefficients we want to study.
+- As usual, `summary` is content aware and has a different behavior for `lme` class objects.
+- The syntax `Yield ~ 1  | Batch` tells R to fit a model with a global intercept (`1`) and a random Batch effect (`|Batch`). More on that later. 
+- The output distinguishes between random effects, a source of variability, and fixed effect, white's coefficients we want to study.
 
 Some utility functions let us query the `lme` object. 
-The function `coef` will work, but will return a combersome output. Better use `fixef` to extract the fixed effects, and `ranef` to extract the random effects.
+The function `coef` will work, but will return a cumbersome output. Better use `fixef` to extract the fixed effects, and `ranef` to extract the random effects.
 The model matrix (of the fixed effects alone), can be extracted with `model.matrix`, and predictions made with `predict`.
 Note, however, that predictions with mixed-effect models are (i) a delicate matter, and (ii) better treated as prediction problems as in the Supervised Learning Chapter \@ref(supervised).
 
+
+### Several Random Effects
 
 Let's make things more interesting.
 In the `Penicillin` data, we measured the diameter of spread of an organism, along the plate used (a to x), and penicillin type (A to F). 
@@ -185,8 +188,108 @@ Variability in response for each sample type, over the various plates:
 print(qrr2[[2]])  
 ```
 
+### A Full Mixed-Model
+
+In the `sleepstudy` data, we recorded the reaction times to a series of tests (`Reaction`), after various subject (`Subject`) underwent various amounts of sleep deprivation (`Day`).
+```{r}
+data(sleepstudy)
+lattice::xyplot(Reaction ~ Days | Subject, sleepstudy, aspect = "xy",
+             layout = c(9,2), type = c("g", "p", "r"),
+             index.cond = function(x,y) coef(lm(y ~ x))[1],
+             xlab = "Days of sleep deprivation",
+             ylab = "Average reaction time (ms)")
+```
+
+We now want to estimate the (fixed) effect of the days of deprivation, while allowing each subject to have his/hers own effect.
+The fixed effect can thus be thought of as the average slope over subjects.
+```{r}
+lme.3 <- lmer ( Reaction ~ Days + ( Days | Subject ) , data= sleepstudy )
+```
+
+The fixed (i.e. average) day effect is:
+```{r}
+fixef(fm1)
+```
+
+The variability in the average response (intercept) and day effect is
+```{r}
+ranef(fm1)
+```
+
+Did we really need the whole `lme` machinery to fit a within-subject linear regression and then average over subjects?
+The answer is yes.
+The assumptions on the distribution of random effect, namely, that they are normally distributed, allows us to pool information from one subject to another. In the words of John Tukey: "we borrow strength over subjects".
+Is this a good thing? If the normality assumption is true, it certainly is.
+
+To demonstrate the "strength borrowing", here is a comparison of the subject-wise intercepts of the mixed-model, versus a subject-wise linear model. They are not the same.
+```{r, echo=FALSE}
+library(lattice)
+df <- coef(lmList(Reaction ~ Days | Subject, sleepstudy))
+fclow <- subset(df, `(Intercept)` < 251)
+fchigh <- subset(df, `(Intercept)` > 251)
+cc1 <- as.data.frame(coef(fm2)$Subject)
+names(cc1) <- c("A", "B")
+df <- cbind(df, cc1)
+ff <- fixef(fm2)
+with(df,
+     print(xyplot(`(Intercept)` ~ Days, aspect = 1,
+                  x1 = B, y1 = A,
+                  panel = function(x, y, x1, y1, subscripts, ...) {
+                    panel.grid(h = -1, v = -1)
+                    x1 <- x1[subscripts]
+                    y1 <- y1[subscripts]
+                    larrows(x, y, x1, y1, type = "closed", length = 0.1,
+                            angle = 15, ...)
+                    lpoints(x, y,
+                            pch = trellis.par.get("superpose.symbol")$pch[2],
+                            col = trellis.par.get("superpose.symbol")$col[2])
+                    lpoints(x1, y1,
+                            pch = trellis.par.get("superpose.symbol")$pch[1],
+                            col = trellis.par.get("superpose.symbol")$col[1])
+                    lpoints(ff[2], ff[1], 
+                            pch = trellis.par.get("superpose.symbol")$pch[3],
+                            col = trellis.par.get("superpose.symbol")$col[3])
+                    ltext(fclow[,2], fclow[,1], row.names(fclow),
+                          adj = c(0.5, 1.7))
+                    ltext(fchigh[,2], fchigh[,1], row.names(fchigh),
+                          adj = c(0.5, -0.6))
+                  },
+                  key = list(space = "top", columns = 3,
+                             text = list(c("Mixed model", "Within-group", "Population")),
+                             points = list(col = trellis.par.get("superpose.symbol")$col[1:3],
+                                           pch = trellis.par.get("superpose.symbol")$pch[1:3]))
+     )))
+
+```
+
+Here is a comparison of the random-day effect from `lme` versus a subject-wise linear model. They are not the same.
+```{r, echo=FALSE}
+print(xyplot(Reaction ~ Days | Subject, sleepstudy, aspect = "xy",
+             layout = c(9,2), type = c("g", "p", "r"),
+             coef.list = df[,3:4],
+             panel = function(..., coef.list) {
+               panel.xyplot(...)
+               panel.abline(as.numeric(coef.list[packet.number(),]),
+                            col.line = trellis.par.get("superpose.line")$col[2],
+                            lty = trellis.par.get("superpose.line")$lty[2]
+               )
+               panel.abline(fixef(fm2),
+                            col.line = trellis.par.get("superpose.line")$col[4],
+                            lty = trellis.par.get("superpose.line")$lty[4]
+               )
+             },
+             index.cond = function(x,y) coef(lm(y ~ x))[1],
+             xlab = "Days of sleep deprivation",
+             ylab = "Average reaction time (ms)",
+             key = list(space = "top", columns = 3,
+                        text = list(c("Within-subject", "Mixed model", "Population")),
+                        lines = list(col = trellis.par.get("superpose.line")$col[c(2:1,4)],
+                                     lty = trellis.par.get("superpose.line")$lty[c(2:1,4)]))))
+```
+
 
 
 ## Bibliographic Notes
+Most of the examples in this chapter are from the documentation of the __lme4__ package [@lme4]. 
 @weiss2005modeling
 @searle2009variance
