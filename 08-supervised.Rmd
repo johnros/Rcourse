@@ -16,17 +16,46 @@ This instance of supervised learning belongs in game theory, more than it does i
 Other types of machine learning problems include:
 
 - __Unsupervised learning__: See Chapter \@ref(unsupervised)
-- __Semi supervised learning__: Where only part of the sample 
-- __Reinforcement learning__:
-- __Active learning__:
-- __Structure learning__:
-- __Structural learning__:
+- __Semi supervised learning__: Where only part of the samples are labeled.  
+- __Active learning__: Where the machine is allowed to query the user for labels. 
+- __Reinforcement learning__:  
+- __Structure learning__: 
+- __Structural learning__: 
 - __Transductive learning__:
 - __Developpmental learning__:
 - __Learning to learn__:
-- __Manifold learning__:
+- __Manifold learning__: An instance of unsupervised learning, where the goal is to reduce the dimension of the data by embedding it into a lower dimensional manifold. A.k.a. _support estimation_.
 - __Metric learning__:
 - __Learning on a budget__:
 
 
+
+
+## Problem setup
+
+Given $n$ samples with inputs $x$ from some space $\mathcal{X}$ and desired outcome, $y$, from some space $\mathcal{Y}$.
+Sampes, $(x,y)$ have some distribution we denote $P$.
+We want to learn a function that maps inputs to outputs. 
+This function is called a _hypothesis_, and we denote it with $f:\mathcal{X} \to \mathcal{Y}$.
+We also choose some other function that fines us for errorous prediction.
+This function is called the _loss_, and we denote it by $l:\mathcal{Y}\times \mathcal{Y} \to \mathcal{R}^+$.
+
+```{remark}
+The _hypothesis_ in machine learning is only vaguely related the hypothese in statistical testing, which is quite confusing.
+```
+
+The fundamental task in supervised (statistical) learning is to recover a hypothesis that minimizes the average loss:
+\begin{align}
+  f^* := argmin_f \{ E_P[l(f(x),y)] \}
+  (\#eq:risk)  
+\end{align}
+
+To make things more explicit, $f$ may be a linear function, and $l$ a squared error loss, in which case problem \@ref(risk) collapses to 
+\begin{align}
+  f^* := argmin_f \{ E_P[(x'\beta-y)^2] \}
+\end{align}
+
+
+
+## Supervised Learning in R
 
