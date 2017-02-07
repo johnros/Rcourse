@@ -71,6 +71,7 @@ In the context of mixed-models, however, ML is typically replaced with _restrict
 
 We will fit mixed models with the `lmer` function from the __lme4__ package. 
 We start with a small simulation demonstrating the importance of acknowledging your sources of variability.
+
 ```{r}
 n.groups <- 10
 n.repeats <- 2
@@ -87,12 +88,14 @@ lme.5 <- lmer(y~1|z) # fit a mixed-model
 ```
 
 The summary of the linear model
+
 ```{r, label='lm5'}
 summary.lm.5 <- summary(lm.5)
 summary.lm.5
 ```
 
 The summary of the mixed-model
+
 ```{r, label='lme5'}
 summary.lme.5 <- summary(lme.5)
 summary.lme.5
@@ -106,6 +109,7 @@ Clearly, inference using `lm` is overly optimistic.
 ### A Single Random Effect
 
 We will use the `Dyestuff` data from the package, which encodes the yield, in grams, of a coloring solution (dyestuff), produced in 6 batches using 5 different preparations.
+
 ```{r}
 data(Dyestuff, package='lme4')
 attach(Dyestuff)
@@ -113,12 +117,14 @@ head(Dyestuff)
 ```
 
 And visually
+
 ```{r}
 plot(Yield~Batch)
 ```
 
 If we want to do inference on the mean yield, we need to account for the two sources of variability: the batch effect, and the measurement error. 
 We thus fit a mixed model, with an intercept and random batch effect (which means this is it not a bona-fide mixed-model, but rather, a simple random-effect model).
+
 ```{r}
 lme.1<- lmer( Yield ~ 1  | Batch  , Dyestuff )
 summary(lme.1)
@@ -140,18 +146,21 @@ Note, however, that predictions with mixed-effect models are (i) a delicate matt
 
 Let's make things more interesting.
 In the `Penicillin` data, we measured the diameter of spread of an organism, along the plate used (a to x), and penicillin type (A to F). 
+
 ```{r}
 detach(Dyestuff)
 head(Penicillin)
 ```
 
 One sample per combination:
+
 ```{r}
 attach(Penicillin)
 table(sample, plate)
 ```
 
 And visually:
+
 ```{r}
 lattice::dotplot(reorder(plate, diameter) ~ diameter,data=Penicillin,
               groups = sample,
@@ -160,6 +169,7 @@ lattice::dotplot(reorder(plate, diameter) ~ diameter,data=Penicillin,
 ```
 
 Let's fit a mixed-effects model with a random plate effect, and a random sample effect:
+
 ```{r}
 lme.2 <- lmer ( diameter ~  1+ (1| plate ) + (1| sample ) , Penicillin )
 fixef(lme.2) # Fixed effects
@@ -168,6 +178,7 @@ ranef(lme.2) # Random effects
 
 Since we have two random effect, we may compute the variability of the global mean (the only fixed effect) as we did before. 
 Perhaps more interestingly, we can compute the variability in the response, for a particular plate or sample type.
+
 ```{r}
 random.effect.lme2 <- ranef(lme.2, condVar = TRUE) 
 qrr2 <- lattice::dotplot(random.effect.lme2, strip = FALSE)
@@ -179,11 +190,13 @@ Things to note:
 - The `dotplot` function, from the __lattice__ package, is only there for the fancy plotting.
 
 Variability in response for each plate, over various sample types:
+
 ```{r}
 print(qrr2[[1]]) 
 ```
 
 Variability in response for each sample type, over the various plates:
+
 ```{r}
 print(qrr2[[2]])  
 ```
@@ -191,6 +204,7 @@ print(qrr2[[2]])
 ### A Full Mixed-Model
 
 In the `sleepstudy` data, we recorded the reaction times to a series of tests (`Reaction`), after various subject (`Subject`) underwent various amounts of sleep deprivation (`Day`).
+
 ```{r}
 data(sleepstudy)
 lattice::xyplot(Reaction ~ Days | Subject, sleepstudy, aspect = "xy",
@@ -202,16 +216,19 @@ lattice::xyplot(Reaction ~ Days | Subject, sleepstudy, aspect = "xy",
 
 We now want to estimate the (fixed) effect of the days of deprivation, while allowing each subject to have his/hers own effect.
 The fixed effect can thus be thought of as the average slope over subjects.
+
 ```{r}
 lme.3 <- lmer ( Reaction ~ Days + ( Days | Subject ) , data= sleepstudy )
 ```
 
 The fixed (i.e. average) day effect is:
+
 ```{r}
 fixef(fm1)
 ```
 
 The variability in the average response (intercept) and day effect is
+
 ```{r}
 ranef(fm1)
 ```
@@ -222,6 +239,7 @@ The assumptions on the distribution of random effect, namely, that they are norm
 Is this a good thing? If the normality assumption is true, it certainly is.
 
 To demonstrate the "strength borrowing", here is a comparison of the subject-wise intercepts of the mixed-model, versus a subject-wise linear model. They are not the same.
+
 ```{r, echo=FALSE}
 library(lattice)
 df <- coef(lmList(Reaction ~ Days | Subject, sleepstudy))
@@ -263,6 +281,7 @@ with(df,
 ```
 
 Here is a comparison of the random-day effect from `lme` versus a subject-wise linear model. They are not the same.
+
 ```{r, echo=FALSE}
 print(xyplot(Reaction ~ Days | Subject, sleepstudy, aspect = "xy",
              layout = c(9,2), type = c("g", "p", "r"),
