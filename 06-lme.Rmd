@@ -27,15 +27,15 @@ This is typical in mixed models, which are so popular, that they have earned man
 - __Mixed Effects__: 
 Because we may have both _fixed effects_ we want to estimate and remove, and _random effects_ which contribute to the variability. 
 - __Variance Components__: 
-Because as the examples show, variance has more than a single source (like in the Linear Modles of Chapter \@ref(linear)).
+Because as the examples show, variance has more than a single source (like in the Linear Models of Chapter \@ref(linear)).
 - __Hirarchial Models__: 
-Because as Example \@ref(ex:random-effects) demonstrates, we can think of the sampling as hirarchial-- first sample a subject, and then sample its response. 
+Because as Example \@ref(ex:random-effects) demonstrates, we can think of the sampling as hierarchical-- first sample a subject, and then sample its response. 
 - __Repeated Measures__: 
 Because we many have several measurements from each unit, like in \@ref(ex:random-effects).
 - __Longitudinal Data__: 
 Because we follow units over time, like in Example \@ref(ex:random-effects).
 - __Panel Data__:
-Is the term typically used in econometrics for such logitudinal data. 
+Is the term typically used in econometric for such longitudinal data. 
 
 
 We now emphasize: 
@@ -45,7 +45,145 @@ Using a naive linear model (which assumes a single source of variability) instea
 1. A mixed effect models, as we will later see, is typically specified via its fixed and random effects. 
 It is possible, however, to specify a mixed effects model by putting all the fixed effects into a linear model, and putting all the random effects into the covariance between $\varepsilon$.
 For more on this view, see Chapter 8 in (the excellent) @weiss2005modeling.
+1. Like in previous chapters, by "model" we refer to the assumed generative distribution, i.e., the sampling distribution. 
+1. If you are using the model merely for predictions, and not for inference on the fixed effects or variance components, then stating the generative distribution may be be useful, but not necessarily. 
+See the Supervised Learning Chapter \@ref(supervised) for more on prediction problems.
 
+
+## Problem Setup
+
+\begin{align}
+  y|x,u = x'\beta + z'u + \varepsilon
+  (\#eq:mixed-model)  
+\end{align}
+where $x$ are the factor with fixed effects, $\beta$ which we may want to study.
+The factors $z$, with effects $u$, are the random effects which contribute to variability. 
+Put differently, we state $y|x,u$ merely as a convenient way to do inference on $y|x$, instead of directly specifying $Var[y|x]$ as a function of $u$. 
+
+Given a sample of $n$ observations $(y_i,x_i,z_i)$ from model \@ref(eq:mixed-model), we will want to estimate $(\beta,u)$.
+Under some assumption on the distribution of $\varepsilon$ and $z$, we can use _maximum likelihood_ (ML). 
+In the context of mixed-models, however, ML is typically replaced with _restricted maximum likelihood_ (ReML), because it returns unbiased estimates of $Var[y|x]$ and ML does not.
+
+
+
+
+## Mixed Models with R
+
+We will fit mixed models with the `lmer` function from the __lme4__ package. 
+We start with a small simulation demonstrating the importance of acknowledging your sources of variability.
+```{r}
+n.groups <- 10
+n.repeats <- 2
+groups <- gl(n = n.groups, k = n.repeats)
+n <- length(groups)
+z0 <- rnorm(10,0,10)
+z <- z0[as.numeric(groups)] # create the random effect vector.
+epsilon <- rnorm(n,0,1) # create the measurement error vector.
+beta0 <- 2 # create the global mean
+y <- beta0 + z  + epsilon # generate synthetic sample
+lm.5 <- lm(y~z)  # fit a linear model
+library(lme4)
+lme.5 <- lmer(y~1|z) # fit a mixed-model
+```
+
+The summary of the linear model
+```{r, label='lm5'}
+summary.lm.5 <- summary(lm.5)
+summary.lm.5
+```
+
+The summary of the mixed-model
+```{r, label='lme5'}
+summary.lme.5 <- summary(lme.5)
+summary.lme.5
+```
+Look at the standrd error of the global mean, i.e., the intercept:
+for `lm` it is `r summary.lm.5$coefficients[1,2]`, and for `lme` it is `summary.lme.5$coefficients[1,2]`.
+Why this difference? 
+Because `lm` discounts the group effect, while it should treat it as another source of variability.
+Clearly, inference using `lm` is overly optimistic.
+
+
+We will use the `Dyestuff` data from the package, which encodes the yield, in grams, of a coloring solution (dyestuff), produced in 6 batches using 5 different preparations.
+```{r}
+data(Dyestuff, package='lme4')
+attach(Dyestuff)
+head(Dyestuff)
+```
+
+And visually
+```{r}
+plot(Yield~Batch)
+```
+
+If we want to do inference on the mean yield, we need to account for the two sources of variability: the batch effect, and the measurement error. 
+We thus fit a mixed model, with an intercept and random batch effect (which means this is it not a bona-fide mixed-model, but rather, a simple random-effect model).
+```{r}
+lme.1<- lmer( Yield ~ 1  | Batch  , Dyestuff )
+summary(lme.1)
+```
+
+Things to note:
+
+- As usual, `summary` is content aware and has a different behaviour for `lme` class objects.
+- The syntax `Yield ~ 1  | Batch` tellls R to fit a model with a global intercept (`1`) and a random Batch effect (`|Batch`). More on that later. 
+- The output distinguishes between random effects, a source of variability, and fixed effect, which's coefficients we want to study.
+
+Some utility functions let us query the `lme` object. 
+The function `coef` will work, but will return a combersome output. Better use `fixef` to extract the fixed effects, and `ranef` to extract the random effects.
+The model matrix (of the fixed effects alone), can be extracted with `model.matrix`, and predictions made with `predict`.
+Note, however, that predictions with mixed-effect models are (i) a delicate matter, and (ii) better treated as prediction problems as in the Supervised Learning Chapter \@ref(supervised).
+
+
+Let's make things more interesting.
+In the `Penicillin` data, we measured the diameter of spread of an organism, along the plate used (a to x), and penicillin type (A to F). 
+```{r}
+detach(Dyestuff)
+head(Penicillin)
+```
+
+One sample per combination:
+```{r}
+attach(Penicillin)
+table(sample, plate)
+```
+
+And visually:
+```{r}
+lattice::dotplot(reorder(plate, diameter) ~ diameter,data=Penicillin,
+              groups = sample,
+              ylab = "Plate", xlab = "Diameter of growth inhibition zone (mm)",
+              type = c("p", "a"), auto.key = list(columns = 6, lines = TRUE))
+```
+
+Let's fit a mixed-effects model with a random plate effect, and a random sample effect:
+```{r}
+lme.2 <- lmer ( diameter ~  1+ (1| plate ) + (1| sample ) , Penicillin )
+fixef(lme.2) # Fixed effects
+ranef(lme.2) # Random effects
+```
+
+Since we have two random effect, we may compute the variability of the global mean (the only fixed effect) as we did before. 
+Perhaps more interestingly, we can compute the variability in the response, for a particular plate or sample type.
+```{r}
+random.effect.lme2 <- ranef(lme.2, condVar = TRUE) 
+qrr2 <- lattice::dotplot(random.effect.lme2, strip = FALSE)
+```
+
+Things to note:
+
+- The `condVar` argument of the `ranef` function tells R to compute the variability in response conditional on each random effect at a time. 
+- The `dotplot` function, from the __lattice__ package, is only there for the fancy plotting.
+
+Variability in response for each plate, over various sample types:
+```{r}
+print(qrr2[[1]]) 
+```
+
+Variability in response for each sample type, over the various plates:
+```{r}
+print(qrr2[[2]])  
+```
 
 
 
