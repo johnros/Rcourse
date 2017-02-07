@@ -25,3 +25,11 @@ preview_chapter('05-glm.Rmd',"bookdown::pdf_book" )
 preview_chapter('06-lme.Rmd',"bookdown::gitbook" )
 preview_chapter('06-lme.Rmd',"bookdown::word_document2" )
 preview_chapter('06-lme.Rmd',"bookdown::pdf_book" )
+
+preview_chapter('07-multivariate.Rmd',"bookdown::gitbook" )
+preview_chapter('07-multivariate.Rmd',"bookdown::word_document2" )
+preview_chapter('07-multivariate.Rmd',"bookdown::pdf_book" )
+
+preview_chapter('08-supervised.Rmd',"bookdown::gitbook" )
+preview_chapter('08-supervised.Rmd',"bookdown::word_document2" )
+preview_chapter('08-supervised.Rmd',"bookdown::pdf_book" )
