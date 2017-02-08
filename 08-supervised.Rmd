@@ -187,7 +187,7 @@ In `spam` we will try to decide if a mail is spam or not.
 In `prostate` we will try to predict the size of a cancerous tumor.
 You can now call `?prostate` and `?spam` to learn more about these data sets.
 
-Some boring pre-processing^[The package __dplyr__ will be explained in the Hadley-verse Chapter \@ref(hadley)]. 
+Some boring pre-processing. 
 
 ```{r preprocessing}
 library(ElemStatLearn) # for data
@@ -195,27 +195,14 @@ data("prostate")
 data("spam")
 
 library(magrittr) # for piping
-library(dplyr) # for handeling data frames
-
-# Caution!
-# Both `MASS` have a function called `select`. I will thus try avoid the two packages being loaded at once, or call the functionby its full name: `MASS::select` or `dplyr::select'.
-try(detach("package:multcompt", unload=TRUE), silent = TRUE)
-try(detach("package:TH.data", unload=TRUE), silent = TRUE)
-try(detach("package:MASS", unload=TRUE), silent = TRUE)
-
 
 # Preparing prostate data
-prostate.train <- prostate %>% 
-  filter(train) %>% 
-  select(-train) 
-prostate.test <- prostate %>% 
-  filter(!train) %>% 
-  select(-train)
+prostate.train <- prostate[prostate$train, names(prostate)!='train']
+prostate.test <- prostate[!prostate$train, names(prostate)!='train'] 
 y.train <- prostate.train$lcavol
-X.train <- prostate.train %>% select(-lcavol) %>% as.matrix
+X.train <- as.matrix(prostate.train[, names(prostate.train)!='lcavol'] )
 y.test <- prostate.test$lcavol 
-X.test <- prostate.test %>% select(-lcavol) %>% as.matrix
-
+X.test <- as.matrix(prostate.test[, names(prostate.test)!='lcavol'] )
 
 # Preparing spam data:
 n <- nrow(spam)
@@ -227,17 +214,18 @@ spam.train <- spam[train.ind,]
 spam.test <- spam[!train.ind,]
 
 y.train.spam <- spam.train$spam
-X.train.spam <- spam.train %>% select(-spam) %>% as.matrix
+X.train.spam <- as.matrix(spam.train[,names(spam.train)!='spam'] )
 y.test.spam <- spam.test$spam
-X.test.spam <- spam.test %>% select(-spam) %>% as.matrix
+X.test.spam <-  as.matrix(spam.test[,names(spam.test)!='spam']) 
 
-spam.dummy <- spam %>% mutate(spam=as.numeric(spam=='spam'))
+spam.dummy <- spam
+spam.dummy$spam <- as.numeric(spam$spam=='spam') 
 spam.train.dummy <- spam.dummy[train.ind,]
 spam.test.dummy <- spam.dummy[!train.ind,]
 ```
 
 We also load some utility functions that we will require down the road. 
-```{r}
+```{r utility-functions}
 l2 <- function(x) x^2 %>% sum %>% sqrt 
 l1 <- function(x) abs(x) %>% sum  
 MSE <- function(x) x^2 %>% mean 
@@ -258,7 +246,9 @@ MSE( predict(ols.1)- prostate.train$lcavol)
 MSE( predict(ols.1, newdata = prostate.test)- prostate.test$lcavol)
 ```
 
-Now using v-fold:
+We now implement a V-fold CV, instead of our train-test approach.
+The assignment of each observation to each fold is encoded in `fold.assignment`. 
+The following implementation is extremely inefficient, but easy to read. 
 
 ```{r }
 folds <- 10
@@ -266,17 +256,18 @@ fold.assignment <- sample(1:5, nrow(prostate), replace = TRUE)
 errors <- NULL
 
 for (k in 1:folds){
-  prostate.cross.train <- prostate[fold.assignment!=k,]
-  prostate.cross.test <-  prostate[fold.assignment==k,] 
-  .ols <- lm(lcavol~. ,data = prostate.cross.train)
+  prostate.cross.train <- prostate[fold.assignment!=k,] # train subset
+  prostate.cross.test <-  prostate[fold.assignment==k,] # test subset
+  .ols <- lm(lcavol~. ,data = prostate.cross.train) # train
   .predictions <- predict(.ols, newdata=prostate.cross.test)
-  .errors <-  .predictions - prostate.cross.test$lcavol
-  errors <- c(errors, .errors)
+  .errors <-  .predictions - prostate.cross.test$lcavol # save prediction errors in the fold
+  errors <- c(errors, .errors) # aggregate error over folds.
 }
 
 # Cross validated prediction error:
 MSE(errors)
 ```
+
 
 Let's try all possible models, and choose the best performer with respect to the Cp criterion.
 We see that the best performer has 3 predictors. 
@@ -293,8 +284,10 @@ Instead of the Cp criterion, we now compute the train and test errors for all th
 
 ```{r, results='hold'}
 model.n <- regfit.full %>% summary %>% length
-X.train.named <- prostate.train %>% model.matrix(lcavol ~ ., data = .)  
-X.test.named <- prostate.test %>% model.matrix(lcavol ~ ., data = .)  
+X.train.named <- prostate.train %>% model.matrix(lcavol ~ ., data = .)
+X.train.named <- model.matrix(lcavol ~ ., data = prostate.train ) 
+X.test.named <- model.matrix(lcavol ~ ., data = prostate.test ) 
+
 
 val.errors <- rep(NA, model.n)
 train.errors <- rep(NA, model.n)
@@ -317,7 +310,7 @@ legend("topright",
 
 
 
-Checking all possible models is computatinally very hard.
+Checking all possible models is computationally very hard.
 _Forward selection_ is a greedy approach that adds one variable at a time, using the AIC criterion. If AIC falls, the variable is added. 
 
 ```{r, cache=TRUE}
@@ -355,7 +348,7 @@ missclassification(confusion.test)
 The `glmnet` package is an excellent package that provides ridge, lasso, and elastic net regularization, for all GLMs, so for linear models in particular.
 
 ```{r Ridge-II, cache=TRUE}
-library(glmnet)
+suppressMessages(library(glmnet))
 ridge.2 <- glmnet(x=X.train, y=y.train, family = 'gaussian', alpha = 0)
 
 # Train error:
@@ -409,7 +402,7 @@ missclassification(confusion.test)
 ### SVM
 
 A support vector machine (SVM) is a linear model with a particular loss function known as a _hinge loss_.
-We learn an SVM with the `svm` function from the __e1071__ package, which is merly a wrapper for the __libsvm__ C library, which is the most popular implementation of SVM today.
+We learn an SVM with the `svm` function from the __e1071__ package, which is merely a wrapper for the __libsvm__ C library, which is the most popular implementation of SVM today.
 
 ```{r svm-classification, cache=TRUE}
 library(e1071)
@@ -543,7 +536,7 @@ missclassification(confusion.test)
 ### Naive Bayes
 
 A Naive-Bayes classifier is also not part of the ERM framework. 
-It is, however, very pupolar, so we present it.
+It is, however, very popular, so we present it.
 
 ```{r Naive Bayes}
 library(e1071)
