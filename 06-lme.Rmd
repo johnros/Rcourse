@@ -238,13 +238,13 @@ Things to note:
 The fixed (i.e. average) day effect is:
 
 ```{r}
-fixef(fm1)
+fixef(lme.3)
 ```
 
 The variability in the average response (intercept) and day effect is
 
 ```{r}
-ranef(fm1)
+ranef(lme.3)
 ```
 
 Did we really need the whole `lme` machinery to fit a within-subject linear regression and then average over subjects?
@@ -259,10 +259,10 @@ library(lattice)
 df <- coef(lmList(Reaction ~ Days | Subject, sleepstudy))
 fclow <- subset(df, `(Intercept)` < 251)
 fchigh <- subset(df, `(Intercept)` > 251)
-cc1 <- as.data.frame(coef(fm2)$Subject)
+cc1 <- as.data.frame(coef(lme.3)$Subject)
 names(cc1) <- c("A", "B")
 df <- cbind(df, cc1)
-ff <- fixef(fm2)
+ff <- fixef(lme.3)
 with(df,
      print(xyplot(`(Intercept)` ~ Days, aspect = 1,
                   x1 = B, y1 = A,
@@ -306,7 +306,7 @@ print(xyplot(Reaction ~ Days | Subject, sleepstudy, aspect = "xy",
                             col.line = trellis.par.get("superpose.line")$col[2],
                             lty = trellis.par.get("superpose.line")$lty[2]
                )
-               panel.abline(fixef(fm2),
+               panel.abline(fixef(lme.3),
                             col.line = trellis.par.get("superpose.line")$col[4],
                             lty = trellis.par.get("superpose.line")$lty[4]
                )

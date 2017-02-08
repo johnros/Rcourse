@@ -197,6 +197,13 @@ data("spam")
 library(magrittr) # for piping
 library(dplyr) # for handeling data frames
 
+# Caution!
+# Both `MASS` have a function called `select`. I will thus try avoid the two packages being loaded at once, or call the functionby its full name: `MASS::select` or `dplyr::select'.
+try(detach("package:multcompt", unload=TRUE), silent = TRUE)
+try(detach("package:TH.data", unload=TRUE), silent = TRUE)
+try(detach("package:MASS", unload=TRUE), silent = TRUE)
+
+
 # Preparing prostate data
 prostate.train <- prostate %>% 
   filter(train) %>% 
