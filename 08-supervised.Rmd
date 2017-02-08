@@ -13,20 +13,17 @@ If you take a sample of fraud "attacks", a statistical formulation of the proble
 This is because fraud events are not randomly drawn from some distribution, but rather, arrive from an adversary learning the defenses and adapting to it. 
 This instance of supervised learning belongs in game theory, more than it does in statistics. 
 
-Other types of machine learning problems include: TODO
+Other types of machine learning problems include: 
 
-- __Unsupervised learning__: See Chapter \@ref(unsupervised)
-- __Semi supervised learning__: Where only part of the samples are labeled.  
-- __Active learning__: Where the machine is allowed to query the user for labels. 
-- __Reinforcement learning__:  
-- __Structure learning__: 
-- __Structural learning__: 
-- __Transductive learning__:
-- __Developpmental learning__:
-- __Learning to learn__:
+- __Unsupervised learning__: See Chapter \@ref(unsupervised).
+- __Semi supervised learning__: Where only part of the samples are labeled. A.k.a. _co-training_, _learning from labeled and unlabeled data_, _transductive learning_. 
+- __Active learning__: Where the machine is allowed to query the user for labels. Very similar to _adaptive design of experiments_. 
+- __Reinforcement learning__:  Similar to active learning, in that the machine may query for labels. Different from active learning, in that the machine does not receive labels, but _rewards_. 
+- __Learning on a budget__: A version of active learning where querying for labels induces variable costs.
+- __Structure learning__: The learning of the dependence structure between variables. 
+- __Learning to learn__: Deals with the carriage of "experience" from one learning problem to another. A.k.a. _cummulative learning_ and _meta learning_.
 - __Manifold learning__: An instance of unsupervised learning, where the goal is to reduce the dimension of the data by embedding it into a lower dimensional manifold. A.k.a. _support estimation_.
-- __Metric learning__:
-- __Learning on a budget__:
+
 
 
 
@@ -72,16 +69,18 @@ To make things more explicit, $f$ may be a linear function, and $l$ a squared er
 Another fundamental problem is that we do not know the distribution of all possible inputs and outputs, $P$.
 We typically only have a sample of $(x_i,y_i), i=1,\dots,n$.
 We thus state the _empirical_ counterpart of \@ref(eq:risk), which consists of minimizing the average loss.
-This is known as the _empirical risk miminization_ problem.
+This is known as the _empirical risk miminization_ problem (ERM).
 \begin{align}
   \hat f := argmin_f \{ \sum_i l(f(x_i),y_i) \}
   (\#eq:erm)  
 \end{align}
 
-Making things more explicit again by using a linear hypothesis with squared loss, we see that the empirical risk minimization problem collapses to an ordinary least squares problem:
+Making things more explicit again by using a linear hypothesis with squared loss, we see that the empirical risk minimization problem collapses to an ordinary least-squares problem:
 \begin{align}
   \hat f := argmin_\beta \{ \sum_i (x_\beta-y_i)^2 \}
 \end{align}
+
+When data is samples are independent, then maximum likelihood estimation is also an instance of ERM, when using the (negative) log likelihood as the loss function.
 
 If we don't assume any structure on the hypothesis, $f$, then $\hat f$ from \@ref(erm) will interpolate the data, and will be a very bad predictor. 
 We say, it will _overfit_ the observed data, and will have bad performance on new data.
@@ -90,21 +89,21 @@ We have several means avoid overfitting:
 
 1. Restrict the hypothesis class $\mathcal{F}$ (such as linear functions).
 1. Penalize for the complexity of $f$. The penalty denoted by $\Vert f \Vert$.
-1. Assess the loss on an independent sample. 
+1. Unbiased risk estimation, where we deal with the overfitted optimism of the empirical risk by debiasing it.
 
 ### Common Hypothesis Classes
 Some common hypothesis classes, $\mathcal{F}$, with restricted complexity, are:
 
 1. __Linear hypotheses__: such as linear models, GLMs, and (linear) support vector machines (SVM).
 1. __Neural networks__: a.k.a. _feed-forward_ neural nets, _artificial_ neural nets, and the celebrated class of _deep_ neural nets.
-1. __Reproducing Kernel Hilbert Space__: a.k.a. RKHS, is a subset of "the space of all functions^[It is even a subset of the Hilbert space, itself a subset of the space of all functions.]" that is both large enough to capture very complicated relations, but small enough so that it is less prone to overfitting, and also suprisingly simple to compute with. 
+1. __Reproducing Kernel Hilbert Space__: a.k.a. RKHS, is a subset of "the space of all functions^[It is even a subset of the Hilbert space, itself a subset of the space of all functions.]" that is both large enough to capture very complicated relations, but small enough so that it is less prone to overfitting, and also surprisingly simple to compute with. 
 1. __Tree__: a.k.a. _decision rules_, is a class of hypotheses which can be stated as "if-then" rules. 
 1. __Ensembles__: a "meta" hypothesis class, which consists of taking multiple hypotheses, possibly from different classes, and combining them. 
 
 
 ### Common Complexity Penalties
-The most common complexity penalty applied to classes that have a finite dimensional pararametric representation, such as a the linear class parametrized via its coefficients $\beta$.
-In such classes we may penalize for the norm of the parametes.
+The most common complexity penalty applied to classes that have a finite dimensional parametric representation, such as a the linear class parametrized via its coefficients $\beta$.
+In such classes we may penalize for the norm of the parameters.
 Common penalties include:
 
 1. __Ridge penalty__: penalizing the $l_2$ norm of the parameter. I.e. $\Vert f \Vert=\Vert \beta \Vert_2^2=\sum_j \beta_j^2$. 
@@ -114,22 +113,32 @@ Common penalties include:
 If the hypothesis class $\mathcal{F}$ does not admit a finite dimensional parametric representation, we may penalize it with some functional norm such as $\Vert f \Vert_2^2=\int f(t)^2 dt$. 
 
 
-### Assessing the Loss on an Independent Sample
-One way to deal with overfitting, is to assess the expected loss of a hypothesis on a new sample.
+### Unbiased Risk Estimation
+The fundamental problem of overfitting, is that the empirical risk, \@ref(eq:erm), is downward biased to the true risk \@ref(eq:risk), a.k.a. _generalization error_, and _test error_.
+Why is that? 
+Think of estimating a population's  mean with the sample minimum. 
+It can be done, but the minimum has to be debiased for it to estimate the population mean.
+Debiasing methods broadly fall under purely algorithmic _resampling_ based approaches, and theory driven debiasing corrections. 
+These corrections feel like the penalties above, but we state them here because unlike the ridge, and lasso, they are designed for a different purpose.
 
-1. __Train,Validate,Test___: The simplest form of validation is to split the data. 
+1. __Train,Validate,Test__: The simplest form of validation is to split the data. 
 A _train_ set to train a set of hypotheses. 
 A _validation_ set to compute the out-of-sample expected loss, and pick the best performing hypothesis. 
 A _test_ sample to compute the out-of-sample performance of the selected hypothesis.
-This is a very simple approach, but it is very "data inneficient", thus motivating the next method.
-
+This is a very simple approach, but it is very "data inefficient", thus motivating the next method.
 1. __V-fold cross validation__: 
 By far the most popular performance assessment algorithm, in _V-fold CV_ we "fold" the data into $V$ non-overlapping sets. 
 For each of the $V$ sets, we fit a hypothesis to the non-selected fold, and assess the expected loss on the selected loss. 
 We then aggregate results over the $V$ folds, typically by averaging. 
+1. __AIC__:
+Akaike's information criterion (AIC) is a theory driven correction of the empirical risk, so that it is unbiased to the true risk.
+It is appropriate when using the likelihood loss. 
+1. __Cp__: 
+Mallow's Cp is an instance of AIC for likelihood loss under normal noise.
 
-There are many other resampling based algorithms for performance assessment. 
-For an excellent review see @arlot2010survey.
+Other theory driven unbiased risk estimators include the _Bayesian Information Criterion_ (BIC, aka SBC, aka SBIC), the _Minimum Description Length_ (MDL), _Vapnic’s Structural Risk Minimization_ (SRM), the _Deviance Information Criterion_ (DIC), and the _Hannan-Quinn Information Criterion_ (HQC).
+
+Other resampling based unbiased risk estimators include resampling __without replacement__ algorithms like _delete-d cross validation_ with its many variations, and __resampling with replacement__, like the _bootstrap_, with its many variations.
 
 
 
@@ -139,7 +148,8 @@ Collecting ideas from the above sections, a typical supervised learning pipeline
 
 Examples of such combos include:
 
-1. Linear regression, no penalty, train-validate test. 
+1. Linear regression, no penalty, train-validate test.
+1. Linear regression, no penalty, AIC.
 1. Linear regression, $l_2$ penalty, V-fold CV. This combo is typically known as _ridge regression_.
 1. Linear regression, $l_1$ penalty, V-fold CV. This combo is typically known as _lasso regression_.
 1. Linear regression, $l_1$ and $l_2$ penalty, V-fold CV. This combo is typically known as _elastic net regression_.
@@ -159,7 +169,7 @@ In `spam` we will try to decide if a mail is spam or not.
 In `prostate` we will try to predict the size of a cancerous tumor.
 You can now call `?prostate` and `?spam` to learn more about these data sets.
 
-Some pre-processing. The pacakge __dplyr__ will be exaplained in the Hadley-verse Chapter \@ref(hadley).
+Some pre-processing. The package __dplyr__ will be explained in the Hadley-verse Chapter \@ref(hadley).
 ```{r}
 library(ElemStatLearn) # for data
 data("prostate")
@@ -212,7 +222,7 @@ missclassification <- function(tab) sum(tab[c(2,3)])/sum(tab)
 
 
 Starting with OLS regression, and a train-test data approach. 
-Notice the bettern in-sample MSE than the out-of-sample. 
+Notice the better in-sample MSE than the out-of-sample. 
 That is overfitting in action.
 ```{r OLS Regression}
 ols.1 <- lm(lcavol~. ,data = prostate.train)
@@ -260,3 +270,6 @@ A statistician will also like @ripley2007pattern.
 For an R oriented view see @lantz2013machine.
 For a very algorithmic view, see the seminal @leskovec2014mining or @conway2012machine.
 For a much more theoretical reference, see @mohri2012foundations, @vapnik2013nature, @shalev2014understanding.
+Terminology taken from @sammut2011encyclopedia.
+For a review of resampling based unbiased risk estimation (i.e. cross validation) see the exceptional review of @arlot2010survey.
+
