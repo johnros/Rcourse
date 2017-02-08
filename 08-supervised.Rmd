@@ -43,18 +43,18 @@ Samples, $(x,y)$ have some distribution we denote $P$.
 We want to learn a function that maps inputs to outputs. 
 This function is called a _hypothesis_, or _predictor_, or _classifier_ denoted $f$, that belongs to a hypothesis class $\mathcal{F}$ such that $f:\mathcal{X} \to \mathcal{Y}$.
 We also choose some other function that fines us for erroneous prediction.
-This function is called the _loss_, and we denote it by $l:\mathcal{Y}\times \mathcal{Y} \to \mathcal{R}^+$.
+This function is called the _loss_, and we denote it by $l:\mathcal{Y}\times \mathcal{Y} \to \mathbb{R}^+$.
 
 ```{remark}
-The _hypothesis_ in machine learning is only vaguely related the hypothese in statistical testing, which is quite confusing.
+The _hypothesis_ in machine learning is only vaguely related the _hypothesis_ in statistical testing, which is quite confusing.
 ```
 
 ```{remark}
-The _hypothesis_ in machine learning is not a bona-fide statistical model in that we don't assume it is the data generating process, but rather some function which we choose for its good predictive performance. 
+The _hypothesis_ in machine learning is not a bona-fide _statistical model_ since we don't assume it is the data generating process, but rather some function which we choose for its good predictive performance. 
 ```
 
 
-The fundamental task in supervised (statistical) learning is to recover a hypothesis that minimizes the average loss. 
+The fundamental task in supervised (statistical) learning is to recover a hypothesis that minimizes the average loss in the sample, and not in the population.
 This is know as the _risk minimization problem_.
 \begin{align}
   f^* := argmin_f \{ E_P[l(f(x),y)] \}
@@ -82,7 +82,7 @@ Making things more explicit again by using a linear hypothesis with squared loss
 
 When data is samples are independent, then maximum likelihood estimation is also an instance of ERM, when using the (negative) log likelihood as the loss function.
 
-If we don't assume any structure on the hypothesis, $f$, then $\hat f$ from \@ref(erm) will interpolate the data, and will be a very bad predictor. 
+If we don't assume any structure on the hypothesis, $f$, then $\hat f$ from \@ref(eq:erm) will interpolate the data, and will be a very bad predictor. 
 We say, it will _overfit_ the observed data, and will have bad performance on new data.
 
 We have several means avoid overfitting:
@@ -251,7 +251,7 @@ MSE(errors)
 
 Let's try all possible models, and choose the best performer with respect to the Cp criterion.
 We see that the best performer has 3 predictors. 
-```{r}
+```{r, cache=TRUE}
 library(leaps)
 regfit.full <- prostate.train %>% 
   regsubsets(lcavol~.,data = ., method = 'exhaustive') # best subset selection
@@ -290,7 +290,7 @@ legend("topright",
 Checking all possible models is computatinally very hard.
 _Forward selection_ is a greedy approach that adds one variable at a time, using the AIC criterion. If AIC falls, the variable is added. 
 
-```{r}
+```{r, cache=TRUE}
 # Forward search:
 ols.0 <- lm(lcavol~1 ,data = prostate.train)
 model.scope <- list(upper=ols.1, lower=ols.0)
@@ -298,6 +298,25 @@ step(ols.0, scope=model.scope, direction='forward', trace = TRUE)
 ```
 
 
+We now learn a linear predictor on the `spam` data using, with least squares loss, and train-test validation. 
+```{r}
+# train the predictor
+ols.2 <- lm(spam~., data = spam.train.dummy) 
+
+# make in-sample predictions
+.predictions.train <- predict(ols.2) > 0.5 
+# inspect the confusion matrix
+(confusion.train <- table(prediction=.predictions.train, truth=spam.train.dummy$spam)) 
+# compute the train (in sample) misclassification
+missclassification(confusion.train) 
+
+# make out-of-sample prediction
+.predictions.test <- predict(ols.2, newdata = spam.test.dummy) > 0.5 
+# inspect the confusion matrix
+(confusion.test <- table(prediction=.predictions.test, truth=spam.test.dummy$spam))
+# compute the train (in sample) misclassification
+missclassification(confusion.test)
+```
 
 
 
