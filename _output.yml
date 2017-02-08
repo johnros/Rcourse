@@ -1,9 +1,16 @@
 bookdown::pdf_book:
   includes:
-    in_header: preamble.tex
+    in_header: latex/preamble.tex
   latex_engine: xelatex
   citation_package: natbib
   keep_tex: yes
+  toc: yes
+  template: null
+  pandoc_args: --chapters
+  toc_depth: 3
+  toc_unnumbered: no
+  toc_appendix: yes
+  quote_footer: ["\\VA{", "}{}"]
 bookdown::epub_book: default
 bookdown::gitbook:
   css: style.css

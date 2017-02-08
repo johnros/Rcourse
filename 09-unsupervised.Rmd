@@ -1,0 +1,150 @@
+# Unsupervised Learning {#unsupervised}
+
+This chapter deals with machine learning problems which are unsupervised.
+This means the machine has access to a set of inputs, i.e. features, $x$, but the desired outcome is not available. 
+Clearly, learning a relation between inputs and outcomes is impossible, but there are still a lot of problems of interest. 
+In particular, we may want to find a compact representation of the inputs, be it for visualization of further processing. This is the problem of _dimensionality reduction_.
+For the same reasons we may want to group similar inputs. This is the problem of _clustering_.
+
+In the statistical terminology, and with some exceptions, this chapter can be thought of as multivariate __exploratory__ statistics.
+For multivariate __inference__, see Chapter \@ref(multivariate).
+
+
+
+## Dimensionality Reduction {#dim-reduce}
+
+```{example, label='bmi'}
+Consider the heights and weights of a sample of individuals. 
+The data may seemingly reside in $2$ dimensions but given the height, we have a pretty good guess of a persons weight, and vice versa. 
+We can thus state that heights and weights are not really two dimensional, but roughly lay on a $1$ dimensional subspace of $\reals^2$. 
+```
+
+```{example, label='iq'}
+Consider the correctness of the answers to a questionnaire with $p$ questions. 
+The data may seemingly reside in a $p$ dimensional space, but assuming there is a thing as ``skill'', then given the correctness of a person's reply to a subset of questions, we have a good idea how he scores on the rest. 
+Put differently, we don't really need a $200$ question questionnaire-- $100$ is more than enough.
+If skill is indeed a one dimensional quality, then the questionnaire data should organize around a single line in the $p$ dimensional cube. 
+```
+
+### Principal Component Analysis {#pca}
+
+_Principal Component Analysis_ (PCA) is such a basic technique, it has been rediscovered and renamed independently in many fields. 
+It can be found under the names of 
+	Discrete Karhunen–Loève Transform; 
+	Hotteling Transform; 
+	Proper Orthogonal Decomposition; 
+	Eckart–Young Theorem; 
+	Schmidt–Mirsky Theorem;  
+	Empirical Orthogonal Functions; 
+	Empirical Eigenfunction Decomposition;  
+	Empirical Component Analysis;  
+	Quasi-Harmonic Modes;  
+	Spectral Decomposition;  
+	Empirical Modal Analysis, 
+and possibly more^[http://en.wikipedia.org/wiki/Principal_component_analysis].
+The many names are quite interesting as they offer an insight into the different problems that led to PCA's (re)discovery.
+
+
+Return to the BMI problem in Example \@ref(ex:bmi).
+Assume you now wish to give each individual a "size score", that is a __linear__ combination of height and weight: PCA does just that. 
+It returns the linear combination that has the largest variability, i.e., the combination which best distinguishes between individuals. 
+
+The variance maximizing motivation above was the one that guided @hotelling1933analysis.
+But $30$ years before him, @pearson1901liii derived the same procedure with a different motivation in mind. 
+Pearson was also trying to give each individual a score. 
+He did not care about variance maximization, however. 
+He simply wanted a small set of coordinates in some (linear) space that approximates the original data well. 
+As it turns out, the best linear-space approximation of the data is also the variance maximizing score. 
+More precisely: For $n$ observations on $p$ variables, in matrix form $X_{n\times p}$, then the __sequence__ of $1,\dots,p$ dimensional linear spaces that best approximate $X$ in Euclidean distance, is exactly the sequence of $1,\dots,p$ dimensional scores, that best separate between the $n$ samples. 
+Pearson and Hotelling (among others) thus arrived to the exact same solution, with different motivations. 
+
+Before we proceed, we give an example to fix ideas.
+Consider the crime rate data in `USArrests`, which encodes reported murder events, assaults, rapes, and the urban population of each americam state. 
+
+```{r}
+head(USArrests)
+```
+
+We may want to given each state a "crimness" scores. 
+PCA will construct the set of $4$ scores that best separate the states. 
+
+```{r}
+pca.1 <- prcomp(USArrests, scale = TRUE)
+pca.1
+```
+
+Things to note:
+
+- The number of possible scores, is the same as the number of original variables in the data. 
+- The `prcomp` function returns the weight of each of the original variables in each of the new scores. These weights are called the _loadings_.
+- The new scores are called the _principal components_, labeled `PC1`,...,`PC4` in our output.
+- The loadings on PC1 tells us that the an index that best separates states is merely the average crime rate. Why is this? Because all the $3$ crime variables have a similar loading on PC1.
+- The other PCs are slightly harder to interpret. 
+
+#### How many PCs can we recover?
+
+#### PCA as a Graph Method
+
+#### PCA as Supervised Linear Regression
+
+### Preliminaries
+
+#### Terminology
+
+#### Motivation for Dimensionality Reduction
+
+### Latent Variable Approaches
+
+#### Factor Analysis 
+
+#### Independent Component Analysis
+
+### Purely Algorithmic Approaches
+
+#### Multidimensional Scaling
+
+#### Local Multidimensional Scaling
+
+#### Kernel Principal Component Analysis
+
+#### Isometric Feature Mapping
+
+#### Local Linear Embedding
+
+#### Laplacian Eigen Maps
+
+#### Maximum Variance Unfoldind
+
+#### Self Organizing Maps
+
+#### Pricipal Curves and Surfaces
+
+#### Auto Encoders
+
+#### t-SNE
+
+#### Joint Diagonalization
+
+#### Non-Negative Matrix Facotorization
+
+#### Information Bottleneck
+
+
+
+### Dealing with a high-dimension
+
+
+
+
+
+### Dimensionality Reduction in R
+
+
+## Clustering {#cluster}
+
+
+### Clustering in R
+
+
+
+## Bibliographic Notes
