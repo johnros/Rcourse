@@ -518,7 +518,7 @@ missclassification(confusion.test)
 LDA is equivalent to least squares classification \@ref(least-squares).
 There are, however, some dedicated functions to fit it.
 
-```{r LDA}
+```{r LDA, cache=TRUE}
 library(MASS) 
 lda.1 <- lda(spam~., spam.train)
 
@@ -538,7 +538,7 @@ missclassification(confusion.test)
 A Naive-Bayes classifier is also not part of the ERM framework. 
 It is, however, very popular, so we present it.
 
-```{r Naive Bayes}
+```{r Naive Bayes, cache=TRUE}
 library(e1071)
 nb.1 <- naiveBayes(spam~., data = spam.train)
 
