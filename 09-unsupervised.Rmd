@@ -68,12 +68,14 @@ We may want to given each state a crimilality scores.
 PCA returns the set of $4$ scores that best separate the states. 
 
 ```{r, cache=TRUE}
-pca.1 <- prcomp(USArrests, scale = TRUE)
+USArrests.1 <- USArrests[,-3] %>% scale # note the scaling, which is required by some
+pca.1 <- prcomp(USArrests.1, scale = TRUE)
 pca.1
 ```
 
 Things to note:
 
+- The data is first centered and scaled with the `scale` function. This means each column is converted to z-score scale.
 - The `prcomp` function returns the weight of each of the original variables in each of the new scores. These weights are called the _loadings_.
 - The number of possible scores, is the same as the number of original variables in the data. 
 - The new scores are called the _principal components_, labeled `PC1`,...,`PC4` in our output.
@@ -122,7 +124,7 @@ The linear space embedding view of PCA is thus
 where the target manifold, $\mathcal{M}_q$, is the span of $S$, and the $q$ PCs are $A'X$.
 
 
-#### How many PCs can we recover?
+#### How many PCs can we recover? {#how-many-pcs}
 How many PCs can we recover is the same as asking, how well can we learn the manifold in which the data resides. 
 Put differently: can we trust the low dimensional representation of the data?
 
@@ -356,22 +358,155 @@ This motivated the following methods, which embed into a non-linear space:
 - Maximum Variance Unfoldind.
 
 
-#### Self Organizing Maps
-
-
-
-#### Pricipal Curves and Surfaces
-
-
-
 
 ### Dealing with a high-dimension
 
+As we previously mentioned \@ref(how-many-pcs) it is hard to accurately estimates directions of co-variability with little data. 
+For some intuition, think of recovering a "bigness score" in the BMI example \@ref(ex:bmi) from only 3 individuals ($p=2,n=3$). 
+Would you trust the recovered index?
 
+In high dimensional problems, i.e., low signal-to-noise regimes, we will introduce some regularization, to reduce variance, as the cost of some bias. 
+For generative models, regularization can always be introduced with Bayesian priors, say, some matrix-valued distribution as a prior on $S$. 
+For purely algorithmic approaches (such as PCA), regularization has to be be hard-wired into the algorithm.
+
+Some dimensionality reduction methods designed for $n<p$ problems include:
+
+- Simplified Component Technique LASSO (SCoTLASS)
+- Sparse Principal Component Analysis (sPCA)
+- Sparse kernel principal component analysis (skPCA)
 
 
 
 ### Dimensionality Reduction in R
+
+#### PCA
+
+We already saw the basics of PCA in \@ref(pca).
+The fitting is done with the `procomp` function.
+The _bi-plot_ is a useful way to visualize the output of PCA.
+
+```{r}
+library(devtools)
+# install_github("vqv/ggbiplot")
+ggbiplot::ggbiplot(pca.1) 
+```
+
+Things to note:
+
+- The bi-plot plots each data point along its PCs.
+- We used the `ggbiplot` function from the __ggbiplot__ (available from github, but not from CRAN), because it has a nicer output than `stats::biplot`. 
+- The bi-plot also plots the loadings as arrows. The coordinates of the arrows belong to the weight of each of the original variables in each PC. 
+For example, the x-value of each arrow is the loadings on the first PC (on the x-axis).
+Since the weights of Murder, Assult, and Rape are almost the same, and larger then UrbanPop, we conclude that PC1 captures the avarage crime rate in each state.
+
+The _scree plot_ depicts the quality of the approximation of $X$ as $q$ grows. 
+This is depicted using the proportion of variability in $X$ that is removed by each added PC.
+
+```{r}
+ggbiplot::ggscreeplot(pca.1)
+```
+
+See the projections of the raw variables on the first PCs:
+```{r, echo=FALSE}
+USArrests.1 <- USArrests[,-3] %>% scale
+load <- pca.1$rotation
+slope <- load[2, ]/load[1, ]
+mn <- apply(USArrests.1, 2, mean)
+intcpt <- mn[2] - (slope * mn[1])
+
+# scatter plot with the two new axes added
+USArrests.2 <- USArrests[,1:2] %>%  scale
+xlim <- range(USArrests.2)  # overall min, max
+plot(USArrests.2, xlim = xlim, ylim = xlim, pch = 16, col = "purple")  # both axes same length
+abline(intcpt[1], slope[1], lwd = 2)  # first component solid line
+abline(intcpt[2], slope[2], lwd = 2, lty = 2)  # second component dashed
+legend("right", legend = c("PC 1", "PC 2"), lty = c(1, 2), lwd = 2, cex = 1)
+
+# projections of points onto PCA 1
+y1 <- intcpt[1] + slope[1] * USArrests.2[, 1]
+x1 <- (USArrests.1[, 2] - intcpt[1])/slope[1]
+y2 <- (y1 + USArrests.1[, 2])/2
+x2 <- (x1 + USArrests.1[, 1])/2
+segments(USArrests.1[, 1], USArrests.1[, 2], x2, y2, lwd = 2, col = "purple")
+```
+
+More implementations of PCA:
+```{r many PCA implementations, eval=FALSE}
+# FAST solutions:
+gmodels::fast.prcomp()
+
+# More detail in output:
+FactoMineR::PCA()
+
+# For flexibility in algorithms and visualization:
+ade4::dudi.pca()
+
+# Another one...
+amap::acp()
+```
+
+
+#### Sparse PCA
+
+```{r sPCA}
+# Compute similarity graph
+state.similarity <- MASS::cov.rob(USArrests.1)$cov
+
+spca1 <- elasticnet::spca(state.similarity, K=2,type="Gram",sparse="penalty",trace=TRUE, para=c(0.06,0.16))
+spca1$loadings
+```
+
+
+
+#### Kernel PCA
+```{r kPCA, eval=FALSE}
+kernlab::kpca()
+```
+
+#### MDS
+
+Classical MDS, also compared with PCA.
+```{r MDS, results='hold'}
+# We first need a dissimarity matrix/graph:
+state.disimilarity <- dist(USArrests.1)
+
+mds.1 <- stats::cmdscale(state.disimilarity)
+
+plot(mds.1, pch = 19)
+abline(h=0, v=0, lty=2)
+USArrests.2 <- USArrests[,1:2] %>%  scale
+text(mds.1, pos = 4, labels = rownames(USArrests.2), col = 'tomato')
+
+# Compare with two PCA (first two PCs):
+points(pca.1$x[,1:2], col='red', pch=19, cex=0.5)
+# So classical MDS with Euclidean distance, is the same as PCA on two dimensions!
+```
+
+Things to note:
+
+- For MDS, we firts compute a dissimilarity graph with `dist`, and then learn the embedding with `stats::cmdscale`.
+- As previously stated, the embedding of PCA is the same as classical MDS with Euclidean distances. 
+- See the `cluster::daisy` function for more dissimilarity measures.
+
+
+Let's try other strain functions for MDS, like Sammon's strain: 
+```{r Sammon MDS}
+mds.2 <- MASS::sammon(state.disimilarity, trace = FALSE)
+plot(mds.2$points, pch = 19)
+abline(h=0, v=0, lty=2)
+text(mds.2$points, pos = 4, labels = rownames(USArrests.2))
+
+# Compare with two PCA (first two PCs):
+arrows(x0 = mds.2$points[,1], y0 = mds.2$points[,2], x1 = pca.1$x[,1], y1 = pca.1$x[,2], col='red', pch=19, cex=0.5)
+# So Sammon's MDS with Euclidean distance, is *not* the same as PCA on two dimensions.
+```
+
+Things to note:
+
+- `MASS::sammon` does the fitting.
+
+
+
 
 
 ## Clustering {#cluster}
