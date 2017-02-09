@@ -26,6 +26,16 @@ Put differently, we don't really need a $200$ question questionnaire-- $100$ is 
 If skill is indeed a one dimensional quality, then the questionnaire data should organize around a single line in the $p$ dimensional cube. 
 ```
 
+
+```{example, label='blind-signal'}
+Consider $n$ microphones recording an individual. 
+The digitized recording consists of $p$ samples. 
+Are the recordings really a shapeless cloud of $n$ points in $\mathbb{R}^p$?
+Since they all record the same sound, one would expect the $n$ $p$-dimensional points to arrange around the source sound bit: a point in $\reals^p$.
+If microphones have different distances to the source, volumes may differ. 
+We would thus expect the $n$ points to arrange about a line that ends at the source. 	
+```
+
 ### Principal Component Analysis {#pca}
 
 _Principal Component Analysis_ (PCA) is such a basic technique, it has been rediscovered and renamed independently in many fields. 
@@ -199,17 +209,125 @@ PCA has Euclid hard-wired.
 
 
 
-
-
 ### Latent Variable Approaches
+All generative approaches to dimensionality reduction will include some unobserved set of variables, which we can try to recover from the observable $X$. 
+The unobservable variables will typically have a lower dimension than the observables, thus, dimension is reduced. 
+We start with the simplest case of linear Factor Analysis. 
 
 #### Factor Analysis 
+FA originates from the psychometric literature. 
+We thus revisit the IQ (actually g-factor^[https://en.wikipedia.org/wiki/G_factor_(psychometrics)]) Example~\@ref(ex:iq):
+
+```{example}
+Assume $n$ respondents answer $p$ quantitative questions: $x_i \in \mathbb{R}^p, i=1,\dots,n$. 
+Also assume, their responses are some linear function $A \in \mathbb{R}^p$ of a single personality attribute, $s_i$. 
+We can think of $s_i$ as the subject's ``intelligence''.
+We thus have 
+\begin{align}
+	x_i = A s_i + \varepsilon_i
+\end{align}
+And in matrix notation, for $q<p$ latent attributes:
+\begin{align}
+	X = S A+\varepsilon,
+	(\#eq:factor)
+\end{align}
+where $A$ is the $q \times p$ matrix of factor loadings, and $S$ the $n \times q$ matrix of latent personality traits. 
+In our particular example where $q=1$, the problem is to recover the unobservable intelligence scores, $s_1,\dots,s_n$, from the observed answers $X$.	
+```
+
+
+
+We may try to estimate $S A$ by assuming some distribution on $S$ and $\varepsilon$ and apply maximum likelihood.
+Under standard assumptions on the distribution of $S$ and $\varepsilon$, recovering  $S$ from $\widehat{S A }$ is still impossible as there are infinitely many such solutions.
+In the statistical parlance we say the problem is _non identifiable_, and in the applied mathematics parlance we say the problem is _ill posed_.
+To see this, consider an orthogonal _rotation_ matrix $R$ ($R' R=I$). 
+For each such $R$: $ S A = A R' R S = S^* A^* $.
+While both solve Eq.\@ref(eq:factor), $A$ and $A^*$ may have very different interpretations. 
+This is why many researchers find FA an unsatisfactory inference tool.
+
+```{remark}
+The non-uniqueness (non-identifiability) of the FA solution under variable rotation is never mentioned in the PCA context. Why is this?
+This is because the methods solve different problems. 
+The reason the solution to PCA is well defined is that PCA does not seek a single $S$ but rather a __sequence__ of $S_q$ with dimensions growing from $q=1$ to $q=p$. 
+```
+
+```{remark}
+In classical FA in Eq.\@ref(eq:factor) is clearly an embedding to a linear space. 
+The one spanned by $S$. 
+Under the classical probabilistic assumptions on $S$ and $\varepsilon$ the embedding itself is also linear, and is sometimes solved with PCA. 
+Being a generative model, there is no restriction for the embedding to be linear, and there certainly exists sets of assumptions for which the FA embedding is non linear. 
+```
+
+The FA terminology is slightly different than PCA:
+
+- __Factors__: 
+The unobserved attributes $S$. 
+Not to be confused with the _principal components_ in the context of PCA.
+- __Loading__:
+The $A$ matrix; the contribution of each factor to the observed $X$.
+- __Rotation__:	
+An arbitrary orthogonal re-combination of the factors, $S$, and loadings, $A$, which changes the interpretation of the result.
+
+
+The FA literature does offer several heuristics to ``fix'' the solution of the FA. 
+These are known as _rotations_, and go under the names of _Varimax_, _Quartimax_, _Equimax_, _Oblimin_, _Promax_, and possibly others. 
+
 
 #### Independent Component Analysis
+Like FA, _ICA_independent compoent analysis_ (ICA) is a family of latent space models, thus, a _meta-method_.
+It assumes data is generated as some function of the latent variables $S$. 
+In many cases this function is assumed to be linear in $S$ so that ICA is compared, if not confused, with PCA and even more so with FA. 
+
+The fundamental idea of ICA is that $S$ has a joint distribution of __non-Gaussian__, __independent__ variables. 
+This independence assumption, solves the the non-uniquness of $S$ in FA.
+
+Being a generative model, estimation of $S$ can then be done using maximum likelihood, or other estimation principles. 
+
+ICA is a popular technique in signal processing, where $A$ is actually the signal, such as sound in Example \@ref(ex:blind-signal).
+Recovering $A$ is thus recovering the original signals mixing in the recorded $X$. 
+
+
+
+\begin{remark}[ICA and FA]
+	The solutions to the (linear) ICA problem can ultimately be seen as a solution to the FA problem with a particular rotation $\rotation$ implied by the probabilistic assumptions on $\latentn$.
+	Put differently, the formulation of the (linear) ICA problem, implies a unique rotation, which can be thought of as the rotation that returns components that are as far from Gaussian as possible. 
+\end{remark}
+
+
+\begin{remark}[Linear and non-linear embeddings]
+	In classical ICA in Eq.(\ref{eq:factor}) is clearly an embedding to a linear space. 
+	The one spanned by $\latentn$. 
+	The probabilistic assumptions on $\latentn$ and $\varepsilon$ the embedding itself being non linear, thus solved as an optimization problem, and not via PCA. 
+\end{remark}
+
+
+
+
 
 ### Purely Algorithmic Approaches
 
+We now discuss dimensionality reduction approaches that are not stated via their generative model, but rather, directly as an algorithm.
+This does not mean that they cannot be cast via their generative model, but rather they were not motivated as such.
+
+
 #### Multidimensional Scaling
+Very roughly speaking, MDS can be thought of as a variation on PCA, that 
+(i) begins with a distance graph^[The term Graph is typically used in this context instead of Network. But a graph allows only yes/no relations, while a network, which is a weighted graph, allows a continuous measure of similarity (or dissimilarity). _Network_ is thus more appropriate than _graph_.]}, and 
+(ii) embeds into a two-dimensional space.
+Regarding (i), we have already seen in Section \@ref(sec:pca) that PCA really only needs a similarity graph, $X'X$, and not the whole $X$.  
+Regarding (ii), the embedding into two dimensions is motivated by that fact that MDS is typically used for visualization. 
+
+MDS aims at embedding a graph of distances, while preserving the original distances.
+Basic results in graph/network theory \citep[e.g.][]{graham1988isometric} suggest that the geometry of a graph cannot be preserved when embedding it into lower dimensions. 
+The different types of MDSs, such as \emph{Classical MDS}, and \emph{Sammon Mappings}, differ in the \emph{stress function} penalizing for geometric distortion.
+
+Sadly, MDS may scale poorly to large dissimilarity matrices, and the optimization may converge to a local minimum.
+The solution to MDS is an embedding and not an embedding \emph{function}. 
+When new data points are made available, the embedding will thus have to be re-learned.
+
+
+
+
 
 #### Local Multidimensional Scaling
 
