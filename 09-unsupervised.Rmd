@@ -477,8 +477,6 @@ Let's add a rotaion (Varimax), and note that the rotation has indeed changed the
 fa.2 <- psych::principal(USArrests.1, nfactors = 2, rotate = "varimax")
 
 fa.2$loadings
-fa.1$loadings
-pca.1$rotation
 ```
 
 
@@ -538,7 +536,6 @@ text(mds.1, pos = 4, labels = rownames(USArrests.2), col = 'tomato')
 
 # Compare with two PCA (first two PCs):
 points(pca.1$x[,1:2], col='red', pch=19, cex=0.5)
-# So classical MDS with Euclidean distance, is the same as PCA on two dimensions!
 ```
 
 Things to note:
@@ -557,7 +554,6 @@ text(mds.2$points, pos = 4, labels = rownames(USArrests.2))
 
 # Compare with two PCA (first two PCs):
 arrows(x0 = mds.2$points[,1], y0 = mds.2$points[,2], x1 = pca.1$x[,1], y1 = pca.1$x[,2], col='red', pch=19, cex=0.5)
-# So Sammon's MDS with Euclidean distance, is *not* the same as PCA on two dimensions.
 ```
 
 Things to note:
@@ -569,7 +565,14 @@ Things to note:
 
 
 
+
+
+
+
 ## Clustering {#cluster}
+
+
+
 
 
 ### Clustering in R
