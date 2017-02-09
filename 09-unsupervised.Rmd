@@ -109,20 +109,97 @@ The linear space embedding view of PCA is thus
 	argmin_{A \in \mathbb{R}^{q \times p}, S \in \mathbb{R}^{n \times q}} \{ \Vert X- S A \Vert_{Frob} \}
 	(\#eq:pca-dim-reduce)
 \end{align}
-and $\mathcal{M}_q$ is the span of $S$, and $A'X=X v_1,\dots,X v_q$ are the $q$ PCs.
+where the target manifold, $\mathcal{M}_q$, is the span of $S$, and the $q$ PCs are $A'X$.
 
 
 #### How many PCs can we recover?
+How many PCs can we recover is the same as asking, how well can we learn the manifold in which the data resides. 
+Put differently: can we trust the low dimensional representation of the data?
 
-#### PCA as a Graph Method
+On the face of it, with $p$ variables one can find $p$ PCs. 
+Things are not that simple however.
+
+This matter is far from trivial.
+Clearly, if $p>n$, variables of $X$ have to be linearly dependent, so that $X$, thus $X'X$, cannot possibly be of full rank.
+Put differently, the number of PCs that may be computed is the same as the dimension of the rank of $X$, which is typically $min\{n,p\}$. 
+
+While the algebraic problem ends when $p<n$, the statistical one only begins, and ends if $n \gg p$. 
+This is because the PCA solution includes roughly $\mathcal{O}(p+p^2)$ parameters to be learned^[As the number of eigen values and eigen vectors of $X'X$.]. 
+If $p<n$ but $p\sim n$ then we do not have many observations per estimated parameter. 
+In the statistical literature, this is known as a __high-dimensional__ problem. 
+In the engineering parlance, we say we have low __signal-to-noise__.
+For a an analytical treatment of the statistical properties of PCA, see @nadler2008finite.
+A purely algorithmic approach to the choice of $q$ is also available by adopting the supervised learning view of dimensionality reduction.
+As can be seen from Eq.\@ref(eq:pca-dim-reduce), PCA, like most other reduction approaches, is an ERM  problem \@ref(eq:erm).
+As such, unbiased risk estimation methods like cross-validation may be adopted to choose $q$.
+
+
+
+#### PCA as a Graph Embedding
+While omitting the mathematical proof, it turns out that to find a series of appriximating linear spaces to $X$, we don't need the data points themselves, but rather, only the distances between them: $XX'$.
+This suggests we can decompose the learnings of the PCs to:
+
+1. Learn the distances between points, a.k.a. the dissimilarity graph.
+1. Find the linear spaces the approximate the dissimilarity graph.
+
+PCA is thus a coupling between stages 1 and 2.
+Many dimensionality reduction methods assume a dissimilarity graph is already given, not neccesarily Euclidean distances, and start operating from there.
+
 
 #### PCA as Supervised Linear Regression
+There is a strong link between dimensionality reduction and supervised learning.
+Look at linear embedding problem in Eq.\@ref(eq:pca-dim-reduce), does it not look very familiar to a linear regression?
+Indeed, PCA can be thought of as finding a small set of predictors that linearly predict $X$. 
+Almost all supervised learning algorithms can thus be applied to dimensionality reduction, by viewing $X$ as the labels ($y$) of some unobservable scores in $\mathcal{M}_q$.
 
 ### Preliminaries
 
-#### Terminology
+Before presenting methods other than PCA, we need some terminology.
 
-#### Motivation for Dimensionality Reduction
+- __Variable__: A.k.a. _dimension_, or _feature_, or _column_ for reasons that will be obvious in the next item.
+- __Data__: A.k.a. _sample_, _observations_. 
+Will typically consist of $n$, $p$ dimensional vectors.
+We typically denote the data as a $n\times p$ matrix $X$. 
+- __Manifold__: A generalization of a linear space, which is regular enough so that, __locally__, it has all the properties of a linear space. 
+We will denote an arbitrary manifold by $\mathcal{M}$, and by $\mathcal{M}_q$ a $q$ dimensional^[You are probably used to thinking of the __dimension__ of linear spaces. We will not rigorously define what is the dimension of a manifold, but you may think of it as the number of free coordinates needed to navigate along the manifold.] manifold.
+- __Embedding__: Informally speaking: a ``shape preserving'' mapping of a space into another. 
+- __Linear Embedding__: An embedding done via a linear operation (thus representable by a matrix). 
+- __Generative Model__: Known to statisticians as the __sampling distribution__. 
+The assumed stochastic process that generated the observed $X$. 
+
+There are many motivations for dimensionality reduction:
+
+1. __Scoring__: Give each observation an interpretable, simple score (Hotelling's motivation).
+1. __Latent structure__: Recover unobservables from indirect measurements. 
+E.g: Blind signal reconstruction, CT scan, cryo-electron microscopy, etc. 
+1. __Signal to Noise__: Denoise measurements before further processing like clustering, supervised learning, etc. 
+1. __Compression__: Save on RAM ,CPU, and communication when operating on a lower dimensional representation of the data. 
+	
+Dimensionality reduction approaches differ in the following properties:
+The reader is advised to try and characterize each approach along the following properties:
+
+1. __Generative vs. algorithmic__:Refers to the motivation of the approach. Is it stated as an algorithm, or stated via some generative probabilistic model. 
+PCA is purely algorithmic. 
+1. __Linear $\mathcal{M}$ vs. non-linear $\mathcal{M}$__:
+Is the target manifold linear or not?
+In PCA, $\mathcal{M}$ is linear.
+1. __Linear embedding vs. non-linear embedding__:
+Is the embedding into $\mathcal{M}$ a linear operation?
+In PCA, the embedding is linear, and indeed, represented by a matrix. 
+1. __Learning an embedding vs. an embedding function__:
+Will we need to apply the reduction to new data? 
+If yes, we need to learn an __embedding function__, $g:x \mapsto g(x)\in \mathcal{M}$.
+If no, and we merely want to low dimensional representation of existing data, $\{ g(x_i) \}_{i=1}^n$, we only need to __learn an embedding__. 
+PCA learns an embedding function.
+1. __Euclidean vs. non-Euclidean__:
+Many dimensionality reduction methods only need a dissimilarity (i.e. distance) graph to operate. 
+The Euclidean distance is historically the most popular dissimilarity measure.
+Some approaches are agnostic to the measure used, some have Euclid hard-wired into them, and some, hard-wire themselves with some non-Euclidean norm. 
+PCA has Euclid hard-wired. 
+
+
+
+
 
 ### Latent Variable Approaches
 
