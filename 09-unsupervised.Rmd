@@ -446,6 +446,65 @@ amap::acp()
 ```
 
 
+#### FA
+
+
+```{r FA}
+fa.1 <- psych::principal(USArrests.1, nfactors = 2, rotate = "none")
+fa.1
+biplot(fa.1, labels =  rownames(USArrests.1)) 
+
+# Numeric comparison with PCA:
+fa.1$loadings
+pca.1$rotation
+```
+
+Things to note:
+
+- We perform FA with the `psych::principal` function.
+- The first factor (`fa.1$loadings`) has different weights than the firts PC (`pca.1$rotation`), but both capture the average crime rate.
+
+Graphical model fans will like the following plot, where the contribution of each variable to each factor is encoded in the width of the arrow. 
+
+```{r}
+# Graph comparison: loadings encoded in colors
+qgraph::qgraph(fa.1)
+```
+
+Let's add a rotaion (Varimax), and note that the rotation has indeed changed the loadings of the variables, thus the interpretation of the factors. 
+
+```{r varimax}
+fa.2 <- psych::principal(USArrests.1, nfactors = 2, rotate = "varimax")
+
+fa.2$loadings
+fa.1$loadings
+pca1$rotation
+```
+
+
+
+
+#### ICA
+
+```{r ICA}
+ica.1 <- fastICA::fastICA(USArrests.1, n.com=2) # Also performs projection pursuit
+
+plot(ica.1$S)
+abline(h=0, v=0, lty=2)
+text(ica.1$S, pos = 4, labels = rownames(USArrests.1))
+
+# Compare with two PCA (first two PCs):
+arrows(x0 = ica.1$S[,1], y0 = ica.1$S[,2], x1 = pca.1$x[,2], y1 = pca.1$x[,1], col='red', pch=19, cex=0.5)
+```
+
+Things to note:
+
+- ICA is fitted with `fastICA::fastICA`.
+- The ICA componetns are very different than the PCA components. 
+
+
+
+
 #### Sparse PCA
 
 ```{r sPCA}
@@ -489,7 +548,7 @@ Things to note:
 - See the `cluster::daisy` function for more dissimilarity measures.
 
 
-Let's try other strain functions for MDS, like Sammon's strain: 
+Let's try other strain functions for MDS, like Sammon's strain, and compare it with the PCs.
 ```{r Sammon MDS}
 mds.2 <- MASS::sammon(state.disimilarity, trace = FALSE)
 plot(mds.2$points, pch = 19)
@@ -504,6 +563,7 @@ arrows(x0 = mds.2$points[,1], y0 = mds.2$points[,2], x1 = pca.1$x[,1], y1 = pca.
 Things to note:
 
 - `MASS::sammon` does the fitting.
+- The Sammon strain is different than PCA.
 
 
 
