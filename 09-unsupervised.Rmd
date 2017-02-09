@@ -1,7 +1,7 @@
 # Unsupervised Learning {#unsupervised}
 
 This chapter deals with machine learning problems which are unsupervised.
-This means the machine has access to a set of inputs, i.e. features, $x$, but the desired outcome is not available. 
+This means the machine has access to a set of inputs, $x$, but the desired outcome, $y$ is not available. 
 Clearly, learning a relation between inputs and outcomes is impossible, but there are still a lot of problems of interest. 
 In particular, we may want to find a compact representation of the inputs, be it for visualization of further processing. This is the problem of _dimensionality reduction_.
 For the same reasons we may want to group similar inputs. This is the problem of _clustering_.
@@ -16,7 +16,7 @@ For multivariate __inference__, see Chapter \@ref(multivariate).
 ```{example, label='bmi'}
 Consider the heights and weights of a sample of individuals. 
 The data may seemingly reside in $2$ dimensions but given the height, we have a pretty good guess of a persons weight, and vice versa. 
-We can thus state that heights and weights are not really two dimensional, but roughly lay on a $1$ dimensional subspace of $\reals^2$. 
+We can thus state that heights and weights are not really two dimensional, but roughly lay on a $1$ dimensional subspace of $\mathbb{R}^2$. 
 ```
 
 ```{example, label='iq'}
@@ -30,23 +30,12 @@ If skill is indeed a one dimensional quality, then the questionnaire data should
 
 _Principal Component Analysis_ (PCA) is such a basic technique, it has been rediscovered and renamed independently in many fields. 
 It can be found under the names of 
-	Discrete Karhunen–Loève Transform; 
-	Hotteling Transform; 
-	Proper Orthogonal Decomposition; 
-	Eckart–Young Theorem; 
-	Schmidt–Mirsky Theorem;  
-	Empirical Orthogonal Functions; 
-	Empirical Eigenfunction Decomposition;  
-	Empirical Component Analysis;  
-	Quasi-Harmonic Modes;  
-	Spectral Decomposition;  
-	Empirical Modal Analysis, 
-and possibly more^[http://en.wikipedia.org/wiki/Principal_component_analysis].
+	Discrete Karhunen–Loève Transform; Hotteling Transform; Proper Orthogonal Decomposition; Eckart–Young  Theorem; Schmidt–Mirsky Theorem; Empirical Orthogonal Functions; Empirical Eigenfunction Decomposition; Empirical Component Analysis; Quasi-Harmonic Modes; Spectral Decomposition; Empirical Modal Analysis, and possibly more^[http://en.wikipedia.org/wiki/Principal_component_analysis].
 The many names are quite interesting as they offer an insight into the different problems that led to PCA's (re)discovery.
 
 
 Return to the BMI problem in Example \@ref(ex:bmi).
-Assume you now wish to give each individual a "size score", that is a __linear__ combination of height and weight: PCA does just that. 
+Assume you wish to give each individual a "size score", that is a __linear__ combination of height and weight: PCA does just that. 
 It returns the linear combination that has the largest variability, i.e., the combination which best distinguishes between individuals. 
 
 The variance maximizing motivation above was the one that guided @hotelling1933analysis.
@@ -55,8 +44,8 @@ Pearson was also trying to give each individual a score.
 He did not care about variance maximization, however. 
 He simply wanted a small set of coordinates in some (linear) space that approximates the original data well. 
 As it turns out, the best linear-space approximation of the data is also the variance maximizing score. 
-More precisely: For $n$ observations on $p$ variables, in matrix form $X_{n\times p}$, then the __sequence__ of $1,\dots,p$ dimensional linear spaces that best approximate $X$ in Euclidean distance, is exactly the sequence of $1,\dots,p$ dimensional scores, that best separate between the $n$ samples. 
-Pearson and Hotelling (among others) thus arrived to the exact same solution, with different motivations. 
+more precisely: For $n$ observations on $p$ variables, in matrix form $X_{n\times p}$, then the __sequence__ of $1,\dots,p$ dimensional linear spaces that best approximate $X$ in Euclidean distance, is exactly the sequence of $1,\dots,p$ dimensional scores, that best separate between the $n$ samples. 
+It is thus no surprise that Pearson and Hotelling (among others) arrived to the exact same solution, despite their different motivations. 
 
 Before we proceed, we give an example to fix ideas.
 Consider the crime rate data in `USArrests`, which encodes reported murder events, assaults, rapes, and the urban population of each americam state. 
@@ -65,23 +54,63 @@ Consider the crime rate data in `USArrests`, which encodes reported murder event
 head(USArrests)
 ```
 
-We may want to given each state a "crimness" scores. 
-PCA will construct the set of $4$ scores that best separate the states. 
+We may want to given each state a crimilality scores. 
+PCA returns the set of $4$ scores that best separate the states. 
 
-```{r}
+```{r, cache=TRUE}
 pca.1 <- prcomp(USArrests, scale = TRUE)
 pca.1
 ```
 
 Things to note:
 
-- The number of possible scores, is the same as the number of original variables in the data. 
 - The `prcomp` function returns the weight of each of the original variables in each of the new scores. These weights are called the _loadings_.
+- The number of possible scores, is the same as the number of original variables in the data. 
 - The new scores are called the _principal components_, labeled `PC1`,...,`PC4` in our output.
-- The loadings on PC1 tells us that the an index that best separates states is merely the average crime rate. Why is this? Because all the $3$ crime variables have a similar loading on PC1.
-- The other PCs are slightly harder to interpret. 
+- The loadings on PC1 tell us that the best separation between states is along the average crime rate. 
+Why is this? 
+Because all the $3$ crime variables have a similar loading on PC1.
+- The other PCs are slightly harder to interpret, but it is an interesting excercise.
 
 __If we now represent each state, not with its original $4$ variables, but only with the first $2$ PCs (for example), we have reduced the dimensionality of the data.__
+
+#### The Most Distinguishing Index View of PCA
+
+We now state the PCA problem as stated by Harold Hotelling, i.e, as the creation of variance maximizing linear scores.
+We will do so for the \emph{population} covariance, $\Sigma$, and wrap up by plugging its empirical counterpart, $X'X$ (assuming a centered $X$). 
+		
+Starting with the first principal component.
+For a random $p$-vector, $x$ denote $\Sigma:=Cov[x]$, so that for a fixed $p$-vector $v$: $Cov[v'x]=v' \Sigma v$.
+Finding a linear combination of $x$ that best separates individuals, means maximizing $Cov[v'x]$ w.r.t. to $v$.
+Clearly, $Cov[v'x]$ may explode if any $v$ is allowed. 
+It is most convenient, mathematically, to constrain the $l_2$ norm: $\Vert v \Vert_2=1$.
+Maximizing under a constraint: 
+\begin{align}
+		argmax_v \{ v' \Sigma v \text{  s.t.  } \Vert v \Vert_2 = 1 \}.
+		(\#eq:pca-problem) 
+\end{align}
+
+
+
+#### The Linear Subspace Embedding View
+
+In here, we try to find a series of $\mathcal{M}_q; q=1,\dots,p$, such that $\mathcal{M}_q$ is a __linear__ subspace of dimension $q$ which well approximates $X$ in the Frobenius norm. 
+The Frobenius norm can be thought of an Euclidean distance between matrices. 
+
+```{definition}
+The Frobenius norm of matrix $A$ is defined as 
+$$
+ \Vert A \Vert_{Frob}:= \sum_{i,j} a_{i,j}^2
+$$
+```
+
+The linear space embedding view of PCA is thus
+\begin{align}
+	argmin_{A \in \mathbb{R}^{q \times p}, S \in \mathbb{R}^{n \times q}} \{ \Vert X- S A \Vert_{Frob} \}
+	(\#eq:pca-dim-reduce)
+\end{align}
+and $\mathcal{M}_q$ is the span of $S$, and $A'X=X v_1,\dots,X v_q$ are the $q$ PCs.
+
 
 #### How many PCs can we recover?
 
