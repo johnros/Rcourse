@@ -314,46 +314,54 @@ This does not mean that they cannot be cast via their generative model, but rath
 Very roughly speaking, MDS can be thought of as a variation on PCA, that 
 (i) begins with a distance graph^[The term Graph is typically used in this context instead of Network. But a graph allows only yes/no relations, while a network, which is a weighted graph, allows a continuous measure of similarity (or dissimilarity). _Network_ is thus more appropriate than _graph_.]}, and 
 (ii) embeds into a two-dimensional space.
-Regarding (i), we have already seen in Section \@ref(sec:pca) that PCA really only needs a similarity graph, $X'X$, and not the whole $X$.  
+Regarding (i), we have already seen in Section \@ref(pca) that PCA really only needs a similarity graph, $X'X$, and not the whole $X$.  
 Regarding (ii), the embedding into two dimensions is motivated by that fact that MDS is typically used for visualization. 
 
 MDS aims at embedding a graph of distances, while preserving the original distances.
-Basic results in graph/network theory \citep[e.g.][]{graham1988isometric} suggest that the geometry of a graph cannot be preserved when embedding it into lower dimensions. 
-The different types of MDSs, such as \emph{Classical MDS}, and \emph{Sammon Mappings}, differ in the \emph{stress function} penalizing for geometric distortion.
+Basic results in graph/network theory [@graham1988isometric] suggest that the geometry of a graph cannot be preserved when embedding it into lower dimensions. 
+The different types of MDSs, such as _Classical MDS_, and _Sammon Mappings_, differ in the _stress function_ penalizing for geometric distortion.
 
 Sadly, MDS may scale poorly to large dissimilarity matrices, and the optimization may converge to a local minimum.
-The solution to MDS is an embedding and not an embedding \emph{function}. 
+The solution to MDS is an embedding and not an embedding function. 
 When new data points are made available, the embedding will thus have to be re-learned.
-
-
-
 
 
 #### Local Multidimensional Scaling
 
-#### Kernel Principal Component Analysis
+```{example, label='non-euclidean'}
+Consider data of coordinates on the globe. 
+At short distances, constructing a dissimilarity graph with Euclidean distances will capture the true distance between points. 
+At long distances, however, the Euclidean distances as grossly inappropriate. 
+A more extreme example is coordinates on the brain's cerebral cortex.
+Being a highly folded surface, the Euclidean distance between points is far from the true geodesic distances along the cortex's surface^[Then again, it is possible that the true distances are the white matter fibers connecting going within the cortex, in which case, Euclidean distances are more appropriate than geodesic distances. We put that aside for now.].
+```
 
-#### Isometric Feature Mapping
+Local MDS is aimed at solving the case where we don't know how to properly measure distances. 
+It is an algorithm that compounds both the construction of the dissimilarity graph, and the embedding. 
+The solution of local MDS, as the name suggests, rests on the computation of _local_ distances, where the Euclidean assumption may still be plausible, and then aggregate many such local distances, before calling upon regular MDS for the embedding.
 
-#### Local Linear Embedding
+Because local MDS ends with a regular MDS, it can be seen as a non-linear embedding into a linear $\mathcal{M}$. 
 
-#### Laplacian Eigen Maps
+Local MDS is not popular.
+Why is this? 
+Because it makes no sense: 
+If we believe the points reside in a non-Euclidean space, thus motivating the use of geodesic distances, why would we want to wrap up with regular MDS, which embeds in a linear space?!
 
-#### Maximum Variance Unfoldind
+This motivated the following methods, which embed into a non-linear space:
+
+- Kernel PCA.
+- Isometric Feature Mapping (IsoMap).
+- Local Linear Embedding (LLE).
+- Laplacian Eigen Maps.
+- Maximum Variance Unfoldind.
+
 
 #### Self Organizing Maps
 
+
+
 #### Pricipal Curves and Surfaces
 
-#### Auto Encoders
-
-#### t-SNE
-
-#### Joint Diagonalization
-
-#### Non-Negative Matrix Facotorization
-
-#### Information Bottleneck
 
 
 
