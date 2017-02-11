@@ -54,7 +54,7 @@ Pearson was also trying to give each individual a score.
 He did not care about variance maximization, however. 
 He simply wanted a small set of coordinates in some (linear) space that approximates the original data well. 
 Before we proceed, we give an example to fix ideas.
-Consider the crime rate data in `USArrests`, which encodes reported murder events, assaults, rapes, and the urban population of each americam state. 
+Consider the crime rate data in `USArrests`, which encodes reported murder events, assaults, rapes, and the urban population of each american state. 
 
 ```{r}
 head(USArrests)
@@ -71,7 +71,7 @@ pca.1
 
 Things to note:
 
-- Duistinguishing between states, i.e., finding the variance maximizing scores, should be indifferent to the __average__ of each variable. 
+- Distinguishing between states, i.e., finding the variance maximizing scores, should be indifferent to the __average__ of each variable. 
 We also don't want the score to be sensitive to the measurement __scale__. 
 We thus perform PCA in the z-score scale of each variable, obtained with the `scale` function.
 - PCA is performed with the `prcomp` function. 
@@ -82,7 +82,7 @@ These weights are called the _loadings_.
 - The loadings on PC1 tell us that the best separation between states is along the average crime rate. 
 Why is this? 
 Because all the $3$ crime variables have a similar loading on PC1.
-- The other PCs are slightly harder to interpret, but it is an interesting excercise.
+- The other PCs are slightly harder to interpret, but it is an interesting exercise.
 
 __If we now represent each state, not with its original $4$ variables, but only with the first $2$ PCs (for example), we have reduced the dimensionality of the data.__
 
@@ -196,7 +196,7 @@ It assumes data is generated as some function of the latent variables $S$.
 In many cases this function is assumed to be linear in $S$ so that ICA is compared, if not confused, with PCA and even more so with FA. 
 
 The fundamental idea of ICA is that $S$ has a joint distribution of __non-Gaussian__, __independent__ variables. 
-This independence assumption, solves the the non-uniquness of $S$ in FA.
+This independence assumption, solves the the non-uniqueness of $S$ in FA.
 
 Being a generative model, estimation of $S$ can then be done using maximum likelihood, or other estimation principles. 
 
@@ -286,7 +286,7 @@ Things to note:
 - We used the `ggbiplot` function from the __ggbiplot__ (available from github, but not from CRAN), because it has a nicer output than `stats::biplot`. 
 - The bi-plot also plots the loadings as arrows. The coordinates of the arrows belong to the weight of each of the original variables in each PC. 
 For example, the x-value of each arrow is the loadings on the first PC (on the x-axis).
-Since the weights of Murder, Assult, and Rape are almost the same, and larger then UrbanPop, we conclude that PC1 captures the avarage crime rate in each state.
+Since the weights of Murder, Assault, and Rape are almost the same, and larger then UrbanPop, we conclude that PC1 captures the average crime rate in each state.
 
 The _scree plot_ depicts the quality of the approximation of $X$ as $q$ grows. 
 This is depicted using the proportion of variability in $X$ that is removed by each added PC.
@@ -353,7 +353,7 @@ pca.1$rotation
 Things to note:
 
 - We perform FA with the `psych::principal` function.
-- The first factor (`fa.1$loadings`) has different weights than the firts PC (`pca.1$rotation`) because of normalization. They are the same, however, in that the first PC, and the first factor, capture average crime levels.
+- The first factor (`fa.1$loadings`) has different weights than the first PC (`pca.1$rotation`) because of normalization. They are the same, however, in that the first PC, and the first factor, capture average crime levels.
 
 Graphical model fans will like the following plot, where the contribution of each variable to each factor is encoded in the width of the arrow. 
 
@@ -362,7 +362,7 @@ Graphical model fans will like the following plot, where the contribution of eac
 qgraph::qgraph(fa.1)
 ```
 
-Let's add a rotaion (Varimax), and note that the rotation has indeed changed the loadings of the variables, thus the interpretation of the factors. 
+Let's add a rotation (Varimax), and note that the rotation has indeed changed the loadings of the variables, thus the interpretation of the factors. 
 
 ```{r varimax, cache=TRUE}
 fa.2 <- psych::principal(USArrests.1, nfactors = 2, rotate = "varimax")
@@ -389,7 +389,7 @@ arrows(x0 = ica.1$S[,1], y0 = ica.1$S[,2], x1 = pca.1$x[,2], y1 = pca.1$x[,1], c
 Things to note:
 
 - ICA is fitted with `fastICA::fastICA`.
-- The ICA componetns are very different than the PCA components. 
+- The ICA components are very different than the PCA components. 
 
 
 
@@ -414,7 +414,7 @@ points(pca.1$x[,1:2], col='red', pch=19, cex=0.5)
 
 Things to note:
 
-- For MDS, we firts compute a dissimilarity graph with `dist`, and then learn the embedding with `cmdscale`.
+- For MDS, we first compute a dissimilarity graph with `dist`, and then learn the embedding with `cmdscale`.
 - As previously stated, the embedding of PCA is the same as classical MDS with Euclidean distances. 
 - See the `cluster::daisy` function for more dissimilarity measures.
 
@@ -483,13 +483,13 @@ In clustering problems, we seek to group observations that are similar.
 There are many motivations for clustering:
 
 1. __Understanding__:
-The most common use of clustering is probably as a an exploratory step, to identify homogenous groups in the data.
+The most common use of clustering is probably as a an exploratory step, to identify homogeneous groups in the data.
 1. __Dimensionality reduction__:
 Clustering may be seen as a method for dimensionality reduction. 
-Unlike the approaches in the Dimensionality Reduction Section \@ref(dim-reduce), it does not "compress" variables but rather obsevations. 
-Each group of homogenous observations may then be represented as a single prototypical observation of the group.
+Unlike the approaches in the Dimensionality Reduction Section \@ref(dim-reduce), it does not "compress" variables but rather observations. 
+Each group of homogeneous observations may then be represented as a single prototypical observation of the group.
 1. __Pre-Labelling__:
-Clustering may be performed as a pre-processing step for suprevised learning, when labelling all the samples is imposily due to "budget" constraints, like in Example \@ref(ex:spam). This is sometimes known as _pre-clustering_.
+Clustering may be performed as a pre-processing step for supervised learning, when labeling all the samples is impossible due to "budget" constraints, like in Example \@ref(ex:spam). This is sometimes known as _pre-clustering_.
 
 Clustering, like dimensionality reduction, may rely on some latent variable generative model, or on purely algorithmic approaches.
 
@@ -564,7 +564,7 @@ The k-medoids algorithm works as follows.
 
 
 #### Hirarchial Clustering
-Hirarchial clustering algorithms take dissimiarity graphs as inputs.
+Hierarchical clustering algorithms take dissimilarity graphs as inputs.
 Hierarchical clustering is a class of greedy _graph-partitioning_ algorithms. 
 Being hierarchical by design, they have the attractive property that the evolution of the clustering can be presented with a _dendogram_, i.e., a tree plot.  
 A particular advantage of these methods is that they do not require an a-priori choice of the number of cluster ($K$).
@@ -588,7 +588,7 @@ _Divisive clustering_ algorithms are __top-down__ algorithm which build clusters
 
 
 #### Fuzzy Clustering
-Can be thougt of as a purely algorithmic view of the finite-mitxure in Section \@ref(finite-mixture).
+Can be thought of as a purely algorithmic view of the finite-mixture in Section \@ref(finite-mixture).
 
 
 
@@ -612,7 +612,7 @@ pairs(USArrests.1, panel=function(x,y) text(x,y,kmeans.1$cluster))
 Things to note:
 
 - The `stats::kmeans` function does the clustering. 
-- The cluster assignemtn is given in the `cluster` element of the `stats::kmeans` output.
+- The cluster assignment is given in the `cluster` element of the `stats::kmeans` output.
 - The visual inspection confirms that similar states have been assigned to the same cluster. 
 
 
@@ -654,9 +654,9 @@ text(pca.1$x[,1], pca.1$x[,2], labels=rownames(USArrests.1), cex=0.7, lwd=2, col
 
 Things to note:
 
-- K-medoids starts with the computation of a dissimiarity graph, done by the `dist` function.
+- K-medoids starts with the computation of a dissimilarity graph, done by the `dist` function.
 - The clustering is done by the `cluster::pam` function.
-- Ispecting the output confirms that similar states have been assigned to the same cluster. 
+- Inspecting the output confirms that similar states have been assigned to the same cluster. 
 - Many other similarity measures can be found in `proxy::dist()`.
 - See `cluster::clara()` for a big-data implementation of PAM.
 
@@ -673,7 +673,7 @@ plot(hirar.1, labels=rownames(USArrests.1), ylab="Distance")
 Things to note:
 
 - The clustering is done with the `hclust` function.
-- We choose the sligle-linkage distance using the `method='single'` argument.
+- We choose the single-linkage distance using the `method='single'` argument.
 - We did not need to a-priori specify the number of clusters, $K$.
 - The `plot` function has a particular method for `hclust` class objects, and plots them as dendograms.
 
@@ -695,7 +695,7 @@ If we know how many clusters we want, we can use `cuttree` to get the class assi
 ```{r}
 # Fixing the number of clusters:
 cut.2.2 <- cutree(hirar.2, k=2)
-cut.2.2     # printing the "clustering vector"
+head(cut.2.2)   # printing the "clustering vector"
 ```
 
 

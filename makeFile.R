@@ -7,6 +7,10 @@ bookdown::render_book("index.Rmd","bookdown::gitbook", clean_envir = TRUE) # ren
 bookdown::render_book("index.Rmd","bookdown::word_document2", clean_envir = TRUE) # rendoer to DOCX
 bookdown::render_book("index.Rmd","bookdown::pdf_book", clean_envir = TRUE) # rendoer to PDF
 
+bookdown::preview_chapter('10-parallel.Rmd',"bookdown::gitbook" )
+bookdown::preview_chapter('10-parallel.Rmd',"bookdown::word_document2" )
+bookdown::preview_chapter('10-parallel.Rmd',"bookdown::pdf_book" )
+
 bookdown::preview_chapter('09-unsupervised.Rmd',"bookdown::gitbook" )
 bookdown::preview_chapter('09-unsupervised.Rmd',"bookdown::word_document2" )
 bookdown::preview_chapter('09-unsupervised.Rmd',"bookdown::pdf_book" )
