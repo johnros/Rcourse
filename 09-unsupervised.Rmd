@@ -244,7 +244,7 @@ If we believe the points reside in a non-Euclidean space, thus motivating the us
 
 
 #### Isometric Feature Mapping (IsoMap) {#isomap}
-Like localMDS, only that the embedding, and not only the computation of the distances is local.
+Like localMDS, only that the embedding, and not only the computation of the distances, is local.
 
 
 #### Local Linear Embedding (LLE)
@@ -463,6 +463,133 @@ kernlab::kpca()
 ## Clustering {#cluster}
 
 
+```{example, label="photos"}
+Consider the tagging of your friends' pictures on Facebook. 
+If you tagged some pictures, Facebook may try to use a supervised approach to automatically label photos. 
+If you never tagged pictures, a supervised approach is impossible. 
+It is still possible to group simiar pictures together.
+```
+
+
+```{example, label="spam"}
+Consider the problem of spam detection. 
+It would be nice if each user could label several thousands emails, to apply a supervised learning approach to spam detection.
+This is an unrealistic demand, so a pre-clustering stage is useful: the user only needs to tag a couple dozens of homogenous clusters, before solving the supervisedl learning problem. 
+```
+
+
+In clustering problems, we seek to group observations that are similar. 
+
+There are many motivations for clustering:
+
+1. __Understanding__:
+The most common use of clustering is probably as a an exploratory step, to identify homogenous groups in the data.
+1. __Dimensionality reduction__:
+Clustering may be seen as a method for dimensionality reduction. 
+Unlike the approaches in the Dimensionality Reduction Section \@ref(dim-reduce), it does not "compress" variables but rather obsevations. 
+Each group of homogenous observations may then be represented as a single prototypical observation of the group.
+1. __Pre-Labelling__:
+Clustering may be performed as a pre-processing step for suprevised learning, when labelling all the samples is imposily due to "budget" constraints, like in Example \@ref(ex:spam). This is sometimes known as _pre-clustering_.
+
+Clustering, like dimensionality reduction, may rely on some latent variable generative model, or on purely algorithmic approaches.
+
+### Latent Variable Approaches
+
+
+#### Finite Mixture {#finite-mixture}
+
+```{example, label="males-females"}
+Consider the distribution of heights in some population.
+Given the gender, heights have a nice bell shaped distribution.
+If genders have not been recorded, We can view it as a _latent_, i.e., unobservale, with $K=2$ levels: males and females.
+```
+
+A _finite mixture_ is the marginal distribution of $K$ distinct classes, when the class variable is _latent_.
+This is useful for clustering since we can assume the number of classes, $K$, and the distribution of each class. 
+We can then use maximum likelihood estimation to fit the mixture distribution and assign observations to the most probable class.
+
+
+
+
+
+### Purely Algorithmic Approaches
+
+#### K-means
+The _K-means_ algorithm is possibly the most popular clustering algorithm.
+The goal behind K-means clustering algorithm is finding a representative point for each of K clusters, and assign each data point to one of these clusters. 
+As each cluster has a representative point, this is also a _prototype method_
+The clusters are defined so that they minimize the average Euclidean distance between all points to the center of the cluster.
+
+In K-means, the clusters are first defined, and then similarities computed. This is thus a _top-down_ method.
+
+K-means clustering requires the raw features $X$ as inputs, and not only a similarity graph. 
+This is evident when examining the algorithm below. 
+
+The k-means algorithm works as follows:
+
+1. Choose the number of clusters $K$.
+1. Arbitrarily assign points to clusters.
+1. While clusters keep changing:
+    1. Compute the cluster centers as the average of their points.
+    1. Assign each point to its closest cluster center (in Euclidean distance).
+1. Return Cluster assignments and means.
+
+
+```{remark}
+If are trained as a statistician, you may wonder- what population quantity is K-means actually estimating?
+The estimand of K-means is known as the _K principal points_.
+Principal points are points which are _self consistent_, i.e., they are the mean of their neighbourhood. 
+```
+
+
+
+#### K-medoids
+
+If a Euclidean distance is inappropriate for a particular set of variables, or that robustness to corrupt observations is required, or that we wish to constrain the cluster centers to be actual observations, then the _K-Medoids_ algorithm is an adaptation of K-means that allows this.
+It is also known under the name _partition around medoids_ (PAM) clustering.
+
+The k-medoids algorithm works as follows.
+
+1. Given a dissimilarity graph.
+1. Choose the number of clusters $K$.
+1. Arbitrarily assign points to clusters.
+1. While clusters keep changing:
+    1. Within each cluster, set the center as the data point that minimizes the sum of distances to other points in the cluster.
+    1. Assign each point to its closest cluster center.
+1. Return Cluster assignments and centers.
+
+
+
+
+#### Hirarchial Clustering
+Hirarchial clustering algorithms take dissimiarity graphs as inputs.
+Hierarchical clustering is a class of greedy _graph-partitioning_ algorithms. 
+Being hierarchical by design, they have the attractive property that the evolution of the clustering can be presented with a _dendogram_, i.e., a tree plot.  
+A particular advantage of these methods is that they do not require an a-priori choice of the number of cluster ($K$).
+
+Two main sub-classes of algorithms are _agglomerative_, and _divisive_.
+
+_Agglomerative clustering_ algorithms are __bottom-up__ algorithm which build clusters by joining smaller clusters. 
+To decide which clusters are joined at each iteration some measure of closeness between clusters is required. 
+
+- __Single Linkage__:
+Cluster distance is defined by the distance between the two __closest__ members.
+- __Complete Linkage__:
+Cluster distance is defined by the distance between the two __farthest__ members.
+- __Group Average__:
+Cluster distance is defined by the __average__ distance between members.
+- __Group Median__: 
+Like Group Average, only using the median.
+
+_Divisive clustering_ algorithms are __top-down__ algorithm which build clusters by splitting larger clusters. 
+
+
+
+#### Fuzzy Clustering
+Can be thougt of as a purely algorithmic view of the finite-mitxure in Section \@ref(finite-mixture).
+
+
+
 
 
 
@@ -474,5 +601,6 @@ kernlab::kpca()
 
 ## Bibliographic Notes
 For more on PCA see my [Dimensionality Reduction Class Notes](https://github.com/johnros/dim_reduce/blob/master/dim_reduce.pdf) and references therein.
-
+For more on everything, see @friedman2001elements.
+For a softer introduction, see @james2013introduction.
 
