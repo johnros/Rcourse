@@ -603,7 +603,7 @@ The following code is an adaptation from [David Hitchcock](http://people.stat.sc
 ```{r kmeans, cache=TRUE}
 k <- 2
 kmeans.1 <- stats::kmeans(USArrests.1, centers = k)
-kmeans.1$cluster # cluster asignments
+head(kmeans.1$cluster) # cluster asignments
 
 # Visualize using scatter plots of the original features
 pairs(USArrests.1, panel=function(x,y) text(x,y,kmeans.1$cluster))
@@ -618,7 +618,6 @@ Things to note:
 
 #### K-means ++
 
-## K-Means++
 _K-Means++_ is a smart initialization for K-Means.
 The following code is taken from the [r-help](https://stat.ethz.ch/pipermail/r-help/2012-January/300051.html) mailing list.
 ```{r kmeansPP, cache=TRUE}
@@ -640,14 +639,14 @@ kmpp <- function(X, k) {
 
 # Examine output:
 kmeans.2 <- kmpp(USArrests.1, k)
-kmeans.2$cluster
+head(kmeans.2$cluster)
 ```
 
 #### K-medoids
 ```{r kmedoids, cache=TRUE}
 state.disimilarity <- dist(USArrests.1)
 kmed.1 <- cluster::pam(x= state.disimilarity, k=2)
-kmed.1$clustering
+head(kmed.1$clustering)
 
 plot(pca.1$x[,1], pca.1$x[,2], xlab="PC 1", ylab="PC 2", type ='n', lwd=2)
 text(pca.1$x[,1], pca.1$x[,2], labels=rownames(USArrests.1), cex=0.7, lwd=2, col=kmed.1$cluster)
