@@ -542,6 +542,8 @@ Principal points are points which are _self consistent_, i.e., they are the mean
 ```
 
 
+#### K-means++
+_K-means++_ is a fast version of K-means thanks to a smart initialization. 
 
 #### K-medoids
 
@@ -595,6 +597,107 @@ Can be thougt of as a purely algorithmic view of the finite-mitxure in Section \
 
 ### Clustering in R
 
+
+#### K-Means
+The following code is an adaptation from [David Hitchcock](http://people.stat.sc.edu/Hitchcock/chapter6_R_examples.txt).
+```{r kmeans, cache=TRUE}
+k <- 2
+kmeans.1 <- stats::kmeans(USArrests.1, centers = k)
+kmeans.1$cluster # cluster asignments
+
+# Visualize using scatter plots of the original features
+pairs(USArrests.1, panel=function(x,y) text(x,y,kmeans.1$cluster))
+```
+
+Things to note:
+
+- The `stats::kmeans` function does the clustering. 
+- The cluster assignemtn is given in the `cluster` element of the `stats::kmeans` output.
+- The visual inspection confirms that similar states have been assigned to the same cluster. 
+
+
+#### K-means ++
+
+## K-Means++
+_K-Means++_ is a smart initialization for K-Means.
+The following code is taken from the [r-help](https://stat.ethz.ch/pipermail/r-help/2012-January/300051.html) mailing list.
+```{r kmeansPP, cache=TRUE}
+# Write my own K-means++ function.
+kmpp <- function(X, k) {
+  
+  n <- nrow(X)
+  C <- numeric(k)
+  C[1] <- sample(1:n, 1)
+  
+  for (i in 2:k) {
+    dm <- pracma::distmat(X, X[C, ])
+    pr <- apply(dm, 1, min); pr[C] <- 0
+    C[i] <- sample(1:n, 1, prob = pr)
+  }
+  
+  kmeans(X, X[C, ])
+}
+
+# Examine output:
+kmeans.2 <- kmpp(USArrests.1, k)
+kmeans.2$cluster
+```
+
+#### K-medoids
+```{r kmedoids, cache=TRUE}
+state.disimilarity <- dist(USArrests.1)
+kmed.1 <- cluster::pam(x= state.disimilarity, k=2)
+kmed.1$clustering
+
+plot(pca.1$x[,1], pca.1$x[,2], xlab="PC 1", ylab="PC 2", type ='n', lwd=2)
+text(pca.1$x[,1], pca.1$x[,2], labels=rownames(USArrests.1), cex=0.7, lwd=2, col=kmed.1$cluster)
+```
+
+Things to note:
+
+- K-medoids starts with the computation of a dissimiarity graph, done by the `dist` function.
+- The clustering is done by the `cluster::pam` function.
+- Ispecting the output confirms that similar states have been assigned to the same cluster. 
+- Many other similarity measures can be found in `proxy::dist()`.
+- See `cluster::clara()` for a big-data implementation of PAM.
+
+
+#### Hirarchial Clustering
+
+We start with agglomerative clustering with single-linkage.
+```{r Hirarchial Clustering}
+# Single linkage:
+hirar.1 <- hclust(state.disimilarity, method='single')
+plot(hirar.1, labels=rownames(USArrests.1), ylab="Distance")
+```
+
+Things to note:
+
+- The clustering is done with the `hclust` function.
+- We choose the sligle-linkage distance using the `method='single'` argument.
+- We did not need to a-priori specify the number of clusters, $K$.
+- The `plot` function has a particular method for `hclust` class objects, and plots them as dendograms.
+
+
+We not try other types of linkages, to verify that the indeed affect the clustering.
+
+```{r}
+# Complete linkage:
+hirar.2 <- hclust(state.disimilarity, method='complete')
+plot(hirar.2, labels=rownames(USArrests.1), ylab="Distance")
+
+# Average linkage:
+hirar.3 <- hclust(state.disimilarity, method='average')
+plot(hirar.3, labels=rownames(USArrests.1), ylab="Distance")
+```
+
+If we know how many clusters we want, we can use `cuttree` to get the class assignments. 
+
+```{r}
+# Fixing the number of clusters:
+cut.2.2 <- cutree(hirar.2, k=2)
+cut.2.2     # printing the "clustering vector"
+```
 
 
 
