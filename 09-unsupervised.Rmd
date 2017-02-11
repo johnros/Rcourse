@@ -40,7 +40,7 @@ We would thus expect the $n$ points to arrange about a line that ends at the sou
 
 _Principal Component Analysis_ (PCA) is such a basic technique, it has been rediscovered and renamed independently in many fields. 
 It can be found under the names of 
-	Discrete Karhunen–Loève Transform; Hotteling Transform; Proper Orthogonal Decomposition; Eckart–Young  Theorem; Schmidt–Mirsky Theorem; Empirical Orthogonal Functions; Empirical Eigenfunction Decomposition; Empirical Component Analysis; Quasi-Harmonic Modes; Spectral Decomposition; Empirical Modal Analysis, and possibly more^[http://en.wikipedia.org/wiki/Principal_component_analysis].
+Discrete Karhunen–Loève Transform; Hotteling Transform; Proper Orthogonal Decomposition; Eckart–Young  Theorem; Schmidt–Mirsky Theorem; Empirical Orthogonal Functions; Empirical Eigenfunction Decomposition; Empirical Component Analysis; Quasi-Harmonic Modes; Spectral Decomposition; Empirical Modal Analysis, and possibly more^[http://en.wikipedia.org/wiki/Principal_component_analysis].
 The many names are quite interesting as they offer an insight into the different problems that led to PCA's (re)discovery.
 
 
@@ -53,10 +53,6 @@ But $30$ years before him, @pearson1901liii derived the same procedure with a di
 Pearson was also trying to give each individual a score. 
 He did not care about variance maximization, however. 
 He simply wanted a small set of coordinates in some (linear) space that approximates the original data well. 
-As it turns out, the best linear-space approximation of the data is also the variance maximizing score. 
-more precisely: For $n$ observations on $p$ variables, in matrix form $X_{n\times p}$, then the __sequence__ of $1,\dots,p$ dimensional linear spaces that best approximate $X$ in Euclidean distance, is exactly the sequence of $1,\dots,p$ dimensional scores, that best separate between the $n$ samples. 
-It is thus no surprise that Pearson and Hotelling (among others) arrived to the exact same solution, despite their different motivations. 
-
 Before we proceed, we give an example to fix ideas.
 Consider the crime rate data in `USArrests`, which encodes reported murder events, assaults, rapes, and the urban population of each americam state. 
 
@@ -64,8 +60,8 @@ Consider the crime rate data in `USArrests`, which encodes reported murder event
 head(USArrests)
 ```
 
-We may want to given each state a crimilality scores. 
-PCA returns the set of $4$ scores that best separate the states. 
+Following Hotelling's motivation, we may want to given each state a "crimilality score". 
+PCA returns the sequence of $1,\dots,4$ scores that best separate between states. 
 
 ```{r, cache=TRUE}
 USArrests.1 <- USArrests[,-3] %>% scale # note the scaling, which is required by some
@@ -75,8 +71,12 @@ pca.1
 
 Things to note:
 
-- The data is first centered and scaled with the `scale` function. This means each column is converted to z-score scale.
-- The `prcomp` function returns the weight of each of the original variables in each of the new scores. These weights are called the _loadings_.
+- Duistinguishing between states, i.e., finding the variance maximizing scores, should be indifferent to the __average__ of each variable. 
+We also don't want the score to be sensitive to the measurement __scale__. 
+We thus perform PCA in the z-score scale of each variable, obtained with the `scale` function.
+- PCA is performed with the `prcomp` function. 
+It returns the contribution (weight) of the original variables, to the new crimeness score.  
+These weights are called the _loadings_.
 - The number of possible scores, is the same as the number of original variables in the data. 
 - The new scores are called the _principal components_, labeled `PC1`,...,`PC4` in our output.
 - The loadings on PC1 tell us that the best separation between states is along the average crime rate. 
@@ -86,129 +86,42 @@ Because all the $3$ crime variables have a similar loading on PC1.
 
 __If we now represent each state, not with its original $4$ variables, but only with the first $2$ PCs (for example), we have reduced the dimensionality of the data.__
 
-#### The Most Distinguishing Index View of PCA
-
-We now state the PCA problem as stated by Harold Hotelling, i.e, as the creation of variance maximizing linear scores.
-We will do so for the \emph{population} covariance, $\Sigma$, and wrap up by plugging its empirical counterpart, $X'X$ (assuming a centered $X$). 
-		
-Starting with the first principal component.
-For a random $p$-vector, $x$ denote $\Sigma:=Cov[x]$, so that for a fixed $p$-vector $v$: $Cov[v'x]=v' \Sigma v$.
-Finding a linear combination of $x$ that best separates individuals, means maximizing $Cov[v'x]$ w.r.t. to $v$.
-Clearly, $Cov[v'x]$ may explode if any $v$ is allowed. 
-It is most convenient, mathematically, to constrain the $l_2$ norm: $\Vert v \Vert_2=1$.
-Maximizing under a constraint: 
-\begin{align}
-		argmax_v \{ v' \Sigma v \text{  s.t.  } \Vert v \Vert_2 = 1 \}.
-		(\#eq:pca-problem) 
-\end{align}
 
 
-
-#### The Linear Subspace Embedding View
-
-In here, we try to find a series of $\mathcal{M}_q; q=1,\dots,p$, such that $\mathcal{M}_q$ is a __linear__ subspace of dimension $q$ which well approximates $X$ in the Frobenius norm. 
-The Frobenius norm can be thought of an Euclidean distance between matrices. 
-
-```{definition}
-The Frobenius norm of matrix $A$ is defined as 
-$$
- \Vert A \Vert_{Frob}:= \sum_{i,j} a_{i,j}^2
-$$
-```
-
-The linear space embedding view of PCA is thus
-\begin{align}
-	argmin_{A \in \mathbb{R}^{q \times p}, S \in \mathbb{R}^{n \times q}} \{ \Vert X- S A \Vert_{Frob} \}
-	(\#eq:pca-dim-reduce)
-\end{align}
-where the target manifold, $\mathcal{M}_q$, is the span of $S$, and the $q$ PCs are $A'X$.
-
-
-#### How many PCs can we recover? {#how-many-pcs}
-How many PCs can we recover is the same as asking, how well can we learn the manifold in which the data resides. 
-Put differently: can we trust the low dimensional representation of the data?
-
-On the face of it, with $p$ variables one can find $p$ PCs. 
-Things are not that simple however.
-
-This matter is far from trivial.
-Clearly, if $p>n$, variables of $X$ have to be linearly dependent, so that $X$, thus $X'X$, cannot possibly be of full rank.
-Put differently, the number of PCs that may be computed is the same as the dimension of the rank of $X$, which is typically $min\{n,p\}$. 
-
-While the algebraic problem ends when $p<n$, the statistical one only begins, and ends if $n \gg p$. 
-This is because the PCA solution includes roughly $\mathcal{O}(p+p^2)$ parameters to be learned^[As the number of eigen values and eigen vectors of $X'X$.]. 
-If $p<n$ but $p\sim n$ then we do not have many observations per estimated parameter. 
-In the statistical literature, this is known as a __high-dimensional__ problem. 
-In the engineering parlance, we say we have low __signal-to-noise__.
-For a an analytical treatment of the statistical properties of PCA, see @nadler2008finite.
-A purely algorithmic approach to the choice of $q$ is also available by adopting the supervised learning view of dimensionality reduction.
-As can be seen from Eq.\@ref(eq:pca-dim-reduce), PCA, like most other reduction approaches, is an ERM  problem \@ref(eq:erm).
-As such, unbiased risk estimation methods like cross-validation may be adopted to choose $q$.
-
-
-
-#### PCA as a Graph Embedding
-While omitting the mathematical proof, it turns out that to find a series of appriximating linear spaces to $X$, we don't need the data points themselves, but rather, only the distances between them: $XX'$.
-This suggests we can decompose the learnings of the PCs to:
-
-1. Learn the distances between points, a.k.a. the dissimilarity graph.
-1. Find the linear spaces the approximate the dissimilarity graph.
-
-PCA is thus a coupling between stages 1 and 2.
-Many dimensionality reduction methods assume a dissimilarity graph is already given, not neccesarily Euclidean distances, and start operating from there.
-
-
-#### PCA as Supervised Linear Regression
-There is a strong link between dimensionality reduction and supervised learning.
-Look at linear embedding problem in Eq.\@ref(eq:pca-dim-reduce), does it not look very familiar to a linear regression?
-Indeed, PCA can be thought of as finding a small set of predictors that linearly predict $X$. 
-Almost all supervised learning algorithms can thus be applied to dimensionality reduction, by viewing $X$ as the labels ($y$) of some unobservable scores in $\mathcal{M}_q$.
 
 ### Preliminaries
 
 Before presenting methods other than PCA, we need some terminology.
 
-- __Variable__: A.k.a. _dimension_, or _feature_, or _column_ for reasons that will be obvious in the next item.
-- __Data__: A.k.a. _sample_, _observations_. 
+- __Variable__: 
+A.k.a. _dimension_, or _feature_, or _column_ for reasons that will be obvious in the next item.
+- __Data__: 
+A.k.a. _sample_, _observations_. 
 Will typically consist of $n$, $p$ dimensional vectors.
 We typically denote the data as a $n\times p$ matrix $X$. 
-- __Manifold__: A generalization of a linear space, which is regular enough so that, __locally__, it has all the properties of a linear space. 
+- __Manifold__: 
+A generalization of a linear space, which is regular enough so that, __locally__, it has all the properties of a linear space. 
 We will denote an arbitrary manifold by $\mathcal{M}$, and by $\mathcal{M}_q$ a $q$ dimensional^[You are probably used to thinking of the __dimension__ of linear spaces. We will not rigorously define what is the dimension of a manifold, but you may think of it as the number of free coordinates needed to navigate along the manifold.] manifold.
-- __Embedding__: Informally speaking: a ``shape preserving'' mapping of a space into another. 
-- __Linear Embedding__: An embedding done via a linear operation (thus representable by a matrix). 
-- __Generative Model__: Known to statisticians as the __sampling distribution__. 
+- __Embedding__: 
+Informally speaking: a ``shape preserving'' mapping of a space into another. 
+- __Linear Embedding__: 
+An embedding done via a linear operation (thus representable by a matrix). 
+- __Generative Model__: 
+Known to statisticians as the __sampling distribution__. 
 The assumed stochastic process that generated the observed $X$. 
 
 There are many motivations for dimensionality reduction:
 
-1. __Scoring__: Give each observation an interpretable, simple score (Hotelling's motivation).
-1. __Latent structure__: Recover unobservables from indirect measurements. 
+1. __Scoring__: 
+Give each observation an interpretable, simple score (Hotelling's motivation).
+1. __Latent structure__: 
+Recover unobservables from indirect measurements. 
 E.g: Blind signal reconstruction, CT scan, cryo-electron microscopy, etc. 
-1. __Signal to Noise__: Denoise measurements before further processing like clustering, supervised learning, etc. 
-1. __Compression__: Save on RAM ,CPU, and communication when operating on a lower dimensional representation of the data. 
+1. __Signal to Noise__: 
+Denoise measurements before further processing like clustering, supervised learning, etc. 
+1. __Compression__: 
+Save on RAM ,CPU, and communication when operating on a lower dimensional representation of the data. 
 	
-Dimensionality reduction approaches differ in the following properties:
-The reader is advised to try and characterize each approach along the following properties:
-
-1. __Generative vs. algorithmic__:Refers to the motivation of the approach. Is it stated as an algorithm, or stated via some generative probabilistic model. 
-PCA is purely algorithmic. 
-1. __Linear $\mathcal{M}$ vs. non-linear $\mathcal{M}$__:
-Is the target manifold linear or not?
-In PCA, $\mathcal{M}$ is linear.
-1. __Linear embedding vs. non-linear embedding__:
-Is the embedding into $\mathcal{M}$ a linear operation?
-In PCA, the embedding is linear, and indeed, represented by a matrix. 
-1. __Learning an embedding vs. an embedding function__:
-Will we need to apply the reduction to new data? 
-If yes, we need to learn an __embedding function__, $g:x \mapsto g(x)\in \mathcal{M}$.
-If no, and we merely want to low dimensional representation of existing data, $\{ g(x_i) \}_{i=1}^n$, we only need to __learn an embedding__. 
-PCA learns an embedding function.
-1. __Euclidean vs. non-Euclidean__:
-Many dimensionality reduction methods only need a dissimilarity (i.e. distance) graph to operate. 
-The Euclidean distance is historically the most popular dissimilarity measure.
-Some approaches are agnostic to the measure used, some have Euclid hard-wired into them, and some, hard-wire themselves with some non-Euclidean norm. 
-PCA has Euclid hard-wired. 
-
 
 
 ### Latent Variable Approaches
@@ -216,7 +129,8 @@ All generative approaches to dimensionality reduction will include some unobserv
 The unobservable variables will typically have a lower dimension than the observables, thus, dimension is reduced. 
 We start with the simplest case of linear Factor Analysis. 
 
-#### Factor Analysis 
+#### Factor Analysis (FA)
+
 FA originates from the psychometric literature. 
 We thus revisit the IQ (actually g-factor^[https://en.wikipedia.org/wiki/G_factor_(psychometrics)]) Example~\@ref(ex:iq):
 
@@ -248,7 +162,8 @@ While both solve Eq.\@ref(eq:factor), $A$ and $A^*$ may have very different inte
 This is why many researchers find FA an unsatisfactory inference tool.
 
 ```{remark}
-The non-uniqueness (non-identifiability) of the FA solution under variable rotation is never mentioned in the PCA context. Why is this?
+The non-uniqueness (non-identifiability) of the FA solution under variable rotation is never mentioned in the PCA context. 
+Why is this?
 This is because the methods solve different problems. 
 The reason the solution to PCA is well defined is that PCA does not seek a single $S$ but rather a __sequence__ of $S_q$ with dimensions growing from $q=1$ to $q=p$. 
 ```
@@ -275,8 +190,8 @@ The FA literature does offer several heuristics to ``fix'' the solution of the F
 These are known as _rotations_, and go under the names of _Varimax_, _Quartimax_, _Equimax_, _Oblimin_, _Promax_, and possibly others. 
 
 
-#### Independent Component Analysis
-Like FA, _ICA_independent compoent analysis_ (ICA) is a family of latent space models, thus, a _meta-method_.
+#### Independent Component Analysis (ICA)
+Like FA, _independent compoent analysis_ (ICA) is a family of latent space models, thus, a _meta-method_.
 It assumes data is generated as some function of the latent variables $S$. 
 In many cases this function is assumed to be linear in $S$ so that ICA is compared, if not confused, with PCA and even more so with FA. 
 
@@ -290,20 +205,6 @@ Recovering $A$ is thus recovering the original signals mixing in the recorded $X
 
 
 
-\begin{remark}[ICA and FA]
-The solutions to the (linear) ICA problem can ultimately be seen as a solution to the FA problem with a particular rotation $R$ implied by the probabilistic assumptions on $S$.
-Put differently, the formulation of the (linear) ICA problem, implies a unique rotation, which can be thought of as the rotation that returns components that are as far from Gaussian as possible. 
-\end{remark}
-
-
-\begin{remark}[Linear and non-linear embeddings]
-	In classical ICA in Eq.(\ref{eq:factor}) is clearly an embedding to a linear space. 
-	The one spanned by $S$. 
-	The probabilistic assumptions on $S$ and $\varepsilon$ the embedding itself being non linear, thus solved as an optimization problem, and not via PCA. 
-\end{remark}
-
-
-
 
 
 ### Purely Algorithmic Approaches
@@ -312,23 +213,15 @@ We now discuss dimensionality reduction approaches that are not stated via their
 This does not mean that they cannot be cast via their generative model, but rather they were not motivated as such.
 
 
-#### Multidimensional Scaling
-Very roughly speaking, MDS can be thought of as a variation on PCA, that 
-(i) begins with a distance graph^[The term Graph is typically used in this context instead of Network. But a graph allows only yes/no relations, while a network, which is a weighted graph, allows a continuous measure of similarity (or dissimilarity). _Network_ is thus more appropriate than _graph_.]}, and 
-(ii) embeds into a two-dimensional space.
-Regarding (i), we have already seen in Section \@ref(pca) that PCA really only needs a similarity graph, $X'X$, and not the whole $X$.  
-Regarding (ii), the embedding into two dimensions is motivated by that fact that MDS is typically used for visualization. 
+#### Multidimensional Scaling (MDS)
+MDS can be thought of as a variation on PCA, that begins with a distance graph^[The term Graph is typically used in this context instead of Network. But a graph allows only yes/no relations, while a network, which is a weighted graph, allows a continuous measure of similarity (or dissimilarity). _Network_ is thus more appropriate than _graph_.]}.
 
 MDS aims at embedding a graph of distances, while preserving the original distances.
 Basic results in graph/network theory [@graham1988isometric] suggest that the geometry of a graph cannot be preserved when embedding it into lower dimensions. 
 The different types of MDSs, such as _Classical MDS_, and _Sammon Mappings_, differ in the _stress function_ penalizing for geometric distortion.
 
-Sadly, MDS may scale poorly to large dissimilarity matrices, and the optimization may converge to a local minimum.
-The solution to MDS is an embedding and not an embedding function. 
-When new data points are made available, the embedding will thus have to be re-learned.
 
-
-#### Local Multidimensional Scaling
+#### Local Multidimensional Scaling (Local MDS)
 
 ```{example, label='non-euclidean'}
 Consider data of coordinates on the globe. 
@@ -349,31 +242,27 @@ Why is this?
 Because it makes no sense: 
 If we believe the points reside in a non-Euclidean space, thus motivating the use of geodesic distances, why would we want to wrap up with regular MDS, which embeds in a linear space?!
 
-This motivated the following methods, which embed into a non-linear space:
 
-- Kernel PCA.
-- Isometric Feature Mapping (IsoMap).
-- Local Linear Embedding (LLE).
-- Laplacian Eigen Maps.
-- Maximum Variance Unfoldind.
+#### Isometric Feature Mapping (IsoMap) {#isomap}
+Like localMDS, only that the embedding, and not only the computation of the distances is local.
 
 
+#### Local Linear Embedding (LLE)
+Very similar to IsoMap \@ref(isomap).
 
-### Dealing with a high-dimension
 
-As we previously mentioned \@ref(how-many-pcs) it is hard to accurately estimates directions of co-variability with little data. 
-For some intuition, think of recovering a "bigness score" in the BMI example \@ref(ex:bmi) from only 3 individuals ($p=2,n=3$). 
-Would you trust the recovered index?
+#### Kernel PCA
+TODO
 
-In high dimensional problems, i.e., low signal-to-noise regimes, we will introduce some regularization, to reduce variance, as the cost of some bias. 
-For generative models, regularization can always be introduced with Bayesian priors, say, some matrix-valued distribution as a prior on $S$. 
-For purely algorithmic approaches (such as PCA), regularization has to be be hard-wired into the algorithm.
+#### Simplified Component Technique LASSO (SCoTLASS)
+TODO
 
-Some dimensionality reduction methods designed for $n<p$ problems include:
+#### Sparse Principal Component Analysis (sPCA)
+TODO
 
-- Simplified Component Technique LASSO (SCoTLASS)
-- Sparse Principal Component Analysis (sPCA)
-- Sparse kernel principal component analysis (skPCA)
+#### Sparse kernel principal component analysis (skPCA)
+TODO
+
 
 
 
@@ -401,12 +290,14 @@ Since the weights of Murder, Assult, and Rape are almost the same, and larger th
 
 The _scree plot_ depicts the quality of the approximation of $X$ as $q$ grows. 
 This is depicted using the proportion of variability in $X$ that is removed by each added PC.
+It is customary to choose $q$ as the first PC that has a relative low contribution to the approximation of $X$.
 
 ```{r}
 ggbiplot::ggscreeplot(pca.1)
 ```
 
-See the projections of the raw variables on the first PCs:
+See how the first PC captures the variability in the Assault levels and Murder levels, with a single score.
+
 ```{r, echo=FALSE}
 USArrests.1 <- USArrests[,-3] %>% scale
 load <- pca.1$rotation
@@ -462,7 +353,7 @@ pca.1$rotation
 Things to note:
 
 - We perform FA with the `psych::principal` function.
-- The first factor (`fa.1$loadings`) has different weights than the firts PC (`pca.1$rotation`), but both capture the average crime rate.
+- The first factor (`fa.1$loadings`) has different weights than the firts PC (`pca.1$rotation`) because of normalization. They are the same, however, in that the first PC, and the first factor, capture average crime levels.
 
 Graphical model fans will like the following plot, where the contribution of each variable to each factor is encoded in the width of the arrow. 
 
@@ -509,7 +400,7 @@ Things to note:
 # Compute similarity graph
 state.similarity <- MASS::cov.rob(USArrests.1)$cov
 
-spca1 <- elasticnet::spca(state.similarity, K=2,type="Gram",sparse="penalty",trace=TRUE, para=c(0.06,0.16))
+spca1 <- elasticnet::spca(state.similarity, K=2, type="Gram", sparse="penalty", trace=FALSE, para=c(0.06,0.16))
 spca1$loadings
 ```
 
@@ -579,4 +470,9 @@ Things to note:
 
 
 
+
+
 ## Bibliographic Notes
+For more on PCA see my [Dimensionality Reduction Class Notes](https://github.com/johnros/dim_reduce/blob/master/dim_reduce.pdf) and references therein.
+
+
