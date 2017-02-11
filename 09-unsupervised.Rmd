@@ -340,7 +340,7 @@ amap::acp()
 #### FA
 
 
-```{r FA}
+```{r FA, cache=TRUE}
 fa.1 <- psych::principal(USArrests.1, nfactors = 2, rotate = "none")
 fa.1
 biplot(fa.1, labels =  rownames(USArrests.1)) 
@@ -357,14 +357,14 @@ Things to note:
 
 Graphical model fans will like the following plot, where the contribution of each variable to each factor is encoded in the width of the arrow. 
 
-```{r}
+```{r, cache=TRUE}
 # Graph comparison: loadings encoded in colors
 qgraph::qgraph(fa.1)
 ```
 
 Let's add a rotaion (Varimax), and note that the rotation has indeed changed the loadings of the variables, thus the interpretation of the factors. 
 
-```{r varimax}
+```{r varimax, cache=TRUE}
 fa.2 <- psych::principal(USArrests.1, nfactors = 2, rotate = "varimax")
 
 fa.2$loadings
@@ -375,7 +375,7 @@ fa.2$loadings
 
 #### ICA
 
-```{r ICA}
+```{r ICA, cache=TRUE}
 ica.1 <- fastICA::fastICA(USArrests.1, n.com=2) # Also performs projection pursuit
 
 plot(ica.1$S)
@@ -390,6 +390,52 @@ Things to note:
 
 - ICA is fitted with `fastICA::fastICA`.
 - The ICA componetns are very different than the PCA components. 
+
+
+
+
+#### MDS
+
+Classical MDS, also compared with PCA.
+```{r MDS, results='hold', cache=TRUE}
+# We first need a dissimarity matrix/graph:
+state.disimilarity <- dist(USArrests.1)
+
+mds.1 <- cmdscale(state.disimilarity)
+
+plot(mds.1, pch = 19)
+abline(h=0, v=0, lty=2)
+USArrests.2 <- USArrests[,1:2] %>%  scale
+text(mds.1, pos = 4, labels = rownames(USArrests.2), col = 'tomato')
+
+# Compare with two PCA (first two PCs):
+points(pca.1$x[,1:2], col='red', pch=19, cex=0.5)
+```
+
+Things to note:
+
+- For MDS, we firts compute a dissimilarity graph with `dist`, and then learn the embedding with `cmdscale`.
+- As previously stated, the embedding of PCA is the same as classical MDS with Euclidean distances. 
+- See the `cluster::daisy` function for more dissimilarity measures.
+
+
+Let's try other strain functions for MDS, like Sammon's strain, and compare it with the PCs.
+```{r Sammon MDS}
+mds.2 <- MASS::sammon(state.disimilarity, trace = FALSE)
+plot(mds.2$points, pch = 19)
+abline(h=0, v=0, lty=2)
+text(mds.2$points, pos = 4, labels = rownames(USArrests.2))
+
+# Compare with two PCA (first two PCs):
+arrows(x0 = mds.2$points[,1], y0 = mds.2$points[,2], x1 = pca.1$x[,1], y1 = pca.1$x[,2], col='red', pch=19, cex=0.5)
+```
+
+Things to note:
+
+- `MASS::sammon` does the fitting.
+- The embedding returned by the Sammon strain is different than that of the first two PCs.
+
+
 
 
 
@@ -410,52 +456,6 @@ spca1$loadings
 ```{r kPCA, eval=FALSE}
 kernlab::kpca()
 ```
-
-#### MDS
-
-Classical MDS, also compared with PCA.
-```{r MDS, results='hold'}
-# We first need a dissimarity matrix/graph:
-state.disimilarity <- dist(USArrests.1)
-
-mds.1 <- stats::cmdscale(state.disimilarity)
-
-plot(mds.1, pch = 19)
-abline(h=0, v=0, lty=2)
-USArrests.2 <- USArrests[,1:2] %>%  scale
-text(mds.1, pos = 4, labels = rownames(USArrests.2), col = 'tomato')
-
-# Compare with two PCA (first two PCs):
-points(pca.1$x[,1:2], col='red', pch=19, cex=0.5)
-```
-
-Things to note:
-
-- For MDS, we firts compute a dissimilarity graph with `dist`, and then learn the embedding with `stats::cmdscale`.
-- As previously stated, the embedding of PCA is the same as classical MDS with Euclidean distances. 
-- See the `cluster::daisy` function for more dissimilarity measures.
-
-
-Let's try other strain functions for MDS, like Sammon's strain, and compare it with the PCs.
-```{r Sammon MDS}
-mds.2 <- MASS::sammon(state.disimilarity, trace = FALSE)
-plot(mds.2$points, pch = 19)
-abline(h=0, v=0, lty=2)
-text(mds.2$points, pos = 4, labels = rownames(USArrests.2))
-
-# Compare with two PCA (first two PCs):
-arrows(x0 = mds.2$points[,1], y0 = mds.2$points[,2], x1 = pca.1$x[,1], y1 = pca.1$x[,2], col='red', pch=19, cex=0.5)
-```
-
-Things to note:
-
-- `MASS::sammon` does the fitting.
-- The Sammon strain is different than PCA.
-
-
-
-
-
 
 
 
