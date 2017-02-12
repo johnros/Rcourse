@@ -62,15 +62,18 @@ par(mfrow=c(1,1))
 ```
 
 Things to note:
-TODO
 
+- The `par` command controls the plotting parameters. `mfrow=c(2,3)` is used to produce a matix of plots with 2 rows and 3 columns.
+- The `type` argument controls the type of plot. 
+- The `main` argument controls the title.
+- See `?plot` and `?par` for more options.
 
-Controll the plotting charachters
+Controll the plotting charachters with the `pch` argument. 
 ```{r}
 plot(Girth, pch='+', cex=3)
 ```
 
-Control the lines' appearance with the `lty` argument.
+Control the line's type with `lty` argument, and width with `lwd`.
 
 ```{r}
 par(mfrow=c(2,3))
@@ -87,20 +90,14 @@ Add line by slope and intercept with `abline`.
 
 ```{r}
 plot(Girth)
-
-abline(v=14, col='red') 
-abline(h=9, lty=4,lwd=4, col='pink') 
-abline(0,1 )
+abline(v=14, col='red') # vertical line at 14.
+abline(h=9, lty=4,lwd=4, col='pink') # horizontal line at 9.
+abline(a = 0, b=1) # linear line with intercept a=0, and slope b=1.
 ```
-
-Things to note:
-TODO
-- Locations may be added interactively using the `locator` function.
 
 ```{r}
 plot(Girth)
 points(x=1:30, y=rep(12,30), cex=0.5, col='darkblue')
-
 lines(x=rep(c(5,10), 7), y=7:20, lty=2 )
 lines(x=rep(c(5,10), 7)+2, y=7:20, lty=2 )
 lines(x=rep(c(5,10), 7)+4, y=7:20, lty=2 , col='darkgreen')
@@ -108,31 +105,28 @@ lines(x=rep(c(5,10), 7)+6, y=7:20, lty=4 , col='brown', lwd=4)
 ```
 
 Things to note:
-TODO
+- `points` adds points on an existing plot.
+- `lines` adds lines on an existing plot.
+- `col` controls the color of the element. It takes names or numbers as argument. 
+- `cex` controls the scale of the element. Defaults to `cex=1`.
 
 
-Add line segments.
+Add other elements.
 
 ```{r}
 plot(Girth)
-
 segments(x0=rep(c(5,10), 7), y0=7:20, x1=rep(c(5,10), 7)+2, y1=(7:20)+2 )
-
 arrows(x0=13,y0=16,x1=16,y1=17, )
-
 rect(xleft=10, ybottom=12,  xright=12, ytop=16)
-
 polygon(x=c(10,11,12,11.5,10.5), y=c(9,9.5,10,10.5,9.8), col='grey')
-
 title(main='This plot makes no sense', sub='Or does it?')
-
 mtext('Printing in the margins', side=2)
 mtext(expression(alpha==log(f[i])), side=4)
 ```
 
 Things to note:
-TODO
-- For more information for mathematical annotation see `?plotmath`.
+- The following functions add the elements they are names after: `segments`, `arrows`, `rect`, `polygon`, `title`. 
+- `mtext` adds mathematical text. For more information for mathematical annotation see `?plotmath`.
 
 Add a legend.
 ```{r}
@@ -142,7 +136,8 @@ legend(x=2, y=70, legend=c('Girth', 'Volume'), pch=c('G','V'), col=c('blue','red
 ```
 
 
-Adjusting Axes.
+Adjusting Axes with `xlim` and `ylim`.
+
 ```{r}
 plot(Girth, xlim=c(0,15), ylim=c(8,12))
 ```
@@ -166,99 +161,17 @@ for (i in seq_len(6)) {
 
 
 Always detach.
+
 ```{r}
 detach(trees)
 ```
 
-#### Univariate Plotting
-
-```{r}
-attach(PlantGrowth)
-head(PlantGrowth)
-```
-
-
-
-```{r}
-plot(group)
-pie(table(group))
-```
-
-
-```{r}
-plot(weight)
-```
-
-```{r}
-plot(ecdf(weight))
-```
-
-
-```{r}
-hist(weight)
-rug(weight)
-```
-
-```{r}
-plot(density(weight))
-rug(weight)
-```
-
-
-```{r}
-fact.weight<- cut(weight, breaks=2, labels=c('Light', 'Heavy'))
-plot(table(group, fact.weight))
-```
-
-
-```{r}
-dotchart(table(fact.weight,group), pch=c(1,4), col=c('seagreen','grey'))
-dotchart(table(group,fact.weight), col=c('red','darkred','blue'))
-```
-
-
-```{r}
-boxplot(weight)
-```
-
-
-```{r}
-par(mfrow=c(3,1))
-hist(weight[group=='trt1'], ylim=c(0,3),xlim=c(3,6))
-hist(weight[group=='trt2'], ylim=c(0,3),xlim=c(3,6))
-hist(weight[group=='ctrl'], ylim=c(0,3),xlim=c(3,6))
-par(mfrow=c(1,1))
-```
-
-```{r}
-boxplot(weight ~ group)
-```
-
-```{r}
-boxplot(weight~group, col=c('seagreen2','lightgrey','darkred'))
-```
-
-
-```{r}
-dens.trt1<- density(weight[group=='trt1'])
-dens.trt2<- density(weight[group=='trt2'])
-dens.ctrl<- density(weight[group=='ctrl'])
-plot(dens.trt1, xlim=c(2,8), ylim=c(0,1), col='seagreen')
-lines(dens.trt2, col='grey')
-lines(dens.ctrl, col='darkred')
-legend(x=2, y=1, legend=c('trt1','trt2','ctrl'), col=c('seagreen', 'grey', 'darkred'),lty=1)
-```
-
-
-```{r}
-detach(PlantGrowth)
-```
 
 
 
 
 
-### The Power of graphics
+### The Power of the graphics device
 
 Building a line graph from scratch.
 
@@ -277,7 +190,12 @@ axis(2)
 box()
 ```
 
+Things to note:
 
+- `plot.new` creates a new, empty, plotting device.
+- `plot.window` determines the limits of the plotting region.
+- `axis` adds the axes, and `box` the framing box. 
+- The rest of the elements, you already know.
 
 Rosette.
 
@@ -297,6 +215,7 @@ box()
 
 
 Arrows.
+
 ```{r}
 plot.new()
 plot.window(xlim = c(0, 1), ylim = c(0, 1))
@@ -325,7 +244,8 @@ box()
 ```
 
 
-Manual histogram.
+A histogram is nothing but a bunch of rectangle elements.
+
 ```{r}
 plot.new()
 plot.window(xlim = c(0, 5), ylim = c(0, 10))
@@ -352,7 +272,7 @@ for(i in 1:50) {
 }
 ```
 
-Circles are just polygons.
+Circles are just dense polygons.
 
 ```{r}
 R = 1
@@ -368,45 +288,10 @@ polygon(x, y, col = "lightblue", border = "navyblue")
 ```
 
 
-Ellipse.
+
+Spiral- just a bunch of lines. 
 
 ```{r}
-a = 4
-b = 2
-xc = 0
-yc = 0
-n = 72
-t = seq(0, 2 * pi, length = n)[1:(n-1)]
-x = xc + a * cos(t)
-y = yc + b * sin(t)
-plot.new()
-plot.window(xlim = range(x), ylim = range(y), asp = 1)
-polygon(x, y, col = "lightblue")
-```
-
-
-
-
-Bivariate normal quantile.
-
-```{r}
-n = 72
-rho = 0.5
-d = acos(rho)
-t = seq(0, 2 * pi, length = n)[1:(n-1)]
-plot.new()
-plot.window(xlim = c(-1, 1), ylim = c(-1, 1), asp = 1)
-rect(-1, -1, 1, 1)
-polygon(cos(t + d), y = cos(t))
-segments(-1, 0, 1, 0, lty = "13")
-segments(0, -1, 0, 1, lty = "13")
-axis(1)
-axis(2, las = 1)
-
-```
-
-
-# Spiral:
 k = 5
 n = k * 72
 theta = seq(0, k * 2 * pi, length = n)
@@ -416,44 +301,52 @@ y = R * sin(theta)
 plot.new()
 plot.window(xlim = range(x), ylim = range(y), asp = 1)
 lines(x, y)
-
-# Querying the device status:
-par('din') # Device dimentions in inches
-par('fin') # Current figure dimensions in inches
-par('pin') # Current plot region dimensions in inches
-par('fig') # Normalized Device Coordinates for the figure region
-par('plt') # NDC coordinates for the plot region
-par('usr') # Extract exact scale limits: xleft, xright, ybottom, ytop.
-
-
-# Calculate angles:
-x = c(0, 0.5, 1.0)
-y = c(0.25, 0.5, 0.25)
-plot(x, y, type = "l")
-(dx = diff(x))
-(dy = diff(y))
-(pin = par("pin"))
-(usr = par("usr"))
-(ax = pin[1]/diff(usr[1:2]))
-(ay = pin[2]/diff(usr[3:4]))
-diff(180 * atan2(ay * dy, ax * dx) / pi) # Degrees of direction change
-
-
-
 ```
 
 
 
-
-### Adding Elements
-
-
-
-### Controlling Plotting Parameters
-
-
-
 ### Exporting a Plot
+
+The pipile for exporting graphics is similar to the export of data. 
+Instead of the `write.table` or `save` functinons, we will use the `pdf`, `tiff`, `png`, functions. Depending on the type of desired output.
+
+
+Check and set the working directory.
+
+```{r, eval=FALSE}
+getwd()
+setwd("/tmp/")
+```
+
+Export tiff.
+
+```{r, eval=FALSE}
+tiff(filename='graphicExample.tiff')
+plot(rnorm(100))
+dev.off()
+```
+
+Things to note:
+
+- The `tiff` function tells R to open a .tiff file, and write the output of a plot.
+- Only a single (the last) plot is saved.
+- `dev.off` is close to close the tiff device, and return the plotting to the R console (or RStudio).
+
+If you want to produce several plots, you can use a counter in the file's name.
+
+```{r, evel=FALSE}
+tiff(filename='graphicExample%d.tiff') #Creates a sequence of files
+plot(rnorm(100))
+boxplot(rnorm(100))
+hist(rnorm(100))
+dev.off()
+```
+
+To see the list of all open devices use `dev.list()`. 
+To close __all__ device, (not the last one), use `graphics.off()`.
+
+
+See `?pdf` and `?jpeg` for more info.
 
 
 

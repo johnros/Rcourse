@@ -72,7 +72,7 @@ In the context of mixed-models, however, ML is typically replaced with _restrict
 We will fit mixed models with the `lmer` function from the __lme4__ package. 
 We start with a small simulation demonstrating the importance of acknowledging your sources of variability.
 
-```{r}
+```{r lme vs lm}
 n.groups <- 10
 n.repeats <- 2
 groups <- gl(n = n.groups, k = n.repeats)
@@ -125,7 +125,7 @@ plot(Yield~Batch)
 If we want to do inference on the mean yield, we need to account for the two sources of variability: the batch effect, and the measurement error. 
 We thus fit a mixed model, with an intercept and random batch effect (which means this is it not a bona-fide mixed-model, but rather, a simple random-effect model).
 
-```{r}
+```{r random intercept}
 lme.1<- lmer( Yield ~ 1  | Batch  , Dyestuff )
 summary(lme.1)
 ```
@@ -225,7 +225,7 @@ lattice::xyplot(Reaction ~ Days | Subject, sleepstudy, aspect = "xy",
 We now want to estimate the (fixed) effect of the days of deprivation, while allowing each subject to have his/hers own effect.
 The fixed effect can thus be thought of as the average slope over subjects.
 
-```{r}
+```{r random slope}
 lme.3 <- lmer ( Reaction ~ Days + ( Days | Subject ) , data= sleepstudy )
 ```
 
