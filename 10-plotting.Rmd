@@ -353,6 +353,109 @@ See `?pdf` and `?jpeg` for more info.
 
 ## The ggplot2 System
 
+The philosophy of __ggplot2__ is very different from the __graphics__ device. 
+Recall, in __ggplot2__, a plot is a object.
+It can be queryied, it can be changed, and among other things, it can be plotted. 
+
+The following is taken from [UCLA's idre](http://www.ats.ucla.edu/stat/r/seminars/ggplot2_intro/ggplot2_intro.htm).
+
+A __ggplot2__ object will have the following elements:
+
+- __Data__ are the variables mapped to aesthetic features of the graph.
+- __Aes__ is the mapping between objects to their visualization.
+- __Geoms__ are the objects/shapes you see on the graph.
+- __Stats__ are stastical transformations that summarize data, such as the mean or confidence intervals.
+- __Scales__ define which aesthetic values are mapped to data values. Legends and axes display these mappings.
+- __Coordiante systems__ define the plane on which data are mapped on the graphic.
+- __Faceting__ splits the data into subsets to create multiple variations of the same graph (paneling).
+
+The `nlme::Milk` dataset has the protein level of various cows, at various times, with various diets.
+```{r}
+data(Milk)
+head(Milk)
+```
+
+```{r}
+library(ggplot2)
+ggplot(data = Milk, aes(x=Time, y=protein)) +
+  geom_point()
+```
+
+Things to note:
+
+- The `ggplot` function is the contructor of the __ggplot2__ object. If the object is not assigned, it is plotted.
+- The `aes` argument tells R that the `Time` variable in the `Milk` data is the x axis, and protein is y.
+- The `geom_point` defines the __Geom__, i.e., it tells R to plot the points as they are (and not lines, histograms, etc.).
+- The __ggplot2__ object is build by compunding its various elements separated by the `+` operator.
+- All the variables that we will need are assumed to be in the `Milk` data frame. This means that (a) the data needs to be a data frame (not a matrix for instance), and (b) we will not be able to use variables that are not in the `Milk` data frame.
+
+
+Let's add some color. 
+
+```{r}
+ggplot(data = Milk, aes(x=Time, y=protein)) +
+  geom_point(aes(color=Diet))
+```
+
+The `color` argument tells R to use the variable `Diet` as the coloring. If we wanted a fixed color, and not a variable dependent color, `color` would have been put __outside__ the `aes` function.
+
+```{r}
+ggplot(data = Milk, aes(x=Time, y=protein)) +
+  geom_point(color="green")
+```
+
+Let's save the __ggplot2__ object so we can reuse it. Notice it is not plotted.
+
+```{r}
+p <- ggplot(data = Milk, aes(x=Time, y=protein)) +
+  geom_point()
+```
+
+We can add __layers__ using the `+` operator. 
+Here, we add a smoothing line.
+
+```{r}
+p + geom_smooth()
+```
+
+Things to note:
+
+- The smoothing line is a layer added with the `geom_smooth()` function.
+- Lacking any arguments, the new layer will inherit the `aes` of the original object, x and y variables in particular. 
+
+
+To split the plot along some variable, we use faceting, done with the `facet_wrap` function.
+
+```{r}
+p + facet_wrap(~Diet)
+```
+
+We now add a layer of the mean of each `Diet` subgroup, connected by lines.
+
+```{r}
+p + stat_summary(aes(color=Diet), fun.y="mean", geom="line")
+```
+
+Things to note:
+
+- `stat_summary` adds a statistical summary.
+- The summary is applied along `Diet` subgroups, because of the `color=Diet` aesthetic.
+- The summary to be applied is the mean, because of `fun.y="mean"`.
+- The group means are connected by lines, because of the `geom="line"` argument.
+
+What layers can be added using the __geoms__ family of functions?
+
+- __geom_bar__: bars with bases on the x-axis.
+- __geom_boxplot__: boxes-and-whiskers.
+- __geom_errorbar__: T-shaped error bars.
+- __geom_histogram__: histogram.
+- __geom_line__: lines.
+- __geom_point__: points (scatterplot).
+- __geom_ribbon__: bands spanning y-values across a range of x-values.
+- __geom_smooth__: smoothed conditional means (e.g. loess smooth).
+
+
+
 
 ### Generating a New Plot
 
@@ -380,4 +483,8 @@ See `?pdf` and `?jpeg` for more info.
 
 ## Shiny
 
+
+## Bibliographic Notes
+For the __graphics__ package, see @Rlanguage.
+For __ggplot2__ see @ggplot2.
 
