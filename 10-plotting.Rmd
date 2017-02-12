@@ -239,7 +239,7 @@ boxplot(weight~group, col=c('seagreen2','lightgrey','darkred'))
 ```
 
 
-
+```{r}
 dens.trt1<- density(weight[group=='trt1'])
 dens.trt2<- density(weight[group=='trt2'])
 dens.ctrl<- density(weight[group=='ctrl'])
@@ -247,126 +247,22 @@ plot(dens.trt1, xlim=c(2,8), ylim=c(0,1), col='seagreen')
 lines(dens.trt2, col='grey')
 lines(dens.ctrl, col='darkred')
 legend(x=2, y=1, legend=c('trt1','trt2','ctrl'), col=c('seagreen', 'grey', 'darkred'),lty=1)
-
-par(mfrow=c(3,1))
-hist(weight[group=='trt1'], probability=TRUE, xlim=c(2,8))
-lines(dens.trt1)
-rug(weight[group=='trt1'])
-hist(weight[group=='trt2'], probability=TRUE, xlim=c(2,8))
-lines(dens.trt2)
-rug(weight[group=='trt2'])
-hist(weight[group=='ctrl'], probability=TRUE, xlim=c(2,8))
-lines(dens.ctrl)
-rug(weight[group=='ctrl'])
-par(mfrow=c(1,1))
+```
 
 
-require(lattice)
-dotplot(weight~group)
-
+```{r}
 detach(PlantGrowth)
-#############################################################
-#--------------- Multivariate Display-----------------------#
-#############################################################
-head(trees)
-attach(trees)
-
-# Mosaic plot for categorical variables
-fac.height<- factor(cut(Height,2), labels=c('Short','Tall'))
-fac.Volume<- factor(cut(Volume, 3), labels=c('Small', 'Medium', 'Large'))
-fac.Girth<- factor(cut(Girth, 2), labels=c('Fat', 'Thin'))
-
-# Two at a time:
-table(fac.Volume, fac.height)
-mosaicplot(table(fac.Volume, fac.height))
-
-# Three at a time:
-table(fac.Volume, fac.height, fac.Girth)
-ftable(fac.Volume, fac.height, fac.Girth)
-mosaicplot(table(fac.height, fac.Volume , fac.Girth))
-
-
-ftable(Titanic)
-mosaicplot(Titanic)
-
-
-# Scatter plots with our first OLS line!
-plot(Volume~Girth)
-abline(lm(Volume ~ Girth))
-(lm.coefs<- round(coef(lm(Volume~Girth)),2))  
-text(x=12, y=70, paste('Slope=', lm.coefs[2],'\n Intercept=', lm.coefs[1] ))
-rug(Girth, side=1)
-rug(Volume, side=2)
-
-plot(Volume~Girth, col=fac.height)
-legend(x=9, y=71, legend=c('Short','Tall'), col=c(1,2), pch=1)
-
-# Printer friendly version
-pchs<- as.numeric(fac.height) 
-plot(Volume~Girth, pch=pchs)
-legend(x=9, y=71, legend=c('Short','Tall'), pch=unique(pchs))
-abline(lm(Volume[fac.height=='Short']~Girth[fac.height=='Short']))
-abline(lm(Volume[fac.height!='Short']~Girth[fac.height!='Short']), lty=2)
-
-#Interaction with the plot
-plot(Volume~Girth)
-identify(y=Volume, x=Girth) # Press ESC to exit interactive mode
-
-# Scatter plot matrix:
-plot(trees) #this actually calls: 
-pairs(trees)
-
-# A fancier version of the scatter plot matrix:
-require(car)
-scatterplot.matrix(trees)
-
-# A conditional scatterplot:
-coplot(Volume ~ Girth | fac.height)
-
-# 3D scatter plot with fitted plane
-require(scatterplot3d)
-s3d<- scatterplot3d(x=Girth, y=Height , z=Volume , type='h', highlight.3d=T)
-
-(lm.2<- lm(Volume ~  Girth + Height))
-s3d$plane3d(lm.2, lty.box='solid')
-
 ```
 
 
 
 
-### Generating a New Plot
+
+### The Power of graphics
+
+Building a line graph from scratch.
+
 ```{r}
------------- Starting a new plot-------------#
-plot.new()
-
-# Margin sizes in inches:
-par(mai=c(2, 2, 1, 1))
-# Margin sizes in lines of text:
-par(mar=c(4, 4, 2, 2))
-# Plot size in inches:
-par(pin=c(5, 4))
-
-# Set axis scals:
-plot.window(xlim=c(0,1), ylim=c(10,20))
-
-plot.new()
-
-plot.window(xlim=c(0,1), ylim=c(10,20))
-
-axis(side=1)
-axis(side=2)
-axis(side=3)
-axis(side=4, pos=1.1)
-
-plot.new()
-plot.window(xlim=c(1,4), ylim=c(10,20))
-axis(1, at=1:4, labels=c('A', 'B', 'C' ,'D'), col='dark orange', col.axis='red', font.axis= 2)
-title(main='Main', xlab='X', ylab='Y', font.main= 2, font.sub=3)
-title(sub='Sub', col.sub='dark green', cex.sub=10)
-box()
-
-# A line graph:
 x = 1995:2005
 y = c(81.1, 83.1, 84.3, 85.2, 85.4, 86.5, 88.3, 88.6, 90.8, 91.1, 91.3)
 plot.new()
@@ -379,30 +275,29 @@ title(main = "A Line Graph Example",
 axis(1)
 axis(2)
 box()
+```
 
-# Rosette:
+
+
+Rosette.
+
+```{r}
 n = 17
 theta = seq(0, 2 * pi, length = n + 1)[1:n]
 x = sin(theta)
 y = cos(theta)
-(v1 = rep(1:n, n))
-(v2 = rep(1:n, rep(n, n)))
+v1 = rep(1:n, n)
+v2 = rep(1:n, rep(n, n))
 plot.new()
 plot.window(xlim = c(-1, 1), ylim = c(-1, 1), asp = 1)
 segments(x[v1], y[v1], x[v2], y[v2])
 box()
+```
 
-# Curve Envelope:
-x1 = seq(0, 1, length = 20)
-y1 = rep(0, 20)
-x2 = rep(0, 20)
-y2 = seq(0.75, 0, length = 20)
-plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 0.75), asp = 1)
-segments(x1, y1, x2, y2)
-box(col = "grey")
 
-# Arrows:
+
+Arrows.
+```{r}
 plot.new()
 plot.window(xlim = c(0, 1), ylim = c(0, 1))
 arrows(.05, .075, .45, .9, code = 1)
@@ -411,8 +306,11 @@ arrows(.1, 0, .9, 0, code = 3)
 text(.5, 1, "A", cex = 1.5)
 text(0, 0, "B", cex = 1.5)
 text(1, 0, "C", cex = 1.5)
+```
 
-# Arrows as error bars:
+Arrows as error bars.
+
+```{r}
 x = 1:10
 y = runif(10) + rep(c(5, 6.5), c(5, 5))
 yl = y - 0.25 - runif(10)/3
@@ -424,15 +322,22 @@ points(x, y, pch = 19, cex = 1.5)
 axis(1, at = 1:10, labels = LETTERS[1:10])
 axis(2, las = 1)
 box()
+```
 
-# Manual boxplot:
+
+Manual histogram.
+```{r}
 plot.new()
 plot.window(xlim = c(0, 5), ylim = c(0, 10))
 rect(0:4, 0, 1:5, c(7, 8, 4, 3), col = "lightblue")
 axis(1)
 axis(2, las = 1)
+```
 
-# Spiral Squares:
+
+Spiral Squares.
+
+```{r}
 plot.new()
 plot.window(xlim = c(-1, 1), ylim = c(-1, 1), asp = 1)
 x = c(-1, 1, 1, -1)
@@ -445,60 +350,46 @@ for(i in 1:50) {
 	y = 0.9 * y[vertex1] + 0.1 * y[vertex2]
 	polygon(x, y, col = "cornsilk")
 }
+```
 
-# Drawing text:
-plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1))
-abline(h = c(.2, .5, .8), v = c(.5, .2, .8), col = "lightgrey")
-text(0.5, 0.5, "srt = 45, adj = c(.5, .5)", srt=45, adj=c(.5, .5))
-text(0.5, 0.8, "adj = c(0, .5)", adj = c(0, .5))
-text(0.5, 0.2, "adj = c(1, .5)", adj = c(1, .5))
-text(0.2, 0.5, "adj = c(1, 1)", adj = c(1, 1))
-text(0.8, 0.5, "adj = c(0, 0)", adj = c(0, 0))
-axis(1)
-axis(2, las = 1)
-box()
+Circles are just polygons.
 
-# Circles (Just a polygon...):
+```{r}
 R = 1
 xc = 0
 yc = 0
 n = 72
 t = seq(0, 2 * pi, length = n)[1:(n-1)]
-(x = xc + R * cos(t))
-(y = yc + R * sin(t))
+x = xc + R * cos(t)
+y = yc + R * sin(t)
 plot.new()
 plot.window(xlim = range(x), ylim = range(y), asp = 1)
 polygon(x, y, col = "lightblue", border = "navyblue")
+```
 
-# Ellipse:
+
+Ellipse.
+
+```{r}
 a = 4
 b = 2
 xc = 0
 yc = 0
 n = 72
 t = seq(0, 2 * pi, length = n)[1:(n-1)]
-(x = xc + a * cos(t))
-(y = yc + b * sin(t))
+x = xc + a * cos(t)
+y = yc + b * sin(t)
 plot.new()
 plot.window(xlim = range(x), ylim = range(y), asp = 1)
 polygon(x, y, col = "lightblue")
+```
 
-# Rotated Ellipse:
-a = 4
-b = 2
-xc = 0
-yc = 0
-n = 72
-theta = 45 * (pi / 180)
-t = seq(0, 2 * pi, length = n)[1:(n-1)]
-x = xc + a * cos(t) * cos(theta) - b * sin(t) * sin(theta)
-y = yc + a * cos(t) * sin(theta) + b * sin(t) * cos(theta)
-plot.new()
-plot.window(xlim = range(x), ylim = range(y), asp = 1)
-polygon(x, y, col = "lightblue")
 
-# Bivariate normal quantile:
+
+
+Bivariate normal quantile.
+
+```{r}
 n = 72
 rho = 0.5
 d = acos(rho)
@@ -511,6 +402,9 @@ segments(-1, 0, 1, 0, lty = "13")
 segments(0, -1, 0, 1, lty = "13")
 axis(1)
 axis(2, las = 1)
+
+```
+
 
 # Spiral:
 k = 5
