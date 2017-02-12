@@ -456,19 +456,139 @@ What layers can be added using the __geoms__ family of functions?
 - __geom_smooth__: smoothed conditional means (e.g. loess smooth).
 
 
+To demonstrate the layers added with the __geoms__ functions, we start with a histogram.
+
+```{r}
+pro <- ggplot(Milk, aes(x=protein))
+pro + geom_histogram()
+```
+
+A bar plot.
+
+```{r}
+ggplot(Milk, aes(x=Diet)) +
+  geom_bar()
+```
+
+A scatter plot.
+
+```{r}
+tp <- ggplot(Milk, aes(x=Time, y=protein))
+tp + geom_point()
+```
+
+A smooth regression plot, reusing the `tp` object.
+
+```{r}
+tp + geom_smooth()
+```
+
+And now, a simple line plot, reusing the `tp` object, and connecting lines along `Cow`.
+
+```{r}
+tp + geom_line(aes(group=Cow))
+```
+
+The line plot is completely incomprehensible. 
+Better look at boxplots along time (even if ommiting the `Cow` information).
+```{r}
+tp + geom_boxplot(aes(group=Time))
+```
+
+We can do some statistics for each subgroup.
+The following will compute the mean and standard errors (default of `stat_summary`) of `protein` at each time point.
+
+```{r}
+ggplot(Milk, aes(x=Time, y=protein)) +
+  stat_summary()
+```
+
+Some popular statistical summaries, have gained their own functions:
+
+- `mean_cl_boot`: mean and bootstapped confidence interval (default 95%).
+- `mean_cl_normal`: mean and Guassian (t-distribution based) confidence interval (default 95%).
+- `mean_dsl`: mean plus or minus standard deviation times some constant (default constant=2).
+- `median_hilow`: median and outer quantiles (default outer quantiles = 0.025 and 0.975).
+
+For less popular statistical summaries, we may specify the statistical function in `stat_summary`. The median is a first example.
+
+```{r}
+ggplot(Milk, aes(x=Time, y=protein)) +
+  stat_summary(fun.y="median", geom="point")
+```
+
+We can also define our own statistical summaries.
+```{r}
+medianlog <- function(y) {median(log(y))}
+ggplot(Milk, aes(x=Time, y=protein)) +
+  stat_summary(fun.y="medianlog", geom="line")
+
+```
 
 
-### Generating a New Plot
+__Scales__ define the actual mapping of an aesthetic's values to data values.
 
+```{r}
+ggplot(Milk, aes(x=protein, fill=Diet)) +
+  geom_density(alpha=1/3) +
+  scale_fill_hue()
+```
 
+Things to note:
 
+- The `geom_density` function tells R to plot density plots.
+- The `alpha=1/3` parameter controls the transparancy. Set to `alpha=1` for opaque, and `alpha=0` for transparent.
+- The `scale_fill_hue` function, which is the default (thus can be omitted), tells R how to map factors to colors. 
 
-### Adding Elements
+Let's change the default color mapping. 
 
+```{r}
+ggplot(Milk, aes(x=protein, fill=Diet)) +
+  geom_density(alpha=1/3) +
+  scale_fill_hue(h.start=150)
+```
 
+The legend is controlled with the `guides` function.
 
-### Controlling Plotting Parameters
+```{r}
+ggplot(Milk, aes(x=protein, fill=Diet)) +
+  geom_density(alpha=1/3) +
+  guides(fill="none")
+```
 
+__Faceting allows to split the plotting along some variable.
+`face_wrap` tells R to compute the number of columns and rows of plots automatically. 
+
+```{r}
+ggplot(Milk, aes(x=protein, color=Diet)) +
+  geom_density() +
+  facet_wrap(~Time)
+```
+
+`facet_grid` forces the plot to appear alow rows or columns, using the `~` syntax.
+
+```{r}
+ggplot(Milk, aes(x=Time, y=protein)) +
+  geom_point() +
+  facet_grid(Diet~.)
+```
+
+To control the looks of the plot, __ggplot2__ uses __themes__.
+
+```{r}
+ggplot(Milk, aes(x=Time, y=protein)) +
+  geom_point() +
+  theme(panel.background=element_rect(fill="lightblue"))
+```
+
+```{r}
+ggplot(Milk, aes(x=Time, y=protein)) +
+  geom_point() +
+  theme(panel.background=element_blank(),
+        axis.title.x=element_blank())
+```
+
+Saving plots can be done using the `pdf` function, but possibly easier with the `ggsave` function.
 
 
 
