@@ -1,1 +1,36 @@
 # Reports {#report}
+
+If you ever written a report, you are probably familiar with the process of preparing your figures in some software, say R, and then copy-pasting into your text editor, say MS Word. 
+While very popular, this process is both tedious, and plain painful if your data has changed and you need to update the report. 
+Wouldn't it be nice if you could produce figures and numbers from within the text of the report, and everything else would be automated?
+It turns out it is possible. 
+There are actually several systems in R that allow this. 
+We start with a brief review.
+
+1. __Sweave__:
+_Latex_ is a markup language that compiles to _Tex_ programms that compile to documents, typically PDFs.
+If you never heard of it, it may be because you were born the the MS Windows+MS Word era. 
+You should know, however, that _Latex_ was there much earlier, when computers were mainframes with text-only graphic devices. 
+You should also know that _Latex_ is still very popular (in some communities) due to its very rich markup syntax, and beatiful output. 
+_Sweave_ [@leisch2002sweave] is a compiler for _Latex_ that allows you do insert R commands in the _Latex_ source file, compile it, and get the result as part of the outputted PDF. 
+It's name suggests just that: it allows to weave S^[Recall, S was the original software from which R evolved.] output into the document, thus, Sweave. 
+
+1. __knitr__:
+_Markdown_ is a text editing syntax that is aimed to be human-readable, but also compilable by a machine. 
+If you ever tried to read HTML or Latex source files, you may understand why human-readability is a desirable property.
+There are many _markdown_ compilers. One of the most popular is _Pandoc_, written by the Berkley philosopher(!) Jon MacFarlane. 
+The availability of _Pandoc_ gave [Yihui Xie](), a name to remember, the idea that it is time for Sweave to evolve. 
+Yihui thus wrote __knitr__ [@xie2015dynamic], which allows to write human readable text in _Rmarkdown_, a superset of _markdown_, compile it with R and the compile it with Pandoc. 
+Because Pandoc can compile to PDF, but also to HTML, and DOCX, among others, this means that you can write in Rmarkdown, and get output in almost all text formats out there. 
+
+1. __bookdown__:
+__Bookdown__ [@xie2016bookdown] is an evolution of __knitr__, also written by Yihui Xie, now working for RStudio. 
+This book was actually written in __bookdown__.
+It deals with the particular needs of writing large documents, and cross referencing in particular (which is very challenging if you want the text to be human readable).
+
+
+For our purposes, we will give a brief introduction to __knitr__ and give the references for further reading. 
+
+
+## Bibliographic Notes
+
