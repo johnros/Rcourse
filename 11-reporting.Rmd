@@ -90,10 +90,15 @@ _Rmarkdown_, is an extension of _markdown_ that allows to incorporate R expressi
 
 The start of a code chunk is indicated by three backticks and the end of a code chunk is indicated by three backticks.
 Here is an example.
-TODO
+<pre><code>
+```{r whatever}
+data(cars)
+summary(cars)
+```
+</code></pre>
 
 You can also call r expressions inline. This is done with a single tick and the `r` argument.
-For instance ``r rnorm(1)`` will output `r rnorm(1)`.
+For instance `r ''` ```{r label, what=ever} will output 
 
 
 
