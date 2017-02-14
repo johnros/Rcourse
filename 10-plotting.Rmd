@@ -63,12 +63,12 @@ par(mfrow=c(1,1))
 
 Things to note:
 
-- The `par` command controls the plotting parameters. `mfrow=c(2,3)` is used to produce a matix of plots with 2 rows and 3 columns.
+- The `par` command controls the plotting parameters. `mfrow=c(2,3)` is used to produce a matrix of plots with 2 rows and 3 columns.
 - The `type` argument controls the type of plot. 
 - The `main` argument controls the title.
 - See `?plot` and `?par` for more options.
 
-Controll the plotting charachters with the `pch` argument. 
+Control the plotting characters with the `pch` argument. 
 ```{r}
 plot(Girth, pch='+', cex=3)
 ```
@@ -307,8 +307,8 @@ lines(x, y)
 
 ### Exporting a Plot
 
-The pipile for exporting graphics is similar to the export of data. 
-Instead of the `write.table` or `save` functinons, we will use the `pdf`, `tiff`, `png`, functions. Depending on the type of desired output.
+The pipeline for exporting graphics is similar to the export of data. 
+Instead of the `write.table` or `save` functions, we will use the `pdf`, `tiff`, `png`, functions. Depending on the type of desired output.
 
 
 Check and set the working directory.
@@ -370,7 +370,7 @@ A __ggplot2__ object will have the following elements:
 - __Data__ are the variables mapped to aesthetic features of the graph.
 - __Aes__ is the mapping between objects to their visualization.
 - __Geoms__ are the objects/shapes you see on the graph.
-- __Stats__ are stastical transformations that summarize data, such as the mean or confidence intervals.
+- __Stats__ are statistical transformations that summarize data, such as the mean or confidence intervals.
 - __Scales__ define which aesthetic values are mapped to data values. Legends and axes display these mappings.
 - __Coordiante systems__ define the plane on which data are mapped on the graphic.
 - __Faceting__ splits the data into subsets to create multiple variations of the same graph (paneling).
@@ -390,10 +390,10 @@ ggplot(data = Milk, aes(x=Time, y=protein)) +
 
 Things to note:
 
-- The `ggplot` function is the contructor of the __ggplot2__ object. If the object is not assigned, it is plotted.
+- The `ggplot` function is the constructor of the __ggplot2__ object. If the object is not assigned, it is plotted.
 - The `aes` argument tells R that the `Time` variable in the `Milk` data is the x axis, and protein is y.
 - The `geom_point` defines the __Geom__, i.e., it tells R to plot the points as they are (and not lines, histograms, etc.).
-- The __ggplot2__ object is build by compunding its various elements separated by the `+` operator.
+- The __ggplot2__ object is build by compounding its various elements separated by the `+` operator.
 - All the variables that we will need are assumed to be in the `Milk` data frame. This means that (a) the data needs to be a data frame (not a matrix for instance), and (b) we will not be able to use variables that are not in the `Milk` data frame.
 
 
@@ -496,7 +496,7 @@ tp + geom_line(aes(group=Cow))
 ```
 
 The line plot is completely incomprehensible. 
-Better look at boxplots along time (even if ommiting the `Cow` information).
+Better look at boxplots along time (even if committing the `Cow` information).
 ```{r}
 tp + geom_boxplot(aes(group=Time))
 ```
@@ -511,8 +511,8 @@ ggplot(Milk, aes(x=Time, y=protein)) +
 
 Some popular statistical summaries, have gained their own functions:
 
-- `mean_cl_boot`: mean and bootstapped confidence interval (default 95%).
-- `mean_cl_normal`: mean and Guassian (t-distribution based) confidence interval (default 95%).
+- `mean_cl_boot`: mean and bootstrapped confidence interval (default 95%).
+- `mean_cl_normal`: mean and Gaussian (t-distribution based) confidence interval (default 95%).
 - `mean_dsl`: mean plus or minus standard deviation times some constant (default constant=2).
 - `median_hilow`: median and outer quantiles (default outer quantiles = 0.025 and 0.975).
 
@@ -532,7 +532,7 @@ ggplot(Milk, aes(x=Time, y=protein)) +
 ```
 
 
-__Scales__ define the actual mapping of an aesthetic's values to data values.
+__Scales__ define the actual mapping of an aesthetics values to data values.
 
 ```{r}
 ggplot(Milk, aes(x=protein, fill=Diet)) +
@@ -543,7 +543,7 @@ ggplot(Milk, aes(x=protein, fill=Diet)) +
 Things to note:
 
 - The `geom_density` function tells R to plot density plots.
-- The `alpha=1/3` parameter controls the transparancy. Set to `alpha=1` for opaque, and `alpha=0` for transparent.
+- The `alpha=1/3` parameter controls the transparency. Set to `alpha=1` for opaque, and `alpha=0` for transparent.
 - The `scale_fill_hue` function, which is the default (thus can be omitted), tells R how to map factors to colors. 
 
 Let's change the default color mapping. 
@@ -571,7 +571,7 @@ ggplot(Milk, aes(x=protein, color=Diet)) +
   facet_wrap(~Time)
 ```
 
-`facet_grid` forces the plot to appear alow rows or columns, using the `~` syntax.
+`facet_grid` forces the plot to appear allow rows or columns, using the `~` syntax.
 
 ```{r}
 ggplot(Milk, aes(x=Time, y=protein)) +
@@ -603,30 +603,65 @@ Finally, what every user of __ggplot2__ constantly uses, is the online documenta
 
 ## Interactive Graphics
 
-As already mentioned, the recent and dramatic advancement in interactive visualization was made possible by the advances in web technologies. 
-This is because it allows developers to rely on existing libraries, typically in JavaScript, designed for web browsing.
-These libraries are more visually pleasing and computationally efficient, than anything they could have developed themselves.  
+As already mentioned, the recent and dramatic advancement in interactive visualization was made possible by the advances in web technologies, and the [D3.JS](https://d3js.org/) JavaScript library in particular. 
+This is because it allows developers to rely on existing libraries designed for web browsing.
+These libraries are more visually pleasing, and computationally efficient, than anything they could have developed themselves.  
 
 Some noteworthy interactive plotting systems are the following:
 
 
-- __Plotly__:
-- __HTML Widgets__:
+- __plotly__:
+The __plotly__ package [@plotly] uses the (brilliant!) visualization framework of the [Plotly]() company to provide local, or web-publishable, interactive graphics. 
+
 - __dygraphs__:
+The [dygraphs](http://dygraphs.com/) JavaScript library is intended for interactive visualization of time series. 
+The __dygraphs__ R package is an interface allowing the plotting of R objects with this library.
+For more information see [here](https://rstudio.github.io/dygraphs/).
+
 - __rCharts__:
+If you like the __lattice__ plotting system, the __rCharts__ package will allow you to produce interactive plots from R using the __lattice__ syntax. 
+For more information see [here](http://rdatascience.io/rCharts/).
 
-<!-- - Shiny -->
-<!-- - plotly - of course  -->
-<!-- - HTML widgets - http://www.htmlwidgets.org/showcase_highcharts.html  -->
-<!--    and gallery of widgets: http://gallery.htmlwidgets.org/ -->
-<!-- - dygraphs for TS - https://rstudio.github.io/dygraphs/index.html -->
-<!-- - rCharts - http://rdatascience.io/rCharts/ -->
-<!--   specificly the nvd3 charts - http://rdatascience.io/posts/rcharts-nvd3/ -->
+- __clickme__:
+Very similar to __rCharts__.
+
+- __ggv2__:
+[Vega](https://vega.github.io/vega/) is a grammar for plots, i.e., a syntax that describes a plots elements, along with the appropriate JavaScript visualization libraries. 
+__ggv2__ is an an experimental package that produces Vega interactive plots from R.
+For more information see [here](https://github.com/metagraf/rVega).
+
+- __rVega__:
+Same purpose as __ggv2__.
+
+- __HTML Widgets__:
+The __htmlwidgets__ package does not provide visualization, but rather, it facilitates the creation of new interactive visualizations. 
+This is because it handles all the technical details that are required to use R output within JavaScript visualization libraries. 
 
 
 
+### Plotly
+```{r}
+library(plotly)
+set.seed(100)
+d <- diamonds[sample(nrow(diamonds), 1000), ]
+plot_ly(d, x = ~carat, y = ~price, color = ~carat,
+        size = ~carat, text = ~paste("Clarity: ", clarity))
+```
+
+If you are comfortable with __ggplot2__, you may use the __ggplot2__ syntax, and export the final result to __plotly__.
+
+```{r}
+p <- ggplot(data = d, aes(x = carat, y = price)) +
+  geom_point(aes(text = paste("Clarity:", clarity))) +
+  geom_smooth(aes(colour = cut, fill = cut)) + facet_wrap(~ cut)
+
+ggplotly(p)
+```
+
+For more on __plotly__ see https://plot.ly/r/.
 
 
+### HTML Widgets
 
 
 
