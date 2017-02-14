@@ -35,7 +35,7 @@ This does not mean that output is static, but only that R is not called.
 __Shiny__ [@shiney] is different. 
 Shiny is essentialy a framwork for quick web-developpment. 
 It includes (i) an abstraction layer that specifies the layout of a web-site which is our report, (ii) the command to start a web server to deliver the site, and (iii) the interface between the web-server and an R session that feeds the data required for servicing.
-For more on Shiny see TODO.
+For more on Shiny see @shiney.
 
 
 
@@ -47,14 +47,75 @@ In this book we will give a brief introduction to __knitr__ and give the referen
 
 ## knitr
 
-installation
-markdown
-rmarkdown
+### Installation
+To run __knitr__ you will need to install the package.
+```{r, eval=FALSE}
+install.packages('knitr')
+```
+
+It is also recommended that you use it within RStudio (version>0.96), where you can easily create a new `.Rmd` file. 
+
+### Markdown
+Because __knitr__ builds upon _markdow_, here is a simple example of markdown text, to be used in a `.Rmd` file.
+
+```{r, eval=FALSE}
+# First header
+
+## Second header
+
+### Third header
+
+Itemized list
+
+- bullet
+- bullet
+- bullet
+
+Enumerated list
+
+1. number
+1. number
+1. number
+
+Underscores for _italics_, and double underscores for __bold__.
+
+Math expressions are written in latex syntax.
+```
+
+The easiest way to compile is to click the __Knit__ button, just above the editing window. 
 
 
+### Rmarkdown
+_Rmarkdown_, is an extension of _markdown_ that allows to incorporate R expressions in the text, the will be avaluated at the time of compilation.
+
+The start of a code chunk is indicated by three backticks and the end of a code chunk is indicated by three backticks.
+Here is an example.
+TODO
+
+You can also call r expressions inline. This is done with a single tick and the `r` argument.
+For instance ``r rnorm(1)`` will output `r rnorm(1)`.
+
+
+
+http://rmarkdown.rstudio.com/
+
+
+
+
+### knitr
+Once you have your `.Rmd` file written in RMarkdown, __knitr__ will take care of the compilation for you. 
+You can call the `knitr::knitr` function directly from some `.R` file, or more conveniently, use the RStudio (0.96) Knit button above the text editing window.
+The location of the output file will be presented in the console.
+
+
+
+## Shiny
 
 
 
 
 ## Bibliographic Notes
 
+For everything on __knitr__ see [Yihui's blog](https://yihui.name/knitr/), or the book @xie2015dynamic.
+For a __bookdown__ manual, see @xie2016bookdown.
+For a Shiny manual, see @shiney.
