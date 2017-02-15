@@ -134,15 +134,19 @@ Here is an example.
 rnorm(10)
 ```
 
+
 This chunk will compile to the following output (after setting `eval=FALSE` to `eval=TRUE`):
-```{r}
+```{r, eval=TRUE}
 rnorm(10)
 ```
+
 
 Things to note:
 
 - The evaluated expression is added in a chunk of highlighted text.
 - The output is added prefixed with `##`.
+- The `eval=` argument is not required, since it is set to `eval=TRUE` by default. It does demonstrate how to set the options of the code chunk.
+
 
 In the same way, we may add a plot:
 ```{r, eval=FALSE, verbatim = TRUE}
@@ -150,17 +154,21 @@ plot(rnorm(10))
 ```
 
 which compiles into
-```{r, fig.height=6, fig.width=6}
+```{r}
 plot(rnorm(10))
 ```
 
 
-You can also call r expressions inline. This is done with a single tick and the `r` argument.
-For instance `r ''` ```{r label, what=ever} will output 
+You can also call r expressions inline. 
+This is done with a single tick and the `r` argument.
+For instance:
 
+> `` `r '\x60r rnorm(1)\x60'` `` is a random Gaussian
 
+will output 
 
-http://rmarkdown.rstudio.com/
+> `r rnorm(1)` is a random Gaussian. 
+
 
 
 
@@ -179,6 +187,7 @@ The location of the output file will be presented in the console.
 
 ## Bibliographic Notes
 
+For RMarkdown see http://rmarkdown.rstudio.com/.
 For everything on __knitr__ see [Yihui's blog](https://yihui.name/knitr/), or the book @xie2015dynamic.
 For a __bookdown__ manual, see @xie2016bookdown.
 For a Shiny manual, see @shiney.
