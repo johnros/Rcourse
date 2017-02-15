@@ -188,6 +188,7 @@ In particular, it has a more powerful cross referencing system.
 
 __Shiny__ [@shiny] is different than the previous systems, because it sets up an interactive web-site, and not a static file.
 The power of Shiny is that they layout of the web-site, and setting up the web-server, is made with several simple R commands, with no need for web-programming.
+For this purpose, Shiny uses the [Bootstrap](http://getbootstrap.com) web developpment technology.
 Once you have your app up and running, you can setup your own Shiny server on the web, or publish it via [Shinyapps.io](https://www.shinyapps.io/).
 
 
@@ -215,11 +216,72 @@ Every Shiny app has two main building blocks.
 1. A user interface, specified via the `ui.R` file in the app's directory.
 1. A server side, specified via the `server.R` file, in the app's directory.
 
-You can run the app via the RStudio interface, of call by calling the app's directory with the `runApp` function.
+You can run the app via the __RunApp__ button in the RStudio interface, of by calling the app's directory with the `runApp` function.
 
 ```{r, eval=FALSE}
 shiny::runApp("my_app")
 ```
+
+The site's layout, is specified via _layout functions_ in the `iu.R` file. 
+For instance, the function `sidebarLayout`, as the name suggest, will create a sidebar. 
+More layouts are detailed in the [layout guide](http://shiny.rstudio.com/articles/layout-guide.html).
+
+The active elements in the UI, that control your report, are known as _widgets_.
+Each widget will have a unique `inputId` so that it's values can be sent from the UI to the server. 
+More about widgets, in the [widget gallery](http://shiny.rstudio.com/gallery/widget-gallery.html).
+
+
+The `inputId` on the UI are mapped to `input` arguments on the server side. 
+The value of the `mytext` `inputId` can be queryied by the server using `input$mytext`.
+These are called _reactive values_.
+The way the server "listens" to the UI, is governed by a set of functions that must wrap the `input` object. 
+These are the `observe`, `reactive`, and `reactive*` class of functions.
+
+With `observe` the server will get triggered when any of the reactive values change. 
+With `observeEvent` the server will only be triggered by specified reactive values. 
+Using `observe` is easier, and `observeEvent` is more prudent programming.
+
+A `reactive` function is a function that gets triggered when a reactive element changes.
+It is defined on the server side, and reside within an `observe` function.
+
+
+
+We now analyze the `1_Hello` app using these ideas.
+Here is the `io.R` file.
+```{r, eval=FALSE}
+library(shiny)
+
+# Define UI for application that draws a histogram
+shinyUI(fluidPage(
+
+  # Application title
+  titlePanel("Hello Shiny!"),
+
+  # Sidebar with a slider input for the number of bins
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("bins",
+                  "Number of bins:",
+                  min = 1,
+                  max = 50,
+                  value = 30)
+    ),
+
+    # Show a plot of the generated distribution
+    mainPanel(
+      plotOutput("distPlot")
+    )
+  )
+))
+
+```
+
+Here is the `server.R` file:
+```{r, eval=FALSE}
+
+```
+
+
 
 
 
@@ -233,4 +295,4 @@ shiny::runApp("my_app")
 For RMarkdown see http://rmarkdown.rstudio.com/.
 For everything on __knitr__ see [Yihui's blog](https://yihui.name/knitr/), or the book @xie2015dynamic.
 For a __bookdown__ manual, see @xie2016bookdown.
-For a Shiny manual, see @shiney or the [RStudio tutorial](http://shiny.rstudio.com/tutorial/).
+For a Shiny manual, see @shiney, the [RStudio tutorial](http://shiny.rstudio.com/tutorial/), or [Zev Ross's](http://zevross.com/blog/2016/04/19/r-powered-web-applications-with-shiny-a-tutorial-and-cheat-sheet-with-40-example-apps/) excellent guide. 
