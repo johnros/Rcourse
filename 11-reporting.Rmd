@@ -54,12 +54,9 @@ The previous reporting frameworks are static in that R "dumps" its output and is
 This does not mean that output is static, but only that R is not called. 
 __Shiny__ [@shiney] is different. 
 Shiny is essentialy a framwork for quick web-developpment. 
-It includes (i) an abstraction layer that specifies the layout of a web-site which is our report, (ii) the command to start a web server to deliver the site, and (iii) the interface between the web-server and an R session that feeds the data required for servicing.
+It includes (i) an abstraction layer that specifies the layout of a web-site which is our report, (ii) the command to start a web server to deliver the site.
 For more on Shiny see @shiney.
 
-
-
-In this book we will give a brief introduction to __knitr__ and give the references for further reading. 
 
 
 
@@ -114,8 +111,6 @@ Compiles into:
     1. second level number
     1. second level number
 
-
-The easiest way to compile is to click the __Knit__ button, just above the editing window. 
 
 For more on markdown see [here](https://bookdown.org/yihui/bookdown/markdown-syntax.html).
 
@@ -173,14 +168,33 @@ will output
 
 
 
-### knitr
+### Compiling
 Once you have your `.Rmd` file written in RMarkdown, __knitr__ will take care of the compilation for you. 
 You can call the `knitr::knitr` function directly from some `.R` file, or more conveniently, use the RStudio (0.96) Knit button above the text editing window.
 The location of the output file will be presented in the console.
 
 
+## bookdown
+As previously stated, __bookdown__ is an extension of __knitr__ intended for documents more complicated than simple reports-- such as books.
+Just like __knitr__, the writing is done in __RMarkdown__.
+Being an extension of __knitr__, __bookdown__ does allow some markdowns that are not supported by other compilers. 
+In particular, it has a more powerful cross referencing system. 
+
+
+
+
 
 ## Shiny
+
+__Shiny__ [@shiny] is different than the previous systems, because it sets up an interactive web-site, and not a static file.
+The power of Shiny is that they layout of the web-site, and setting up the web-server, is made with several simple R commands, with no need for web-programming.
+
+
+
+
+
+
+
 
 
 
@@ -190,4 +204,4 @@ The location of the output file will be presented in the console.
 For RMarkdown see http://rmarkdown.rstudio.com/.
 For everything on __knitr__ see [Yihui's blog](https://yihui.name/knitr/), or the book @xie2015dynamic.
 For a __bookdown__ manual, see @xie2016bookdown.
-For a Shiny manual, see @shiney.
+For a Shiny manual, see @shiney or the [RStudio tutorial](http://shiny.rstudio.com/tutorial/).
