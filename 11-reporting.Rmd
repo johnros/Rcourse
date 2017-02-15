@@ -78,32 +78,52 @@ It is also recommended that you use it within RStudio (version>0.96), where you 
 ### Markdown
 Because __knitr__ builds upon _markdow_, here is a simple example of markdown text, to be used in a `.Rmd` file.
 
-```{r, eval=FALSE}
-# First header
 
-## Second header
+Underscores or asterisks for `_italics1_` and `*italics2*` return _italics1_ and *italics2*.
+Double underscores or asterisks for `__bold1__` and `**bold2**` return __bold1__ and **bold2**.
+Subscripts are enclosed in tildes, `like~this~` (like~this~), and supersrcipts are enclosed in carets `like^this^` (like^this^).
+For links use `[text](link)`, like `[my site](www.john-ros.com)`.
+Image is the same as a link, starting with an exlamation, like this `![image title](image path)`.
 
-### Third header
-
-Itemized list
-
-- bullet
-- bullet
-- bullet
-
-Enumerated list
-
-1. number
-1. number
-1. number
-
-Underscores for _italics_, and double underscores for __bold__.
-
-Math expressions are written in latex syntax.
+An itemized list simply starts with hyphens:
 ```
+- bullet
+- bullet
+    - second level bullet
+    - second level bullet
+```
+Compiles into:
+
+- bullet
+- bullet
+    - second level bullet
+    - second level bullet
+
+An enumerated list starts with an arbitrary number:
+```
+1. number
+1. number
+    1. second level number
+    1. second level number
+```
+Compiles into:
+
+1. number
+1. number
+    1. second level number
+    1. second level number
+
+
+
+
+
 
 The easiest way to compile is to click the __Knit__ button, just above the editing window. 
 
+
+
+
+For more on markdown see [here](https://bookdown.org/yihui/bookdown/markdown-syntax.html).
 
 ### Rmarkdown
 _Rmarkdown_, is an extension of _markdown_ that allows to incorporate R expressions in the text, the will be avaluated at the time of compilation.
