@@ -298,6 +298,13 @@ Things to note:
 - `shinyServer` is a (deprecatred) wrapper function for the server. 
 - The server runs a function with an `input` and an `output`. The elements of `input` are the `inputId`s from the UI. The elements of the `output` will be called by the UI using their `outputId`. 
 
+This is the output.
+```{r}
+knitr::include_app('http://shiny.rstudio.com/gallery/example-01-hello.html')
+```
+
+
+
 
 Here is another example, taken from the RStudio [Shiny examples](https://github.com/rstudio/shiny-examples/tree/master/006-tabsets).
 
@@ -344,10 +351,6 @@ library(shiny)
 # Define server logic for random distribution application
 function(input, output) {
   
-  # Reactive expression to generate the requested distribution.
-  # This is called whenever the inputs change. The output
-  # functions defined below then all use the value computed from
-  # this expression
   data <- reactive({
     dist <- switch(input$dist,
                    norm = rnorm,
@@ -359,25 +362,17 @@ function(input, output) {
     dist(input$n)
   })
   
-  # Generate a plot of the data. Also uses the inputs to build
-  # the plot label. Note that the dependencies on both the inputs
-  # and the data reactive expression are both tracked, and
-  # all expressions are called in the sequence implied by the
-  # dependency graph
   output$plot <- renderPlot({
     dist <- input$dist
     n <- input$n
     
-    hist(data(), 
-         main=paste('r', dist, '(', n, ')', sep=''))
+    hist(data(), main=paste('r', dist, '(', n, ')', sep=''))
   })
   
-  # Generate a summary of the data
   output$summary <- renderPrint({
     summary(data())
   })
   
-  # Generate an HTML table view of the data
   output$table <- renderTable({
     data.frame(x=data())
   })
@@ -391,9 +386,15 @@ Things to note:
 - As the name suggests, `radioButtons` is a widget that produces radio buttons, above the `sliderInput` widget. Note the different `inputId`s. 
 - `br()` produces extra vertical spacing. 
 - `tabsetPanel` produces tabs in the main output panel. `tabPanel` governs the content of each panel. Notice the use of various output functions (`plotOutput`,`verbatimTextOutput`, `tableOutput`)  with corresponding `outputId`s. 
+- In `server.R` we see the usual `function(input,output)`.
+- The `reactive` function tells the server the trigger the function whenever `input` changes.
+- The `output` object is constructed outside the `reactive` function. See how the elements of `output` correspond to the `outputId`s in the UI.
 
 
-
+This is the output:
+```{r}
+knitr::include_app('https://shiny.rstudio.com/gallery/tabsets.html')
+```
 
 
 ### Augmenting Shiny
