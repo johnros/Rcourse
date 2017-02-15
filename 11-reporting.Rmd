@@ -188,9 +188,38 @@ In particular, it has a more powerful cross referencing system.
 
 __Shiny__ [@shiny] is different than the previous systems, because it sets up an interactive web-site, and not a static file.
 The power of Shiny is that they layout of the web-site, and setting up the web-server, is made with several simple R commands, with no need for web-programming.
+Once you have your app up and running, you can setup your own Shiny server on the web, or publish it via [Shinyapps.io](https://www.shinyapps.io/).
 
 
+### Installation
+To setup your first Shiny app, you will need the __shiny__ package. 
+You will probably want RStudio, which facilitatis the process.
 
+```{r, eval=FALSE}
+install.packages('shiny')
+```
+
+Once installed, you can run an example app to get the feel of it.
+
+```{r, eval=FALSE}
+library(shiny)
+runExample("01_hello")
+```
+
+Remember to press the __Stop__ button in RStudio to stop the web-server, and get back to RStudio.
+
+
+### The Basics of Shiny
+Every Shiny app has two main building blocks.
+
+1. A user interface, specified via the `ui.R` file in the app's directory.
+1. A server side, specified via the `server.R` file, in the app's directory.
+
+You can run the app via the RStudio interface, of call by calling the app's directory with the `runApp` function.
+
+```{r, eval=FALSE}
+shiny::runApp("my_app")
+```
 
 
 
