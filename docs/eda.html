@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>R (BGU course)</title>
+  <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
+  <meta name="generator" content="bookdown 0.3.9 and GitBook 2.6.7">
+
+  <meta property="og:title" content="R (BGU course)" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R (BGU course)" />
+  
+  <meta name="twitter:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
+  
+
+<meta name="author" content="Jonathan D. Rosenblatt">
+
+
+<meta name="date" content="2017-02-15">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="basics.html">
+<link rel="next" href="lm.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<link href="libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
+<script src="libs/plotly-binding-4.5.6/plotly.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Course</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#ecosystem"><i class="fa fa-check"></i><b>2.2</b> The R Ecosystem</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
+<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.1</b> Simple calculator</a></li>
+<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.2</b> Probability calculator</a></li>
+<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.3</b> Getting Help</a></li>
+<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.4</b> Variable Asignment</a></li>
+<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.5</b> Piping</a></li>
+<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.6</b> Vector creation and manipulation</a></li>
+<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.7</b> Search paths and packages</a></li>
+<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.8</b> Simple plotting</a></li>
+<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.9</b> Object types</a></li>
+<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.10</b> Data Frames</a></li>
+<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.11</b> Exctraction</a></li>
+<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.12</b> Data Import and Export</a><ul>
+<li class="chapter" data-level="3.12.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.12.1</b> Import from WEB</a></li>
+<li class="chapter" data-level="3.12.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.12.2</b> Export as CSV</a></li>
+<li class="chapter" data-level="3.12.3" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.12.3</b> Reading From Text Files</a></li>
+<li class="chapter" data-level="3.12.4" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.12.4</b> Writing Data to Text Files</a></li>
+<li class="chapter" data-level="3.12.5" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.12.5</b> .XLS(X) files</a></li>
+<li class="chapter" data-level="3.12.6" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.12.6</b> Massive files</a></li>
+<li class="chapter" data-level="3.12.7" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.12.7</b> Databases</a></li>
+</ul></li>
+<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.13</b> Functions</a></li>
+<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.14</b> Looping</a></li>
+<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.15</b> Recursion</a></li>
+<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#bibliographic-notes"><i class="fa fa-check"></i><b>3.16</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="4.1" data-path="eda.html"><a href="eda.html#summary-statistics"><i class="fa fa-check"></i><b>4.1</b> Summary Statistics</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="eda.html"><a href="eda.html#categorical-data"><i class="fa fa-check"></i><b>4.1.1</b> Categorical Data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="eda.html"><a href="eda.html#continous-data"><i class="fa fa-check"></i><b>4.1.2</b> Continous Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="eda.html"><a href="eda.html#visualization"><i class="fa fa-check"></i><b>4.2</b> Visualization</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="eda.html"><a href="eda.html#categorical-data-1"><i class="fa fa-check"></i><b>4.2.1</b> Categorical Data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="eda.html"><a href="eda.html#continous-data-1"><i class="fa fa-check"></i><b>4.2.2</b> Continous Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="eda.html"><a href="eda.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>4.3</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="lm.html"><a href="lm.html"><i class="fa fa-check"></i><b>5</b> Linear Models</a><ul>
+<li class="chapter" data-level="5.1" data-path="lm.html"><a href="lm.html#problem-setup"><i class="fa fa-check"></i><b>5.1</b> Problem Setup</a></li>
+<li class="chapter" data-level="5.2" data-path="lm.html"><a href="lm.html#ols-estimation"><i class="fa fa-check"></i><b>5.2</b> OLS Estimation</a></li>
+<li class="chapter" data-level="5.3" data-path="lm.html"><a href="lm.html#inference"><i class="fa fa-check"></i><b>5.3</b> Inference</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.1</b> Testing a Hypothesis on a Single Coefficient</a></li>
+<li class="chapter" data-level="5.3.2" data-path="lm.html"><a href="lm.html#constructing-a-confidence-interval-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.2</b> Constructing a Confidence Interval on a Single Coefficient</a></li>
+<li class="chapter" data-level="5.3.3" data-path="lm.html"><a href="lm.html#multiple-regression"><i class="fa fa-check"></i><b>5.3.3</b> Multiple Regression</a></li>
+<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>5.3.4</b> Testing a Hypothesis on a Single Contrast</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-2"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Models</a><ul>
+<li class="chapter" data-level="6.1" data-path="glm.html"><a href="glm.html#problem-setup-1"><i class="fa fa-check"></i><b>6.1</b> Problem Setup</a></li>
+<li class="chapter" data-level="6.2" data-path="glm.html"><a href="glm.html#logistic-regression"><i class="fa fa-check"></i><b>6.2</b> Logistic Regression</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="glm.html"><a href="glm.html#logistic-regression-with-r"><i class="fa fa-check"></i><b>6.2.1</b> Logistic Regression with R</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="glm.html"><a href="glm.html#poisson-regression"><i class="fa fa-check"></i><b>6.3</b> Poisson Regression</a></li>
+<li class="chapter" data-level="6.4" data-path="glm.html"><a href="glm.html#extensions"><i class="fa fa-check"></i><b>6.4</b> Extensions</a></li>
+<li class="chapter" data-level="6.5" data-path="glm.html"><a href="glm.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>6.5</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
+<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
+<li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
+<li class="chapter" data-level="7.2.2" data-path="lme.html"><a href="lme.html#several-random-effects"><i class="fa fa-check"></i><b>7.2.2</b> Several Random Effects</a></li>
+<li class="chapter" data-level="7.2.3" data-path="lme.html"><a href="lme.html#a-full-mixed-model"><i class="fa fa-check"></i><b>7.2.3</b> A Full Mixed-Model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="lme.html"><a href="lme.html#bibliographic-notes-4"><i class="fa fa-check"></i><b>7.3</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multivariate.html"><a href="multivariate.html"><i class="fa fa-check"></i><b>8</b> Multivariate Data Analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="multivariate.html"><a href="multivariate.html#signal-detection"><i class="fa fa-check"></i><b>8.1</b> Signal Detection</a></li>
+<li class="chapter" data-level="8.2" data-path="multivariate.html"><a href="multivariate.html#signal-counting"><i class="fa fa-check"></i><b>8.2</b> Signal Counting</a></li>
+<li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#signal-identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a></li>
+<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation</a></li>
+<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression</a></li>
+<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#distribution-fitting"><i class="fa fa-check"></i><b>8.6</b> Distribution Fitting</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>9</b> Supervised Learning</a><ul>
+<li class="chapter" data-level="9.1" data-path="supervised.html"><a href="supervised.html#problem-setup-3"><i class="fa fa-check"></i><b>9.1</b> Problem setup</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="supervised.html"><a href="supervised.html#common-hypothesis-classes"><i class="fa fa-check"></i><b>9.1.1</b> Common Hypothesis Classes</a></li>
+<li class="chapter" data-level="9.1.2" data-path="supervised.html"><a href="supervised.html#common-complexity-penalties"><i class="fa fa-check"></i><b>9.1.2</b> Common Complexity Penalties</a></li>
+<li class="chapter" data-level="9.1.3" data-path="supervised.html"><a href="supervised.html#unbiased-risk-estimation"><i class="fa fa-check"></i><b>9.1.3</b> Unbiased Risk Estimation</a></li>
+<li class="chapter" data-level="9.1.4" data-path="supervised.html"><a href="supervised.html#collecting-the-pieces"><i class="fa fa-check"></i><b>9.1.4</b> Collecting the Pieces</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="supervised.html"><a href="supervised.html#supervised-learning-in-r"><i class="fa fa-check"></i><b>9.2</b> Supervised Learning in R</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="supervised.html"><a href="supervised.html#least-squares"><i class="fa fa-check"></i><b>9.2.1</b> Linear Models with Least Squares Loss</a></li>
+<li class="chapter" data-level="9.2.2" data-path="supervised.html"><a href="supervised.html#svm"><i class="fa fa-check"></i><b>9.2.2</b> SVM</a></li>
+<li class="chapter" data-level="9.2.3" data-path="supervised.html"><a href="supervised.html#neural-nets"><i class="fa fa-check"></i><b>9.2.3</b> Neural Nets</a></li>
+<li class="chapter" data-level="9.2.4" data-path="supervised.html"><a href="supervised.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>9.2.4</b> Classification and Regression Trees (CART)</a></li>
+<li class="chapter" data-level="9.2.5" data-path="supervised.html"><a href="supervised.html#k-nearest-neighbour-knn"><i class="fa fa-check"></i><b>9.2.5</b> K-nearest neighbour (KNN)</a></li>
+<li class="chapter" data-level="9.2.6" data-path="supervised.html"><a href="supervised.html#linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>9.2.6</b> Linear Discriminant Analysis (LDA)</a></li>
+<li class="chapter" data-level="9.2.7" data-path="supervised.html"><a href="supervised.html#naive-bayes"><i class="fa fa-check"></i><b>9.2.7</b> Naive Bayes</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="supervised.html"><a href="supervised.html#bibliographic-notes-5"><i class="fa fa-check"></i><b>9.3</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="unsupervised.html"><a href="unsupervised.html"><i class="fa fa-check"></i><b>10</b> Unsupervised Learning</a><ul>
+<li class="chapter" data-level="10.1" data-path="unsupervised.html"><a href="unsupervised.html#dim-reduce"><i class="fa fa-check"></i><b>10.1</b> Dimensionality Reduction</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="unsupervised.html"><a href="unsupervised.html#pca"><i class="fa fa-check"></i><b>10.1.1</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="10.1.2" data-path="unsupervised.html"><a href="unsupervised.html#preliminaries"><i class="fa fa-check"></i><b>10.1.2</b> Preliminaries</a></li>
+<li class="chapter" data-level="10.1.3" data-path="unsupervised.html"><a href="unsupervised.html#latent-variable-approaches"><i class="fa fa-check"></i><b>10.1.3</b> Latent Variable Approaches</a></li>
+<li class="chapter" data-level="10.1.4" data-path="unsupervised.html"><a href="unsupervised.html#purely-algorithmic-approaches"><i class="fa fa-check"></i><b>10.1.4</b> Purely Algorithmic Approaches</a></li>
+<li class="chapter" data-level="10.1.5" data-path="unsupervised.html"><a href="unsupervised.html#dimensionality-reduction-in-r"><i class="fa fa-check"></i><b>10.1.5</b> Dimensionality Reduction in R</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="unsupervised.html"><a href="unsupervised.html#cluster"><i class="fa fa-check"></i><b>10.2</b> Clustering</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="unsupervised.html"><a href="unsupervised.html#latent-variable-approaches-1"><i class="fa fa-check"></i><b>10.2.1</b> Latent Variable Approaches</a></li>
+<li class="chapter" data-level="10.2.2" data-path="unsupervised.html"><a href="unsupervised.html#purely-algorithmic-approaches-1"><i class="fa fa-check"></i><b>10.2.2</b> Purely Algorithmic Approaches</a></li>
+<li class="chapter" data-level="10.2.3" data-path="unsupervised.html"><a href="unsupervised.html#clustering-in-r"><i class="fa fa-check"></i><b>10.2.3</b> Clustering in R</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="unsupervised.html"><a href="unsupervised.html#bibliographic-notes-6"><i class="fa fa-check"></i><b>10.3</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>11</b> Plotting</a><ul>
+<li class="chapter" data-level="11.1" data-path="plotting.html"><a href="plotting.html#the-graphics-system"><i class="fa fa-check"></i><b>11.1</b> The graphics System</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="plotting.html"><a href="plotting.html#using-existing-plotting-functions"><i class="fa fa-check"></i><b>11.1.1</b> Using Existing Plotting Functions</a></li>
+<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#the-power-of-the-graphics-device"><i class="fa fa-check"></i><b>11.1.2</b> The Power of the graphics device</a></li>
+<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.3</b> Exporting a Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="plotting.html"><a href="plotting.html#the-ggplot2-system"><i class="fa fa-check"></i><b>11.2</b> The ggplot2 System</a></li>
+<li class="chapter" data-level="11.3" data-path="plotting.html"><a href="plotting.html#interactive-graphics"><i class="fa fa-check"></i><b>11.3</b> Interactive Graphics</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="plotting.html"><a href="plotting.html#plotly"><i class="fa fa-check"></i><b>11.3.1</b> Plotly</a></li>
+<li class="chapter" data-level="11.3.2" data-path="plotting.html"><a href="plotting.html#html-widgets"><i class="fa fa-check"></i><b>11.3.2</b> HTML Widgets</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="plotting.html"><a href="plotting.html#bibliographic-notes-7"><i class="fa fa-check"></i><b>11.4</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="report.html"><a href="report.html"><i class="fa fa-check"></i><b>12</b> Reports</a><ul>
+<li class="chapter" data-level="12.1" data-path="report.html"><a href="report.html#knitr"><i class="fa fa-check"></i><b>12.1</b> knitr</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="report.html"><a href="report.html#installation"><i class="fa fa-check"></i><b>12.1.1</b> Installation</a></li>
+<li class="chapter" data-level="12.1.2" data-path="report.html"><a href="report.html#markdown"><i class="fa fa-check"></i><b>12.1.2</b> Markdown</a></li>
+<li class="chapter" data-level="12.1.3" data-path="report.html"><a href="report.html#rmarkdown"><i class="fa fa-check"></i><b>12.1.3</b> Rmarkdown</a></li>
+<li class="chapter" data-level="12.1.4" data-path="report.html"><a href="report.html#compiling"><i class="fa fa-check"></i><b>12.1.4</b> Compiling</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="report.html"><a href="report.html#bookdown"><i class="fa fa-check"></i><b>12.2</b> bookdown</a></li>
+<li class="chapter" data-level="12.3" data-path="report.html"><a href="report.html#shiny"><i class="fa fa-check"></i><b>12.3</b> Shiny</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="report.html"><a href="report.html#installation-1"><i class="fa fa-check"></i><b>12.3.1</b> Installation</a></li>
+<li class="chapter" data-level="12.3.2" data-path="report.html"><a href="report.html#the-basics-of-shiny"><i class="fa fa-check"></i><b>12.3.2</b> The Basics of Shiny</a></li>
+<li class="chapter" data-level="12.3.3" data-path="report.html"><a href="report.html#beyond-the-basics"><i class="fa fa-check"></i><b>12.3.3</b> Beyond the Basics</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="report.html"><a href="report.html#bibliographic-notes-8"><i class="fa fa-check"></i><b>12.4</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="hadley.html"><a href="hadley.html"><i class="fa fa-check"></i><b>13</b> The Hadleyverse</a><ul>
+<li class="chapter" data-level="13.1" data-path="hadley.html"><a href="hadley.html#dplyr"><i class="fa fa-check"></i><b>13.1</b> dplyr</a></li>
+<li class="chapter" data-level="13.2" data-path="hadley.html"><a href="hadley.html#tidyr"><i class="fa fa-check"></i><b>13.2</b> tidyr</a></li>
+<li class="chapter" data-level="13.3" data-path="hadley.html"><a href="hadley.html#readr"><i class="fa fa-check"></i><b>13.3</b> readr</a></li>
+<li class="chapter" data-level="13.4" data-path="hadley.html"><a href="hadley.html#reshape2"><i class="fa fa-check"></i><b>13.4</b> reshape2</a></li>
+<li class="chapter" data-level="13.5" data-path="hadley.html"><a href="hadley.html#stringr"><i class="fa fa-check"></i><b>13.5</b> stringr</a></li>
+<li class="chapter" data-level="13.6" data-path="hadley.html"><a href="hadley.html#anytime"><i class="fa fa-check"></i><b>13.6</b> anytime</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a></li>
+<li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a></li>
+<li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a></li>
+<li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a></li>
+<li class="chapter" data-level="18" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>18</b> Convex Optimization</a></li>
+<li class="chapter" data-level="19" data-path="rcpp.html"><a href="rcpp.html"><i class="fa fa-check"></i><b>19</b> RCpp</a></li>
+<li class="chapter" data-level="20" data-path="package.html"><a href="package.html"><i class="fa fa-check"></i><b>20</b> Writing Packages</a></li>
+<li class="chapter" data-level="21" data-path="bib.html"><a href="bib.html"><i class="fa fa-check"></i><b>21</b> Bibliography</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R (BGU course)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="eda" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Exploratory Data Analysis</h1>
+<p>Exploratory Data Analysis (EDA) is a term cast by <a href="https://en.wikipedia.org/wiki/John_Tukey">John W. Tukey</a> in his seminal book <span class="citation">Tukey (<a href="#ref-tukey1977exploratory">1977</a>)</span>. It is the practice of inspecting, exploring your data before stating hypotheses, fitting predictors, and other more ambitious inferential goals. It typically includes the computation of simple <em>summary statistics</em> which capture some property of interest in the data, and <em>visualization</em>. EDA can be thought of as an assumption free, purely algorithmic practice.</p>
+<p>In this text we present EDA techniques along the following lines:</p>
+<ul>
+<li>How we explore: with a summary statistic or visually.</li>
+<li>How many variable analyzed simultaneously: univariate, bivariate, or multivariate.</li>
+<li>What type of variable: categorical or continuous.</li>
+</ul>
+<div id="summary-statistics" class="section level2">
+<h2><span class="header-section-number">4.1</span> Summary Statistics</h2>
+<div id="categorical-data" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Categorical Data</h3>
+<p>Categorical variable do not admit any mathematical operations on them. We cannot sum them, or even sort them. We can only <strong>count</strong> them. As such, summaries of categorical variables will always start with the counting of the frequency of each category.</p>
+<div id="univariate-categorical-data" class="section level4">
+<h4><span class="header-section-number">4.1.1.1</span> Univariate Categorical Data</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gender &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&#39;Boy&#39;</span>, <span class="dv">10</span>), <span class="kw">rep</span>(<span class="st">&#39;Girl&#39;</span>, <span class="dv">12</span>))
+drink &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&#39;Coke&#39;</span>, <span class="dv">5</span>), <span class="kw">rep</span>(<span class="st">&#39;Sprite&#39;</span>, <span class="dv">3</span>), <span class="kw">rep</span>(<span class="st">&#39;Coffee&#39;</span>, <span class="dv">6</span>), <span class="kw">rep</span>(<span class="st">&#39;Tea&#39;</span>, <span class="dv">7</span>), <span class="kw">rep</span>(<span class="st">&#39;Water&#39;</span>, <span class="dv">1</span>))  
+age &lt;-<span class="st">  </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&#39;Young&#39;</span>, <span class="st">&#39;Old&#39;</span>), <span class="dt">size =</span> <span class="kw">length</span>(gender), <span class="dt">replace =</span> <span class="ot">TRUE</span>)
+
+<span class="kw">table</span>(gender)</code></pre></div>
+<pre><code>## gender
+##  Boy Girl 
+##   10   12</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(drink)</code></pre></div>
+<pre><code>## drink
+## Coffee   Coke Sprite    Tea  Water 
+##      6      5      3      7      1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(age)</code></pre></div>
+<pre><code>## age
+##   Old Young 
+##    13     9</code></pre>
+<p>If instead of the level counts you want the proportions, you can use <code>prop.table</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prop.table</span>(<span class="kw">table</span>(gender))</code></pre></div>
+<pre><code>## gender
+##       Boy      Girl 
+## 0.4545455 0.5454545</code></pre>
+</div>
+<div id="bivariate-categorical-data" class="section level4">
+<h4><span class="header-section-number">4.1.1.2</span> Bivariate Categorical Data</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cbind</span>(gender, drink) %&gt;%<span class="st"> </span>head <span class="co"># inspect the raw data</span></code></pre></div>
+<pre><code>##      gender drink   
+## [1,] &quot;Boy&quot;  &quot;Coke&quot;  
+## [2,] &quot;Boy&quot;  &quot;Coke&quot;  
+## [3,] &quot;Boy&quot;  &quot;Coke&quot;  
+## [4,] &quot;Boy&quot;  &quot;Coke&quot;  
+## [5,] &quot;Boy&quot;  &quot;Coke&quot;  
+## [6,] &quot;Boy&quot;  &quot;Sprite&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table1 &lt;-<span class="st"> </span><span class="kw">table</span>(gender, drink) 
+table1                                      </code></pre></div>
+<pre><code>##       drink
+## gender Coffee Coke Sprite Tea Water
+##   Boy       2    5      3   0     0
+##   Girl      4    0      0   7     1</code></pre>
+</div>
+<div id="multivariate-categorical-data" class="section level4">
+<h4><span class="header-section-number">4.1.1.3</span> Multivariate Categorical Data</h4>
+<p>You may be wondering how does R handle tables with more than two dimensions. It is indeed not trivial, and R offers several solutions.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table2<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">table</span>(gender, drink, age) <span class="co"># A multilevel table. </span>
+table2<span class="fl">.1</span></code></pre></div>
+<pre><code>## , , age = Old
+## 
+##       drink
+## gender Coffee Coke Sprite Tea Water
+##   Boy       1    5      1   0     0
+##   Girl      3    0      0   3     0
+## 
+## , , age = Young
+## 
+##       drink
+## gender Coffee Coke Sprite Tea Water
+##   Boy       1    0      2   0     0
+##   Girl      1    0      0   4     1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table<span class="fl">.2.2</span> &lt;-<span class="st"> </span><span class="kw">ftable</span>(gender, drink, age) <span class="co"># A human readable table.</span>
+table<span class="fl">.2.2</span></code></pre></div>
+<pre><code>##               age Old Young
+## gender drink               
+## Boy    Coffee       1     1
+##        Coke         5     0
+##        Sprite       1     2
+##        Tea          0     0
+##        Water        0     0
+## Girl   Coffee       3     1
+##        Coke         0     0
+##        Sprite       0     0
+##        Tea          3     4
+##        Water        0     1</code></pre>
+<p>If you want proportions instead of counts, you need to specify the denominator, i.e., the margins.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prop.table</span>(table1, <span class="dt">margin =</span> <span class="dv">1</span>)</code></pre></div>
+<pre><code>##       drink
+## gender     Coffee       Coke     Sprite        Tea      Water
+##   Boy  0.20000000 0.50000000 0.30000000 0.00000000 0.00000000
+##   Girl 0.33333333 0.00000000 0.00000000 0.58333333 0.08333333</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prop.table</span>(table1, <span class="dt">margin =</span> <span class="dv">2</span>)</code></pre></div>
+<pre><code>##       drink
+## gender    Coffee      Coke    Sprite       Tea     Water
+##   Boy  0.3333333 1.0000000 1.0000000 0.0000000 0.0000000
+##   Girl 0.6666667 0.0000000 0.0000000 1.0000000 1.0000000</code></pre>
+</div>
+</div>
+<div id="continous-data" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Continous Data</h3>
+<p>Continuous variables admit many more operations than categorical. We can thus compute sums, means, quantiles, and more.</p>
+<div id="univariate-continous-data" class="section level4">
+<h4><span class="header-section-number">4.1.2.1</span> Univariate Continous Data</h4>
+<p>We distinguish between several types of summaries, each capturing a different property of the data.</p>
+</div>
+<div id="summary-of-location" class="section level4">
+<h4><span class="header-section-number">4.1.2.2</span> Summary of Location</h4>
+<p>Capture the “location” of the data. These include:</p>
+
+<div class="definition">
+<span id="def:unnamed-chunk-62" class="definition"><strong>Definition 4.1 </strong></span>The mean, or average, of a sample <span class="math inline">\(x\)</span> of lenth <span class="math inline">\(n\)</span>, denoted <span class="math inline">\(\bar x\)</span> is defined as <span class="math display">\[ \bar x := n^{-1} \sum x_i \]</span>
+</div>
+<p></p>
+<p>The sample mean is <strong>non robust</strong>. A single large observation may inflate the mean indefinitely. For this reason, we define several other summaries of location, which are more robust, i.e., less affected by “contaminations” of the data.</p>
+<p>We start by defining the sample quantiles, themselves <strong>not</strong> a summary of location.</p>
+
+<div class="definition">
+<span id="def:unnamed-chunk-63" class="definition"><strong>Definition 4.2 </strong></span>The <span class="math inline">\(\alpha\)</span> quantile of a sample <span class="math inline">\(x\)</span>, denoted <span class="math inline">\(x_\alpha\)</span>, is (non uniquely) defined as a value above <span class="math inline">\(100 \alpha \%\)</span> of the sample, and below <span class="math inline">\(100 (1-\alpha) \%\)</span>.
+</div>
+<p></p>
+<p>We emphasize that sample quantiles are non-uniquely defined. See <code>?quantile</code> for the 9(!) different definitions that R provides.</p>
+<p>We can now define another summary of location, the median.</p>
+
+<div class="definition">
+<span id="def:unnamed-chunk-64" class="definition"><strong>Definition 4.3 </strong></span>The median of a sample <span class="math inline">\(x\)</span>, denoted <span class="math inline">\(x_{0.5}\)</span> is the <span class="math inline">\(\alpha=0.5\)</span> quantile of the sample.
+</div>
+<p></p>
+<p>A whole family of summaries of locations is the <strong>alpha trimmed mean</strong>.</p>
+
+<div class="definition">
+<span id="def:unnamed-chunk-65" class="definition"><strong>Definition 4.4 </strong></span>The <span class="math inline">\(\alpha\)</span> trimmed mean of a sample <span class="math inline">\(x\)</span>, denoted <span class="math inline">\(\bar x_\alpha\)</span> is the average of the sample after removing the <span class="math inline">\(\alpha\)</span> largest and <span class="math inline">\(\alpha\)</span> smallest observations.
+</div>
+<p></p>
+<p>The simple mean and median are instances of the alpha trimmed mean: <span class="math inline">\(\bar x_0\)</span> and <span class="math inline">\(\bar x_{0.5}\)</span> respectively.</p>
+<p>Here are the R implementations:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">100</span>)
+<span class="kw">mean</span>(x) <span class="co"># simple mean</span></code></pre></div>
+<pre><code>## [1] 1.123787</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">median</span>(x) <span class="co"># median</span></code></pre></div>
+<pre><code>## [1] 0.7383378</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(x, <span class="dt">trim =</span> <span class="fl">0.2</span>) <span class="co"># alpha trimmed mean with alpha=0.2</span></code></pre></div>
+<pre><code>## [1] 0.8693164</code></pre>
+</div>
+<div id="summary-of-scale" class="section level4">
+<h4><span class="header-section-number">4.1.2.3</span> Summary of Scale</h4>
+<p>The scale of the data can be thought of its variability.</p>
+
+<div class="definition">
+<span id="def:unnamed-chunk-67" class="definition"><strong>Definition 4.5 </strong></span>The standard deviation of a sample <span class="math inline">\(x\)</span>, denoted <span class="math inline">\(S(x)\)</span>, is defined as <span class="math display">\[ S(x):=\sqrt{(n-1)^{-1} \sum (x_i-\bar x)^2} \]</span>
+</div>
+<p></p>
+<p>For reasons of robustness, we define other, more robust, measures of scale.</p>
+
+<div class="definition">
+<span id="def:unnamed-chunk-68" class="definition"><strong>Definition 4.6 </strong></span>The Median Absolute Deviation from the median, denoted as <span class="math inline">\(MAD(x)\)</span>, is defined as <span class="math display">\[MAD(x):= c \: |x-x_{0.5}|_{0.5} \]</span>
+</div>
+<p></p>
+<p>where <span class="math inline">\(c\)</span> is some constant, typically set to <span class="math inline">\(c=1.4826\)</span> so that the MAD is a robust estimate of <span class="math inline">\(S(x)\)</span>.</p>
+
+<div class="definition">
+<span id="def:unnamed-chunk-69" class="definition"><strong>Definition 4.7 </strong></span>The Inter Quantile Range of a sample <span class="math inline">\(x\)</span>, denoted as <span class="math inline">\(IQR(x)\)</span>, is defined as <span class="math display">\[ IQR(x):= x_{0.75}-x_{0.25} \]</span>
+</div>
+<p></p>
+<p>Here are the R implementations</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(x) <span class="co"># standard deviation</span></code></pre></div>
+<pre><code>## [1] 1.05309</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mad</span>(x) <span class="co"># MAD</span></code></pre></div>
+<pre><code>## [1] 0.7008016</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">IQR</span>(x) <span class="co"># IQR</span></code></pre></div>
+<pre><code>## [1] 1.265784</code></pre>
+</div>
+<div id="summary-of-asymmetry" class="section level4">
+<h4><span class="header-section-number">4.1.2.4</span> Summary of Asymmetry</h4>
+<p>The symmetry of a univariate sample is easily understood. Summaries of asymmetry, also known as <em>skewness</em> quantify the departure of the <span class="math inline">\(x\)</span> from a symmetric distribution.</p>
+
+<div class="definition">
+<span id="def:unnamed-chunk-71" class="definition"><strong>Definition 4.8 </strong></span>The Yule measure of assymetry, denoted <span class="math inline">\(Yule(x)\)</span> is defined as <span class="math display">\[Yule(x) := \frac{1/2 \: (x_{0.75}+x_{0.25}) - x_{0.5} }{1/2 \: IQR(x)} \]</span>
+</div>
+<p></p>
+<p>Here is an R implementation</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yule &lt;-<span class="st"> </span>function(x){
+  numerator &lt;-<span class="st"> </span><span class="fl">0.5</span> *<span class="st"> </span>(<span class="kw">quantile</span>(x,<span class="fl">0.75</span>) +<span class="st"> </span><span class="kw">quantile</span>(x,<span class="fl">0.25</span>))-<span class="kw">median</span>(x) 
+  denominator &lt;-<span class="st"> </span><span class="fl">0.5</span>*<span class="st"> </span><span class="kw">IQR</span>(x)
+  numerator/denominator
+}
+<span class="kw">yule</span>(x)</code></pre></div>
+<pre><code>##       75% 
+## 0.3612565</code></pre>
+</div>
+<div id="bivariate-continous-data" class="section level4">
+<h4><span class="header-section-number">4.1.2.5</span> Bivariate Continous Data</h4>
+<p>When dealing with bivariate, or multivariate data, we can obviously compute univariate summaries for each variable. This is <strong>not</strong> the topic of this section, in which we want to summarize the association <strong>between</strong> the variables, and not withing them.</p>
+
+<div class="definition">
+<span id="def:unnamed-chunk-73" class="definition"><strong>Definition 4.9 </strong></span>The covariance between two samples, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, of same length <span class="math inline">\(n\)</span>, is defined as <span class="math display">\[Cov(x,y):= (n-1)^{-1} \sum (x_i-\bar x)(y_i-\bar y)  \]</span>
+</div>
+<p></p>
+<p>We emphasize this is not the covariance you learned about in probability classes, since it is not the covariance between two <em>random variables</em> but rather, between two <em>samples</em>. For this reasons, some authors call it the <em>empirical</em> covariance.</p>
+
+<div class="definition">
+<span id="def:unnamed-chunk-74" class="definition"><strong>Definition 4.10 </strong></span>Peasrson’s correlation coefficient, a.k.a. Pearson’s moment product correlation, or simply, the correlation, denoted by is defined as <span class="math display">\[r(x,y):=\frac{Cov(x,y)}{S(x)S(y)} \]</span>
+</div>
+<p></p>
+<p>If you find this definition enigmatic, just think of the correlation as the covariance between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> after transforming each to the unitless scale of z-scores.</p>
+
+<div class="definition">
+<span id="def:unnamed-chunk-75" class="definition"><strong>Definition 4.11 </strong></span>The z-scores of a sample <span class="math inline">\(x\)</span> are defined as the mean-centered, scale normalized observations: <span class="math display">\[z_i(x):= \frac{x_i-\bar x}{S(x)}\]</span>
+</div>
+<p></p>
+<p>We thus have that <span class="math inline">\(r(x,y)=Cov(z(x),z(y))\)</span>.</p>
+</div>
+<div id="multivariate-continous-data" class="section level4">
+<h4><span class="header-section-number">4.1.2.6</span> Multivariate Continous Data</h4>
+<p>The covariance is a simple summary of association between two variables, but it certainly may not capture the whole “story”. Things get more complicated when summarizing the relation between multiple variables. The most common summary of relation, is the <strong>covariance matrix</strong>, but we warn that only the simplest multivariate relations are fully summarized by this matrix.</p>
+
+<div class="definition">
+<span id="def:unnamed-chunk-76" class="definition"><strong>Definition 4.12 </strong></span>Given <span class="math inline">\(n\)</span> observations on <span class="math inline">\(p\)</span> variables, the covariance matrix of the sample, denoted <span class="math inline">\(\hat \Sigma\)</span> is defined as <span class="math display">\[\hat \Sigma_{i,j}=Cov(x_i,x_j)\]</span> where <span class="math inline">\(x_i,x_j\)</span> are the <span class="math inline">\(n\)</span> observations on variables <span class="math inline">\(x_i\)</span> and <span class="math inline">\(x_j\)</span> respectively.
+</div>
+<p></p>
+
+<div class="remark">
+<span class="remark"><em>Remark. </em></span> <span class="math inline">\(\hat \Sigma\)</span> is clearly non robust. How would you define a robust covariance matrix?
+</div>
+<p></p>
+</div>
+</div>
+</div>
+<div id="visualization" class="section level2">
+<h2><span class="header-section-number">4.2</span> Visualization</h2>
+<p>Summarizing the story in a variable to a single number clearly conceals much of the story in the data. This is akin to inspecting a person by its caricature, instead of a picture. Visualizing the data, when possible, is more informative.</p>
+<div id="categorical-data-1" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Categorical Data</h3>
+<p>Recalling that with categorical variables we can only count the frequency of each level, the plotting of such variables are typically variations on the <em>bar plot</em>.</p>
+<div id="univariate-categorical-data-1" class="section level4">
+<h4><span class="header-section-number">4.2.1.1</span> Univariate Categorical Data</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">table</span>(age))</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+</div>
+<div id="bivariate-categorical-data-1" class="section level4">
+<h4><span class="header-section-number">4.2.1.2</span> Bivariate Categorical Data</h4>
+<p>There are several generalizations of the barplot, aimed to deal with the visualization of bivariate categorical data. There are sometimes known as the <em>clustered bar plot</em> and the <em>stacked bar plot</em>. In this text, we advocate the use of the <em>mosaic plot</em> which is also the default in R.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(table1, <span class="dt">main=</span><span class="st">&#39;Bivariate mosaic plot&#39;</span>)</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+</div>
+<div id="multivariate-categorical-data-1" class="section level4">
+<h4><span class="header-section-number">4.2.1.3</span> Multivariate Categorical Data</h4>
+<p>The <em>mosaic plot</em> is not easy to generalize to more than two variables, but it is still possible (at the cost of interpretability).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(table2<span class="fl">.1</span>, <span class="dt">main=</span><span class="st">&#39;Trivaraite mosaic plot&#39;</span>)</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
+</div>
+</div>
+<div id="continous-data-1" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Continous Data</h3>
+<div id="univariate-continous-data-1" class="section level4">
+<h4><span class="header-section-number">4.2.2.1</span> Univariate Continous Data</h4>
+<p>There are endlessly many way to visualize continuous univariate data. The simplest way is to look at the raw data via the <code>stripcart</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample1 &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">10</span>)                             
+<span class="kw">stripchart</span>(sample1)</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
+<p>Clearly, if there are many observations, the <code>stripchart</code> will be a useless line of black dots. We thus bin them together, and look at the frequency of each bin; this is the <em>histogram</em>. R’s <code>histogram</code> function has very good defaults to choose the number of bins.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample1 &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">100</span>)                            
+<span class="kw">hist</span>(sample1, <span class="dt">freq=</span>T, <span class="dt">main=</span><span class="st">&#39;Counts&#39;</span>)        </code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(sample1, <span class="dt">freq=</span>F, <span class="dt">main=</span><span class="st">&#39;Frequencies&#39;</span>)   </code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-82-2.png" width="672" /></p>
+<p>The bins of a histogram are non overlapping. We can adopt a sliding window approach, instead of binning. This is the <em>density plot</em> which is produce with the <code>density</code> functions, and added to an existing plot with the <code>lines</code> function. The <code>rug</code> function adds the original data points as ticks on the axes, and is strongly recommended to detect artifacts due to the binning of the histogram, or the smoothing of the density plot.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(sample1, <span class="dt">freq=</span>F, <span class="dt">main=</span><span class="st">&#39;Frequencies&#39;</span>)   
+<span class="kw">lines</span>(<span class="kw">density</span>(sample1))                     
+<span class="kw">rug</span>(sample1)</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+
+<div class="remark">
+<span class="remark"><em>Remark. </em></span> Why would it make no sense of making a table, or a barplot, of continous data?
+</div>
+<p></p>
+<p>One particularly useful visualization, due to John w. Tukey, is the <em>boxplot</em>. The boxplot is designed to capture the main phenomena in the data, and simultaneously point to outlines.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">boxplot</span>(sample1)    </code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+</div>
+<div id="bivariate-continous-data-1" class="section level4">
+<h4><span class="header-section-number">4.2.2.2</span> Bivariate Continous Data</h4>
+<p>The bivariate counterpart of the <code>stipchart</code> is the celebrated scatter plot.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">20</span>
+x1 &lt;-<span class="st"> </span><span class="kw">rexp</span>(n)
+x2 &lt;-<span class="st"> </span><span class="dv">2</span>*<span class="st"> </span>x1 +<span class="st"> </span><span class="dv">4</span> +<span class="st"> </span><span class="kw">rexp</span>(n)
+<span class="kw">plot</span>(x2~x1)</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
+<p>Like the univariate <code>stripchart</code>, the scatter plot will be an uninformative mess in the presence of a lot of data. A nice bivariate counterpart of the univariate histogram is the <em>hexbin plot</em>, which tessellates the bivariate plane with hexagons.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(hexbin)
+n &lt;-<span class="st"> </span><span class="fl">2e5</span>
+x1 &lt;-<span class="st"> </span><span class="kw">rexp</span>(n)
+x2 &lt;-<span class="st"> </span><span class="dv">2</span>*<span class="st"> </span>x1 +<span class="st"> </span><span class="dv">4</span> +<span class="st"> </span><span class="kw">rnorm</span>(n)
+<span class="kw">plot</span>(<span class="kw">hexbin</span>(<span class="dt">x =</span> x1, <span class="dt">y =</span> x2))</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
+</div>
+<div id="multivariate-continous-data-1" class="section level4">
+<h4><span class="header-section-number">4.2.2.3</span> Multivariate Continous Data</h4>
+<p>Visualizing multivariate data is a tremendous challenge given that we cannot grasp <span class="math inline">\(4\)</span> dimensional spaces, nor can the computer screen present more than <span class="math inline">\(2\)</span> dimensional spaces. We thus have several options: (i) To project the data to 2D. This is discussed in the Dimensionality Reduction section (<a href="unsupervised.html#dim-reduce">10.1</a>). (ii) To visualize not the data, but the summaries. Like the covariance matrix.</p>
+<p>Since the covariance matrix, <span class="math inline">\(\hat \Sigma\)</span> is a matrix, it can be visualized as a matrix.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">covariance &lt;-<span class="st"> </span><span class="kw">cov</span>(longley) <span class="co"># The covariance of the longley dataset</span>
+lattice::<span class="kw">levelplot</span>(covariance)</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+<div id="bibliographic-notes-1" class="section level2">
+<h2><span class="header-section-number">4.3</span> Bibliographic Notes</h2>
+<p>Like any other topic in this book, you can consult <span class="citation">Venables and Ripley (<a href="#ref-venables2013modern">2013</a>)</span>. The seminal book on EDA, written long before R was around, is <span class="citation">Tukey (<a href="#ref-tukey1977exploratory">1977</a>)</span>.</p>
+
+</div>
+</div>
+<h3> Bibliography</h3>
+<div id="refs" class="references">
+<div id="ref-tukey1977exploratory">
+<p>Tukey, John W. 1977. “Exploratory Data Analysis.” Reading, Mass.</p>
+</div>
+<div id="ref-venables2013modern">
+<p>Venables, William N, and Brian D Ripley. 2013. <em>Modern Applied Statistics with S-Plus</em>. Springer Science &amp; Business Media.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lm.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-eda.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

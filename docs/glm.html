@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>R (BGU course)</title>
+  <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
+  <meta name="generator" content="bookdown 0.3.9 and GitBook 2.6.7">
+
+  <meta property="og:title" content="R (BGU course)" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R (BGU course)" />
+  
+  <meta name="twitter:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
+  
+
+<meta name="author" content="Jonathan D. Rosenblatt">
+
+
+<meta name="date" content="2017-02-15">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="lm.html">
+<link rel="next" href="lme.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<link href="libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
+<script src="libs/plotly-binding-4.5.6/plotly.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Course</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#ecosystem"><i class="fa fa-check"></i><b>2.2</b> The R Ecosystem</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
+<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.1</b> Simple calculator</a></li>
+<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.2</b> Probability calculator</a></li>
+<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.3</b> Getting Help</a></li>
+<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.4</b> Variable Asignment</a></li>
+<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.5</b> Piping</a></li>
+<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.6</b> Vector creation and manipulation</a></li>
+<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.7</b> Search paths and packages</a></li>
+<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.8</b> Simple plotting</a></li>
+<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.9</b> Object types</a></li>
+<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.10</b> Data Frames</a></li>
+<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.11</b> Exctraction</a></li>
+<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.12</b> Data Import and Export</a><ul>
+<li class="chapter" data-level="3.12.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.12.1</b> Import from WEB</a></li>
+<li class="chapter" data-level="3.12.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.12.2</b> Export as CSV</a></li>
+<li class="chapter" data-level="3.12.3" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.12.3</b> Reading From Text Files</a></li>
+<li class="chapter" data-level="3.12.4" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.12.4</b> Writing Data to Text Files</a></li>
+<li class="chapter" data-level="3.12.5" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.12.5</b> .XLS(X) files</a></li>
+<li class="chapter" data-level="3.12.6" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.12.6</b> Massive files</a></li>
+<li class="chapter" data-level="3.12.7" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.12.7</b> Databases</a></li>
+</ul></li>
+<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.13</b> Functions</a></li>
+<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.14</b> Looping</a></li>
+<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.15</b> Recursion</a></li>
+<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#bibliographic-notes"><i class="fa fa-check"></i><b>3.16</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="4.1" data-path="eda.html"><a href="eda.html#summary-statistics"><i class="fa fa-check"></i><b>4.1</b> Summary Statistics</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="eda.html"><a href="eda.html#categorical-data"><i class="fa fa-check"></i><b>4.1.1</b> Categorical Data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="eda.html"><a href="eda.html#continous-data"><i class="fa fa-check"></i><b>4.1.2</b> Continous Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="eda.html"><a href="eda.html#visualization"><i class="fa fa-check"></i><b>4.2</b> Visualization</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="eda.html"><a href="eda.html#categorical-data-1"><i class="fa fa-check"></i><b>4.2.1</b> Categorical Data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="eda.html"><a href="eda.html#continous-data-1"><i class="fa fa-check"></i><b>4.2.2</b> Continous Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="eda.html"><a href="eda.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>4.3</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="lm.html"><a href="lm.html"><i class="fa fa-check"></i><b>5</b> Linear Models</a><ul>
+<li class="chapter" data-level="5.1" data-path="lm.html"><a href="lm.html#problem-setup"><i class="fa fa-check"></i><b>5.1</b> Problem Setup</a></li>
+<li class="chapter" data-level="5.2" data-path="lm.html"><a href="lm.html#ols-estimation"><i class="fa fa-check"></i><b>5.2</b> OLS Estimation</a></li>
+<li class="chapter" data-level="5.3" data-path="lm.html"><a href="lm.html#inference"><i class="fa fa-check"></i><b>5.3</b> Inference</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.1</b> Testing a Hypothesis on a Single Coefficient</a></li>
+<li class="chapter" data-level="5.3.2" data-path="lm.html"><a href="lm.html#constructing-a-confidence-interval-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.2</b> Constructing a Confidence Interval on a Single Coefficient</a></li>
+<li class="chapter" data-level="5.3.3" data-path="lm.html"><a href="lm.html#multiple-regression"><i class="fa fa-check"></i><b>5.3.3</b> Multiple Regression</a></li>
+<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>5.3.4</b> Testing a Hypothesis on a Single Contrast</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-2"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Models</a><ul>
+<li class="chapter" data-level="6.1" data-path="glm.html"><a href="glm.html#problem-setup-1"><i class="fa fa-check"></i><b>6.1</b> Problem Setup</a></li>
+<li class="chapter" data-level="6.2" data-path="glm.html"><a href="glm.html#logistic-regression"><i class="fa fa-check"></i><b>6.2</b> Logistic Regression</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="glm.html"><a href="glm.html#logistic-regression-with-r"><i class="fa fa-check"></i><b>6.2.1</b> Logistic Regression with R</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="glm.html"><a href="glm.html#poisson-regression"><i class="fa fa-check"></i><b>6.3</b> Poisson Regression</a></li>
+<li class="chapter" data-level="6.4" data-path="glm.html"><a href="glm.html#extensions"><i class="fa fa-check"></i><b>6.4</b> Extensions</a></li>
+<li class="chapter" data-level="6.5" data-path="glm.html"><a href="glm.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>6.5</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
+<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
+<li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
+<li class="chapter" data-level="7.2.2" data-path="lme.html"><a href="lme.html#several-random-effects"><i class="fa fa-check"></i><b>7.2.2</b> Several Random Effects</a></li>
+<li class="chapter" data-level="7.2.3" data-path="lme.html"><a href="lme.html#a-full-mixed-model"><i class="fa fa-check"></i><b>7.2.3</b> A Full Mixed-Model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="lme.html"><a href="lme.html#bibliographic-notes-4"><i class="fa fa-check"></i><b>7.3</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="multivariate.html"><a href="multivariate.html"><i class="fa fa-check"></i><b>8</b> Multivariate Data Analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="multivariate.html"><a href="multivariate.html#signal-detection"><i class="fa fa-check"></i><b>8.1</b> Signal Detection</a></li>
+<li class="chapter" data-level="8.2" data-path="multivariate.html"><a href="multivariate.html#signal-counting"><i class="fa fa-check"></i><b>8.2</b> Signal Counting</a></li>
+<li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#signal-identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a></li>
+<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation</a></li>
+<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression</a></li>
+<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#distribution-fitting"><i class="fa fa-check"></i><b>8.6</b> Distribution Fitting</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>9</b> Supervised Learning</a><ul>
+<li class="chapter" data-level="9.1" data-path="supervised.html"><a href="supervised.html#problem-setup-3"><i class="fa fa-check"></i><b>9.1</b> Problem setup</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="supervised.html"><a href="supervised.html#common-hypothesis-classes"><i class="fa fa-check"></i><b>9.1.1</b> Common Hypothesis Classes</a></li>
+<li class="chapter" data-level="9.1.2" data-path="supervised.html"><a href="supervised.html#common-complexity-penalties"><i class="fa fa-check"></i><b>9.1.2</b> Common Complexity Penalties</a></li>
+<li class="chapter" data-level="9.1.3" data-path="supervised.html"><a href="supervised.html#unbiased-risk-estimation"><i class="fa fa-check"></i><b>9.1.3</b> Unbiased Risk Estimation</a></li>
+<li class="chapter" data-level="9.1.4" data-path="supervised.html"><a href="supervised.html#collecting-the-pieces"><i class="fa fa-check"></i><b>9.1.4</b> Collecting the Pieces</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="supervised.html"><a href="supervised.html#supervised-learning-in-r"><i class="fa fa-check"></i><b>9.2</b> Supervised Learning in R</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="supervised.html"><a href="supervised.html#least-squares"><i class="fa fa-check"></i><b>9.2.1</b> Linear Models with Least Squares Loss</a></li>
+<li class="chapter" data-level="9.2.2" data-path="supervised.html"><a href="supervised.html#svm"><i class="fa fa-check"></i><b>9.2.2</b> SVM</a></li>
+<li class="chapter" data-level="9.2.3" data-path="supervised.html"><a href="supervised.html#neural-nets"><i class="fa fa-check"></i><b>9.2.3</b> Neural Nets</a></li>
+<li class="chapter" data-level="9.2.4" data-path="supervised.html"><a href="supervised.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>9.2.4</b> Classification and Regression Trees (CART)</a></li>
+<li class="chapter" data-level="9.2.5" data-path="supervised.html"><a href="supervised.html#k-nearest-neighbour-knn"><i class="fa fa-check"></i><b>9.2.5</b> K-nearest neighbour (KNN)</a></li>
+<li class="chapter" data-level="9.2.6" data-path="supervised.html"><a href="supervised.html#linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>9.2.6</b> Linear Discriminant Analysis (LDA)</a></li>
+<li class="chapter" data-level="9.2.7" data-path="supervised.html"><a href="supervised.html#naive-bayes"><i class="fa fa-check"></i><b>9.2.7</b> Naive Bayes</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="supervised.html"><a href="supervised.html#bibliographic-notes-5"><i class="fa fa-check"></i><b>9.3</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="unsupervised.html"><a href="unsupervised.html"><i class="fa fa-check"></i><b>10</b> Unsupervised Learning</a><ul>
+<li class="chapter" data-level="10.1" data-path="unsupervised.html"><a href="unsupervised.html#dim-reduce"><i class="fa fa-check"></i><b>10.1</b> Dimensionality Reduction</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="unsupervised.html"><a href="unsupervised.html#pca"><i class="fa fa-check"></i><b>10.1.1</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="10.1.2" data-path="unsupervised.html"><a href="unsupervised.html#preliminaries"><i class="fa fa-check"></i><b>10.1.2</b> Preliminaries</a></li>
+<li class="chapter" data-level="10.1.3" data-path="unsupervised.html"><a href="unsupervised.html#latent-variable-approaches"><i class="fa fa-check"></i><b>10.1.3</b> Latent Variable Approaches</a></li>
+<li class="chapter" data-level="10.1.4" data-path="unsupervised.html"><a href="unsupervised.html#purely-algorithmic-approaches"><i class="fa fa-check"></i><b>10.1.4</b> Purely Algorithmic Approaches</a></li>
+<li class="chapter" data-level="10.1.5" data-path="unsupervised.html"><a href="unsupervised.html#dimensionality-reduction-in-r"><i class="fa fa-check"></i><b>10.1.5</b> Dimensionality Reduction in R</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="unsupervised.html"><a href="unsupervised.html#cluster"><i class="fa fa-check"></i><b>10.2</b> Clustering</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="unsupervised.html"><a href="unsupervised.html#latent-variable-approaches-1"><i class="fa fa-check"></i><b>10.2.1</b> Latent Variable Approaches</a></li>
+<li class="chapter" data-level="10.2.2" data-path="unsupervised.html"><a href="unsupervised.html#purely-algorithmic-approaches-1"><i class="fa fa-check"></i><b>10.2.2</b> Purely Algorithmic Approaches</a></li>
+<li class="chapter" data-level="10.2.3" data-path="unsupervised.html"><a href="unsupervised.html#clustering-in-r"><i class="fa fa-check"></i><b>10.2.3</b> Clustering in R</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="unsupervised.html"><a href="unsupervised.html#bibliographic-notes-6"><i class="fa fa-check"></i><b>10.3</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>11</b> Plotting</a><ul>
+<li class="chapter" data-level="11.1" data-path="plotting.html"><a href="plotting.html#the-graphics-system"><i class="fa fa-check"></i><b>11.1</b> The graphics System</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="plotting.html"><a href="plotting.html#using-existing-plotting-functions"><i class="fa fa-check"></i><b>11.1.1</b> Using Existing Plotting Functions</a></li>
+<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#the-power-of-the-graphics-device"><i class="fa fa-check"></i><b>11.1.2</b> The Power of the graphics device</a></li>
+<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.3</b> Exporting a Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="plotting.html"><a href="plotting.html#the-ggplot2-system"><i class="fa fa-check"></i><b>11.2</b> The ggplot2 System</a></li>
+<li class="chapter" data-level="11.3" data-path="plotting.html"><a href="plotting.html#interactive-graphics"><i class="fa fa-check"></i><b>11.3</b> Interactive Graphics</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="plotting.html"><a href="plotting.html#plotly"><i class="fa fa-check"></i><b>11.3.1</b> Plotly</a></li>
+<li class="chapter" data-level="11.3.2" data-path="plotting.html"><a href="plotting.html#html-widgets"><i class="fa fa-check"></i><b>11.3.2</b> HTML Widgets</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="plotting.html"><a href="plotting.html#bibliographic-notes-7"><i class="fa fa-check"></i><b>11.4</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="report.html"><a href="report.html"><i class="fa fa-check"></i><b>12</b> Reports</a><ul>
+<li class="chapter" data-level="12.1" data-path="report.html"><a href="report.html#knitr"><i class="fa fa-check"></i><b>12.1</b> knitr</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="report.html"><a href="report.html#installation"><i class="fa fa-check"></i><b>12.1.1</b> Installation</a></li>
+<li class="chapter" data-level="12.1.2" data-path="report.html"><a href="report.html#markdown"><i class="fa fa-check"></i><b>12.1.2</b> Markdown</a></li>
+<li class="chapter" data-level="12.1.3" data-path="report.html"><a href="report.html#rmarkdown"><i class="fa fa-check"></i><b>12.1.3</b> Rmarkdown</a></li>
+<li class="chapter" data-level="12.1.4" data-path="report.html"><a href="report.html#compiling"><i class="fa fa-check"></i><b>12.1.4</b> Compiling</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="report.html"><a href="report.html#bookdown"><i class="fa fa-check"></i><b>12.2</b> bookdown</a></li>
+<li class="chapter" data-level="12.3" data-path="report.html"><a href="report.html#shiny"><i class="fa fa-check"></i><b>12.3</b> Shiny</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="report.html"><a href="report.html#installation-1"><i class="fa fa-check"></i><b>12.3.1</b> Installation</a></li>
+<li class="chapter" data-level="12.3.2" data-path="report.html"><a href="report.html#the-basics-of-shiny"><i class="fa fa-check"></i><b>12.3.2</b> The Basics of Shiny</a></li>
+<li class="chapter" data-level="12.3.3" data-path="report.html"><a href="report.html#beyond-the-basics"><i class="fa fa-check"></i><b>12.3.3</b> Beyond the Basics</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="report.html"><a href="report.html#bibliographic-notes-8"><i class="fa fa-check"></i><b>12.4</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="hadley.html"><a href="hadley.html"><i class="fa fa-check"></i><b>13</b> The Hadleyverse</a><ul>
+<li class="chapter" data-level="13.1" data-path="hadley.html"><a href="hadley.html#dplyr"><i class="fa fa-check"></i><b>13.1</b> dplyr</a></li>
+<li class="chapter" data-level="13.2" data-path="hadley.html"><a href="hadley.html#tidyr"><i class="fa fa-check"></i><b>13.2</b> tidyr</a></li>
+<li class="chapter" data-level="13.3" data-path="hadley.html"><a href="hadley.html#readr"><i class="fa fa-check"></i><b>13.3</b> readr</a></li>
+<li class="chapter" data-level="13.4" data-path="hadley.html"><a href="hadley.html#reshape2"><i class="fa fa-check"></i><b>13.4</b> reshape2</a></li>
+<li class="chapter" data-level="13.5" data-path="hadley.html"><a href="hadley.html#stringr"><i class="fa fa-check"></i><b>13.5</b> stringr</a></li>
+<li class="chapter" data-level="13.6" data-path="hadley.html"><a href="hadley.html#anytime"><i class="fa fa-check"></i><b>13.6</b> anytime</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a></li>
+<li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a></li>
+<li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a></li>
+<li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a></li>
+<li class="chapter" data-level="18" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>18</b> Convex Optimization</a></li>
+<li class="chapter" data-level="19" data-path="rcpp.html"><a href="rcpp.html"><i class="fa fa-check"></i><b>19</b> RCpp</a></li>
+<li class="chapter" data-level="20" data-path="package.html"><a href="package.html"><i class="fa fa-check"></i><b>20</b> Writing Packages</a></li>
+<li class="chapter" data-level="21" data-path="bib.html"><a href="bib.html"><i class="fa fa-check"></i><b>21</b> Bibliography</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R (BGU course)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="glm" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Generalized Linear Models</h1>
+
+<div class="example">
+<span id="ex:cigarettes" class="example"><strong>Example 6.1 </strong></span>Consider the relation between cigarettes smoked, and the occurance of lung cancer. Do we expect it to be liner? Probably not. Do we expect the variability to be constant about the trend, be it linear or not? Probably not.
+</div>
+<p></p>
+<div id="problem-setup-1" class="section level2">
+<h2><span class="header-section-number">6.1</span> Problem Setup</h2>
+In the Linear Models Chapter <a href="#linear"><strong>??</strong></a>, we assumed the generative process to be
+<span class="math display" id="eq:linear-mean-again">\[\begin{align}
+  y|x=x&#39;\beta+\varepsilon
+  \tag{6.1}
+\end{align}\]</span>
+<p>This does not allow for assumingly non-linear relations, nor does it allow for the variability of <span class="math inline">\(\varepsilon\)</span> to change with <span class="math inline">\(x\)</span>. Generalize linear models (GLM), as the name suggests, are a generalization that allow that.</p>
+
+<div class="remark">
+<span class="remark"><em>Remark. </em></span> Do not confuse <em>generalized linear models</em> with <em>non-linear regression</em>, or <em>generalized least squares</em>. These are different things, that we will not discuss.
+</div>
+<p></p>
+To understand GLM, we recall that with the normality of <span class="math inline">\(\varepsilon\)</span>, Eq.<a href="glm.html#eq:linear-mean-again">(6.1)</a> implies that <span class="math display">\[
+ y|x \sim \mathcal{N}(x&#39;\beta, \sigma^2)
+\]</span> For Example <a href="glm.html#ex:cigarettes">6.1</a>, we would like something in the lines of <span class="math display">\[
+ y|x \sim Binom(1,p(x))
+\]</span> More generally, for some distribution <span class="math inline">\(F(\theta)\)</span>, with a parameter <span class="math inline">\(\theta\)</span>, we would like
+<span class="math display">\[\begin{align}
+  y|x \sim F(\theta(x))
+\end{align}\]</span>
+Possible examples include
+<span class="math display">\[\begin{align}
+ y|x &amp;\sim Poisson(\lambda(x)) \\
+ y|x &amp;\sim Exp(\lambda(x)) \\
+ y|x &amp;\sim \mathcal{N}(\mu(x),\sigma^2(x)) 
+\end{align}\]</span>
+<p>GLMs constrain <span class="math inline">\(\theta\)</span> to be some function, <span class="math inline">\(g\)</span>, of a linear combination of the <span class="math inline">\(x\)</span>’s. Formally, <span class="math display">\[\theta(x)=g(x&#39;\beta)\]</span>, where <span class="math display">\[x&#39;\beta=\beta_0 + \sum_j x_j \beta_j\]</span>. The function <span class="math inline">\(g\)</span> is called the <em>link</em> function.</p>
+</div>
+<div id="logistic-regression" class="section level2">
+<h2><span class="header-section-number">6.2</span> Logistic Regression</h2>
+The best known of the GLM class of models is the <em>logistic regression</em> that deals with Binomial, or more precisely, Bernoulli distributed data. The link function implied by the logistic regression is the logistic function
+<span class="math display" id="eq:logistic-link">\[\begin{align}
+  g(t)=\frac{e^t}{(1+e^t)}
+  \tag{6.2}  
+\end{align}\]</span>
+implying that
+<span class="math display" id="eq:logistic">\[\begin{align}
+  y|x \sim Binom \left( 1, p=\frac{e^{x&#39;\beta}}{1+e^{x&#39;\beta}} \right)
+  \tag{6.3}
+\end{align}\]</span>
+Before we fit such a model, we try to justify this construction, in particular, this enigmatic link function in Eq.<a href="glm.html#eq:logistic-link">(6.2)</a>. Let’s look at the simplest possible case: the comparison of two groups indexed by <span class="math inline">\(x\)</span>: <span class="math inline">\(x=0\)</span> for the first, and <span class="math inline">\(x=1\)</span> for the second.
+<span class="math display" id="eq:log-odds-ratio" id="eq:odds-ratio" id="eq:odds-two" id="eq:odds-one">\[\begin{align}
+   p(x=0)=P(y=1|x=0) &amp;= \frac{e^{\beta_0}}{(1+e^{\beta_0})} \tag{6.4} \\ 
+   \Rightarrow 
+   \frac{P(y=1|x=0)}{P(y=0|x=0)} &amp;= e^{\beta_0} \\
+   p(x=1)= P(y=1|x=1) &amp;= \frac{e^{\beta_0+\beta_1}}{(1+e^{\beta_0+\beta_1})} \\
+   \Rightarrow 
+   \frac{P(y=1|x=1)}{P(y=0|x=1)} &amp;= e^{\beta_0+\beta_1} \tag{6.5}\\
+   \Rightarrow 
+   \frac{P(y=1|x=1)/P(y=0|x=1)}{P(y=1|x=0)/P(y=0|x=0)} 
+   &amp;= e^{\beta_1}  \tag{6.6} \\
+   \Rightarrow 
+   \log \frac{P(y=1|x=1)/P(y=0|x=1)}{P(y=1|x=0)/P(y=0|x=0)} &amp;= \beta_1. \tag{6.7}
+\end{align}\]</span>
+<p>The magnitudes in Eqs.<a href="glm.html#eq:odds-one">(6.4)</a> and <a href="glm.html#eq:odds-two">(6.5)</a>, are known as the <em>odds</em>. Odds are the same as probabilities, but instead of of telling me there is a <span class="math inline">\(66\%\)</span> of success, they tell me the odds of success are “2 to 1”.</p>
+<p>The magnitude in Eq.<a href="glm.html#eq:odds-ratio">(6.6)</a> is known as the <em>odds ratio</em>. The odds ratio compares between the probabilities of two groups, only that it does not compare them in probability scale, but rather in odds scale.</p>
+<p>The magnitude in Eq.<a href="glm.html#eq:log-odds-ratio">(6.7)</a> is known as the <em>log odds ratio</em>. Besides some nice theoretical properties of log odds ratios, which we will not discuss, they are important since it demystifies the choice of the link function in <a href="glm.html#eq:logistic-link">(6.2)</a>: <strong>it allows us to interpret <span class="math inline">\(\beta\)</span> of the logistic regression as the odds-ratios (in log scale)</strong>.</p>
+<p>Another popular link function is the normal quantile function, a.k.a., the Gaussian inverse CDF, leading to <em>probit regression</em> instead of logistic regression.</p>
+<div id="logistic-regression-with-r" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> Logistic Regression with R</h3>
+<p>Let’s get us some data. The <code>PlantGrowth</code> data records the weight of plants under three conditions: control, treatment1, and treatment2.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(PlantGrowth)</code></pre></div>
+<pre><code>##   weight group
+## 1   4.17  ctrl
+## 2   5.58  ctrl
+## 3   5.18  ctrl
+## 4   6.11  ctrl
+## 5   4.50  ctrl
+## 6   4.61  ctrl</code></pre>
+<p>We will now <code>attach</code> the data so that its contents is available in the workspace (don’t forget to <code>detach</code> afterwards, or you can expect some conflicting object names). We will also use the <code>cut</code> function to create a two-class response variable for Light, and Heavy plants (we are doing logistic regression, so we need a two-class response). As a general rule of thumb, when we discretize continuous variables, we lose information. for pedagogical reasons, however, we will proceed with this bad practice.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(PlantGrowth)
+weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <span class="dv">2</span>, <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&#39;Light&#39;</span>, <span class="st">&#39;Heavy&#39;</span>))
+<span class="kw">plot</span>(<span class="kw">table</span>(group, weight.factor))</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
+<p>Let’s fit a logistic regression, and inspect the output.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glm<span class="fl">.1</span>&lt;-<span class="st"> </span><span class="kw">glm</span>(weight.factor~group, <span class="dt">family=</span>binomial)
+<span class="kw">summary</span>(glm<span class="fl">.1</span>)</code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = weight.factor ~ group, family = binomial)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.1460  -0.6681   0.4590   0.8728   1.7941  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept)   0.4055     0.6455   0.628   0.5299  
+## grouptrt1    -1.7918     1.0206  -1.756   0.0792 .
+## grouptrt2     1.7918     1.2360   1.450   0.1471  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 41.054  on 29  degrees of freedom
+## Residual deviance: 29.970  on 27  degrees of freedom
+## AIC: 35.97
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>Things to note:</p>
+<ul>
+<li>The <code>glm</code> function is our workhorse for all GLM models.</li>
+<li>The <code>family</code> argument of <code>glm</code> tells R the output is binomial, thus, performing a logistic regression.</li>
+<li>The <code>summary</code> function is content aware. It gives a different output for <code>glm</code> class objects than for other objects, such as the <code>lm</code> we saw in Chapter <a href="#linear"><strong>??</strong></a>.</li>
+<li>As usual, we get the coefficients table, but recall that they are to be interpreted as (log) odd-ratios.</li>
+<li>As usual, we get the significance for the test of no-effect, versus a two-sided alternative.</li>
+<li>The residuals of <code>glm</code> are slightly different than the <code>lm</code> residuals, and called <em>Deviance Residuals</em>.</li>
+<li>For help see <code>?glm</code>, <code>?family</code>, and <code>?summary.glm</code>.</li>
+</ul>
+<p>Like for linear models, we can use an ANOVA table to check if treatments have any effect, and not one treatment at a time. In the case of GLMS, this is called an <em>analysis of deviance</em> table.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(glm<span class="fl">.1</span>, <span class="dt">test=</span><span class="st">&#39;LRT&#39;</span>)</code></pre></div>
+<pre><code>## Analysis of Deviance Table
+## 
+## Model: binomial, link: logit
+## 
+## Response: weight.factor
+## 
+## Terms added sequentially (first to last)
+## 
+## 
+##       Df Deviance Resid. Df Resid. Dev Pr(&gt;Chi)   
+## NULL                     29     41.054            
+## group  2   11.084        27     29.970 0.003919 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Things to note:</p>
+<ul>
+<li>The <code>anova</code> function, like the <code>summary</code> function, are content-aware and produce a different output for the <code>glm</code> class than for the <code>lm</code> class.</li>
+<li>In GLMs there is no canonical test (like the F test for <code>lm</code>). We thus specify the type of test desired with the <code>test</code> argument.</li>
+<li>The distribution of the weights of the plants does vary with the treatment given, as we may see from the significance of the <code>group</code> factor.</li>
+<li>Readers familiar with ANOVA tables, should know that we computed the GLM equivalent of a type I sum- of-squares. Run <code>drop1(glm.1, test='Chisq')</code> for a GLM equivalent of a type III sum-of-squares.</li>
+<li>For help see <code>?anova.glm</code>.</li>
+</ul>
+<p>Let’s predict the probability of a heavy plant for each treatment.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">predict</span>(glm<span class="fl">.1</span>, <span class="dt">type=</span><span class="st">&#39;response&#39;</span>)</code></pre></div>
+<pre><code>##   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18 
+## 0.6 0.6 0.6 0.6 0.6 0.6 0.6 0.6 0.6 0.6 0.2 0.2 0.2 0.2 0.2 0.2 0.2 0.2 
+##  19  20  21  22  23  24  25  26  27  28  29  30 
+## 0.2 0.2 0.9 0.9 0.9 0.9 0.9 0.9 0.9 0.9 0.9 0.9</code></pre>
+<p>Things to note:</p>
+<ul>
+<li>Like the <code>summary</code> and <code>anova</code> functions, the <code>predict</code> function is aware that its input is of <code>glm</code> class.</li>
+<li>In GLMs there are many types of predictions. The <code>type</code> argument controls which type is returned.</li>
+<li>How do I know we are predicting the probability of a heavy plant, and not a light plant? Just run <code>contrasts(weight.factor)</code> to see which of the categories of the factor <code>weight.factor</code> is encoded as 1, and which as 0.</li>
+<li>For help see <code>?predict.glm</code>.</li>
+</ul>
+<p>Let’s detach the data so it is no longer in our workspace, and object names do not collide.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(PlantGrowth)</code></pre></div>
+<p>We gave an example with a factorial (i.e. discrete) predictor. We can do the same with multiple continuous predictors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&#39;Pima.te&#39;</span>, <span class="dt">package=</span><span class="st">&#39;MASS&#39;</span>) <span class="co"># Loads data</span>
+<span class="kw">head</span>(Pima.te)</code></pre></div>
+<pre><code>##   npreg glu bp skin  bmi   ped age type
+## 1     6 148 72   35 33.6 0.627  50  Yes
+## 2     1  85 66   29 26.6 0.351  31   No
+## 3     1  89 66   23 28.1 0.167  21   No
+## 4     3  78 50   32 31.0 0.248  26  Yes
+## 5     2 197 70   45 30.5 0.158  53  Yes
+## 6     5 166 72   19 25.8 0.587  51  Yes</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glm<span class="fl">.2</span>&lt;-<span class="st"> </span><span class="kw">step</span>(<span class="kw">glm</span>(type~., <span class="dt">data=</span>Pima.te, <span class="dt">family=</span>binomial))</code></pre></div>
+<pre><code>## Start:  AIC=301.79
+## type ~ npreg + glu + bp + skin + bmi + ped + age
+## 
+##         Df Deviance    AIC
+## - skin   1   286.22 300.22
+## - bp     1   286.26 300.26
+## - age    1   286.76 300.76
+## &lt;none&gt;       285.79 301.79
+## - npreg  1   291.60 305.60
+## - ped    1   292.15 306.15
+## - bmi    1   293.83 307.83
+## - glu    1   343.68 357.68
+## 
+## Step:  AIC=300.22
+## type ~ npreg + glu + bp + bmi + ped + age
+## 
+##         Df Deviance    AIC
+## - bp     1   286.73 298.73
+## - age    1   287.23 299.23
+## &lt;none&gt;       286.22 300.22
+## - npreg  1   292.35 304.35
+## - ped    1   292.70 304.70
+## - bmi    1   302.55 314.55
+## - glu    1   344.60 356.60
+## 
+## Step:  AIC=298.73
+## type ~ npreg + glu + bmi + ped + age
+## 
+##         Df Deviance    AIC
+## - age    1   287.44 297.44
+## &lt;none&gt;       286.73 298.73
+## - npreg  1   293.00 303.00
+## - ped    1   293.35 303.35
+## - bmi    1   303.27 313.27
+## - glu    1   344.67 354.67
+## 
+## Step:  AIC=297.44
+## type ~ npreg + glu + bmi + ped
+## 
+##         Df Deviance    AIC
+## &lt;none&gt;       287.44 297.44
+## - ped    1   294.54 302.54
+## - bmi    1   303.72 311.72
+## - npreg  1   304.01 312.01
+## - glu    1   349.80 357.80</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(glm<span class="fl">.2</span>)</code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = type ~ npreg + glu + bmi + ped, family = binomial, 
+##     data = Pima.te)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.9845  -0.6462  -0.3661   0.5977   2.5304  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -9.552177   1.096207  -8.714  &lt; 2e-16 ***
+## npreg        0.178066   0.045343   3.927  8.6e-05 ***
+## glu          0.037971   0.005442   6.978  3.0e-12 ***
+## bmi          0.084107   0.021950   3.832 0.000127 ***
+## ped          1.165658   0.444054   2.625 0.008664 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 420.30  on 331  degrees of freedom
+## Residual deviance: 287.44  on 327  degrees of freedom
+## AIC: 297.44
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>Things to note:</p>
+<ul>
+<li>We used the <code>~.</code> syntax to tell R to fit a model with all the available predictors.</li>
+<li>Since we want to focus on significant predictors, we used the <code>step</code> function to perform a <em>step-wise</em> regression, i.e. sequentially remove non-significant predictors. The function reports each model it has checked, and the variable it has decided to remove at each step.</li>
+<li>The output of <code>step</code> is a single model, with the subset of significant predictors.</li>
+</ul>
+</div>
+</div>
+<div id="poisson-regression" class="section level2">
+<h2><span class="header-section-number">6.3</span> Poisson Regression</h2>
+<p>Poisson regression means we fit a model assuming <span class="math inline">\(y|x \sim Poisson(\lambda(x))\)</span>. Put differently, we assume that for each treatment, encoded as a combinations of predictors <span class="math inline">\(x\)</span>, the response is Poisson distributed with a rate that depends on the predictors.</p>
+<p>The typical link function for Poisson regression is <span class="math inline">\(g(t)=e^t\)</span>. This means that we assume <span class="math inline">\(y|x \sim Poisson(\lambda(x) = e^{x&#39;\beta})\)</span>. Why is this a good choice? We again resort to the two-group case, encoded by <span class="math inline">\(x=1\)</span> and <span class="math inline">\(x=0\)</span>, to understand this model: <span class="math inline">\(\lambda(x=1)=e^{\beta_0+\beta_1}=e^{beta_0} \; e^{\beta_1}= \lambda(x=0) \; e^{\beta_1}\)</span>. We thus see that this link function implies that a change in <span class="math inline">\(x\)</span> <strong>multiples</strong> the rate of events. For our example<a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a> we inspect the number of infected high-school kids, as a function of the days since the outbreak.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cases &lt;-<span class="st">  </span>
+<span class="kw">structure</span>(<span class="kw">list</span>(<span class="dt">Days =</span> <span class="kw">c</span>(1L, 2L, 3L, 3L, 4L, 4L, 4L, 6L, 7L, 8L, 
+8L, 8L, 8L, 12L, 14L, 15L, 17L, 17L, 17L, 18L, 19L, 19L, 20L, 
+23L, 23L, 23L, 24L, 24L, 25L, 26L, 27L, 28L, 29L, 34L, 36L, 36L, 
+42L, 42L, 43L, 43L, 44L, 44L, 44L, 44L, 45L, 46L, 48L, 48L, 49L, 
+49L, 53L, 53L, 53L, 54L, 55L, 56L, 56L, 58L, 60L, 63L, 65L, 67L, 
+67L, 68L, 71L, 71L, 72L, 72L, 72L, 73L, 74L, 74L, 74L, 75L, 75L, 
+80L, 81L, 81L, 81L, 81L, 88L, 88L, 90L, 93L, 93L, 94L, 95L, 95L, 
+95L, 96L, 96L, 97L, 98L, 100L, 101L, 102L, 103L, 104L, 105L, 
+106L, 107L, 108L, 109L, 110L, 111L, 112L, 113L, 114L, 115L), 
+    <span class="dt">Students =</span> <span class="kw">c</span>(6L, 8L, 12L, 9L, 3L, 3L, 11L, 5L, 7L, 3L, 8L, 
+    4L, 6L, 8L, 3L, 6L, 3L, 2L, 2L, 6L, 3L, 7L, 7L, 2L, 2L, 8L, 
+    3L, 6L, 5L, 7L, 6L, 4L, 4L, 3L, 3L, 5L, 3L, 3L, 3L, 5L, 3L, 
+    5L, 6L, 3L, 3L, 3L, 3L, 2L, 3L, 1L, 3L, 3L, 5L, 4L, 4L, 3L, 
+    5L, 4L, 3L, 5L, 3L, 4L, 2L, 3L, 3L, 1L, 3L, 2L, 5L, 4L, 3L, 
+    0L, 3L, 3L, 4L, 0L, 3L, 3L, 4L, 0L, 2L, 2L, 1L, 1L, 2L, 0L, 
+    2L, 1L, 1L, 0L, 0L, 1L, 1L, 2L, 2L, 1L, 1L, 1L, 1L, 0L, 0L, 
+    0L, 1L, 1L, 0L, 0L, 0L, 0L, 0L)), <span class="dt">.Names =</span> <span class="kw">c</span>(<span class="st">&quot;Days&quot;</span>, <span class="st">&quot;Students&quot;</span>
+), <span class="dt">class =</span> <span class="st">&quot;data.frame&quot;</span>, <span class="dt">row.names =</span> <span class="kw">c</span>(<span class="ot">NA</span>, -109L))
+<span class="kw">attach</span>(cases)</code></pre></div>
+<pre><code>## The following objects are masked from cases (pos = 4):
+## 
+##     Days, Students</code></pre>
+<pre><code>## The following objects are masked from cases (pos = 6):
+## 
+##     Days, Students</code></pre>
+<pre><code>## The following objects are masked from cases (pos = 8):
+## 
+##     Days, Students</code></pre>
+<pre><code>## The following objects are masked from cases (pos = 10):
+## 
+##     Days, Students</code></pre>
+<pre><code>## The following objects are masked from cases (pos = 12):
+## 
+##     Days, Students</code></pre>
+<pre><code>## The following objects are masked from cases (pos = 14):
+## 
+##     Days, Students</code></pre>
+<pre><code>## The following objects are masked from cases (pos = 18):
+## 
+##     Days, Students</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(cases) </code></pre></div>
+<pre><code>##   Days Students
+## 1    1        6
+## 2    2        8
+## 3    3       12
+## 4    3        9
+## 5    4        3
+## 6    4        3</code></pre>
+<p>And visually:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Days, Students, <span class="dt">xlab =</span> <span class="st">&quot;DAYS&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;STUDENTS&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>)</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-130-1.png" width="672" /></p>
+<p>We now fit a model to check for the change in the rate of events as a function of the days since the outbreak.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glm<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Students ~<span class="st"> </span>Days, <span class="dt">family =</span> poisson)
+<span class="kw">summary</span>(glm<span class="fl">.3</span>)</code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Students ~ Days, family = poisson)
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -2.00482  -0.85719  -0.09331   0.63969   1.73696  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  1.990235   0.083935   23.71   &lt;2e-16 ***
+## Days        -0.017463   0.001727  -10.11   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 215.36  on 108  degrees of freedom
+## Residual deviance: 101.17  on 107  degrees of freedom
+## AIC: 393.11
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>Things to note:</p>
+<ul>
+<li>We used <code>family=poisson</code> in the <code>glm</code> function to tell R that we assume a Poisson distribution.</li>
+<li>The coefficients table is there as usual. When interpreting the table, we need to recall that the effect, i.e. the <span class="math inline">\(\hat \beta\)</span>, are <strong>multiplicative</strong> by assumption.</li>
+<li>Each day <strong>decreases</strong> the rate of events by a factor of about 0.02.</li>
+<li>For more information see <code>?glm</code> and <code>?family</code>.</li>
+</ul>
+</div>
+<div id="extensions" class="section level2">
+<h2><span class="header-section-number">6.4</span> Extensions</h2>
+<p>As we already implied, GLMs are a very wide class of models. We do not need to use the default link function,but more importantly, we are not constrained to Binomial, or Poisson distributed response. For exponential, gamma, and other response distributions, see <code>?glm</code> or the references in the Bibliographic Notes section.</p>
+</div>
+<div id="bibliographic-notes-3" class="section level2">
+<h2><span class="header-section-number">6.5</span> Bibliographic Notes</h2>
+<p>The ultimate reference on GLMs is <span class="citation">McCullagh (<a href="#ref-mccullagh1984generalized">1984</a>)</span>. For a less technical exposition, we refer to the usual <span class="citation">Venables and Ripley (<a href="#ref-venables2013modern">2013</a>)</span>.</p>
+
+</div>
+</div>
+<h3> Bibliography</h3>
+<div id="refs" class="references">
+<div id="ref-mccullagh1984generalized">
+<p>McCullagh, Peter. 1984. “Generalized Linear Models.” <em>European Journal of Operational Research</em> 16 (3). Elsevier: 285–92.</p>
+</div>
+<div id="ref-venables2013modern">
+<p>Venables, William N, and Brian D Ripley. 2013. <em>Modern Applied Statistics with S-Plus</em>. Springer Science &amp; Business Media.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="11">
+<li id="fn11"><p>Taken from <a href="http://www.theanalysisfactor.com/generalized-linear-models-in-r-part-6-poisson-regression-count-variables/" class="uri">http://www.theanalysisfactor.com/generalized-linear-models-in-r-part-6-poisson-regression-count-variables/</a><a href="glm.html#fnref11">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="lm.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lme.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/05-glm.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

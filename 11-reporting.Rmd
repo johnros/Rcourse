@@ -29,17 +29,17 @@ There are actually several systems in R that allow this.
 We start with a brief review.
 
 1. __Sweave__:
-_Latex_ is a markup language that compiles to _Tex_ programms that compile to documents, typically PDFs.
+_Latex_ is a markup language that compiles to _Tex_ programs that compile to documents, typically PDFs.
 If you never heard of it, it may be because you were born the the MS Windows+MS Word era. 
 You should know, however, that _Latex_ was there much earlier, when computers were mainframes with text-only graphic devices. 
-You should also know that _Latex_ is still very popular (in some communities) due to its very rich markup syntax, and beatiful output. 
+You should also know that _Latex_ is still very popular (in some communities) due to its very rich markup syntax, and beautiful output. 
 _Sweave_ [@leisch2002sweave] is a compiler for _Latex_ that allows you do insert R commands in the _Latex_ source file, compile it, and get the result as part of the outputted PDF. 
 It's name suggests just that: it allows to weave S^[Recall, S was the original software from which R evolved.] output into the document, thus, Sweave. 
 
 1. __knitr__:
 _Markdown_ is a text editing syntax that is aimed to be human-readable, but also compilable by a machine. 
 If you ever tried to read HTML or Latex source files, you may understand why human-readability is a desirable property.
-There are many _markdown_ compilers. One of the most popular is _Pandoc_, written by the Berkley philosopher(!) Jon MacFarlane. 
+There are many _markdown_ compilers. One of the most popular is _Pandoc_, written by the Berkeley philosopher(!) Jon MacFarlane. 
 The availability of _Pandoc_ gave [Yihui Xie](), a name to remember, the idea that it is time for Sweave to evolve. 
 Yihui thus wrote __knitr__ [@xie2015dynamic], which allows to write human readable text in _Rmarkdown_, a superset of _markdown_, compile it with R and the compile it with Pandoc. 
 Because Pandoc can compile to PDF, but also to HTML, and DOCX, among others, this means that you can write in Rmarkdown, and get output in almost all text formats out there. 
@@ -53,7 +53,7 @@ It deals with the particular needs of writing large documents, and cross referen
 The previous reporting frameworks are static in that R "dumps" its output and is never queryied again. 
 This does not mean that output is static, but only that R is not called. 
 __Shiny__ [@shiney] is different. 
-Shiny is essentialy a framwork for quick web-developpment. 
+Shiny is essentially a framework for quick web-development. 
 It includes (i) an abstraction layer that specifies the layout of a web-site which is our report, (ii) the command to start a web server to deliver the site.
 For more on Shiny see @shiney.
 
@@ -79,9 +79,9 @@ Because __knitr__ builds upon _markdown_, here is a simple example of markdown t
 
 Underscores or asterisks for `_italics1_` and `*italics2*` return _italics1_ and *italics2*.
 Double underscores or asterisks for `__bold1__` and `**bold2**` return __bold1__ and **bold2**.
-Subscripts are enclosed in tildes, `like~this~` (like~this~), and supersrcipts are enclosed in carets `like^this^` (like^this^).
+Subscripts are enclosed in tildes, `like~this~` (like~this~), and superscripts are enclosed in carets `like^this^` (like^this^).
 For links use `[text](link)`, like `[my site](www.john-ros.com)`.
-Image is the same as a link, starting with an exlamation, like this `![image title](image path)`.
+Image is the same as a link, starting with an exclamation, like this `![image title](image path)`.
 
 An itemized list simply starts with hyphens:
 ```
@@ -118,7 +118,7 @@ For more on markdown see [here](https://bookdown.org/yihui/bookdown/markdown-syn
 
 
 ### Rmarkdown
-_Rmarkdown_, is an extension of _markdown_ due to RStudio, that allows to incorporate R expressions in the text, that will be avaluated at the time of compilation, and the output automatically inserted in the outputted text. 
+_Rmarkdown_, is an extension of _markdown_ due to RStudio, that allows to incorporate R expressions in the text, that will be evaluated at the time of compilation, and the output automatically inserted in the outputted text. 
 The output can be a `.PDF`, `.DOCX`, `.HTML` or others, thanks to the power of __pandoc__.
 
 The start of a code chunk is indicated by three backticks and the end of a code chunk is indicated by three backticks.
@@ -188,14 +188,14 @@ In particular, it has a more powerful cross referencing system.
 
 __Shiny__ [@shiny] is different than the previous systems, because it sets up an interactive web-site, and not a static file.
 The power of Shiny is that they layout of the web-site, and setting up the web-server, is made with several simple R commands, with no need for web-programming.
-For this purpose, Shiny uses the [Bootstrap](http://getbootstrap.com) web developpment technology.
+For this purpose, Shiny uses the [Bootstrap](http://getbootstrap.com) web development technology.
 Once you have your app up and running, you can setup your own Shiny server on the web, or publish it via [Shinyapps.io](https://www.shinyapps.io/).
 The freemium versions of the service can deal with a small amount of traffic. If you expect a lot of traffic, you will probably need the paid versions.
 
 
 ### Installation
 To setup your first Shiny app, you will need the __shiny__ package. 
-You will probably want RStudio, which facilitatis the process.
+You will probably want RStudio, which facilitates the process.
 
 ```{r, eval=FALSE}
 install.packages('shiny')
@@ -295,12 +295,12 @@ Things to note:
 - The building blocks of the layout are a title, and the body. The title is governed by `titlePanel`, and the body is governed by `sidebarLayout`. The `sidebarLayout` includes  the `sidebarPanel` to control the sidebar, and the `mainPanel` for the main panel.
 - `sliderInput` calls a widget with a slider. Its `inputId` is `bins`, which is later used by the server within the `renderPlot` reactive function.
 - `plotOutput` specifies that the content of the `mainPanel` is a plot (`textOutput` for text). This expectation is satisfied on the server side with the `renderPlot` function (`renderText`).
-- `shinyServer` is a (deprecatred) wrapper function for the server. 
+- `shinyServer` is a (deprecated) wrapper function for the server. 
 - The server runs a function with an `input` and an `output`. The elements of `input` are the `inputId`s from the UI. The elements of the `output` will be called by the UI using their `outputId`. 
 
 This is the output.
 ```{r}
-knitr::include_app('http://shiny.rstudio.com/gallery/example-01-hello.html')
+knitr::include_url('http://shiny.rstudio.com/gallery/example-01-hello.html')
 ```
 
 
@@ -383,7 +383,8 @@ function(input, output) {
 Things to note:
 
 - We reused the `sidebarLayout`. 
-- As the name suggests, `radioButtons` is a widget that produces radio buttons, above the `sliderInput` widget. Note the different `inputId`s. 
+- As the name suggests, `radioButtons` is a widget that produces radio buttons, above the `sliderInput` widget. Note the different `inputId`s.
+- Different widgets are separated in `sidebarPanel` by commas. 
 - `br()` produces extra vertical spacing. 
 - `tabsetPanel` produces tabs in the main output panel. `tabPanel` governs the content of each panel. Notice the use of various output functions (`plotOutput`,`verbatimTextOutput`, `tableOutput`)  with corresponding `outputId`s. 
 - In `server.R` we see the usual `function(input,output)`.
@@ -393,21 +394,75 @@ Things to note:
 
 This is the output:
 ```{r}
-knitr::include_app('https://shiny.rstudio.com/gallery/tabsets.html')
+knitr::include_url('https://shiny.rstudio.com/gallery/tabsets.html')
 ```
 
 
-### Augmenting Shiny
+### Beyond the Basics
 
-Here are several packages that augment __Shiny__:
+Now that we have seen the basics, we may consider extensions to the basic report. 
 
-- __shinyjs__ allows you to use common JavaScript operations in your Shiny applications. 
-- __shinyURL__ allows you to save and restore the state of your shiny apps. 
+#### Widgets
+
+- `actionButton`	Action Button.
+- `checkboxGroupInput`	A group of check boxes.
+- `checkboxInput`	A single check box.
+- `dateInput`	A calendar to aid date selection.
+- `dateRangeInput`	A pair of calendars for selecting a date range.
+- `fileInput`	A file upload control wizard.
+- `helpText`	Help text that can be added to an input form.
+- `numericInput`	A field to enter numbers.
+- `radioButtons`	A set of radio buttons.
+- `selectInput`	A box with choices to select from.
+- `sliderInput`	A slider bar.
+- `submitButton`	A submit button.
+- `textInput`	A field to enter text.
+
+See examples [here](https://shiny.rstudio.com/gallery/widget-gallery.html).
+
+```{r}
+knitr::include_url('https://shiny.rstudio.com/gallery/widget-gallery.html')
+```
+
+
+#### Output Elements
+
+The `ui.R` output types. 
+
+- `htmlOutput`	raw HTML.
+- `imageOutput`	image.
+- `plotOutput`	plot.
+- `tableOutput`	table.
+- `textOutput`	text.
+- `uiOutput`	raw HTML.
+- `verbatimTextOutput`	text.
+
+The corresponding `server.R` renderers.
+
+- `renderImage`	images (saved as a link to a source file)
+- `renderPlot`	plots
+- `renderPrint`	any printed output
+- `renderTable`	data frame, matrix, other table like structures
+- `renderText`	character strings
+- `renderUI`	a Shiny tag object or HTML
+
+
+Your Shiny app can use any R object. 
+The things to remember:
+
+- The working directory of the app is the location of `server.R`.
+- The code before `shinyServer` is run only once. 
+- The code inside ``shinyServer` is run whenever a reactive is triggered, and may thus slow things.
+
+
+To keep learning, see the RStudio's [tutorial](http://shiny.rstudio.com/tutorial/), and the Biblipgraphic notes. 
+
 
 
 ## Bibliographic Notes
 
-For RMarkdown see http://rmarkdown.rstudio.com/.
+For RMarkdown see [here](http://rmarkdown.rstudio.com/).
 For everything on __knitr__ see [Yihui's blog](https://yihui.name/knitr/), or the book @xie2015dynamic.
 For a __bookdown__ manual, see @xie2016bookdown.
-For a Shiny manual, see @shiney, the [RStudio tutorial](http://shiny.rstudio.com/tutorial/), or [Zev Ross's](http://zevross.com/blog/2016/04/19/r-powered-web-applications-with-shiny-a-tutorial-and-cheat-sheet-with-40-example-apps/) excellent guide. 
+For a Shiny manual, see @shiney, the [RStudio tutorial](http://shiny.rstudio.com/tutorial/), or [Zev Ross's](http://zevross.com/blog/2016/04/19/r-powered-web-applications-with-shiny-a-tutorial-and-cheat-sheet-with-40-example-apps/) excellent guide.
+Video tutorials are available [here](https://www.rstudio.com/resources/webinars/shiny-developer-conference/).

@@ -5,6 +5,7 @@ rm(list=ls())
 rmarkdown::render_site(output_format = 'bookdown::pdf_book', encoding = 'UTF-8')
 
 bookdown::render_book("index.Rmd","bookdown::gitbook", clean_envir = TRUE) # render to HTML
+bookdown::render_book("index.Rmd","bookdown::gitbook", clean_envir = TRUE, output_dir = 'docs') # render to HTML
 bookdown::render_book("index.Rmd","bookdown::word_document2", clean_envir = TRUE) # rendoer to DOCX
 bookdown::render_book("index.Rmd","bookdown::pdf_book", clean_envir = TRUE) # rendoer to PDF
 
