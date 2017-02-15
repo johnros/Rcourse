@@ -9,6 +9,9 @@ The term Hadleyverse refers to __all__ of Hadley's packages, but here, we mentio
 - __dplyr__ for data manipulation.
 - __tidyr__ for data tidying.
 - __readr__ for data import.
+- __stringr__ for charachter strings. 
+- __anytime__ for time data. 
+
 
 
 ## readr
@@ -22,7 +25,7 @@ We will not go into the details and refer the reader to the official documentati
 
 ## dplyr  
 
-When you think of data frame operations, think __dplyr__.
+When you think of data frame operations, think __dplyr__ [@dplyr].
 Notable utilities in the package include:
 
 - `select()`	Select columns from a data frame.
@@ -35,6 +38,14 @@ Notable utilities in the package include:
 - `left_join(x,y,by="col")`	return all rows from ‘x’, and all columns from ‘x’ and ‘y’. Rows in ‘x’ with no match in ‘y’ will have ‘NA’ values in the new columns. If there are multiple matches between ‘x’ and ‘y’, all combinations of the matches are returned.
 - `right_join(x,y,by="col")` return all rows from ‘y’, and all columns from ‘x’ and y. Rows in ‘y’ with no match in ‘x’ will have ‘NA’ values in the new columns. If there are multiple matches between ‘x’ and ‘y’, all combinations of the matches are returned.
 - `anti_join(x,y,by="col")`	return all rows from ‘x’ where there are not matching values in ‘y’, keeping just columns from ‘x’.
+
+The following example involve `data.frame` objects, but __dplyr__ can handle other classes. 
+In particular `data.table`s from the __data.table__ package [@datatable], which is designed for very large data sets. 
+
+__dplyr__ can work with data stored in a database. 
+In which case, it will convert your command to the appropriate SQL syntax, and issue it to the database. 
+This has the advantage that (a) you do not need to know the specific SQL implementation of your databse, and (b), you can enjoy the optimized algorithms provided by the database supplier. 
+For more on this, see the [databses vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html).
 
 
 
@@ -180,17 +191,6 @@ df1 %>% semi_join(df2, by = "x")  # SELECT * FROM x WHERE EXISTS (SELECT 1 FROM 
 ```
 
 
-### Other dplyr Features
-
-The above example involve `data.frame` objects, but __dplyr__ can handle other classes. 
-In particular `data.table`s from the __data.table__ package, which is designed for very large data sets. 
-
-__dplyr__ can work with data stored in a database. 
-In which case, it will convert your command to the appropriate SQL syntax, and issue it to the database. 
-This has the advantage that (a) you do not need to know the specific SQL implementation of your databse, and (b), you can enjoy the optimized algorithms provided by the database supplier. 
-For more on this, see the [databses vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html).
-
-
 
 
 
@@ -204,6 +204,7 @@ For more on this, see the [databses vignette](https://cran.r-project.org/web/pac
 
 
 ## reshape2
+
 
 
 ## stringr

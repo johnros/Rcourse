@@ -248,12 +248,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="12.4" data-path="report.html"><a href="report.html#bibliographic-notes-8"><i class="fa fa-check"></i><b>12.4</b> Bibliographic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="hadley.html"><a href="hadley.html"><i class="fa fa-check"></i><b>13</b> The Hadleyverse</a><ul>
-<li class="chapter" data-level="13.1" data-path="hadley.html"><a href="hadley.html#dplyr"><i class="fa fa-check"></i><b>13.1</b> dplyr</a></li>
-<li class="chapter" data-level="13.2" data-path="hadley.html"><a href="hadley.html#tidyr"><i class="fa fa-check"></i><b>13.2</b> tidyr</a></li>
-<li class="chapter" data-level="13.3" data-path="hadley.html"><a href="hadley.html#readr"><i class="fa fa-check"></i><b>13.3</b> readr</a></li>
+<li class="chapter" data-level="13.1" data-path="hadley.html"><a href="hadley.html#readr"><i class="fa fa-check"></i><b>13.1</b> readr</a></li>
+<li class="chapter" data-level="13.2" data-path="hadley.html"><a href="hadley.html#dplyr"><i class="fa fa-check"></i><b>13.2</b> dplyr</a></li>
+<li class="chapter" data-level="13.3" data-path="hadley.html"><a href="hadley.html#tidyr"><i class="fa fa-check"></i><b>13.3</b> tidyr</a></li>
 <li class="chapter" data-level="13.4" data-path="hadley.html"><a href="hadley.html#reshape2"><i class="fa fa-check"></i><b>13.4</b> reshape2</a></li>
 <li class="chapter" data-level="13.5" data-path="hadley.html"><a href="hadley.html#stringr"><i class="fa fa-check"></i><b>13.5</b> stringr</a></li>
 <li class="chapter" data-level="13.6" data-path="hadley.html"><a href="hadley.html#anytime"><i class="fa fa-check"></i><b>13.6</b> anytime</a></li>
+<li class="chapter" data-level="13.7" data-path="hadley.html"><a href="hadley.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>13.7</b> Biblipgraphic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a></li>
 <li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a></li>
@@ -285,21 +286,283 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="hadley" class="section level1">
 <h1><span class="header-section-number">Chapter 13</span> The Hadleyverse</h1>
-<p>The <em>Hadleyverse</em>, short for “Hadley Wickham’s universe”, is a set of packages that make it easier to handle data. If you are developping packages, you should be careful as using these packages may create many dependencies and compatibility issues. If you are analyzing data, and the postability of your script to other users, machines, and operating systems is not of a concern, you will LOVE these packages. The term Hadleyverse refers to <strong>all</strong> of Hadley’s packages, but here, we mention only a useful subset, which can be collectively installed via the <strong>tidyverse</strong> package:</p>
+<p>The <em>Hadleyverse</em>, short for “Hadley Wickham’s universe”, is a set of packages that make it easier to handle data. If you are developping packages, you should be careful since using these packages may create many dependencies and compatibility issues. If you are analyzing data, and the portability of your functions to other users, machines, and operating systems is not of a concern, you will LOVE these packages. The term Hadleyverse refers to <strong>all</strong> of Hadley’s packages, but here, we mention only a useful subset, which can be collectively installed via the <strong>tidyverse</strong> package:</p>
 <ul>
 <li><strong>ggplot2</strong> for data visualisation. See the Plotting Chapter <a href="plotting.html#plotting">11</a>.</li>
 <li><strong>dplyr</strong> for data manipulation.</li>
 <li><strong>tidyr</strong> for data tidying.</li>
 <li><strong>readr</strong> for data import.</li>
+<li><strong>stringr</strong> for charachter strings.</li>
+<li><strong>anytime</strong> for time data.</li>
 </ul>
+<div id="readr" class="section level2">
+<h2><span class="header-section-number">13.1</span> readr</h2>
+<p>The <strong>readr</strong> package replaces base functions for importing and exporting data such as <code>read.table</code>. It is faster, with a cleaner syntax.</p>
+<p>We will not go into the details and refer the reader to the official documentation <a href="http://readr.tidyverse.org/articles/readr.html">here</a> and the <a href="http://r4ds.had.co.nz/data-import.html">R for data sciecne</a> book.</p>
+</div>
 <div id="dplyr" class="section level2">
-<h2><span class="header-section-number">13.1</span> dplyr</h2>
+<h2><span class="header-section-number">13.2</span> dplyr</h2>
+<p>When you think of data frame operations, think <strong>dplyr</strong> <span class="citation">(Wickham and Francois <a href="#ref-dplyr">2016</a>)</span>. Notable utilities in the package include:</p>
+<ul>
+<li><code>select()</code> Select columns from a data frame.</li>
+<li><code>filter()</code> Filter rows according to some condition(s).</li>
+<li><code>arrange()</code> Sort / Re-order rows in a data frame.</li>
+<li><code>mutate()</code> Create new columns or transform existing ones.</li>
+<li><code>group_by()</code> Group a data frame by some factor(s) usually in conjunction to summary.</li>
+<li><code>summarize()</code> Summarize some values from the data frame or across groups.</li>
+<li><code>inner_join(x,y,by=&quot;col&quot;)</code>return all rows from ‘x’ where there are matching values in ‘x’, and all columns from ‘x’ and ‘y’. If there are multiple matches between ‘x’ and ‘y’, all combination of the matches are returned.</li>
+<li><code>left_join(x,y,by=&quot;col&quot;)</code> return all rows from ‘x’, and all columns from ‘x’ and ‘y’. Rows in ‘x’ with no match in ‘y’ will have ‘NA’ values in the new columns. If there are multiple matches between ‘x’ and ‘y’, all combinations of the matches are returned.</li>
+<li><code>right_join(x,y,by=&quot;col&quot;)</code> return all rows from ‘y’, and all columns from ‘x’ and y. Rows in ‘y’ with no match in ‘x’ will have ‘NA’ values in the new columns. If there are multiple matches between ‘x’ and ‘y’, all combinations of the matches are returned.</li>
+<li><code>anti_join(x,y,by=&quot;col&quot;)</code> return all rows from ‘x’ where there are not matching values in ‘y’, keeping just columns from ‘x’.</li>
+</ul>
+<p>The following example involve <code>data.frame</code> objects, but <strong>dplyr</strong> can handle other classes. In particular <code>data.table</code>s from the <strong>data.table</strong> package <span class="citation">(Dowle and Srinivasan <a href="#ref-datatable">2017</a>)</span>, which is designed for very large data sets.</p>
+<p><strong>dplyr</strong> can work with data stored in a database. In which case, it will convert your command to the appropriate SQL syntax, and issue it to the database. This has the advantage that (a) you do not need to know the specific SQL implementation of your databse, and (b), you can enjoy the optimized algorithms provided by the database supplier. For more on this, see the <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html">databses vignette</a>.</p>
+<p>The following examples are taken from <a href="https://github.com/justmarkham/dplyr-tutorial/blob/master/dplyr-tutorial.Rmd">here</a>. The <code>nycflights13::flights</code> has delay data for US flights.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nycflights13)
+flights</code></pre></div>
+<pre><code>## # A tibble: 336,776 × 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+## 1   2013     1     1      517            515         2      830
+## 2   2013     1     1      533            529         4      850
+## 3   2013     1     1      542            540         2      923
+## 4   2013     1     1      544            545        -1     1004
+## 5   2013     1     1      554            600        -6      812
+## 6   2013     1     1      554            558        -4      740
+## 7   2013     1     1      555            600        -5      913
+## 8   2013     1     1      557            600        -3      709
+## 9   2013     1     1      557            600        -3      838
+## 10  2013     1     1      558            600        -2      753
+## # ... with 336,766 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+<p>The data is of class <code>tbl_df</code> which is an extension of the <code>data.frame</code> class, designed for large data sets. Notice that the printing of <code>flights</code> is short, even without calling the <code>head</code> function. This is a feature of the <code>tbl_df</code> class ( <code>print(data.frame)</code> would try to load all the data, thus take a long time).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(flights) <span class="co"># a tbl_df is an extension of the data.frame class</span></code></pre></div>
+<pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+<p>Let filter the observations from the first day of the first month. Notice how much better (i.e. readable) is the <strong>dplyr</strong> syntax, with piping, compared to the basic syntax.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights[flights$month ==<span class="st"> </span><span class="dv">1</span> &amp;<span class="st"> </span>flights$day ==<span class="st"> </span><span class="dv">1</span>, ] <span class="co"># old style</span>
+
+<span class="kw">library</span>(dplyr) 
+<span class="kw">filter</span>(flights, month ==<span class="st"> </span><span class="dv">1</span>, day ==<span class="st"> </span><span class="dv">1</span>) <span class="co">#dplyr style</span>
+flights %&gt;%<span class="st"> </span><span class="kw">filter</span>(month ==<span class="st"> </span><span class="dv">1</span>, day ==<span class="st"> </span><span class="dv">1</span>) <span class="co"># dplyr with piping.</span></code></pre></div>
+<p>More filtering.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(flights, month ==<span class="st"> </span><span class="dv">1</span> |<span class="st"> </span>month ==<span class="st"> </span><span class="dv">2</span>) <span class="co"># First OR second month.</span>
+<span class="kw">slice</span>(flights, <span class="dv">1</span>:<span class="dv">10</span>) <span class="co"># selects first ten rows.</span>
+
+<span class="kw">arrange</span>(flights, year, month, day) <span class="co"># sort</span>
+<span class="kw">arrange</span>(flights, <span class="kw">desc</span>(arr_delay)) <span class="co"># sort descending</span>
+
+<span class="kw">select</span>(flights, year, month, day) <span class="co"># select columns year, month, and day</span>
+<span class="kw">select</span>(flights, year:day) <span class="co"># select column range</span>
+<span class="kw">select</span>(flights, -(year:day)) <span class="co"># drop columns</span>
+<span class="kw">rename</span>(flights, <span class="dt">tail_num =</span> tailnum) <span class="co"># rename column</span>
+
+<span class="co"># add a new computed colume</span>
+<span class="kw">mutate</span>(flights,
+  <span class="dt">gain =</span> arr_delay -<span class="st"> </span>dep_delay,
+  <span class="dt">speed =</span> distance /<span class="st"> </span>air_time *<span class="st"> </span><span class="dv">60</span>) 
+
+<span class="co"># you can refer to columns you just created! (gain)</span>
+<span class="kw">mutate</span>(flights,
+  <span class="dt">gain =</span> arr_delay -<span class="st"> </span>dep_delay,
+  <span class="dt">gain_per_hour =</span> gain /<span class="st"> </span>(air_time /<span class="st"> </span><span class="dv">60</span>)
+)
+
+<span class="co"># keep only new variables, not all data frame.</span>
+<span class="kw">transmute</span>(flights,
+  <span class="dt">gain =</span> arr_delay -<span class="st"> </span>dep_delay,
+  <span class="dt">gain_per_hour =</span> gain /<span class="st"> </span>(air_time /<span class="st"> </span><span class="dv">60</span>)
+)
+
+<span class="co"># simple statistics</span>
+<span class="kw">summarise</span>(flights,
+  <span class="dt">delay =</span> <span class="kw">mean</span>(dep_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+  )
+<span class="co"># random subsample </span>
+<span class="kw">sample_n</span>(flights, <span class="dv">10</span>) 
+<span class="kw">sample_frac</span>(flights, <span class="fl">0.01</span>) </code></pre></div>
+<p>We now perform operations on subgroups. we group observations along the plane’s tail number (<code>tailnum</code>), and compute the count, average distance traveled, and average delay. We group with <code>group_by</code>, and compute subgroup statistics with <code>summarise</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">by_tailnum &lt;-<span class="st"> </span><span class="kw">group_by</span>(flights, tailnum)
+
+delay &lt;-<span class="st"> </span><span class="kw">summarise</span>(by_tailnum,
+  <span class="dt">count =</span> <span class="kw">n</span>(),
+  <span class="dt">avg.dist =</span> <span class="kw">mean</span>(distance, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
+  <span class="dt">avg.delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
+
+delay</code></pre></div>
+<pre><code>## # A tibble: 4,044 × 4
+##    tailnum count avg.dist  avg.delay
+##      &lt;chr&gt; &lt;int&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+## 1   D942DN     4 854.5000 31.5000000
+## 2   N0EGMQ   371 676.1887  9.9829545
+## 3   N10156   153 757.9477 12.7172414
+## 4   N102UW    48 535.8750  2.9375000
+## 5   N103US    46 535.1957 -6.9347826
+## 6   N104UW    47 535.2553  1.8043478
+## 7   N10575   289 519.7024 20.6914498
+## 8   N105UW    45 524.8444 -0.2666667
+## 9   N107US    41 528.7073 -5.7317073
+## 10  N108UW    60 534.5000 -1.2500000
+## # ... with 4,034 more rows</code></pre>
+<p>We can group along several variables, with a hirarchy. We then collapse the hirarchy one by one.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily &lt;-<span class="st"> </span><span class="kw">group_by</span>(flights, year, month, day)
+per_day   &lt;-<span class="st"> </span><span class="kw">summarise</span>(daily, <span class="dt">flights =</span> <span class="kw">n</span>())
+per_month &lt;-<span class="st"> </span><span class="kw">summarise</span>(per_day, <span class="dt">flights =</span> <span class="kw">sum</span>(flights))
+per_year  &lt;-<span class="st"> </span><span class="kw">summarise</span>(per_month, <span class="dt">flights =</span> <span class="kw">sum</span>(flights))</code></pre></div>
+<p>Things to note:</p>
+<ul>
+<li>Every call to <code>summarise</code> collapses one level in the hirarchy of grouping. The output of <code>group_by</code> recalls the hirarchy of aggregation, and collapses along this hirarchy.</li>
+</ul>
+<p>We can use <strong>dplyr</strong> for two table operations, i.e., <em>joins</em>. For this, we join the flight data, with the airplance data in <code>airplanes</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airlines  </code></pre></div>
+<pre><code>## # A tibble: 16 × 2
+##    carrier                        name
+##      &lt;chr&gt;                       &lt;chr&gt;
+## 1       9E           Endeavor Air Inc.
+## 2       AA      American Airlines Inc.
+## 3       AS        Alaska Airlines Inc.
+## 4       B6             JetBlue Airways
+## 5       DL        Delta Air Lines Inc.
+## 6       EV    ExpressJet Airlines Inc.
+## 7       F9      Frontier Airlines Inc.
+## 8       FL AirTran Airways Corporation
+## 9       HA      Hawaiian Airlines Inc.
+## 10      MQ                   Envoy Air
+## 11      OO       SkyWest Airlines Inc.
+## 12      UA       United Air Lines Inc.
+## 13      US             US Airways Inc.
+## 14      VX              Virgin America
+## 15      WN      Southwest Airlines Co.
+## 16      YV          Mesa Airlines Inc.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># select the subset of interesting flight data. </span>
+flights2 &lt;-<span class="st"> </span>flights %&gt;%<span class="st"> </span><span class="kw">select</span>(year:day, hour, origin, dest, tailnum, carrier) 
+
+<span class="co"># join on left table with automatic matching.</span>
+flights2 %&gt;%<span class="st"> </span><span class="kw">left_join</span>(airlines) </code></pre></div>
+<pre><code>## Joining, by = &quot;carrier&quot;</code></pre>
+<pre><code>## # A tibble: 336,776 × 9
+##     year month   day  hour origin  dest tailnum carrier
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;
+## 1   2013     1     1     5    EWR   IAH  N14228      UA
+## 2   2013     1     1     5    LGA   IAH  N24211      UA
+## 3   2013     1     1     5    JFK   MIA  N619AA      AA
+## 4   2013     1     1     5    JFK   BQN  N804JB      B6
+## 5   2013     1     1     6    LGA   ATL  N668DN      DL
+## 6   2013     1     1     5    EWR   ORD  N39463      UA
+## 7   2013     1     1     6    EWR   FLL  N516JB      B6
+## 8   2013     1     1     6    LGA   IAD  N829AS      EV
+## 9   2013     1     1     6    JFK   MCO  N593JB      B6
+## 10  2013     1     1     6    LGA   ORD  N3ALAA      AA
+## # ... with 336,766 more rows, and 1 more variables: name &lt;chr&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights2 %&gt;%<span class="st"> </span><span class="kw">left_join</span>(weather) </code></pre></div>
+<pre><code>## Joining, by = c(&quot;year&quot;, &quot;month&quot;, &quot;day&quot;, &quot;hour&quot;, &quot;origin&quot;)</code></pre>
+<pre><code>## # A tibble: 336,776 × 18
+##     year month   day  hour origin  dest tailnum carrier  temp  dewp humid
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1   2013     1     1     5    EWR   IAH  N14228      UA    NA    NA    NA
+## 2   2013     1     1     5    LGA   IAH  N24211      UA    NA    NA    NA
+## 3   2013     1     1     5    JFK   MIA  N619AA      AA    NA    NA    NA
+## 4   2013     1     1     5    JFK   BQN  N804JB      B6    NA    NA    NA
+## 5   2013     1     1     6    LGA   ATL  N668DN      DL 39.92 26.06 57.33
+## 6   2013     1     1     5    EWR   ORD  N39463      UA    NA    NA    NA
+## 7   2013     1     1     6    EWR   FLL  N516JB      B6 39.02 26.06 59.37
+## 8   2013     1     1     6    LGA   IAD  N829AS      EV 39.92 26.06 57.33
+## 9   2013     1     1     6    JFK   MCO  N593JB      B6 39.02 26.06 59.37
+## 10  2013     1     1     6    LGA   ORD  N3ALAA      AA 39.92 26.06 57.33
+## # ... with 336,766 more rows, and 7 more variables: wind_dir &lt;dbl&gt;,
+## #   wind_speed &lt;dbl&gt;, wind_gust &lt;dbl&gt;, precip &lt;dbl&gt;, pressure &lt;dbl&gt;,
+## #   visib &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># join with named matching</span>
+flights2 %&gt;%<span class="st"> </span><span class="kw">left_join</span>(planes, <span class="dt">by =</span> <span class="st">&quot;tailnum&quot;</span>) </code></pre></div>
+<pre><code>## # A tibble: 336,776 × 16
+##    year.x month   day  hour origin  dest tailnum carrier year.y
+##     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;int&gt;
+## 1    2013     1     1     5    EWR   IAH  N14228      UA   1999
+## 2    2013     1     1     5    LGA   IAH  N24211      UA   1998
+## 3    2013     1     1     5    JFK   MIA  N619AA      AA   1990
+## 4    2013     1     1     5    JFK   BQN  N804JB      B6   2012
+## 5    2013     1     1     6    LGA   ATL  N668DN      DL   1991
+## 6    2013     1     1     5    EWR   ORD  N39463      UA   2012
+## 7    2013     1     1     6    EWR   FLL  N516JB      B6   2000
+## 8    2013     1     1     6    LGA   IAD  N829AS      EV   1998
+## 9    2013     1     1     6    JFK   MCO  N593JB      B6   2004
+## 10   2013     1     1     6    LGA   ORD  N3ALAA      AA     NA
+## # ... with 336,766 more rows, and 7 more variables: type &lt;chr&gt;,
+## #   manufacturer &lt;chr&gt;, model &lt;chr&gt;, engines &lt;int&gt;, seats &lt;int&gt;,
+## #   speed &lt;int&gt;, engine &lt;chr&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># join with explicit column matching</span>
+flights2 %&gt;%<span class="st"> </span><span class="kw">left_join</span>(airports, <span class="dt">by=</span> <span class="kw">c</span>(<span class="st">&quot;dest&quot;</span> =<span class="st"> &quot;faa&quot;</span>)) </code></pre></div>
+<pre><code>## # A tibble: 336,776 × 15
+##     year month   day  hour origin  dest tailnum carrier
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;
+## 1   2013     1     1     5    EWR   IAH  N14228      UA
+## 2   2013     1     1     5    LGA   IAH  N24211      UA
+## 3   2013     1     1     5    JFK   MIA  N619AA      AA
+## 4   2013     1     1     5    JFK   BQN  N804JB      B6
+## 5   2013     1     1     6    LGA   ATL  N668DN      DL
+## 6   2013     1     1     5    EWR   ORD  N39463      UA
+## 7   2013     1     1     6    EWR   FLL  N516JB      B6
+## 8   2013     1     1     6    LGA   IAD  N829AS      EV
+## 9   2013     1     1     6    JFK   MCO  N593JB      B6
+## 10  2013     1     1     6    LGA   ORD  N3ALAA      AA
+## # ... with 336,766 more rows, and 7 more variables: name &lt;chr&gt;, lat &lt;dbl&gt;,
+## #   lon &lt;dbl&gt;, alt &lt;int&gt;, tz &lt;dbl&gt;, dst &lt;chr&gt;, tzone &lt;chr&gt;</code></pre>
+<p>Types of join with SQL equivalent.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create simple data</span>
+(df1 &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">y =</span> <span class="dv">2</span>:<span class="dv">1</span>))</code></pre></div>
+<pre><code>## # A tibble: 2 × 2
+##       x     y
+##   &lt;dbl&gt; &lt;int&gt;
+## 1     1     2
+## 2     2     1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(df2 &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="dt">a =</span> <span class="dv">10</span>, <span class="dt">b =</span> <span class="st">&quot;a&quot;</span>))</code></pre></div>
+<pre><code>## # A tibble: 2 × 3
+##       x     a     b
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+## 1     1    10     a
+## 2     3    10     a</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return only matched rows</span>
+df1 %&gt;%<span class="st"> </span><span class="kw">inner_join</span>(df2) <span class="co"># SELECT * FROM x JOIN y ON x.a = y.a</span></code></pre></div>
+<pre><code>## Joining, by = &quot;x&quot;</code></pre>
+<pre><code>## # A tibble: 1 × 4
+##       x     y     a     b
+##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
+## 1     1     2    10     a</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return all rows in df1.</span>
+df1 %&gt;%<span class="st"> </span><span class="kw">left_join</span>(df2) <span class="co"># SELECT * FROM x LEFT JOIN y ON x.a = y.a</span></code></pre></div>
+<pre><code>## Joining, by = &quot;x&quot;</code></pre>
+<pre><code>## # A tibble: 2 × 4
+##       x     y     a     b
+##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
+## 1     1     2    10     a
+## 2     2     1    NA  &lt;NA&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return all rows in df2.</span>
+df1 %&gt;%<span class="st"> </span><span class="kw">right_join</span>(df2) <span class="co"># SELECT * FROM x RIGHT JOIN y ON x.a = y.a</span></code></pre></div>
+<pre><code>## Joining, by = &quot;x&quot;</code></pre>
+<pre><code>## # A tibble: 2 × 4
+##       x     y     a     b
+##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
+## 1     1     2    10     a
+## 2     3    NA    10     a</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return all rows. </span>
+df1 %&gt;%<span class="st"> </span><span class="kw">full_join</span>(df2) <span class="co"># SELECT * FROM x FULL JOIN y ON x.a = y.a</span></code></pre></div>
+<pre><code>## Joining, by = &quot;x&quot;</code></pre>
+<pre><code>## # A tibble: 3 × 4
+##       x     y     a     b
+##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
+## 1     1     2    10     a
+## 2     2     1    NA  &lt;NA&gt;
+## 3     3    NA    10     a</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Like left_join, but returning only columns in df1</span>
+df1 %&gt;%<span class="st"> </span><span class="kw">semi_join</span>(df2, <span class="dt">by =</span> <span class="st">&quot;x&quot;</span>)  <span class="co"># SELECT * FROM x WHERE EXISTS (SELECT 1 FROM y WHERE x.a = y.a)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 2
+##       x     y
+##   &lt;dbl&gt; &lt;int&gt;
+## 1     1     2</code></pre>
 </div>
 <div id="tidyr" class="section level2">
-<h2><span class="header-section-number">13.2</span> tidyr</h2>
-</div>
-<div id="readr" class="section level2">
-<h2><span class="header-section-number">13.3</span> readr</h2>
+<h2><span class="header-section-number">13.3</span> tidyr</h2>
 </div>
 <div id="reshape2" class="section level2">
 <h2><span class="header-section-number">13.4</span> reshape2</h2>
@@ -309,7 +572,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="anytime" class="section level2">
 <h2><span class="header-section-number">13.6</span> anytime</h2>
+</div>
+<div id="biblipgraphic-notes" class="section level2">
+<h2><span class="header-section-number">13.7</span> Biblipgraphic Notes</h2>
 
+</div>
+</div>
+<h3> Bibliography</h3>
+<div id="refs" class="references">
+<div id="ref-dplyr">
+<p>Wickham, Hadley, and Romain Francois. 2016. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr" class="uri">https://CRAN.R-project.org/package=dplyr</a>.</p>
+</div>
+<div id="ref-datatable">
+<p>Dowle, Matt, and Arun Srinivasan. 2017. <em>Data.table: Extension of ‘Data.frame‘</em>. <a href="https://CRAN.R-project.org/package=data.table" class="uri">https://CRAN.R-project.org/package=data.table</a>.</p>
 </div>
 </div>
             </section>
@@ -347,7 +622,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/12-hadley-verse.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/12-hadleyverse.Rmd",
 "text": "Edit"
 },
 "download": null,

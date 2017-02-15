@@ -248,12 +248,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="12.4" data-path="report.html"><a href="report.html#bibliographic-notes-8"><i class="fa fa-check"></i><b>12.4</b> Bibliographic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="hadley.html"><a href="hadley.html"><i class="fa fa-check"></i><b>13</b> The Hadleyverse</a><ul>
-<li class="chapter" data-level="13.1" data-path="hadley.html"><a href="hadley.html#dplyr"><i class="fa fa-check"></i><b>13.1</b> dplyr</a></li>
-<li class="chapter" data-level="13.2" data-path="hadley.html"><a href="hadley.html#tidyr"><i class="fa fa-check"></i><b>13.2</b> tidyr</a></li>
-<li class="chapter" data-level="13.3" data-path="hadley.html"><a href="hadley.html#readr"><i class="fa fa-check"></i><b>13.3</b> readr</a></li>
+<li class="chapter" data-level="13.1" data-path="hadley.html"><a href="hadley.html#readr"><i class="fa fa-check"></i><b>13.1</b> readr</a></li>
+<li class="chapter" data-level="13.2" data-path="hadley.html"><a href="hadley.html#dplyr"><i class="fa fa-check"></i><b>13.2</b> dplyr</a></li>
+<li class="chapter" data-level="13.3" data-path="hadley.html"><a href="hadley.html#tidyr"><i class="fa fa-check"></i><b>13.3</b> tidyr</a></li>
 <li class="chapter" data-level="13.4" data-path="hadley.html"><a href="hadley.html#reshape2"><i class="fa fa-check"></i><b>13.4</b> reshape2</a></li>
 <li class="chapter" data-level="13.5" data-path="hadley.html"><a href="hadley.html#stringr"><i class="fa fa-check"></i><b>13.5</b> stringr</a></li>
 <li class="chapter" data-level="13.6" data-path="hadley.html"><a href="hadley.html#anytime"><i class="fa fa-check"></i><b>13.6</b> anytime</a></li>
+<li class="chapter" data-level="13.7" data-path="hadley.html"><a href="hadley.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>13.7</b> Biblipgraphic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a></li>
 <li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a></li>
@@ -314,7 +315,7 @@ age &lt;-<span class="st">  </span><span class="kw">sample</span>(<span class="k
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(age)</code></pre></div>
 <pre><code>## age
 ##   Old Young 
-##    11    11</code></pre>
+##     6    16</code></pre>
 <p>If instead of the level counts you want the proportions, you can use <code>prop.table</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prop.table</span>(<span class="kw">table</span>(gender))</code></pre></div>
 <pre><code>## gender
@@ -347,29 +348,29 @@ table2<span class="fl">.1</span></code></pre></div>
 ## 
 ##       drink
 ## gender Coffee Coke Sprite Tea Water
-##   Boy       1    2      1   0     0
-##   Girl      2    0      0   4     1
+##   Boy       1    1      0   0     0
+##   Girl      0    0      0   4     0
 ## 
 ## , , age = Young
 ## 
 ##       drink
 ## gender Coffee Coke Sprite Tea Water
-##   Boy       1    3      2   0     0
-##   Girl      2    0      0   3     0</code></pre>
+##   Boy       1    4      3   0     0
+##   Girl      4    0      0   3     1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table<span class="fl">.2.2</span> &lt;-<span class="st"> </span><span class="kw">ftable</span>(gender, drink, age) <span class="co"># A human readable table.</span>
 table<span class="fl">.2.2</span></code></pre></div>
 <pre><code>##               age Old Young
 ## gender drink               
 ## Boy    Coffee       1     1
-##        Coke         2     3
-##        Sprite       1     2
+##        Coke         1     4
+##        Sprite       0     3
 ##        Tea          0     0
 ##        Water        0     0
-## Girl   Coffee       2     2
+## Girl   Coffee       0     4
 ##        Coke         0     0
 ##        Sprite       0     0
 ##        Tea          4     3
-##        Water        1     0</code></pre>
+##        Water        0     1</code></pre>
 <p>If you want proportions instead of counts, you need to specify the denominator, i.e., the margins.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prop.table</span>(table1, <span class="dt">margin =</span> <span class="dv">1</span>)</code></pre></div>
 <pre><code>##       drink
@@ -422,11 +423,11 @@ table<span class="fl">.2.2</span></code></pre></div>
 <p>Here are the R implementations:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">100</span>)
 <span class="kw">mean</span>(x) <span class="co"># simple mean</span></code></pre></div>
-<pre><code>## [1] 1.193488</code></pre>
+<pre><code>## [1] 0.9668127</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">median</span>(x) <span class="co"># median</span></code></pre></div>
-<pre><code>## [1] 0.9240588</code></pre>
+<pre><code>## [1] 0.6623751</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(x, <span class="dt">trim =</span> <span class="fl">0.2</span>) <span class="co"># alpha trimmed mean with alpha=0.2</span></code></pre></div>
-<pre><code>## [1] 0.960582</code></pre>
+<pre><code>## [1] 0.7588209</code></pre>
 </div>
 <div id="summary-of-scale" class="section level4">
 <h4><span class="header-section-number">4.1.2.3</span> Summary of Scale</h4>
@@ -450,11 +451,11 @@ table<span class="fl">.2.2</span></code></pre></div>
 <p></p>
 <p>Here are the R implementations</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(x) <span class="co"># standard deviation</span></code></pre></div>
-<pre><code>## [1] 1.114895</code></pre>
+<pre><code>## [1] 0.9761777</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mad</span>(x) <span class="co"># MAD</span></code></pre></div>
-<pre><code>## [1] 0.8997008</code></pre>
+<pre><code>## [1] 0.8257266</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">IQR</span>(x) <span class="co"># IQR</span></code></pre></div>
-<pre><code>## [1] 1.309268</code></pre>
+<pre><code>## [1] 1.319324</code></pre>
 </div>
 <div id="summary-of-asymmetry" class="section level4">
 <h4><span class="header-section-number">4.1.2.4</span> Summary of Asymmetry</h4>
@@ -472,7 +473,7 @@ table<span class="fl">.2.2</span></code></pre></div>
 }
 <span class="kw">yule</span>(x)</code></pre></div>
 <pre><code>##       75% 
-## 0.1594622</code></pre>
+## 0.2827007</code></pre>
 </div>
 <div id="bivariate-continous-data" class="section level4">
 <h4><span class="header-section-number">4.1.2.5</span> Bivariate Continous Data</h4>

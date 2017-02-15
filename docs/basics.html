@@ -248,12 +248,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="12.4" data-path="report.html"><a href="report.html#bibliographic-notes-8"><i class="fa fa-check"></i><b>12.4</b> Bibliographic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="hadley.html"><a href="hadley.html"><i class="fa fa-check"></i><b>13</b> The Hadleyverse</a><ul>
-<li class="chapter" data-level="13.1" data-path="hadley.html"><a href="hadley.html#dplyr"><i class="fa fa-check"></i><b>13.1</b> dplyr</a></li>
-<li class="chapter" data-level="13.2" data-path="hadley.html"><a href="hadley.html#tidyr"><i class="fa fa-check"></i><b>13.2</b> tidyr</a></li>
-<li class="chapter" data-level="13.3" data-path="hadley.html"><a href="hadley.html#readr"><i class="fa fa-check"></i><b>13.3</b> readr</a></li>
+<li class="chapter" data-level="13.1" data-path="hadley.html"><a href="hadley.html#readr"><i class="fa fa-check"></i><b>13.1</b> readr</a></li>
+<li class="chapter" data-level="13.2" data-path="hadley.html"><a href="hadley.html#dplyr"><i class="fa fa-check"></i><b>13.2</b> dplyr</a></li>
+<li class="chapter" data-level="13.3" data-path="hadley.html"><a href="hadley.html#tidyr"><i class="fa fa-check"></i><b>13.3</b> tidyr</a></li>
 <li class="chapter" data-level="13.4" data-path="hadley.html"><a href="hadley.html#reshape2"><i class="fa fa-check"></i><b>13.4</b> reshape2</a></li>
 <li class="chapter" data-level="13.5" data-path="hadley.html"><a href="hadley.html#stringr"><i class="fa fa-check"></i><b>13.5</b> stringr</a></li>
 <li class="chapter" data-level="13.6" data-path="hadley.html"><a href="hadley.html#anytime"><i class="fa fa-check"></i><b>13.6</b> anytime</a></li>
+<li class="chapter" data-level="13.7" data-path="hadley.html"><a href="hadley.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>13.7</b> Biblipgraphic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a></li>
 <li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a></li>
@@ -322,7 +323,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <pre><code>## [1] 3</code></pre>
 <p>Generate random variables:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>)</code></pre></div>
-<pre><code>##  [1] 7 4 3 6 4 6 6 7 8 6</code></pre>
+<pre><code>##  [1] 6 4 2 6 6 2 5 4 2 5</code></pre>
 <p>R has many built-in distributions. Their names may change, but the prefixed do not:</p>
 <ul>
 <li><strong>d</strong> prefix for the distribution function.</li>
@@ -356,18 +357,18 @@ x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">
 <p></p>
 <p>To print the contents of an object just type its name</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x</code></pre></div>
-<pre><code>##  [1] 6 6 6 6 4 5 7 5 5 3</code></pre>
+<pre><code>##  [1] 6 4 5 7 6 6 4 5 6 7</code></pre>
 <p>which is an implicit call to</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(x)  </code></pre></div>
-<pre><code>##  [1] 6 6 6 6 4 5 7 5 5 3</code></pre>
+<pre><code>##  [1] 6 4 5 7 6 6 4 5 6 7</code></pre>
 <p>Alternatively, you can assign and print simultaneously</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>))  <span class="co"># Assign and print.</span></code></pre></div>
-<pre><code>##  [1] 6 7 9 8 6 5 6 6 4 6</code></pre>
+<pre><code>##  [1] 6 5 4 4 4 5 7 6 8 6</code></pre>
 <p>Operate on the object</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(x)  <span class="co"># compute mean</span></code></pre></div>
-<pre><code>## [1] 6.3</code></pre>
+<pre><code>## [1] 5.5</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(x)  <span class="co"># compute variance</span></code></pre></div>
-<pre><code>## [1] 2.011111</code></pre>
+<pre><code>## [1] 1.833333</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(x) <span class="co"># plot histogram</span></code></pre></div>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>R saves every object you create in RAM<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. The collection of all such objects is the <strong>workspace</strong> which you can inspect with</p>
@@ -458,8 +459,8 @@ y</code></pre></div>
 ## &lt;environment: namespace:utils&gt;</code></pre>
 <p>Never mind what the function does. Note the <code>environment: namespace:utils</code> line at the end. It tells us that this function is part of the <strong>utils</strong> package. We did not need to know this because it is loaded by default. Here are the packages that are currently loaded:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">search</span>())</code></pre></div>
-<pre><code>## [1] &quot;.GlobalEnv&quot; &quot;Penicillin&quot; &quot;cases&quot;      &quot;Penicillin&quot; &quot;cases&quot;     
-## [6] &quot;Penicillin&quot;</code></pre>
+<pre><code>## [1] &quot;.GlobalEnv&quot;           &quot;Penicillin&quot;           &quot;cases&quot;               
+## [4] &quot;package:nycflights13&quot; &quot;Penicillin&quot;           &quot;cases&quot;</code></pre>
 <p>Other packages can be loaded via the <code>library</code> function, or downloaded from the internet using the <code>install.packages</code> function before loading with <code>library</code>. R’s package import mechanism is quite powerful, and is one of the reasons for R’s success.</p>
 </div>
 <div id="simple-plotting" class="section level2">
