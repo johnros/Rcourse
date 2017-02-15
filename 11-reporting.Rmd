@@ -251,25 +251,21 @@ Here is the `io.R` file.
 ```{r, eval=FALSE}
 library(shiny)
 
-# Define UI for application that draws a histogram
 shinyUI(fluidPage(
 
-  # Application title
   titlePanel("Hello Shiny!"),
 
-  # Sidebar with a slider input for the number of bins
   sidebarLayout(
     sidebarPanel(
-      sliderInput("bins",
-                  "Number of bins:",
+      sliderInput(inputId = "bins",
+                  label = "Number of bins:", 
                   min = 1,
                   max = 50,
                   value = 30)
     ),
 
-    # Show a plot of the generated distribution
     mainPanel(
-      plotOutput("distPlot")
+      plotOutput(outputId = "distPlot")
     )
   )
 ))
@@ -278,10 +274,31 @@ shinyUI(fluidPage(
 
 Here is the `server.R` file:
 ```{r, eval=FALSE}
+library(shiny)
 
+shinyServer(function(input, output) {
+
+  output$distPlot <- renderPlot({
+    x    <- faithful[, 2]  # Old Faithful Geyser data
+    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+
+    hist(x, breaks = bins, col = 'darkgray', border = 'white')
+  })
+})
 ```
 
+Things to note:
 
+- `ShinyUI` is a (deprecated) wrapper for the UI.
+- `fluidPage` ensures that the proportions of the elements adapt to the window side, thus, are fluid. 
+- `sidebarLayout` is a wrapper for the layout, which includes a sidebar, governed by `sidebarPanel`, and a main panel, governed by `mainPanel`.
+- `sliderInput` calls a widget with a slider. Its `inputId` is `bins`, which is later used by the server within the `renderPlot` reactive function.
+- `plotOutput` specifies that the content of the `mainPanel` is a plot (`textOutput` for text). This expectation is satisfied on the server side with the `renderPlot` function (`renderText`).
+- `shinyServer` is a (deprecatred) wrapper function for the server. 
+- The server runs a function with an `input` and an `output`. The elements of `input` are the `inputId`s from the UI. The elements of the `output` will be called by the UI using their `outputId`. 
+
+
+Here is another example.
 
 
 
