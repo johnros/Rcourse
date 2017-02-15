@@ -1,5 +1,25 @@
 # Reports {#report}
 
+```{r verbatim text, cache=FALSE, echo=FALSE}
+knitr::opts_chunk$set(tidy = F)
+
+knitr::knit_hooks$set(source = function(x, options){
+  if (!is.null(options$verbatim) && options$verbatim){
+    opts = gsub(",\\s*verbatim\\s*=\\s*TRUE\\s*", "", options$params.src)
+    bef = sprintf('\n\n    ```{r %s}\n', opts, "\n")
+    stringr::str_c(
+      bef, 
+      knitr:::indent_block(paste(x, collapse = '\n'), "    "), 
+      "\n    ```\n"
+    )
+  } else {
+    stringr::str_c("\n\n```", tolower(options$engine), "\n", 
+      paste(x, collapse = '\n'), "\n```\n\n"
+    )
+  }
+})
+```
+
 
 If you ever written a report, you are probably familiar with the process of preparing your figures in some software, say R, and then copy-pasting into your text editor, say MS Word. 
 While very popular, this process is both tedious, and plain painful if your data has changed and you need to update the report. 
@@ -90,12 +110,14 @@ _Rmarkdown_, is an extension of _markdown_ that allows to incorporate R expressi
 
 The start of a code chunk is indicated by three backticks and the end of a code chunk is indicated by three backticks.
 Here is an example.
-<pre><code>
-```{r whatever}
-data(cars)
-summary(cars)
+
+
+
+```{r qplot, fig.width = 5, fig.height = 5, fig.align = "center", eval=FALSE, verbatim = TRUE}
+library(ggplot2)
+qplot(wt, am, color = vs, data = mtcars)
 ```
-</code></pre>
+
 
 You can also call r expressions inline. This is done with a single tick and the `r` argument.
 For instance `r ''` ```{r label, what=ever} will output 

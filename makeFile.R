@@ -1,5 +1,6 @@
 library(bookdown)
 library(magrittr)
+rm(list=ls())
 
 rmarkdown::render_site(output_format = 'bookdown::pdf_book', encoding = 'UTF-8')
 
@@ -10,7 +11,6 @@ bookdown::render_book("index.Rmd","bookdown::pdf_book", clean_envir = TRUE) # re
 bookdown::preview_chapter('11-reporting.Rmd',"bookdown::gitbook" )
 bookdown::preview_chapter('11-reporting.Rmd',"bookdown::word_document2" )
 bookdown::preview_chapter('11-reporting.Rmd',"bookdown::pdf_book" )
-
 
 bookdown::preview_chapter('10-plotting.Rmd',"bookdown::gitbook" )
 bookdown::preview_chapter('10-plotting.Rmd',"bookdown::word_document2" )
