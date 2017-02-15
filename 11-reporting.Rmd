@@ -190,6 +190,7 @@ __Shiny__ [@shiny] is different than the previous systems, because it sets up an
 The power of Shiny is that they layout of the web-site, and setting up the web-server, is made with several simple R commands, with no need for web-programming.
 For this purpose, Shiny uses the [Bootstrap](http://getbootstrap.com) web developpment technology.
 Once you have your app up and running, you can setup your own Shiny server on the web, or publish it via [Shinyapps.io](https://www.shinyapps.io/).
+The freemium versions of the service can deal with a small amount of traffic. If you expect a lot of traffic, you will probably need the paid versions.
 
 
 ### Installation
@@ -216,7 +217,7 @@ Every Shiny app has two main building blocks.
 1. A user interface, specified via the `ui.R` file in the app's directory.
 1. A server side, specified via the `server.R` file, in the app's directory.
 
-You can run the app via the __RunApp__ button in the RStudio interface, of by calling the app's directory with the `runApp` function.
+You can run the app via the __RunApp__ button in the RStudio interface, of by calling the app's directory with the `shinyApp` or `runApp` functions-- the former designed for single-app projects, and the latter, for multiple app projects. 
 
 ```{r, eval=FALSE}
 shiny::runApp("my_app")
@@ -291,20 +292,116 @@ Things to note:
 
 - `ShinyUI` is a (deprecated) wrapper for the UI.
 - `fluidPage` ensures that the proportions of the elements adapt to the window side, thus, are fluid. 
-- `sidebarLayout` is a wrapper for the layout, which includes a sidebar, governed by `sidebarPanel`, and a main panel, governed by `mainPanel`.
+- The building blocks of the layout are a title, and the body. The title is governed by `titlePanel`, and the body is governed by `sidebarLayout`. The `sidebarLayout` includes  the `sidebarPanel` to control the sidebar, and the `mainPanel` for the main panel.
 - `sliderInput` calls a widget with a slider. Its `inputId` is `bins`, which is later used by the server within the `renderPlot` reactive function.
 - `plotOutput` specifies that the content of the `mainPanel` is a plot (`textOutput` for text). This expectation is satisfied on the server side with the `renderPlot` function (`renderText`).
 - `shinyServer` is a (deprecatred) wrapper function for the server. 
 - The server runs a function with an `input` and an `output`. The elements of `input` are the `inputId`s from the UI. The elements of the `output` will be called by the UI using their `outputId`. 
 
 
-Here is another example.
+Here is another example, taken from the RStudio [Shiny examples](https://github.com/rstudio/shiny-examples/tree/master/006-tabsets).
+
+`ui.R`:
+```{r, eval=FALSE}
+library(shiny)
+
+fluidPage(
+    
+  titlePanel("Tabsets"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      radioButtons(inputId = "dist", 
+                   label = "Distribution type:",
+                   c("Normal" = "norm",
+                     "Uniform" = "unif",
+                     "Log-normal" = "lnorm",
+                     "Exponential" = "exp")),
+      br(),
+      
+      sliderInput(inputId = "n", 
+                  label = "Number of observations:", 
+                   value = 500,
+                   min = 1, 
+                   max = 1000)
+    ),
+    
+    mainPanel(
+      tabsetPanel(type = "tabs", 
+        tabPanel(title = "Plot", plotOutput(outputId = "plot")), 
+        tabPanel(title = "Summary", verbatimTextOutput(outputId = "summary")), 
+        tabPanel(title = "Table", tableOutput(outputId = "table"))
+      )
+    )
+  )
+)
+```
+
+`server.R`:
+```{r, eval=FALSE}
+library(shiny)
+
+# Define server logic for random distribution application
+function(input, output) {
+  
+  # Reactive expression to generate the requested distribution.
+  # This is called whenever the inputs change. The output
+  # functions defined below then all use the value computed from
+  # this expression
+  data <- reactive({
+    dist <- switch(input$dist,
+                   norm = rnorm,
+                   unif = runif,
+                   lnorm = rlnorm,
+                   exp = rexp,
+                   rnorm)
+    
+    dist(input$n)
+  })
+  
+  # Generate a plot of the data. Also uses the inputs to build
+  # the plot label. Note that the dependencies on both the inputs
+  # and the data reactive expression are both tracked, and
+  # all expressions are called in the sequence implied by the
+  # dependency graph
+  output$plot <- renderPlot({
+    dist <- input$dist
+    n <- input$n
+    
+    hist(data(), 
+         main=paste('r', dist, '(', n, ')', sep=''))
+  })
+  
+  # Generate a summary of the data
+  output$summary <- renderPrint({
+    summary(data())
+  })
+  
+  # Generate an HTML table view of the data
+  output$table <- renderTable({
+    data.frame(x=data())
+  })
+  
+}
+```
+
+Things to note:
+
+- We reused the `sidebarLayout`. 
+- As the name suggests, `radioButtons` is a widget that produces radio buttons, above the `sliderInput` widget. Note the different `inputId`s. 
+- `br()` produces extra vertical spacing. 
+- `tabsetPanel` produces tabs in the main output panel. `tabPanel` governs the content of each panel. Notice the use of various output functions (`plotOutput`,`verbatimTextOutput`, `tableOutput`)  with corresponding `outputId`s. 
 
 
 
 
 
+### Augmenting Shiny
 
+Here are several packages that augment __Shiny__:
+
+- __shinyjs__ allows you to use common JavaScript operations in your Shiny applications. 
+- __shinyURL__ allows you to save and restore the state of your shiny apps. 
 
 
 ## Bibliographic Notes
