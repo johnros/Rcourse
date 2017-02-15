@@ -76,7 +76,8 @@ install.packages('knitr')
 It is also recommended that you use it within RStudio (version>0.96), where you can easily create a new `.Rmd` file. 
 
 ### Markdown
-Because __knitr__ builds upon _markdow_, here is a simple example of markdown text, to be used in a `.Rmd` file.
+
+Because __knitr__ builds upon _markdown_, here is a simple example of markdown text, to be used in a `.Rmd` file, which can be created using the _File-> New File -> R Markdown_ menu of RStudio.
 
 
 Underscores or asterisks for `_italics1_` and `*italics2*` return _italics1_ and *italics2*.
@@ -114,28 +115,43 @@ Compiles into:
     1. second level number
 
 
-
-
-
-
 The easiest way to compile is to click the __Knit__ button, just above the editing window. 
-
-
-
 
 For more on markdown see [here](https://bookdown.org/yihui/bookdown/markdown-syntax.html).
 
+
+
+
 ### Rmarkdown
-_Rmarkdown_, is an extension of _markdown_ that allows to incorporate R expressions in the text, the will be avaluated at the time of compilation.
+_Rmarkdown_, is an extension of _markdown_ due to RStudio, that allows to incorporate R expressions in the text, that will be avaluated at the time of compilation, and the output automatically inserted in the outputted text. 
+The output can be a `.PDF`, `.DOCX`, `.HTML` or others, thanks to the power of __pandoc__.
 
 The start of a code chunk is indicated by three backticks and the end of a code chunk is indicated by three backticks.
 Here is an example.
 
 
+```{r, eval=FALSE, verbatim = TRUE}
+rnorm(10)
+```
 
-```{r qplot, fig.width = 5, fig.height = 5, fig.align = "center", eval=FALSE, verbatim = TRUE}
-library(ggplot2)
-qplot(wt, am, color = vs, data = mtcars)
+This chunk will compile to the following output (after setting `eval=FALSE` to `eval=TRUE`):
+```{r}
+rnorm(10)
+```
+
+Things to note:
+
+- The evaluated expression is added in a chunk of highlighted text.
+- The output is added prefixed with `##`.
+
+In the same way, we may add a plot:
+```{r, eval=FALSE, verbatim = TRUE}
+plot(rnorm(10))
+```
+
+which compiles into
+```{r}
+plot(rnorm(10))
 ```
 
 
