@@ -12,7 +12,7 @@ Do we expect the variability to be constant about the trend, be it linear or not
 
 ## Problem Setup
 
-In the Linear Models Chapter \@ref(linear), we assumed the generative process to be 
+In the Linear Models Chapter \@ref(lm), we assumed the generative process to be 
 \begin{align}
   y|x=x'\beta+\varepsilon
   (\#eq:linear-mean-again)
@@ -122,7 +122,7 @@ Things to note:
 
 - The `glm` function is our workhorse for all GLM models.
 - The `family` argument of `glm` tells R the output is binomial, thus, performing a logistic regression.
-- The `summary` function is content aware. It gives a different output for `glm` class objects than for other objects, such as the `lm` we saw in Chapter \@ref(linear).
+- The `summary` function is content aware. It gives a different output for `glm` class objects than for other objects, such as the `lm` we saw in Chapter \@ref(lm).
 - As usual, we get the coefficients table, but recall that they are to be interpreted as (log) odd-ratios.
 - As usual, we get the significance for the test of no-effect, versus a two-sided alternative. 
 - The residuals of `glm` are slightly different than the `lm` residuals, and called _Deviance Residuals_. 

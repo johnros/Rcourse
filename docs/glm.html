@@ -292,7 +292,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p></p>
 <div id="problem-setup-1" class="section level2">
 <h2><span class="header-section-number">6.1</span> Problem Setup</h2>
-In the Linear Models Chapter <a href="#linear"><strong>??</strong></a>, we assumed the generative process to be
+In the Linear Models Chapter <a href="lm.html#lm">5</a>, we assumed the generative process to be
 <span class="math display" id="eq:linear-mean-again">\[\begin{align}
   y|x=x&#39;\beta+\varepsilon
   \tag{6.1}
@@ -395,7 +395,7 @@ weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <
 <ul>
 <li>The <code>glm</code> function is our workhorse for all GLM models.</li>
 <li>The <code>family</code> argument of <code>glm</code> tells R the output is binomial, thus, performing a logistic regression.</li>
-<li>The <code>summary</code> function is content aware. It gives a different output for <code>glm</code> class objects than for other objects, such as the <code>lm</code> we saw in Chapter <a href="#linear"><strong>??</strong></a>.</li>
+<li>The <code>summary</code> function is content aware. It gives a different output for <code>glm</code> class objects than for other objects, such as the <code>lm</code> we saw in Chapter <a href="lm.html#lm">5</a>.</li>
 <li>As usual, we get the coefficients table, but recall that they are to be interpreted as (log) odd-ratios.</li>
 <li>As usual, we get the significance for the test of no-effect, versus a two-sided alternative.</li>
 <li>The residuals of <code>glm</code> are slightly different than the <code>lm</code> residuals, and called <em>Deviance Residuals</em>.</li>
@@ -573,7 +573,10 @@ weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <
 <pre><code>## The following objects are masked from cases (pos = 14):
 ## 
 ##     Days, Students</code></pre>
-<pre><code>## The following objects are masked from cases (pos = 18):
+<pre><code>## The following objects are masked from cases (pos = 16):
+## 
+##     Days, Students</code></pre>
+<pre><code>## The following objects are masked from cases (pos = 20):
 ## 
 ##     Days, Students</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(cases) </code></pre></div>

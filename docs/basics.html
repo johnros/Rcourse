@@ -322,7 +322,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <pre><code>## [1] 3</code></pre>
 <p>Generate random variables:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>)</code></pre></div>
-<pre><code>##  [1] 5 5 2 4 6 4 5 7 4 5</code></pre>
+<pre><code>##  [1] 7 4 3 6 4 6 6 7 8 6</code></pre>
 <p>R has many built-in distributions. Their names may change, but the prefixed do not:</p>
 <ul>
 <li><strong>d</strong> prefix for the distribution function.</li>
@@ -356,18 +356,18 @@ x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">
 <p></p>
 <p>To print the contents of an object just type its name</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x</code></pre></div>
-<pre><code>##  [1] 8 6 6 3 5 3 3 6 6 7</code></pre>
+<pre><code>##  [1] 6 6 6 6 4 5 7 5 5 3</code></pre>
 <p>which is an implicit call to</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(x)  </code></pre></div>
-<pre><code>##  [1] 8 6 6 3 5 3 3 6 6 7</code></pre>
+<pre><code>##  [1] 6 6 6 6 4 5 7 5 5 3</code></pre>
 <p>Alternatively, you can assign and print simultaneously</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>))  <span class="co"># Assign and print.</span></code></pre></div>
-<pre><code>##  [1] 7 6 5 5 4 7 5 5 3 6</code></pre>
+<pre><code>##  [1] 6 7 9 8 6 5 6 6 4 6</code></pre>
 <p>Operate on the object</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(x)  <span class="co"># compute mean</span></code></pre></div>
-<pre><code>## [1] 5.3</code></pre>
+<pre><code>## [1] 6.3</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(x)  <span class="co"># compute variance</span></code></pre></div>
-<pre><code>## [1] 1.566667</code></pre>
+<pre><code>## [1] 2.011111</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(x) <span class="co"># plot histogram</span></code></pre></div>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>R saves every object you create in RAM<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. The collection of all such objects is the <strong>workspace</strong> which you can inspect with</p>
@@ -426,7 +426,7 @@ car_data &lt;-<span class="st"> </span>
 y&lt;-<span class="st"> </span>.Last.value 
 y</code></pre></div>
 <pre><code>## [1] 1 2 3
-## [1] &quot;/home/johnros/workspace/Rcourse/_book/Rcourse.pdf&quot;</code></pre>
+## [1] &quot;/home/johnros/workspace/Rcourse/docs/index.html&quot;</code></pre>
 
 <div class="remark">
 <span class="remark"><em>Remark. </em></span> In line with the linux look and feel, variables starting with a dot (.) are saved but are hidden. To show them see <code>?ls</code>.
@@ -457,33 +457,9 @@ y</code></pre></div>
 ## &lt;bytecode: 0x66ea038&gt;
 ## &lt;environment: namespace:utils&gt;</code></pre>
 <p>Never mind what the function does. Note the <code>environment: namespace:utils</code> line at the end. It tells us that this function is part of the <strong>utils</strong> package. We did not need to know this because it is loaded by default. Here are the packages that are currently loaded:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">search</span>()</code></pre></div>
-<pre><code>##  [1] &quot;.GlobalEnv&quot;            &quot;Penicillin&quot;           
-##  [3] &quot;cases&quot;                 &quot;Penicillin&quot;           
-##  [5] &quot;cases&quot;                 &quot;Penicillin&quot;           
-##  [7] &quot;cases&quot;                 &quot;Penicillin&quot;           
-##  [9] &quot;cases&quot;                 &quot;Penicillin&quot;           
-## [11] &quot;cases&quot;                 &quot;Penicillin&quot;           
-## [13] &quot;cases&quot;                 &quot;package:plotly&quot;       
-## [15] &quot;package:grid&quot;          &quot;Penicillin&quot;           
-## [17] &quot;cases&quot;                 &quot;package:nlme&quot;         
-## [19] &quot;package:scales&quot;        &quot;package:plyr&quot;         
-## [21] &quot;package:devtools&quot;      &quot;package:class&quot;        
-## [23] &quot;package:rpart&quot;         &quot;package:nnet&quot;         
-## [25] &quot;package:e1071&quot;         &quot;package:glmnet&quot;       
-## [27] &quot;package:foreach&quot;       &quot;package:leaps&quot;        
-## [29] &quot;package:dplyr&quot;         &quot;package:ElemStatLearn&quot;
-## [31] &quot;package:lattice&quot;       &quot;package:lme4&quot;         
-## [33] &quot;package:Matrix&quot;        &quot;package:multcomp&quot;     
-## [35] &quot;package:TH.data&quot;       &quot;package:survival&quot;     
-## [37] &quot;package:mvtnorm&quot;       &quot;package:shiny&quot;        
-## [39] &quot;package:MASS&quot;          &quot;package:bookdown&quot;     
-## [41] &quot;package:hexbin&quot;        &quot;package:magrittr&quot;     
-## [43] &quot;package:ggplot2&quot;       &quot;tools:rstudio&quot;        
-## [45] &quot;package:stats&quot;         &quot;package:graphics&quot;     
-## [47] &quot;package:grDevices&quot;     &quot;package:utils&quot;        
-## [49] &quot;package:datasets&quot;      &quot;package:methods&quot;      
-## [51] &quot;Autoloads&quot;             &quot;package:base&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">search</span>())</code></pre></div>
+<pre><code>## [1] &quot;.GlobalEnv&quot; &quot;Penicillin&quot; &quot;cases&quot;      &quot;Penicillin&quot; &quot;cases&quot;     
+## [6] &quot;Penicillin&quot;</code></pre>
 <p>Other packages can be loaded via the <code>library</code> function, or downloaded from the internet using the <code>install.packages</code> function before loading with <code>library</code>. R’s package import mechanism is quite powerful, and is one of the reasons for R’s success.</p>
 </div>
 <div id="simple-plotting" class="section level2">

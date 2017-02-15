@@ -298,7 +298,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The unifying theme of the above two examples, is that the variability we want to infer against has several sources. This is typical in mixed models, which are so popular, that they have earned many names:</p>
 <ul>
 <li><strong>Mixed Effects</strong>: Because we may have both <em>fixed effects</em> we want to estimate and remove, and <em>random effects</em> which contribute to the variability.</li>
-<li><strong>Variance Components</strong>: Because as the examples show, variance has more than a single source (like in the Linear Models of Chapter <a href="#linear"><strong>??</strong></a>).</li>
+<li><strong>Variance Components</strong>: Because as the examples show, variance has more than a single source (like in the Linear Models of Chapter <a href="lm.html#lm">5</a>).</li>
 <li><strong>Hirarchial Models</strong>: Because as Example <a href="lme.html#ex:random-effects">7.2</a> demonstrates, we can think of the sampling as hierarchical– first sample a subject, and then sample its response.</li>
 <li><strong>Repeated Measures</strong>: Because we many have several measurements from each unit, like in <a href="lme.html#ex:random-effects">7.2</a>.</li>
 <li><strong>Longitudinal Data</strong>: Because we follow units over time, like in Example <a href="lme.html#ex:random-effects">7.2</a>.</li>
@@ -457,7 +457,10 @@ summary.lme<span class="fl">.5</span></code></pre></div>
 <pre><code>## The following objects are masked from Penicillin (pos = 14):
 ## 
 ##     diameter, plate, sample</code></pre>
-<pre><code>## The following objects are masked from Penicillin (pos = 18):
+<pre><code>## The following objects are masked from Penicillin (pos = 16):
+## 
+##     diameter, plate, sample</code></pre>
+<pre><code>## The following objects are masked from Penicillin (pos = 20):
 ## 
 ##     diameter, plate, sample</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(sample, plate)</code></pre></div>
