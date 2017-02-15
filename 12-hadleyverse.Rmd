@@ -11,6 +11,12 @@ The term Hadleyverse refers to __all__ of Hadley's packages, but here, we mentio
 - __readr__ for data import.
 
 
+## readr
+
+The __readr__ package replaces base functions for importing and exporting data such as `read.table`. 
+It is faster, with a cleaner syntax. 
+
+
 
 ## dplyr  
 
@@ -29,9 +35,6 @@ Notable utilities in the package include:
 - `anti_join(x,y,by="col")`	return all rows from ‘x’ where there are not matching values in ‘y’, keeping just columns from ‘x’.
 
 
-```{r, eval=FALSE}
-install.packages('dplyr')
-```
 
 The following examples are taken from [here](https://github.com/justmarkham/dplyr-tutorial/blob/master/dplyr-tutorial.Rmd).
 The `nycflights13::flights` has delay data for US flights. 
@@ -175,13 +178,27 @@ df1 %>% semi_join(df2, by = "x")  # SELECT * FROM x WHERE EXISTS (SELECT 1 FROM 
 ```
 
 
+### Other dplyr Features
+
+The above example involve `data.frame` objects, but __dplyr__ can handle other classes. 
+In particular `data.table`s from the __data.table__ package, which is designed for very large data sets. 
+
+__dplyr__ can work with data stored in a database. 
+In which case, it will convert your command to the appropriate SQL syntax, and issue it to the database. 
+This has the advantage that (a) you do not need to know the specific SQL implementation of your databse, and (b), you can enjoy the optimized algorithms provided by the database supplier. 
+For more on this, see the [databses vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html).
+
+
+
 
 
 
 ## tidyr
 
 
-## readr
+
+
+
 
 
 ## reshape2
