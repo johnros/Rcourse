@@ -282,7 +282,7 @@ plot(regfit.full, scale = "Cp")
 
 Instead of the Cp criterion, we now compute the train and test errors for all the possible predictors^[Example taken from https://lagunita.stanford.edu/c4x/HumanitiesScience/StatLearning/asset/ch6.html].
 
-```{r, results='hold'}
+```{r, results='hold', cache=TRUE}
 model.n <- regfit.full %>% summary %>% length
 X.train.named <- prostate.train %>% model.matrix(lcavol ~ ., data = .)
 X.train.named <- model.matrix(lcavol ~ ., data = prostate.train ) 

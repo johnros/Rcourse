@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-02-15">
+<meta name="date" content="2017-02-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -290,16 +290,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">5.1</span> Problem Setup</h2>
 
 <div class="example">
-<span id="ex:unnamed-chunk-89" class="example"><strong>Example 5.1 </strong></span>Consider a randomized experiment designed to study the effects of temperature and pressure on the diameter of a bottle cap.
+<span id="ex:cap-experiment" class="example"><strong>Example 5.1 </strong></span>Consider a randomized experiment designed to study the effects of temperature and pressure on the diameter of a bottle cap.
 </div>
 <p></p>
 
 <div class="example">
-<span id="ex:unnamed-chunk-90" class="example"><strong>Example 5.2 </strong></span>Consider the prediction of rental prices given an appartment’s attributes.
+<span id="ex:rental" class="example"><strong>Example 5.2 </strong></span>Consider the prediction of rental prices given an appartment’s attributes.
 </div>
 <p></p>
 <p>Both examples require some statistical model, but they are very different. The first is a <em>causal inference</em> problem: we want to design an intervention so that we need to recover the causal effect of temperature and pressure. The second is a <em>prediction</em> problem. We don’t care about the causal effects, we just want good predictions.</p>
-<p>In this chapter we discuss the causal problem in This means that when we assume a model, we assume it is the actual <em>data generating process</em>. The second type of problems is discussed in the Supervised Learning Chapter (<a href="supervised.html#supervised">9</a>).</p>
+<p>In this chapter we discuss the causal problem in Example @(ex:cap-experiment). This means that when we assume a model, we assume it is the actual <em>data generating process</em>. The second type of problems is discussed in the Supervised Learning Chapter <a href="supervised.html#supervised">9</a>.</p>
 <p>Lets present the linear model. We assume that a response<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a> variable is the sum of effects of some factors<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a>. Denoting the dependent by <span class="math inline">\(y\)</span>, the factors by <span class="math inline">\(x\)</span>, and the effects by <span class="math inline">\(\beta\)</span> the linear model assumption implies that</p>
 <span class="math display" id="eq:linear-mean">\[\begin{align}
   E[y]=\sum_j x_j \beta_j=x&#39;\beta .
@@ -455,11 +455,11 @@ lm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</
 <p>We can use the <code>predict</code> function to make predictions, but we emphasize that if the purpose of the model is to make predictions, and not interpret coefficients, better skip to The Supervised Learning Chapter <a href="supervised.html#supervised">9</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">predict</span>(lm<span class="fl">.1</span>)~whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,]$Gas)
 <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
 <p>The model seems to fit the data nicely. A common measure of the goodness of fit is the <em>coefficient of determination</em>, more commonly known as the <span class="math inline">\(R^2\)</span>.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-99" class="definition"><strong>Definition 5.1 </strong></span>The coefficient of determination, denoted <span class="math inline">\(R^2\)</span>, is defined as
+<span id="def:unnamed-chunk-110" class="definition"><strong>Definition 5.1 </strong></span>The coefficient of determination, denoted <span class="math inline">\(R^2\)</span>, is defined as
 <span class="math display">\[\begin{align}
   R^2:= 1-\frac{\sum_i (y_i - \hat y_i)^2}{\sum_i (y_i - \bar y)^2}
 \end{align}\]</span>
@@ -511,11 +511,11 @@ Where <span class="math inline">\(\hat y_i\)</span> is the model’s prediction,
 <p>As the name suggests, <code>summary</code> is merely a summary. The full <code>summary(lm.1)</code> object is a monstrous object. Its various elements can be queried using <code>str(sumary(lm.1))</code>.</p>
 <p>Can we check the assumptions required for inference? Some. Let’s start with the linearity assumption. If we were wrong, and the data is not arranged about a linear line, the residuals will have some shape.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">residuals</span>(lm<span class="fl">.1</span>)~whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,]$Temp); <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
 <p>I can’t say I see any shape. Let’s fit a <strong>wrong</strong> model, just to see what “shape” means.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.1.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(Gas~<span class="kw">I</span>(Temp^<span class="dv">2</span>), <span class="dt">data=</span>whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,])
 <span class="kw">plot</span>(<span class="kw">residuals</span>(lm<span class="fl">.1.1</span>)~whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,]$Temp); <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
 <p>Things to note:</p>
 <ul>
 <li>We used <code>I(Temp)^2</code> to specify the model <span class="math inline">\(Gas_i=\beta_0 + \beta_1 Temp^2+ \varepsilon\)</span>.</li>
@@ -524,10 +524,10 @@ Where <span class="math inline">\(\hat y_i\)</span> is the model’s prediction,
 <p>To the next assumption. We assumed <span class="math inline">\(\varepsilon_i\)</span> are independent of everything else. The residuals, <span class="math inline">\(y_i-\hat y_i\)</span> can be thought of a sample of <span class="math inline">\(\varepsilon_i\)</span>. When diagnosing the linearity assumption, we already saw their distribution does not vary with the <span class="math inline">\(x\)</span>’s, <code>Temp</code> in our case. They may be correlated with themselves; a positive departure from the model, may be followed by a series of positive departures etc. Diagnosing these <em>auto-correlations</em> is a real art, which is not part of our course.</p>
 <p>The last assumption we required is normality. As previously stated, if <span class="math inline">\(n \gg p\)</span>, this assumption is not really needed. If <span class="math inline">\(n \sim p\)</span>, i.e., <span class="math inline">\(n\)</span> is in the order of <span class="math inline">\(p\)</span>, we need to verify this assumption. My favorite tool for this task is the <em>qqplot</em>. A qqplot compares the quantiles of the sample with the respective quantiles of an assumed distribution. If quantiles align along a line, the assumed distribution if OK. If quantiles depart from a line, then clearly the assumed distribution does not fit the sample.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qqnorm</span>(<span class="kw">resid</span>((lm<span class="fl">.1</span>)))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
 <p>The <code>qqnorm</code> function plots a qqplot against a normal distribution. Judging from the figure, the normality assumption is quite plausible. Let’s try the same on a non-normal sample, namely a uniformly distributed sample, to see how that would look.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qqnorm</span>(<span class="kw">runif</span>(<span class="dv">100</span>))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-116-1.png" width="672" /></p>
 <div id="testing-a-hypothesis-on-a-single-coefficient" class="section level3">
 <h3><span class="header-section-number">5.3.1</span> Testing a Hypothesis on a Single Coefficient</h3>
 <p>The first inferential test we consider is a hypothesis test on a single coefficient. In our gas example, we may want to test that the temperature has no effect on the gas consumption. The answer for that is given immediately by <code>summary(lm.1)</code></p>

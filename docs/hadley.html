@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-02-15">
+<meta name="date" content="2017-02-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -286,18 +286,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="hadley" class="section level1">
 <h1><span class="header-section-number">Chapter 13</span> The Hadleyverse</h1>
-<p>The <em>Hadleyverse</em>, short for “Hadley Wickham’s universe”, is a set of packages that make it easier to handle data. If you are developping packages, you should be careful since using these packages may create many dependencies and compatibility issues. If you are analyzing data, and the portability of your functions to other users, machines, and operating systems is not of a concern, you will LOVE these packages. The term Hadleyverse refers to <strong>all</strong> of Hadley’s packages, but here, we mention only a useful subset, which can be collectively installed via the <strong>tidyverse</strong> package:</p>
+<p>The <em>Hadleyverse</em>, short for “Hadley Wickham’s universe”, is a set of packages that make it easier to handle data. If you are developing packages, you should be careful since using these packages may create many dependencies and compatibility issues. If you are analyzing data, and the portability of your functions to other users, machines, and operating systems is not of a concern, you will LOVE these packages. The term Hadleyverse refers to <strong>all</strong> of Hadley’s packages, but here, we mention only a useful subset, which can be collectively installed via the <strong>tidyverse</strong> package:</p>
 <ul>
-<li><strong>ggplot2</strong> for data visualisation. See the Plotting Chapter <a href="plotting.html#plotting">11</a>.</li>
+<li><strong>ggplot2</strong> for data visualization. See the Plotting Chapter <a href="plotting.html#plotting">11</a>.</li>
 <li><strong>dplyr</strong> for data manipulation.</li>
 <li><strong>tidyr</strong> for data tidying.</li>
 <li><strong>readr</strong> for data import.</li>
-<li><strong>stringr</strong> for charachter strings.</li>
+<li><strong>stringr</strong> for character strings.</li>
 <li><strong>anytime</strong> for time data.</li>
 </ul>
 <div id="readr" class="section level2">
 <h2><span class="header-section-number">13.1</span> readr</h2>
-<p>The <strong>readr</strong> package replaces base functions for importing and exporting data such as <code>read.table</code>. It is faster, with a cleaner syntax.</p>
+<p>The <strong>readr</strong> package <span class="citation">(Wickham, Hester, and Francois <a href="#ref-readr">2016</a>)</span> replaces base functions for importing and exporting data such as <code>read.table</code>. It is faster, with a cleaner syntax.</p>
 <p>We will not go into the details and refer the reader to the official documentation <a href="http://readr.tidyverse.org/articles/readr.html">here</a> and the <a href="http://r4ds.had.co.nz/data-import.html">R for data sciecne</a> book.</p>
 </div>
 <div id="dplyr" class="section level2">
@@ -316,8 +316,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>anti_join(x,y,by=&quot;col&quot;)</code> return all rows from ‘x’ where there are not matching values in ‘y’, keeping just columns from ‘x’.</li>
 </ul>
 <p>The following example involve <code>data.frame</code> objects, but <strong>dplyr</strong> can handle other classes. In particular <code>data.table</code>s from the <strong>data.table</strong> package <span class="citation">(Dowle and Srinivasan <a href="#ref-datatable">2017</a>)</span>, which is designed for very large data sets.</p>
-<p><strong>dplyr</strong> can work with data stored in a database. In which case, it will convert your command to the appropriate SQL syntax, and issue it to the database. This has the advantage that (a) you do not need to know the specific SQL implementation of your databse, and (b), you can enjoy the optimized algorithms provided by the database supplier. For more on this, see the <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html">databses vignette</a>.</p>
-<p>The following examples are taken from <a href="https://github.com/justmarkham/dplyr-tutorial/blob/master/dplyr-tutorial.Rmd">here</a>. The <code>nycflights13::flights</code> has delay data for US flights.</p>
+<p><strong>dplyr</strong> can work with data stored in a database. In which case, it will convert your command to the appropriate SQL syntax, and issue it to the database. This has the advantage that (a) you do not need to know the specific SQL implementation of your database, and (b), you can enjoy the optimized algorithms provided by the database supplier. For more on this, see the <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html">databses vignette</a>.</p>
+<p>The following examples are taken from <a href="https://github.com/justmarkham/dplyr-tutorial/blob/master/dplyr-tutorial.Rmd">Kevin Markham</a>. The <code>nycflights13::flights</code> has delay data for US flights.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nycflights13)
 flights</code></pre></div>
 <pre><code>## # A tibble: 336,776 × 19
@@ -340,7 +340,7 @@ flights</code></pre></div>
 <p>The data is of class <code>tbl_df</code> which is an extension of the <code>data.frame</code> class, designed for large data sets. Notice that the printing of <code>flights</code> is short, even without calling the <code>head</code> function. This is a feature of the <code>tbl_df</code> class ( <code>print(data.frame)</code> would try to load all the data, thus take a long time).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(flights) <span class="co"># a tbl_df is an extension of the data.frame class</span></code></pre></div>
 <pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
-<p>Let filter the observations from the first day of the first month. Notice how much better (i.e. readable) is the <strong>dplyr</strong> syntax, with piping, compared to the basic syntax.</p>
+<p>Let’s filter the observations from the first day of the first month. Notice how much better (i.e. readable) is the <strong>dplyr</strong> syntax, with piping, compared to the basic syntax.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights[flights$month ==<span class="st"> </span><span class="dv">1</span> &amp;<span class="st"> </span>flights$day ==<span class="st"> </span><span class="dv">1</span>, ] <span class="co"># old style</span>
 
 <span class="kw">library</span>(dplyr) 
@@ -405,16 +405,16 @@ delay</code></pre></div>
 ## 9   N107US    41 528.7073 -5.7317073
 ## 10  N108UW    60 534.5000 -1.2500000
 ## # ... with 4,034 more rows</code></pre>
-<p>We can group along several variables, with a hirarchy. We then collapse the hirarchy one by one.</p>
+<p>We can group along several variables, with a hierarchy. We then collapse the hierarchy one by one.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily &lt;-<span class="st"> </span><span class="kw">group_by</span>(flights, year, month, day)
 per_day   &lt;-<span class="st"> </span><span class="kw">summarise</span>(daily, <span class="dt">flights =</span> <span class="kw">n</span>())
 per_month &lt;-<span class="st"> </span><span class="kw">summarise</span>(per_day, <span class="dt">flights =</span> <span class="kw">sum</span>(flights))
 per_year  &lt;-<span class="st"> </span><span class="kw">summarise</span>(per_month, <span class="dt">flights =</span> <span class="kw">sum</span>(flights))</code></pre></div>
 <p>Things to note:</p>
 <ul>
-<li>Every call to <code>summarise</code> collapses one level in the hirarchy of grouping. The output of <code>group_by</code> recalls the hirarchy of aggregation, and collapses along this hirarchy.</li>
+<li>Every call to <code>summarise</code> collapses one level in the hierarchy of grouping. The output of <code>group_by</code> recalls the hierarchy of aggregation, and collapses along this hierarchy.</li>
 </ul>
-<p>We can use <strong>dplyr</strong> for two table operations, i.e., <em>joins</em>. For this, we join the flight data, with the airplance data in <code>airplanes</code>.</p>
+<p>We can use <strong>dplyr</strong> for two table operations, i.e., <em>joins</em>. For this, we join the flight data, with the airplane data in <code>airplanes</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airlines  </code></pre></div>
 <pre><code>## # A tibble: 16 × 2
 ##    carrier                        name
@@ -580,6 +580,9 @@ df1 %&gt;%<span class="st"> </span><span class="kw">semi_join</span>(df2, <span 
 </div>
 <h3> Bibliography</h3>
 <div id="refs" class="references">
+<div id="ref-readr">
+<p>Wickham, Hadley, Jim Hester, and Romain Francois. 2016. <em>Readr: Read Tabular Data</em>. <a href="https://CRAN.R-project.org/package=readr" class="uri">https://CRAN.R-project.org/package=readr</a>.</p>
+</div>
 <div id="ref-dplyr">
 <p>Wickham, Hadley, and Romain Francois. 2016. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr" class="uri">https://CRAN.R-project.org/package=dplyr</a>.</p>
 </div>

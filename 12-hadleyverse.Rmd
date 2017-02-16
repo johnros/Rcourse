@@ -1,22 +1,22 @@
 # The Hadleyverse {#hadley}
 
 The _Hadleyverse_, short for "Hadley Wickham's universe", is a set of packages that make it easier to handle data. 
-If you are developping packages, you should be careful since using these packages may create many dependencies and compatibility issues. 
+If you are developing packages, you should be careful since using these packages may create many dependencies and compatibility issues. 
 If you are analyzing data, and the portability of your functions to other users, machines, and operating systems is not of a concern, you will LOVE these packages. 
 The term Hadleyverse refers to __all__ of Hadley's packages, but here, we mention only a useful subset, which can be collectively installed via the __tidyverse__ package:
 
-- __ggplot2__ for data visualisation. See the Plotting Chapter \@ref(plotting).
+- __ggplot2__ for data visualization. See the Plotting Chapter \@ref(plotting).
 - __dplyr__ for data manipulation.
 - __tidyr__ for data tidying.
 - __readr__ for data import.
-- __stringr__ for charachter strings. 
+- __stringr__ for character strings. 
 - __anytime__ for time data. 
 
 
 
 ## readr
 
-The __readr__ package replaces base functions for importing and exporting data such as `read.table`. 
+The __readr__ package [@readr] replaces base functions for importing and exporting data such as `read.table`. 
 It is faster, with a cleaner syntax. 
 
 We will not go into the details and refer the reader to the official documentation [here](http://readr.tidyverse.org/articles/readr.html) and the [R for data sciecne](http://r4ds.had.co.nz/data-import.html) book.
@@ -44,12 +44,12 @@ In particular `data.table`s from the __data.table__ package [@datatable], which 
 
 __dplyr__ can work with data stored in a database. 
 In which case, it will convert your command to the appropriate SQL syntax, and issue it to the database. 
-This has the advantage that (a) you do not need to know the specific SQL implementation of your databse, and (b), you can enjoy the optimized algorithms provided by the database supplier. 
+This has the advantage that (a) you do not need to know the specific SQL implementation of your database, and (b), you can enjoy the optimized algorithms provided by the database supplier. 
 For more on this, see the [databses vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html).
 
 
 
-The following examples are taken from [here](https://github.com/justmarkham/dplyr-tutorial/blob/master/dplyr-tutorial.Rmd).
+The following examples are taken from [Kevin Markham](https://github.com/justmarkham/dplyr-tutorial/blob/master/dplyr-tutorial.Rmd).
 The `nycflights13::flights` has delay data for US flights. 
 ```{r}
 library(nycflights13)
@@ -64,7 +64,7 @@ class(flights) # a tbl_df is an extension of the data.frame class
 ```
 
 
-Let filter the observations from the first day of the first month.
+Let's filter the observations from the first day of the first month.
 Notice how much better (i.e. readable) is the __dplyr__ syntax, with piping, compared to the basic syntax.
 
 ```{r, eval=FALSE}
@@ -132,8 +132,8 @@ delay
 ```
 
 
-We can group along several variables, with a hirarchy.
-We then collapse the hirarchy one by one. 
+We can group along several variables, with a hierarchy.
+We then collapse the hierarchy one by one. 
 
 ```{r}
 daily <- group_by(flights, year, month, day)
@@ -144,10 +144,10 @@ per_year  <- summarise(per_month, flights = sum(flights))
 
 Things to note:
 
-- Every call to `summarise` collapses one level in the hirarchy of grouping. The output of `group_by` recalls the hirarchy of aggregation, and collapses along this hirarchy.
+- Every call to `summarise` collapses one level in the hierarchy of grouping. The output of `group_by` recalls the hierarchy of aggregation, and collapses along this hierarchy.
 
 We can use __dplyr__ for two table operations, i.e., _joins_.
-For this, we join the flight data, with the airplance data in `airplanes`.
+For this, we join the flight data, with the airplane data in `airplanes`.
 
 ```{r}
 airlines  
