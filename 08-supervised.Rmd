@@ -322,7 +322,7 @@ step(ols.0, scope=model.scope, direction='forward', trace = TRUE)
 
 We now learn a linear predictor on the `spam` data using, with least squares loss, and train-test validation. 
 
-```{r}
+```{r, cache=TRUE, dependson='preprocessing'}
 # train the predictor
 ols.2 <- lm(spam~., data = spam.train.dummy) 
 
@@ -347,7 +347,7 @@ missclassification(confusion.test)
 
 The `glmnet` package is an excellent package that provides ridge, lasso, and elastic net regularization, for all GLMs, so for linear models in particular.
 
-```{r Ridge-II, cache=TRUE}
+```{r Ridge-II, cache=TRUE, dependson='preprocessing'}
 suppressMessages(library(glmnet))
 ridge.2 <- glmnet(x=X.train, y=y.train, family = 'gaussian', alpha = 0)
 
@@ -447,7 +447,7 @@ MSE( predict(nnet.1, newdata = prostate.test)- prostate.test$lcavol)
 
 And nnet classification.
 
-```{r NNET-Classification, cache=TRUE}
+```{r NNET-Classification, cache=TRUE, dependson='preprocessing'}
 nnet.2 <- nnet(spam~., size=5, data=spam.train, rang = 0.1, decay = 5e-4, maxit = 1000, trace=FALSE)
 
 # Train confusion matrix:
