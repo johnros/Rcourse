@@ -23,7 +23,7 @@ Clearly, this factor can take only $26$ values.
 This means that $25/26$ of the `model.matrix` will be zeroes after dummy coding.
 We will compare the memory footprint of the naive `model.matrix` with the sparse representation of the same matrix. 
 
-```{r}
+```{r make x, cache=TRUE}
 reps <- 1e6 # number of samples
 y<-rnorm(reps)
 x<- letters %>% 
@@ -38,16 +38,16 @@ head(x)
 
 We dummy code `x` with the `model.matrix` function.
 
-```{r}
+```{r make X1, cache=TRUE}
 X.1 <- model.matrix(~x-1)
 head(X.1)
 ```
 
 We call __MatrixModels__ for an implementation of `model.matrix` that supports sparse representations.
 
-```{r}
+```{r make X2, cache=TRUE}
 suppressPackageStartupMessages(library(MatrixModels))
-X.2<- as(,"sparseMatrix") %>% t # Makes sparse dummy matrix
+X.2<- as(x,"sparseMatrix") %>% t # Makes sparse dummy matrix
 head(X.2)
 
 ```
@@ -75,20 +75,20 @@ Things to note:
 With a sparse repsesantation, we not only saved on RAM, but also on the computing time of fitting a model.
 Here is the timing of a non sparse repsensantation:
 
-```{r, cache=TRUE}
+```{r nonSparse lm, cache=TRUE, dependson='make X1'}
 system.time(lm.1 <- lm(y ~ X.1)) 
 ```
 
 Well actually, `lm` is a wrapper for the `lm.fit` function. 
 If we override all the overhead of `lm`, and call `lm.fit` directly, we gain some time:
 
-```{r, cache=TRUE}
+```{r nonSparse lmfit, cache=TRUE, dependson='make X1'}
 system.time(lm.1 <- lm.fit(y=y, x=X.1))
 ```
 
 We now do the same with the sparse represantation:
 
-```{r}
+```{r sparselm, cache=TRUE, dependson='make X2'}
 system.time(lm.2 <- MatrixModels:::lm.fit.sparse(X.2,y))
 ```
 
@@ -101,8 +101,10 @@ all.equal(lm.2, unname(lm.1$coefficients), tolerance = 1e-12)
 
 
 
-
 ## Sparse Matrix Representations
+
+We start with some terminology of sparse matrices. 
+
 
 
 
