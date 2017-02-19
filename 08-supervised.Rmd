@@ -300,7 +300,7 @@ for (i in 1:model.n) {
     pred <-  X.test.named[, names(coefi)] %*% coefi
     val.errors[i] <- MSE(y.test - pred)
 }
-plot(train.errors, ylab = "MSE", pch = 19, type = "black")
+plot(train.errors, ylab = "MSE", pch = 19, type = "o")
 points(val.errors, pch = 19, type = "b", col="blue")
 legend("topright", 
        legend = c("Training", "Validation"), 

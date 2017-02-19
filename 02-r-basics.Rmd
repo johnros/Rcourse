@@ -431,10 +431,15 @@ For a complete review see the [R manual](http://cran.r-project.org/doc/manuals/R
 ### Import from WEB 
 The `read.table` function is the main importing workhorse.
 It can import directly from the web.
-```{r}
+```{r, eval=FALSE}
 URL <- 'http://statweb.stanford.edu/~tibs/ElemStatLearn/datasets/bone.data'
 tirgul1 <- read.table(URL)
 ```
+
+```{r, echo=FALSE}
+tirgul1 <- read.table('bone.data')
+```
+
 
 Always look at the imported result!
 ```{r}
@@ -442,9 +447,13 @@ head(tirgul1)
 ```
 
 Ohh dear. The header row was not recognized. Fix with `header=TRUE`:
-```{r}
+```{r, eval=FALSE}
 tirgul1 <- read.table(URL, header = TRUE) 
 head(tirgul1)
+```
+
+```{r, echo=FALSE}
+tirgul1 <- read.table('bone.data', header = TRUE)
 ```
 
 
@@ -551,7 +560,7 @@ The R compiler is really not designed for recursion, and you will rarely need to
 See the RCpp Chapter \@ref(rcpp) for linking C code, which is better suited for recursion. 
 If you really insist to write recursions in R, make sure to use the `Recall` function, as this 
 Fibonacci series example demonstrates. 
-```{r recusrion}
+```{r recusrion, cache=TRUE}
 fib<-function(n) {
     if (n < 2) fn<-1 
     else fn<-Recall(n - 1) + Recall(n - 2) 
@@ -565,5 +574,6 @@ fib(5)
 ## Bibliographic Notes
 
 There are endlessly many introductory texts on R.
+For a list of free resources see [CrossValidated](http://stats.stackexchange.com/questions/138/free-resources-for-learning-r).
 I personally recommend the official introduction @venables2004introduction, or anything else Bill Venables writes. 
 For advanced R programming see @wickham2014advanced, or anything else Hadley Wickham writes. 

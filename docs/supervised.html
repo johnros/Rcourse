@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-02-16">
+<meta name="date" content="2017-02-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -467,13 +467,13 @@ for (k in <span class="dv">1</span>:folds){
 
 <span class="co"># Cross validated prediction error:</span>
 <span class="kw">MSE</span>(errors)</code></pre></div>
-<pre><code>## [1] 0.523265</code></pre>
+<pre><code>## [1] 0.528486</code></pre>
 <p>Let’s try all possible models, and choose the best performer with respect to the Cp criterion. We see that the best performer has 3 predictors.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(leaps)
 regfit.full &lt;-<span class="st"> </span>prostate.train %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">regsubsets</span>(lcavol~.,<span class="dt">data =</span> ., <span class="dt">method =</span> <span class="st">&#39;exhaustive&#39;</span>) <span class="co"># best subset selection</span>
 <span class="kw">plot</span>(regfit.full, <span class="dt">scale =</span> <span class="st">&quot;Cp&quot;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-161-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-150-1.png" width="50%" /></p>
 <p>Instead of the Cp criterion, we now compute the train and test errors for all the possible predictors<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model.n &lt;-<span class="st"> </span>regfit.full %&gt;%<span class="st"> </span>summary %&gt;%<span class="st"> </span>length
 X.train.named &lt;-<span class="st"> </span>prostate.train %&gt;%<span class="st"> </span><span class="kw">model.matrix</span>(lcavol ~<span class="st"> </span>., <span class="dt">data =</span> .)
@@ -492,15 +492,13 @@ for (i in <span class="dv">1</span>:model.n) {
     pred &lt;-<span class="st">  </span>X.test.named[, <span class="kw">names</span>(coefi)] %*%<span class="st"> </span>coefi
     val.errors[i] &lt;-<span class="st"> </span><span class="kw">MSE</span>(y.test -<span class="st"> </span>pred)
 }
-<span class="kw">plot</span>(train.errors, <span class="dt">ylab =</span> <span class="st">&quot;MSE&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">type =</span> <span class="st">&quot;black&quot;</span>)</code></pre></div>
-<pre><code>## Warning in plot.xy(xy, type, ...): plot type &#39;black&#39; will be truncated to
-## first character</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">points</span>(val.errors, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)
+<span class="kw">plot</span>(train.errors, <span class="dt">ylab =</span> <span class="st">&quot;MSE&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">type =</span> <span class="st">&quot;o&quot;</span>)
+<span class="kw">points</span>(val.errors, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)
 <span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, 
        <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;Training&quot;</span>, <span class="st">&quot;Validation&quot;</span>), 
        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;blue&quot;</span>), 
        <span class="dt">pch =</span> <span class="dv">19</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-162-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-151-1.png" width="50%" /></p>
 <p>Checking all possible models is computationally very hard. <em>Forward selection</em> is a greedy approach that adds one variable at a time, using the AIC criterion. If AIC falls, the variable is added.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols<span class="fl">.0</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(lcavol~<span class="dv">1</span> ,<span class="dt">data =</span> prostate.train)
 model.scope &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">upper=</span>ols<span class="fl">.1</span>, <span class="dt">lower=</span>ols<span class="fl">.0</span>)
@@ -560,22 +558,22 @@ ols<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">lm<
 (confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train.dummy$spam)) </code></pre></div>
 <pre><code>##           truth
 ## prediction    0    1
-##      FALSE 1738  227
-##      TRUE    81  972</code></pre>
+##      FALSE 1766  266
+##      TRUE    81  912</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># compute the train (in sample) misclassification</span>
 <span class="kw">missclassification</span>(confusion.train) </code></pre></div>
-<pre><code>## [1] 0.1020543</code></pre>
+<pre><code>## [1] 0.1147107</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make out-of-sample prediction</span>
 .predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(ols<span class="fl">.2</span>, <span class="dt">newdata =</span> spam.test.dummy) &gt;<span class="st"> </span><span class="fl">0.5</span> 
 <span class="co"># inspect the confusion matrix</span>
 (confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test.dummy$spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction   0   1
-##      FALSE 918 130
-##      TRUE   51 484</code></pre>
+##      FALSE 902 162
+##      TRUE   39 473</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># compute the train (in sample) misclassification</span>
 <span class="kw">missclassification</span>(confusion.test)</code></pre></div>
-<pre><code>## [1] 0.1143399</code></pre>
+<pre><code>## [1] 0.1275381</code></pre>
 <p>The <code>glmnet</code> package is an excellent package that provides ridge, lasso, and elastic net regularization, for all GLMs, so for linear models in particular.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressMessages</span>(<span class="kw">library</span>(glmnet))
 ridge<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">glmnet</span>(<span class="dt">x=</span>X.train, <span class="dt">y=</span>y.train, <span class="dt">family =</span> <span class="st">&#39;gaussian&#39;</span>, <span class="dt">alpha =</span> <span class="dv">0</span>)
@@ -612,21 +610,21 @@ ridge<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">g
 (confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train$spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email  1743  167
-##      spam     76 1032</code></pre>
+##      email  1767  203
+##      spam     80  975</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Train misclassification error</span>
 <span class="kw">missclassification</span>(confusion.train)</code></pre></div>
-<pre><code>## [1] 0.0805169</code></pre>
+<pre><code>## [1] 0.09355372</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test confusion matrix:</span>
 .predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(logistic<span class="fl">.2</span>, <span class="dt">newx =</span> X.test.spam, <span class="dt">type=</span><span class="st">&#39;class&#39;</span>) 
 (confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>y.test.spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email   919   97
-##      spam     50  517</code></pre>
+##      email   896  117
+##      spam     45  518</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test misclassification error:</span>
 <span class="kw">missclassification</span>(confusion.test)</code></pre></div>
-<pre><code>## [1] 0.09286166</code></pre>
+<pre><code>## [1] 0.1027919</code></pre>
 </div>
 <div id="svm" class="section level3">
 <h3><span class="header-section-number">9.2.2</span> SVM</h3>
@@ -639,19 +637,19 @@ svm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">svm
 (confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train$spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email  1770   99
-##      spam     55 1103</code></pre>
+##      email  1793   99
+##      spam     54 1079</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.train)</code></pre></div>
-<pre><code>## [1] 0.05087545</code></pre>
+<pre><code>## [1] 0.05057851</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test confusion matrix:</span>
 .predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(svm<span class="fl">.1</span>, <span class="dt">newdata =</span> spam.test) 
 (confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test$spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email   924   64
-##      spam     39  547</code></pre>
+##      email   904   76
+##      spam     37  559</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.test)</code></pre></div>
-<pre><code>## [1] 0.06543837</code></pre>
+<pre><code>## [1] 0.07170051</code></pre>
 <p>We can also use SVM for regression.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">svm<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">svm</span>(lcavol~., <span class="dt">data =</span> prostate.train)
 
@@ -670,10 +668,10 @@ nnet<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">nn
 
 <span class="co"># Train error:</span>
 <span class="kw">MSE</span>( <span class="kw">predict</span>(nnet<span class="fl">.1</span>)-<span class="st"> </span>prostate.train$lcavol)</code></pre></div>
-<pre><code>## [1] 1.300734</code></pre>
+<pre><code>## [1] 1.189929</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test error:</span>
 <span class="kw">MSE</span>( <span class="kw">predict</span>(nnet<span class="fl">.1</span>, <span class="dt">newdata =</span> prostate.test)-<span class="st"> </span>prostate.test$lcavol)</code></pre></div>
-<pre><code>## [1] 1.16382</code></pre>
+<pre><code>## [1] 1.221043</code></pre>
 <p>And nnet classification.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nnet<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">nnet</span>(spam~., <span class="dt">size=</span><span class="dv">5</span>, <span class="dt">data=</span>spam.train, <span class="dt">rang =</span> <span class="fl">0.1</span>, <span class="dt">decay =</span> <span class="fl">5e-4</span>, <span class="dt">maxit =</span> <span class="dv">1000</span>, <span class="dt">trace=</span><span class="ot">FALSE</span>)
 
@@ -682,19 +680,19 @@ nnet<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">nn
 (confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train$spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email  1798   40
-##      spam     27 1162</code></pre>
+##      email  1818   33
+##      spam     29 1145</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.train)</code></pre></div>
-<pre><code>## [1] 0.02213413</code></pre>
+<pre><code>## [1] 0.02049587</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test confusion matrix:</span>
 .predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(nnet<span class="fl">.2</span>, <span class="dt">newdata =</span> spam.test, <span class="dt">type=</span><span class="st">&#39;class&#39;</span>) 
 (confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test$spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email   928   66
-##      spam     35  545</code></pre>
+##      email   895   61
+##      spam     46  574</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.test)</code></pre></div>
-<pre><code>## [1] 0.06416773</code></pre>
+<pre><code>## [1] 0.0678934</code></pre>
 </div>
 <div id="classification-and-regression-trees-cart" class="section level3">
 <h3><span class="header-section-number">9.2.4</span> Classification and Regression Trees (CART)</h3>
@@ -718,19 +716,19 @@ tree<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">rp
 (confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train$spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email  1739  215
-##      spam     86  987</code></pre>
+##      email  1734  172
+##      spam    113 1006</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.train)</code></pre></div>
-<pre><code>## [1] 0.09943839</code></pre>
+<pre><code>## [1] 0.09421488</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test confusion matrix:</span>
 .predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(tree<span class="fl">.2</span>, <span class="dt">newdata =</span> spam.test, <span class="dt">type=</span><span class="st">&#39;class&#39;</span>) 
 (confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test$spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email   921  124
-##      spam     42  487</code></pre>
+##      email   874  104
+##      spam     67  531</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.test)</code></pre></div>
-<pre><code>## [1] 0.1054638</code></pre>
+<pre><code>## [1] 0.1085025</code></pre>
 </div>
 <div id="k-nearest-neighbour-knn" class="section level3">
 <h3><span class="header-section-number">9.2.5</span> K-nearest neighbour (KNN)</h3>
@@ -743,10 +741,10 @@ knn<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">knn
 (confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test$spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email   800  145
-##      spam    163  466</code></pre>
+##      email   797  143
+##      spam    144  492</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.test)</code></pre></div>
-<pre><code>## [1] 0.1956798</code></pre>
+<pre><code>## [1] 0.1821066</code></pre>
 </div>
 <div id="linear-discriminant-analysis-lda" class="section level3">
 <h3><span class="header-section-number">9.2.6</span> Linear Discriminant Analysis (LDA)</h3>
@@ -759,19 +757,19 @@ lda<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lda
 (confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train$spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email  1746  260
-##      spam     86  920</code></pre>
+##      email  1765  261
+##      spam     82  917</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.train)</code></pre></div>
-<pre><code>## [1] 0.1148738</code></pre>
+<pre><code>## [1] 0.1133884</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test confusion matrix:</span>
 .predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(lda<span class="fl">.1</span>, <span class="dt">newdata =</span> spam.test)$class
 (confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test$spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email   924  131
-##      spam     32  502</code></pre>
+##      email   899  161
+##      spam     42  474</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.test)</code></pre></div>
-<pre><code>## [1] 0.1025802</code></pre>
+<pre><code>## [1] 0.1288071</code></pre>
 </div>
 <div id="naive-bayes" class="section level3">
 <h3><span class="header-section-number">9.2.7</span> Naive Bayes</h3>
@@ -784,19 +782,19 @@ nb<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">naiv
 (confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train$spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email  1041   54
-##      spam    791 1126</code></pre>
+##      email  1005   62
+##      spam    842 1116</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.train)</code></pre></div>
-<pre><code>## [1] 0.2805445</code></pre>
+<pre><code>## [1] 0.298843</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test confusion matrix:</span>
 .predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(nb<span class="fl">.1</span>, <span class="dt">newdata =</span> spam.test)
 (confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test$spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email   546   43
-##      spam    410  590</code></pre>
+##      email   521   35
+##      spam    420  600</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.test)</code></pre></div>
-<pre><code>## [1] 0.285085</code></pre>
+<pre><code>## [1] 0.2887056</code></pre>
 </div>
 </div>
 <div id="bibliographic-notes-5" class="section level2">

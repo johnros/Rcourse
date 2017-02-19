@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-02-16">
+<meta name="date" content="2017-02-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -415,7 +415,8 @@ per_year  &lt;-<span class="st"> </span><span class="kw">summarise</span>(per_mo
 <li>Every call to <code>summarise</code> collapses one level in the hierarchy of grouping. The output of <code>group_by</code> recalls the hierarchy of aggregation, and collapses along this hierarchy.</li>
 </ul>
 <p>We can use <strong>dplyr</strong> for two table operations, i.e., <em>joins</em>. For this, we join the flight data, with the airplane data in <code>airplanes</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airlines  </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr) 
+airlines  </code></pre></div>
 <pre><code>## # A tibble: 16 × 2
 ##    carrier                        name
 ##      &lt;chr&gt;                       &lt;chr&gt;

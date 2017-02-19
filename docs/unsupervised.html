@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-02-16">
+<meta name="date" content="2017-02-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -369,7 +369,7 @@ These weights are called the <em>loadings</em>.</li>
 <p>FA originates from the psychometric literature. We thus revisit the IQ (actually g-factor<a href="#fn17" class="footnoteRef" id="fnref17"><sup>17</sup></a>) Example~<a href="unsupervised.html#ex:iq">10.2</a>:</p>
 
 <div class="example">
-<span id="ex:unnamed-chunk-170" class="example"><strong>Example 10.4 </strong></span>Assume <span class="math inline">\(n\)</span> respondents answer <span class="math inline">\(p\)</span> quantitative questions: <span class="math inline">\(x_i \in \mathbb{R}^p, i=1,\dots,n\)</span>. Also assume, their responses are some linear function <span class="math inline">\(A \in \mathbb{R}^p\)</span> of a single personality attribute, <span class="math inline">\(s_i\)</span>. We can think of <span class="math inline">\(s_i\)</span> as the subject’s ``intelligence’’. We thus have
+<span id="ex:unnamed-chunk-159" class="example"><strong>Example 10.4 </strong></span>Assume <span class="math inline">\(n\)</span> respondents answer <span class="math inline">\(p\)</span> quantitative questions: <span class="math inline">\(x_i \in \mathbb{R}^p, i=1,\dots,n\)</span>. Also assume, their responses are some linear function <span class="math inline">\(A \in \mathbb{R}^p\)</span> of a single personality attribute, <span class="math inline">\(s_i\)</span>. We can think of <span class="math inline">\(s_i\)</span> as the subject’s ``intelligence’’. We thus have
 <span class="math display">\[\begin{align}
     x_i = A s_i + \varepsilon_i
 \end{align}\]</span>
@@ -460,7 +460,7 @@ where <span class="math inline">\(A\)</span> is the <span class="math inline">\(
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(devtools)
 <span class="co"># install_github(&quot;vqv/ggbiplot&quot;)</span>
 ggbiplot::<span class="kw">ggbiplot</span>(pca<span class="fl">.1</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-173-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-162-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>The bi-plot plots each data point along its PCs.</li>
@@ -469,9 +469,9 @@ ggbiplot::<span class="kw">ggbiplot</span>(pca<span class="fl">.1</span>) </code
 </ul>
 <p>The <em>scree plot</em> depicts the quality of the approximation of <span class="math inline">\(X\)</span> as <span class="math inline">\(q\)</span> grows. This is depicted using the proportion of variability in <span class="math inline">\(X\)</span> that is removed by each added PC. It is customary to choose <span class="math inline">\(q\)</span> as the first PC that has a relative low contribution to the approximation of <span class="math inline">\(X\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ggbiplot::<span class="kw">ggscreeplot</span>(pca<span class="fl">.1</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-174-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-163-1.png" width="50%" /></p>
 <p>See how the first PC captures the variability in the Assault levels and Murder levels, with a single score.</p>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-175-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-164-1.png" width="50%" /></p>
 <p>More implementations of PCA:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># FAST solutions:</span>
 gmodels::<span class="kw">fast.prcomp</span>()
@@ -512,7 +512,7 @@ fa<span class="fl">.1</span></code></pre></div>
 ## 
 ## Fit based upon off diagonal values = 0.99</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">biplot</span>(fa<span class="fl">.1</span>, <span class="dt">labels =</span>  <span class="kw">rownames</span>(USArrests<span class="fl">.1</span>)) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/FA-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/FA-1.png" width="50%" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Numeric comparison with PCA:</span>
 fa<span class="fl">.1</span>$loadings</code></pre></div>
 <pre><code>## 
@@ -539,7 +539,7 @@ fa<span class="fl">.1</span>$loadings</code></pre></div>
 <p>Graphical model fans will like the following plot, where the contribution of each variable to each factor is encoded in the width of the arrow.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Graph comparison: loadings encoded in colors</span>
 qgraph::<span class="kw">qgraph</span>(fa<span class="fl">.1</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-176-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-165-1.png" width="50%" /></p>
 <p>Let’s add a rotation (Varimax), and note that the rotation has indeed changed the loadings of the variables, thus the interpretation of the factors.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fa<span class="fl">.2</span> &lt;-<span class="st"> </span>psych::<span class="kw">principal</span>(USArrests<span class="fl">.1</span>, <span class="dt">nfactors =</span> <span class="dv">2</span>, <span class="dt">rotate =</span> <span class="st">&quot;varimax&quot;</span>)
 
@@ -566,7 +566,7 @@ fa<span class="fl">.2</span>$loadings</code></pre></div>
 
 <span class="co"># Compare with two PCA (first two PCs):</span>
 <span class="kw">arrows</span>(<span class="dt">x0 =</span> ica<span class="fl">.1</span>$S[,<span class="dv">1</span>], <span class="dt">y0 =</span> ica<span class="fl">.1</span>$S[,<span class="dv">2</span>], <span class="dt">x1 =</span> pca<span class="fl">.1</span>$x[,<span class="dv">2</span>], <span class="dt">y1 =</span> pca<span class="fl">.1</span>$x[,<span class="dv">1</span>], <span class="dt">col=</span><span class="st">&#39;red&#39;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.5</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/ICA-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/ICA-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>ICA is fitted with <code>fastICA::fastICA</code>.</li>
@@ -588,7 +588,7 @@ USArrests<span class="fl">.2</span> &lt;-<span class="st"> </span>USArrests[,<sp
 
 <span class="co"># Compare with two PCA (first two PCs):</span>
 <span class="kw">points</span>(pca<span class="fl">.1</span>$x[,<span class="dv">1</span>:<span class="dv">2</span>], <span class="dt">col=</span><span class="st">&#39;red&#39;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.5</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/MDS-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/MDS-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>For MDS, we first compute a dissimilarity graph with <code>dist</code>, and then learn the embedding with <code>cmdscale</code>.</li>
@@ -602,8 +602,11 @@ USArrests<span class="fl">.2</span> &lt;-<span class="st"> </span>USArrests[,<sp
 <span class="kw">text</span>(mds<span class="fl">.2</span>$points, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">labels =</span> <span class="kw">rownames</span>(USArrests<span class="fl">.2</span>))
 
 <span class="co"># Compare with two PCA (first two PCs):</span>
-<span class="kw">arrows</span>(<span class="dt">x0 =</span> mds<span class="fl">.2</span>$points[,<span class="dv">1</span>], <span class="dt">y0 =</span> mds<span class="fl">.2</span>$points[,<span class="dv">2</span>], <span class="dt">x1 =</span> pca<span class="fl">.1</span>$x[,<span class="dv">1</span>], <span class="dt">y1 =</span> pca<span class="fl">.1</span>$x[,<span class="dv">2</span>], <span class="dt">col=</span><span class="st">&#39;red&#39;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.5</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/Sammon%20MDS-1.png" width="672" /></p>
+<span class="kw">arrows</span>(
+  <span class="dt">x0 =</span> mds<span class="fl">.2</span>$points[,<span class="dv">1</span>], <span class="dt">y0 =</span> mds<span class="fl">.2</span>$points[,<span class="dv">2</span>], 
+  <span class="dt">x1 =</span> pca<span class="fl">.1</span>$x[,<span class="dv">1</span>], <span class="dt">y1 =</span> pca<span class="fl">.1</span>$x[,<span class="dv">2</span>], 
+  <span class="dt">col=</span><span class="st">&#39;red&#39;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.5</span>)</code></pre></div>
+<p><img src="Rcourse_files/figure-html/SammonMDS-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li><code>MASS::sammon</code> does the fitting.</li>
@@ -617,10 +620,10 @@ state.similarity &lt;-<span class="st"> </span>MASS::<span class="kw">cov.rob</s
 
 spca1 &lt;-<span class="st"> </span>elasticnet::<span class="kw">spca</span>(state.similarity, <span class="dt">K=</span><span class="dv">2</span>, <span class="dt">type=</span><span class="st">&quot;Gram&quot;</span>, <span class="dt">sparse=</span><span class="st">&quot;penalty&quot;</span>, <span class="dt">trace=</span><span class="ot">FALSE</span>, <span class="dt">para=</span><span class="kw">c</span>(<span class="fl">0.06</span>,<span class="fl">0.16</span>))
 spca1$loadings</code></pre></div>
-<pre><code>##                PC1 PC2
-## Murder  -0.6683748   0
-## Assault -0.7345473   0
-## Rape    -0.1171131  -1</code></pre>
+<pre><code>##                 PC1 PC2
+## Murder  -0.72036274   0
+## Assault -0.69112808   0
+## Rape    -0.05847647  -1</code></pre>
 </div>
 <div id="kernel-pca-1" class="section level4">
 <h4><span class="header-section-number">10.1.5.6</span> Kernel PCA</h4>
@@ -732,10 +735,10 @@ A particular advantage of these methods is that they do not require an a-priori 
 kmeans<span class="fl">.1</span> &lt;-<span class="st"> </span>stats::<span class="kw">kmeans</span>(USArrests<span class="fl">.1</span>, <span class="dt">centers =</span> k)
 <span class="kw">head</span>(kmeans<span class="fl">.1</span>$cluster) <span class="co"># cluster asignments</span></code></pre></div>
 <pre><code>##    Alabama     Alaska    Arizona   Arkansas California   Colorado 
-##          2          2          2          1          2          2</code></pre>
+##          1          1          1          2          1          1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Visualize using scatter plots of the original features</span>
 <span class="kw">pairs</span>(USArrests<span class="fl">.1</span>, <span class="dt">panel=</span>function(x,y) <span class="kw">text</span>(x,y,kmeans<span class="fl">.1</span>$cluster))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/kmeans-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/kmeans-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>The <code>stats::kmeans</code> function does the clustering.</li>
@@ -766,7 +769,7 @@ kmpp &lt;-<span class="st"> </span>function(X, k) {
 kmeans<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">kmpp</span>(USArrests<span class="fl">.1</span>, k)
 <span class="kw">head</span>(kmeans<span class="fl">.2</span>$cluster)</code></pre></div>
 <pre><code>##    Alabama     Alaska    Arizona   Arkansas California   Colorado 
-##          2          2          2          1          2          2</code></pre>
+##          1          1          1          2          1          1</code></pre>
 </div>
 <div id="k-medoids-1" class="section level4">
 <h4><span class="header-section-number">10.2.3.3</span> K-medoids</h4>
@@ -777,7 +780,7 @@ kmed<span class="fl">.1</span> &lt;-<span class="st"> </span>cluster::<span clas
 ##          1          1          1          1          1          1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(pca<span class="fl">.1</span>$x[,<span class="dv">1</span>], pca<span class="fl">.1</span>$x[,<span class="dv">2</span>], <span class="dt">xlab=</span><span class="st">&quot;PC 1&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;PC 2&quot;</span>, <span class="dt">type =</span><span class="st">&#39;n&#39;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)
 <span class="kw">text</span>(pca<span class="fl">.1</span>$x[,<span class="dv">1</span>], pca<span class="fl">.1</span>$x[,<span class="dv">2</span>], <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests<span class="fl">.1</span>), <span class="dt">cex=</span><span class="fl">0.7</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">col=</span>kmed<span class="fl">.1</span>$cluster)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/kmedoids-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/kmedoids-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>K-medoids starts with the computation of a dissimilarity graph, done by the <code>dist</code> function.</li>
@@ -793,7 +796,7 @@ kmed<span class="fl">.1</span> &lt;-<span class="st"> </span>cluster::<span clas
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Single linkage:</span>
 hirar<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(state.disimilarity, <span class="dt">method=</span><span class="st">&#39;single&#39;</span>)
 <span class="kw">plot</span>(hirar<span class="fl">.1</span>, <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests<span class="fl">.1</span>), <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/Hirarchial%20Clustering-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/HirarchialClustering-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>The clustering is done with the <code>hclust</code> function.</li>
@@ -805,11 +808,11 @@ hirar<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">h
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Complete linkage:</span>
 hirar<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(state.disimilarity, <span class="dt">method=</span><span class="st">&#39;complete&#39;</span>)
 <span class="kw">plot</span>(hirar<span class="fl">.2</span>, <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests<span class="fl">.1</span>), <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-178-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-167-1.png" width="50%" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Average linkage:</span>
 hirar<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(state.disimilarity, <span class="dt">method=</span><span class="st">&#39;average&#39;</span>)
 <span class="kw">plot</span>(hirar<span class="fl">.3</span>, <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests<span class="fl">.1</span>), <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-178-2.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-167-2.png" width="50%" /></p>
 <p>If we know how many clusters we want, we can use <code>cuttree</code> to get the class assignments.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fixing the number of clusters:</span>
 cut<span class="fl">.2.2</span> &lt;-<span class="st"> </span><span class="kw">cutree</span>(hirar<span class="fl">.2</span>, <span class="dt">k=</span><span class="dv">2</span>)

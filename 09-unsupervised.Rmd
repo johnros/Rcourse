@@ -420,14 +420,17 @@ Things to note:
 
 
 Let's try other strain functions for MDS, like Sammon's strain, and compare it with the PCs.
-```{r Sammon MDS}
+```{r SammonMDS, results='hold'}
 mds.2 <- MASS::sammon(state.disimilarity, trace = FALSE)
 plot(mds.2$points, pch = 19)
 abline(h=0, v=0, lty=2)
 text(mds.2$points, pos = 4, labels = rownames(USArrests.2))
 
 # Compare with two PCA (first two PCs):
-arrows(x0 = mds.2$points[,1], y0 = mds.2$points[,2], x1 = pca.1$x[,1], y1 = pca.1$x[,2], col='red', pch=19, cex=0.5)
+arrows(
+  x0 = mds.2$points[,1], y0 = mds.2$points[,2], 
+  x1 = pca.1$x[,1], y1 = pca.1$x[,2], 
+  col='red', pch=19, cex=0.5)
 ```
 
 Things to note:
@@ -664,7 +667,7 @@ Things to note:
 #### Hirarchial Clustering
 
 We start with agglomerative clustering with single-linkage.
-```{r Hirarchial Clustering}
+```{r HirarchialClustering}
 # Single linkage:
 hirar.1 <- hclust(state.disimilarity, method='single')
 plot(hirar.1, labels=rownames(USArrests.1), ylab="Distance")

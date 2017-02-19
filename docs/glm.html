@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-02-16">
+<meta name="date" content="2017-02-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -365,7 +365,7 @@ Before we fit such a model, we try to justify this construction, in particular, 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(PlantGrowth)
 weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <span class="dv">2</span>, <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&#39;Light&#39;</span>, <span class="st">&#39;Heavy&#39;</span>))
 <span class="kw">plot</span>(<span class="kw">table</span>(group, weight.factor))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-133-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-122-1.png" width="50%" /></p>
 <p>Let’s fit a logistic regression, and inspect the output.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glm<span class="fl">.1</span>&lt;-<span class="st"> </span><span class="kw">glm</span>(weight.factor~group, <span class="dt">family=</span>binomial)
 <span class="kw">summary</span>(glm<span class="fl">.1</span>)</code></pre></div>
@@ -556,7 +556,7 @@ weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <
     0L, 1L, 1L, 0L, 0L, 0L, 0L, 0L)), <span class="dt">.Names =</span> <span class="kw">c</span>(<span class="st">&quot;Days&quot;</span>, <span class="st">&quot;Students&quot;</span>
 ), <span class="dt">class =</span> <span class="st">&quot;data.frame&quot;</span>, <span class="dt">row.names =</span> <span class="kw">c</span>(<span class="ot">NA</span>, -109L))
 <span class="kw">attach</span>(cases)</code></pre></div>
-<pre><code>## The following objects are masked from cases (pos = 25):
+<pre><code>## The following objects are masked from cases (pos = 24):
 ## 
 ##     Days, Students</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(cases) </code></pre></div>
@@ -569,7 +569,7 @@ weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <
 ## 6    4        3</code></pre>
 <p>And visually:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Days, Students, <span class="dt">xlab =</span> <span class="st">&quot;DAYS&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;STUDENTS&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-141-1.png" width="672" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-130-1.png" width="50%" /></p>
 <p>We now fit a model to check for the change in the rate of events as a function of the days since the outbreak.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glm<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Students ~<span class="st"> </span>Days, <span class="dt">family =</span> poisson)
 <span class="kw">summary</span>(glm<span class="fl">.3</span>)</code></pre></div>

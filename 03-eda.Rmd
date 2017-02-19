@@ -1,5 +1,6 @@
 # Exploratory Data Analysis {#eda}
 
+
 Exploratory Data Analysis (EDA) is a term cast by [John W. Tukey](https://en.wikipedia.org/wiki/John_Tukey) in his seminal book @tukey1977exploratory.
 It is the practice of inspecting, exploring your data before stating hypotheses, fitting predictors, and other more ambitious inferential goals.
 It typically includes the computation of simple _summary statistics_ which capture some property of interest in the data, and _visualization_.
@@ -20,7 +21,7 @@ We cannot sum them, or even sort them.
 We can only __count__ them. 
 As such, summaries of categorical variables will always start with the counting of the frequency of each category.
 
-#### Univariate Categorical Data
+#### Summary of Univariate Categorical Data
 
 ```{r}
 gender <- c(rep('Boy', 10), rep('Girl', 12))
@@ -39,7 +40,7 @@ prop.table(table(gender))
 ```
 
 
-#### Bivariate Categorical Data
+#### Summary of Bivariate Categorical Data
 
 ```{r}
 cbind(gender, drink) %>% head # inspect the raw data
@@ -47,7 +48,7 @@ table1 <- table(gender, drink)
 table1										
 ```
 
-#### Multivariate Categorical Data
+#### Summary of Multivariate Categorical Data
 You may be wondering how does R handle tables with more than two dimensions.
 It is indeed not trivial, and R offers several solutions.
 
@@ -70,7 +71,7 @@ prop.table(table1, margin = 2)
 Continuous variables admit many more operations than categorical.
 We can thus compute sums, means, quantiles, and more.
 
-#### Univariate Continous Data
+#### Summary of Univariate Continous Data
 We distinguish between several types of summaries, each capturing a different property of the data.
 
 #### Summary of Location
@@ -170,7 +171,7 @@ yule(x)
 ```
 
 
-#### Bivariate Continous Data
+#### Summary of Bivariate Continous Data
 When dealing with bivariate, or multivariate data, we can obviously compute univariate summaries for each variable. 
 This is __not__ the topic of this section, in which we want to summarize the association __between__ the variables, and not withing them.
 
@@ -197,7 +198,7 @@ $$z_i(x):= \frac{x_i-\bar x}{S(x)}$$
 We thus have that $r(x,y)=Cov(z(x),z(y))$. 
 
 
-#### Multivariate Continous Data
+#### Summary of Multivariate Continous Data
 
 The covariance is a simple summary of association between two variables, but it certainly may not capture the whole "story".
 Things get more complicated when summarizing the relation between multiple variables. 
@@ -226,7 +227,7 @@ Visualizing the data, when possible, is more informative.
 ### Categorical Data
 Recalling that with categorical variables we can only count the frequency of each level, the plotting of such variables are typically variations on the _bar plot_.
 
-#### Univariate Categorical Data
+#### Visualizing Univariate Categorical Data
 
 ```{r}
 plot(table(age))
@@ -234,7 +235,7 @@ plot(table(age))
 
 
 
-#### Bivariate Categorical Data
+#### Visualizing Bivariate Categorical Data
 There are several generalizations of the barplot, aimed to deal with the visualization of bivariate categorical data. 
 There are sometimes known as the _clustered bar plot_ and the _stacked bar plot_.
 In this text, we advocate the use of the _mosaic plot_ which is also the default in R.
@@ -243,7 +244,7 @@ plot(table1, main='Bivariate mosaic plot')
 ```
 
 
-#### Multivariate Categorical Data 
+#### Visualizing Multivariate Categorical Data 
 The _mosaic plot_ is not easy to generalize to more than two variables, but it is still possible (at the cost of interpretability).
 
 ```{r}
@@ -253,7 +254,7 @@ plot(table2.1, main='Trivaraite mosaic plot')
 
 ### Continous Data
 
-#### Univariate Continous Data
+#### Visualizing Univariate Continous Data
 There are endlessly many way to visualize continuous univariate data.
 The simplest way is to look at the raw data via the `stripcart`.
 
@@ -294,7 +295,7 @@ boxplot(sample1)
 ```
 
 
-#### Bivariate Continous Data
+#### Visualizing Bivariate Continous Data
 The bivariate counterpart of the `stipchart` is the celebrated scatter plot. 
 ```{r}
 n <- 20
@@ -316,7 +317,7 @@ plot(hexbin(x = x1, y = x2))
 
 
 
-#### Multivariate Continous Data
+#### Visualizing Multivariate Continous Data
 Visualizing multivariate data is a tremendous challenge given that we cannot grasp $4$ dimensional spaces, nor can the computer screen present more than $2$ dimensional spaces.
 We thus have several options: 
 (i) To project the data to 2D. This is discussed in the Dimensionality Reduction section (\@ref(dim-reduce)).
