@@ -72,14 +72,16 @@ install.packages('knitr')
 
 It is also recommended that you use it within RStudio (version>0.96), where you can easily create a new `.Rmd` file. 
 
-### Markdown
+### Pandoc Markdown
 
-Because __knitr__ builds upon _markdown_, here is a simple example of markdown text, to be used in a `.Rmd` file, which can be created using the _File-> New File -> R Markdown_ menu of RStudio.
+Because __knitr__ builds upon _Pandoc markdown_, here is a simple example of markdown text, to be used in a `.Rmd` file, which can be created using the _File-> New File -> R Markdown_ menu of RStudio.
 
 
 Underscores or asterisks for `_italics1_` and `*italics2*` return _italics1_ and *italics2*.
 Double underscores or asterisks for `__bold1__` and `**bold2**` return __bold1__ and **bold2**.
 Subscripts are enclosed in tildes, `like~this~` (like~this~), and superscripts are enclosed in carets `like^this^` (like^this^).
+For `verbatim` use "`verbatim`".
+
 For links use `[text](link)`, like `[my site](www.john-ros.com)`.
 Image is the same as a link, starting with an exclamation, like this `![image title](image path)`.
 
@@ -393,7 +395,7 @@ Things to note:
 
 
 This is the output:
-```{r}
+```{r, cache=TRUE}
 knitr::include_url('https://shiny.rstudio.com/gallery/tabsets.html')
 ```
 
@@ -420,7 +422,7 @@ Now that we have seen the basics, we may consider extensions to the basic report
 
 See examples [here](https://shiny.rstudio.com/gallery/widget-gallery.html).
 
-```{r}
+```{r, cache=TRUE}
 knitr::include_url('https://shiny.rstudio.com/gallery/widget-gallery.html')
 ```
 

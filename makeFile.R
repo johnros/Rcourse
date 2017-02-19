@@ -48,7 +48,7 @@ bookdown::preview_chapter('04-lm.Rmd',"bookdown::word_document2" )
 bookdown::preview_chapter('04-lm.Rmd',"bookdown::pdf_book" )
 
 bookdown::preview_chapter('03-eda.Rmd',"bookdown::gitbook" , clean_envir = TRUE)
-bookdown::preview_chapter('03-eda.Rmd',"bookdown::pdf_book", clean_envir = TRUE )
+bookdown::preview_chapter('03-eda.Rmd',"bookdown::pdf_book")
 
 bookdown::preview_chapter('02-r-basics.Rmd',"bookdown::gitbook" )
 bookdown::preview_chapter('02-r-basics.Rmd',"bookdown::pdf_book" )

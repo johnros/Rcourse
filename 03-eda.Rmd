@@ -43,6 +43,7 @@ prop.table(table(gender))
 #### Summary of Bivariate Categorical Data
 
 ```{r}
+library(magrittr)
 cbind(gender, drink) %>% head # inspect the raw data
 table1 <- table(gender, drink) 
 table1										
@@ -161,7 +162,7 @@ $$Yule(x) := \frac{1/2 \: (x_{0.75}+x_{0.25}) - x_{0.5} }{1/2 \: IQR(x)} $$
 
 Here is an R implementation
 
-```{r}
+```{r yule}
 yule <- function(x){
   numerator <- 0.5 * (quantile(x,0.75) + quantile(x,0.25))-median(x) 
   denominator <- 0.5* IQR(x)
@@ -229,7 +230,7 @@ Recalling that with categorical variables we can only count the frequency of eac
 
 #### Visualizing Univariate Categorical Data
 
-```{r}
+```{r, barplot}
 plot(table(age))
 ```
 
@@ -336,3 +337,6 @@ lattice::levelplot(covariance)
 
 Like any other topic in this book, you can consult @venables2013modern.
 The seminal book on EDA, written long before R was around, is @tukey1977exploratory.
+
+
+
