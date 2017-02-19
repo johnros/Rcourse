@@ -1,2 +1,116 @@
 # Sparse Representations {#sparse}
 
+Analyzing "bigdata" in R is a challenge because the workspace is memory resident, i.e., all your objects are stored in RAM.
+As a rule of thumb, fitting models requires about $3$ times the size of the data. 
+This means that if you have $1$GB of data, you might need about $3$GB to fit a linear models.
+We will discuss how to compute _out of RAM_  in the Memory Efficiency Chapter \@ref(memory).
+In this chapter, we discuss efficient representations of your data, so that it takes less memory.
+The fundamental idea, is that if your data is _sparse_, i.e., there are many zero entries in your data, then a naive data.frame or matrix will save memory for all these zeroes. 
+If, however, you have many recurring zeroes, it is more efficient to save only the non-zero entries.
+
+When we say _data_, we actually mean the `model.matrix`.
+The `model.matrix` is a matrix that R grows in the background, converting all your factors to numeric variables that can be computed with.
+_Dummy coding_ of your factors, for instance, is something that is done in your `model.matrix`.
+If you have a factor with many levels, you can imagine that after dummy coding it, many zeroes will be present.
+
+The __Matrix__ package replaces the `matrix` class, with several sparse representations of matrix objects. 
+
+When using sparse representation, and the __Matrix__ package, you will need an implementation of your favorite model fitting algorithm (e.g. `lm`) that is adapted to these sparse representations; otherwise, R will cast the sparse matrix into a regular (non-sparse) matrix, and you will have saved nothing in RAM.
+
+Before we go into details, here is a simple example.
+We will create a factor of letters with the `letters` function.
+Clearly, this factor can take only $26$ values. 
+This means that $25/26$ of the `model.matrix` will be zeroes after dummy coding.
+We will compare the memory footprint of the naive `model.matrix` with the sparse representation of the same matrix. 
+
+```{r}
+reps <- 1e6 # number of samples
+y<-rnorm(reps)
+x<- letters %>% 
+  sample(reps, replace=TRUE) %>% 
+  factor
+```
+
+The object `x` is a factor of letters:
+```{r}
+head(x)
+```
+
+We dummy code `x` with the `model.matrix` function.
+
+```{r}
+X.1 <- model.matrix(~x-1)
+head(X.1)
+```
+
+We call __MatrixModels__ for an implementation of `model.matrix` that supports sparse representations.
+
+```{r}
+suppressPackageStartupMessages(library(MatrixModels))
+X.2<- as(,"sparseMatrix") %>% t # Makes sparse dummy matrix
+head(X.2)
+
+```
+
+Notice that the matrices have the same dimensions:
+
+```{r}
+dim(X.1)
+dim(X.2)
+```
+
+The memory footprint of the matrices, given by the `pryr::object_size` function, are very very different.
+
+```{r}
+pryr::object_size(X.1)
+pryr::object_size(X.2)
+```
+
+Things to note:
+
+- The sparse representation takes a whole lot less memory than the non sparse. 
+- The `as(,"sparseMatrix")` function grows the dummy variable representation of the factor `x`. You will typicaly __not__ use this syntax, which is there only for demonstration.
+
+
+With a sparse repsesantation, we not only saved on RAM, but also on the computing time of fitting a model.
+Here is the timing of a non sparse repsensantation:
+
+```{r, cache=TRUE}
+system.time(lm.1 <- lm(y ~ X.1)) 
+```
+
+Well actually, `lm` is a wrapper for the `lm.fit` function. 
+If we override all the overhead of `lm`, and call `lm.fit` directly, we gain some time:
+
+```{r, cache=TRUE}
+system.time(lm.1 <- lm.fit(y=y, x=X.1))
+```
+
+We now do the same with the sparse represantation:
+
+```{r}
+system.time(lm.2 <- MatrixModels:::lm.fit.sparse(X.2,y))
+```
+
+It is only left to verify that the returned coefficients are the same:
+
+```{r}
+all.equal(lm.2, unname(lm.1$coefficients), tolerance = 1e-12)
+```
+
+
+
+
+
+## Sparse Matrix Representations
+
+
+
+
+## The Matrix package
+
+
+
+
+
+
