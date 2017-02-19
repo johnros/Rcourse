@@ -189,7 +189,7 @@ You can now call `?prostate` and `?spam` to learn more about these data sets.
 
 Some boring pre-processing. 
 
-```{r preprocessing}
+```{r preprocessing, cache=TRUE}
 library(ElemStatLearn) # for data
 data("prostate")
 data("spam")
@@ -238,7 +238,7 @@ Starting with OLS regression, and a train-test data approach.
 Notice the better in-sample MSE than the out-of-sample. 
 That is overfitting in action.
 
-```{r OLS Regression}
+```{r OLS Regression, cache=TRUE}
 ols.1 <- lm(lcavol~. ,data = prostate.train)
 # Train error:
 MSE( predict(ols.1)- prostate.train$lcavol) 
@@ -250,7 +250,7 @@ We now implement a V-fold CV, instead of our train-test approach.
 The assignment of each observation to each fold is encoded in `fold.assignment`. 
 The following implementation is extremely inefficient, but easy to read. 
 
-```{r }
+```{r , cache=TRUE, dependson='preprocessing'}
 folds <- 10
 fold.assignment <- sample(1:5, nrow(prostate), replace = TRUE)
 errors <- NULL
@@ -272,7 +272,7 @@ MSE(errors)
 Let's try all possible models, and choose the best performer with respect to the Cp criterion.
 We see that the best performer has 3 predictors. 
 
-```{r, cache=TRUE}
+```{r all subset, cache=TRUE, dependson='preprocessing'}
 library(leaps)
 regfit.full <- prostate.train %>% 
   regsubsets(lcavol~.,data = ., method = 'exhaustive') # best subset selection
@@ -282,7 +282,7 @@ plot(regfit.full, scale = "Cp")
 
 Instead of the Cp criterion, we now compute the train and test errors for all the possible predictors^[Example taken from https://lagunita.stanford.edu/c4x/HumanitiesScience/StatLearning/asset/ch6.html].
 
-```{r, results='hold', cache=TRUE}
+```{r, results='hold', cache=TRUE, dependson='all subset'}
 model.n <- regfit.full %>% summary %>% length
 X.train.named <- prostate.train %>% model.matrix(lcavol ~ ., data = .)
 X.train.named <- model.matrix(lcavol ~ ., data = prostate.train ) 
@@ -313,7 +313,7 @@ legend("topright",
 Checking all possible models is computationally very hard.
 _Forward selection_ is a greedy approach that adds one variable at a time, using the AIC criterion. If AIC falls, the variable is added. 
 
-```{r, cache=TRUE}
+```{r, cache=TRUE, dependson=c('preprocessing','OLS regression')}
 ols.0 <- lm(lcavol~1 ,data = prostate.train)
 model.scope <- list(upper=ols.1, lower=ols.0)
 step(ols.0, scope=model.scope, direction='forward', trace = TRUE)

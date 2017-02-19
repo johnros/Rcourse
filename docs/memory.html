@@ -257,7 +257,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="13.6" data-path="hadley.html"><a href="hadley.html#anytime"><i class="fa fa-check"></i><b>13.6</b> anytime</a></li>
 <li class="chapter" data-level="13.7" data-path="hadley.html"><a href="hadley.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>13.7</b> Biblipgraphic Notes</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a></li>
+<li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a><ul>
+<li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a></li>
+<li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a></li>
+</ul></li>
 <li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a></li>
 <li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a></li>
@@ -287,6 +290,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="memory" class="section level1">
 <h1><span class="header-section-number">Chapter 15</span> Memory Efficiency</h1>
+<p>As we have seen in the Sparsity Chapter <a href="sparse.html#sparse">14</a>, an efficient representation of your data in RAM will reduce computing time, and will allow you to fit models that would otherwise require tremendous amounts of RAM. It is possible, however, to avoid altogether the need to fit your data in RAM. The fundamental idea is that your data can be stored on the HD. Since the HD is typically much larger than your RAM, you will be able to compute with much larger data sets. The downside is that HDs are much slower than RAM. This was painfully true when HDs were rotating magnetic plates. This is still true, but less painful, now that high-end HDs are not rotating magnetic plates, but rather SSDs.</p>
+<p>We will now meet several facilities that will allow you to avoid loading your data to RAM, and still be able to fit models with it. The fundamental idea is to use efficient file structures, that will save your data in a way that predicts the way the model-fitting process will call it, so that fetching it from HD is efficient. This is not a unique capability of R. Indeed, SAS, SPSS, Pyton’s sci-kit learn, and other software have this same capability. Moreover, there are many facilities in R that provide this same capability. For instance, the commercial version of R, <em>Microsoft R</em>, previously known as <em>Revolutions R</em>, provides this capability with the <strong>RevoScaleR</strong> family of packages.</p>
 
 </div>
             </section>

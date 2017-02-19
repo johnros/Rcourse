@@ -257,7 +257,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="13.6" data-path="hadley.html"><a href="hadley.html#anytime"><i class="fa fa-check"></i><b>13.6</b> anytime</a></li>
 <li class="chapter" data-level="13.7" data-path="hadley.html"><a href="hadley.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>13.7</b> Biblipgraphic Notes</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a></li>
+<li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a><ul>
+<li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a></li>
+<li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a></li>
+</ul></li>
 <li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a></li>
 <li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a></li>
@@ -287,7 +290,90 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="sparse" class="section level1">
 <h1><span class="header-section-number">Chapter 14</span> Sparse Representations</h1>
+<p>Analyzing “bigdata” in R is a challenge because the workspace is memory resident, i.e., all your objects are stored in RAM. As a rule of thumb, fitting models requires about <span class="math inline">\(3\)</span> times the size of the data. This means that if you have <span class="math inline">\(1\)</span>GB of data, you might need about <span class="math inline">\(3\)</span>GB to fit a linear models. We will discuss how to compute <em>out of RAM</em> in the Memory Efficiency Chapter <a href="memory.html#memory">15</a>. In this chapter, we discuss efficient representations of your data, so that it takes less memory. The fundamental idea, is that if your data is <em>sparse</em>, i.e., there are many zero entries in your data, then a naive data.frame or matrix will save memory for all these zeroes. If, however, you have many recurring zeroes, it is more efficient to save only the non-zero entries.</p>
+<p>When we say <em>data</em>, we actually mean the <code>model.matrix</code>. The <code>model.matrix</code> is a matrix that R grows in the background, converting all your factors to numeric variables that can be computed with. <em>Dummy coding</em> of your factors, for instance, is something that is done in your <code>model.matrix</code>. If you have a factor with many levels, you can imagine that after dummy coding it, many zeroes will be present.</p>
+<p>The <strong>Matrix</strong> package replaces the <code>matrix</code> class, with several sparse representations of matrix objects.</p>
+<p>When using sparse representation, and the <strong>Matrix</strong> package, you will need an implementation of your favorite model fitting algorithm (e.g. <code>lm</code>) that is adapted to these sparse representations; otherwise, R will cast the sparse matrix into a regular (non-sparse) matrix, and you will have saved nothing in RAM.</p>
+<p>Before we go into details, here is a simple example. We will create a factor of letters with the <code>letters</code> function. Clearly, this factor can take only <span class="math inline">\(26\)</span> values. This means that <span class="math inline">\(25/26\)</span> of the <code>model.matrix</code> will be zeroes after dummy coding. We will compare the memory footprint of the naive <code>model.matrix</code> with the sparse representation of the same matrix.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">reps &lt;-<span class="st"> </span><span class="fl">1e6</span> <span class="co"># number of samples</span>
+y&lt;-<span class="kw">rnorm</span>(reps)
+x&lt;-<span class="st"> </span>letters %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">sample</span>(reps, <span class="dt">replace=</span><span class="ot">TRUE</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span>factor</code></pre></div>
+<p>The object <code>x</code> is a factor of letters:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(x)</code></pre></div>
+<pre><code>## [1] n x z f a i
+## Levels: a b c d e f g h i j k l m n o p q r s t u v w x y z</code></pre>
+<p>We dummy code <code>x</code> with the <code>model.matrix</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">X<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(~x<span class="dv">-1</span>)
+<span class="kw">head</span>(X<span class="fl">.1</span>)</code></pre></div>
+<pre><code>##   xa xb xc xd xe xf xg xh xi xj xk xl xm xn xo xp xq xr xs xt xu xv xw xx
+## 1  0  0  0  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0  0  0  0  0  0  0
+## 2  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1
+## 3  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+## 4  0  0  0  0  0  1  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+## 5  1  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+## 6  0  0  0  0  0  0  0  0  1  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+##   xy xz
+## 1  0  0
+## 2  0  0
+## 3  0  1
+## 4  0  0
+## 5  0  0
+## 6  0  0</code></pre>
+<p>We call <strong>MatrixModels</strong> for an implementation of <code>model.matrix</code> that supports sparse representations.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(MatrixModels))
+X<span class="fl">.2</span>&lt;-<span class="st"> </span><span class="kw">as</span>(x,<span class="st">&quot;sparseMatrix&quot;</span>) %&gt;%<span class="st"> </span>t <span class="co"># Makes sparse dummy matrix</span>
+<span class="kw">head</span>(X<span class="fl">.2</span>)</code></pre></div>
+<pre><code>## 6 x 26 sparse Matrix of class &quot;dgCMatrix&quot;</code></pre>
+<pre><code>##    [[ suppressing 26 column names &#39;a&#39;, &#39;b&#39;, &#39;c&#39; ... ]]</code></pre>
+<pre><code>##                                                         
+## [1,] . . . . . . . . . . . . . 1 . . . . . . . . . . . .
+## [2,] . . . . . . . . . . . . . . . . . . . . . . . 1 . .
+## [3,] . . . . . . . . . . . . . . . . . . . . . . . . . 1
+## [4,] . . . . . 1 . . . . . . . . . . . . . . . . . . . .
+## [5,] 1 . . . . . . . . . . . . . . . . . . . . . . . . .
+## [6,] . . . . . . . . 1 . . . . . . . . . . . . . . . . .</code></pre>
+<p>Notice that the matrices have the same dimensions:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(X<span class="fl">.1</span>)</code></pre></div>
+<pre><code>## [1] 1000000      26</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(X<span class="fl">.2</span>)</code></pre></div>
+<pre><code>## [1] 1000000      26</code></pre>
+<p>The memory footprint of the matrices, given by the <code>pryr::object_size</code> function, are very very different.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pryr::<span class="kw">object_size</span>(X<span class="fl">.1</span>)</code></pre></div>
+<pre><code>## 264 MB</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pryr::<span class="kw">object_size</span>(X<span class="fl">.2</span>)</code></pre></div>
+<pre><code>## 12 MB</code></pre>
+<p>Things to note:</p>
+<ul>
+<li>The sparse representation takes a whole lot less memory than the non sparse.</li>
+<li>The <code>as(,&quot;sparseMatrix&quot;)</code> function grows the dummy variable representation of the factor <code>x</code>. You will typicaly <strong>not</strong> use this syntax, which is there only for demonstration.</li>
+<li>The <strong>pryr</strong> package provides many facilities for inspecting the memory footprint of your objects and code.</li>
+</ul>
+<p>With a sparse repsesantation, we not only saved on RAM, but also on the computing time of fitting a model. Here is the timing of a non sparse repsensantation:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(lm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(y ~<span class="st"> </span>X<span class="fl">.1</span>)) </code></pre></div>
+<pre><code>##    user  system elapsed 
+##   3.416   0.124   3.575</code></pre>
+<p>Well actually, <code>lm</code> is a wrapper for the <code>lm.fit</code> function. If we override all the overhead of <code>lm</code>, and call <code>lm.fit</code> directly, we gain some time:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(lm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm.fit</span>(<span class="dt">y=</span>y, <span class="dt">x=</span>X<span class="fl">.1</span>))</code></pre></div>
+<pre><code>##    user  system elapsed 
+##   1.212   0.012   1.238</code></pre>
+<p>We now do the same with the sparse represantation:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(lm<span class="fl">.2</span> &lt;-<span class="st"> </span>MatrixModels:::<span class="kw">lm.fit.sparse</span>(X<span class="fl">.2</span>,y))</code></pre></div>
+<pre><code>##    user  system elapsed 
+##   0.288   0.172   0.444</code></pre>
+<p>It is only left to verify that the returned coefficients are the same:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(lm<span class="fl">.2</span>, <span class="kw">unname</span>(lm<span class="fl">.1</span>$coefficients), <span class="dt">tolerance =</span> <span class="fl">1e-12</span>)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div id="sparse-matrix-representations" class="section level2">
+<h2><span class="header-section-number">14.1</span> Sparse Matrix Representations</h2>
+<p>We start with some terminology of sparse matrices.</p>
+</div>
+<div id="sparse-matrices-and-sparse-models-in-r" class="section level2">
+<h2><span class="header-section-number">14.2</span> Sparse Matrices and Sparse Models in R</h2>
+<!-- glmnet -->
 
+</div>
 </div>
             </section>
 
