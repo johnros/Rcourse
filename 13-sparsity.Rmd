@@ -24,6 +24,7 @@ This means that $25/26$ of the `model.matrix` will be zeroes after dummy coding.
 We will compare the memory footprint of the naive `model.matrix` with the sparse representation of the same matrix. 
 
 ```{r make x, cache=TRUE}
+library(magrittr)
 reps <- 1e6 # number of samples
 y<-rnorm(reps)
 x<- letters %>% 
@@ -171,9 +172,79 @@ Because the more structure is assumed on a matrix, the more our (statistical) al
 ### The glmnet Package
 
 As previously stated, an efficient storage of the `model.matrix` is half of the story.
-We now need implementations of our favorite statistical algorithms that make use of this represantation. 
-At the time of writing, a very useful package that does that is the __glmnet__ package, which allows to fit linear models, generalized linear models, with ridge, lasso, and elsatic net regularization. 
+We now need implementations of our favorite statistical algorithms that make use of this representation. 
+At the time of writing, a very useful package that does that is the __glmnet__ package, which allows to fit linear models, generalized linear models, with ridge, lasso, and elastic net regularization. 
 The __glmnet__ package allows all of this, using the sparse matrices of the __Matrix__ package. 
+
+The following example is taken from [John Myles White's blog](http://www.johnmyleswhite.com/notebook/2011/10/31/using-sparse-matrices-in-r/).
+```{r sparse glmnet simulation, cache=TRUE}
+suppressPackageStartupMessages(library('glmnet'))
+
+set.seed(1)
+performance <- data.frame()
+ 
+for (sim in 1:10){
+  n <- 10000
+  p <- 500
+ 
+  nzc <- trunc(p / 10)
+ 
+  x <- matrix(rnorm(n * p), n, p) #make a dense matrix
+  iz <- sample(1:(n * p),
+               size = n * p * 0.85,
+               replace = FALSE)
+  x[iz] <- 0 # sparsify by injecting zeroes
+  sx <- Matrix(x, sparse = TRUE) # save as a sparse object
+ 
+  beta <- rnorm(nzc)
+  fx <- x[, seq(nzc)] %*% beta
+ 
+  eps <- rnorm(n)
+  y <- fx + eps # make data
+ 
+  sparse.times <- system.time(fit1 <- glmnet(sx, y)) # fit with sparse glmnet
+  full.times <- system.time(fit2 <- glmnet(x, y)) # fit with dense glmnet
+  
+  sparse.size <- as.numeric(object.size(sx))
+  full.size <- as.numeric(object.size(x))
+ 
+  performance <- rbind(performance, data.frame(Format = 'Sparse',
+                                                UserTime = sparse.times[1],
+                                               SystemTime = sparse.times[2],
+                                               ElapsedTime = sparse.times[3],
+                                               Size = sparse.size))
+  performance <- rbind(performance, data.frame(Format = 'Full',
+                                               UserTime = full.times[1],
+                                               SystemTime = full.times[2],
+                                               ElapsedTime = full.times[3],
+                                               Size = full.size))
+}
+
+```
+
+Things to note:
+
+- The simulation calls `glmnet` twice. Once with the non-sparse object `x`, and once with its sparse version `sx`.
+- The degree of sparsity of `sx` is $85\%$. We know this because we "injected" zeroes in $0.85$ of the locations of `x`. 
+- Because `y` is continuous `glmnet` will fit a simple OLS model. We will see later how to use it to fit GLMs and use lasso, ridge, and elastic-net regularization. 
+
+We now inspect the computing time, and the memory footprint, only to discover that sparse representations make a BIG difference. 
+
+```{r}
+suppressPackageStartupMessages(library('ggplot2'))
+ggplot(performance, aes(x = Format, y = ElapsedTime, fill = Format)) +
+  stat_summary(fun.data = 'mean_cl_boot', geom = 'bar') +
+  stat_summary(fun.data = 'mean_cl_boot', geom = 'errorbar') +
+  ylab('Elapsed Time in Seconds') 
+```
+
+```{r}
+ggplot(performance, aes(x = Format, y = Size / 1000000, fill = Format)) +
+  stat_summary(fun.data = 'mean_cl_boot', geom = 'bar') +
+  stat_summary(fun.data = 'mean_cl_boot', geom = 'errorbar') +
+  ylab('Matrix Size in MB') 
+```
+
 
 
 
