@@ -49,7 +49,6 @@ We call __MatrixModels__ for an implementation of `model.matrix` that supports s
 suppressPackageStartupMessages(library(MatrixModels))
 X.2<- as(x,"sparseMatrix") %>% t # Makes sparse dummy matrix
 head(X.2)
-
 ```
 
 Notice that the matrices have the same dimensions:
@@ -69,12 +68,12 @@ pryr::object_size(X.2)
 Things to note:
 
 - The sparse representation takes a whole lot less memory than the non sparse. 
-- The `as(,"sparseMatrix")` function grows the dummy variable representation of the factor `x`. You will typicaly __not__ use this syntax, which is there only for demonstration.
+- The `as(,"sparseMatrix")` function grows the dummy variable representation of the factor `x`. You will typically __not__ use this syntax, which is there only for demonstration.
 - The __pryr__ package provides many facilities for inspecting the memory footprint of your objects and code. 
 
 
-With a sparse repsesantation, we not only saved on RAM, but also on the computing time of fitting a model.
-Here is the timing of a non sparse repsensantation:
+With a sparse representation, we not only saved on RAM, but also on the computing time of fitting a model.
+Here is the timing of a non sparse representation:
 
 ```{r nonSparse lm, cache=TRUE, dependson='make X1'}
 system.time(lm.1 <- lm(y ~ X.1)) 
@@ -87,7 +86,7 @@ If we override all the overhead of `lm`, and call `lm.fit` directly, we gain som
 system.time(lm.1 <- lm.fit(y=y, x=X.1))
 ```
 
-We now do the same with the sparse represantation:
+We now do the same with the sparse representation:
 
 ```{r sparselm, cache=TRUE, dependson='make X2'}
 system.time(lm.2 <- MatrixModels:::lm.fit.sparse(X.2,y))
@@ -99,21 +98,88 @@ It is only left to verify that the returned coefficients are the same:
 all.equal(lm.2, unname(lm.1$coefficients), tolerance = 1e-12)
 ```
 
+You can also visualize the non zero entries, i.e., the sparsity structure.
+
+```{r}
+image(X.2[1:26,1:26])
+```
 
 
 
 ## Sparse Matrix Representations
 
 We start with some terminology of sparse matrices. 
+We first distinguish between the two main goals of the efficient representation:
+(i) efficient writing, i.e., modification; 
+(ii) efficient reading, i.e., access. 
+For our purposes, we will typically want efficient reading, since the `model.matrix` will not change while a model is being fitted.
+
+Representations designed for writing include the _dictionary of keys_, _list of lists_, and a _coordinate list_. 
+Representations designed for efficient reading include the _compressed sparse row_ and _compressed sparse column_.
 
 
+### Coordinate List Representation {#coo}
+A _coordinate list representation_, also known as _COO_, or _triplet represantation_ is simply a list of the non zero entries. 
+Each element in the list is a triplet of the column, row, and value, of each non-zero entry in the matrix.
+
+
+### Compressed Column Oriented Representation 
+A _compressed column oriented representation_, also known as _compressed sparse column_, or _CSC_, where the __column__ index is stored only when it changes. 
+Put differently, in COO we store all non zero $(i,j,x_{i,j})$; in CSC we store $(i,j,x_{i,j})$ only when $j$ is incremented, and $(i,x_{i,j})$ otherwise. 
+Clearly, the COO representation does not assume any order, and is thus non unique. 
+CSC, on the other hand, does assume an ordering along columns, and rows within columns. 
+
+The nature of statistical applications is such, that CSC representation is typically the most economical, justifying its popularity.
+
+
+### Compressed Row Oriented Representation 
+A _compressed row oriented representation_, also known as _compressed sparse row_, or _CSR_, where the __row__ index is stored only when it changes. 
+This is the same as CSC, only with an ordering along rows, and columns within rows.
+CSR is much less popular than CSC.
+
+
+
+
+
+### Solving Sparse Linear Systems
 
 
 
 ## Sparse Matrices and Sparse Models in R
-<!-- glmnet -->
+
+### The Matrix Package
+
+The __Matrix__ package provides facilities to deal with real (stored as double precision), logical and so-called "pattern" (binary) dense and sparse matrices. 
+There are provisions to also provide integer and complex (stored as double precision complex) matrices.
+
+The sparse matrix classes include:
+
+- `TsparseMatrix`: a virtual class of the various sparse matrices in triplet representation.
+- `CsparseMatrix`: a virtual class of the various sparse matrices in CSC representation.
+- `RsparseMatrix`: a virtual class of the various sparse matrices in CSR representation.
+
+For matrices of real numbers, stored in _double precision_, the __Matrix__ package provides the following (non virtual) classes:
+
+- `dgTMatrix`: a __general__ sparse matrix of __doubles__, in __triplet__ representation.
+- `dgCMatrix`: a __general__ sparse matrix of __doubles__, in __CSC__ representation.
+- `dsCMatrix`: a __symmetric__ sparse matrix of __doubles__, in __CSC__ representation.
+- `dtCMatrix`: a __triangular__ sparse matrix of __doubles__, in __CSC__ representation.
+
+We bother with distinguishing between the different shapes of the matrix?
+Because the more structure is assumed on a matrix, the more our (statistical) algorithms can be optimized. 
+
+### The glmnet Package
+
+As previously stated, an efficient storage of the `model.matrix` is half of the story.
+We now need implementations of our favorite statistical algorithms that make use of this represantation. 
+At the time of writing, a very useful package that does that is the __glmnet__ package, which allows to fit linear models, generalized linear models, with ridge, lasso, and elsatic net regularization. 
+The __glmnet__ package allows all of this, using the sparse matrices of the __Matrix__ package. 
 
 
 
 
 
+## Bibliographic Notes
+
+The best place to start reading on sparse representations and algorithms is the [vignettes](http://svitsrv25.epfl.ch/R-doc/library/Matrix/doc/) of the __Matrix__ package. 
+For the theory on solving sparse linear systems see @davis2006direct.
