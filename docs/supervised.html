@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-02-19">
+<meta name="date" content="2017-02-20">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -258,8 +258,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="13.7" data-path="hadley.html"><a href="hadley.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>13.7</b> Biblipgraphic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a><ul>
-<li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a></li>
-<li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a></li>
+<li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="sparse.html"><a href="sparse.html#coo"><i class="fa fa-check"></i><b>14.1.1</b> Coordinate List Representation</a></li>
+<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Column Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.4" data-path="sparse.html"><a href="sparse.html#solving-sparse-linear-systems"><i class="fa fa-check"></i><b>14.1.4</b> Solving Sparse Linear Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="sparse.html"><a href="sparse.html#the-matrix-package"><i class="fa fa-check"></i><b>14.2.1</b> The Matrix Package</a></li>
+<li class="chapter" data-level="14.2.2" data-path="sparse.html"><a href="sparse.html#the-glmnet-package"><i class="fa fa-check"></i><b>14.2.2</b> The glmnet Package</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-10"><i class="fa fa-check"></i><b>14.3</b> Bibliographic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a></li>
@@ -477,7 +486,7 @@ for (k in <span class="dv">1</span>:folds){
 regfit.full &lt;-<span class="st"> </span>prostate.train %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">regsubsets</span>(lcavol~.,<span class="dt">data =</span> ., <span class="dt">method =</span> <span class="st">&#39;exhaustive&#39;</span>) <span class="co"># best subset selection</span>
 <span class="kw">plot</span>(regfit.full, <span class="dt">scale =</span> <span class="st">&quot;Cp&quot;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-148-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/all%20subset-1.png" width="50%" /></p>
 <p>Instead of the Cp criterion, we now compute the train and test errors for all the possible predictors<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model.n &lt;-<span class="st"> </span>regfit.full %&gt;%<span class="st"> </span>summary %&gt;%<span class="st"> </span>length
 X.train.named &lt;-<span class="st"> </span>prostate.train %&gt;%<span class="st"> </span><span class="kw">model.matrix</span>(lcavol ~<span class="st"> </span>., <span class="dt">data =</span> .)
@@ -502,7 +511,7 @@ for (i in <span class="dv">1</span>:model.n) {
        <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;Training&quot;</span>, <span class="st">&quot;Validation&quot;</span>), 
        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;blue&quot;</span>), 
        <span class="dt">pch =</span> <span class="dv">19</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-149-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-148-1.png" width="50%" /></p>
 <p>Checking all possible models is computationally very hard. <em>Forward selection</em> is a greedy approach that adds one variable at a time, using the AIC criterion. If AIC falls, the variable is added.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols<span class="fl">.0</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(lcavol~<span class="dv">1</span> ,<span class="dt">data =</span> prostate.train)
 model.scope &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">upper=</span>ols<span class="fl">.1</span>, <span class="dt">lower=</span>ols<span class="fl">.0</span>)

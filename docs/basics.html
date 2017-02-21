@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-02-19">
+<meta name="date" content="2017-02-20">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -258,8 +258,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="13.7" data-path="hadley.html"><a href="hadley.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>13.7</b> Biblipgraphic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a><ul>
-<li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a></li>
-<li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a></li>
+<li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="sparse.html"><a href="sparse.html#coo"><i class="fa fa-check"></i><b>14.1.1</b> Coordinate List Representation</a></li>
+<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Column Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.4" data-path="sparse.html"><a href="sparse.html#solving-sparse-linear-systems"><i class="fa fa-check"></i><b>14.1.4</b> Solving Sparse Linear Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="sparse.html"><a href="sparse.html#the-matrix-package"><i class="fa fa-check"></i><b>14.2.1</b> The Matrix Package</a></li>
+<li class="chapter" data-level="14.2.2" data-path="sparse.html"><a href="sparse.html#the-glmnet-package"><i class="fa fa-check"></i><b>14.2.2</b> The glmnet Package</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-10"><i class="fa fa-check"></i><b>14.3</b> Bibliographic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a></li>
@@ -327,7 +336,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <pre><code>## [1] 3</code></pre>
 <p>Generate random variables:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>)</code></pre></div>
-<pre><code>##  [1] 4 6 5 3 6 4 5 6 6 4</code></pre>
+<pre><code>##  [1] 3 3 3 2 6 8 5 7 6 6</code></pre>
 <p>R has many built-in distributions. Their names may change, but the prefixed do not:</p>
 <ul>
 <li><strong>d</strong> prefix for the distribution function.</li>
@@ -361,18 +370,18 @@ x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">
 <p></p>
 <p>To print the contents of an object just type its name</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x</code></pre></div>
-<pre><code>##  [1] 7 3 6 7 7 4 6 3 5 4</code></pre>
+<pre><code>##  [1] 7 6 6 6 3 4 4 4 7 4</code></pre>
 <p>which is an implicit call to</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(x)  </code></pre></div>
-<pre><code>##  [1] 7 3 6 7 7 4 6 3 5 4</code></pre>
+<pre><code>##  [1] 7 6 6 6 3 4 4 4 7 4</code></pre>
 <p>Alternatively, you can assign and print simultaneously</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>))  <span class="co"># Assign and print.</span></code></pre></div>
-<pre><code>##  [1]  6  3  4  5  4  4  7  6  6 10</code></pre>
+<pre><code>##  [1] 5 6 5 3 5 3 3 5 1 8</code></pre>
 <p>Operate on the object</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(x)  <span class="co"># compute mean</span></code></pre></div>
-<pre><code>## [1] 5.5</code></pre>
+<pre><code>## [1] 4.4</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(x)  <span class="co"># compute variance</span></code></pre></div>
-<pre><code>## [1] 4.055556</code></pre>
+<pre><code>## [1] 3.822222</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(x) <span class="co"># plot histogram</span></code></pre></div>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-15-1.png" width="50%" /></p>
 <p>R saves every object you create in RAM<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. The collection of all such objects is the <strong>workspace</strong> which you can inspect with</p>
@@ -431,7 +440,7 @@ car_data &lt;-<span class="st"> </span>
 y&lt;-<span class="st"> </span>.Last.value 
 y</code></pre></div>
 <pre><code>## [1] 1 2 3
-## [1] &quot;/home/johnros/workspace/Rcourse/docs/index.html&quot;</code></pre>
+## [1] &quot;/home/johnros/workspace/Rcourse/_book/Rcourse.pdf&quot;</code></pre>
 
 <div class="remark">
 <span class="remark"><em>Remark. </em></span> In line with the linux look and feel, variables starting with a dot (.) are saved but are hidden. To show them see <code>?ls</code>.
@@ -459,12 +468,12 @@ y</code></pre></div>
 ##     fill = TRUE, comment.char = &quot;&quot;, ...) 
 ## read.table(file = file, header = header, sep = sep, quote = quote, 
 ##     dec = dec, fill = fill, comment.char = comment.char, ...)
-## &lt;bytecode: 0x6e29878&gt;
+## &lt;bytecode: 0x281cef80&gt;
 ## &lt;environment: namespace:utils&gt;</code></pre>
 <p>Never mind what the function does. Note the <code>environment: namespace:utils</code> line at the end. It tells us that this function is part of the <strong>utils</strong> package. We did not need to know this because it is loaded by default. Here are the packages that are currently loaded:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">search</span>())</code></pre></div>
-<pre><code>## [1] &quot;.GlobalEnv&quot;           &quot;Penicillin&quot;           &quot;cases&quot;               
-## [4] &quot;package:MatrixModels&quot; &quot;Penicillin&quot;           &quot;cases&quot;</code></pre>
+<pre><code>## [1] &quot;.GlobalEnv&quot;           &quot;package:dplyr&quot;        &quot;package:nycflights13&quot;
+## [4] &quot;package:plotly&quot;       &quot;package:nlme&quot;         &quot;package:scales&quot;</code></pre>
 <p>Other packages can be loaded via the <code>library</code> function, or downloaded from the internet using the <code>install.packages</code> function before loading with <code>library</code>. R’s package import mechanism is quite powerful, and is one of the reasons for R’s success.</p>
 </div>
 <div id="simple-plotting" class="section level2">

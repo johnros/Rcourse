@@ -17,6 +17,13 @@ The __Matrix__ package replaces the `matrix` class, with several sparse represen
 
 When using sparse representation, and the __Matrix__ package, you will need an implementation of your favorite model fitting algorithm (e.g. `lm`) that is adapted to these sparse representations; otherwise, R will cast the sparse matrix into a regular (non-sparse) matrix, and you will have saved nothing in RAM.
 
+```{remark}
+If you are familiar with MATLAB you should know that one of the great capabilities of MATLAB, is the excellent treatment of sparse matrices with the `sparse` function.
+```
+
+
+
+
 Before we go into details, here is a simple example.
 We will create a factor of letters with the `letters` function.
 Clearly, this factor can take only $26$ values. 
@@ -125,17 +132,15 @@ Each element in the list is a triplet of the column, row, and value, of each non
 
 
 ### Compressed Column Oriented Representation 
-A _compressed column oriented representation_, also known as _compressed sparse column_, or _CSC_, where the __column__ index is stored only when it changes. 
-Put differently, in COO we store all non zero $(i,j,x_{i,j})$; in CSC we store $(i,j,x_{i,j})$ only when $j$ is incremented, and $(i,x_{i,j})$ otherwise. 
-Clearly, the COO representation does not assume any order, and is thus non unique. 
-CSC, on the other hand, does assume an ordering along columns, and rows within columns. 
+A _compressed column oriented representation_, also known as _compressed sparse column_, or _CSC_, where the __column__ index is TODO.
+
+![The CSC data structure. From @shah2004sparse. Remember that MATLAB is written in C, where the indexing starts at $0$, and not $1$.](art/crc.png)
 
 The nature of statistical applications is such, that CSC representation is typically the most economical, justifying its popularity.
 
 
 ### Compressed Row Oriented Representation 
-A _compressed row oriented representation_, also known as _compressed sparse row_, or _CSR_, where the __row__ index is stored only when it changes. 
-This is the same as CSC, only with an ordering along rows, and columns within rows.
+A _compressed row oriented representation_, also known as _compressed sparse row_, or _CSR_, where the __row__ index is TODO.
 CSR is much less popular than CSC.
 
 
@@ -248,9 +253,13 @@ ggplot(performance, aes(x = Format, y = Size / 1000000, fill = Format)) +
 
 
 
+TODO: glmnet with logistic, Poisson, lasso, ridge.
+
+
 
 
 ## Bibliographic Notes
 
-The best place to start reading on sparse representations and algorithms is the [vignettes](http://svitsrv25.epfl.ch/R-doc/library/Matrix/doc/) of the __Matrix__ package. 
+The best place to start reading on sparse representations and algorithms is the [vignettes](http://svitsrv=25.epfl.ch/R-doc/library/Matrix/doc/) of the __Matrix__ package. 
+@gilbert1992sparse is also a great read for some general background.
 For the theory on solving sparse linear systems see @davis2006direct.

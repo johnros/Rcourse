@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-02-19">
+<meta name="date" content="2017-02-20">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -258,8 +258,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="13.7" data-path="hadley.html"><a href="hadley.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>13.7</b> Biblipgraphic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a><ul>
-<li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a></li>
-<li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a></li>
+<li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="sparse.html"><a href="sparse.html#coo"><i class="fa fa-check"></i><b>14.1.1</b> Coordinate List Representation</a></li>
+<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Column Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.4" data-path="sparse.html"><a href="sparse.html#solving-sparse-linear-systems"><i class="fa fa-check"></i><b>14.1.4</b> Solving Sparse Linear Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="sparse.html"><a href="sparse.html#the-matrix-package"><i class="fa fa-check"></i><b>14.2.1</b> The Matrix Package</a></li>
+<li class="chapter" data-level="14.2.2" data-path="sparse.html"><a href="sparse.html#the-glmnet-package"><i class="fa fa-check"></i><b>14.2.2</b> The glmnet Package</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-10"><i class="fa fa-check"></i><b>14.3</b> Bibliographic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a></li>
@@ -373,7 +382,7 @@ These weights are called the <em>loadings</em>.</li>
 <p>FA originates from the psychometric literature. We thus revisit the IQ (actually g-factor<a href="#fn17" class="footnoteRef" id="fnref17"><sup>17</sup></a>) Example~<a href="unsupervised.html#ex:iq">10.2</a>:</p>
 
 <div class="example">
-<span id="ex:unnamed-chunk-157" class="example"><strong>Example 10.4 </strong></span>Assume <span class="math inline">\(n\)</span> respondents answer <span class="math inline">\(p\)</span> quantitative questions: <span class="math inline">\(x_i \in \mathbb{R}^p, i=1,\dots,n\)</span>. Also assume, their responses are some linear function <span class="math inline">\(A \in \mathbb{R}^p\)</span> of a single personality attribute, <span class="math inline">\(s_i\)</span>. We can think of <span class="math inline">\(s_i\)</span> as the subject’s ``intelligence’’. We thus have
+<span id="ex:unnamed-chunk-156" class="example"><strong>Example 10.4 </strong></span>Assume <span class="math inline">\(n\)</span> respondents answer <span class="math inline">\(p\)</span> quantitative questions: <span class="math inline">\(x_i \in \mathbb{R}^p, i=1,\dots,n\)</span>. Also assume, their responses are some linear function <span class="math inline">\(A \in \mathbb{R}^p\)</span> of a single personality attribute, <span class="math inline">\(s_i\)</span>. We can think of <span class="math inline">\(s_i\)</span> as the subject’s ``intelligence’’. We thus have
 <span class="math display">\[\begin{align}
     x_i = A s_i + \varepsilon_i
 \end{align}\]</span>
@@ -464,7 +473,7 @@ where <span class="math inline">\(A\)</span> is the <span class="math inline">\(
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(devtools)
 <span class="co"># install_github(&quot;vqv/ggbiplot&quot;)</span>
 ggbiplot::<span class="kw">ggbiplot</span>(pca<span class="fl">.1</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-160-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-159-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>The bi-plot plots each data point along its PCs.</li>
@@ -473,9 +482,9 @@ ggbiplot::<span class="kw">ggbiplot</span>(pca<span class="fl">.1</span>) </code
 </ul>
 <p>The <em>scree plot</em> depicts the quality of the approximation of <span class="math inline">\(X\)</span> as <span class="math inline">\(q\)</span> grows. This is depicted using the proportion of variability in <span class="math inline">\(X\)</span> that is removed by each added PC. It is customary to choose <span class="math inline">\(q\)</span> as the first PC that has a relative low contribution to the approximation of <span class="math inline">\(X\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ggbiplot::<span class="kw">ggscreeplot</span>(pca<span class="fl">.1</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-161-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-160-1.png" width="50%" /></p>
 <p>See how the first PC captures the variability in the Assault levels and Murder levels, with a single score.</p>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-162-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-161-1.png" width="50%" /></p>
 <p>More implementations of PCA:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># FAST solutions:</span>
 gmodels::<span class="kw">fast.prcomp</span>()
@@ -543,7 +552,7 @@ fa<span class="fl">.1</span>$loadings</code></pre></div>
 <p>Graphical model fans will like the following plot, where the contribution of each variable to each factor is encoded in the width of the arrow.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Graph comparison: loadings encoded in colors</span>
 qgraph::<span class="kw">qgraph</span>(fa<span class="fl">.1</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-163-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-162-1.png" width="50%" /></p>
 <p>Let’s add a rotation (Varimax), and note that the rotation has indeed changed the loadings of the variables, thus the interpretation of the factors.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fa<span class="fl">.2</span> &lt;-<span class="st"> </span>psych::<span class="kw">principal</span>(USArrests<span class="fl">.1</span>, <span class="dt">nfactors =</span> <span class="dv">2</span>, <span class="dt">rotate =</span> <span class="st">&quot;varimax&quot;</span>)
 
@@ -812,11 +821,11 @@ hirar<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">h
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Complete linkage:</span>
 hirar<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(state.disimilarity, <span class="dt">method=</span><span class="st">&#39;complete&#39;</span>)
 <span class="kw">plot</span>(hirar<span class="fl">.2</span>, <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests<span class="fl">.1</span>), <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-165-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-164-1.png" width="50%" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Average linkage:</span>
 hirar<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(state.disimilarity, <span class="dt">method=</span><span class="st">&#39;average&#39;</span>)
 <span class="kw">plot</span>(hirar<span class="fl">.3</span>, <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests<span class="fl">.1</span>), <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-165-2.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-164-2.png" width="50%" /></p>
 <p>If we know how many clusters we want, we can use <code>cuttree</code> to get the class assignments.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fixing the number of clusters:</span>
 cut<span class="fl">.2.2</span> &lt;-<span class="st"> </span><span class="kw">cutree</span>(hirar<span class="fl">.2</span>, <span class="dt">k=</span><span class="dv">2</span>)
