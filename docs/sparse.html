@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-02-20">
+<meta name="date" content="2017-02-21">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -262,7 +262,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="14.1.1" data-path="sparse.html"><a href="sparse.html#coo"><i class="fa fa-check"></i><b>14.1.1</b> Coordinate List Representation</a></li>
 <li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Column Oriented Representation</a></li>
 <li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Row Oriented Representation</a></li>
-<li class="chapter" data-level="14.1.4" data-path="sparse.html"><a href="sparse.html#solving-sparse-linear-systems"><i class="fa fa-check"></i><b>14.1.4</b> Solving Sparse Linear Systems</a></li>
+<li class="chapter" data-level="14.1.4" data-path="sparse.html"><a href="sparse.html#sparse-algorithms"><i class="fa fa-check"></i><b>14.1.4</b> Sparse Algorithms</a></li>
 </ul></li>
 <li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a><ul>
 <li class="chapter" data-level="14.2.1" data-path="sparse.html"><a href="sparse.html#the-matrix-package"><i class="fa fa-check"></i><b>14.2.1</b> The Matrix Package</a></li>
@@ -270,8 +270,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="14.3" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-10"><i class="fa fa-check"></i><b>14.3</b> Bibliographic Notes</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a></li>
-<li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a></li>
+<li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a><ul>
+<li class="chapter" data-level="15.1" data-path="memory.html"><a href="memory.html#efficient-computing-from-ram"><i class="fa fa-check"></i><b>15.1</b> Efficient Computing from RAM</a></li>
+<li class="chapter" data-level="15.2" data-path="memory.html"><a href="memory.html#computing-from-efficient-file-structrures"><i class="fa fa-check"></i><b>15.2</b> Computing From Efficient File Structrures</a></li>
+<li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#computing-from-databases"><i class="fa fa-check"></i><b>15.3</b> Computing From Databases</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.4</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.1</b> Bibliographic Notes</a></li>
+</ul></li>
 <li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a></li>
 <li class="chapter" data-level="18" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>18</b> Convex Optimization</a></li>
 <li class="chapter" data-level="19" data-path="rcpp.html"><a href="rcpp.html"><i class="fa fa-check"></i><b>19</b> RCpp</a></li>
@@ -303,6 +310,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>When we say <em>data</em>, we actually mean the <code>model.matrix</code>. The <code>model.matrix</code> is a matrix that R grows in the background, converting all your factors to numeric variables that can be computed with. <em>Dummy coding</em> of your factors, for instance, is something that is done in your <code>model.matrix</code>. If you have a factor with many levels, you can imagine that after dummy coding it, many zeroes will be present.</p>
 <p>The <strong>Matrix</strong> package replaces the <code>matrix</code> class, with several sparse representations of matrix objects.</p>
 <p>When using sparse representation, and the <strong>Matrix</strong> package, you will need an implementation of your favorite model fitting algorithm (e.g. <code>lm</code>) that is adapted to these sparse representations; otherwise, R will cast the sparse matrix into a regular (non-sparse) matrix, and you will have saved nothing in RAM.</p>
+
+<div class="remark">
+<span class="remark"><em>Remark. </em></span> If you are familiar with MATLAB you should know that one of the great capabilities of MATLAB, is the excellent treatment of sparse matrices with the <code>sparse</code> function.
+</div>
+<p></p>
 <p>Before we go into details, here is a simple example. We will create a factor of letters with the <code>letters</code> function. Clearly, this factor can take only <span class="math inline">\(26\)</span> values. This means that <span class="math inline">\(25/26\)</span> of the <code>model.matrix</code> will be zeroes after dummy coding. We will compare the memory footprint of the naive <code>model.matrix</code> with the sparse representation of the same matrix.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
 reps &lt;-<span class="st"> </span><span class="fl">1e6</span> <span class="co"># number of samples</span>
@@ -377,7 +389,7 @@ X<span class="fl">.2</span>&lt;-<span class="st"> </span><span class="kw">as</sp
 <pre><code>## [1] TRUE</code></pre>
 <p>You can also visualize the non zero entries, i.e., the sparsity structure.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(X<span class="fl">.2</span>[<span class="dv">1</span>:<span class="dv">26</span>,<span class="dv">1</span>:<span class="dv">26</span>])</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-241-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-242-1.png" width="50%" /></p>
 <div id="sparse-matrix-representations" class="section level2">
 <h2><span class="header-section-number">14.1</span> Sparse Matrix Representations</h2>
 <p>We start with some terminology of sparse matrices. We first distinguish between the two main goals of the efficient representation: (i) efficient writing, i.e., modification; (ii) efficient reading, i.e., access. For our purposes, we will typically want efficient reading, since the <code>model.matrix</code> will not change while a model is being fitted.</p>
@@ -388,15 +400,23 @@ X<span class="fl">.2</span>&lt;-<span class="st"> </span><span class="kw">as</sp
 </div>
 <div id="compressed-column-oriented-representation" class="section level3">
 <h3><span class="header-section-number">14.1.2</span> Compressed Column Oriented Representation</h3>
-<p>A <em>compressed column oriented representation</em>, also known as <em>compressed sparse column</em>, or <em>CSC</em>, where the <strong>column</strong> index is stored only when it changes. Put differently, in COO we store all non zero <span class="math inline">\((i,j,x_{i,j})\)</span>; in CSC we store <span class="math inline">\((i,j,x_{i,j})\)</span> only when <span class="math inline">\(j\)</span> is incremented, and <span class="math inline">\((i,x_{i,j})\)</span> otherwise. Clearly, the COO representation does not assume any order, and is thus non unique. CSC, on the other hand, does assume an ordering along columns, and rows within columns.</p>
+<p>A <em>compressed column oriented representation</em>, also known as <em>compressed sparse column</em>, or <em>CSC</em>, where the <strong>column</strong> index is similar to COO, but instead of saving the row indexes, we save the locations in the colum index vectors where the row index has to increase. The following figure may clarify this simple idea.</p>
+<div class="figure">
+<img src="art/crc.png" alt="The CSC data structure. From Shah and Gilbert (2004). Remember that MATLAB is written in C, where the indexing starts at 0, and not 1." />
+<p class="caption">The CSC data structure. From <span class="citation">Shah and Gilbert (<a href="#ref-shah2004sparse">2004</a>)</span>. Remember that MATLAB is written in C, where the indexing starts at <span class="math inline">\(0\)</span>, and not <span class="math inline">\(1\)</span>.</p>
+</div>
 <p>The nature of statistical applications is such, that CSC representation is typically the most economical, justifying its popularity.</p>
 </div>
 <div id="compressed-row-oriented-representation" class="section level3">
 <h3><span class="header-section-number">14.1.3</span> Compressed Row Oriented Representation</h3>
-<p>A <em>compressed row oriented representation</em>, also known as <em>compressed sparse row</em>, or <em>CSR</em>, where the <strong>row</strong> index is stored only when it changes. This is the same as CSC, only with an ordering along rows, and columns within rows. CSR is much less popular than CSC.</p>
+<p>A <em>compressed row oriented representation</em>, also known as <em>compressed sparse row</em>, or <em>CSR</em>, is very similar to CSC, after switching the role of rows and columns. CSR is much less popular than CSC.</p>
 </div>
-<div id="solving-sparse-linear-systems" class="section level3">
-<h3><span class="header-section-number">14.1.4</span> Solving Sparse Linear Systems</h3>
+<div id="sparse-algorithms" class="section level3">
+<h3><span class="header-section-number">14.1.4</span> Sparse Algorithms</h3>
+<p>We will go into the details of some algorithms in the Numerical Linear Algebra Chapter <a href="algebra.html#algebra">17</a>. For our current purposes two things need to be emphasized:</p>
+<ol style="list-style-type: decimal">
+<li>A mathematician may write <span class="math inline">\(Ax=b \Rightarrow x=A^{-1}b\)</span>. A computer, however, would <strong>never</strong> compute <span class="math inline">\(A^{-1}\)</span> in order to find <span class="math inline">\(x\)</span>, but rather use one of many endlessly many numerical algorithms.</li>
+</ol>
 </div>
 </div>
 <div id="sparse-matrices-and-sparse-models-in-r" class="section level2">
@@ -476,25 +496,34 @@ for (sim in <span class="dv">1</span>:<span class="dv">10</span>){
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;bar&#39;</span>) +
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;errorbar&#39;</span>) +
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&#39;Elapsed Time in Seconds&#39;</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-242-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-243-1.png" width="50%" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(performance, <span class="kw">aes</span>(<span class="dt">x =</span> Format, <span class="dt">y =</span> Size /<span class="st"> </span><span class="dv">1000000</span>, <span class="dt">fill =</span> Format)) +
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;bar&#39;</span>) +
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;errorbar&#39;</span>) +
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&#39;Matrix Size in MB&#39;</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-243-1.png" width="50%" /></p>
-<p>TODO: glmnet with logistic, poisson, lasso, ridge.</p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-244-1.png" width="50%" /></p>
+<p>How do we perform other types of regression with the <strong>glmnet</strong>? We just need to use the <code>family</code> and <code>alpha</code> arguments of <code>glmnet::glmnet</code>. The <code>family</code> argument governs the type of GLM to fit: logistic, poisson, probit, or other types of GLM. The <code>alpha</code> argument controls the type of regularization. Set to <code>alpha=0</code> for ridge, <code>alpha=1</code> for lasso, and any value in between for elasticnet regularization.</p>
 </div>
 </div>
 <div id="bibliographic-notes-10" class="section level2">
 <h2><span class="header-section-number">14.3</span> Bibliographic Notes</h2>
-<p>The best place to start reading on sparse representations and algorithms is the <a href="http://svitsrv25.epfl.ch/R-doc/library/Matrix/doc/">vignettes</a> of the <strong>Matrix</strong> package. For the theory on solving sparse linear systems see <span class="citation">Davis (<a href="#ref-davis2006direct">2006</a>)</span>.</p>
+<p>The best place to start reading on sparse representations and algorithms is the <a href="http://svitsrv=25.epfl.ch/R-doc/library/Matrix/doc/">vignettes</a> of the <strong>Matrix</strong> package. <span class="citation">Gilbert, Moler, and Schreiber (<a href="#ref-gilbert1992sparse">1992</a>)</span> is also a great read for some general background. For the theory on solving sparse linear systems see <span class="citation">Davis (<a href="#ref-davis2006direct">2006</a>)</span>. For general numerical linear algebra see <span class="citation">Gentle (<a href="#ref-gentle2012numerical">2012</a>)</span>.</p>
 
 </div>
 </div>
 <h3> Bibliography</h3>
 <div id="refs" class="references">
+<div id="ref-shah2004sparse">
+<p>Shah, Viral, and John R Gilbert. 2004. “Sparse Matrices in Matlab* P: Design and Implementation.” In <em>International Conference on High-Performance Computing</em>, 144–55. Springer.</p>
+</div>
+<div id="ref-gilbert1992sparse">
+<p>Gilbert, John R, Cleve Moler, and Robert Schreiber. 1992. “Sparse Matrices in Matlab: Design and Implementation.” <em>SIAM Journal on Matrix Analysis and Applications</em> 13 (1). SIAM: 333–56.</p>
+</div>
 <div id="ref-davis2006direct">
 <p>Davis, Timothy A. 2006. <em>Direct Methods for Sparse Linear Systems</em>. SIAM.</p>
+</div>
+<div id="ref-gentle2012numerical">
+<p>Gentle, James E. 2012. <em>Numerical Linear Algebra for Applications in Statistics</em>. Springer Science &amp; Business Media.</p>
 </div>
 </div>
             </section>

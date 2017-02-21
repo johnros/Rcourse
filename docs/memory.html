@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-02-20">
+<meta name="date" content="2017-02-21">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -262,7 +262,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="14.1.1" data-path="sparse.html"><a href="sparse.html#coo"><i class="fa fa-check"></i><b>14.1.1</b> Coordinate List Representation</a></li>
 <li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Column Oriented Representation</a></li>
 <li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Row Oriented Representation</a></li>
-<li class="chapter" data-level="14.1.4" data-path="sparse.html"><a href="sparse.html#solving-sparse-linear-systems"><i class="fa fa-check"></i><b>14.1.4</b> Solving Sparse Linear Systems</a></li>
+<li class="chapter" data-level="14.1.4" data-path="sparse.html"><a href="sparse.html#sparse-algorithms"><i class="fa fa-check"></i><b>14.1.4</b> Sparse Algorithms</a></li>
 </ul></li>
 <li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a><ul>
 <li class="chapter" data-level="14.2.1" data-path="sparse.html"><a href="sparse.html#the-matrix-package"><i class="fa fa-check"></i><b>14.2.1</b> The Matrix Package</a></li>
@@ -270,8 +270,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="14.3" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-10"><i class="fa fa-check"></i><b>14.3</b> Bibliographic Notes</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a></li>
-<li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a></li>
+<li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a><ul>
+<li class="chapter" data-level="15.1" data-path="memory.html"><a href="memory.html#efficient-computing-from-ram"><i class="fa fa-check"></i><b>15.1</b> Efficient Computing from RAM</a></li>
+<li class="chapter" data-level="15.2" data-path="memory.html"><a href="memory.html#computing-from-efficient-file-structrures"><i class="fa fa-check"></i><b>15.2</b> Computing From Efficient File Structrures</a></li>
+<li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#computing-from-databases"><i class="fa fa-check"></i><b>15.3</b> Computing From Databases</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.4</b> Bibliographic Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.1</b> Bibliographic Notes</a></li>
+</ul></li>
 <li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a></li>
 <li class="chapter" data-level="18" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>18</b> Convex Optimization</a></li>
 <li class="chapter" data-level="19" data-path="rcpp.html"><a href="rcpp.html"><i class="fa fa-check"></i><b>19</b> RCpp</a></li>
@@ -299,9 +306,92 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="memory" class="section level1">
 <h1><span class="header-section-number">Chapter 15</span> Memory Efficiency</h1>
-<p>As we have seen in the Sparsity Chapter <a href="sparse.html#sparse">14</a>, an efficient representation of your data in RAM will reduce computing time, and will allow you to fit models that would otherwise require tremendous amounts of RAM. It is possible, however, to avoid altogether the need to fit your data in RAM. The fundamental idea is that your data can be stored on the HD. Since the HD is typically much larger than your RAM, you will be able to compute with much larger data sets. The downside is that HDs are much slower than RAM. This was painfully true when HDs were rotating magnetic plates. This is still true, but less painful, now that high-end HDs are not rotating magnetic plates, but rather SSDs.</p>
-<p>We will now meet several facilities that will allow you to avoid loading your data to RAM, and still be able to fit models with it. The fundamental idea is to use efficient file structures, that will save your data in a way that predicts the way the model-fitting process will call it, so that fetching it from HD is efficient. This is not a unique capability of R. Indeed, SAS, SPSS, Pyton’s sci-kit learn, and other software have this same capability. Moreover, there are many facilities in R that provide this same capability. For instance, the commercial version of R, <em>Microsoft R</em>, previously known as <em>Revolutions R</em>, provides this capability with the <strong>RevoScaleR</strong> family of packages.</p>
+<!-- our of ram -->
+<!-- databases -->
+<p>As we have seen in the Sparsity Chapter <a href="sparse.html#sparse">14</a>, an efficient representation of your data in RAM will reduce computing time, and will allow you to fit models that would otherwise require tremendous amounts of RAM. It is possible, however, to avoid altogether the need to fit your data in RAM. The fundamental idea is that your data can be stored on the <em>hard disk</em> (HD), <em>solid state disk</em> (SSD), or any other storage. Since these types of storage are typically much larger than your RAM, you will be able to compute with much larger data sets. The downside is that HDs, SSDs, and others, are typically slower than RAM. This is painfully true for rotating magnetic plates HDs. This is true, but less painful, with newer SSDs.</p>
+<p>We will now meet several facilities that will allow you to avoid loading your data to RAM, and still be able to fit models with it. The fundamental idea is to use efficient file structures, that will save your data in a way that is aware of the upcoming model-fitting, so that fetching it from HD is efficient. This is not a unique capability of R. Indeed, SAS, SPSS, Pyton’s Sci-Kit Learn, and other software have this same capability. Moreover, there are many facilities in R that provide this same capability. For instance, the commercial version of R, <em>Microsoft R</em><a href="#fn21" class="footnoteRef" id="fnref21"><sup>21</sup></a>, provides this capability with the <strong>RevoScaleR</strong> family of packages.</p>
+<p>The facilities that allow <em>out of RAM</em> computations can be broadly calssified as:</p>
+<ol style="list-style-type: decimal">
+<li>Facilities that use efficient represantations in RAM.</li>
+<li>Facilities that rely on temporary files with efficient structure.</li>
+<li>Facilities that rely on databases.</li>
+</ol>
 
+<div class="remark">
+<span class="remark"><em>Remark. </em></span> If you use Linux, you may be better of than Windows users. Linux will allow you to compute with larger datasets using its <em>swap file</em> that extends RAM using your HD or SSD. On the other hand, relying on the swap file is a BAD practice since it is much slower than RAM, and you can typically do much better using the tricks of this chapter. Also, while I LOVE Linux, I would never dare to recommend switching to Linux just to deal with memory contraints.
+</div>
+<p></p>
+<div id="efficient-computing-from-ram" class="section level2">
+<h2><span class="header-section-number">15.1</span> Efficient Computing from RAM</h2>
+<p>If our data can fit in RAM, but is still too large to compute with it (recall that fitting a model requires roughly 2-3 times more memory than saving it), there are several facilities to be used. The first, is the sparse represantation discussed in Chapter <a href="sparse.html#sparse">14</a>, which is relavant when you have factors, which will typically map to sparse model matrices. Another way is to use memory efficient algorithms. We do not discuss this avenue here, since the approaches in the next sections are more general (at the possible cost of some computing time). If you still want to read more on streaming algorithms from in-RAM data, particularly for SVMs, see the <strong>LiblineaR</strong>, and <strong>RSofia</strong> packages.</p>
+</div>
+<div id="computing-from-efficient-file-structrures" class="section level2">
+<h2><span class="header-section-number">15.2</span> Computing From Efficient File Structrures</h2>
+<p>The foundamental idea of computing out of RAM is to save your data on disk in an efficient structure, and then use algorithms that are aware of this structure. These algorithms will typically be fed with chunks, or batches, of the whole data, so that at no time will you need the whole data in RAM.</p>
+<p>Our first package that provides this facility is the <strong>ff</strong> package. We will start by loading the file. Clearly, using the <code>read.table</code> mechanism will not be useful, since it will load the data into RAM, which is exactly what we want to avoid. We thus open a connection to the file with the <strong>LaF</strong> package, without actually importing it, only to pass the connection to</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download.file(&quot;http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/BSAPUFS/Downloads/2010_Carrier_PUF.zip&quot;, &quot;2010_Carrier_PUF.zip&quot;)</span>
+<span class="co"># unzip(zipfile=&quot;2010_Carrier_PUF.zip&quot;)</span>
+
+<span class="kw">library</span>(LaF)
+
+.dat &lt;-<span class="st"> </span><span class="kw">laf_open_csv</span>(<span class="dt">filename =</span> <span class="st">&quot;2010_BSA_Carrier_PUF.csv&quot;</span>,
+                    <span class="dt">column_types =</span> <span class="kw">c</span>(<span class="st">&quot;integer&quot;</span>, <span class="st">&quot;integer&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;integer&quot;</span>, <span class="st">&quot;integer&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;integer&quot;</span>, <span class="st">&quot;integer&quot;</span>, <span class="st">&quot;integer&quot;</span>), 
+                    <span class="dt">column_names =</span> <span class="kw">c</span>(<span class="st">&quot;sex&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;diagnose&quot;</span>, <span class="st">&quot;healthcare.procedure&quot;</span>, <span class="st">&quot;typeofservice&quot;</span>, <span class="st">&quot;service.count&quot;</span>, <span class="st">&quot;provider.type&quot;</span>, <span class="st">&quot;servicesprocessed&quot;</span>, <span class="st">&quot;place.served&quot;</span>, <span class="st">&quot;payment&quot;</span>, <span class="st">&quot;carrierline.count&quot;</span>), 
+                    <span class="dt">skip =</span> <span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ffbase)
+data.ffdf &lt;-<span class="st"> </span><span class="kw">laf_to_ffdf</span>(<span class="dt">laf =</span> .dat)</code></pre></div>
+<p>Notice that the data has a very small RAM footprint.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pryr::<span class="kw">object_size</span>(data.ffdf)</code></pre></div>
+<pre><code>## 343 kB</code></pre>
+<p>Because the statistical algorithms in the <strong>base</strong> and <strong>stats</strong> pacakges are unaware of <code>ff</code>, we need to use their <code>ff</code> equivalent. Here is an example of a simple tabulation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ffbase:::<span class="kw">table.ff</span>(data.ffdf$age) </code></pre></div>
+<pre><code>## 
+##      1      2      3      4      5      6 
+## 517717 495315 492851 457643 419429 418705</code></pre>
+<p>To fit a poisson regression, we will not call <code>glm</code>, but rather its <strong>ff</strong> equivalent.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(biglm)
+
+<span class="co"># Again, too slow. Stop and run:</span>
+mymodel.ffdf<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">bigglm.ffdf</span>(payment ~<span class="st"> </span>sex +<span class="st"> </span>age +<span class="st"> </span>place.served, 
+                              <span class="dt">family =</span> <span class="kw">gaussian</span>(),
+                              <span class="dt">data =</span> data.ffdf)</code></pre></div>
+<p>Things to note:</p>
+<ul>
+<li>The previous can scale to any file I can store on disk (but might take a while).</li>
+<li>If I want some other GLM, and not the simple OLS implied by <code>family=gaussian</code>, I would change the <code>family</code> argument appropriatly.</li>
+</ul>
+<p>I will now inflate the data to a size that would not fit in RAM.</p>
+<p>The <strong>biglm</strong> package provides facilities to fit linear models. The package is a member of a family of packages that provide facilities</p>
+<!-- ff-->
+<!-- ffbase -->
+<!-- biglm -->
+<!-- biganalytics -->
+<!-- bigtabulate -->
+<!-- bigalgebra -->
+</div>
+<div id="computing-from-databases" class="section level2">
+<h2><span class="header-section-number">15.3</span> Computing From Databases</h2>
+<!-- dplyr -->
+<!-- MonetDB.R -->
+<p>If your data is so big that it cannot fit on your HD you will need a distributed file system. We do not cover this topic here, and refer the reader to the <strong>RHipe</strong>, <strong>RHadoop</strong>, and <strong>RSpark</strong> packages and references therein.</p>
+</div>
+<div id="bibliographic-notes-11" class="section level2">
+<h2><span class="header-section-number">15.4</span> Bibliographic Notes</h2>
+<p>For an up-to-date list of the packages that deal with memory constraints, see the <strong>Large memory and out-of-memory data</strong> section in the High Performance Computing <a href="https://cran.r-project.org/web/views/HighPerformanceComputing.html">R task view</a>. For a historical review of the R’s progress in dealing with large datasets, see [Joseph Rickert’s review] (<a href="http://blog.revolutionanalytics.com/2014/05/quick-history-2-glms-r-and-large-data-sets.html" class="uri">http://blog.revolutionanalytics.com/2014/05/quick-history-2-glms-r-and-large-data-sets.html</a>). For a general review (not only R) of computing with big data, see <span class="citation">Wang et al. (<a href="#ref-wang2015statistical">2015</a>)</span>.</p>
+
+</div>
+</div>
+<h3> Bibliography</h3>
+<div id="refs" class="references">
+<div id="ref-wang2015statistical">
+<p>Wang, Chun, Ming-Hui Chen, Elizabeth Schifano, Jing Wu, and Jun Yan. 2015. “Statistical Methods and Computing for Big Data.” <em>ArXiv Preprint ArXiv:1502.07989</em>.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="21">
+<li id="fn21"><p>Previously known as <em>Revolutions R</em><a href="memory.html#fnref21">↩</a></p></li>
+</ol>
 </div>
             </section>
 
