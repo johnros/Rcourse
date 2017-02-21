@@ -33,16 +33,32 @@ Also, while I LOVE Linux, I would never dare to recommend switching to Linux jus
 ```
 
 
-## Computing from RAM
-<!-- streaming algorithms -->
-<!-- speedglm -->
+## Efficient Computing from RAM
+
+If our data can fit in RAM, but is still too large to compute with it (recall that fitting a model requires roughly 2-3 times more memory than saving it), there are several facilities to be used.
+The first, is the sparse represantation discussed in Chapter \@ref(sparse), which is relavant when you have factors, which will typically map to sparse model matrices. 
+Another way is to use memory efficient algorithms. 
+We do not discuss this avenue here, since the approaches in the next sections are more general (at the possible cost of some computing time).
+
 
 
 
 ## Computing From Efficient File Structrures
+
+The foundamental idea of computing out of RAM is to save your data on disk in an efficient structure, and then use algorithms that are aware of this structure. 
+These algorithms will typically be fed with chunks, or batches, of the whole data, so that at no time will you need the whole data in RAM.
+
+Our first package that provides this facility is the __ff__ package. 
+
+
+
+
 <!-- ff-->
 <!-- ffbase -->
 <!-- biglm -->
+<!-- biganalytics -->
+<!-- bigtabulate -->
+<!-- bigalgebra -->
 
 
 
@@ -52,6 +68,14 @@ Also, while I LOVE Linux, I would never dare to recommend switching to Linux jus
 <!-- MonetDB.R -->
 
 
+
+
+If your data is so big that it cannot fit on your HD you will need a distributed file system.
+We do not cover this topic here, and refer the reader to the __RHipe__, __RHadoop__, and __RSpark__ packages and references therein.
+
+
 ## Bibliographic Notes
 
 For an up-to-date list of the packages that deal with memory constraints, see the __Large memory and out-of-memory data__ section in the High Performance Computing [R task view](https://cran.r-project.org/web/views/HighPerformanceComputing.html).
+For a historical review of the R's progress in dealing with large datasets, see [Joseph Rickert's review] (http://blog.revolutionanalytics.com/2014/05/quick-history-2-glms-r-and-large-data-sets.html).
+For a general review (not only R) of computing with big data, see @wang2015statistical.
