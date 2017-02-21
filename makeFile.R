@@ -11,6 +11,11 @@ bookdown::render_book("index.Rmd","bookdown::gitbook", clean_envir = TRUE) # ren
 bookdown::render_book("index.Rmd","bookdown::word_document2", clean_envir = TRUE) # rendoer to DOCX
 bookdown::render_book("index.Rmd","bookdown::pdf_book", clean_envir = TRUE) # rendoer to PDF
 
+bookdown::preview_chapter('14-memory.Rmd',"bookdown::gitbook" )
+bookdown::preview_chapter('14-memory.Rmd',"bookdown::word_document2" )
+bookdown::preview_chapter('14-memory.Rmd',"bookdown::pdf_book" )
+
+
 bookdown::preview_chapter('13-sparsity.Rmd',"bookdown::gitbook" )
 bookdown::preview_chapter('13-sparsity.Rmd',"bookdown::word_document2" )
 bookdown::preview_chapter('13-sparsity.Rmd',"bookdown::pdf_book" )

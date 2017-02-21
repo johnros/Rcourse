@@ -39,6 +39,8 @@ If our data can fit in RAM, but is still too large to compute with it (recall th
 The first, is the sparse represantation discussed in Chapter \@ref(sparse), which is relavant when you have factors, which will typically map to sparse model matrices. 
 Another way is to use memory efficient algorithms. 
 We do not discuss this avenue here, since the approaches in the next sections are more general (at the possible cost of some computing time).
+If you still want to read more on streaming algorithms from in-RAM data, particularly for SVMs, see the __LiblineaR__, and __RSofia__ packages. 
+
 
 
 
@@ -49,8 +51,63 @@ The foundamental idea of computing out of RAM is to save your data on disk in an
 These algorithms will typically be fed with chunks, or batches, of the whole data, so that at no time will you need the whole data in RAM.
 
 Our first package that provides this facility is the __ff__ package. 
+We will start by loading the file. 
+Clearly, using the `read.table` mechanism will not be useful, since it will load the data into RAM, which is exactly what we want to avoid. 
+We thus open a connection to the file with the __LaF__ package, without actually importing it, only to pass the connection to 
+```{r}
+# download.file("http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/BSAPUFS/Downloads/2010_Carrier_PUF.zip", "2010_Carrier_PUF.zip")
+# unzip(zipfile="2010_Carrier_PUF.zip")
+
+library(LaF)
+
+.dat <- laf_open_csv(filename = "2010_BSA_Carrier_PUF.csv",
+                    column_types = c("integer", "integer", "categorical", "categorical", "categorical", "integer", "integer", "categorical", "integer", "integer", "integer"), 
+                    column_names = c("sex", "age", "diagnose", "healthcare.procedure", "typeofservice", "service.count", "provider.type", "servicesprocessed", "place.served", "payment", "carrierline.count"), 
+                    skip = 1)
+```
+
+```{r load ff, cache=TRUE}
+library(ffbase)
+data.ffdf <- laf_to_ffdf(laf = .dat)
+```
+
+Notice that the data has a very small RAM footprint.
+
+```{r, dependson='load ff'}
+pryr::object_size(data.ffdf)
+```
 
 
+Because the statistical algorithms in the __base__ and __stats__ pacakges are unaware of `ff`, we need to use their `ff` equivalent.
+Here is an example of a simple tabulation.
+
+```{r, cache=TRUE, dependson='load ff'}
+ffbase:::table.ff(data.ffdf$age) 
+```
+
+
+To fit a poisson regression, we will not call `glm`, but rather its __ff__ equivalent.
+
+```{r biglm_regression, cache=TRUE, dependson='load ff'}
+library(biglm)
+
+# Again, too slow. Stop and run:
+mymodel.ffdf.2 <- bigglm.ffdf(payment ~ sex + age + place.served, 
+                              family = gaussian(),
+                              data = data.ffdf)
+```
+
+Things to note:
+
+- The previous can scale to any file I can store on disk (but might take a while).
+- If I want some other GLM, and not the simple OLS implied by `family=gaussian`, I would change the `family` argument appropriatly.
+
+
+I will now inflate the data to a size that would not fit in RAM.
+
+
+The __biglm__ package provides facilities to fit linear models. 
+The package is a member of a family of packages that provide facilities 
 
 
 <!-- ff-->
