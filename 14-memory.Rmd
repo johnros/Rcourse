@@ -1,16 +1,57 @@
 # Memory Efficiency {#memory}
 
+<!-- our of ram -->
+<!-- databases -->
+
 As we have seen in the Sparsity Chapter \@ref(sparse), an efficient representation of your data in RAM will reduce computing time, and will allow you to fit models that would otherwise require tremendous amounts of RAM.
 It is possible, however, to avoid altogether the need to fit your data in RAM.
-The fundamental idea is that your data can be stored on the HD. 
-Since the HD is typically much larger than your RAM, you will be able to compute with much larger data sets. 
-The downside is that HDs are much slower than RAM.
-This was painfully true when HDs were rotating magnetic plates. 
-This is still true, but less painful, now that high-end HDs are not rotating magnetic plates, but rather SSDs.
+The fundamental idea is that your data can be stored on the _hard disk_ (HD), _solid state disk_ (SSD), or any other storage. 
+Since these types of storage are typically much larger than your RAM, you will be able to compute with much larger data sets. 
+The downside is that HDs, SSDs, and others, are typically slower than RAM.
+This is painfully true for rotating magnetic plates HDs. 
+This is true, but less painful, with newer SSDs.
 
 We will now meet several facilities that will allow you to avoid loading your data to RAM, and still be able to fit models with it.
-The fundamental idea is to use efficient file structures, that will save your data in a way that predicts the way the model-fitting process will call it, so that fetching it from HD is efficient.
-This is not a unique capability of R. Indeed, SAS, SPSS, Pyton's sci-kit learn, and other software have this same capability.
-Moreover, there are many facilities in R that provide this same capability. For instance, the commercial version of R, _Microsoft R_, previously known as _Revolutions R_, provides this capability with the __RevoScaleR__ family of packages. 
+The fundamental idea is to use efficient file structures, that will save your data in a way that is aware of the upcoming model-fitting, so that fetching it from HD is efficient.
+This is not a unique capability of R. 
+Indeed, SAS, SPSS, Pyton's Sci-Kit Learn, and other software have this same capability.
+Moreover, there are many facilities in R that provide this same capability. 
+For instance, the commercial version of R, _Microsoft R_^[Previously known as _Revolutions R_], provides this capability with the __RevoScaleR__ family of packages. 
+
+The facilities that allow _out of RAM_ computations can be broadly calssified as:
+
+1. Facilities that use efficient represantations in RAM.
+1. Facilities that rely on temporary files with efficient structure. 
+1. Facilities that rely on databases.
 
 
+```{remark}
+If you use Linux, you may be better of than Windows users. 
+Linux will allow you to compute with larger datasets using its _swap file_ that extends RAM using your HD or SSD.
+On the other hand, relying on the swap file is a BAD practice since it is much slower than RAM, and you can typically do much better using the tricks of this chapter. 
+Also, while I LOVE Linux, I would never dare to recommend switching to Linux just to deal with memory contraints. 
+```
+
+
+## Computing from RAM
+<!-- streaming algorithms -->
+<!-- speedglm -->
+
+
+
+## Computing From Efficient File Structrures
+<!-- ff-->
+<!-- ffbase -->
+<!-- biglm -->
+
+
+
+
+## Computing From Databases
+<!-- dplyr -->
+<!-- MonetDB.R -->
+
+
+## Bibliographic Notes
+
+For an up-to-date list of the packages that deal with memory constraints, see the __Large memory and out-of-memory data__ section in the High Performance Computing [R task view](https://cran.r-project.org/web/views/HighPerformanceComputing.html).
