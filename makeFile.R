@@ -15,7 +15,6 @@ bookdown::preview_chapter('14-memory.Rmd',"bookdown::gitbook" )
 bookdown::preview_chapter('14-memory.Rmd',"bookdown::word_document2" )
 bookdown::preview_chapter('14-memory.Rmd',"bookdown::pdf_book" )
 
-
 bookdown::preview_chapter('13-sparsity.Rmd',"bookdown::gitbook" )
 bookdown::preview_chapter('13-sparsity.Rmd',"bookdown::word_document2" )
 bookdown::preview_chapter('13-sparsity.Rmd',"bookdown::pdf_book" )

@@ -3,6 +3,14 @@
 <!-- our of ram -->
 <!-- databases -->
 
+As put by @kane2013scalable, it was quite  puzzeling when very few of the competitors, for the Million dollars prize in the celebrated [Netflix challenge](https://en.wikipedia.org/wiki/Netflix_Prize), were statisticians.
+This is perhaps because the statistical community historically uses SAS, SPSS, and R. 
+The first two tools are very well equipped to deal with big data, but are very unfriendly when implementing your own new routines. 
+R, on the other hand, is very friendly for new routines, but was not equipped to deal with the large data sets of the Netflix challenge. 
+A lot has changed in R since 2006. This is the topic of this chapter. 
+
+
+
 As we have seen in the Sparsity Chapter \@ref(sparse), an efficient representation of your data in RAM will reduce computing time, and will allow you to fit models that would otherwise require tremendous amounts of RAM.
 It is possible, however, to avoid altogether the need to fit your data in RAM.
 The fundamental idea is that your data can be stored on the _hard disk_ (HD), _solid state disk_ (SSD), or any other storage. 
@@ -133,6 +141,5 @@ We do not cover this topic here, and refer the reader to the __RHipe__, __RHadoo
 
 ## Bibliographic Notes
 
+An absolute SUPERB review on computing with big data is @wang2015statistical, and references therein.
 For an up-to-date list of the packages that deal with memory constraints, see the __Large memory and out-of-memory data__ section in the High Performance Computing [R task view](https://cran.r-project.org/web/views/HighPerformanceComputing.html).
-For a historical review of the R's progress in dealing with large datasets, see [Joseph Rickert's review] (http://blog.revolutionanalytics.com/2014/05/quick-history-2-glms-r-and-large-data-sets.html).
-For a general review (not only R) of computing with big data, see @wang2015statistical.
