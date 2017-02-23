@@ -58,7 +58,7 @@ Let's start with a simple example, taken from ["Getting Started with doParallel 
 
 ```{r}
 library(doParallel)
-cl <- makeCluster(spec = 2)
+cl <- makeCluster(2)
 registerDoParallel(cl)
 result <- foreach(i=1:3) %dopar% sqrt(i)
 class(result)
@@ -71,6 +71,94 @@ Things to note:
 - `registerDoParallel` is used to inform the __foreach__ package of the presence of our cluster. 
 - The `foreach` function handles the looping. In particular note the `%dopar` operator that ensures that looping is in parallel. `%dopar%` can be replaced by `%do%` if you want serial looping (like the `for` loop), for instance, for debugging. 
 - The output of the various machines is collected by `foreach` to a list object. 
+- In this simple example, no data is shared between machines so we are not putting the shared memory capabilities to the test. 
+- We can check how many workers were involved using the `getDoParWorkers()` function.
+- We can check the parallelisation mechanism used with the `getDoParName()` function.
+
+
+Here is a more involved example.
+We now try to make [Bootstrap](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)) inference on the coeffieicents of a logistic regression.
+Bootstrapping means that in each iteration, we resample the data, and refit the model. 
+
+```{r}
+x <- iris[which(iris[,5] != "setosa"), c(1,5)]
+trials <- 1e4
+ptime <- system.time({
+ r <- foreach(icount(trials), .combine=cbind) %dopar% {
+ ind <- sample(100, 100, replace=TRUE)
+ result1 <- glm(x[ind,2]~x[ind,1], family=binomial(logit))
+ coefficients(result1)
+ }
+ })[3]
+ptime
+```
+
+Things to note:
+
+- As usual, we use the `foreach` function with the `%dopar%` operator to loop in parallel.
+- The `icounts` function generates a counter. 
+- The `.combine=cbind` argument tells the `foreach` function how to combine the output of different machines, so that the returned object is not the default list. 
+
+
+How long would that have taken in a simple (serial) loop? 
+We only need to replace `%dopar%` with `%do%` to test.
+
+```{r}
+stime <- system.time({
+ r <- foreach(icount(trials), .combine=cbind) %do% {
+ ind <- sample(100, 100, replace=TRUE)
+ result1 <- glm(x[ind,2]~x[ind,1], family=binomial(logit))
+ coefficients(result1)
+ }
+ })[3]
+stime
+```
+
+Yes. This takes clearly longer. 
+
+
+Let's see how we can combine the power of __bigmemory__ and __foreach__ by creating a file mapped `big.matrix` object, which is shared by all machines.
+The following example is taken from @kane2013scalable, and uses the `big.matrix` object we created in Chapter \@ref(memory).
+
+```{r}
+library(bigmemory)
+x <- attach.big.matrix("airline.desc")
+
+library(foreach)
+library(doSNOW)
+cl <- makeSOCKcluster(rep("localhost", 4)) # make a cluster of 4 machines
+registerDoSNOW(cl) # register machines for foreach()
+```
+
+Get a "description" of the `big.matrix` object that will be used to call it from each machine.
+```{r}
+xdesc <- describe(x) 
+```
+
+Split the data along values of `BENE_AGE_CAT_CD`.
+```{r}
+G <- split(1:nrow(x), x[, "BENE_AGE_CAT_CD"]) 
+```
+
+Define a function that coputes quantiles of `CAR_LINE_ICD9_DGNS_CD`.
+```{r}
+GetDepQuantiles <- function(rows, data) {
+ quantile(data[rows, "CAR_LINE_ICD9_DGNS_CD"], probs = c(0.5, 0.9, 0.99),
+ na.rm = TRUE)
+}
+```
+
+We are all set up to loop, in paralle, and compute quantiles of `CAR_LINE_ICD9_DGNS_CD` for each value of `BENE_AGE_CAT_CD`.
+
+```{r}
+qs <- foreach(g = G, .combine = rbind) %dopar% {
+ require("bigmemory")
+ x <- attach.big.matrix(xdesc)
+ GetDepQuantiles(rows = g, data = x)
+}
+qs
+```
+
 
 
 
