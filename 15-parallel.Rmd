@@ -20,19 +20,19 @@ In the meanwhile, most of the parallel implementations are explicit.
 
 R provides many frameworks for explicit parallelism.
 Because the parallelism is initiated by the user, we first need to decide __when to parallelize?__
-As a rule of thumb, you want to parallelise when you encounter a CPU bottleneck, and not a memory bottlenck.
+As a rule of thumb, you want to parallelise when you encounter a CPU bottleneck, and not a memory bottleneck.
 Memory bottlenecks are released with Sparsity (Chapter \@ref(sparse)), or efficient representation (Chapter \@ref(memory)).
 
-Several ways to diagnose your bottlenck include:
+Several ways to diagnose your bottleneck include:
 
 - Keep your Windows Task Manager, or Linux `top` open, and look for the CPU load. 
-- The computation takes a long time, and when you stop it pressign ESC, R is immediatly responsive (if it is not immediatly responsive, you have a memory bottlenck).
+- The computation takes a long time, and when you stop it pressing ESC, R is immediately responsive (if it is not immediately responsive, you have a memory bottleneck).
 - Profile your code. See Hadley's [guide](http://adv-r.had.co.nz/Profiling.html).
 
 For reasons detailed in @kane2013scalable, we will present the __foreach__ parallelisation package [@foreach]. 
 It will allow us to: 
 
-1. Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can then switch the underlying parallesation mechanism. 
+1. Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can then switch the underlying parallelisation mechanism. 
 
 1. Combine with the `big.matrix` object from Chapter \@ref(memory) for _shared memory parallisation_: all the machines may see the same data, so that we don't need to export objects from machine to machine. 
 
@@ -67,7 +67,7 @@ result
 
 Things to note:
 
-- `makeCluster` creates an object with the information our cluster. One a single machine it is very simple. On a cluster of machines, you will need to specify the i.p. adresses or other identifiers ot the machines. 
+- `makeCluster` creates an object with the information our cluster. One a single machine it is very simple. On a cluster of machines, you will need to specify the i.p. addresses or other identifiers of the machines. 
 - `registerDoParallel` is used to inform the __foreach__ package of the presence of our cluster. 
 - The `foreach` function handles the looping. In particular note the `%dopar` operator that ensures that looping is in parallel. `%dopar%` can be replaced by `%do%` if you want serial looping (like the `for` loop), for instance, for debugging. 
 - The output of the various machines is collected by `foreach` to a list object. 
@@ -77,7 +77,7 @@ Things to note:
 
 
 Here is a more involved example.
-We now try to make [Bootstrap](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)) inference on the coeffieicents of a logistic regression.
+We now try to make [Bootstrap](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)) inference on the coefficients of a logistic regression.
 Bootstrapping means that in each iteration, we resample the data, and refit the model. 
 
 ```{r}
@@ -114,7 +114,7 @@ stime <- system.time({
 stime
 ```
 
-Yes. This takes clearly longer. 
+Yes. Parallelising is clearly faster.
 
 
 Let's see how we can combine the power of __bigmemory__ and __foreach__ by creating a file mapped `big.matrix` object, which is shared by all machines.
@@ -140,7 +140,7 @@ Split the data along values of `BENE_AGE_CAT_CD`.
 G <- split(1:nrow(x), x[, "BENE_AGE_CAT_CD"]) 
 ```
 
-Define a function that coputes quantiles of `CAR_LINE_ICD9_DGNS_CD`.
+Define a function that computes quantiles of `CAR_LINE_ICD9_DGNS_CD`.
 ```{r}
 GetDepQuantiles <- function(rows, data) {
  quantile(data[rows, "CAR_LINE_ICD9_DGNS_CD"], probs = c(0.5, 0.9, 0.99),
@@ -148,7 +148,7 @@ GetDepQuantiles <- function(rows, data) {
 }
 ```
 
-We are all set up to loop, in paralle, and compute quantiles of `CAR_LINE_ICD9_DGNS_CD` for each value of `BENE_AGE_CAT_CD`.
+We are all set up to loop, in parallel, and compute quantiles of `CAR_LINE_ICD9_DGNS_CD` for each value of `BENE_AGE_CAT_CD`.
 
 ```{r}
 qs <- foreach(g = G, .combine = rbind) %dopar% {
@@ -167,6 +167,10 @@ qs
 
 ## Implicit Parallelism
 
+We will not elaborate on implicit parallelism except mentioning the following:
+
+- You can enjoy parallel linear algebra by replacing the linear algebra libraries with BLAS and LAPACK as described [here](https://www.r-bloggers.com/faster-r-through-better-blas/).
+- You should read the "Parallel computing: Implicit parallelism" section in the excellent [High Performance Computing](https://cran.r-project.org/web/views/HighPerformanceComputing.html) task view, for the latest developments in implicit parallelism.
 
 
 

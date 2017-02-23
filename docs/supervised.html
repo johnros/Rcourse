@@ -525,7 +525,7 @@ for (i in <span class="dv">1</span>:model.n) {
        <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;Training&quot;</span>, <span class="st">&quot;Validation&quot;</span>), 
        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;blue&quot;</span>), 
        <span class="dt">pch =</span> <span class="dv">19</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-190-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-148-1.png" width="50%" /></p>
 <p>Checking all possible models is computationally very hard. <em>Forward selection</em> is a greedy approach that adds one variable at a time, using the AIC criterion. If AIC falls, the variable is added.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols<span class="fl">.0</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(lcavol~<span class="dv">1</span> ,<span class="dt">data =</span> prostate.train)
 model.scope &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">upper=</span>ols<span class="fl">.1</span>, <span class="dt">lower=</span>ols<span class="fl">.0</span>)

@@ -322,16 +322,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Clearly, implicit parallelism is more desirable, but the state of mathematical computing is such that no sufficiently general implicit parallelism framework exists. The <a href="https://www.r-consortium.org/projects/awarded-projects">R Consortium</a> is currently financing a major project for a A “Unified Framework For Distributed Computing in R” so we can expect things to change soon. In the meanwhile, most of the parallel implementations are explicit.</p>
 <div id="explicit-parallelism" class="section level2">
 <h2><span class="header-section-number">16.1</span> Explicit Parallelism</h2>
-<p>R provides many frameworks for explicit parallelism. Because the parallelism is initiated by the user, we first need to decide <strong>when to parallelize?</strong> As a rule of thumb, you want to parallelise when you encounter a CPU bottleneck, and not a memory bottlenck. Memory bottlenecks are released with Sparsity (Chapter <a href="sparse.html#sparse">14</a>), or efficient representation (Chapter <a href="memory.html#memory">15</a>).</p>
-<p>Several ways to diagnose your bottlenck include:</p>
+<p>R provides many frameworks for explicit parallelism. Because the parallelism is initiated by the user, we first need to decide <strong>when to parallelize?</strong> As a rule of thumb, you want to parallelise when you encounter a CPU bottleneck, and not a memory bottleneck. Memory bottlenecks are released with Sparsity (Chapter <a href="sparse.html#sparse">14</a>), or efficient representation (Chapter <a href="memory.html#memory">15</a>).</p>
+<p>Several ways to diagnose your bottleneck include:</p>
 <ul>
 <li>Keep your Windows Task Manager, or Linux <code>top</code> open, and look for the CPU load.</li>
-<li>The computation takes a long time, and when you stop it pressign ESC, R is immediatly responsive (if it is not immediatly responsive, you have a memory bottlenck).</li>
+<li>The computation takes a long time, and when you stop it pressing ESC, R is immediately responsive (if it is not immediately responsive, you have a memory bottleneck).</li>
 <li>Profile your code. See Hadley’s <a href="http://adv-r.had.co.nz/Profiling.html">guide</a>.</li>
 </ul>
 <p>For reasons detailed in <span class="citation">Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span>, we will present the <strong>foreach</strong> parallelisation package <span class="citation">(Analytics and Weston <a href="#ref-foreach">2015</a>)</span>. It will allow us to:</p>
 <ol style="list-style-type: decimal">
-<li><p>Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can then switch the underlying parallesation mechanism.</p></li>
+<li><p>Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can then switch the underlying parallelisation mechanism.</p></li>
 <li><p>Combine with the <code>big.matrix</code> object from Chapter <a href="memory.html#memory">15</a> for <em>shared memory parallisation</em>: all the machines may see the same data, so that we don’t need to export objects from machine to machine.</p></li>
 </ol>
 <p>What do we mean by “switch the underlying parallesation mechanism”? It means there are several packages that will handle communication between machines. Some are very general and will work on any cluster that does not even need to be on the same machine. Some are more specific and will work only on a single multicore machine (not a cluster) with a particular operating system. These mechanisms include <strong>multicore</strong>, <strong>snow</strong>, <strong>parallel</strong>, and <strong>Rmpi</strong>. The compatibility between these mechanisms and <strong>foreach</strong> is provided by another set of packages: <strong>doMC</strong> , <strong>doMPI</strong>, <strong>doRedis</strong>, <strong>doParallel</strong>, and <strong>doSNOW</strong>.</p>
@@ -358,7 +358,7 @@ result &lt;-<span class="st"> </span><span class="kw">foreach</span>(<span class
 ## [1] 1.732051</code></pre>
 <p>Things to note:</p>
 <ul>
-<li><code>makeCluster</code> creates an object with the information our cluster. One a single machine it is very simple. On a cluster of machines, you will need to specify the i.p. adresses or other identifiers ot the machines.</li>
+<li><code>makeCluster</code> creates an object with the information our cluster. One a single machine it is very simple. On a cluster of machines, you will need to specify the i.p. addresses or other identifiers of the machines.</li>
 <li><code>registerDoParallel</code> is used to inform the <strong>foreach</strong> package of the presence of our cluster.</li>
 <li>The <code>foreach</code> function handles the looping. In particular note the <code>%dopar</code> operator that ensures that looping is in parallel. <code>%dopar%</code> can be replaced by <code>%do%</code> if you want serial looping (like the <code>for</code> loop), for instance, for debugging.</li>
 <li>The output of the various machines is collected by <code>foreach</code> to a list object.</li>
@@ -366,7 +366,7 @@ result &lt;-<span class="st"> </span><span class="kw">foreach</span>(<span class
 <li>We can check how many workers were involved using the <code>getDoParWorkers()</code> function.</li>
 <li>We can check the parallelisation mechanism used with the <code>getDoParName()</code> function.</li>
 </ul>
-<p>Here is a more involved example. We now try to make <a href="https://en.wikipedia.org/wiki/Bootstrapping_(statistics)">Bootstrap</a> inference on the coeffieicents of a logistic regression. Bootstrapping means that in each iteration, we resample the data, and refit the model.</p>
+<p>Here is a more involved example. We now try to make <a href="https://en.wikipedia.org/wiki/Bootstrapping_(statistics)">Bootstrap</a> inference on the coefficients of a logistic regression. Bootstrapping means that in each iteration, we resample the data, and refit the model.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>iris[<span class="kw">which</span>(iris[,<span class="dv">5</span>] !=<span class="st"> &quot;setosa&quot;</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">5</span>)]
 trials &lt;-<span class="st"> </span><span class="fl">1e4</span>
 ptime &lt;-<span class="st"> </span><span class="kw">system.time</span>({
@@ -378,11 +378,11 @@ ptime &lt;-<span class="st"> </span><span class="kw">system.time</span>({
  })[<span class="dv">3</span>]</code></pre></div>
 <pre><code>## Warning: closing unused connection 8 (&lt;-localhost:11728)</code></pre>
 <pre><code>## Warning: closing unused connection 7 (&lt;-localhost:11728)</code></pre>
-<pre><code>## Warning: closing unused connection 4 (&lt;-localhost:11728)</code></pre>
-<pre><code>## Warning: closing unused connection 3 (&lt;-localhost:11728)</code></pre>
+<pre><code>## Warning: closing unused connection 6 (&lt;-localhost:11728)</code></pre>
+<pre><code>## Warning: closing unused connection 5 (&lt;-localhost:11728)</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ptime</code></pre></div>
 <pre><code>## elapsed 
-##  19.037</code></pre>
+##  20.033</code></pre>
 <p>Things to note:</p>
 <ul>
 <li>As usual, we use the <code>foreach</code> function with the <code>%dopar%</code> operator to loop in parallel.</li>
@@ -399,8 +399,8 @@ ptime &lt;-<span class="st"> </span><span class="kw">system.time</span>({
  })[<span class="dv">3</span>]
 stime</code></pre></div>
 <pre><code>## elapsed 
-##  35.027</code></pre>
-<p>Yes. This takes clearly longer.</p>
+##  35.227</code></pre>
+<p>Yes. Parallelising is clearly faster.</p>
 <p>Let’s see how we can combine the power of <strong>bigmemory</strong> and <strong>foreach</strong> by creating a file mapped <code>big.matrix</code> object, which is shared by all machines. The following example is taken from <span class="citation">Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span>, and uses the <code>big.matrix</code> object we created in Chapter <a href="memory.html#memory">15</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bigmemory)
 x &lt;-<span class="st"> </span><span class="kw">attach.big.matrix</span>(<span class="st">&quot;airline.desc&quot;</span>)
@@ -413,12 +413,12 @@ cl &lt;-<span class="st"> </span><span class="kw">makeSOCKcluster</span>(<span c
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xdesc &lt;-<span class="st"> </span><span class="kw">describe</span>(x) </code></pre></div>
 <p>Split the data along values of <code>BENE_AGE_CAT_CD</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">G &lt;-<span class="st"> </span><span class="kw">split</span>(<span class="dv">1</span>:<span class="kw">nrow</span>(x), x[, <span class="st">&quot;BENE_AGE_CAT_CD&quot;</span>]) </code></pre></div>
-<p>Define a function that coputes quantiles of <code>CAR_LINE_ICD9_DGNS_CD</code>.</p>
+<p>Define a function that computes quantiles of <code>CAR_LINE_ICD9_DGNS_CD</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">GetDepQuantiles &lt;-<span class="st"> </span>function(rows, data) {
  <span class="kw">quantile</span>(data[rows, <span class="st">&quot;CAR_LINE_ICD9_DGNS_CD&quot;</span>], <span class="dt">probs =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.9</span>, <span class="fl">0.99</span>),
  <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
 }</code></pre></div>
-<p>We are all set up to loop, in paralle, and compute quantiles of <code>CAR_LINE_ICD9_DGNS_CD</code> for each value of <code>BENE_AGE_CAT_CD</code>.</p>
+<p>We are all set up to loop, in parallel, and compute quantiles of <code>CAR_LINE_ICD9_DGNS_CD</code> for each value of <code>BENE_AGE_CAT_CD</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">qs &lt;-<span class="st"> </span><span class="kw">foreach</span>(<span class="dt">g =</span> G, <span class="dt">.combine =</span> rbind) %dopar%<span class="st"> </span>{
  <span class="kw">require</span>(<span class="st">&quot;bigmemory&quot;</span>)
  x &lt;-<span class="st"> </span><span class="kw">attach.big.matrix</span>(xdesc)
@@ -435,6 +435,11 @@ qs</code></pre></div>
 </div>
 <div id="implicit-parallelism" class="section level2">
 <h2><span class="header-section-number">16.2</span> Implicit Parallelism</h2>
+<p>We will not elaborate on implicit parallelism except mentioning the following:</p>
+<ul>
+<li>You can enjoy parallel linear algebra by replacing the linear algebra libraries with BLAS and LAPACK as described <a href="https://www.r-bloggers.com/faster-r-through-better-blas/">here</a>.</li>
+<li>You should read the “Parallel computing: Implicit parallelism” section in the <a href="https://cran.r-project.org/web/views/HighPerformanceComputing.html">High Performance Computing</a> task view, for the latest developments in implicit parallelism.</li>
+</ul>
 </div>
 <div id="bibliographic-notes-12" class="section level2">
 <h2><span class="header-section-number">16.3</span> Bibliographic Notes</h2>

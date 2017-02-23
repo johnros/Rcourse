@@ -372,40 +372,40 @@ summary.lm<span class="fl">.5</span></code></pre></div>
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -1.5152 -1.0184 -0.4245  0.9558  1.7313 
+## -1.9465 -0.6274  0.1723  0.6430  1.5653 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  2.45350    0.28398    8.64 8.06e-08 ***
-## z            1.03288    0.03105   33.26  &lt; 2e-16 ***
+## (Intercept)  2.09722    0.22380   9.371  2.4e-08 ***
+## z            0.97239    0.02659  36.571  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 1.124 on 18 degrees of freedom
-## Multiple R-squared:  0.984,  Adjusted R-squared:  0.9831 
-## F-statistic:  1107 on 1 and 18 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 0.9574 on 18 degrees of freedom
+## Multiple R-squared:  0.9867, Adjusted R-squared:  0.986 
+## F-statistic:  1337 on 1 and 18 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>The summary of the mixed-model</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">summary.lme<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">summary</span>(lme<span class="fl">.5</span>)
 summary.lme<span class="fl">.5</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: y ~ 1 | z
 ## 
-## REML criterion at convergence: 107.3
+## REML criterion at convergence: 102.1
 ## 
 ## Scaled residuals: 
 ##      Min       1Q   Median       3Q      Max 
-## -0.94266 -0.76048  0.00279  0.73788  1.02331 
+## -1.29986 -0.38512  0.00586  0.29812  1.43364 
 ## 
 ## Random effects:
 ##  Groups   Name        Variance Std.Dev.
-##  z        (Intercept) 77.260   8.790   
-##  Residual              1.643   1.282   
+##  z        (Intercept) 67.866   8.238   
+##  Residual              1.097   1.047   
 ## Number of obs: 20, groups:  z, 10
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept)   -1.937      2.794  -0.693</code></pre>
-<p>Look at the standard error of the global mean, i.e., the intercept: for <code>lm</code> it is 0.2839826, and for <code>lme</code> it is <code>summary.lme.5$coefficients[1,2]</code>. Why this difference? Because <code>lm</code> discounts the group effect, while it should treat it as another source of variability. Clearly, inference using <code>lm</code> is overly optimistic.</p>
+## (Intercept)  -0.2882     2.6156   -0.11</code></pre>
+<p>Look at the standard error of the global mean, i.e., the intercept: for <code>lm</code> it is 0.2238022, and for <code>lme</code> it is <code>summary.lme.5$coefficients[1,2]</code>. Why this difference? Because <code>lm</code> discounts the group effect, while it should treat it as another source of variability. Clearly, inference using <code>lm</code> is overly optimistic.</p>
 <div id="a-single-random-effect" class="section level3">
 <h3><span class="header-section-number">7.2.1</span> A Single Random Effect</h3>
 <p>We will use the <code>Dyestuff</code> data from the package, which encodes the yield, in grams, of a coloring solution (dyestuff), produced in 6 batches using 5 different preparations.</p>
@@ -421,7 +421,7 @@ summary.lme<span class="fl">.5</span></code></pre></div>
 ## 6     B  1540</code></pre>
 <p>And visually</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Yield~Batch)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-173-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-131-1.png" width="50%" /></p>
 <p>If we want to do inference on the mean yield, we need to account for the two sources of variability: the batch effect, and the measurement error. We thus fit a mixed model, with an intercept and random batch effect (which means this is it not a bona-fide mixed-model, but rather, a simple random-effect model).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme<span class="fl">.1</span>&lt;-<span class="st"> </span><span class="kw">lmer</span>( Yield ~<span class="st"> </span><span class="dv">1</span>  |<span class="st"> </span>Batch  , Dyestuff )
 <span class="kw">summary</span>(lme<span class="fl">.1</span>)</code></pre></div>
@@ -467,10 +467,16 @@ summary.lme<span class="fl">.5</span></code></pre></div>
 ## 6       21     a      F</code></pre>
 <p>One sample per combination:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(Penicillin)</code></pre></div>
-<pre><code>## The following objects are masked from Penicillin (pos = 37):
+<pre><code>## The following objects are masked from Penicillin (pos = 4):
 ## 
 ##     diameter, plate, sample</code></pre>
-<pre><code>## The following objects are masked from Penicillin (pos = 40):
+<pre><code>## The following objects are masked from Penicillin (pos = 7):
+## 
+##     diameter, plate, sample</code></pre>
+<pre><code>## The following objects are masked from Penicillin (pos = 42):
+## 
+##     diameter, plate, sample</code></pre>
+<pre><code>## The following objects are masked from Penicillin (pos = 45):
 ## 
 ##     diameter, plate, sample</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(sample, plate)</code></pre></div>
@@ -487,7 +493,7 @@ summary.lme<span class="fl">.5</span></code></pre></div>
               <span class="dt">groups =</span> sample,
               <span class="dt">ylab =</span> <span class="st">&quot;Plate&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;Diameter of growth inhibition zone (mm)&quot;</span>,
               <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">&quot;p&quot;</span>, <span class="st">&quot;a&quot;</span>), <span class="dt">auto.key =</span> <span class="kw">list</span>(<span class="dt">columns =</span> <span class="dv">6</span>, <span class="dt">lines =</span> <span class="ot">TRUE</span>))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-176-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-134-1.png" width="50%" /></p>
 <p>Let’s fit a mixed-effects model with a random plate effect, and a random sample effect:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">lmer</span> ( diameter ~<span class="st">  </span><span class="dv">1</span>+<span class="st"> </span>(<span class="dv">1</span>|<span class="st"> </span>plate ) +<span class="st"> </span>(<span class="dv">1</span>|<span class="st"> </span>sample ) , Penicillin )
 <span class="kw">fixef</span>(lme<span class="fl">.2</span>) <span class="co"># Fixed effects</span></code></pre></div>
@@ -544,10 +550,10 @@ qrr2 &lt;-<span class="st"> </span>lattice::<span class="kw">dotplot</span>(rand
 </ul>
 <p>Variability in response for each plate, over various sample types:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(qrr2[[<span class="dv">1</span>]]) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-179-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-137-1.png" width="50%" /></p>
 <p>Variability in response for each sample type, over the various plates:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(qrr2[[<span class="dv">2</span>]])  </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-180-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-138-1.png" width="50%" /></p>
 </div>
 <div id="a-full-mixed-model" class="section level3">
 <h3><span class="header-section-number">7.2.3</span> A Full Mixed-Model</h3>
@@ -558,7 +564,7 @@ lattice::<span class="kw">xyplot</span>(Reaction ~<span class="st"> </span>Days 
              <span class="dt">index.cond =</span> function(x,y) <span class="kw">coef</span>(<span class="kw">lm</span>(y ~<span class="st"> </span>x))[<span class="dv">1</span>],
              <span class="dt">xlab =</span> <span class="st">&quot;Days of sleep deprivation&quot;</span>,
              <span class="dt">ylab =</span> <span class="st">&quot;Average reaction time (ms)&quot;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-181-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-139-1.png" width="50%" /></p>
 <p>We now want to estimate the (fixed) effect of the days of deprivation, while allowing each subject to have his/hers own effect. The fixed effect can thus be thought of as the average slope over subjects.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">lmer</span> ( Reaction ~<span class="st"> </span>Days +<span class="st"> </span>( Days |<span class="st"> </span>Subject ) , <span class="dt">data=</span> sleepstudy )</code></pre></div>
 <p>Things to note:</p>
@@ -594,9 +600,9 @@ lattice::<span class="kw">xyplot</span>(Reaction ~<span class="st"> </span>Days 
 ## 372  12.3145394   1.2840297</code></pre>
 <p>Did we really need the whole <code>lme</code> machinery to fit a within-subject linear regression and then average over subjects? The answer is yes. The assumptions on the distribution of random effect, namely, that they are normally distributed, allows us to pool information from one subject to another. In the words of John Tukey: “we borrow strength over subjects”. Is this a good thing? If the normality assumption is true, it certainly is.</p>
 <p>To demonstrate the “strength borrowing”, here is a comparison of the subject-wise intercepts of the mixed-model, versus a subject-wise linear model. They are not the same.</p>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-184-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-142-1.png" width="50%" /></p>
 <p>Here is a comparison of the random-day effect from <code>lme</code> versus a subject-wise linear model. They are not the same.</p>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-185-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-143-1.png" width="50%" /></p>
 </div>
 </div>
 <div id="bibliographic-notes-5" class="section level2">
