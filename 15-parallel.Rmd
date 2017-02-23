@@ -27,6 +27,17 @@ Several ways to diagnose your bottlenck include:
 
 - Keep your Windows Task Manager, or Linux `top` open, and look for the CPU load. 
 - The computation takes a long time, and when you stop it pressign ESC, R is immediatly responsive (if it is not immediatly responsive, you have a memory bottlenck).
+- Profile your code. See Hadley's [guide](http://adv-r.had.co.nz/Profiling.html).
+
+For reasons detailed in @kane2013scalable, we will present the __foreach__ parallelisation package [@foreach]. 
+It will allow us to: 
+
+1. Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can then switch the underlying parallesation mechanism. 
+1. Combine with the `big.matrix` object from Chapter \@ref(memory) for _shared memory parallisation_: all the machines may see the same data, so that we don't need to export objects from machine to machine. 
+
+
+
+
 
 
 
