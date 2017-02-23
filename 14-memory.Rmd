@@ -3,10 +3,10 @@
 <!-- our of ram -->
 <!-- databases -->
 
-As put by @kane2013scalable, it was quite  puzzeling when very few of the competitors, for the Million dollars prize in the [Netflix challenge](https://en.wikipedia.org/wiki/Netflix_Prize), were statisticians.
+As put by @kane2013scalable, it was quite  puzzling when very few of the competitors, for the Million dollars prize in the [Netflix challenge](https://en.wikipedia.org/wiki/Netflix_Prize), were statisticians.
 This is perhaps because the statistical community historically uses SAS, SPSS, and R. 
 The first two tools are very well equipped to deal with big data, but are very unfriendly when when trying to implement a new method. 
-R, on the other hand, is very friendly for inovation, but was not equipped to deal with the large data sets of the Netflix challenge. 
+R, on the other hand, is very friendly for innovation, but was not equipped to deal with the large data sets of the Netflix challenge. 
 A lot has changed in R since 2006. This is the topic of this chapter. 
 
 
@@ -17,7 +17,7 @@ It is also possible that your data does not fit in RAM, even if sparse.
 There are several scenarios to consider:
 
 1. Your data fits in RAM, but is too big to compute with.
-1. Your data does not fit in RAM, but fits in your local storate (HD, SSD, etc.)
+1. Your data does not fit in RAM, but fits in your local storage (HD, SSD, etc.)
 1. Your data does not fit in your local storage.
 
 If your data fits in RAM, but is too large to compute with, the solution will typically be to replace the algorithm you are using.
@@ -44,10 +44,10 @@ Also, while I LOVE Linux, I would never dare to recommend switching to Linux jus
 ## Efficient Computing from RAM
 
 If our data can fit in RAM, but is still too large to compute with it (recall that fitting a model requires roughly 5-10 times more memory than saving it), there are several facilities to be used.
-The first, is the sparse represantation discussed in Chapter \@ref(sparse), which is relavant when you have factors, which will typically map to sparse model matrices. 
+The first, is the sparse representation discussed in Chapter \@ref(sparse), which is relevant when you have factors, which will typically map to sparse model matrices. 
 Another way is to use memory efficient algorithms. 
 
-The `giblm::giblm` function provied an EMA for linear regression.
+The `giblm::giblm` function provides an EMA for linear regression.
 The following if taken from the function's example.
 
 ```{r biglm}
@@ -78,7 +78,7 @@ b <- lm(ff, data=trees)
 rbind(coef(a),coef(b))
 ```
 
-Other pacakges that follow these lines, particularly with classification using SVMs, are  __LiblineaR__, and __RSofia__ packages. 
+Other packages that follow these lines, particularly with classification using SVMs, are  __LiblineaR__, and __RSofia__ packages. 
 
 We do not recommend this approach since it is limited to very particular scenarios, whereas the upcoming approaches are much more general.
 
@@ -93,11 +93,33 @@ Several R packages provide interfaces to these databases, such as __sqldf__, __R
 Some will even include the database as part of the package itself.
 
 Storing your data in a database has the advantage that you can typically rely on database providers to include very efficient algorithms for the queries they support. 
-On the downside, SQL queries may include a lot of summary statistics, but will rarely include model fitting^[This is slowly changing. Indeed, Microsoft's SQL Server 2016 is already providing [in-database-analytics](https://blogs.technet.microsoft.com/dataplatforminsider/2016/03/29/in-database-advanced-analytics-with-r-in-sql-server-2016/), and other will surely follow. ]. 
+On the downside, SQL queries may include a lot of summary statistics, but will rarely include model fitting^[This is slowly changing. Indeed, Microsoft's SQL Server 2016 is already providing [in-database-analytics](https://blogs.technet.microsoft.com/dataplatforminsider/2016/03/29/in-database-advanced-analytics-with-r-in-sql-server-2016/), and other will surely follow.]. 
 This means that even for simple things like linear models, you will have to revert to R's facilities-- typically some sort of EMA with chunking from the database. 
-For this reason, and others, we prefer to compute from efficient file stuctures, as described in Section \@ref(file-structure).
+For this reason, and others, we prefer to compute from efficient file structures, as described in Section \@ref(file-structure).
 
-If, however, you have a powerful databse around, or you only need summary statistics, or you are an SQL master, keep reading.
+If, however, you have a powerful database around, or you only need summary statistics, or you are an SQL master, keep reading.
+
+The following example is taken from the __dplyr__ [Databases vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html).
+The package __RSQLite__ includes an SQLite server, which we now setup for demonstration.
+Typically, setting up a database like this makes no sense, since it requires loading the data into RAM, which is precisely what we want to avoid.
+
+```{r}
+library(RSQLite)
+library(dplyr)
+my_db <- src_sqlite(path = "my_db.sqlite3", create = TRUE)
+
+library(nycflights13)
+flights_sqlite <- copy_to(
+  dest= my_db, 
+  df= flights, 
+  temporary = FALSE, 
+  indexes = list(c("year", "month", "day"), "carrier", "tailnum"))
+```
+
+Things to note:
+- `src_sqlite` to starts an empty table, managed by SQLite, at the desired path.
+- `copy_to` copies data from R to the database. 
+
 
 
 
@@ -111,7 +133,7 @@ If, however, you have a powerful databse around, or you only need summary statis
 
 ## Computing From Efficient File Structrures {#file-structure}
 
-The foundamental idea of computing out of RAM is to save your data on disk in an efficient structure, and then use algorithms that are aware of this structure. 
+The fundamental idea of computing out of RAM is to save your data on disk in an efficient structure, and then use algorithms that are aware of this structure. 
 These algorithms will typically be fed with chunks, or batches, of the whole data, so that at no time will you need the whole data in RAM.
 
 
