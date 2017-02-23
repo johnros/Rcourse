@@ -8,7 +8,7 @@ By default, no matter how many cores you have, the operating system will allocat
 For starters, we need to distinguish between two types of parallelism:
 
 1. __Explicit parallelism__: where the user handles the parallelisation. 
-1. __Implicit parallelism__: where the compiler handles the nonparallel.
+1. __Implicit parallelism__: where the parallelisation is abstracted away from the user.
 
 Clearly, implicit parallelism is more desirable, but the state of mathematical computing is such that no sufficiently general implicit parallelism framework exists. 
 The [R Consortium](https://www.r-consortium.org/projects/awarded-projects) is currently financing a major project for a A "Unified Framework For Distributed Computing in R" so we can expect things to change soon. 
@@ -21,7 +21,7 @@ In the meanwhile, most of the parallel implementations are explicit.
 R provides many frameworks for explicit parallelism.
 Because the parallelism is initiated by the user, we first need to decide __when to parallelize?__
 As a rule of thumb, you want to parallelise when you encounter a CPU bottleneck, and not a memory bottleneck.
-Memory bottlenecks are released with Sparsity (Chapter \@ref(sparse)), or efficient representation (Chapter \@ref(memory)).
+Memory bottlenecks are released with Sparsity (Chapter \@ref(sparse)), or efficient memory usage (Chapter \@ref(memory)).
 
 Several ways to diagnose your bottleneck include:
 
