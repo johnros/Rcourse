@@ -108,7 +108,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#acknoledgements"><i class="fa fa-check"></i><b>1.1</b> Acknoledgements</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i><b>1.1</b> Acknowledgements</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
@@ -388,24 +388,24 @@ tbl_df &lt;-<span class="st"> </span>tbl %&gt;%<span class="st"> </span>as.data.
                  )
              )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   6.540   0.000   6.542</code></pre>
+##   7.188   0.000   7.190</code></pre>
 <p>And now the timing for <strong>data.table</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_dt[ ,  .( <span class="dt">x1 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x1)), <span class="dt">x2 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x2)), <span class="dt">x3 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x3)) ), .(v1,v2)]
   )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.336   0.000   0.335</code></pre>
+##   0.376   0.000   0.374</code></pre>
 <p>The winner is obvious. Let’s compare filteting (i.e. row subsets, i.e. SQL’s SELECT).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_df %&gt;%<span class="st"> </span><span class="kw">filter</span>(v1 ==<span class="st"> &quot;1&quot;</span>) 
   )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.012   0.000   0.012</code></pre>
+##   0.012   0.000   0.011</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_dt[v1 ==<span class="st"> &quot;1&quot;</span>] 
   )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.016   0.000   0.014</code></pre>
+##   0.016   0.000   0.015</code></pre>
 </div>
 </div>
 <div id="computing-from-a-database" class="section level2">
@@ -597,7 +597,7 @@ gitbook.start({
 "link": "https://github.com/rstudio/bookdown-demo/edit/master/14-memory.Rmd",
 "text": "Edit"
 },
-"download": null,
+"download": ["Rcourse.pdf"],
 "toc": {
 "collapse": "subsection"
 }

@@ -108,7 +108,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#acknoledgements"><i class="fa fa-check"></i><b>1.1</b> Acknoledgements</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i><b>1.1</b> Acknowledgements</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
@@ -317,12 +317,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>For starters, we need to distinguish between two types of parallelism:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Explicit parallelism</strong>: where the user handles the parallelisation.</li>
-<li><strong>Implicit parallelism</strong>: where the compiler handles the nonparallel.</li>
+<li><strong>Implicit parallelism</strong>: where the parallelisation is abstracted away from the user.</li>
 </ol>
 <p>Clearly, implicit parallelism is more desirable, but the state of mathematical computing is such that no sufficiently general implicit parallelism framework exists. The <a href="https://www.r-consortium.org/projects/awarded-projects">R Consortium</a> is currently financing a major project for a A “Unified Framework For Distributed Computing in R” so we can expect things to change soon. In the meanwhile, most of the parallel implementations are explicit.</p>
 <div id="explicit-parallelism" class="section level2">
 <h2><span class="header-section-number">16.1</span> Explicit Parallelism</h2>
-<p>R provides many frameworks for explicit parallelism. Because the parallelism is initiated by the user, we first need to decide <strong>when to parallelize?</strong> As a rule of thumb, you want to parallelise when you encounter a CPU bottleneck, and not a memory bottleneck. Memory bottlenecks are released with Sparsity (Chapter <a href="sparse.html#sparse">14</a>), or efficient representation (Chapter <a href="memory.html#memory">15</a>).</p>
+<p>R provides many frameworks for explicit parallelism. Because the parallelism is initiated by the user, we first need to decide <strong>when to parallelize?</strong> As a rule of thumb, you want to parallelise when you encounter a CPU bottleneck, and not a memory bottleneck. Memory bottlenecks are released with Sparsity (Chapter <a href="sparse.html#sparse">14</a>), or efficient memory usage (Chapter <a href="memory.html#memory">15</a>).</p>
 <p>Several ways to diagnose your bottleneck include:</p>
 <ul>
 <li>Keep your Windows Task Manager, or Linux <code>top</code> open, and look for the CPU load.</li>
@@ -382,7 +382,7 @@ ptime &lt;-<span class="st"> </span><span class="kw">system.time</span>({
 <pre><code>## Warning: closing unused connection 5 (&lt;-localhost:11728)</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ptime</code></pre></div>
 <pre><code>## elapsed 
-##  20.033</code></pre>
+##  21.863</code></pre>
 <p>Things to note:</p>
 <ul>
 <li>As usual, we use the <code>foreach</code> function with the <code>%dopar%</code> operator to loop in parallel.</li>
@@ -399,7 +399,7 @@ ptime &lt;-<span class="st"> </span><span class="kw">system.time</span>({
  })[<span class="dv">3</span>]
 stime</code></pre></div>
 <pre><code>## elapsed 
-##  35.227</code></pre>
+##   37.13</code></pre>
 <p>Yes. Parallelising is clearly faster.</p>
 <p>Let’s see how we can combine the power of <strong>bigmemory</strong> and <strong>foreach</strong> by creating a file mapped <code>big.matrix</code> object, which is shared by all machines. The following example is taken from <span class="citation">Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span>, and uses the <code>big.matrix</code> object we created in Chapter <a href="memory.html#memory">15</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bigmemory)
@@ -438,7 +438,7 @@ qs</code></pre></div>
 <p>We will not elaborate on implicit parallelism except mentioning the following:</p>
 <ul>
 <li>You can enjoy parallel linear algebra by replacing the linear algebra libraries with BLAS and LAPACK as described <a href="https://www.r-bloggers.com/faster-r-through-better-blas/">here</a>.</li>
-<li>You should read the “Parallel computing: Implicit parallelism” section in the <a href="https://cran.r-project.org/web/views/HighPerformanceComputing.html">High Performance Computing</a> task view, for the latest developments in implicit parallelism.</li>
+<li>You should read the “Parallel computing: Implicit parallelism” section in the excellent <a href="https://cran.r-project.org/web/views/HighPerformanceComputing.html">High Performance Computing</a> task view, for the latest developments in implicit parallelism.</li>
 </ul>
 </div>
 <div id="bibliographic-notes-12" class="section level2">
@@ -500,7 +500,7 @@ gitbook.start({
 "link": "https://github.com/rstudio/bookdown-demo/edit/master/15-parallel.Rmd",
 "text": "Edit"
 },
-"download": null,
+"download": ["Rcourse.pdf"],
 "toc": {
 "collapse": "subsection"
 }

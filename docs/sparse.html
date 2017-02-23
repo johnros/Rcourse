@@ -108,7 +108,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#acknoledgements"><i class="fa fa-check"></i><b>1.1</b> Acknoledgements</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i><b>1.1</b> Acknowledgements</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a><ul>
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
@@ -393,6 +393,8 @@ X<span class="fl">.2</span>&lt;-<span class="st"> </span><span class="kw">as</sp
 ##   0.204   0.000   0.203</code></pre>
 <p>It is only left to verify that the returned coefficients are the same:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(lm<span class="fl">.2</span>, <span class="kw">unname</span>(lm<span class="fl">.1</span>$coefficients), <span class="dt">tolerance =</span> <span class="fl">1e-12</span>)</code></pre></div>
+<pre><code>## Warning: closing unused connection 10 (&lt;-localhost:11728)</code></pre>
+<pre><code>## Warning: closing unused connection 9 (&lt;-localhost:11728)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <p>You can also visualize the non zero entries, i.e., the sparsity structure.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(X<span class="fl">.2</span>[<span class="dv">1</span>:<span class="dv">26</span>,<span class="dv">1</span>:<span class="dv">26</span>])</code></pre></div>
@@ -571,7 +573,7 @@ gitbook.start({
 "link": "https://github.com/rstudio/bookdown-demo/edit/master/13-sparsity.Rmd",
 "text": "Edit"
 },
-"download": null,
+"download": ["Rcourse.pdf"],
 "toc": {
 "collapse": "subsection"
 }
