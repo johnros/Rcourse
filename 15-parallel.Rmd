@@ -54,12 +54,23 @@ If you do happen to run on Linux, or Unix, you will want to replace all __doPara
 ```
 
 
-Let's start with a simple example
+Let's start with a simple example, taken from ["Getting Started with doParallel and foreach"](http://debian.mc.vanderbilt.edu/R/CRAN/web/packages/doParallel/vignettes/gettingstartedParallel.pdf).
 
 ```{r}
-
+library(doParallel)
+cl <- makeCluster(spec = 2)
+registerDoParallel(cl)
+result <- foreach(i=1:3) %dopar% sqrt(i)
+class(result)
+result
 ```
 
+Things to note:
+
+- `makeCluster` creates an object with the information our cluster. One a single machine it is very simple. On a cluster of machines, you will need to specify the i.p. adresses or other identifiers ot the machines. 
+- `registerDoParallel` is used to inform the __foreach__ package of the presence of our cluster. 
+- The `foreach` function handles the looping. In particular note the `%dopar` operator that ensures that looping is in parallel. `%dopar%` can be replaced by `%do%` if you want serial looping (like the `for` loop), for instance, for debugging. 
+- The output of the various machines is collected by `foreach` to a list object. 
 
 
 
