@@ -1,7 +1,44 @@
 # Parallel Computing {#parallel}
 
+You would think that because you have an expensive multicore computer your computations will speed up. 
+Well, no.
+At least not if you don't make sure they do.
+By default, no matter how many cores you have, the operating system will allocate each R session to a single core. 
+
+For starters, we need to distinguish between two types of parallelism:
+
+1. __Explicit parallelism__: where the user handles the parallelisation. 
+1. __Implicit parallelism__: where the compiler handles the nonparallel.
+
+Clearly, implicit parallelism is more desirable, but the state of mathematical computing is such that no sufficiently general implicit parallelism framework exists. 
+The [R Consortium](https://www.r-consortium.org/projects/awarded-projects) is currently financing a major project for a A "Unified Framework For Distributed Computing in R" so we can expect things to change soon. 
+In the meanwhile, most of the parallel implementations are explicit. 
+
+
+
+## Explicit Parallelism
+
+R provides many frameworks for explicit parallelism.
+Because the parallelism is initiated by the user, we first need to decide __when to parallelize?__
+As a rule of thumb, you want to parallelise when you encounter a CPU bottleneck, and not a memory bottlenck.
+Memory bottlenecks are released with Sparsity (Chapter \@ref(sparse)), or efficient representation (Chapter \@ref(memory)).
+
+Several ways to diagnose your bottlenck include:
+
+- Keep your Windows Task Manager, or Linux `top` open, and look for the CPU load. 
+- The computation takes a long time, and when you stop it pressign ESC, R is immediatly responsive (if it is not immediatly responsive, you have a memory bottlenck).
+
+
+
+## Implicit Parallelism
+
+
+
+
+
+
 
 ## Bibliographic Notes
-For an up-to-date list of packages suppoerting parallel programming see the High Performance Computing [R task view](https://cran.r-project.org/web/views/HighPerformanceComputing.html).
-For a brief and excellent explanation on paralle computing in R see @schmidberger2009state.
+For a brief and excellent explanation on parallel computing in R see @schmidberger2009state.
 For a full review see @chapple2016mastering.
+For an up-to-date list of packages supporting parallel programming see the High Performance Computing [R task view](https://cran.r-project.org/web/views/HighPerformanceComputing.html).
