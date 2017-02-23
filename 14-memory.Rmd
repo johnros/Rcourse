@@ -1,8 +1,5 @@
 # Memory Efficiency {#memory}
 
-<!-- our of ram -->
-<!-- databases -->
-
 As put by @kane2013scalable, it was quite  puzzling when very few of the competitors, for the Million dollars prize in the [Netflix challenge](https://en.wikipedia.org/wiki/Netflix_Prize), were statisticians.
 This is perhaps because the statistical community historically uses SAS, SPSS, and R. 
 The first two tools are very well equipped to deal with big data, but are very unfriendly when when trying to implement a new method. 
@@ -30,7 +27,6 @@ This will allow you to use the algorithms provided by your database, or let R us
 Alternatively, and preferably, you may avoid using a database, and work with the data directly form your local storage by saving your data in some efficient manner. 
 
 Finally, if your data does not fit on you local storage, you will need some external storage solution such as a distributed database, or distributed file system.
-
 
 
 ```{remark}
@@ -81,7 +77,14 @@ rbind(coef(a),coef(b))
 
 Other packages that follow these lines, particularly with classification using SVMs, are  __LiblineaR__, and __RSofia__ packages. 
 
-We do not recommend this approach since it is limited to very particular scenarios, whereas the upcoming approaches are much more general.
+
+### Summary Statistics from RAM
+
+If you are not going to do any model fitting, and all you want is efficient filtering, selection and summary statistics, then a lot of my warnings above are irrelevant.
+For these purposes, the facilities provided by __base__, __stats__, and __dplyr__ are probably enough.
+If the data is large, however, these facilities may be too slow.
+If your data fits into RAM, but speed bothers you, take a look at the __data.table__ package. 
+The syntax is less friendly than __dplyr__, but __data.table__ is BLAZING FAST compared to competitors. 
 
 
 
@@ -89,7 +92,7 @@ We do not recommend this approach since it is limited to very particular scenari
 
 ## Computing from a Database
 
-The early solutions to oversized data relied on storing your data in some relational database such as _MySQL_, _PostgresSQL_, _SQLite_, _H2_, _ODBC_, _Oracle_, etc.
+The early solutions to oversized data relied on storing your data in some relational database such as _MySQL_, _PostgresSQL_, _SQLite_, _H2_, _Oracle_, etc.
 Several R packages provide interfaces to these databases, such as __sqldf__, __RDBI__, __RSQite__.
 Some will even include the database as part of the package itself.
 
@@ -120,6 +123,7 @@ flights_sqlite <- copy_to(
 ```
 
 Things to note:
+
 - `src_sqlite` to starts an empty table, managed by SQLite, at the desired path.
 - `copy_to` copies data from R to the database. 
 - Typically, setting up a database like this makes no sense, since it requires loading the data into RAM, which is precisely what we want to avoid.
