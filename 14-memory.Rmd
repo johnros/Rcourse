@@ -85,6 +85,65 @@ For these purposes, the facilities provided by __base__, __stats__, and __dplyr_
 If the data is large, however, these facilities may be too slow.
 If your data fits into RAM, but speed bothers you, take a look at the __data.table__ package. 
 The syntax is less friendly than __dplyr__, but __data.table__ is BLAZING FAST compared to competitors. 
+Here is a little benchmark^[The code was contributed by Liad Shekel.].
+
+First, we setup the data. 
+```{r dplys vs datatable}
+library(data.table)
+
+n <- 1e6 # number of rows
+k <- c(200,500) # number of distinct values for each 'group_by' variable
+p <- 3 # number of variables to summarize
+
+L1 <- sapply(k, function(x) as.character(sample(1:x, n, replace = TRUE) ))
+L2 <- sapply(1:p, function(x) rnorm(n) )
+
+tbl <- data.table(L1,L2) %>% 
+  setnames(c(paste("v",1:length(k),sep=""), paste("x",1:p,sep="") ))
+
+tbl_dt <- tbl
+tbl_df <- tbl %>% as.data.frame
+```
+
+We compare the aggregation speeds.
+Here is the timing for __dplyr__.
+
+```{r datatable aggregation}
+system.time( tbl_df %>% 
+               group_by(v1,v2) %>% 
+               summarize(
+                 x1 = sum(abs(x1)), 
+                 x2 = sum(abs(x2)), 
+                 x3 = sum(abs(x3)) 
+                 )
+             )
+
+```
+
+And now the timing for __data.table__.
+
+```{r}
+system.time( 
+  tbl_dt[ ,  .( x1 = sum(abs(x1)), x2 = sum(abs(x2)), x3 = sum(abs(x3)) ), .(v1,v2)]
+  )
+```
+
+The winner is obvious. 
+Let's compare filteting (i.e. row subsets, i.e. SQL's SELECT).
+
+```{r}
+system.time( 
+  tbl_df %>% filter(v1 == "1") 
+  )
+```
+
+```{r}
+system.time( 
+  tbl_dt[v1 == "1"] 
+  )
+```
+
+The winner is obvious again. 
 
 
 
@@ -166,13 +225,13 @@ This extends the RAM to the capacity of your storage (HD, SSD,...).
 Performance slightly deteriorates, but the access is typically very fast.
 This approach is implemented in the __bigmemory__ package.
 
-1. __Efficient binaries__:
+1. __Efficient Binaries__:
 Where the data is stored as a file on the storage device. 
 The file is binary, with a well designed structure, so that chunking is easy.
 This approach is implemented in the __ff__ package, and the commercial __RevoScaleR__ package. 
 
 Your algorithms need to be aware of the facility you are using. 
-For this reason each facility ( __bigmemory__, __ff__, __RevoScaleR__,...) an eco-system of packages that implement various statistical methods using that facility.
+For this reason each facility ( __bigmemory__, __ff__, __RevoScaleR__,...) has an eco-system of packages that implement various statistical methods using that facility.
 As a general rule, you can see which package builds on a package using the _Reverse Depends_ entry in the package description.
 For the __bigmemory__ package, for instance, [we can see](https://cran.r-project.org/web/packages/bigmemory/index.html) that the packages __bigalgebra__, __biganalytics__, __bigFastlm__, __biglasso__, __bigpca__, __bigtabulate__, __GHap__, and __oem__, build upon it. 
 We can expect this list to expand.
@@ -227,7 +286,7 @@ Other notable packages that operate with `big.matrix` objects include:
 - __GHap__: Haplotype calling from phased SNP data.
 
 
-### Computing from a distributed file system
+## Computing from a distributed file system
 
 If your data is SOOO big that it cannot fit on your local storage, you will need a distributed file system or database.
 We do not cover this topic here, and refer the reader to the __RHipe__, __RHadoop__, and __RSpark__ packages and references therein.
