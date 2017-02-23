@@ -273,9 +273,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a><ul>
 <li class="chapter" data-level="15.1" data-path="memory.html"><a href="memory.html#efficient-computing-from-ram"><i class="fa fa-check"></i><b>15.1</b> Efficient Computing from RAM</a></li>
 <li class="chapter" data-level="15.2" data-path="memory.html"><a href="memory.html#computing-from-a-database"><i class="fa fa-check"></i><b>15.2</b> Computing from a Database</a></li>
-<li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a></li>
-<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#computing-from-databases"><i class="fa fa-check"></i><b>15.4</b> Computing From Databases</a></li>
-<li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.3.1</b> Computing from a distributed file system</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.4</b> Bibliographic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
 <li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.1</b> Bibliographic Notes</a></li>
@@ -363,7 +364,7 @@ a &lt;-<span class="st"> </span><span class="kw">update</span>(a,chunk3)
 <p>The early solutions to oversized data relied on storing your data in some relational database such as <em>MySQL</em>, <em>PostgresSQL</em>, <em>SQLite</em>, <em>H2</em>, <em>ODBC</em>, <em>Oracle</em>, etc. Several R packages provide interfaces to these databases, such as <strong>sqldf</strong>, <strong>RDBI</strong>, <strong>RSQite</strong>. Some will even include the database as part of the package itself.</p>
 <p>Storing your data in a database has the advantage that you can typically rely on database providers to include very efficient algorithms for the queries they support. On the downside, SQL queries may include a lot of summary statistics, but will rarely include model fitting<a href="#fn21" class="footnoteRef" id="fnref21"><sup>21</sup></a>. This means that even for simple things like linear models, you will have to revert to R’s facilities– typically some sort of EMA with chunking from the database. For this reason, and others, we prefer to compute from efficient file structures, as described in Section <a href="memory.html#file-structure">15.3</a>.</p>
 <p>If, however, you have a powerful database around, or you only need summary statistics, or you are an SQL master, keep reading.</p>
-<p>The package <strong>RSQLite</strong> includes an SQLite server, which we now setup for demonstration. The packag <strong>dplyr</strong>, discussed in the Hadleyverse Chapter <a href="hadley.html#hadley">13</a>, will take care of traslating the <strong>dplyr</strong> syntax, to the SQL syntax of the database. The following example is taken from the <strong>dplyr</strong> <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html">Databases vignette</a>.</p>
+<p>The package <strong>RSQLite</strong> includes an SQLite server, which we now setup for demonstration. The package <strong>dplyr</strong>, discussed in the Hadleyverse Chapter <a href="hadley.html#hadley">13</a>, will take care of translating the <strong>dplyr</strong> syntax, to the SQL syntax of the database. The following example is taken from the <strong>dplyr</strong> <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html">Databases vignette</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RSQLite)
 <span class="kw">library</span>(dplyr)
 
@@ -434,26 +435,56 @@ flights_sqlite &lt;-<span class="st"> </span><span class="kw">copy_to</span>(
 </ul>
 <p>There are several facilities that allow you to save and compute directly from your storage:</p>
 <ol style="list-style-type: decimal">
-<li><p><strong>Memory Mapping</strong>: Where RAM adresses are mapped to a file on your storage. This extends the RAM to the capacity of your storage (HD, SSD,…). Performance slightly deteriorates, but the access is typically very fast. This approach is implemented in the <strong>bigmemory</strong> package.</p></li>
+<li><p><strong>Memory Mapping</strong>: Where RAM addresses are mapped to a file on your storage. This extends the RAM to the capacity of your storage (HD, SSD,…). Performance slightly deteriorates, but the access is typically very fast. This approach is implemented in the <strong>bigmemory</strong> package.</p></li>
 <li><p><strong>Efficient binaries</strong>: Where the data is stored as a file on the storage device. The file is binary, with a well designed structure, so that chunking is easy. This approach is implemented in the <strong>ff</strong> package, and the commercial <strong>RevoScaleR</strong> package.</p></li>
 </ol>
 <p>Your algorithms need to be aware of the facility you are using. For this reason each facility ( <strong>bigmemory</strong>, <strong>ff</strong>, <strong>RevoScaleR</strong>,…) an eco-system of packages that implement various statistical methods using that facility. As a general rule, you can see which package builds on a package using the <em>Reverse Depends</em> entry in the package description. For the <strong>bigmemory</strong> package, for instance, <a href="https://cran.r-project.org/web/packages/bigmemory/index.html">we can see</a> that the packages <strong>bigalgebra</strong>, <strong>biganalytics</strong>, <strong>bigFastlm</strong>, <strong>biglasso</strong>, <strong>bigpca</strong>, <strong>bigtabulate</strong>, <strong>GHap</strong>, and <strong>oem</strong>, build upon it. We can expect this list to expand.</p>
-<p>Here is a benchmark result, from <span class="citation">Wang et al. (<a href="#ref-wang2015statistical">2015</a>)</span>. It can be seen that <strong>ff</strong> and <strong>bigmemory</strong> have similar performance, while <strong>RevoScaleR</strong> (RRE in the figure) outperforms them. This has to do both with the efficiency of the binary represantation, but also because <strong>RevoScaleR</strong> is inherently parallel. More on this in the Parallelization Chapter <a href="#paralle"><strong>??</strong></a>. <img src="art/benchmark.png" alt="bigmemory vs. ff vs. RevoScaleR when reading, trasnforming, or fitting a model to 12GB of data, on a standrard laptop (in 2015 standards)." /></p>
-<!-- ff-->
-<!-- ffbase -->
-<!-- biglm -->
-<!-- biganalytics -->
-<!-- bigtabulate -->
-<!-- bigalgebra -->
+<p>Here is a benchmark result, from <span class="citation">Wang et al. (<a href="#ref-wang2015statistical">2015</a>)</span>. It can be seen that <strong>ff</strong> and <strong>bigmemory</strong> have similar performance, while <strong>RevoScaleR</strong> (RRE in the figure) outperforms them. This has to do both with the efficiency of the binary representation, but also because <strong>RevoScaleR</strong> is inherently parallel. More on this in the Parallelization Chapter <a href="parallel.html#parallel">16</a>. <img src="art/benchmark.png" alt="bigmemory vs. ff vs. RevoScaleR when reading, trasnforming, or fitting a model to 12GB of data, on a standrard laptop (in 2015 standards)." /></p>
+<p>We now demonstrate the workflow of the <strong>bigmemory</strong> package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download.file(&quot;http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/BSAPUFS/Downloads/2010_Carrier_PUF.zip&quot;, &quot;2010_Carrier_PUF.zip&quot;)</span>
+<span class="co"># unzip(zipfile=&quot;2010_Carrier_PUF.zip&quot;)</span>
+
+<span class="kw">library</span>(<span class="st">&quot;bigmemory&quot;</span>)
+x &lt;-<span class="st"> </span><span class="kw">read.big.matrix</span>(<span class="st">&quot;2010_BSA_Carrier_PUF.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, 
+                     <span class="dt">backingfile =</span> <span class="st">&quot;airline.bin&quot;</span>, 
+                     <span class="dt">descriptorfile =</span> <span class="st">&quot;airline.desc&quot;</span>, 
+                     <span class="dt">type =</span> <span class="st">&quot;integer&quot;</span>)
+<span class="kw">dim</span>(x)</code></pre></div>
+<pre><code>## [1] 2801660      11</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pryr::<span class="kw">object_size</span>(x)</code></pre></div>
+<pre><code>## 616 B</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(x)</code></pre></div>
+<pre><code>## [1] &quot;big.matrix&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;bigmemory&quot;</code></pre>
+<p>Things to note:</p>
+<ul>
+<li>The basic building block of the <strong>bigmemory</strong> ecosystem, is the <code>big.matrix</code> class, we constructed with <code>read.big.matrix</code>.</li>
+<li><code>read.big.matrix</code> handles the import to R, and the saving to a memory mapped file. The implementation is such that at no point does R hold the data in RAM.</li>
+<li>The memory mapped file, <code>airline.desc</code> will be there after the session is over. It can thus be called by other R sessions using <code>attach.big.matrix(&quot;airline.desc&quot;)</code>. This will be useful when parallelizing. -<code>pryr::object_size</code> return the size of the object. Since <code>x</code> holds only the memory mappings, it is much smaller than the 100MB of data that it holds.</li>
+</ul>
+<p>We can now start computing with the data. Many statistical procedures for the <code>big.matrix</code> object are provided by the <strong>biganalytics</strong> package. In particular, the <code>biglm.big.matrix</code> and <code>bigglm.big.matrix</code> functions, provide an interface from <code>big.matrix</code> objects, to the EMA linear models in <code>biglm::biglm</code> and <code>biglm::bigglm</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(biganalytics)
+biglm<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">bigglm.big.matrix</span>(BENE_SEX_IDENT_CD~CAR_LINE_HCPCS_CD, <span class="dt">data=</span>x)
+<span class="kw">coef</span>(biglm<span class="fl">.2</span>)</code></pre></div>
+<pre><code>##       (Intercept) CAR_LINE_HCPCS_CD 
+##      1.537848e+00      1.210282e-07</code></pre>
+<p>Other notable packages that operate with <code>big.matrix</code> objects include:</p>
+<ul>
+<li><strong>bigtabulate</strong>: Extend the bigmemory package with ‘table’, ‘tapply’, and ‘split’ support for ‘big.matrix’ objects</li>
+<li><strong>bigalgebra</strong>: For matrix operation.</li>
+<li><strong>bigpca</strong>: principle components analysis (PCA), or singular value decomposition (SVD).</li>
+<li><strong>bigFastlm</strong>: for (fast) linear models.</li>
+<li><strong>biglasso</strong>: extends lasso and elastic nets.</li>
+<li><strong>GHap</strong>: Haplotype calling from phased SNP data.</li>
+</ul>
+<div id="computing-from-a-distributed-file-system" class="section level3">
+<h3><span class="header-section-number">15.3.1</span> Computing from a distributed file system</h3>
+<p>If your data is SOOO big that it cannot fit on your local storage, you will need a distributed file system or database. We do not cover this topic here, and refer the reader to the <strong>RHipe</strong>, <strong>RHadoop</strong>, and <strong>RSpark</strong> packages and references therein.</p>
 </div>
-<div id="computing-from-databases" class="section level2">
-<h2><span class="header-section-number">15.4</span> Computing From Databases</h2>
-<!-- dplyr -->
-<!-- MonetDB.R -->
-<p>If your data is so big that it cannot fit on your HD you will need a distributed file system. We do not cover this topic here, and refer the reader to the <strong>RHipe</strong>, <strong>RHadoop</strong>, and <strong>RSpark</strong> packages and references therein.</p>
 </div>
 <div id="bibliographic-notes-11" class="section level2">
-<h2><span class="header-section-number">15.5</span> Bibliographic Notes</h2>
+<h2><span class="header-section-number">15.4</span> Bibliographic Notes</h2>
 <p>An absolute SUPERB review on computing with big data is <span class="citation">Wang et al. (<a href="#ref-wang2015statistical">2015</a>)</span>, and references therein (<span class="citation">Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span> in particular). For an up-to-date list of the packages that deal with memory constraints, see the <strong>Large memory and out-of-memory data</strong> section in the High Performance Computing <a href="https://cran.r-project.org/web/views/HighPerformanceComputing.html">R task view</a>.</p>
 
 </div>
