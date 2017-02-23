@@ -3,34 +3,34 @@
 <!-- our of ram -->
 <!-- databases -->
 
-As put by @kane2013scalable, it was quite  puzzeling when very few of the competitors, for the Million dollars prize in the celebrated [Netflix challenge](https://en.wikipedia.org/wiki/Netflix_Prize), were statisticians.
+As put by @kane2013scalable, it was quite  puzzeling when very few of the competitors, for the Million dollars prize in the [Netflix challenge](https://en.wikipedia.org/wiki/Netflix_Prize), were statisticians.
 This is perhaps because the statistical community historically uses SAS, SPSS, and R. 
-The first two tools are very well equipped to deal with big data, but are very unfriendly when implementing your own new routines. 
-R, on the other hand, is very friendly for new routines, but was not equipped to deal with the large data sets of the Netflix challenge. 
+The first two tools are very well equipped to deal with big data, but are very unfriendly when when trying to implement a new method. 
+R, on the other hand, is very friendly for inovation, but was not equipped to deal with the large data sets of the Netflix challenge. 
 A lot has changed in R since 2006. This is the topic of this chapter. 
 
 
 
 As we have seen in the Sparsity Chapter \@ref(sparse), an efficient representation of your data in RAM will reduce computing time, and will allow you to fit models that would otherwise require tremendous amounts of RAM.
-It is possible, however, to avoid altogether the need to fit your data in RAM.
-The fundamental idea is that your data can be stored on the _hard disk_ (HD), _solid state disk_ (SSD), or any other storage. 
-Since these types of storage are typically much larger than your RAM, you will be able to compute with much larger data sets. 
-The downside is that HDs, SSDs, and others, are typically slower than RAM.
-This is painfully true for rotating magnetic plates HDs. 
-This is true, but less painful, with newer SSDs.
+Not all problems are sparse however. 
+It is also possible that your data does not fit in RAM, even if sparse.
+There are several scenarios to consider:
 
-We will now meet several facilities that will allow you to avoid loading your data to RAM, and still be able to fit models with it.
-The fundamental idea is to use efficient file structures, that will save your data in a way that is aware of the upcoming model-fitting, so that fetching it from HD is efficient.
-This is not a unique capability of R. 
-Indeed, SAS, SPSS, Pyton's Sci-Kit Learn, and other software have this same capability.
-Moreover, there are many facilities in R that provide this same capability. 
-For instance, the commercial version of R, _Microsoft R_^[Previously known as _Revolutions R_], provides this capability with the __RevoScaleR__ family of packages. 
+1. Your data fits in RAM, but is too big to compute with.
+1. Your data does not fit in RAM, but fits in your local storate (HD, SSD, etc.)
+1. Your data does not fit in your local storage.
 
-The facilities that allow _out of RAM_ computations can be broadly calssified as:
+If your data fits in RAM, but is too large to compute with, the solution will typically be to replace the algorithm you are using.
+This will typically mean that instead of computing with the whole data, your algorithm will compute with parts of the data, also called _chunks_, or _batches_.
+These algorithms are known as _external memory algorithms_ (EMA).
 
-1. Facilities that use efficient represantations in RAM.
-1. Facilities that rely on temporary files with efficient structure. 
-1. Facilities that rely on databases.
+If your data does not fit in RAM, but fits in your local storage, you have two options.
+The first is to save your data in a database.
+This will allow you to use the algorithms provided by your database, or let R use an EMA while loading from your database. 
+Alternatively, and preferably, you may avoid using a database, and work with the data directly form your local storage by saving your data in some efficient manner. 
+
+Finally, if your data does not fit on you local storage, you will need some external storage solution such as a distributed database, or distributed file system.
+
 
 
 ```{remark}
@@ -43,79 +43,77 @@ Also, while I LOVE Linux, I would never dare to recommend switching to Linux jus
 
 ## Efficient Computing from RAM
 
-If our data can fit in RAM, but is still too large to compute with it (recall that fitting a model requires roughly 2-3 times more memory than saving it), there are several facilities to be used.
+If our data can fit in RAM, but is still too large to compute with it (recall that fitting a model requires roughly 5-10 times more memory than saving it), there are several facilities to be used.
 The first, is the sparse represantation discussed in Chapter \@ref(sparse), which is relavant when you have factors, which will typically map to sparse model matrices. 
 Another way is to use memory efficient algorithms. 
-We do not discuss this avenue here, since the approaches in the next sections are more general (at the possible cost of some computing time).
-If you still want to read more on streaming algorithms from in-RAM data, particularly for SVMs, see the __LiblineaR__, and __RSofia__ packages. 
 
+The `giblm::giblm` function provied an EMA for linear regression.
+The following if taken from the function's example.
 
+```{r biglm}
+data(trees)
+ff<-log(Volume)~log(Girth)+log(Height)
 
+chunk1<-trees[1:10,]
+chunk2<-trees[11:20,]
+chunk3<-trees[21:31,]
 
+a <- biglm(ff,chunk1)
+a <- update(a,chunk2)
+a <- update(a,chunk3)
 
-## Computing From Efficient File Structrures
-
-The foundamental idea of computing out of RAM is to save your data on disk in an efficient structure, and then use algorithms that are aware of this structure. 
-These algorithms will typically be fed with chunks, or batches, of the whole data, so that at no time will you need the whole data in RAM.
-
-Our first package that provides this facility is the __ff__ package. 
-We will start by loading the file. 
-Clearly, using the `read.table` mechanism will not be useful, since it will load the data into RAM, which is exactly what we want to avoid. 
-We thus open a connection to the file with the __LaF__ package, without actually importing it, only to pass the connection to 
-```{r}
-# download.file("http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/BSAPUFS/Downloads/2010_Carrier_PUF.zip", "2010_Carrier_PUF.zip")
-# unzip(zipfile="2010_Carrier_PUF.zip")
-
-library(LaF)
-
-.dat <- laf_open_csv(filename = "2010_BSA_Carrier_PUF.csv",
-                    column_types = c("integer", "integer", "categorical", "categorical", "categorical", "integer", "integer", "categorical", "integer", "integer", "integer"), 
-                    column_names = c("sex", "age", "diagnose", "healthcare.procedure", "typeofservice", "service.count", "provider.type", "servicesprocessed", "place.served", "payment", "carrierline.count"), 
-                    skip = 1)
-```
-
-```{r load ff, cache=TRUE}
-library(ffbase)
-data.ffdf <- laf_to_ffdf(laf = .dat)
-```
-
-Notice that the data has a very small RAM footprint.
-
-```{r, dependson='load ff'}
-pryr::object_size(data.ffdf)
-```
-
-
-Because the statistical algorithms in the __base__ and __stats__ pacakges are unaware of `ff`, we need to use their `ff` equivalent.
-Here is an example of a simple tabulation.
-
-```{r, cache=TRUE, dependson='load ff'}
-ffbase:::table.ff(data.ffdf$age) 
-```
-
-
-To fit a poisson regression, we will not call `glm`, but rather its __ff__ equivalent.
-
-```{r biglm_regression, cache=TRUE, dependson='load ff'}
-library(biglm)
-
-# Again, too slow. Stop and run:
-mymodel.ffdf.2 <- bigglm.ffdf(payment ~ sex + age + place.served, 
-                              family = gaussian(),
-                              data = data.ffdf)
+coef(a)
 ```
 
 Things to note:
 
-- The previous can scale to any file I can store on disk (but might take a while).
-- If I want some other GLM, and not the simple OLS implied by `family=gaussian`, I would change the `family` argument appropriatly.
+- The data has been chunked along rows. 
+- The initial fit is done with the `biglm` function.
+- The model is updated with further chunks using the `update` function.
+
+We now compare it to the in-memory version of `lm` to verify the results are the same.
+
+```{r}
+b <- lm(ff, data=trees)
+rbind(coef(a),coef(b))
+```
+
+Other pacakges that follow these lines, particularly with classification using SVMs, are  __LiblineaR__, and __RSofia__ packages. 
+
+We do not recommend this approach since it is limited to very particular scenarios, whereas the upcoming approaches are much more general.
 
 
-I will now inflate the data to a size that would not fit in RAM.
 
 
-The __biglm__ package provides facilities to fit linear models. 
-The package is a member of a family of packages that provide facilities 
+
+## Computing from a Database
+
+The early solutions to oversized data relied on storing your data in some relational database such as _MySQL_, _PostgresSQL_, _SQLite_, _H2_, _ODBC_, _Oracle_, etc.
+Several R packages provide interfaces to these databases, such as __sqldf__, __RDBI__, __RSQite__.
+Some will even include the database as part of the package itself.
+
+Storing your data in a database has the advantage that you can typically rely on database providers to include very efficient algorithms for the queries they support. 
+On the downside, SQL queries may include a lot of summary statistics, but will rarely include model fitting^[This is slowly changing. Indeed, Microsoft's SQL Server 2016 is already providing [in-database-analytics](https://blogs.technet.microsoft.com/dataplatforminsider/2016/03/29/in-database-advanced-analytics-with-r-in-sql-server-2016/), and other will surely follow. ]. 
+This means that even for simple things like linear models, you will have to revert to R's facilities-- typically some sort of EMA with chunking from the database. 
+For this reason, and others, we prefer to compute from efficient file stuctures, as described in Section \@ref(file-structure).
+
+If, however, you have a powerful databse around, or you only need summary statistics, or you are an SQL master, keep reading.
+
+
+
+
+
+
+
+<!-- MSQL2016 -->
+
+
+
+## Computing From Efficient File Structrures {#file-structure}
+
+The foundamental idea of computing out of RAM is to save your data on disk in an efficient structure, and then use algorithms that are aware of this structure. 
+These algorithms will typically be fed with chunks, or batches, of the whole data, so that at no time will you need the whole data in RAM.
+
 
 
 <!-- ff-->
@@ -141,5 +139,5 @@ We do not cover this topic here, and refer the reader to the __RHipe__, __RHadoo
 
 ## Bibliographic Notes
 
-An absolute SUPERB review on computing with big data is @wang2015statistical, and references therein.
+An absolute SUPERB review on computing with big data is @wang2015statistical, and references therein (@kane2013scalable in particular). 
 For an up-to-date list of the packages that deal with memory constraints, see the __Large memory and out-of-memory data__ section in the High Performance Computing [R task view](https://cran.r-project.org/web/views/HighPerformanceComputing.html).
