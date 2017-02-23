@@ -180,27 +180,54 @@ This has to do both with the efficiency of the binary represantation, but also b
 ![__bigmemory__ vs. __ff__ vs. __RevoScaleR__ when reading, trasnforming, or fitting a model to 12GB of data, on a standrard laptop (in 2015 standards).](art/benchmark.png)
 
 
+We now demonstate the workflow of the __bigmemory__ package.
+
+```{r}
+# download.file("http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/BSAPUFS/Downloads/2010_Carrier_PUF.zip", "2010_Carrier_PUF.zip")
+# unzip(zipfile="2010_Carrier_PUF.zip")
+
+library("bigmemory")
+x <- read.big.matrix("2010_BSA_Carrier_PUF.csv", header = TRUE, 
+                     backingfile = "airline.bin", 
+                     descriptorfile = "airline.desc", 
+                     type = "integer")
+dim(x)
+pryr::object_size(x)
+class(x)
+```
+
+Things to note:
+
+- The basic building block of the __bigmemory__ ecosystem, is the `big.matrix` class, we constructed with `read.big.matrix`. 
+- `read.big.matrix` handles the import to R, and the saving to a memory mapped file. The implementation is such that at no point does R hold the data in RAM.
+- The memory mapped file, `airline.desc` will be there after the session is over. It can thus be called by other R sessions using ` attach.big.matrix("airline.desc")`. This will be useful when parallelizing. 
+-`pryr::object_size` return the size of the object. Since `x` holds only the memory mappings, it is much smaller than the 100MB of data that it holds. 
+
+We can now start computing with the data.
+Many statistical procedures for the `big.matrix` object are provided by the __biganalytics__ package. 
+In particular, the `biglm.big.matrix` and `bigglm.big.matrix` functions, provide an interface from `big.matrix` objects, to the EMA linear models in `biglm::biglm` and `biglm::bigglm`.
+
+```{r, cache=TRUE}
+library(biganalytics)
+biglm.2 <- bigglm.big.matrix(BENE_SEX_IDENT_CD~CAR_LINE_HCPCS_CD, data=x)
+coef(biglm.2)
+```
+
+Other notable packages that operate with `big.matrix` objects include:
+
+- __bigtabulate__: Extend the bigmemory package with 'table', 'tapply', and 'split' support for 'big.matrix' objects
+- __bigalgebra__: For matrix operation.
+- __bigpca__: principle components analysis (PCA), or singular value decomposition (SVD).
+- __bigFastlm__: for (fast) linear models.
+- __biglasso__: extends lasso and elastic nets.
+- __GHap__: Haplotype calling from phased SNP data.
 
 
-<!-- ff-->
-<!-- ffbase -->
-<!-- biglm -->
-<!-- biganalytics -->
-<!-- bigtabulate -->
-<!-- bigalgebra -->
+### Computing from a distributed file system
 
-
-
-
-## Computing From Databases
-<!-- dplyr -->
-<!-- MonetDB.R -->
-
-
-
-
-If your data is so big that it cannot fit on your HD you will need a distributed file system.
+If your data is SOOO big that it cannot fit on your local storage, you will need a distributed file system or database.
 We do not cover this topic here, and refer the reader to the __RHipe__, __RHadoop__, and __RSpark__ packages and references therein.
+
 
 
 ## Bibliographic Notes
