@@ -278,11 +278,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="15.2" data-path="memory.html"><a href="memory.html#computing-from-a-database"><i class="fa fa-check"></i><b>15.2</b> Computing from a Database</a></li>
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a></li>
-<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.4</b> Computing from a distributed file system</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.4</b> Computing from a Distributed File System</a></li>
 <li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.5</b> Bibliographic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.1</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Explicit Parallelism</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a></li>
 <li class="chapter" data-level="18" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>18</b> Convex Optimization</a></li>
@@ -480,11 +482,11 @@ lm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</
 <p>We can use the <code>predict</code> function to make predictions, but we emphasize that if the purpose of the model is to make predictions, and not interpret coefficients, better skip to The Supervised Learning Chapter <a href="supervised.html#supervised">9</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">predict</span>(lm<span class="fl">.1</span>)~whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,]$Gas)
 <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-107-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-138-1.png" width="50%" /></p>
 <p>The model seems to fit the data nicely. A common measure of the goodness of fit is the <em>coefficient of determination</em>, more commonly known as the <span class="math inline">\(R^2\)</span>.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-108" class="definition"><strong>Definition 5.1 </strong></span>The coefficient of determination, denoted <span class="math inline">\(R^2\)</span>, is defined as
+<span id="def:unnamed-chunk-139" class="definition"><strong>Definition 5.1 </strong></span>The coefficient of determination, denoted <span class="math inline">\(R^2\)</span>, is defined as
 <span class="math display">\[\begin{align}
   R^2:= 1-\frac{\sum_i (y_i - \hat y_i)^2}{\sum_i (y_i - \bar y)^2}
 \end{align}\]</span>
@@ -536,11 +538,11 @@ Where <span class="math inline">\(\hat y_i\)</span> is the model’s prediction,
 <p>As the name suggests, <code>summary</code> is merely a summary. The full <code>summary(lm.1)</code> object is a monstrous object. Its various elements can be queried using <code>str(sumary(lm.1))</code>.</p>
 <p>Can we check the assumptions required for inference? Some. Let’s start with the linearity assumption. If we were wrong, and the data is not arranged about a linear line, the residuals will have some shape.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">residuals</span>(lm<span class="fl">.1</span>)~whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,]$Temp); <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-111-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-142-1.png" width="50%" /></p>
 <p>I can’t say I see any shape. Let’s fit a <strong>wrong</strong> model, just to see what “shape” means.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.1.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(Gas~<span class="kw">I</span>(Temp^<span class="dv">2</span>), <span class="dt">data=</span>whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,])
 <span class="kw">plot</span>(<span class="kw">residuals</span>(lm<span class="fl">.1.1</span>)~whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,]$Temp); <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-112-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-143-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>We used <code>I(Temp)^2</code> to specify the model <span class="math inline">\(Gas_i=\beta_0 + \beta_1 Temp^2+ \varepsilon\)</span>.</li>
@@ -549,10 +551,10 @@ Where <span class="math inline">\(\hat y_i\)</span> is the model’s prediction,
 <p>To the next assumption. We assumed <span class="math inline">\(\varepsilon_i\)</span> are independent of everything else. The residuals, <span class="math inline">\(y_i-\hat y_i\)</span> can be thought of a sample of <span class="math inline">\(\varepsilon_i\)</span>. When diagnosing the linearity assumption, we already saw their distribution does not vary with the <span class="math inline">\(x\)</span>’s, <code>Temp</code> in our case. They may be correlated with themselves; a positive departure from the model, may be followed by a series of positive departures etc. Diagnosing these <em>auto-correlations</em> is a real art, which is not part of our course.</p>
 <p>The last assumption we required is normality. As previously stated, if <span class="math inline">\(n \gg p\)</span>, this assumption is not really needed. If <span class="math inline">\(n \sim p\)</span>, i.e., <span class="math inline">\(n\)</span> is in the order of <span class="math inline">\(p\)</span>, we need to verify this assumption. My favorite tool for this task is the <em>qqplot</em>. A qqplot compares the quantiles of the sample with the respective quantiles of an assumed distribution. If quantiles align along a line, the assumed distribution if OK. If quantiles depart from a line, then clearly the assumed distribution does not fit the sample.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qqnorm</span>(<span class="kw">resid</span>((lm<span class="fl">.1</span>)))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-113-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-144-1.png" width="50%" /></p>
 <p>The <code>qqnorm</code> function plots a qqplot against a normal distribution. Judging from the figure, the normality assumption is quite plausible. Let’s try the same on a non-normal sample, namely a uniformly distributed sample, to see how that would look.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qqnorm</span>(<span class="kw">runif</span>(<span class="dv">100</span>))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-114-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-145-1.png" width="50%" /></p>
 <div id="testing-a-hypothesis-on-a-single-coefficient" class="section level3">
 <h3><span class="header-section-number">5.3.1</span> Testing a Hypothesis on a Single Coefficient</h3>
 <p>The first inferential test we consider is a hypothesis test on a single coefficient. In our gas example, we may want to test that the temperature has no effect on the gas consumption. The answer for that is given immediately by <code>summary(lm.1)</code></p>

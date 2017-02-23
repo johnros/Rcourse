@@ -278,11 +278,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="15.2" data-path="memory.html"><a href="memory.html#computing-from-a-database"><i class="fa fa-check"></i><b>15.2</b> Computing from a Database</a></li>
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a></li>
-<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.4</b> Computing from a distributed file system</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.4</b> Computing from a Distributed File System</a></li>
 <li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.5</b> Bibliographic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.1</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Explicit Parallelism</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a></li>
 <li class="chapter" data-level="18" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>18</b> Convex Optimization</a></li>
@@ -390,7 +392,7 @@ Before we fit such a model, we try to justify this construction, in particular, 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(PlantGrowth)
 weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <span class="dv">2</span>, <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&#39;Light&#39;</span>, <span class="st">&#39;Heavy&#39;</span>))
 <span class="kw">plot</span>(<span class="kw">table</span>(group, weight.factor))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-131-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-162-1.png" width="50%" /></p>
 <p>Let’s fit a logistic regression, and inspect the output.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glm<span class="fl">.1</span>&lt;-<span class="st"> </span><span class="kw">glm</span>(weight.factor~group, <span class="dt">family=</span>binomial)
 <span class="kw">summary</span>(glm<span class="fl">.1</span>)</code></pre></div>
@@ -581,16 +583,10 @@ weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <
     0L, 1L, 1L, 0L, 0L, 0L, 0L, 0L)), <span class="dt">.Names =</span> <span class="kw">c</span>(<span class="st">&quot;Days&quot;</span>, <span class="st">&quot;Students&quot;</span>
 ), <span class="dt">class =</span> <span class="st">&quot;data.frame&quot;</span>, <span class="dt">row.names =</span> <span class="kw">c</span>(<span class="ot">NA</span>, -109L))
 <span class="kw">attach</span>(cases)</code></pre></div>
-<pre><code>## The following objects are masked from cases (pos = 5):
+<pre><code>## The following objects are masked from cases (pos = 37):
 ## 
 ##     Days, Students</code></pre>
-<pre><code>## The following objects are masked from cases (pos = 7):
-## 
-##     Days, Students</code></pre>
-<pre><code>## The following objects are masked from cases (pos = 9):
-## 
-##     Days, Students</code></pre>
-<pre><code>## The following objects are masked from cases (pos = 16):
+<pre><code>## The following objects are masked from cases (pos = 42):
 ## 
 ##     Days, Students</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(cases) </code></pre></div>
@@ -603,7 +599,7 @@ weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <
 ## 6    4        3</code></pre>
 <p>And visually:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Days, Students, <span class="dt">xlab =</span> <span class="st">&quot;DAYS&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;STUDENTS&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-139-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-170-1.png" width="50%" /></p>
 <p>We now fit a model to check for the change in the rate of events as a function of the days since the outbreak.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glm<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Students ~<span class="st"> </span>Days, <span class="dt">family =</span> poisson)
 <span class="kw">summary</span>(glm<span class="fl">.3</span>)</code></pre></div>

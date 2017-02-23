@@ -278,11 +278,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="15.2" data-path="memory.html"><a href="memory.html#computing-from-a-database"><i class="fa fa-check"></i><b>15.2</b> Computing from a Database</a></li>
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a></li>
-<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.4</b> Computing from a distributed file system</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.4</b> Computing from a Distributed File System</a></li>
 <li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.5</b> Bibliographic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.1</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Explicit Parallelism</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a></li>
 <li class="chapter" data-level="18" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>18</b> Convex Optimization</a></li>
@@ -394,7 +396,7 @@ These weights are called the <em>loadings</em>.</li>
 <p>FA originates from the psychometric literature. We thus revisit the IQ (actually g-factor<a href="#fn17" class="footnoteRef" id="fnref17"><sup>17</sup></a>) Example~<a href="unsupervised.html#ex:iq">10.2</a>:</p>
 
 <div class="example">
-<span id="ex:unnamed-chunk-167" class="example"><strong>Example 10.4 </strong></span>Assume <span class="math inline">\(n\)</span> respondents answer <span class="math inline">\(p\)</span> quantitative questions: <span class="math inline">\(x_i \in \mathbb{R}^p, i=1,\dots,n\)</span>. Also assume, their responses are some linear function <span class="math inline">\(A \in \mathbb{R}^p\)</span> of a single personality attribute, <span class="math inline">\(s_i\)</span>. We can think of <span class="math inline">\(s_i\)</span> as the subject’s ``intelligence’’. We thus have
+<span id="ex:unnamed-chunk-198" class="example"><strong>Example 10.4 </strong></span>Assume <span class="math inline">\(n\)</span> respondents answer <span class="math inline">\(p\)</span> quantitative questions: <span class="math inline">\(x_i \in \mathbb{R}^p, i=1,\dots,n\)</span>. Also assume, their responses are some linear function <span class="math inline">\(A \in \mathbb{R}^p\)</span> of a single personality attribute, <span class="math inline">\(s_i\)</span>. We can think of <span class="math inline">\(s_i\)</span> as the subject’s ``intelligence’’. We thus have
 <span class="math display">\[\begin{align}
     x_i = A s_i + \varepsilon_i
 \end{align}\]</span>
@@ -485,7 +487,7 @@ where <span class="math inline">\(A\)</span> is the <span class="math inline">\(
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(devtools)
 <span class="co"># install_github(&quot;vqv/ggbiplot&quot;)</span>
 ggbiplot::<span class="kw">ggbiplot</span>(pca<span class="fl">.1</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-170-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-201-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>The bi-plot plots each data point along its PCs.</li>
@@ -494,9 +496,9 @@ ggbiplot::<span class="kw">ggbiplot</span>(pca<span class="fl">.1</span>) </code
 </ul>
 <p>The <em>scree plot</em> depicts the quality of the approximation of <span class="math inline">\(X\)</span> as <span class="math inline">\(q\)</span> grows. This is depicted using the proportion of variability in <span class="math inline">\(X\)</span> that is removed by each added PC. It is customary to choose <span class="math inline">\(q\)</span> as the first PC that has a relative low contribution to the approximation of <span class="math inline">\(X\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ggbiplot::<span class="kw">ggscreeplot</span>(pca<span class="fl">.1</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-171-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-202-1.png" width="50%" /></p>
 <p>See how the first PC captures the variability in the Assault levels and Murder levels, with a single score.</p>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-172-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-203-1.png" width="50%" /></p>
 <p>More implementations of PCA:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># FAST solutions:</span>
 gmodels::<span class="kw">fast.prcomp</span>()
@@ -564,7 +566,7 @@ fa<span class="fl">.1</span>$loadings</code></pre></div>
 <p>Graphical model fans will like the following plot, where the contribution of each variable to each factor is encoded in the width of the arrow.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Graph comparison: loadings encoded in colors</span>
 qgraph::<span class="kw">qgraph</span>(fa<span class="fl">.1</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-173-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-204-1.png" width="50%" /></p>
 <p>Let’s add a rotation (Varimax), and note that the rotation has indeed changed the loadings of the variables, thus the interpretation of the factors.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fa<span class="fl">.2</span> &lt;-<span class="st"> </span>psych::<span class="kw">principal</span>(USArrests<span class="fl">.1</span>, <span class="dt">nfactors =</span> <span class="dv">2</span>, <span class="dt">rotate =</span> <span class="st">&quot;varimax&quot;</span>)
 
@@ -833,11 +835,11 @@ hirar<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">h
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Complete linkage:</span>
 hirar<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(state.disimilarity, <span class="dt">method=</span><span class="st">&#39;complete&#39;</span>)
 <span class="kw">plot</span>(hirar<span class="fl">.2</span>, <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests<span class="fl">.1</span>), <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-175-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-206-1.png" width="50%" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Average linkage:</span>
 hirar<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(state.disimilarity, <span class="dt">method=</span><span class="st">&#39;average&#39;</span>)
 <span class="kw">plot</span>(hirar<span class="fl">.3</span>, <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests<span class="fl">.1</span>), <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-175-2.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-206-2.png" width="50%" /></p>
 <p>If we know how many clusters we want, we can use <code>cuttree</code> to get the class assignments.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fixing the number of clusters:</span>
 cut<span class="fl">.2.2</span> &lt;-<span class="st"> </span><span class="kw">cutree</span>(hirar<span class="fl">.2</span>, <span class="dt">k=</span><span class="dv">2</span>)

@@ -278,11 +278,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="15.2" data-path="memory.html"><a href="memory.html#computing-from-a-database"><i class="fa fa-check"></i><b>15.2</b> Computing from a Database</a></li>
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a></li>
-<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.4</b> Computing from a distributed file system</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.4</b> Computing from a Distributed File System</a></li>
 <li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.5</b> Bibliographic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.1</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Explicit Parallelism</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a></li>
 <li class="chapter" data-level="18" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>18</b> Convex Optimization</a></li>
@@ -348,7 +350,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <pre><code>## [1] 3</code></pre>
 <p>Generate random variables:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>)</code></pre></div>
-<pre><code>##  [1] 4 3 5 8 7 5 4 5 6 5</code></pre>
+<pre><code>##  [1] 7 3 7 4 3 3 4 8 4 5</code></pre>
 <p>R has many built-in distributions. Their names may change, but the prefixed do not:</p>
 <ul>
 <li><strong>d</strong> prefix for the distribution function.</li>
@@ -382,20 +384,20 @@ x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">
 <p></p>
 <p>To print the contents of an object just type its name</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x</code></pre></div>
-<pre><code>##  [1] 4 4 7 5 7 3 7 6 6 7</code></pre>
+<pre><code>##  [1] 7 8 4 6 4 4 4 5 4 7</code></pre>
 <p>which is an implicit call to</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(x)  </code></pre></div>
-<pre><code>##  [1] 4 4 7 5 7 3 7 6 6 7</code></pre>
+<pre><code>##  [1] 7 8 4 6 4 4 4 5 4 7</code></pre>
 <p>Alternatively, you can assign and print simultaneously</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>))  <span class="co"># Assign and print.</span></code></pre></div>
-<pre><code>##  [1] 3 5 5 7 4 6 2 5 4 4</code></pre>
+<pre><code>##  [1] 5 4 5 7 3 4 7 5 3 4</code></pre>
 <p>Operate on the object</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(x)  <span class="co"># compute mean</span></code></pre></div>
-<pre><code>## [1] 4.5</code></pre>
+<pre><code>## [1] 4.7</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(x)  <span class="co"># compute variance</span></code></pre></div>
-<pre><code>## [1] 2.055556</code></pre>
+<pre><code>## [1] 2.011111</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(x) <span class="co"># plot histogram</span></code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-26-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-57-1.png" width="50%" /></p>
 <p>R saves every object you create in RAM<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. The collection of all such objects is the <strong>workspace</strong> which you can inspect with</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()</code></pre></div>
 <pre><code>## [1] &quot;x&quot;</code></pre>
@@ -452,8 +454,13 @@ car_data &lt;-<span class="st"> </span>
 y&lt;-<span class="st"> </span>.Last.value 
 y</code></pre></div>
 <pre><code>## [1] 1 2 3
-##    user  system elapsed 
-##   0.000   0.000   0.002</code></pre>
+##          50% 90% 99%
+## result.1 558 793 996
+## result.2 518 789 996
+## result.3 514 789 996
+## result.4 511 789 996
+## result.5 511 790 996
+## result.6 518 796 995</code></pre>
 
 <div class="remark">
 <span class="remark"><em>Remark. </em></span> In line with the linux look and feel, variables starting with a dot (.) are saved but are hidden. To show them see <code>?ls</code>.
@@ -481,12 +488,12 @@ y</code></pre></div>
 ##     fill = TRUE, comment.char = &quot;&quot;, ...) 
 ## read.table(file = file, header = header, sep = sep, quote = quote, 
 ##     dec = dec, fill = fill, comment.char = comment.char, ...)
-## &lt;bytecode: 0xbabd2f0&gt;
+## &lt;bytecode: 0x4cec168&gt;
 ## &lt;environment: namespace:utils&gt;</code></pre>
 <p>Never mind what the function does. Note the <code>environment: namespace:utils</code> line at the end. It tells us that this function is part of the <strong>utils</strong> package. We did not need to know this because it is loaded by default. Here are the packages that are currently loaded:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">search</span>())</code></pre></div>
-<pre><code>## [1] &quot;.GlobalEnv&quot;         &quot;package:data.table&quot; &quot;Penicillin&quot;        
-## [4] &quot;cases&quot;              &quot;Penicillin&quot;         &quot;cases&quot;</code></pre>
+<pre><code>## [1] &quot;.GlobalEnv&quot;            &quot;package:bigmemory&quot;     &quot;package:bigmemory.sri&quot;
+## [4] &quot;package:doSNOW&quot;        &quot;package:snow&quot;          &quot;package:doParallel&quot;</code></pre>
 <p>Other packages can be loaded via the <code>library</code> function, or downloaded from the internet using the <code>install.packages</code> function before loading with <code>library</code>. R’s package import mechanism is quite powerful, and is one of the reasons for R’s success.</p>
 </div>
 <div id="simple-plotting" class="section level2">
@@ -494,20 +501,20 @@ y</code></pre></div>
 <p>R has many plotting facilities. We start with the simplest facilities, namely, the <code>plot</code> function from the <strong>graphics</strong> package, which is loaded by default.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x&lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">100</span>; y&lt;-<span class="st"> </span><span class="dv">3</span>+<span class="kw">sin</span>(x) <span class="co"># Create arbitrary data</span>
 <span class="kw">plot</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y) <span class="co"># x,y syntax                         </span></code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-42-1.png" width="50%" /> Given an x argument and a y argument, <code>plot</code> tries to present a scatter plot. We call this the “x,y” syntax. R has another, unique, syntax to state functional relations. We call it the “tilde” syntax, which originates in works of <span class="citation">G. Wilkinson and Rogers (<a href="#ref-wilkinson1973symbolic">1973</a>)</span>.</p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-73-1.png" width="50%" /> Given an x argument and a y argument, <code>plot</code> tries to present a scatter plot. We call this the “x,y” syntax. R has another, unique, syntax to state functional relations. We call it the “tilde” syntax, which originates in works of <span class="citation">G. Wilkinson and Rogers (<a href="#ref-wilkinson1973symbolic">1973</a>)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y ~<span class="st"> </span>x) <span class="co"># y~x syntax </span></code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-43-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-74-1.png" width="50%" /></p>
 <p>The syntax <code>y~x</code> is read as “y is a function of x”. We will prefer the <code>y~x</code> syntax over the <code>x,y</code> syntax since it is easier to read, and will be very useful when we discuss more complicated models.</p>
 <p>Here are some arguments that control the plot’s appearance:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y~x, <span class="dt">type=</span><span class="st">&#39;l&#39;</span>, <span class="dt">main=</span><span class="st">&#39;Plotting a connected line&#39;</span>) <span class="co"># main title</span></code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-44-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-75-1.png" width="50%" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y~x, <span class="dt">type=</span><span class="st">&#39;h&#39;</span>, <span class="dt">main=</span><span class="st">&#39;Sticks plot&#39;</span>, <span class="dt">xlab=</span><span class="st">&#39;Insert x axis label&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;Insert y axis label&#39;</span>) <span class="co"># axes labels</span></code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-44-2.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-75-2.png" width="50%" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y~x, <span class="dt">pch=</span><span class="dv">5</span>) <span class="co"># Point type with pcf</span></code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-44-3.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-75-3.png" width="50%" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y~x, <span class="dt">pch=</span><span class="dv">10</span>, <span class="dt">type=</span><span class="st">&#39;p&#39;</span>, <span class="dt">col=</span><span class="st">&#39;blue&#39;</span>, <span class="dt">cex=</span><span class="dv">4</span>) <span class="co"># More point parameters</span>
 <span class="kw">abline</span>(<span class="dv">3</span>, <span class="fl">0.002</span>) <span class="co"># add linear line with slope b and intercept a</span></code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-44-4.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-75-4.png" width="50%" /></p>
 <p>For more plotting options run these</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">example</span>(plot)
 <span class="kw">example</span>(points)
