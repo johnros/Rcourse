@@ -376,7 +376,7 @@ MSE( predict(lasso.1, newx = X.test)- y.test)
 
 We now use `glmnet` for classification.
 
-```{r, cache=TRUE}
+```{r, cache=TRUE, dependson='preprocessing'}
 logistic.2 <- cv.glmnet(x=X.train.spam, y=y.train.spam, family = "binomial", alpha = 0)
 ```
 

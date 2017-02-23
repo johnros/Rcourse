@@ -2,8 +2,6 @@ library(bookdown)
 library(magrittr)
 rm(list=ls())
 
-rmarkdown::render_site(output_format = 'bookdown::pdf_book', encoding = 'UTF-8')
-
 rm(list=ls())
 bookdown::render_book("index.Rmd","bookdown::gitbook", clean_envir = TRUE, output_dir = 'docs') # render to HTML
 

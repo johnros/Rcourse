@@ -174,7 +174,10 @@ For the __bigmemory__ package, for instance, [we can see](https://cran.r-project
 We can expect this list to expand.
 
 
-
+Here is a benchmark result, from @wang2015statistical. 
+It can be seen that __ff__ and __bigmemory__ have similar performance, while __RevoScaleR__ (RRE in the figure) outperforms them.
+This has to do both with the efficiency of the binary represantation, but also because __RevoScaleR__ is inherently parallel. More on this in the Parallelization Chapter \@ref(parallel).
+![__bigmemory__ vs. __ff__ vs. __RevoScaleR__ when reading, trasnforming, or fitting a model to 12GB of data, on a standrard laptop (in 2015 standards).](art/benchmark.png)
 
 
 
