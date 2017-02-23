@@ -33,7 +33,32 @@ For reasons detailed in @kane2013scalable, we will present the __foreach__ paral
 It will allow us to: 
 
 1. Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can then switch the underlying parallesation mechanism. 
+
 1. Combine with the `big.matrix` object from Chapter \@ref(memory) for _shared memory parallisation_: all the machines may see the same data, so that we don't need to export objects from machine to machine. 
+
+
+What do we mean by "switch the underlying parallesation mechanism"? 
+It means there are several packages that will handle communication between machines. 
+Some are very general and will work on any cluster that does not even need to be on the same machine. 
+Some are more specific and will work only on a single multicore machine (not a cluster) with a particular operating system.
+These mechanisms include __multicore__, __snow__, __parallel__, and __Rmpi__.
+The compatibility between these mechanisms and __foreach__ is provided by another set of packages:
+__doMC__ , __doMPI__, __doRedis__, __doParallel__, and __doSNOW__.
+
+
+```{remark}
+I personally prefer the __multicore__ mechanism, with the __doMC__ adapter for __foreach__.
+I will not use this combo, however, because __multicore__ will not work on Windows machines.
+I will thus use the more general __snow__ and __doParallel__ combo. 
+If you do happen to run on Linux, or Unix, you will want to replace all __doParallel__ functionality with __doMC__.
+```
+
+
+Let's start with a simple example
+
+```{r}
+
+```
 
 
 
