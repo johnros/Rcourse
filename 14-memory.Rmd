@@ -22,11 +22,11 @@ This will typically mean that instead of computing with the whole data, your alg
 These algorithms are known as _external memory algorithms_ (EMA).
 
 If your data does not fit in RAM, but fits in your local storage, you have two options.
-The first is to save your data in a database.
-This will allow you to use the algorithms provided by your database, or let R use an EMA while loading from your database. 
-Alternatively, and preferably, you may avoid using a database, and work with the data directly form your local storage by saving your data in some efficient manner. 
+The first is to save your data in a _database management system_ (DBMS).
+This will allow you to use the algorithms provided by your DBMS, or let R use an EMA while loading from your DBMS. 
+Alternatively, and preferably, you may avoid using a DBMS, and work with the data directly form your local storage by saving your data in some efficient manner. 
 
-Finally, if your data does not fit on you local storage, you will need some external storage solution such as a distributed database, or distributed file system.
+Finally, if your data does not fit on you local storage, you will need some external storage solution such as a distributed DBMS, or distributed file system.
 
 
 ```{remark}
@@ -129,7 +129,7 @@ system.time(
 ```
 
 The winner is obvious. 
-Let's compare filteting (i.e. row subsets, i.e. SQL's SELECT).
+Let's compare filtering (i.e. row subsets, i.e. SQL's SELECT).
 
 ```{r}
 system.time( 
@@ -150,19 +150,19 @@ system.time(
 
 ## Computing from a Database
 
-The early solutions to oversized data relied on storing your data in some relational database such as _MySQL_, _PostgresSQL_, _SQLite_, _H2_, _Oracle_, etc.
-Several R packages provide interfaces to these databases, such as __sqldf__, __RDBI__, __RSQite__.
-Some will even include the database as part of the package itself.
+The early solutions to oversized data relied on storing your data in some DBMS such as _MySQL_, _PostgresSQL_, _SQLite_, _H2_, _Oracle_, etc.
+Several R packages provide interfaces to these DBMSs, such as __sqldf__, __RDBI__, __RSQite__.
+Some will even include the DBMS as part of the package itself.
 
-Storing your data in a database has the advantage that you can typically rely on database providers to include very efficient algorithms for the queries they support. 
+Storing your data in a DBMS has the advantage that you can typically rely on DBMS providers to include very efficient algorithms for the queries they support. 
 On the downside, SQL queries may include a lot of summary statistics, but will rarely include model fitting^[This is slowly changing. Indeed, Microsoft's SQL Server 2016 is already providing [in-database-analytics](https://blogs.technet.microsoft.com/dataplatforminsider/2016/03/29/in-database-advanced-analytics-with-r-in-sql-server-2016/), and other will surely follow.]. 
-This means that even for simple things like linear models, you will have to revert to R's facilities-- typically some sort of EMA with chunking from the database. 
+This means that even for simple things like linear models, you will have to revert to R's facilities-- typically some sort of EMA with chunking from the DBMS. 
 For this reason, and others, we prefer to compute from efficient file structures, as described in Section \@ref(file-structure).
 
-If, however, you have a powerful database around, or you only need summary statistics, or you are an SQL master, keep reading.
+If, however, you have a powerful DBMS around, or you only need summary statistics, or you are an SQL master, keep reading.
 
 The package __RSQLite__ includes an SQLite server, which we now setup for demonstration.
-The package __dplyr__, discussed in the Hadleyverse Chapter \@ref(hadley), will take care of translating the __dplyr__ syntax, to the SQL syntax of the database. 
+The package __dplyr__, discussed in the Hadleyverse Chapter \@ref(hadley), will take care of translating the __dplyr__ syntax, to the SQL syntax of the DBMS. 
 The following example is taken from the __dplyr__ [Databases vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html).
 
 ```{r}
@@ -184,9 +184,9 @@ Things to note:
 
 - `src_sqlite` to starts an empty table, managed by SQLite, at the desired path.
 - `copy_to` copies data from R to the database. 
-- Typically, setting up a database like this makes no sense, since it requires loading the data into RAM, which is precisely what we want to avoid.
+- Typically, setting up a DBMS like this makes no sense, since it requires loading the data into RAM, which is precisely what we want to avoid.
 
-We can now start querying the database.
+We can now start querying the DBMS.
 
 ```{r}
 select(flights_sqlite, year:day, dep_delay, arr_delay)
@@ -209,12 +209,12 @@ summarise(flights_sqlite, delay = mean(dep_time))
 
 ## Computing From Efficient File Structrures {#file-structure}
 
-It is possible to save your data on your storage device, without the database layer to manage it.
+It is possible to save your data on your storage device, without the DBMS layer to manage it.
 This has several advantages:
 
-- You don't need to manage a database.
-- You don't have the computational overhead of the database. 
-- You may optimize the file structure for statistical modelling, and not for join and summary operations, as in relational databases. 
+- You don't need to manage a DBMS.
+- You don't have the computational overhead of the DBMS. 
+- You may optimize the file structure for statistical modelling, and not for join and summary operations, as in relational DBMSs. 
 
 There are several facilities that allow you to save and compute directly from your storage:
 
@@ -238,11 +238,22 @@ We can expect this list to expand.
 
 Here is a benchmark result, from @wang2015statistical. 
 It can be seen that __ff__ and __bigmemory__ have similar performance, while __RevoScaleR__ (RRE in the figure) outperforms them.
-This has to do both with the efficiency of the binary representation, but also because __RevoScaleR__ is inherently parallel. More on this in the Parallelization Chapter \@ref(parallel).
+This has to do both with the efficiency of the binary representation, but also because __RevoScaleR__ is inherently parallel. 
+More on this in the Parallelization Chapter \@ref(parallel).
 ![__bigmemory__ vs. __ff__ vs. __RevoScaleR__ when reading, trasnforming, or fitting a model to 12GB of data, on a standrard laptop (in 2015 standards).](art/benchmark.png)
 
 
+
+
+
+
+### bigmemory
+
 We now demonstrate the workflow of the __bigmemory__ package.
+We will see that __bigmemory__, with it's `big.matrix` object is a very powerful mechanism.
+If you deal with big numeric matrices, you will find it very useful.
+If you deal with big data frames, or any other non-numeric matrix, __bigmemory__ may not be the appropriate tool, and you should try __ff__, or the commercial __RevoScaleR__.
+
 
 ```{r}
 # download.file("http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/BSAPUFS/Downloads/2010_Carrier_PUF.zip", "2010_Carrier_PUF.zip")
@@ -265,6 +276,8 @@ Things to note:
 - The memory mapped file, `airline.desc` will be there after the session is over. It can thus be called by other R sessions using ` attach.big.matrix("airline.desc")`. This will be useful when parallelizing. 
 -`pryr::object_size` return the size of the object. Since `x` holds only the memory mappings, it is much smaller than the 100MB of data that it holds. 
 
+
+
 We can now start computing with the data.
 Many statistical procedures for the `big.matrix` object are provided by the __biganalytics__ package. 
 In particular, the `biglm.big.matrix` and `bigglm.big.matrix` functions, provide an interface from `big.matrix` objects, to the EMA linear models in `biglm::biglm` and `biglm::bigglm`.
@@ -285,9 +298,66 @@ Other notable packages that operate with `big.matrix` objects include:
 - __GHap__: Haplotype calling from phased SNP data.
 
 
+
+## ff
+
+The __ff__ packages replaces R's in-RAM storage mechanism with on-disk (efficient) storage.
+Unlike __bigmemory__, __ff__ supports all of R vactor types such as factors, and not only numerics.
+Unlike `big.matrix`, which deals with (numeric) matrices, the `ffdf` class can deal with data frames. 
+
+Here is an example.
+First open a connection to the file, without actually importing it using the `LaF::laf_open_csv` function.
+
+```{r}
+.dat <- LaF::laf_open_csv(filename = "2010_BSA_Carrier_PUF.csv",
+                    column_types = c("integer", "integer", "categorical", "categorical", "categorical", "integer", "integer", "categorical", "integer", "integer", "integer"), 
+                    column_names = c("sex", "age", "diagnose", "healthcare.procedure", "typeofservice", "service.count", "provider.type", "servicesprocessed", "place.served", "payment", "carrierline.count"), 
+                    skip = 1)
+```
+
+Now write the data to local storage as an ff data frame, using `laf_to_ffdf`.
+
+```{r}
+data.ffdf <- ffbase::laf_to_ffdf(laf = .dat)
+head(data.ffdf)
+```
+
+We can verify that the `ffdf` data frame has a small RAM footprint.
+
+```{r}
+pryr::object_size(data.ffdf)
+```
+
+The __ffbase__ package provides several statistical tools to compute with `ff` class objects.
+Here is simple table.
+
+```{r ffdf table, cache=TRUE}
+ffbase:::table.ff(data.ffdf$age) 
+```
+
+The EMA implementation of `biglm::biglm` and `biglm::bigglm` have their __ff__ versions.
+
+```{r ffdf bigglm}
+library(biglm)
+mymodel.ffdf <- biglm(payment ~ factor(sex) + factor(age) + place.served, 
+                              data = data.ffdf)
+summary(mymodel.ffdf)
+```
+
+Things to note:
+
+- `biglm::biglm` notices the input of of class `ffdf` and calls the appropriate implementation.
+- The model formula, `payment ~ factor(sex) + factor(age) + place.served`, includes factors which cause no difficulty.
+- You cannot inspect the factor coding (dummy? effect?) using `model.matrix`. This is because EMA algorithms never really construct the whole matrix, let alone, save it in memory.
+
+
+
+
+
+
 ## Computing from a Distributed File System
 
-If your data is SOOO big that it cannot fit on your local storage, you will need a distributed file system or database.
+If your data is SOOO big that it cannot fit on your local storage, you will need a distributed file system or DBMS.
 We do not cover this topic here, and refer the reader to the __RHipe__, __RHadoop__, and __RSpark__ packages and references therein.
 
 
