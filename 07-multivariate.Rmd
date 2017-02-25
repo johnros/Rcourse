@@ -1,10 +1,10 @@
 # Multivariate Data Analysis {#multivariate}
 
 The term "multivariate data analysis" is so broad and so overloaded, that we start by clarifying what is discussed and what is not discussed in this chapter.
-Broadly speaking, we will discuss statistical inference, and leave more "exploratory flavored" matters like clustering, and visualization, to the Unsupervised Learning Chapter \@ref(unsupervised).
+Broadly speaking, we will discuss statistical _inference_, and leave more "exploratory flavored" matters like clustering, and visualization, to the Unsupervised Learning Chapter \@ref(unsupervised).
 
 More formally, let $y$ be a $p$ variate random vector, with $E[y]=\mu$.
-We will discuss the problems of
+Here is the set of problems we will discuss, in order of their statistical difficulty. 
 
 - __Signal detection__: 
 a.k.a. _multivariate hypothesis testing_, i.e., testing if $\mu$ equals $\mu_0$ and for $\mu_0=0$ in particular.
@@ -22,9 +22,56 @@ In particular, it deals with the identification of independencies between elemen
 For samples from a multivariate Gaussian distribution, learning the distribution implies all the above problem applied to $Var[y]$, instead of $E[y]$.
 
 
+```{remark}
+In the above, "signal" is defined in terms of $\mu$. 
+It is possible that the signal is not in the location, $\mu$, but rather in the covariance, $\Sigma$. 
+We do not discuss these problems here, and refer the reader to @nadler2008finite.
+```
+
+
+
 ## Signal Detection
+Signal detection deals with the detection of the departure of $\mu$ from some $\mu_0$, and especially, $\mu_0=0$.
+This problem can be thought of as the multivariate counterpart of the univariate hypothesis test. 
+Indeed, the most fundamental approach is a mere generalization of the t-test, known as _Hotelling's $T^2$ test_. 
+
+Recall the univariate t-statistic of a data vector $x$ of lenght $n$:
+\begin{align}
+  t^2(x):= \frac{(\bar{x}-\mu_0)^2}{Var[\bar{x}]}= (\bar{x}-\mu_0)Var[\bar{x}]^{-1}(\bar{x}-\mu_0),
+  (\#t-test)
+\end{align}
+where $Var[\bar{x}]=S^2(x)/n$, and $S^2(x)$ is the unbiased variance estimator $S^2(x):=(n-1)^{-1}\sum (x_i-\bar x)^2$.
+
+Generalizing Eq\@ref(eq:t-test) to the multivariate case: 
+$\mu_0$ is a p-vector, $\bar x$ is a p-vector, and $Var[\bar x]$ is a $p \times p$ matrix of the covariance between the $p$ coordinated of $\bar x$. 
+When operating with vectors, the squaring becomes a quadratic form, and the division becomes a matrix inverse. 
+We thus have
+\begin{align}
+  T^2(x):= (\bar{x}-\mu_0)' Var[\bar{x}]^{-1} (\bar{x}-\mu_0),
+  (\#hotelling-test)
+\end{align}
+Which is the definition of Hotelling's $T^2$ test statitsic. 
+We typically denote the covariance between coordinates in $x$ with $\hat \Sigma$, so that 
+$\widehat \Sigma_{k,l}:=\widehat {Cov}[x_k,x_l]=(n-1)^{-1} \sum (x_{k,i}-\bar x_k)(x_{l,i}-\bar x_l)$.
+Using the $\Sigma$ notation, Eq.\@ref(eq:hotelling-test) becomes 
+\begin{align}
+  T^2(x):= n (\bar{x}-\mu_0)' \hat \Sigma^{-1} (\bar{x}-\mu_0),
+\end{align}
+
+
+
+
+
+
+
+
+
+
+
 
 ## Signal Counting 
+
+
 
 ## Signal Identification
 
@@ -33,4 +80,7 @@ For samples from a multivariate Gaussian distribution, learning the distribution
 ## Multivariate Regression
 
 ## Distribution Fitting
+
+
+## Biblipgraphic Notes
 
