@@ -38,7 +38,7 @@ Indeed, the most fundamental approach is a mere generalization of the t-test, kn
 Recall the univariate t-statistic of a data vector $x$ of lenght $n$:
 \begin{align}
   t^2(x):= \frac{(\bar{x}-\mu_0)^2}{Var[\bar{x}]}= (\bar{x}-\mu_0)Var[\bar{x}]^{-1}(\bar{x}-\mu_0),
-  (\#t-test)
+  (\#eq:t-test)
 \end{align}
 where $Var[\bar{x}]=S^2(x)/n$, and $S^2(x)$ is the unbiased variance estimator $S^2(x):=(n-1)^{-1}\sum (x_i-\bar x)^2$.
 
@@ -48,14 +48,14 @@ When operating with vectors, the squaring becomes a quadratic form, and the divi
 We thus have
 \begin{align}
   T^2(x):= (\bar{x}-\mu_0)' Var[\bar{x}]^{-1} (\bar{x}-\mu_0),
-  (\#hotelling-test)
+  (\#eq:hotelling-test)
 \end{align}
 Which is the definition of Hotelling's $T^2$ test statitsic. 
-We typically denote the covariance between coordinates in $x$ with $\hat \Sigma$, so that 
+We typically denote the covariance between coordinates in $x$ with $\hat \Sigma(x)$, so that 
 $\widehat \Sigma_{k,l}:=\widehat {Cov}[x_k,x_l]=(n-1)^{-1} \sum (x_{k,i}-\bar x_k)(x_{l,i}-\bar x_l)$.
 Using the $\Sigma$ notation, Eq.\@ref(eq:hotelling-test) becomes 
 \begin{align}
-  T^2(x):= n (\bar{x}-\mu_0)' \hat \Sigma^{-1} (\bar{x}-\mu_0),
+  T^2(x):= n (\bar{x}-\mu_0)' \hat \Sigma(x)^{-1} (\bar{x}-\mu_0).
 \end{align}
 
 
