@@ -55,8 +55,26 @@ We typically denote the covariance between coordinates in $x$ with $\hat \Sigma(
 $\widehat \Sigma_{k,l}:=\widehat {Cov}[x_k,x_l]=(n-1)^{-1} \sum (x_{k,i}-\bar x_k)(x_{l,i}-\bar x_l)$.
 Using the $\Sigma$ notation, Eq.\@ref(eq:hotelling-test) becomes 
 \begin{align}
-  T^2(x):= n (\bar{x}-\mu_0)' \hat \Sigma(x)^{-1} (\bar{x}-\mu_0).
+  T^2(x):= n (\bar{x}-\mu_0)' \hat \Sigma(x)^{-1} (\bar{x}-\mu_0),
 \end{align}
+which is the standard notation of Hotelling's test statistic.
+
+To discuss the distribution of Hotelling's test statistic we need to introcude some vocabulary^[This vocabulary is not standard in the literature, so when you read a text, you need to verify yourself which regime the author is considering.]:
+
+1. __Low Dimension__:
+We call a problem _low dimensional_ if $n \gg p$, i.e. $p/n \approx 0$.
+This means there are many observations per estimated parameter.
+1. __High Dimension__: 
+We call a problem _high dimensional_ if $p/n \to c$, where $c\in (0,1)$.
+This means there are more observations that parameters, but not many.
+1. __Very High Dimension__: 
+We call a problem _very high dimensional_ if $p/n \to c$, where $1<c<\infty$.
+This means there are less observations than parameter, but not many.
+1. __Extremely high dimensional__: 
+We call a problem __extremely high dimensional__ if $p/n \to \infty$.
+This means there are many more parameters than observations.
+
+
 
 
 
