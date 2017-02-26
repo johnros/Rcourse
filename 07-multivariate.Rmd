@@ -119,23 +119,99 @@ For the purposes of this book, however, we will not discuss them directly, and s
 ## Signal Identification
 The problem of _signal identification_ is also known as _selective testing_, or more commonly as _multiple testing_.
 
+In the ANOVA literature, an identification stage will typically follow a detection stage.
+These are known as the _imnibus F test_, and _post-hoc_ tests, respectively.
+In the multiple testing literature there will typically be no preliminary detection stage. It is typically assumed that signal is present, and the only question is "where?"
+
+
 The first question when approaching a multiple testing problem is "what is an error"?
 Is an error declaring a coordinate in $\mu$ to be different than $\mu_0$ when it is actually not?
 Is an error the proportion of such false declarations.
 The former is known as the _family wise error rate_ (FWER), and the latter as the _false discovery rate_ (FDR).
 
 
+### Signal Identification in R
 
+One (of many) ways to do signal identification involves the `stats::p.adjust` function.
+The function takes as inputs a $p$-vector of p-values. 
+This implies that: 
+(i) you are assumed to be able to compute the p-value of each the $p$ hypothesis tested; one hypothesis for every coordinate in $\mu$. 
+(ii) unlike the Hotelling test, we do not try to estimate the covariance between coordinates. Not because it is not important, but rather, because the methods we will use apply to a wide variety of covariances. 
 
+We start be generating some multivaraite data and computing the coordinate-wise (i.e. hypothesis-wise) p-value.
 
+```{r}
+library(mvtnorm)
+n <- 1e1
+p <- 1e2
+mu <- rep(0,p)
+x <- rmvnorm(n = n, mean = mu)
+dim(x)
+image(x)
+```
 
+We now compute the pvalues of each coordiante.
+We use a coordinate-wise t-test. 
+Why a t-test? Because for the purpose of demonstration we want a simple test. In reality, you may use any test that returns valid p-values. 
+
+```{r}
+p.values <- apply(X = x, MARGIN = 2, FUN = function(y) t.test(y)$p.value) 
+plot(p.values, type='h')
+```
+
+Things to note:
+
+- We used the `apply` function to apply the same function to each column of `x`. 
+- The output, `p.values`, is a vector of 100 p-values. 
+
+We are now ready to do the identification, i.e., find which coordiante of $\mu$ is different than $\mu_0=0$.
+The workflow is: 
+(i) Compute an `adjusted p-value`. 
+(ii) Compare the adjusted p-value to the desired error level.
+
+If we want $FWER \leq 0.05$, meaning that we allow a $5\%$ probability of making any mistake, we will use the `method="holm"` argument of `p.adjust`.
+
+```{r holm}
+alpha <- 0.05
+p.values.holm <- p.adjust(p.values, method = 'holm' )
+table(p.values.holm < alpha)
+```
+
+If we want $FDR \leq 0.05$, meaning that we allow the proportion of false discoveries to be no larger than $5\%$, we use the `method="BH"` argument of `p.adjust`.
+
+```{r bh}
+alpha <- 0.05
+p.values.BH <- p.adjust(p.values, method = 'BH' )
+table(p.values.BH < alpha)
+```
+
+We now inject some signal in $\mu$ just to see that the process works.
+We will artificially inject signal in the first 10 coordinates.
+
+```{r}
+mu[1:10] <- 2
+x <- rmvnorm(n = n, mean = mu)
+p.values <- apply(X = x, MARGIN = 2, FUN = function(y) t.test(y)$p.value) 
+p.values.BH <- p.adjust(p.values, method = 'BH' )
+which(p.values.BH < alpha)
+```
+
+Indeed- we are now able to detect that the first coordiantes carry signal, because their respective coordinate-wise null hypotheses have been rejected. 
 
 
 ## Signal Estimation
 
+
+
+
 ## Multivariate Regression
 
+
+
+
 ## Distribution Fitting
+
+
 
 
 ## Biblipgraphic Notes
