@@ -22,6 +22,22 @@ In particular, it deals with the identification of independencies between elemen
 For samples from a multivariate Gaussian distribution, learning the distribution implies all the above problem applied to $Var[y]$, instead of $E[y]$.
 
 
+```{example, label='icu'}
+Consider the problem of a patient monitored in the intensive care unit. 
+At every minute the monitor takes $p$ physiological measurements: blood pressure, body temperature, etc.
+The total number of minutes in our data is $n$, so that in total, we have $n \times p$ measurements, arranged in a matrix. 
+We also know the typical measurements for this patient when healthy: $\mu_0$.
+
+Signal detection means testing if the patient's measurement depart in any way than his healthy state, $\mu_0$.
+Signal counting means measuring _how many_ measurement depart from the healthy state.
+Signal identification means pin-pointing which of the measurements depart from his healthy state. 
+Signal estimation means estimating the magnitude of the departure from the healthy state. 
+Multivaraite regression means finding the factors which many explain the departure from the healthy state. 
+```
+
+
+
+
 ```{remark}
 In the above, "signal" is defined in terms of $\mu$. 
 It is possible that the signal is not in the location, $\mu$, but rather in the covariance, $\Sigma$. 
@@ -35,7 +51,7 @@ Signal detection deals with the detection of the departure of $\mu$ from some $\
 This problem can be thought of as the multivariate counterpart of the univariate hypothesis test. 
 Indeed, the most fundamental approach is a mere generalization of the t-test, known as _Hotelling's $T^2$ test_. 
 
-Recall the univariate t-statistic of a data vector $x$ of lenght $n$:
+Recall the univariate t-statistic of a data vector $x$ of length $n$:
 \begin{align}
   t^2(x):= \frac{(\bar{x}-\mu_0)^2}{Var[\bar{x}]}= (\bar{x}-\mu_0)Var[\bar{x}]^{-1}(\bar{x}-\mu_0),
   (\#eq:t-test)
@@ -50,7 +66,7 @@ We thus have
   T^2(x):= (\bar{x}-\mu_0)' Var[\bar{x}]^{-1} (\bar{x}-\mu_0),
   (\#eq:hotelling-test)
 \end{align}
-Which is the definition of Hotelling's $T^2$ test statitsic. 
+Which is the definition of Hotelling's $T^2$ test statistic. 
 We typically denote the covariance between coordinates in $x$ with $\hat \Sigma(x)$, so that 
 $\widehat \Sigma_{k,l}:=\widehat {Cov}[x_k,x_l]=(n-1)^{-1} \sum (x_{k,i}-\bar x_k)(x_{l,i}-\bar x_l)$.
 Using the $\Sigma$ notation, Eq.\@ref(eq:hotelling-test) becomes 
@@ -59,7 +75,7 @@ Using the $\Sigma$ notation, Eq.\@ref(eq:hotelling-test) becomes
 \end{align}
 which is the standard notation of Hotelling's test statistic.
 
-To discuss the distribution of Hotelling's test statistic we need to introcude some vocabulary^[This vocabulary is not standard in the literature, so when you read a text, you need to verify yourself which regime the author is considering.]:
+To discuss the distribution of Hotelling's test statistic we need to introduce some vocabulary^[This vocabulary is not standard in the literature, so when you read a text, you need to verify yourself which regime the author is considering.]:
 
 1. __Low Dimension__:
 We call a problem _low dimensional_ if $n \gg p$, i.e. $p/n \approx 0$.
@@ -74,24 +90,46 @@ This means there are less observations than parameter, but not many.
 We call a problem __extremely high dimensional__ if $p/n \to \infty$.
 This means there are many more parameters than observations.
 
+Hotelling's $T^2$ test only can only be used in the low dimensional regime. 
+For some intuition on this statement, think of taking $n=20$ measurements of $p=100$ physiological variables. 
+We seemingly have $20$ observations, but there are $100$ unknown quantities in $\mu$. 
+Would you trust your conclusion that $\bar x$ is different than $\mu_0$ based on merely $20$ observations. 
+
+Put formally:
+We cannot compute Hotelling's test when $n<p$ because $\hat \Sigma$ is simply not invertible-- this is an algebraic problem.
+We cannot compute Hotelling's test when $p/n \to c$ because the signal-to-noise is very low-- this is a statistical problem. 
+
+Only in the low dimensional case can we compute and trust Hotelling's test. 
+When $n \gg p$ then $T^2(x)$ is roughly $\Chi^2$ distributed with $p$ degrees of freedom. 
+The F distribution may also be found in the literature in this context, and will appear if assuming the $n$ p-vectors are independent, and $p$-variate Gaussian. 
+This F distribution is non-robust the underlying assumptions, so from a practical point of view, I would not trust it unless $n \gg p$.
 
 
 
+### Signal Detection with R
 
-
-
-
-
-
-
-
+TODO
 
 
 ## Signal Counting 
-
+There are many ways to approach the _signal counting_ problem. 
+For the purposes of this book, however, we will not discuss them directly, and solve the signal counting problem as a signal identification problem: if we know __where__ $\mu$ departs from $\mu_0$, we only need to count coordinates to solve the signal counting problem. 
 
 
 ## Signal Identification
+The problem of _signal identification_ is also known as _selective testing_, or more commonly as _multiple testing_.
+
+The first question when approaching a multiple testing problem is "what is an error"?
+Is an error declaring a coordinate in $\mu$ to be different than $\mu_0$ when it is actually not?
+Is an error the proportion of such false declarations.
+The former is known as the _family wise error rate_ (FWER), and the latter as the _false discovery rate_ (FDR).
+
+
+
+
+
+
+
 
 ## Signal Estimation
 
@@ -101,4 +139,8 @@ This means there are many more parameters than observations.
 
 
 ## Biblipgraphic Notes
-
+For a general introduction to multivariate data analysis see @anderson2004introduction.
+For an R oriented introduction, see @everitt2011introduction.
+For more on the difficulties with high dimensional problems, see @bai1996effect.
+For more on multiple testing, and signal identification, see @efron2012large.
+For more on the choice of your error rate see @rosenblatt2013practitioner.
