@@ -138,7 +138,7 @@ This implies that:
 (i) you are assumed to be able to compute the p-value of each the $p$ hypothesis tested; one hypothesis for every coordinate in $\mu$. 
 (ii) unlike the Hotelling test, we do not try to estimate the covariance between coordinates. Not because it is not important, but rather, because the methods we will use apply to a wide variety of covariances. 
 
-We start be generating some multivaraite data and computing the coordinate-wise (i.e. hypothesis-wise) p-value.
+We start be generating some multivariate data and computing the coordinate-wise (i.e. hypothesis-wise) p-value.
 
 ```{r}
 library(mvtnorm)
@@ -150,7 +150,7 @@ dim(x)
 image(x)
 ```
 
-We now compute the pvalues of each coordiante.
+We now compute the pvalues of each coordinate.
 We use a coordinate-wise t-test. 
 Why a t-test? Because for the purpose of demonstration we want a simple test. In reality, you may use any test that returns valid p-values. 
 
@@ -164,7 +164,7 @@ Things to note:
 - We used the `apply` function to apply the same function to each column of `x`. 
 - The output, `p.values`, is a vector of 100 p-values. 
 
-We are now ready to do the identification, i.e., find which coordiante of $\mu$ is different than $\mu_0=0$.
+We are now ready to do the identification, i.e., find which coordinate of $\mu$ is different than $\mu_0=0$.
 The workflow is: 
 (i) Compute an `adjusted p-value`. 
 (ii) Compare the adjusted p-value to the desired error level.
@@ -196,7 +196,7 @@ p.values.BH <- p.adjust(p.values, method = 'BH' )
 which(p.values.BH < alpha)
 ```
 
-Indeed- we are now able to detect that the first coordiantes carry signal, because their respective coordinate-wise null hypotheses have been rejected. 
+Indeed- we are now able to detect that the first coordinates carry signal, because their respective coordinate-wise null hypotheses have been rejected. 
 
 
 ## Signal Estimation
