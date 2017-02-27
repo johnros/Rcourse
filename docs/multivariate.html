@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-02-26">
+<meta name="date" content="2017-02-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -191,8 +191,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation</a></li>
 <li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression</a></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#distribution-fitting"><i class="fa fa-check"></i><b>8.6</b> Distribution Fitting</a></li>
-<li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
+<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.6</b> Biblipgraphic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>9</b> Supervised Learning</a><ul>
 <li class="chapter" data-level="9.1" data-path="supervised.html"><a href="supervised.html#problem-setup-3"><i class="fa fa-check"></i><b>9.1</b> Problem setup</a><ul>
@@ -294,7 +293,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Implicit Parallelism</a></li>
 <li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a></li>
+<li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a><ul>
+<li class="chapter" data-level="17.1" data-path="algebra.html"><a href="algebra.html#lu"><i class="fa fa-check"></i><b>17.1</b> LU</a></li>
+<li class="chapter" data-level="17.2" data-path="algebra.html"><a href="algebra.html#qr"><i class="fa fa-check"></i><b>17.2</b> QR</a></li>
+<li class="chapter" data-level="17.3" data-path="algebra.html"><a href="algebra.html#svd"><i class="fa fa-check"></i><b>17.3</b> SVD</a></li>
+</ul></li>
 <li class="chapter" data-level="18" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>18</b> Convex Optimization</a></li>
 <li class="chapter" data-level="19" data-path="rcpp.html"><a href="rcpp.html"><i class="fa fa-check"></i><b>19</b> RCpp</a></li>
 <li class="chapter" data-level="20" data-path="package.html"><a href="package.html"><i class="fa fa-check"></i><b>20</b> Writing Packages</a></li>
@@ -370,10 +373,61 @@ Which is the definition of Hotelling’s <span class="math inline">\(T^2\)</span
 </ol>
 <p>Hotelling’s <span class="math inline">\(T^2\)</span> test only can only be used in the low dimensional regime. For some intuition on this statement, think of taking <span class="math inline">\(n=20\)</span> measurements of <span class="math inline">\(p=100\)</span> physiological variables. We seemingly have <span class="math inline">\(20\)</span> observations, but there are <span class="math inline">\(100\)</span> unknown quantities in <span class="math inline">\(\mu\)</span>. Would you trust your conclusion that <span class="math inline">\(\bar x\)</span> is different than <span class="math inline">\(\mu_0\)</span> based on merely <span class="math inline">\(20\)</span> observations.</p>
 <p>Put formally: We cannot compute Hotelling’s test when <span class="math inline">\(n&lt;p\)</span> because <span class="math inline">\(\hat \Sigma\)</span> is simply not invertible– this is an algebraic problem. We cannot compute Hotelling’s test when <span class="math inline">\(p/n \to c\)</span> because the signal-to-noise is very low– this is a statistical problem.</p>
-<p>Only in the low dimensional case can we compute and trust Hotelling’s test. When <span class="math inline">\(n \gg p\)</span> then <span class="math inline">\(T^2(x)\)</span> is roughly <span class="math inline">\(\Chi^2\)</span> distributed with <span class="math inline">\(p\)</span> degrees of freedom. The F distribution may also be found in the literature in this context, and will appear if assuming the <span class="math inline">\(n\)</span> p-vectors are independent, and <span class="math inline">\(p\)</span>-variate Gaussian. This F distribution is non-robust the underlying assumptions, so from a practical point of view, I would not trust it unless <span class="math inline">\(n \gg p\)</span>.</p>
+<p>Only in the low dimensional case can we compute and trust Hotelling’s test. When <span class="math inline">\(n \gg p\)</span> then <span class="math inline">\(T^2(x)\)</span> is roughly <span class="math inline">\(\chi^2\)</span> distributed with <span class="math inline">\(p\)</span> degrees of freedom. The F distribution may also be found in the literature in this context, and will appear if assuming the <span class="math inline">\(n\)</span> p-vectors are independent, and <span class="math inline">\(p\)</span>-variate Gaussian. This F distribution is non-robust the underlying assumptions, so from a practical point of view, I would not trust it unless <span class="math inline">\(n \gg p\)</span>.</p>
 <div id="signal-detection-with-r" class="section level3">
 <h3><span class="header-section-number">8.1.1</span> Signal Detection with R</h3>
-<p>TODO</p>
+<p>Let’s generate some data with no signal.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mvtnorm)
+n &lt;-<span class="st"> </span><span class="fl">1e2</span>
+p &lt;-<span class="st"> </span><span class="fl">1e1</span>
+mu &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,p) <span class="co"># no signal</span>
+x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt">n =</span> n, <span class="dt">mean =</span> mu)
+<span class="kw">dim</span>(x)</code></pre></div>
+<pre><code>## [1] 100  10</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(x)</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-145-1.png" width="50%" /></p>
+<p>Now make our own Hotelling function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hotellingOneSample &lt;-<span class="st"> </span>function(x, <span class="dt">mu0=</span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="kw">ncol</span>(x))){
+  n &lt;-<span class="st"> </span><span class="kw">nrow</span>(x)
+  p &lt;-<span class="st"> </span><span class="kw">ncol</span>(x)
+  <span class="kw">stopifnot</span>(n &gt;<span class="st"> </span><span class="dv">5</span>*<span class="st"> </span>p)
+  bar.x &lt;-<span class="st"> </span><span class="kw">colMeans</span>(x)
+  Sigma &lt;-<span class="st"> </span><span class="kw">var</span>(x)
+  Sigma.inv &lt;-<span class="st"> </span><span class="kw">solve</span>(Sigma)
+  T2 &lt;-<span class="st"> </span>n *<span class="st"> </span>(bar.x-mu0) %*%<span class="st"> </span>Sigma.inv %*%<span class="st"> </span>(bar.x-mu0)
+  p.value &lt;-<span class="st"> </span><span class="kw">pchisq</span>(<span class="dt">q =</span> T2, <span class="dt">df =</span> p, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)
+  <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">statistic=</span>T2, <span class="dt">pvalue=</span>p.value))
+}
+
+<span class="kw">hotellingOneSample</span>(x)</code></pre></div>
+<pre><code>## $statistic
+##          [,1]
+## [1,] 10.96788
+## 
+## $pvalue
+##          [,1]
+## [1,] 0.360026</code></pre>
+<p>Things to note:</p>
+<ul>
+<li><code>stopifnot(n &gt; 5 * p)</code> is a little verification use to check that the problem is indeed low dimensional. Otherwise, the <span class="math inline">\(\chi^2\)</span> approximation will not hold.</li>
+<li><code>solve</code> returns a matrix inverse.</li>
+<li><code>%*%</code> is the matrix product operator (see also <code>crossprod()</code>).</li>
+<li>A function may return only a single object, so we wrap the statistic and its p-value in a <code>list</code> object.</li>
+</ul>
+<p>Just for verification, we compare our home made Hotelling’s test, to the implementation in the <strong>rrcov</strong> package. The results look good!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rrcov::<span class="kw">T2.test</span>(x)</code></pre></div>
+<pre><code>## 
+##  One-sample Hotelling test
+## 
+## data:  x
+## T2 = 10.96800, F = 0.99708, df1 = 10, df2 = 90, p-value = 0.4521
+## alternative hypothesis: true mean vector is not equal to (0, 0, 0, 0, 0, 0, 0, 0, 0, 0)&#39; 
+## 
+## sample estimates:
+##                    [,1]         [,2]        [,3]       [,4]      [,5]
+## mean x-vector 0.2308095 -0.009768326 -0.03264608 0.01022598 0.1446547
+##                    [,6]        [,7]         [,8]       [,9]       [,10]
+## mean x-vector 0.1087171 -0.08998537 -0.003962775 0.06044537 -0.09869099</code></pre>
 </div>
 </div>
 <div id="signal-counting" class="section level2">
@@ -397,11 +451,11 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 <span class="kw">dim</span>(x)</code></pre></div>
 <pre><code>## [1]  10 100</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(x)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-145-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-148-1.png" width="50%" /></p>
 <p>We now compute the pvalues of each coordinate. We use a coordinate-wise t-test. Why a t-test? Because for the purpose of demonstration we want a simple test. In reality, you may use any test that returns valid p-values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p.values &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="dt">X =</span> x, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> function(y) <span class="kw">t.test</span>(y)$p.value) 
 <span class="kw">plot</span>(p.values, <span class="dt">type=</span><span class="st">&#39;h&#39;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-146-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-149-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>We used the <code>apply</code> function to apply the same function to each column of <code>x</code>.</li>
@@ -423,27 +477,29 @@ p.values.BH &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.val
 ## FALSE 
 ##   100</code></pre>
 <p>We now inject some signal in <span class="math inline">\(\mu\)</span> just to see that the process works. We will artificially inject signal in the first 10 coordinates.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mu[<span class="dv">1</span>:<span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">2</span>
-x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt">n =</span> n, <span class="dt">mean =</span> mu)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mu[<span class="dv">1</span>:<span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">2</span> <span class="co"># inject signal</span>
+x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt">n =</span> n, <span class="dt">mean =</span> mu) <span class="co"># generate data</span>
 p.values &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="dt">X =</span> x, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> function(y) <span class="kw">t.test</span>(y)$p.value) 
 p.values.BH &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.values, <span class="dt">method =</span> <span class="st">&#39;BH&#39;</span> )
 <span class="kw">which</span>(p.values.BH &lt;<span class="st"> </span>alpha)</code></pre></div>
-<pre><code>##  [1]  2  3  4  5  6  7  8  9 10 62</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 17</code></pre>
 <p>Indeed- we are now able to detect that the first coordinates carry signal, because their respective coordinate-wise null hypotheses have been rejected.</p>
 </div>
 </div>
 <div id="signal-estimation" class="section level2">
 <h2><span class="header-section-number">8.4</span> Signal Estimation</h2>
+<p>The estimation of the elements of <span class="math inline">\(\mu\)</span> is a seemingly straightforward task. This is not the case, however, if we estimate only the elemnts that were selected because they were significant (or any other data-dependent criterion). Clearly, estimating only significant entries will introduce a bias in the estimation. In the statistical literature, this is known as <em>selection bias</em>. Selection bias also occurs when you perform inference on regression coefficients after some model selection, say, with a lasso, or a forward search<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a>.</p>
+<p>Selective inference is a complicated and active research topic so we will not offer any off-the-shelf solution to the matter. The curious reader is invited to read <span class="citation">J. D. Rosenblatt and Benjamini (<a href="#ref-rosenblatt2014selective">2014</a>)</span>, <span class="citation">Javanmard and Montanari (<a href="#ref-javanmard2014confidence">2014</a>)</span>, or <a href="http://www.stat.berkeley.edu/~wfithian/">Will Fithian’s</a> PhD thesis <span class="citation">(Fithian <a href="#ref-fithian2015topics">2015</a>)</span> for more on the topic.</p>
 </div>
 <div id="multivariate-regression" class="section level2">
 <h2><span class="header-section-number">8.5</span> Multivariate Regression</h2>
-</div>
-<div id="distribution-fitting" class="section level2">
-<h2><span class="header-section-number">8.6</span> Distribution Fitting</h2>
+<p><em>Multivaraite regression</em>, a.k.a. <em>MANOVA</em>, similar to <a href="https://en.wikipedia.org/wiki/Structured_prediction"><em>structured learning</em></a> in machine learning, is simply a regression problem where the outcome, <span class="math inline">\(y\)</span>, is not scalar values but vector valued. It is not to be confused with <em>multiple regression</em> where the preditor, <span class="math inline">\(x\)</span>, is vector valued, but the outcome is scalar.</p>
+<p>If the linear models generalize the two-sample t-test from two, to multiple populations, then multivariate regression generalizes Hotelling’s test in the same way.</p>
+<p>TODO</p>
 </div>
 <div id="biblipgraphic-notes" class="section level2">
-<h2><span class="header-section-number">8.7</span> Biblipgraphic Notes</h2>
-<p>For a general introduction to multivariate data analysis see <span class="citation">Anderson-Cook (<a href="#ref-anderson2004introduction">2004</a>)</span>. For an R oriented introduction, see <span class="citation">Everitt and Hothorn (<a href="#ref-everitt2011introduction">2011</a>)</span>. For more on the difficulties with high dimensional problems, see <span class="citation">Bai and Saranadasa (<a href="#ref-bai1996effect">1996</a>)</span>. For more on multiple testing, and signal identification, see <span class="citation">Efron (<a href="#ref-efron2012large">2012</a>)</span>. For more on the choice of your error rate see <span class="citation">Rosenblatt (<a href="#ref-rosenblatt2013practitioner">2013</a>)</span>.</p>
+<h2><span class="header-section-number">8.6</span> Biblipgraphic Notes</h2>
+<p>For a general introduction to multivariate data analysis see <span class="citation">Anderson-Cook (<a href="#ref-anderson2004introduction">2004</a>)</span>. For an R oriented introduction, see <span class="citation">Everitt and Hothorn (<a href="#ref-everitt2011introduction">2011</a>)</span>. For more on the difficulties with high dimensional problems, see <span class="citation">Bai and Saranadasa (<a href="#ref-bai1996effect">1996</a>)</span>. For more on multiple testing, and signal identification, see <span class="citation">Efron (<a href="#ref-efron2012large">2012</a>)</span>. For more on the choice of your error rate see <span class="citation">J. Rosenblatt (<a href="#ref-rosenblatt2013practitioner">2013</a>)</span>.</p>
 
 </div>
 </div>
@@ -451,6 +507,15 @@ p.values.BH &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.val
 <div id="refs" class="references">
 <div id="ref-nadler2008finite">
 <p>Nadler, Boaz. 2008. “Finite Sample Approximation Results for Principal Component Analysis: A Matrix Perturbation Approach.” <em>The Annals of Statistics</em>. JSTOR, 2791–2817.</p>
+</div>
+<div id="ref-rosenblatt2014selective">
+<p>Rosenblatt, Jonathan D, and Yoav Benjamini. 2014. “Selective Correlations; Not Voodoo.” <em>NeuroImage</em> 103. Elsevier: 401–10.</p>
+</div>
+<div id="ref-javanmard2014confidence">
+<p>Javanmard, Adel, and Andrea Montanari. 2014. “Confidence Intervals and Hypothesis Testing for High-Dimensional Regression.” <em>Journal of Machine Learning Research</em> 15 (1): 2869–2909.</p>
+</div>
+<div id="ref-fithian2015topics">
+<p>Fithian, William. 2015. “Topics in Adaptive Inference.” PhD thesis, STANFORD UNIVERSITY.</p>
 </div>
 <div id="ref-anderson2004introduction">
 <p>Anderson-Cook, Christine M. 2004. “An Introduction to Multivariate Statistical Analysis.” <em>Journal of the American Statistical Association</em> 99 (467). American Statistical Association: 907–9.</p>
@@ -472,6 +537,7 @@ p.values.BH &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.val
 <hr />
 <ol start="13">
 <li id="fn13"><p>This vocabulary is not standard in the literature, so when you read a text, you need to verify yourself which regime the author is considering.<a href="multivariate.html#fnref13">↩</a></p></li>
+<li id="fn14"><p>You might this shocking, but it does mean that you cannot trust the <code>summary</code> table of a model that was selected from a multitude of models.<a href="multivariate.html#fnref14">↩</a></p></li>
 </ol>
 </div>
             </section>

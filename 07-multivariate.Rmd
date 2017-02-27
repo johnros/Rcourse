@@ -100,7 +100,7 @@ We cannot compute Hotelling's test when $n<p$ because $\hat \Sigma$ is simply no
 We cannot compute Hotelling's test when $p/n \to c$ because the signal-to-noise is very low-- this is a statistical problem. 
 
 Only in the low dimensional case can we compute and trust Hotelling's test. 
-When $n \gg p$ then $T^2(x)$ is roughly $\Chi^2$ distributed with $p$ degrees of freedom. 
+When $n \gg p$ then $T^2(x)$ is roughly $\chi^2$ distributed with $p$ degrees of freedom. 
 The F distribution may also be found in the literature in this context, and will appear if assuming the $n$ p-vectors are independent, and $p$-variate Gaussian. 
 This F distribution is non-robust the underlying assumptions, so from a practical point of view, I would not trust it unless $n \gg p$.
 
@@ -108,7 +108,55 @@ This F distribution is non-robust the underlying assumptions, so from a practica
 
 ### Signal Detection with R
 
-TODO
+Let's generate some data with no signal.
+
+```{r}
+library(mvtnorm)
+n <- 1e2
+p <- 1e1
+mu <- rep(0,p) # no signal
+x <- rmvnorm(n = n, mean = mu)
+dim(x)
+image(x)
+```
+
+Now make our own Hotelling function.
+
+```{r}
+hotellingOneSample <- function(x, mu0=rep(0,ncol(x))){
+  n <- nrow(x)
+  p <- ncol(x)
+  stopifnot(n > 5* p)
+  bar.x <- colMeans(x)
+  Sigma <- var(x)
+  Sigma.inv <- solve(Sigma)
+  T2 <- n * (bar.x-mu0) %*% Sigma.inv %*% (bar.x-mu0)
+  p.value <- pchisq(q = T2, df = p, lower.tail = FALSE)
+  return(list(statistic=T2, pvalue=p.value))
+}
+
+hotellingOneSample(x)
+```
+
+Things to note:
+
+- `stopifnot(n > 5 * p)` is a little verification use to check that the problem is indeed low dimensional. Otherwise, the $\chi^2$ approximation will not hold. 
+- `solve` returns a matrix inverse. 
+- `%*%` is the matrix product operator (see also `crossprod()`).
+- A function may return only a single object, so we wrap the statistic and its p-value in a `list` object.
+
+
+
+Just for verification, we compare our home made Hotelling's test, to the implementation in the __rrcov__ package. 
+The results look good!
+
+```{r}
+rrcov::T2.test(x)
+```
+
+
+
+
 
 
 ## Signal Counting 
@@ -189,8 +237,8 @@ We now inject some signal in $\mu$ just to see that the process works.
 We will artificially inject signal in the first 10 coordinates.
 
 ```{r}
-mu[1:10] <- 2
-x <- rmvnorm(n = n, mean = mu)
+mu[1:10] <- 2 # inject signal
+x <- rmvnorm(n = n, mean = mu) # generate data
 p.values <- apply(X = x, MARGIN = 2, FUN = function(y) t.test(y)$p.value) 
 p.values.BH <- p.adjust(p.values, method = 'BH' )
 which(p.values.BH < alpha)
@@ -201,15 +249,28 @@ Indeed- we are now able to detect that the first coordinates carry signal, becau
 
 ## Signal Estimation
 
+The estimation of the elements of $\mu$ is a seemingly straightforward task.
+This is not the case, however, if we estimate only the elemnts that were selected because they were significant (or any other data-dependent criterion).
+Clearly, estimating only significant entries will introduce a bias in the estimation. 
+In the statistical literature, this is known as _selection bias_.
+Selection bias also occurs when you perform inference on regression coefficients after some model selection, say, with a lasso, or a forward search^[You might this shocking, but it does mean that you cannot trust the `summary` table of a model that was selected from a multitude of models.].
+
+Selective inference is a complicated and active research topic so we will not offer any off-the-shelf solution to the matter.
+The curious reader is invited to read @rosenblatt2014selective, @javanmard2014confidence, or [Will Fithian's](http://www.stat.berkeley.edu/~wfithian/) PhD thesis [@fithian2015topics] for more on the topic. 
+
 
 
 
 ## Multivariate Regression
 
+_Multivaraite regression_, a.k.a. _MANOVA_, similar to [_structured learning_](https://en.wikipedia.org/wiki/Structured_prediction) in machine learning, is simply a regression problem where the outcome, $y$, is not scalar values but vector valued. 
+It is not to be confused with _multiple regression_ where the preditor, $x$, is vector valued, but the outcome is scalar. 
+
+If the linear models generalize the two-sample t-test from two, to multiple populations, then multivariate regression generalizes Hotelling's test in the same way.
+
+TODO
 
 
-
-## Distribution Fitting
 
 
 

@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-02-26">
+<meta name="date" content="2017-02-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -191,8 +191,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation</a></li>
 <li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression</a></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#distribution-fitting"><i class="fa fa-check"></i><b>8.6</b> Distribution Fitting</a></li>
-<li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
+<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.6</b> Biblipgraphic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>9</b> Supervised Learning</a><ul>
 <li class="chapter" data-level="9.1" data-path="supervised.html"><a href="supervised.html#problem-setup-3"><i class="fa fa-check"></i><b>9.1</b> Problem setup</a><ul>
@@ -294,7 +293,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Implicit Parallelism</a></li>
 <li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a></li>
+<li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a><ul>
+<li class="chapter" data-level="17.1" data-path="algebra.html"><a href="algebra.html#lu"><i class="fa fa-check"></i><b>17.1</b> LU</a></li>
+<li class="chapter" data-level="17.2" data-path="algebra.html"><a href="algebra.html#qr"><i class="fa fa-check"></i><b>17.2</b> QR</a></li>
+<li class="chapter" data-level="17.3" data-path="algebra.html"><a href="algebra.html#svd"><i class="fa fa-check"></i><b>17.3</b> SVD</a></li>
+</ul></li>
 <li class="chapter" data-level="18" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>18</b> Convex Optimization</a></li>
 <li class="chapter" data-level="19" data-path="rcpp.html"><a href="rcpp.html"><i class="fa fa-check"></i><b>19</b> RCpp</a></li>
 <li class="chapter" data-level="20" data-path="package.html"><a href="package.html"><i class="fa fa-check"></i><b>20</b> Writing Packages</a></li>
@@ -323,7 +326,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 12</span> Reports</h1>
 <p>If you ever written a report, you are probably familiar with the process of preparing your figures in some software, say R, and then copy-pasting into your text editor, say MS Word. While very popular, this process is both tedious, and plain painful if your data has changed and you need to update the report. Wouldn’t it be nice if you could produce figures and numbers from within the text of the report, and everything else would be automated? It turns out it is possible. There are actually several systems in R that allow this. We start with a brief review.</p>
 <ol style="list-style-type: decimal">
-<li><p><strong>Sweave</strong>: <em>Latex</em> is a markup language that compiles to <em>Tex</em> programs that compile to documents, typically PDFs. If you never heard of it, it may be because you were born the the MS Windows+MS Word era. You should know, however, that <em>Latex</em> was there much earlier, when computers were mainframes with text-only graphic devices. You should also know that <em>Latex</em> is still very popular (in some communities) due to its very rich markup syntax, and beautiful output. <em>Sweave</em> <span class="citation">(Leisch <a href="#ref-leisch2002sweave">2002</a>)</span> is a compiler for <em>Latex</em> that allows you do insert R commands in the <em>Latex</em> source file, compile it, and get the result as part of the outputted PDF. It’s name suggests just that: it allows to weave S<a href="#fn21" class="footnoteRef" id="fnref21"><sup>21</sup></a> output into the document, thus, Sweave.</p></li>
+<li><p><strong>Sweave</strong>: <em>Latex</em> is a markup language that compiles to <em>Tex</em> programs that compile to documents, typically PDFs. If you never heard of it, it may be because you were born the the MS Windows+MS Word era. You should know, however, that <em>Latex</em> was there much earlier, when computers were mainframes with text-only graphic devices. You should also know that <em>Latex</em> is still very popular (in some communities) due to its very rich markup syntax, and beautiful output. <em>Sweave</em> <span class="citation">(Leisch <a href="#ref-leisch2002sweave">2002</a>)</span> is a compiler for <em>Latex</em> that allows you do insert R commands in the <em>Latex</em> source file, compile it, and get the result as part of the outputted PDF. It’s name suggests just that: it allows to weave S<a href="#fn22" class="footnoteRef" id="fnref22"><sup>22</sup></a> output into the document, thus, Sweave.</p></li>
 <li><p><strong>knitr</strong>: <em>Markdown</em> is a text editing syntax that is aimed to be human-readable, but also compilable by a machine. If you ever tried to read HTML or Latex source files, you may understand why human-readability is a desirable property. There are many <em>markdown</em> compilers. One of the most popular is <em>Pandoc</em>, written by the Berkeley philosopher(!) Jon MacFarlane. The availability of <em>Pandoc</em> gave <a href="">Yihui Xie</a>, a name to remember, the idea that it is time for Sweave to evolve. Yihui thus wrote <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015dynamic">2015</a>)</span>, which allows to write human readable text in <em>Rmarkdown</em>, a superset of <em>markdown</em>, compile it with R and the compile it with Pandoc. Because Pandoc can compile to PDF, but also to HTML, and DOCX, among others, this means that you can write in Rmarkdown, and get output in almost all text formats out there.</p></li>
 <li><p><strong>bookdown</strong>: <strong>Bookdown</strong> <span class="citation">(Xie <a href="#ref-xie2016bookdown">2016</a>)</span> is an evolution of <strong>knitr</strong>, also written by Yihui Xie, now working for RStudio. This book was actually written in <strong>bookdown</strong>. It deals with the particular needs of writing large documents, and cross referencing in particular (which is very challenging if you want the text to be human readable).</p></li>
 <li><p><strong>Shiney</strong>: The previous reporting frameworks are static in that R “dumps” its output and is never queryied again. This does not mean that output is static, but only that R is not called. <strong>Shiny</strong> <span class="citation">(Chang et al. <a href="#ref-shiney">2017</a>)</span> is different. Shiny is essentially a framework for quick web-development. It includes (i) an abstraction layer that specifies the layout of a web-site which is our report, (ii) the command to start a web server to deliver the site. For more on Shiny see <span class="citation">Chang et al. (<a href="#ref-shiney">2017</a>)</span>.</p></li>
@@ -394,7 +397,7 @@ plot(rnorm(10))
 ```</code></pre>
 <p>which compiles into</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">rnorm</span>(<span class="dv">10</span>))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-222-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-225-1.png" width="50%" /></p>
 <p>You can also call r expressions inline. This is done with a single tick and the <code>r</code> argument. For instance:</p>
 <blockquote>
 <p><code>`r rnorm(1)`</code> is a random Gaussian</p>
@@ -651,8 +654,8 @@ function(input, output) {
 </div>
 <div class="footnotes">
 <hr />
-<ol start="21">
-<li id="fn21"><p>Recall, S was the original software from which R evolved.<a href="report.html#fnref21">↩</a></p></li>
+<ol start="22">
+<li id="fn22"><p>Recall, S was the original software from which R evolved.<a href="report.html#fnref22">↩</a></p></li>
 </ol>
 </div>
             </section>

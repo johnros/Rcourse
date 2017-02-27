@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-02-26">
+<meta name="date" content="2017-02-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -191,8 +191,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation</a></li>
 <li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression</a></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#distribution-fitting"><i class="fa fa-check"></i><b>8.6</b> Distribution Fitting</a></li>
-<li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
+<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.6</b> Biblipgraphic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>9</b> Supervised Learning</a><ul>
 <li class="chapter" data-level="9.1" data-path="supervised.html"><a href="supervised.html#problem-setup-3"><i class="fa fa-check"></i><b>9.1</b> Problem setup</a><ul>
@@ -294,7 +293,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Implicit Parallelism</a></li>
 <li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a></li>
+<li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a><ul>
+<li class="chapter" data-level="17.1" data-path="algebra.html"><a href="algebra.html#lu"><i class="fa fa-check"></i><b>17.1</b> LU</a></li>
+<li class="chapter" data-level="17.2" data-path="algebra.html"><a href="algebra.html#qr"><i class="fa fa-check"></i><b>17.2</b> QR</a></li>
+<li class="chapter" data-level="17.3" data-path="algebra.html"><a href="algebra.html#svd"><i class="fa fa-check"></i><b>17.3</b> SVD</a></li>
+</ul></li>
 <li class="chapter" data-level="18" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>18</b> Convex Optimization</a></li>
 <li class="chapter" data-level="19" data-path="rcpp.html"><a href="rcpp.html"><i class="fa fa-check"></i><b>19</b> RCpp</a></li>
 <li class="chapter" data-level="20" data-path="package.html"><a href="package.html"><i class="fa fa-check"></i><b>20</b> Writing Packages</a></li>
@@ -386,7 +389,7 @@ Making things more explicit again by using a linear hypothesis with squared loss
 <li><strong>Linear hypotheses</strong>: such as linear models, GLMs, and (linear) support vector machines (SVM).</li>
 <li><strong>Neural networks</strong>: a.k.a. <em>feed-forward</em> neural nets, <em>artificial</em> neural nets, and the celebrated class of <em>deep</em> neural nets.</li>
 <li><strong>Tree</strong>: a.k.a. <em>decision rules</em>, is a class of hypotheses which can be stated as “if-then” rules.</li>
-<li><strong>Reproducing Kernel Hilbert Space</strong>: a.k.a. RKHS, is a subset of “the space of all functions<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a>” that is both large enough to capture very complicated relations, but small enough so that it is less prone to overfitting, and also surprisingly simple to compute with.</li>
+<li><strong>Reproducing Kernel Hilbert Space</strong>: a.k.a. RKHS, is a subset of “the space of all functions<a href="#fn15" class="footnoteRef" id="fnref15"><sup>15</sup></a>” that is both large enough to capture very complicated relations, but small enough so that it is less prone to overfitting, and also surprisingly simple to compute with.</li>
 <li><strong>Ensembles</strong>: a “meta” hypothesis class, which consists of taking multiple hypotheses, possibly from different classes, and combining them.</li>
 </ol>
 </div>
@@ -509,7 +512,7 @@ regfit.full &lt;-<span class="st"> </span>prostate.train %&gt;%<span class="st">
 <span class="st">  </span><span class="kw">regsubsets</span>(lcavol~.,<span class="dt">data =</span> ., <span class="dt">method =</span> <span class="st">&#39;exhaustive&#39;</span>) <span class="co"># best subset selection</span>
 <span class="kw">plot</span>(regfit.full, <span class="dt">scale =</span> <span class="st">&quot;Cp&quot;</span>)</code></pre></div>
 <p><img src="Rcourse_files/figure-html/all%20subset-1.png" width="50%" /></p>
-<p>Instead of the Cp criterion, we now compute the train and test errors for all the possible predictors<a href="#fn15" class="footnoteRef" id="fnref15"><sup>15</sup></a>.</p>
+<p>Instead of the Cp criterion, we now compute the train and test errors for all the possible predictors<a href="#fn16" class="footnoteRef" id="fnref16"><sup>16</sup></a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model.n &lt;-<span class="st"> </span>regfit.full %&gt;%<span class="st"> </span>summary %&gt;%<span class="st"> </span>length
 X.train.named &lt;-<span class="st"> </span>prostate.train %&gt;%<span class="st"> </span><span class="kw">model.matrix</span>(lcavol ~<span class="st"> </span>., <span class="dt">data =</span> .)
 X.train.named &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(lcavol ~<span class="st"> </span>., <span class="dt">data =</span> prostate.train ) 
@@ -533,7 +536,7 @@ for (i in <span class="dv">1</span>:model.n) {
        <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;Training&quot;</span>, <span class="st">&quot;Validation&quot;</span>), 
        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;blue&quot;</span>), 
        <span class="dt">pch =</span> <span class="dv">19</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-152-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-155-1.png" width="50%" /></p>
 <p>Checking all possible models is computationally very hard. <em>Forward selection</em> is a greedy approach that adds one variable at a time, using the AIC criterion. If AIC falls, the variable is added.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols<span class="fl">.0</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(lcavol~<span class="dv">1</span> ,<span class="dt">data =</span> prostate.train)
 model.scope &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">upper=</span>ols<span class="fl">.1</span>, <span class="dt">lower=</span>ols<span class="fl">.0</span>)
@@ -879,9 +882,9 @@ nb<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">naiv
 </div>
 <div class="footnotes">
 <hr />
-<ol start="14">
-<li id="fn14"><p>It is even a subset of the Hilbert space, itself a subset of the space of all functions.<a href="supervised.html#fnref14">↩</a></p></li>
-<li id="fn15"><p>Example taken from <a href="https://lagunita.stanford.edu/c4x/HumanitiesScience/StatLearning/asset/ch6.html" class="uri">https://lagunita.stanford.edu/c4x/HumanitiesScience/StatLearning/asset/ch6.html</a><a href="supervised.html#fnref15">↩</a></p></li>
+<ol start="15">
+<li id="fn15"><p>It is even a subset of the Hilbert space, itself a subset of the space of all functions.<a href="supervised.html#fnref15">↩</a></p></li>
+<li id="fn16"><p>Example taken from <a href="https://lagunita.stanford.edu/c4x/HumanitiesScience/StatLearning/asset/ch6.html" class="uri">https://lagunita.stanford.edu/c4x/HumanitiesScience/StatLearning/asset/ch6.html</a><a href="supervised.html#fnref16">↩</a></p></li>
 </ol>
 </div>
             </section>

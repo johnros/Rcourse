@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-02-26">
+<meta name="date" content="2017-02-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -191,8 +191,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation</a></li>
 <li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression</a></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#distribution-fitting"><i class="fa fa-check"></i><b>8.6</b> Distribution Fitting</a></li>
-<li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
+<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.6</b> Biblipgraphic Notes</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>9</b> Supervised Learning</a><ul>
 <li class="chapter" data-level="9.1" data-path="supervised.html"><a href="supervised.html#problem-setup-3"><i class="fa fa-check"></i><b>9.1</b> Problem setup</a><ul>
@@ -294,7 +293,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Implicit Parallelism</a></li>
 <li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a></li>
+<li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a><ul>
+<li class="chapter" data-level="17.1" data-path="algebra.html"><a href="algebra.html#lu"><i class="fa fa-check"></i><b>17.1</b> LU</a></li>
+<li class="chapter" data-level="17.2" data-path="algebra.html"><a href="algebra.html#qr"><i class="fa fa-check"></i><b>17.2</b> QR</a></li>
+<li class="chapter" data-level="17.3" data-path="algebra.html"><a href="algebra.html#svd"><i class="fa fa-check"></i><b>17.3</b> SVD</a></li>
+</ul></li>
 <li class="chapter" data-level="18" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>18</b> Convex Optimization</a></li>
 <li class="chapter" data-level="19" data-path="rcpp.html"><a href="rcpp.html"><i class="fa fa-check"></i><b>19</b> RCpp</a></li>
 <li class="chapter" data-level="20" data-path="package.html"><a href="package.html"><i class="fa fa-check"></i><b>20</b> Writing Packages</a></li>
@@ -370,7 +373,7 @@ a &lt;-<span class="st"> </span><span class="kw">update</span>(a,chunk3)
 <p>Other packages that follow these lines, particularly with classification using SVMs, are <strong>LiblineaR</strong>, and <strong>RSofia</strong> packages.</p>
 <div id="summary-statistics-from-ram" class="section level3">
 <h3><span class="header-section-number">15.1.1</span> Summary Statistics from RAM</h3>
-<p>If you are not going to do any model fitting, and all you want is efficient filtering, selection and summary statistics, then a lot of my warnings above are irrelevant. For these purposes, the facilities provided by <strong>base</strong>, <strong>stats</strong>, and <strong>dplyr</strong> are probably enough. If the data is large, however, these facilities may be too slow. If your data fits into RAM, but speed bothers you, take a look at the <strong>data.table</strong> package. The syntax is less friendly than <strong>dplyr</strong>, but <strong>data.table</strong> is BLAZING FAST compared to competitors. Here is a little benchmark<a href="#fn22" class="footnoteRef" id="fnref22"><sup>22</sup></a>.</p>
+<p>If you are not going to do any model fitting, and all you want is efficient filtering, selection and summary statistics, then a lot of my warnings above are irrelevant. For these purposes, the facilities provided by <strong>base</strong>, <strong>stats</strong>, and <strong>dplyr</strong> are probably enough. If the data is large, however, these facilities may be too slow. If your data fits into RAM, but speed bothers you, take a look at the <strong>data.table</strong> package. The syntax is less friendly than <strong>dplyr</strong>, but <strong>data.table</strong> is BLAZING FAST compared to competitors. Here is a little benchmark<a href="#fn23" class="footnoteRef" id="fnref23"><sup>23</sup></a>.</p>
 <p>First, we setup the data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)
 
@@ -395,31 +398,33 @@ tbl_df &lt;-<span class="st"> </span>tbl %&gt;%<span class="st"> </span>as.data.
                  <span class="dt">x3 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x3)) 
                  )
              )</code></pre></div>
+<pre><code>## Warning: closing unused connection 6 (&lt;-localhost:11413)</code></pre>
+<pre><code>## Warning: closing unused connection 5 (&lt;-localhost:11413)</code></pre>
 <pre><code>##    user  system elapsed 
-##   6.448   0.000   6.451</code></pre>
+##   7.016   0.000   7.024</code></pre>
 <p>And now the timing for <strong>data.table</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_dt[ ,  .( <span class="dt">x1 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x1)), <span class="dt">x2 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x2)), <span class="dt">x3 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x3)) ), .(v1,v2)]
   )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.364   0.000   0.363</code></pre>
+##   0.280   0.000   0.279</code></pre>
 <p>The winner is obvious. Let’s compare filtering (i.e. row subsets, i.e. SQL’s SELECT).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_df %&gt;%<span class="st"> </span><span class="kw">filter</span>(v1 ==<span class="st"> &quot;1&quot;</span>) 
   )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.012   0.000   0.013</code></pre>
+##   0.016   0.000   0.015</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_dt[v1 ==<span class="st"> &quot;1&quot;</span>] 
   )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.012   0.000   0.012</code></pre>
+##   0.020   0.000   0.017</code></pre>
 </div>
 </div>
 <div id="computing-from-a-database" class="section level2">
 <h2><span class="header-section-number">15.2</span> Computing from a Database</h2>
 <p>The early solutions to oversized data relied on storing your data in some DBMS such as <em>MySQL</em>, <em>PostgresSQL</em>, <em>SQLite</em>, <em>H2</em>, <em>Oracle</em>, etc. Several R packages provide interfaces to these DBMSs, such as <strong>sqldf</strong>, <strong>RDBI</strong>, <strong>RSQite</strong>. Some will even include the DBMS as part of the package itself.</p>
-<p>Storing your data in a DBMS has the advantage that you can typically rely on DBMS providers to include very efficient algorithms for the queries they support. On the downside, SQL queries may include a lot of summary statistics, but will rarely include model fitting<a href="#fn23" class="footnoteRef" id="fnref23"><sup>23</sup></a>. This means that even for simple things like linear models, you will have to revert to R’s facilities– typically some sort of EMA with chunking from the DBMS. For this reason, and others, we prefer to compute from efficient file structures, as described in Section <a href="memory.html#file-structure">15.3</a>.</p>
+<p>Storing your data in a DBMS has the advantage that you can typically rely on DBMS providers to include very efficient algorithms for the queries they support. On the downside, SQL queries may include a lot of summary statistics, but will rarely include model fitting<a href="#fn24" class="footnoteRef" id="fnref24"><sup>24</sup></a>. This means that even for simple things like linear models, you will have to revert to R’s facilities– typically some sort of EMA with chunking from the DBMS. For this reason, and others, we prefer to compute from efficient file structures, as described in Section <a href="memory.html#file-structure">15.3</a>.</p>
 <p>If, however, you have a powerful DBMS around, or you only need summary statistics, or you are an SQL master, keep reading.</p>
 <p>The package <strong>RSQLite</strong> includes an SQLite server, which we now setup for demonstration. The package <strong>dplyr</strong>, discussed in the Hadleyverse Chapter <a href="hadley.html#hadley">13</a>, will take care of translating the <strong>dplyr</strong> syntax, to the SQL syntax of the DBMS. The following example is taken from the <strong>dplyr</strong> <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html">Databases vignette</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RSQLite)
@@ -667,9 +672,9 @@ mymodel.ffdf &lt;-<span class="st"> </span><span class="kw">biglm</span>(payment
 </div>
 <div class="footnotes">
 <hr />
-<ol start="22">
-<li id="fn22"><p>The code was contributed by Liad Shekel.<a href="memory.html#fnref22">↩</a></p></li>
-<li id="fn23"><p>This is slowly changing. Indeed, Microsoft’s SQL Server 2016 is already providing <a href="https://blogs.technet.microsoft.com/dataplatforminsider/2016/03/29/in-database-advanced-analytics-with-r-in-sql-server-2016/">in-database-analytics</a>, and other will surely follow.<a href="memory.html#fnref23">↩</a></p></li>
+<ol start="23">
+<li id="fn23"><p>The code was contributed by Liad Shekel.<a href="memory.html#fnref23">↩</a></p></li>
+<li id="fn24"><p>This is slowly changing. Indeed, Microsoft’s SQL Server 2016 is already providing <a href="https://blogs.technet.microsoft.com/dataplatforminsider/2016/03/29/in-database-advanced-analytics-with-r-in-sql-server-2016/">in-database-analytics</a>, and other will surely follow.<a href="memory.html#fnref24">↩</a></p></li>
 </ol>
 </div>
             </section>
