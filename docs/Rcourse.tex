@@ -116,7 +116,7 @@
 
 \title{R (BGU course)}
 \author{Jonathan D. Rosenblatt}
-\date{2017-02-23}
+\date{2017-02-28}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -165,7 +165,7 @@ formulae, and R output.
 
 I hope the reader will find this text interesting and useful.
 
-\section{Acknoledgements}\label{acknoledgements}
+\section{Acknowledgements}\label{acknowledgements}
 
 I have consulted many people during the writing of this text. I would
 like to thank Efrat Vilensky and Liad Shekel in particular for their
@@ -394,7 +394,7 @@ Generate random variables:
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 5 5 7 7 5 4 4 6 6 4
+##  [1] 6 4 4 4 7 4 5 5 5 6
 \end{verbatim}
 
 R has many built-in distributions. Their names may change, but the
@@ -482,7 +482,7 @@ To print the contents of an object just type its name
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 7 4 7 7 4 5 3 7 6 5
+##  [1] 6 6 4 4 6 3 6 3 5 7
 \end{verbatim}
 
 which is an implicit call to
@@ -494,7 +494,7 @@ which is an implicit call to
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 7 4 7 7 4 5 3 7 6 5
+##  [1] 6 6 4 4 6 3 6 3 5 7
 \end{verbatim}
 
 Alternatively, you can assign and print simultaneously
@@ -506,7 +506,7 @@ Alternatively, you can assign and print simultaneously
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] 5 5 4 6 8 4 4 3 6 5
+##  [1] 4 3 6 6 5 4 4 4 6 5
 \end{verbatim}
 
 Operate on the object
@@ -518,7 +518,7 @@ Operate on the object
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 5
+## [1] 4.7
 \end{verbatim}
 
 \begin{Shaded}
@@ -528,7 +528,7 @@ Operate on the object
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 2
+## [1] 1.122222
 \end{verbatim}
 
 \begin{Shaded}
@@ -770,7 +770,7 @@ calling it without arguments:
 ##     fill = TRUE, comment.char = "", ...) 
 ## read.table(file = file, header = header, sep = sep, quote = quote, 
 ##     dec = dec, fill = fill, comment.char = comment.char, ...)
-## <bytecode: 0x4cec168>
+## <bytecode: 0x7209468>
 ## <environment: namespace:utils>
 \end{verbatim}
 
@@ -787,8 +787,8 @@ are currently loaded:
 \end{Shaded}
 
 \begin{verbatim}
-## [1] ".GlobalEnv"   "Penicillin"   "cases"        "Penicillin"  
-## [5] "cases"        "package:grid"
+## [1] ".GlobalEnv" "Penicillin" "cases"      "Penicillin" "cases"     
+## [6] "Penicillin"
 \end{verbatim}
 
 Other packages can be loaded via the \texttt{library} function, or
@@ -3521,19 +3521,13 @@ days since the outbreak.
 \end{verbatim}
 
 \begin{verbatim}
-## The following objects are masked from cases (pos = 9):
+## The following objects are masked from cases (pos = 8):
 ## 
 ##     Days, Students
 \end{verbatim}
 
 \begin{verbatim}
 ## The following objects are masked from cases (pos = 44):
-## 
-##     Days, Students
-\end{verbatim}
-
-\begin{verbatim}
-## The following objects are masked from cases (pos = 49):
 ## 
 ##     Days, Students
 \end{verbatim}
@@ -3974,19 +3968,13 @@ One sample per combination:
 \end{verbatim}
 
 \begin{verbatim}
-## The following objects are masked from Penicillin (pos = 9):
+## The following objects are masked from Penicillin (pos = 8):
 ## 
 ##     diameter, plate, sample
 \end{verbatim}
 
 \begin{verbatim}
-## The following objects are masked from Penicillin (pos = 44):
-## 
-##     diameter, plate, sample
-\end{verbatim}
-
-\begin{verbatim}
-## The following objects are masked from Penicillin (pos = 47):
+## The following objects are masked from Penicillin (pos = 42):
 ## 
 ##     diameter, plate, sample
 \end{verbatim}
@@ -4258,12 +4246,13 @@ hands on view can be found in \citet{venables2013modern}.
 The term ``multivariate data analysis'' is so broad and so overloaded,
 that we start by clarifying what is discussed and what is not discussed
 in this chapter. Broadly speaking, we will discuss statistical
-inference, and leave more ``exploratory flavored'' matters like
+\emph{inference}, and leave more ``exploratory flavored'' matters like
 clustering, and visualization, to the Unsupervised Learning Chapter
 \ref{unsupervised}.
 
 More formally, let \(y\) be a \(p\) variate random vector, with
-\(E[y]=\mu\). We will discuss the problems of
+\(E[y]=\mu\). Here is the set of problems we will discuss, in order of
+their statistical difficulty.
 
 \begin{itemize}
 \tightlist
@@ -4295,17 +4284,414 @@ More formally, let \(y\) be a \(p\) variate random vector, with
   all the above problem applied to \(Var[y]\), instead of \(E[y]\).
 \end{itemize}
 
+\BeginKnitrBlock{example}
+\protect\hypertarget{ex:icu}{}{\label{ex:icu}}Consider the problem of a
+patient monitored in the intensive care unit. At every minute the
+monitor takes \(p\) physiological measurements: blood pressure, body
+temperature, etc. The total number of minutes in our data is \(n\), so
+that in total, we have \(n \times p\) measurements, arranged in a
+matrix. We also know the typical measurements for this patient when
+healthy: \(\mu_0\).
+
+Signal detection means testing if the patient's measurement depart in
+any way than his healthy state, \(\mu_0\). Signal counting means
+measuring \emph{how many} measurement depart from the healthy state.
+Signal identification means pin-pointing which of the measurements
+depart from his healthy state. Signal estimation means estimating the
+magnitude of the departure from the healthy state. Multivaraite
+regression means finding the factors which many explain the departure
+from the healthy state.
+\EndKnitrBlock{example}
+
+\BeginKnitrBlock{remark}
+\iffalse {Remark. } \fi In the above, ``signal'' is defined in terms of
+\(\mu\). It is possible that the signal is not in the location, \(\mu\),
+but rather in the covariance, \(\Sigma\). We do not discuss these
+problems here, and refer the reader to \citet{nadler2008finite}.
+\EndKnitrBlock{remark}
+
 \section{Signal Detection}\label{signal-detection}
+
+Signal detection deals with the detection of the departure of \(\mu\)
+from some \(\mu_0\), and especially, \(\mu_0=0\). This problem can be
+thought of as the multivariate counterpart of the univariate hypothesis
+test. Indeed, the most fundamental approach is a mere generalization of
+the t-test, known as \emph{Hotelling's \(T^2\) test}.
+
+Recall the univariate t-statistic of a data vector \(x\) of length
+\(n\):
+
+\begin{align}
+  t^2(x):= \frac{(\bar{x}-\mu_0)^2}{Var[\bar{x}]}= (\bar{x}-\mu_0)Var[\bar{x}]^{-1}(\bar{x}-\mu_0),
+  \label{eq:t-test}
+\end{align}
+
+where \(Var[\bar{x}]=S^2(x)/n\), and \(S^2(x)\) is the unbiased variance
+estimator \(S^2(x):=(n-1)^{-1}\sum (x_i-\bar x)^2\).
+
+Generalizing Eq\eqref{eq:t-test} to the multivariate case: \(\mu_0\) is a
+p-vector, \(\bar x\) is a p-vector, and \(Var[\bar x]\) is a
+\(p \times p\) matrix of the covariance between the \(p\) coordinated of
+\(\bar x\). When operating with vectors, the squaring becomes a
+quadratic form, and the division becomes a matrix inverse. We thus have
+
+\begin{align}
+  T^2(x):= (\bar{x}-\mu_0)' Var[\bar{x}]^{-1} (\bar{x}-\mu_0),
+  \label{eq:hotelling-test}
+\end{align}
+
+Which is the definition of Hotelling's \(T^2\) test statistic. We
+typically denote the covariance between coordinates in \(x\) with
+\(\hat \Sigma(x)\), so that
+\(\widehat \Sigma_{k,l}:=\widehat {Cov}[x_k,x_l]=(n-1)^{-1} \sum (x_{k,i}-\bar x_k)(x_{l,i}-\bar x_l)\).
+Using the \(\Sigma\) notation, Eq.\eqref{eq:hotelling-test} becomes
+
+\begin{align}
+  T^2(x):= n (\bar{x}-\mu_0)' \hat \Sigma(x)^{-1} (\bar{x}-\mu_0),
+\end{align}
+
+which is the standard notation of Hotelling's test statistic.
+
+To discuss the distribution of Hotelling's test statistic we need to
+introduce some vocabulary\footnote{This vocabulary is not standard in
+  the literature, so when you read a text, you need to verify yourself
+  which regime the author is considering.}:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Low Dimension}: We call a problem \emph{low dimensional} if
+  \(n \gg p\), i.e. \(p/n \approx 0\). This means there are many
+  observations per estimated parameter.
+\item
+  \textbf{High Dimension}: We call a problem \emph{high dimensional} if
+  \(p/n \to c\), where \(c\in (0,1)\). This means there are more
+  observations that parameters, but not many.
+\item
+  \textbf{Very High Dimension}: We call a problem \emph{very high
+  dimensional} if \(p/n \to c\), where \(1<c<\infty\). This means there
+  are less observations than parameter, but not many.
+\item
+  \textbf{Extremely high dimensional}: We call a problem
+  \textbf{extremely high dimensional} if \(p/n \to \infty\). This means
+  there are many more parameters than observations.
+\end{enumerate}
+
+Hotelling's \(T^2\) test only can only be used in the low dimensional
+regime. For some intuition on this statement, think of taking \(n=20\)
+measurements of \(p=100\) physiological variables. We seemingly have
+\(20\) observations, but there are \(100\) unknown quantities in
+\(\mu\). Would you trust your conclusion that \(\bar x\) is different
+than \(\mu_0\) based on merely \(20\) observations.
+
+Put formally: We cannot compute Hotelling's test when \(n<p\) because
+\(\hat \Sigma\) is simply not invertible-- this is an algebraic problem.
+We cannot compute Hotelling's test when \(p/n \to c\) because the
+signal-to-noise is very low-- this is a statistical problem.
+
+Only in the low dimensional case can we compute and trust Hotelling's
+test. When \(n \gg p\) then \(T^2(x)\) is roughly \(\chi^2\) distributed
+with \(p\) degrees of freedom. The F distribution may also be found in
+the literature in this context, and will appear if assuming the \(n\)
+p-vectors are independent, and \(p\)-variate Gaussian. This F
+distribution is non-robust the underlying assumptions, so from a
+practical point of view, I would not trust it unless \(n \gg p\).
+
+\subsection{Signal Detection with R}\label{signal-detection-with-r}
+
+Let's generate some data with no signal.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(mvtnorm)}
+\NormalTok{n <-}\StringTok{ }\FloatTok{1e2}
+\NormalTok{p <-}\StringTok{ }\FloatTok{1e1}
+\NormalTok{mu <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,p) }\CommentTok{# no signal}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{rmvnorm}\NormalTok{(}\DataTypeTok{n =} \NormalTok{n, }\DataTypeTok{mean =} \NormalTok{mu)}
+\KeywordTok{dim}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 100  10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{image}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-145-1}
+
+Now make our own Hotelling function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{hotellingOneSample <-}\StringTok{ }\NormalTok{function(x, }\DataTypeTok{mu0=}\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\KeywordTok{ncol}\NormalTok{(x)))\{}
+  \NormalTok{n <-}\StringTok{ }\KeywordTok{nrow}\NormalTok{(x)}
+  \NormalTok{p <-}\StringTok{ }\KeywordTok{ncol}\NormalTok{(x)}
+  \KeywordTok{stopifnot}\NormalTok{(n >}\StringTok{ }\DecValTok{5}\NormalTok{*}\StringTok{ }\NormalTok{p)}
+  \NormalTok{bar.x <-}\StringTok{ }\KeywordTok{colMeans}\NormalTok{(x)}
+  \NormalTok{Sigma <-}\StringTok{ }\KeywordTok{var}\NormalTok{(x)}
+  \NormalTok{Sigma.inv <-}\StringTok{ }\KeywordTok{solve}\NormalTok{(Sigma)}
+  \NormalTok{T2 <-}\StringTok{ }\NormalTok{n *}\StringTok{ }\NormalTok{(bar.x-mu0) %*%}\StringTok{ }\NormalTok{Sigma.inv %*%}\StringTok{ }\NormalTok{(bar.x-mu0)}
+  \NormalTok{p.value <-}\StringTok{ }\KeywordTok{pchisq}\NormalTok{(}\DataTypeTok{q =} \NormalTok{T2, }\DataTypeTok{df =} \NormalTok{p, }\DataTypeTok{lower.tail =} \OtherTok{FALSE}\NormalTok{)}
+  \KeywordTok{return}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{statistic=}\NormalTok{T2, }\DataTypeTok{pvalue=}\NormalTok{p.value))}
+\NormalTok{\}}
+
+\KeywordTok{hotellingOneSample}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $statistic
+##          [,1]
+## [1,] 19.18532
+## 
+## $pvalue
+##            [,1]
+## [1,] 0.03797101
+\end{verbatim}
+
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{stopifnot(n\ \textgreater{}\ 5\ *\ p)} is a little
+  verification use to check that the problem is indeed low dimensional.
+  Otherwise, the \(\chi^2\) approximation will not hold.
+\item
+  \texttt{solve} returns a matrix inverse.
+\item
+  \texttt{\%*\%} is the matrix product operator (see also
+  \texttt{crossprod()}).
+\item
+  A function may return only a single object, so we wrap the statistic
+  and its p-value in a \texttt{list} object.
+\end{itemize}
+
+Just for verification, we compare our home made Hotelling's test, to the
+implementation in the \textbf{rrcov} package. The results look good!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rrcov::}\KeywordTok{T2.test}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  One-sample Hotelling test
+## 
+## data:  x
+## T2 = 19.1850, F = 1.7441, df1 = 10, df2 = 90, p-value = 0.0829
+## alternative hypothesis: true mean vector is not equal to (0, 0, 0, 0, 0, 0, 0, 0, 0, 0)' 
+## 
+## sample estimates:
+##                     [,1]        [,2]       [,3]       [,4]       [,5]
+## mean x-vector -0.2595969 -0.05390272 0.06723273 0.04298828 0.09964547
+##                      [,6]       [,7]        [,8]       [,9]     [,10]
+## mean x-vector -0.03566641 0.02843633 -0.07187787 -0.1452595 0.1156363
+\end{verbatim}
 
 \section{Signal Counting}\label{signal-counting}
 
+There are many ways to approach the \emph{signal counting} problem. For
+the purposes of this book, however, we will not discuss them directly,
+and solve the signal counting problem as a signal identification
+problem: if we know \textbf{where} \(\mu\) departs from \(\mu_0\), we
+only need to count coordinates to solve the signal counting problem.
+
 \section{Signal Identification}\label{signal-identification}
+
+The problem of \emph{signal identification} is also known as
+\emph{selective testing}, or more commonly as \emph{multiple testing}.
+
+In the ANOVA literature, an identification stage will typically follow a
+detection stage. These are known as the \emph{imnibus F test}, and
+\emph{post-hoc} tests, respectively. In the multiple testing literature
+there will typically be no preliminary detection stage. It is typically
+assumed that signal is present, and the only question is ``where?''
+
+The first question when approaching a multiple testing problem is ``what
+is an error''? Is an error declaring a coordinate in \(\mu\) to be
+different than \(\mu_0\) when it is actually not? Is an error the
+proportion of such false declarations. The former is known as the
+\emph{family wise error rate} (FWER), and the latter as the \emph{false
+discovery rate} (FDR).
+
+\subsection{Signal Identification in
+R}\label{signal-identification-in-r}
+
+One (of many) ways to do signal identification involves the
+\texttt{stats::p.adjust} function. The function takes as inputs a
+\(p\)-vector of p-values. This implies that: (i) you are assumed to be
+able to compute the p-value of each the \(p\) hypothesis tested; one
+hypothesis for every coordinate in \(\mu\). (ii) unlike the Hotelling
+test, we do not try to estimate the covariance between coordinates. Not
+because it is not important, but rather, because the methods we will use
+apply to a wide variety of covariances.
+
+We start be generating some multivariate data and computing the
+coordinate-wise (i.e.~hypothesis-wise) p-value.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(mvtnorm)}
+\NormalTok{n <-}\StringTok{ }\FloatTok{1e1}
+\NormalTok{p <-}\StringTok{ }\FloatTok{1e2}
+\NormalTok{mu <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,p)}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{rmvnorm}\NormalTok{(}\DataTypeTok{n =} \NormalTok{n, }\DataTypeTok{mean =} \NormalTok{mu)}
+\KeywordTok{dim}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  10 100
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{image}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-148-1}
+
+We now compute the pvalues of each coordinate. We use a coordinate-wise
+t-test. Why a t-test? Because for the purpose of demonstration we want a
+simple test. In reality, you may use any test that returns valid
+p-values.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p.values <-}\StringTok{ }\KeywordTok{apply}\NormalTok{(}\DataTypeTok{X =} \NormalTok{x, }\DataTypeTok{MARGIN =} \DecValTok{2}\NormalTok{, }\DataTypeTok{FUN =} \NormalTok{function(y) }\KeywordTok{t.test}\NormalTok{(y)$p.value) }
+\KeywordTok{plot}\NormalTok{(p.values, }\DataTypeTok{type=}\StringTok{'h'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-149-1}
+
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  We used the \texttt{apply} function to apply the same function to each
+  column of \texttt{x}.
+\item
+  The output, \texttt{p.values}, is a vector of 100 p-values.
+\end{itemize}
+
+We are now ready to do the identification, i.e., find which coordinate
+of \(\mu\) is different than \(\mu_0=0\). The workflow is: (i) Compute
+an \texttt{adjusted\ p-value}. (ii) Compare the adjusted p-value to the
+desired error level.
+
+If we want \(FWER \leq 0.05\), meaning that we allow a \(5\%\)
+probability of making any mistake, we will use the
+\texttt{method="holm"} argument of \texttt{p.adjust}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.05}
+\NormalTok{p.values.holm <-}\StringTok{ }\KeywordTok{p.adjust}\NormalTok{(p.values, }\DataTypeTok{method =} \StringTok{'holm'} \NormalTok{)}
+\KeywordTok{table}\NormalTok{(p.values.holm <}\StringTok{ }\NormalTok{alpha)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## FALSE 
+##   100
+\end{verbatim}
+
+If we want \(FDR \leq 0.05\), meaning that we allow the proportion of
+false discoveries to be no larger than \(5\%\), we use the
+\texttt{method="BH"} argument of \texttt{p.adjust}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{alpha <-}\StringTok{ }\FloatTok{0.05}
+\NormalTok{p.values.BH <-}\StringTok{ }\KeywordTok{p.adjust}\NormalTok{(p.values, }\DataTypeTok{method =} \StringTok{'BH'} \NormalTok{)}
+\KeywordTok{table}\NormalTok{(p.values.BH <}\StringTok{ }\NormalTok{alpha)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## FALSE 
+##   100
+\end{verbatim}
+
+We now inject some signal in \(\mu\) just to see that the process works.
+We will artificially inject signal in the first 10 coordinates.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mu[}\DecValTok{1}\NormalTok{:}\DecValTok{10}\NormalTok{] <-}\StringTok{ }\DecValTok{2} \CommentTok{# inject signal}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{rmvnorm}\NormalTok{(}\DataTypeTok{n =} \NormalTok{n, }\DataTypeTok{mean =} \NormalTok{mu) }\CommentTok{# generate data}
+\NormalTok{p.values <-}\StringTok{ }\KeywordTok{apply}\NormalTok{(}\DataTypeTok{X =} \NormalTok{x, }\DataTypeTok{MARGIN =} \DecValTok{2}\NormalTok{, }\DataTypeTok{FUN =} \NormalTok{function(y) }\KeywordTok{t.test}\NormalTok{(y)$p.value) }
+\NormalTok{p.values.BH <-}\StringTok{ }\KeywordTok{p.adjust}\NormalTok{(p.values, }\DataTypeTok{method =} \StringTok{'BH'} \NormalTok{)}
+\KeywordTok{which}\NormalTok{(p.values.BH <}\StringTok{ }\NormalTok{alpha)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  1  2  3  4  5  6  7  8  9 10
+\end{verbatim}
+
+Indeed- we are now able to detect that the first coordinates carry
+signal, because their respective coordinate-wise null hypotheses have
+been rejected.
 
 \section{Signal Estimation}\label{signal-estimation}
 
+The estimation of the elements of \(\mu\) is a seemingly straightforward
+task. This is not the case, however, if we estimate only the elemnts
+that were selected because they were significant (or any other
+data-dependent criterion). Clearly, estimating only significant entries
+will introduce a bias in the estimation. In the statistical literature,
+this is known as \emph{selection bias}. Selection bias also occurs when
+you perform inference on regression coefficients after some model
+selection, say, with a lasso, or a forward search\footnote{You might
+  this shocking, but it does mean that you cannot trust the
+  \texttt{summary} table of a model that was selected from a multitude
+  of models.}.
+
+Selective inference is a complicated and active research topic so we
+will not offer any off-the-shelf solution to the matter. The curious
+reader is invited to read \citet{rosenblatt2014selective},
+\citet{javanmard2014confidence}, or
+\href{http://www.stat.berkeley.edu/~wfithian/}{Will Fithian's} PhD
+thesis \citep{fithian2015topics} for more on the topic.
+
 \section{Multivariate Regression}\label{multivariate-regression}
 
-\section{Distribution Fitting}\label{distribution-fitting}
+\emph{Multivaraite regression}, a.k.a. \emph{MANOVA}, similar to
+\href{https://en.wikipedia.org/wiki/Structured_prediction}{\emph{structured
+learning}} in machine learning, is simply a regression problem where the
+outcome, \(y\), is not scalar values but vector valued. It is not to be
+confused with \emph{multiple regression} where the preditor, \(x\), is
+vector valued, but the outcome is scalar.
+
+If the linear models generalize the two-sample t-test from two, to
+multiple populations, then multivariate regression generalizes
+Hotelling's test in the same way.
+
+TODO
+
+\section{Biblipgraphic Notes}\label{biblipgraphic-notes}
+
+For a general introduction to multivariate data analysis see
+\citet{anderson2004introduction}. For an R oriented introduction, see
+\citet{everitt2011introduction}. For more on the difficulties with high
+dimensional problems, see \citet{bai1996effect}. For more on multiple
+testing, and signal identification, see \citet{efron2012large}. For more
+on the choice of your error rate see \citet{rosenblatt2013practitioner}.
 
 \chapter{Supervised Learning}\label{supervised}
 
@@ -4788,7 +5174,7 @@ for all the possible predictors\footnote{Example taken from
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-148-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-155-1}
 
 Checking all possible models is computationally very hard. \emph{Forward
 selection} is a greedy approach that adds one variable at a time, using
@@ -5707,7 +6093,7 @@ FA originates from the psychometric literature. We thus revisit the IQ
 Example\textasciitilde{}\ref{ex:iq}:
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{ex:unnamed-chunk-156}{}{\label{ex:unnamed-chunk-156}}Assume
+\protect\hypertarget{ex:unnamed-chunk-163}{}{\label{ex:unnamed-chunk-163}}Assume
 \(n\) respondents answer \(p\) quantitative questions:
 \(x_i \in \mathbb{R}^p, i=1,\dots,n\). Also assume, their responses are
 some linear function \(A \in \mathbb{R}^p\) of a single personality
@@ -5912,7 +6298,7 @@ visualize the output of PCA.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-159-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-166-1}
 
 Things to note:
 
@@ -5945,12 +6331,12 @@ approximation of \(X\).
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-160-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-167-1}
 
 See how the first PC captures the variability in the Assault levels and
 Murder levels, with a single score.
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-161-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-168-1}
 
 More implementations of PCA:
 
@@ -6070,7 +6456,7 @@ the arrow.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-162-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-169-1}
 
 Let's add a rotation (Varimax), and note that the rotation has indeed
 changed the loadings of the variables, thus the interpretation of the
@@ -6585,7 +6971,7 @@ clustering.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-164-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-171-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6595,7 +6981,7 @@ clustering.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-164-2}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-171-2}
 
 If we know how many clusters we want, we can use \texttt{cuttree} to get
 the class assignments.
@@ -6694,7 +7080,7 @@ A simple scatter plot.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-166-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-173-1}
 
 Various types of plots.
 
@@ -6710,7 +7096,7 @@ Various types of plots.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-167-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-174-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6742,7 +7128,7 @@ Control the plotting characters with the \texttt{pch} argument.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-168-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-175-1}
 
 Control the line's type with \texttt{lty} argument, and width with
 \texttt{lwd}.
@@ -6759,7 +7145,7 @@ Control the line's type with \texttt{lty} argument, and width with
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-169-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-176-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6778,7 +7164,7 @@ Add line by slope and intercept with \texttt{abline}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-170-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-177-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6791,7 +7177,7 @@ Add line by slope and intercept with \texttt{abline}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-171-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-178-1}
 
 Things to note: - \texttt{points} adds points on an existing plot. -
 \texttt{lines} adds lines on an existing plot. - \texttt{col} controls
@@ -6814,7 +7200,7 @@ Add other elements.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-172-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-179-1}
 
 Things to note: - The following functions add the elements they are
 names after: \texttt{segments}, \texttt{arrows}, \texttt{rect},
@@ -6832,7 +7218,7 @@ Add a legend.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-173-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-180-1}
 
 Adjusting Axes with \texttt{xlim} and \texttt{ylim}.
 
@@ -6842,7 +7228,7 @@ Adjusting Axes with \texttt{xlim} and \texttt{ylim}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-174-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-181-1}
 
 Use \texttt{layout} for complicated plot layouts.
 
@@ -6863,7 +7249,7 @@ Use \texttt{layout} for complicated plot layouts.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-175-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-182-1}
 
 Always detach.
 
@@ -6895,7 +7281,7 @@ Building a line graph from scratch.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-177-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-184-1}
 
 Things to note:
 
@@ -6928,7 +7314,7 @@ Rosette.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-178-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-185-1}
 
 Arrows.
 
@@ -6945,7 +7331,7 @@ Arrows.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-179-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-186-1}
 
 Arrows as error bars.
 
@@ -6965,7 +7351,7 @@ Arrows as error bars.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-180-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-187-1}
 
 A histogram is nothing but a bunch of rectangle elements.
 
@@ -6979,7 +7365,7 @@ A histogram is nothing but a bunch of rectangle elements.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-181-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-188-1}
 
 Spiral Squares.
 
@@ -7000,7 +7386,7 @@ Spiral Squares.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-182-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-189-1}
 
 Circles are just dense polygons.
 
@@ -7019,7 +7405,7 @@ Circles are just dense polygons.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-183-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-190-1}
 
 Spiral- just a bunch of lines.
 
@@ -7037,7 +7423,7 @@ Spiral- just a bunch of lines.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-184-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-191-1}
 
 \subsection{Exporting a Plot}\label{exporting-a-plot}
 
@@ -7174,7 +7560,7 @@ at various times, with various diets.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-189-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-196-1}
 
 Things to note:
 
@@ -7208,7 +7594,7 @@ Let's add some color.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-190-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-197-1}
 
 The \texttt{color} argument tells R to use the variable \texttt{Diet} as
 the coloring. If we wanted a fixed color, and not a variable dependent
@@ -7222,7 +7608,7 @@ color, \texttt{color} would have been put \textbf{outside} the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-191-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-198-1}
 
 Let's save the \textbf{ggplot2} object so we can reuse it. Notice it is
 not plotted.
@@ -7247,7 +7633,7 @@ smoothing line.
 ## `geom_smooth()` using method = 'gam'
 \end{verbatim}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-193-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-200-1}
 
 Things to note:
 
@@ -7270,7 +7656,7 @@ To split the plot along some variable, we use faceting, done with the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-194-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-201-1}
 
 We now add a layer of the mean of each \texttt{Diet} subgroup, connected
 by lines.
@@ -7281,7 +7667,7 @@ by lines.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-195-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-202-1}
 
 Things to note:
 
@@ -7337,7 +7723,7 @@ start with a histogram.
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 \end{verbatim}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-196-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-203-1}
 
 A bar plot.
 
@@ -7348,7 +7734,7 @@ A bar plot.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-197-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-204-1}
 
 A scatter plot.
 
@@ -7359,7 +7745,7 @@ A scatter plot.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-198-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-205-1}
 
 A smooth regression plot, reusing the \texttt{tp} object.
 
@@ -7373,7 +7759,7 @@ A smooth regression plot, reusing the \texttt{tp} object.
 ## `geom_smooth()` using method = 'gam'
 \end{verbatim}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-199-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-206-1}
 
 And now, a simple line plot, reusing the \texttt{tp} object, and
 connecting lines along \texttt{Cow}.
@@ -7384,7 +7770,7 @@ connecting lines along \texttt{Cow}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-200-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-207-1}
 
 The line plot is completely incomprehensible. Better look at boxplots
 along time (even if committing the \texttt{Cow} information).
@@ -7395,7 +7781,7 @@ along time (even if committing the \texttt{Cow} information).
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-201-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-208-1}
 
 We can do some statistics for each subgroup. The following will compute
 the mean and standard errors (default of \texttt{stat\_summary}) of
@@ -7412,7 +7798,7 @@ the mean and standard errors (default of \texttt{stat\_summary}) of
 ## No summary function supplied, defaulting to `mean_se()
 \end{verbatim}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-202-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-209-1}
 
 Some popular statistical summaries, have gained their own functions:
 
@@ -7442,7 +7828,7 @@ function in \texttt{stat\_summary}. The median is a first example.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-203-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-210-1}
 
 We can also define our own statistical summaries.
 
@@ -7454,7 +7840,7 @@ We can also define our own statistical summaries.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-204-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-211-1}
 
 \textbf{Scales} define the actual mapping of an aesthetics values to
 data values.
@@ -7467,7 +7853,7 @@ data values.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-205-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-212-1}
 
 Things to note:
 
@@ -7493,7 +7879,7 @@ Let's change the default color mapping.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-206-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-213-1}
 
 The legend is controlled with the \texttt{guides} function.
 
@@ -7505,7 +7891,7 @@ The legend is controlled with the \texttt{guides} function.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-207-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-214-1}
 
 \_\_Faceting allows to split the plotting along some variable.
 \texttt{face\_wrap} tells R to compute the number of columns and rows of
@@ -7519,7 +7905,7 @@ plots automatically.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-208-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-215-1}
 
 \texttt{facet\_grid} forces the plot to appear allow rows or columns,
 using the \texttt{\textasciitilde{}} syntax.
@@ -7532,7 +7918,7 @@ using the \texttt{\textasciitilde{}} syntax.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-209-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-216-1}
 
 To control the looks of the plot, \textbf{ggplot2} uses \textbf{themes}.
 
@@ -7544,7 +7930,7 @@ To control the looks of the plot, \textbf{ggplot2} uses \textbf{themes}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-210-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-217-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7555,7 +7941,7 @@ To control the looks of the plot, \textbf{ggplot2} uses \textbf{themes}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-211-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-218-1}
 
 Saving plots can be done using the \texttt{pdf} function, but possibly
 easier with the \texttt{ggsave} function.
@@ -7636,7 +8022,7 @@ Some noteworthy interactive plotting systems are the following:
 ##   Read more about this attribute -> https://plot.ly/r/reference/#scatter-mode
 \end{verbatim}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-212-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-219-1}
 
 If you are comfortable with \textbf{ggplot2}, you may use the
 \textbf{ggplot2} syntax, and export the final result to \textbf{plotly}.
@@ -7663,7 +8049,7 @@ If you are comfortable with \textbf{ggplot2}, you may use the
 ## `geom_smooth()` using method = 'loess'
 \end{verbatim}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-213-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-220-1}
 
 For more on \textbf{plotly} see \url{https://plot.ly/r/}.
 
@@ -7893,7 +8279,7 @@ which compiles into
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-218-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-225-1}
 
 You can also call r expressions inline. This is done with a single tick
 and the \texttt{r} argument. For instance:
@@ -8108,7 +8494,7 @@ This is the output.
 \end{Highlighting}
 \end{Shaded}
 
-\href{http://shiny.rstudio.com/gallery/example-01-hello.html}{\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-224-1} }
+\href{http://shiny.rstudio.com/gallery/example-01-hello.html}{\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-231-1} }
 
 Here is another example, taken from the RStudio
 \href{https://github.com/rstudio/shiny-examples/tree/master/006-tabsets}{Shiny
@@ -8231,7 +8617,7 @@ This is the output:
 \end{Highlighting}
 \end{Shaded}
 
-\href{https://shiny.rstudio.com/gallery/tabsets.html}{\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-227-1} }
+\href{https://shiny.rstudio.com/gallery/tabsets.html}{\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-234-1} }
 
 \subsection{Beyond the Basics}\label{beyond-the-basics}
 
@@ -8280,7 +8666,7 @@ See examples
 \end{Highlighting}
 \end{Shaded}
 
-\href{https://shiny.rstudio.com/gallery/widget-gallery.html}{\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-228-1} }
+\href{https://shiny.rstudio.com/gallery/widget-gallery.html}{\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-235-1} }
 
 \subsubsection{Output Elements}\label{output-elements}
 
@@ -8881,7 +9267,7 @@ Types of join with SQL equivalent.
 
 \section{anytime}\label{anytime}
 
-\section{Biblipgraphic Notes}\label{biblipgraphic-notes}
+\section{Biblipgraphic Notes}\label{biblipgraphic-notes-1}
 
 \chapter{Sparse Representations}\label{sparse}
 
@@ -9132,7 +9518,7 @@ structure.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-242-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-249-1}
 
 \section{Sparse Matrix
 Representations}\label{sparse-matrix-representations}
@@ -9339,7 +9725,7 @@ discover that sparse representations make a BIG difference.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-243-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-250-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9350,7 +9736,7 @@ discover that sparse representations make a BIG difference.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-244-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-251-1}
 
 How do we perform other types of regression with the \textbf{glmnet}? We
 just need to use the \texttt{family} and \texttt{alpha} arguments of
@@ -9410,15 +9796,15 @@ algorithm will compute with parts of the data, also called
 \emph{external memory algorithms} (EMA).
 
 If your data does not fit in RAM, but fits in your local storage, you
-have two options. The first is to save your data in a database. This
-will allow you to use the algorithms provided by your database, or let R
-use an EMA while loading from your database. Alternatively, and
-preferably, you may avoid using a database, and work with the data
-directly form your local storage by saving your data in some efficient
-manner.
+have two options. The first is to save your data in a \emph{database
+management system} (DBMS). This will allow you to use the algorithms
+provided by your DBMS, or let R use an EMA while loading from your DBMS.
+Alternatively, and preferably, you may avoid using a DBMS, and work with
+the data directly form your local storage by saving your data in some
+efficient manner.
 
 Finally, if your data does not fit on you local storage, you will need
-some external storage solution such as a distributed database, or
+some external storage solution such as a distributed DBMS, or
 distributed file system.
 
 \BeginKnitrBlock{remark}
@@ -9552,7 +9938,7 @@ We compare the aggregation speeds. Here is the timing for
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   6.528   0.000   6.530
+##   7.048   0.000   7.096
 \end{verbatim}
 
 And now the timing for \textbf{data.table}.
@@ -9567,10 +9953,10 @@ And now the timing for \textbf{data.table}.
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.320   0.000   0.322
+##   0.280   0.000   0.281
 \end{verbatim}
 
-The winner is obvious. Let's compare filteting (i.e.~row subsets,
+The winner is obvious. Let's compare filtering (i.e.~row subsets,
 i.e.~SQL's SELECT).
 
 \begin{Shaded}
@@ -9583,7 +9969,7 @@ i.e.~SQL's SELECT).
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.016   0.000   0.016
+##   0.016   0.000   0.017
 \end{verbatim}
 
 \begin{Shaded}
@@ -9596,20 +9982,19 @@ i.e.~SQL's SELECT).
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.012   0.000   0.012
+##   0.016   0.000   0.014
 \end{verbatim}
 
 \section{Computing from a Database}\label{computing-from-a-database}
 
 The early solutions to oversized data relied on storing your data in
-some relational database such as \emph{MySQL}, \emph{PostgresSQL},
-\emph{SQLite}, \emph{H2}, \emph{Oracle}, etc. Several R packages provide
-interfaces to these databases, such as \textbf{sqldf}, \textbf{RDBI},
-\textbf{RSQite}. Some will even include the database as part of the
-package itself.
+some DBMS such as \emph{MySQL}, \emph{PostgresSQL}, \emph{SQLite},
+\emph{H2}, \emph{Oracle}, etc. Several R packages provide interfaces to
+these DBMSs, such as \textbf{sqldf}, \textbf{RDBI}, \textbf{RSQite}.
+Some will even include the DBMS as part of the package itself.
 
-Storing your data in a database has the advantage that you can typically
-rely on database providers to include very efficient algorithms for the
+Storing your data in a DBMS has the advantage that you can typically
+rely on DBMS providers to include very efficient algorithms for the
 queries they support. On the downside, SQL queries may include a lot of
 summary statistics, but will rarely include model fitting\footnote{This
   is slowly changing. Indeed, Microsoft's SQL Server 2016 is already
@@ -9617,17 +10002,17 @@ summary statistics, but will rarely include model fitting\footnote{This
   \href{https://blogs.technet.microsoft.com/dataplatforminsider/2016/03/29/in-database-advanced-analytics-with-r-in-sql-server-2016/}{in-database-analytics},
   and other will surely follow.}. This means that even for simple things
 like linear models, you will have to revert to R's facilities--
-typically some sort of EMA with chunking from the database. For this
-reason, and others, we prefer to compute from efficient file structures,
-as described in Section \ref{file-structure}.
+typically some sort of EMA with chunking from the DBMS. For this reason,
+and others, we prefer to compute from efficient file structures, as
+described in Section \ref{file-structure}.
 
-If, however, you have a powerful database around, or you only need
-summary statistics, or you are an SQL master, keep reading.
+If, however, you have a powerful DBMS around, or you only need summary
+statistics, or you are an SQL master, keep reading.
 
 The package \textbf{RSQLite} includes an SQLite server, which we now
 setup for demonstration. The package \textbf{dplyr}, discussed in the
 Hadleyverse Chapter \ref{hadley}, will take care of translating the
-\textbf{dplyr} syntax, to the SQL syntax of the database. The following
+\textbf{dplyr} syntax, to the SQL syntax of the DBMS. The following
 example is taken from the \textbf{dplyr}
 \href{https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html}{Databases
 vignette}.
@@ -9668,12 +10053,12 @@ Things to note:
 \item
   \texttt{copy\_to} copies data from R to the database.
 \item
-  Typically, setting up a database like this makes no sense, since it
+  Typically, setting up a DBMS like this makes no sense, since it
   requires loading the data into RAM, which is precisely what we want to
   avoid.
 \end{itemize}
 
-We can now start querying the database.
+We can now start querying the DBMS.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9747,17 +10132,17 @@ We can now start querying the database.
 Structrures}\label{file-structure}
 
 It is possible to save your data on your storage device, without the
-database layer to manage it. This has several advantages:
+DBMS layer to manage it. This has several advantages:
 
 \begin{itemize}
 \tightlist
 \item
-  You don't need to manage a database.
+  You don't need to manage a DBMS.
 \item
-  You don't have the computational overhead of the database.
+  You don't have the computational overhead of the DBMS.
 \item
   You may optimize the file structure for statistical modelling, and not
-  for join and summary operations, as in relational databases.
+  for join and summary operations, as in relational DBMSs.
 \end{itemize}
 
 There are several facilities that allow you to save and compute directly
@@ -9799,7 +10184,14 @@ because \textbf{RevoScaleR} is inherently parallel. More on this in the
 Parallelization Chapter \ref{parallel}.
 \includegraphics{art/benchmark.png}
 
-We now demonstrate the workflow of the \textbf{bigmemory} package.
+\subsection{bigmemory}\label{bigmemory}
+
+We now demonstrate the workflow of the \textbf{bigmemory} package. We
+will see that \textbf{bigmemory}, with it's \texttt{big.matrix} object
+is a very powerful mechanism. If you deal with big numeric matrices, you
+will find it very useful. If you deal with big data frames, or any other
+non-numeric matrix, \textbf{bigmemory} may not be the appropriate tool,
+and you should try \textbf{ff}, or the commercial \textbf{RevoScaleR}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9903,13 +10295,177 @@ include:
   \textbf{GHap}: Haplotype calling from phased SNP data.
 \end{itemize}
 
+\section{ff}\label{ff}
+
+The \textbf{ff} packages replaces R's in-RAM storage mechanism with
+on-disk (efficient) storage. Unlike \textbf{bigmemory}, \textbf{ff}
+supports all of R vactor types such as factors, and not only numerics.
+Unlike \texttt{big.matrix}, which deals with (numeric) matrices, the
+\texttt{ffdf} class can deal with data frames.
+
+Here is an example. First open a connection to the file, without
+actually importing it using the \texttt{LaF::laf\_open\_csv} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{.dat <-}\StringTok{ }\NormalTok{LaF::}\KeywordTok{laf_open_csv}\NormalTok{(}\DataTypeTok{filename =} \StringTok{"2010_BSA_Carrier_PUF.csv"}\NormalTok{,}
+                    \DataTypeTok{column_types =} \KeywordTok{c}\NormalTok{(}\StringTok{"integer"}\NormalTok{, }\StringTok{"integer"}\NormalTok{, }\StringTok{"categorical"}\NormalTok{, }\StringTok{"categorical"}\NormalTok{, }\StringTok{"categorical"}\NormalTok{, }\StringTok{"integer"}\NormalTok{, }\StringTok{"integer"}\NormalTok{, }\StringTok{"categorical"}\NormalTok{, }\StringTok{"integer"}\NormalTok{, }\StringTok{"integer"}\NormalTok{, }\StringTok{"integer"}\NormalTok{), }
+                    \DataTypeTok{column_names =} \KeywordTok{c}\NormalTok{(}\StringTok{"sex"}\NormalTok{, }\StringTok{"age"}\NormalTok{, }\StringTok{"diagnose"}\NormalTok{, }\StringTok{"healthcare.procedure"}\NormalTok{, }\StringTok{"typeofservice"}\NormalTok{, }\StringTok{"service.count"}\NormalTok{, }\StringTok{"provider.type"}\NormalTok{, }\StringTok{"servicesprocessed"}\NormalTok{, }\StringTok{"place.served"}\NormalTok{, }\StringTok{"payment"}\NormalTok{, }\StringTok{"carrierline.count"}\NormalTok{), }
+                    \DataTypeTok{skip =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Now write the data to local storage as an ff data frame, using
+\texttt{laf\_to\_ffdf}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data.ffdf <-}\StringTok{ }\NormalTok{ffbase::}\KeywordTok{laf_to_ffdf}\NormalTok{(}\DataTypeTok{laf =} \NormalTok{.dat)}
+\KeywordTok{head}\NormalTok{(data.ffdf)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## ffdf (all open) dim=c(2801660,6), dimorder=c(1,2) row.names=NULL
+## ffdf virtual mapping
+##                              PhysicalName VirtualVmode PhysicalVmode  AsIs
+## sex                                   sex      integer       integer FALSE
+## age                                   age      integer       integer FALSE
+## diagnose                         diagnose      integer       integer FALSE
+## healthcare.procedure healthcare.procedure      integer       integer FALSE
+## typeofservice               typeofservice      integer       integer FALSE
+## service.count               service.count      integer       integer FALSE
+##                      VirtualIsMatrix PhysicalIsMatrix PhysicalElementNo
+## sex                            FALSE            FALSE                 1
+## age                            FALSE            FALSE                 2
+## diagnose                       FALSE            FALSE                 3
+## healthcare.procedure           FALSE            FALSE                 4
+## typeofservice                  FALSE            FALSE                 5
+## service.count                  FALSE            FALSE                 6
+##                      PhysicalFirstCol PhysicalLastCol PhysicalIsOpen
+## sex                                 1               1           TRUE
+## age                                 1               1           TRUE
+## diagnose                            1               1           TRUE
+## healthcare.procedure                1               1           TRUE
+## typeofservice                       1               1           TRUE
+## service.count                       1               1           TRUE
+## ffdf data
+##           sex   age diagnose healthcare.procedure typeofservice
+## 1       1     1        NA                   99213         M1B  
+## 2       1     1        NA                   A0425         O1A  
+## 3       1     1        NA                   A0425         O1A  
+## 4       1     1        NA                   A0425         O1A  
+## 5       1     1        NA                   A0425         O1A  
+## 6       1     1        NA                   A0425         O1A  
+## 7       1     1        NA                   A0425         O1A  
+## 8       1     1        NA                   A0425         O1A  
+## :           :     :        :                    :             :
+## 2801653 2     6        V82                  85025         T1D  
+## 2801654 2     6        V82                  87186         T1H  
+## 2801655 2     6        V82                  99213         M1B  
+## 2801656 2     6        V82                  99213         M1B  
+## 2801657 2     6        V82                  A0429         O1A  
+## 2801658 2     6        V82                  G0328         T1H  
+## 2801659 2     6        V86                  80053         T1B  
+## 2801660 2     6        V88                  76856         I3B  
+##         service.count
+## 1               1    
+## 2               1    
+## 3               1    
+## 4               2    
+## 5               2    
+## 6               3    
+## 7               3    
+## 8               4    
+## :                   :
+## 2801653         1    
+## 2801654         1    
+## 2801655         1    
+## 2801656         1    
+## 2801657         1    
+## 2801658         1    
+## 2801659         1    
+## 2801660         1
+\end{verbatim}
+
+We can verify that the \texttt{ffdf} data frame has a small RAM
+footprint.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pryr::}\KeywordTok{object_size}\NormalTok{(data.ffdf)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 343 kB
+\end{verbatim}
+
+The \textbf{ffbase} package provides several statistical tools to
+compute with \texttt{ff} class objects. Here is simple table.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ffbase:::}\KeywordTok{table.ff}\NormalTok{(data.ffdf$age) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##      1      2      3      4      5      6 
+## 517717 495315 492851 457643 419429 418705
+\end{verbatim}
+
+The EMA implementation of \texttt{biglm::biglm} and
+\texttt{biglm::bigglm} have their \textbf{ff} versions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(biglm)}
+\NormalTok{mymodel.ffdf <-}\StringTok{ }\KeywordTok{biglm}\NormalTok{(payment ~}\StringTok{ }\KeywordTok{factor}\NormalTok{(sex) +}\StringTok{ }\KeywordTok{factor}\NormalTok{(age) +}\StringTok{ }\NormalTok{place.served, }
+                              \DataTypeTok{data =} \NormalTok{data.ffdf)}
+\KeywordTok{summary}\NormalTok{(mymodel.ffdf)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Large data regression model: biglm(payment ~ factor(sex) + factor(age) + place.served, data = data.ffdf)
+## Sample size =  2801660 
+##                 Coef    (95%     CI)     SE      p
+## (Intercept)  97.3313 96.6412 98.0214 0.3450 0.0000
+## factor(sex)2 -4.2272 -4.7169 -3.7375 0.2449 0.0000
+## factor(age)2  3.8067  2.9966  4.6168 0.4050 0.0000
+## factor(age)3  4.5958  3.7847  5.4070 0.4056 0.0000
+## factor(age)4  3.8517  3.0248  4.6787 0.4135 0.0000
+## factor(age)5  1.0498  0.2030  1.8965 0.4234 0.0132
+## factor(age)6 -4.8313 -5.6788 -3.9837 0.4238 0.0000
+## place.served -0.6132 -0.6253 -0.6012 0.0060 0.0000
+\end{verbatim}
+
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{biglm::biglm} notices the input of of class \texttt{ffdf} and
+  calls the appropriate implementation.
+\item
+  The model formula,
+  \texttt{payment\ \textasciitilde{}\ factor(sex)\ +\ factor(age)\ +\ place.served},
+  includes factors which cause no difficulty.
+\item
+  You cannot inspect the factor coding (dummy? effect?) using
+  \texttt{model.matrix}. This is because EMA algorithms never really
+  construct the whole matrix, let alone, save it in memory.
+\end{itemize}
+
 \section{Computing from a Distributed File
 System}\label{computing-from-a-distributed-file-system}
 
 If your data is SOOO big that it cannot fit on your local storage, you
-will need a distributed file system or database. We do not cover this
-topic here, and refer the reader to the \textbf{RHipe},
-\textbf{RHadoop}, and \textbf{RSpark} packages and references therein.
+will need a distributed file system or DBMS. We do not cover this topic
+here, and refer the reader to the \textbf{RHipe}, \textbf{RHadoop}, and
+\textbf{RSpark} packages and references therein.
 
 \section{Bibliographic Notes}\label{bibliographic-notes-11}
 
@@ -9937,8 +10493,8 @@ For starters, we need to distinguish between two types of parallelism:
   \textbf{Explicit parallelism}: where the user handles the
   parallelisation.
 \item
-  \textbf{Implicit parallelism}: where the compiler handles the
-  nonparallel.
+  \textbf{Implicit parallelism}: where the parallelisation is abstracted
+  away from the user.
 \end{enumerate}
 
 Clearly, implicit parallelism is more desirable, but the state of
@@ -9957,7 +10513,7 @@ parallelism is initiated by the user, we first need to decide
 \textbf{when to parallelize?} As a rule of thumb, you want to
 parallelise when you encounter a CPU bottleneck, and not a memory
 bottleneck. Memory bottlenecks are released with Sparsity (Chapter
-\ref{sparse}), or efficient representation (Chapter \ref{memory}).
+\ref{sparse}), or efficient memory usage (Chapter \ref{memory}).
 
 Several ways to diagnose your bottleneck include:
 
@@ -10100,19 +10656,19 @@ means that in each iteration, we resample the data, and refit the model.
 \end{Shaded}
 
 \begin{verbatim}
-## Warning: closing unused connection 8 (<-localhost:11728)
+## Warning: closing unused connection 10 (<-localhost:11413)
 \end{verbatim}
 
 \begin{verbatim}
-## Warning: closing unused connection 7 (<-localhost:11728)
+## Warning: closing unused connection 9 (<-localhost:11413)
 \end{verbatim}
 
 \begin{verbatim}
-## Warning: closing unused connection 6 (<-localhost:11728)
+## Warning: closing unused connection 8 (<-localhost:11413)
 \end{verbatim}
 
 \begin{verbatim}
-## Warning: closing unused connection 5 (<-localhost:11728)
+## Warning: closing unused connection 7 (<-localhost:11413)
 \end{verbatim}
 
 \begin{Shaded}
@@ -10123,7 +10679,7 @@ means that in each iteration, we resample the data, and refit the model.
 
 \begin{verbatim}
 ## elapsed 
-##  20.218
+##  27.393
 \end{verbatim}
 
 Things to note:
@@ -10159,7 +10715,7 @@ to replace \texttt{\%dopar\%} with \texttt{\%do\%} to test.
 
 \begin{verbatim}
 ## elapsed 
-##  37.555
+##  42.661
 \end{verbatim}
 
 Yes. Parallelising is clearly faster.
@@ -10265,6 +10821,23 @@ supporting parallel programming see the High Performance Computing
 task view}.
 
 \chapter{Numerical Linear Algebra}\label{algebra}
+
+In your algebra courses you would write \(Ax=b\) and solve
+\(x=A^{-1}b\). This is useful to understand the algebraic properties of
+\(x\), but a computer would never recover \(x\) that way. Even the
+computation of the sample variance,
+\(S^2(x)=(n-1)^{-1}\sum (x_i-\bar x)^2\) is not solved that way in a
+computer, because of numerical and speed considerations.
+
+In this chapter, we dicuss several ways a computer solves systems of
+linear equations, with their application to statistics, namely, to OLS
+problems.
+
+\section{LU}\label{lu}
+
+\section{QR}\label{qr}
+
+\section{SVD}\label{svd}
 
 \chapter{Convex Optimization}\label{convex}
 
