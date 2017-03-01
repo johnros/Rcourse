@@ -4,8 +4,8 @@
 
 ```{example, label='cigarettes'}
 Consider the relation between cigarettes smoked, and the occurance of lung cancer. 
-Do we expect it to be liner? Probably not.
-Do we expect the variability to be constant about the trend, be it linear or not? Probably not.
+Do we the probability of cancer to be linear in the number of cigarettes? Probably not.
+Do we expect the variability of events to be constant about the trend? Probably not.
 ```
 
 
@@ -18,7 +18,7 @@ In the Linear Models Chapter \@ref(lm), we assumed the generative process to be
   (\#eq:linear-mean-again)
 \end{align}
 
-This does not allow for assumingly non-linear relations, nor does it allow for the variability of $\varepsilon$ to change with $x$.
+This does not allow for (assumingly) non-linear relations, nor does it allow for the variability of $\varepsilon$ to change with $x$.
 _Generalize linear models_ (GLM), as the name suggests, are a generalization that allow that^[Do not confuse _generalized linear models_ with [_non-linear regression_](https://en.wikipedia.org/wiki/Nonlinear_regression), or [_generalized least squares_](https://en.wikipedia.org/wiki/Generalized_least_squares). These are different things, that we do not discuss.].
 
 
@@ -42,15 +42,15 @@ Possible examples include
  y|x &\sim \mathcal{N}(\mu(x),\sigma^2(x)) 
 \end{align}
 
-GLMs constrain $\theta$ to be some function, $g$, of a linear combination of the $x$'s. 
-Formally, $$\theta(x)=g(x'\beta)$$, where $$x'\beta=\beta_0 + \sum_j x_j \beta_j$$. 
+GLMs constrain $\theta$ to be some known function, $g$, of a linear combination of the $x$'s. 
+Formally, $$\theta(x)=g(x'\beta),$$ where $$x'\beta=\beta_0 + \sum_j x_j \beta_j.$$
 The function $g$ is called the _link_ function.
 
 
 ## Logistic Regression
 
 The best known of the GLM class of models is the _logistic regression_ that deals with Binomial, or more precisely, Bernoulli distributed data. 
-The link function implied by the logistic regression is the logistic function
+The link function in the logistic regression is the _logistic function_
 \begin{align}
   g(t)=\frac{e^t}{(1+e^t)}
   (\#eq:logistic-link)  
@@ -61,30 +61,33 @@ The link function implied by the logistic regression is the logistic function
   (\#eq:logistic)
 \end{align}
 
-Before we fit such a model, we try to justify this construction, in particular, this enigmatic link function in Eq.\@ref(eq:logistic-link).
+Before we fit such a model, we try to justify this construction, in particular, the enigmatic link function in Eq.\@ref(eq:logistic-link).
 Let's look at the simplest possible case: the comparison of two groups indexed by $x$: $x=0$ for the first, and $x=1$ for the second.
-\begin{align}
-   p(x=0)=P(y=1|x=0) &= \frac{e^{\beta_0}}{(1+e^{\beta_0})} (\#eq:odds-one) \\ 
-   \Rightarrow 
-   \frac{P(y=1|x=0)}{P(y=0|x=0)} &= e^{\beta_0} \\
-   p(x=1)= P(y=1|x=1) &= \frac{e^{\beta_0+\beta_1}}{(1+e^{\beta_0+\beta_1})} \\
-   \Rightarrow 
-   \frac{P(y=1|x=1)}{P(y=0|x=1)} &= e^{\beta_0+\beta_1} (\#eq:odds-two)\\
-   \Rightarrow 
-   \frac{P(y=1|x=1)/P(y=0|x=1)}{P(y=1|x=0)/P(y=0|x=0)} 
-   &= e^{\beta_1}  (\#eq:odds-ratio) \\
-   \Rightarrow 
-   \log \frac{P(y=1|x=1)/P(y=0|x=1)}{P(y=1|x=0)/P(y=0|x=0)} &= \beta_1. (\#eq:log-odds-ratio)
-\end{align}
+We start with some definitions.
 
-The magnitudes in Eqs.\@ref(eq:odds-one) and \@ref(eq:odds-two), are known as the _odds_. 
+```{definition, name="Odds"}
+The _odds_, is a scale of uncertitude defined as $$\frac{P(y=1)}{P(y=0)}.$$
+```
+
+```{definition, name="Odds Ratio"}
+The _odds ratio_ is a measure of the difference between two binary random variables defined as the ratio between their odds. 
+Formally:
+$$OR(y_1,y_2):=\frac{P(y_1=1)/P(y_1=0)}{P(y_2=1)/P(y_2=0)}.$$
+```
+
 Odds are the same as probabilities, but instead of of telling me there is a $66\%$ of success, they tell me the odds of success are "2 to 1".
 
-The magnitude in Eq.\@ref(eq:odds-ratio) is known as the _odds ratio_. 
-The odds ratio compares between the probabilities of two groups, only that it does not compare  them in probability scale, but rather in odds scale. 
+Odds ratios (OR) compares between the probabilities of two groups, only that it does not compare  them in probability scale, but rather in odds scale. 
 
-The magnitude in Eq.\@ref(eq:log-odds-ratio) is known as the _log odds ratio_.
-Besides some nice theoretical properties of log odds ratios, which we will not discuss, they are important since it demystifies the choice of the link function in \@ref(eq:logistic-link): __it allows us to interpret $\beta$ of the logistic regression as the odds-ratios (in log scale)__.
+Computing the OR between two conditions, indexed by $y|x=1$ and $y|x=0$, under the logistic link assumption returns:
+\begin{align}
+   OR(y|x=1,y|x=0) 
+   = \frac{P(y=1|x=1)/P(y=0|x=1)}{P(y=1|x=0)/P(y=0|x=0)} 
+   = e^{\beta_1}.  
+\end{align}
+
+
+The last equality demystifies the choice of the link function in the logistic regression: __it allows us to interpret $\beta$ of the logistic regression as a measure of change of binary random variables, namely, the the odds-ratios (in log scale)__.
 
 Another popular link function is the normal quantile function, a.k.a., the Gaussian inverse CDF, leading to _probit regression_ instead of logistic regression.
 
@@ -109,7 +112,7 @@ plot(table(group, weight.factor))
 
 
 Let's fit a logistic regression, and inspect the output.
-```{r}
+```{r, label="glm1"}
 glm.1<- glm(weight.factor~group, family=binomial)
 summary(glm.1)
 ```
@@ -238,6 +241,11 @@ When interpreting the table, we need to recall that the effect, i.e. the $\hat \
 - Each day __decreases__ the rate of events by a factor of about `r abs(round(summary(glm.3)$coef[2,1],2))`.
 - For more information see `?glm` and `?family`.
 
+```{r, echo=FALSE}
+detach(cases)
+```
+
+
 ## Extensions
 
 As we already implied, GLMs are a very wide class of models.
@@ -250,3 +258,5 @@ The ultimate reference on GLMs is @mccullagh1984generalized.
 For a less technical exposition, we refer to the usual @venables2013modern.
 
 ## Practice Yourself
+
+1. Try using `lm` for analyzing the plant growth data in `weight.factor` as a function of `group` in the `PlantGrowth` data. 
