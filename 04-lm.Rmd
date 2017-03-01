@@ -2,25 +2,38 @@
 
 ## Problem Setup
 
-```{example, label='cap-experiment'}
-Consider a randomized experiment designed to study the effects of temperature and pressure on the  diameter of a bottle cap.
+```{example, label='cap-experiment', name="Bottle Cap Production"}
+Consider a randomized experiment designed to study the effects of temperature and pressure on the  diameter of manufactured a bottle cap.
 ```
 
-```{example, label='rental'}
+```{example, label='rental', name="Rental Prices"}
 Consider the prediction of rental prices given an appartment's attributes. 
 ```
 
 Both examples require some statistical model, but they are very different.
 The first is a _causal inference_ problem: we want to design an intervention so that we need to recover the causal effect of temperature and pressure.
-The second is a _prediction_ problem. We don't care about the causal effects, we just want good predictions.
+The second is a _prediction_ problem, a.k.a. a _forecasting_ problem, in which we don't care about the causal effects, we just want good predictions.
 
 In this chapter we discuss the causal problem in Example \@ref(ex:cap-experiment).
-This means that when we assume a model, we assume it is the actual _data generating process_.
+This means that when we assume a model, we assume it is the actual _data generating process_, i.e., we assume the _sampling distribution_ is well specified.
 The second type of problems is discussed in the Supervised Learning Chapter \@ref(supervised).
 
+Here are some more examples of the types of problems we are discussing.
+
+```{example, name="Plant Growth"}
+Consider the treatment of various plants with various fertilizers to study the fertilizer's effect on growth.
+```
+
+```{example, name="Return to Education"}
+Consider the study of return to education by analyzing the incomes of individuals with different education years. 
+```
+
+```{example, name="Drug Effect"}
+Consider the study of the effect of a new drug, by analyzing the level of blood coagulation after the administration of various amounts of the new drug. 
+```
 
 Lets present the linear model.
-We assume that a response^[The "response" is also know as the "dependent" variable, of the "labels" in the machine learning literature.] variable is the sum of effects of some factors^[The "factors" are also known as the "independent variable", the "design", the "features" and the "attributes".].
+We assume that a response^[The "response" is also know as the "dependent" variable in the statistical literature, or the "labels" in the machine learning literature.] variable is the sum of effects of some factors^[The "factors" are also known as the "independent variable", or  "the design", in the statistical literature, and the "features", or "attributes" in the machine learning literature.].
 Denoting the dependent by $y$, the factors by $x$, and the effects by $\beta$ the linear model assumption implies that 
 
 
@@ -29,10 +42,10 @@ Denoting the dependent by $y$, the factors by $x$, and the effects by $\beta$ th
   (\#eq:linear-mean)
 \end{align}
 Clearly, there may be other factors that affect the the caps' diameters. 
-We thus introduce an error term^[The "error term" is also known as the "noise", or the "common causes of variability".], denoted by $\varepsilon$, to capture the effects of all unmodeled factors.
+We thus introduce an error term^[The "error term" is also known as the "noise", or the "common causes of variability".], denoted by $\varepsilon$, to capture the effects of all unmodeled factors and measurement error^[You may philosophize if the measurement error is a mere instance of unmodeled factors or not, but this has no real implication for our purposes.]. 
 The implied generative process of a sample of $i=1,\dots,n$ observations it thus
 \begin{align}
-  y_i = \sum x_{i,j} \beta_j + \varepsilon_i , i=1,\dots,n .
+  y_i = \sum_j x_{i,j} \beta_j + \varepsilon_i , i=1,\dots,n .
   (\#eq:linear-observed)
 \end{align}
 or in matrix notation
@@ -42,20 +55,19 @@ or in matrix notation
 \end{align}
 
 
-Lets demonstrate Eq.\@ref(eq:linear-observed):
-
-In our cap example, assuming that pressure and temperature have two levels each (say, high and low), we would write $x_{i,1}=1$ if the pressure of the $i$'th measurement was set to high, and $x_{i,1}=-1$ if the pressure was set to low. 
-Similarly, we would write $x_{i,2}=1$, and $x_{i,2}=-1$, if the temperature was set to high, or low, respectively.
+Let's demonstrate Eq.\@ref(eq:linear-observed).
+In our cap example (\@ref(ex:cap-experiment)), assuming that pressure and temperature have two levels each (say, high and low), we would write $x_{i,1}=1$ if the pressure of the $i$'th measurement was set to high, and $x_{i,1}=-1$ if the __pressure__ was set to low. 
+Similarly, we would write $x_{i,2}=1$, and $x_{i,2}=-1$, if the __temperature__ was set to high, or low, respectively.
 The coding with $\{-1,1\}$ is known as _effect coding_.
 If you prefer coding with $\{0,1\}$, this is known as _dummy coding_.
 
-In Gosset's classical regression problem, where we try to seek the relation between the heights of sons and fathers then $p=1$, $y_i$ is the height of the $i$'th father, and $x_i$ the height of the $i$'th son.
+In [Galton's](https://en.wikipedia.org/wiki/Regression_toward_the_mean) classical regression problem, where we try to seek the relation between the heights of sons and fathers then $p=1$, $y_i$ is the height of the $i$'th father, and $x_i$ the height of the $i$'th son.
 
 
-There are many reasons these models are so popular:
+There are many reasons linear models are very popular:
 
 1. Before the computer age, these were pretty much the only models that could actually be computed^[By "computed" we mean what statisticians call "fitted", or "estimated", and computer scientists call "learned".]. 
-The whole Analysis of Variance (ANOVA) literature is an instance of linear models.
+The whole Analysis of Variance (ANOVA) literature is an instance of linear models, that relies on sums of squares, which do not require a computer to work with.
 
 1. For purposes of prediction, where the actual data generating process is not of primary importance, they are popular because they simply work. 
 Why is that? 
@@ -64,36 +76,37 @@ Put differently, they may be biased, but their variance is small enough to make 
 
 1. For categorical or factorial predictors, __any__ functional relation can be cast as a linear model.
 
-1. For the purpose of _screening_, where we only want to show the existence of an effect, and are less interested in the magnitude of the effect, a linear model is enough.
+1. For the purpose of _screening_, where we only want to show the existence of an effect, and are less interested in the magnitude of that effect, a linear model is enough.
 
 1. If the true generative relation is not linear, but smooth enough, then the linear function is a good approximation via Taylor's theorem.
 
 
 There are still two matters we have to attend: 
-How the estimate $\beta$, and how to perform inference.
+(i) How the estimate $\beta$? 
+(ii) How to perform inference?
 
-In linear models the estimation of $\beta$ is done using the method of least squares. 
-For this reason, a linear model with least squares estimation is known as Ordinary Least Squares (OLS).
+In the simplest linear models the estimation of $\beta$ is done using the method of least squares. A linear model with least squares estimation is known as Ordinary Least Squares (OLS).
 The OLS problem:
 
 \begin{align}
-  \hat \beta_{OLS}:= argmin_\beta \{ \sum_i (y_i-x_i'\beta)^2 \},
+  \hat \beta:= argmin_\beta \{ \sum_i (y_i-x_i'\beta)^2 \},
   (\#eq:ols)
 \end{align}
 and in matrix notation
 \begin{align}
-  \hat \beta_{OLS}:= argmin_\beta \{ \Vert y-X\beta \Vert^2_2 \}.
+  \hat \beta:= argmin_\beta \{ \Vert y-X\beta \Vert^2_2 \}.
   (\#eq:ols-matrix)
 \end{align}
 
 ```{remark}
-Personally, I prefer the matrix notation because it suggests of the geometry of the problem. 
-The reader is referred to @friedman2001elements, Sec 3.2, for more on the geometry of OLS.
+Personally, I prefer the matrix notation because it is suggestive of the geometry of the problem. 
+The reader is referred to @friedman2001elements, Section 3.2, for more on the geometry of OLS.
 ```
 
 Different software suits, and even different R packages, solve Eq.\@ref(eq:ols) in different ways so that we skip the details of how exactly it is solved. 
+These are discussed in Chapters \@ref(algebra) and \@ref(convex).
 
-The last matter we need to attend is how to do inference on $\hat \beta_{OLS}$.
+The last matter we need to attend is how to do inference on $\hat \beta$.
 For that, we will need some assumptions on $\varepsilon$.
 A typical set of assumptions is the following:
 
@@ -104,24 +117,25 @@ Think of them as the measurement error of an instrument: it is independent of th
 
 We emphasize that these assumptions are only needed for inference on $\hat \beta$ and not for the estimation itself, which is done by the purely algorithmic framework of OLS.
 
-Given the above assumptions, we can apply some probability theory and linear algebra to get
+Given the above assumptions, we can apply some probability theory and linear algebra to get the distribution of the estimation error:
 \begin{align}
-  \hat \beta_{OLS} \sim \mathcal{N}(\beta, (X'X)^{-1} \sigma^2)
+  \hat \beta - \beta \sim \mathcal{N}(0, (X'X)^{-1} \sigma^2).
   (\#eq:ols-distribution)
 \end{align}
 
 The reason I am not too strict about the normality assumption above, is that Eq.\@ref(eq:ols-distribution) is approximately correct even if $\varepsilon$ is not normal, provided that there are many more observations than factors ($n \gg p$).
 
-## OLS Estimation 
+## OLS Estimation in R
 
 We are now ready to estimate some linear models with R.
-We will use the `whiteside` data from the __MASS__ package,recording the outside temperature and gas consumption, before and after insulation.
+We will use the `whiteside` data from the __MASS__ package, recording the outside temperature and gas consumption, before and after an appartment's insulation.
 ```{r, cache=TRUE}
 library(MASS)
 data(whiteside)
 head(whiteside) # inspect the data
 ```
-We do the OLS estimation with `lm` function, possibly the most important function in R.
+
+We do the OLS estimation on the pre-insulation data with `lm` function, possibly the most important function in R.
 ```{r}
 lm.1 <- lm(Gas~Temp, data=whiteside[whiteside$Insul=='Before',]) # OLS estimation 
 ```
@@ -142,14 +156,15 @@ The output is an object of class `lm`.
 ```{r}
 class(lm.1)
 ```
+
 Objects of class `lm` are very complicated. 
-It stored a lot of information which will be later used for inference, plotting, etc.
-The `str` function, short for "structure" shows us the various elements of the object.
+They store a lot of information which may be used for inference, plotting, etc.
+The `str` function, short for "structure", shows us the various elements of the object.
 ```{r}
 str(lm.1)
 ```
 
-At this point, we only want $\hat \beta_{OLS}$ which can be extracted with the `coef` function.
+At this point, we only want $\hat \beta$ which can be extracted with the `coef` function.
 ```{r}
 coef(lm.1)
 ```
@@ -157,14 +172,14 @@ coef(lm.1)
 Things to note:
 
 - R automatically adds an `(Intercept)` term. 
-This means we estimate $y_i=\beta_0 + \beta_1 Gas + \varepsilon$ and not $y_i=\beta_1 Gas + \varepsilon_i$. 
-This makes sense because we are interested in the variability of the gas consumption about its mean, and not about zero.
+This means we estimate $y=\beta_0 + \beta_1 Gas + \varepsilon$ and not $y=\beta_1 Gas + \varepsilon$. 
+This makes sense because we are interested in the contribution of the temperature to the variability of the gas consumption about its __mean__, and not about zero.
 
 - The effect of temperature, i.e., $\hat \beta_1$, is `r round(coef(lm.1)[[2]],2)`. 
 The negative sign means that the higher the temperature, the less gas is consumed. 
 The magnitude of the coefficient means that for a unit increase in the outside temperature, the gas consumption decreases by `r abs(round(coef(lm.1)[[2]],2))` units. 
 
-We can use the `predict` function to make predictions, but we emphasize that if the purpose of the model is to make predictions, and not interpret coefficients, better skip to The Supervised Learning Chapter \@ref(supervised).
+We can use the `predict` function to make predictions, but we emphasize that if the purpose of the model is to make predictions, and not interpret coefficients, better skip to the Supervised Learning Chapter \@ref(supervised).
 ```{r, results='hold'}
 plot(predict(lm.1)~whiteside[whiteside$Insul=='Before',]$Gas)
 abline(0,1, lty=2)
@@ -178,9 +193,9 @@ A common measure of the goodness of fit is the _coefficient of determination_, m
 ```{definition, name='(ref:R2)'}
 The coefficient of determination, denoted $R^2$, is defined as
 \begin{align}
-  R^2:= 1-\frac{\sum_i (y_i - \hat y_i)^2}{\sum_i (y_i - \bar y)^2}
+  R^2:= 1-\frac{\sum_i (y_i - \hat y_i)^2}{\sum_i (y_i - \bar y)^2},
 \end{align}
-Where $\hat y_i$ is the model's prediction, $\hat y_i = x_i \hat \beta$.
+where $\hat y_i$ is the model's prediction, $\hat y_i = x_i \hat \beta$.
 ```
 
 It can be easily computed
@@ -190,14 +205,16 @@ R2 <- function(y, y.hat){
   denominator <- (y-mean(y))^2 %>% sum
   1-numerator/denominator
 }
-R2(whiteside[whiteside$Insul=='Before',]$Gas, predict(lm.1))
+R2(y=whiteside[whiteside$Insul=='Before',]$Gas, y.hat=predict(lm.1))
 ```
+
+This is a nice result implying that about $94\%$ of the variability in gas consumption can be attributed to changes in the outside temperature. 
 
 Obviously, R does provide the means to compute something as basic as $R^2$, but I will let you find it for yourselves. 
 
 
 ## Inference
-To perform inference on $\hat \beta$ in order to test hypotheses and construct confidence intervals, we need to quantify the uncertainly in the reported $\hat \beta$.
+To perform inference on $\hat \beta$, in order to test hypotheses and construct confidence intervals, we need to quantify the uncertainly in the reported $\hat \beta$.
 This is exactly what Eq.\@ref(eq:ols-distribution) gives us.
 
 Luckily, we don't need to manipulate multivariate distributions manually, and everything we need is already implemented. 
@@ -214,8 +231,7 @@ Things to note:
 - The $R^2$ is reported at the bottom. The "Adjusted R-squared" is a variation that compensates for the model's complexity.
 - The original call to `lm` is saved in the `Call` section.
 - Some summary statistics of the residuals ($y_i-\hat y_i$) in the `Residuals` section.
-- The "residuals standard error"^[Sometimes known as the Root Mean Squared Error (RMSE).] is $\sqrt{(n-p)^{-1} \sum_i (y_i-\hat y_i)^2}$. 
-The "degrees of freedom" are $n-p$ which can be thought of as the hardness of the problem. 
+- The "residuals standard error"^[Sometimes known as the Root Mean Squared Error (RMSE).] is $\sqrt{(n-p)^{-1} \sum_i (y_i-\hat y_i)^2}$. The denominator of this expression is the _degrees of freedom_, $n-p$, which can be thought of as the hardness of the problem. 
 
 As the name suggests, `summary` is merely a summary. The full `summary(lm.1)` object is a monstrous object. 
 Its various elements can be queried using `str(sumary(lm.1))`.
@@ -223,9 +239,10 @@ Its various elements can be queried using `str(sumary(lm.1))`.
 Can we check the assumptions required for inference?
 Some.
 Let's start with the linearity assumption.
-If we were wrong, and the data is not arranged about a linear line, the residuals will have some shape.
-```{r}
-plot(residuals(lm.1)~whiteside[whiteside$Insul=='Before',]$Temp); abline(0,0, lty=2)
+If we were wrong, and the data is not arranged about a linear line, the residuals will have some shape. We thus plot the residuals as a function of the predictor to diagnose shape. 
+```{r, results='hold'}
+plot(residuals(lm.1)~whiteside[whiteside$Insul=='Before',]$Temp)
+abline(0,0, lty=2)
 ```
 
 I can't say I see any shape.
@@ -237,9 +254,9 @@ plot(residuals(lm.1.1)~whiteside[whiteside$Insul=='Before',]$Temp); abline(0,0, 
 
 Things to note:
 
-- We used `I(Temp)^2` to specify the model $Gas_i=\beta_0 + \beta_1 Temp^2+ \varepsilon$.
+- We used `I(Temp)^2` to specify the model $Gas=\beta_0 + \beta_1 Temp^2+ \varepsilon$.
 - The residuals have a "belly". 
-Because they are not a cloud of noise around the linear trend, and we have the wrong model.
+Because they are not a cloud around the linear trend, and we have the wrong model.
 
 To the next assumption.
 We assumed $\varepsilon_i$ are independent of everything else.
@@ -249,12 +266,12 @@ They may be correlated with themselves; a positive departure from the model, may
 Diagnosing these _auto-correlations_ is a real art, which is not part of our course. 
 
 The last assumption we required is normality. 
-As previously stated, if $n \gg p$, this assumption is not really needed. 
+As previously stated, if $n \gg p$, this assumption can be relaxed. 
 If $n \sim p$, i.e., $n$ is in the order of $p$, we need to verify this assumption.
 My favorite tool for this task is the _qqplot_.
-A qqplot compares the quantiles of the sample with the respective quantiles of an assumed distribution.
+A qqplot compares the quantiles of the sample with the respective quantiles of the assumed distribution.
 If quantiles align along a line, the assumed distribution if OK.
-If quantiles depart from a line, then clearly the assumed distribution does not fit the sample.
+If quantiles depart from a line, then the assumed distribution does not fit the sample.
 ```{r}
 qqnorm(resid((lm.1)))
 ```
@@ -276,7 +293,7 @@ summary.lm1 <- summary(lm.1)
 coefs.lm1 <- summary.lm1$coefficients
 coefs.lm1
 ```
-We see that the p-value for $H_{0,1}:\hat \beta_1=0$ against a two sided alternative is effectively `r round(coefs.lm1[2,4],2)`.
+We see that the p-value for $H_{0,1}:\hat \beta_1=0$ against a two sided alternative is effectively `r round(coefs.lm1[2,4],2)`, so that $\beta_1$ is unlikely to be $0$.
 
 
 
@@ -285,7 +302,7 @@ We see that the p-value for $H_{0,1}:\hat \beta_1=0$ against a two sided alterna
 Since the `summary` function gives us the standard errors of $\hat \beta$, we can immediately compute $\hat \beta_j \pm 2 \sqrt{Var[\hat \beta_j]}$ to get ourselves a (roughly) $95\%$ confidence interval.
 In our example the interval is
 ```{r}
-coefs.lm1[2,1] + c(-1,1) * coefs.lm1[2,2]
+coefs.lm1[2,1] + c(-2,2) * coefs.lm1[2,2]
 ```
 
 
@@ -296,10 +313,10 @@ _Multiple regression_ is not to be confused with _multivariate regression_ discu
 ```
 
 
-The data we now use^[The example is taken from http://rtutorialseries.blogspot.co.il/2011/02/r-tutorial-series-two-way-anova-with.html] contains a hypothetical sample of $60$ participants who are divided into three stress reduction treatment groups (mental, physical, and medical) and two gender groups (male and female). 
+Our next example^[The example is taken from http://rtutorialseries.blogspot.co.il/2011/02/r-tutorial-series-two-way-anova-with.html] contains a hypothetical sample of $60$ participants who are divided into three stress reduction treatment groups (mental, physical, and medical) and two gender groups (male and female). 
 The stress reduction values are represented on a scale that ranges from 1 to 5. 
 This dataset can be conceptualized as a comparison between three stress treatment programs, one using mental methods, one using physical training, and one using medication across genders. 
-The values represent how effective the treatment programs were at reducing participant's stress levels, with higher numbers indicating higher effectiveness.
+The values represent how effective the treatment programs were at reducing participant's stress levels, with larger effects indicating higher effectiveness.
 
 ```{r, cache=TRUE}
 data <- read.csv('dataset_anova_twoWay_comparisons.csv')
@@ -327,7 +344,8 @@ Things to note:
 - All the (main) effects seem to be significant. 
 
 - The data has 2 factors, but the coefficients table has 4 predictors. This is because `lm` noticed that `Treatment` and `Age` are factors. 
-Their numerical values are meaningless, and it has thus constructed a dummy variable for each level of each factor. 
+The numerical values of the factors are meaningless.
+Instead, R has constructed a dummy variable for each level of each factor. 
 The names of the effect are a concatenation of the factor's name, and its level.
 You can inspect these dummy variables with the `model.matrix` command. 
 ```{r}
@@ -343,9 +361,9 @@ anova(lm.2)
 
 Things to note:
 
-- The ANOVA table, unlike the `summary` function, tests if any of the levels of a factor has an effect, and not one level at a time. 
+- The ANOVA table, unlike the `summary` function, tests if __any__ of the levels of a factor has an effect, and not one level at a time. 
 - The significance of each factor is computed using an F-test. 
-- The degrees of freedom, encoding the nubmer of levels of a factor, is given in the `Df` column.
+- The degrees of freedom, encoding the number of levels of a factor, is given in the `Df` column.
 - The StressReduction seems to vary for different ages and treatments, since both factors are significant.
 
 As in any two-way ANOVA, we may want to ask if different age groups respond differently to different treatments. 
@@ -371,6 +389,7 @@ Things to note:
 - There are still $5$ main effects, but also $4$ interactions. 
 This is because when allowing a different average response for every $Treatment*Age$ combination, we are effectively estimating $3*3=9$ cell means, even if they are not parametrized as cell means, but rather as main effect and interactions. 
 - The interactions do not seem to be significant.
+- The assumptions required for inference are clearly not met in this example, which is there just to demonstrate R's capabilities. 
 
 Asking if all the interactions are significant, is asking if the different age groups have the same response to different treatments. 
 Can we answer that based on the various interactions? 
@@ -384,7 +403,7 @@ We see that `lm.3` is __not__  better than `lm.2`, so that we can conclude that 
 
 
 ### Testing a Hypothesis on a Single Contrast
-Returning to `lm.2`.
+Returning to the model without interactions, `lm.2`.
 ```{r}
 coef(summary(lm.2))
 ```
@@ -401,7 +420,7 @@ summary(lm.4)
 
 Things to note:
 
-- A contrast is a linear function of the coefficients. In our example $H_0:\beta_1-\beta_3=0$, which justifies the construction of `my.contrast'.
+- A contrast is a linear function of the coefficients. In our example $H_0:\beta_1-\beta_3=0$, which justifies the construction of `my.contrast`.
 - We used the `glht` function (generalized linear hypothesis test) from the package __multcompt__.
 - The contrast is significant, i.e., the effect of a medical treatment, is different than that of a physical treatment.
 

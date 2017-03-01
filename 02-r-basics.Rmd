@@ -6,18 +6,18 @@ If you have any experience at all with R, you can probably skip this section.
 First, make sure you work with the RStudio IDE.
 Some useful pointers for this IDE include:
 
-- Ctrl+return to run lines from editor.
-- alt+shift+k for RStudio keyboard shortcuts.
-- Ctrl+alt+j to navigate between sections
+- Ctrl+Return to run lines from editor.
+- Alt+Shift+k for RStudio keyboard shortcuts.
+- Ctrl+Alt+j to navigate between sections
 - tab for auto-completion
 - Ctrl+1 to skip to editor. 
 - Ctrl+2 to skip to console.
 - Ctrl+8 to skip to the environment list.
 - Code Folding:
-  - alt+l collapse chunk.
-  - alt+shift+l unfold chunk.
-  - alt+o collapse all.
-  - alt+shift+o unfold all.
+    - Alt+l collapse chunk.
+    - Alt+Shift+l unfold chunk.
+    - Alt+o collapse all.
+    - Alt+Shift+o unfold all.
 
 
 ## Simple calculator
@@ -59,12 +59,21 @@ rbinom(n=10, size=10, prob=0.5)
 ```
 
 R has many built-in distributions. 
-Their names may change, but the prefixed do not:
+Their names may change, but the prefixes do not:
 
-- __d__ prefix for the distribution function.
-- __p__ prefix for the CDF.
-- __q__ prefix for the quantile function (i.e., the inverse CDF).
+- __d__ prefix for the _distribution_ function.
+- __p__ prefix for the _cummulative distribution_ function (CDF).
+- __q__ prefix for the _quantile_ function (i.e., the inverse CDF).
 - __r__ prefix to generate random samples. 
+
+Demonstrating this idea, using the CDF of several popular distributions:
+
+- `pbinom()` for the binomial CDF.
+- `ppois()` for the Poisson CDF.
+- `pnorm()` for the Gaussian CDF.
+- `pexp()` for the exponential CDF.
+
+For more information see `?distributions`.
 
 
 
@@ -95,9 +104,10 @@ Assignment of some output into an object named "x":
 x = rbinom(n=10, size=10, prob=0.5) # Works. Bad style.
 x <- rbinom(n=10, size=10, prob=0.5) 
 ```
-If you are familiar with other programming languages you may prefer the '=' assignment rather than the '<-' assignment. 
+If you are familiar with other programming languages you may prefer the `=` assignment rather than the `<-` assignment. 
 We recommend you make the effort to change your preferences. 
-This is because thinking with '<-' helps to read your code, distinguishes between assignments and function arguments: `function(argument=value)`, and understand things like `<<-` and `->`. 
+This is because thinking with `<-` helps to read your code, distinguishes between assignments and function arguments: think of `function(argument=value)` versus `function(argument<-value)`. 
+It also helps understand special assignment operators such as `<<-` and `->`. 
 
 
 ```{remark}
@@ -114,7 +124,7 @@ which is an implicit call to
 ```{r}
 print(x)  
 ```
-Alternatively, you can assign and print simultaneously
+Alternatively, you can assign and print simultaneously using parenthesis.
 ```{r}
 (x <- rbinom(n=10, size=10, prob=0.5))  # Assign and print.
 ```
@@ -133,7 +143,7 @@ ls()
 ```
 or with Ctrl+8 in RStudio. 
 
-If you lost your object, you can use `ls` with a text patter to search for
+If you lost your object, you can use `ls` with a text pattern to search for
 ```{r}
 ls(pattern='x')
 ```
@@ -198,9 +208,9 @@ car_data <-
   print
 ```
 
+Tip: RStudio has a keyboard shortcut for the `%>%` operator. Try Ctrl+Shift+m.
 
-
-## Vector creation and manipulation 
+## Vector Creation and Manipulation 
 The most basic building block in R is the __vector__.
 We will now see how to create them, and access their elements (i.e. subsetting).
 Here are three ways to create the same arbitrary vector:
@@ -212,12 +222,6 @@ seq(from=10, to=21, by=1) # the seq() function
 Lets assign it to the object named "x":
 ```{r}
 x <- c(10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21) 	
-```
-In the case you made a computation you do not want to repeat, you can assign AFTER the computation is finished, since everything is saved by the `.Last.value' variable. 
-```{r, results='hold'}
-c(1,2,3)
-y<- .Last.value 
-y
 ```
 
 ```{remark}
@@ -236,12 +240,12 @@ log(x)
 ```
 
 
-## Search paths and packages
-R can be easily extended with packages, which are merely a set of functions and other objects, which can be loaded or unloaded at will.
-Let's look at the function `sum`. 
+## Search Paths and Packages
+R can be easily extended with packages, which are merely a set of documented functions, which can be loaded or unloaded conveniently.
+Let's look at the function `read.csv`. 
 We can see its contents by calling it without arguments:
 ```{r}
-print(read.csv)
+read.csv
 ```
 Never mind what the function does. 
 Note the `environment: namespace:utils` line at the end. 
@@ -256,17 +260,19 @@ R's package import mechanism is quite powerful, and is one of the reasons for R'
 
 
 
-## Simple plotting 
-R has many plotting facilities. 
+## Simple Plotting 
+R has many plotting facilities as we will further detail in the Plotting Chapter \@ref(plotting).
 We start with the simplest facilities, namely, the `plot` function from the __graphics__ package, which is loaded by default. 
 ```{r}
-x<- 1:100; y<- 3+sin(x) # Create arbitrary data
+x<- 1:100
+y<- 3+sin(x) 
 plot(x = x, y = y) # x,y syntax  						
 ```
-Given an x argument and a y argument, `plot` tries to present a scatter plot.
-We call this the "x,y" syntax.
-R has another, unique, syntax to state functional relations.
-We call it the "tilde" syntax, which originates in works of @wilkinson1973symbolic. 
+
+Given an `x` argument and a `y` argument, `plot` tries to present a scatter plot.
+We call this the `x,y` syntax.
+R has another unique syntax to state functional relations.
+We call `y~x` the "tilde" syntax, which originates in works of @wilkinson1973symbolic and was adopted in the early days of S.
 ```{r}
 plot(y ~ x) # y~x syntax 
 ```
@@ -277,14 +283,28 @@ We will prefer the `y~x` syntax over the `x,y` syntax since it is easier to read
 
 
 
-Here are some arguments that control the plot's appearance:
+Here are some arguments that control the plot's appearance.
+We use `type` to control the plot type, `main` to control the main title.
 ```{r}
-plot(y~x, type='l', main='Plotting a connected line') # main title
-plot(y~x, type='h', main='Sticks plot', xlab='Insert x axis label', ylab='Insert y axis label') # axes labels
-plot(y~x, pch=5) # Point type with pcf
-plot(y~x, pch=10, type='p', col='blue', cex=4) # More point parameters
-abline(3, 0.002) # add linear line with slope b and intercept a
+plot(y~x, type='l', main='Plotting a connected line') 
 ```
+
+We use `xlab` for the x-axis label, `ylab` for the y-axis.
+```{r}
+plot(y~x, type='h', main='Sticks plot', xlab='Insert x axis label', ylab='Insert y axis label') 
+```
+
+We use `pch` to control the point type. 
+```{r}
+plot(y~x, pch=5) # Point type with pcf
+```
+
+We use `col` to control the color,  `cex` for the point size, and `abline` to add a straight line.
+```{r, results='hold'}
+plot(y~x, pch=10, type='p', col='blue', cex=4) 
+abline(3, 0.002) 
+```
+
 
 For more plotting options run these
 ```{r, eval=FALSE}
@@ -297,28 +317,31 @@ help(package='graphics')
 When your plotting gets serious, go to Chapter \@ref(plotting).
 
 
-## Object types
+## Object Types
 We already saw that the basic building block of R objects is the vector.
 Vectors can be of the following types:
 
 - __character__ Where each element is a string. 
-- __numeric__ Where each element is a "real" number in double precision floating point. 
-- __integer__ Where each element is an integer. 
-- __logical__ Where each element is either TRUE, FALSE, or NA^[R uses a [three valued logic](https://en.wikipedia.org/wiki/Three-valued_logic) where a missing value (NA) is neither TRUE, nor FALSE.]
+- __numeric__ Where each element is a [real number](https://en.wikipedia.org/wiki/Real_number) in [double precision](https://en.wikipedia.org/wiki/Double-precision_floating-point_format) floating point format.
+- __integer__ Where each element is an [integer](https://en.wikipedia.org/wiki/Integer). 
+- __logical__ Where each element is either TRUE, FALSE, or NA^[R uses a [__three__ valued logic](https://en.wikipedia.org/wiki/Three-valued_logic) where a missing value (NA) is neither TRUE, nor FALSE.]
 - __complex__ Where each element is a complex number. 
 - __list__ Where each element is an arbitrary R object.
 - __factor__ Factors are not actually vector objects, but they feel like such. 
-They actually used to encode a finite set of values. 
+They are used to encode any finite set of values. 
 This will be very useful when fitting linear model, but may be confusing if you think you are dealing with a character vector when in fact you are dealing with a factor. 
 Be alert!
 
 Vectors can be combined into larger objects. 
 A `matrix` can be thought of as the binding of several vectors of the same type. 
-If vectors of different types (but same length) are binded, we get a `data frame` which is the most fundamental object in R for data analysis. 
+In reality, a matrix is merely a vector with a dimension attribute, that tells R to read it as a matrix and not a vector.
+
+If vectors of different types (but same length) are binded, we get a `data.frame` which is the most fundamental object in R for data analysis. 
 
 
 
 ## Data Frames 
+
 Creating a simple data frame:
 ```{r}
 x<- 1:10
@@ -326,7 +349,7 @@ y<- 3 + sin(x)
 frame1 <- data.frame(x=x, sin=y)	
 ```
 
-Lets inspect our data frame:
+Let's inspect our data frame:
 ```{r}
 head(frame1)
 ```
@@ -335,6 +358,7 @@ Now using the RStudio Excel-like viewer:
 ```{r, eval=FALSE}
 frame1 %>% View() 
 ```
+
 We highly advise against editing the data this way since there will be no documentation of the changes you made.
 
 Verifying this is a data frame:
@@ -351,7 +375,8 @@ Note that checking the dimension of a vector is different than checking the dime
 ```{r}
 length(x)
 ```
-A frame is a vector of column vectors, so its length is merely the number of columns.
+
+The length of a `data.frame` is merely the number of columns.
 ```{r}
 length(frame1) 
 ```
@@ -362,7 +387,7 @@ R provides many ways to subset and extract elements from vectors and other objec
 The basics are fairly simple, but not paying attention to the "personality" of each extraction mechanism may cause you a lot of headache. 
 
 For starters, extraction is done with the `[` operator. 
-The operator can take vectors of all types. 
+The operator can take vectors of many types. 
 
 Extracting element with by integer index:
 ```{r}
@@ -371,7 +396,7 @@ frame1[1, 2]  # exctract the element in the 1st row and 2nd column.
 
 Extract __column__ by index:
 ```{r}
-frame1[1, ]      						
+frame1[,1]      						
 ```
 
 Extract column by name:
@@ -379,18 +404,18 @@ Extract column by name:
 frame1[, 'sin']
 ```
 
-What did we just extract?
-
+As a general rule, extraction with `[` will conserve the class of the parent object. 
+There are, however, exceptions.
+Notice the extraction mechanism and the class of the output in the following examples. 
 
 ```{r}
-dim(frame1[, 'sin'])  # extracts a column vector
-dim(frame1['sin'])  # extracts a data frame
-dim(frame1[,1:2])  # extracts a data frame
-dim(frame1[2])  # extracts a data frame
-dim(frame1[2, ])  # extract a data frame
-dim(frame1$sin)  # extracts a column vector
+class(frame1[, 'sin'])  # extracts a column vector
+class(frame1['sin'])  # extracts a data frame
+class(frame1[,1:2])  # extracts a data frame
+class(frame1[2])  # extracts a data frame
+class(frame1[2, ])  # extract a data frame
+class(frame1$sin)  # extracts a column vector
 ```
-
 
 The `subset()` function does the same
 ```{r, eval=FALSE}
@@ -399,8 +424,7 @@ subset(frame1, select=2)
 subset(frame1, select= c(2,0))
 ```
 
-
-If you are unsatisfied with the output of the `[` mechanism, you can use `[[`, which gets the content of a vector, while stripping the attributes.
+If you want to force the stripping of the class attribute when extracting, try the `[[` mechanism instead of `[`.
 ```{r}
 a <- frame1[1] # [ extraction
 b <- frame1[[1]] # [[ extraction
@@ -408,17 +432,13 @@ a==b # objects are element-wise identical
 class(a)==class(b)
 ```
 
-The different types of output causes different behaviors
+The different types of output classes cause different behaviors. Compare the behavior of `[` on seemingly identical objects. 
 ```{r}
-a[1]
-b[1]
+frame1[1][1]
+frame1[[1]][1]
 ```
 
-If you want to learn more about subsetting see [Hadley's guide](http://adv-r.had.co.nz/Subsetting.html), and our Chapter \@ref(hadley)
-
-
-
-
+If you want to learn more about subsetting see [Hadley's guide](http://adv-r.had.co.nz/Subsetting.html).
 
 
 ## Data Import and Export 
@@ -426,8 +446,7 @@ If you want to learn more about subsetting see [Hadley's guide](http://adv-r.had
 For any practical purpose, you will not be generating your data manually. 
 R comes with many importing and exporting mechanism which we now present.
 If, however, you do a lot of data "munging", make sure to see Hadley-verse Chapter \@ref(hadley).
-If you work with MASSIVE data sets, read about the __data.table__ package. 
-For a complete review see the [R manual](http://cran.r-project.org/doc/manuals/R-data.html).
+If you work with MASSIVE data sets, read the Memory Efficiency Chapter \@ref(memory).
 
 
 ### Import from WEB 
@@ -508,7 +527,7 @@ The function `write.table` is the exporting counterpart of `read.table`.
 
 ### .XLS(X) files 
 Strongly recommended to convert to .csv in Excel, and then import as csv. 
-If you still insist see [here](http://cran.r-project.org/doc/manuals/R-data.html#Reading-Excel-spreadsheets).
+If you still insist see the __xlsx__ package. 
 
 
 ### Massive files 
@@ -531,7 +550,7 @@ A function in R, like everything else, is a an object accessible using its name.
 We first define a simple function that sums its two arguments
 ```{r}
 my.sum <- function(x,y) {
-  x+y
+  return(x+y)
 }
 my.sum(10,2)
 ```
@@ -539,10 +558,46 @@ my.sum(10,2)
 From this example you may notice that:
 
 - The function `function` tells R to construct a function object.
-- The arguments of the `function`, i.e. `(x,y)`, need to be named but we are not required to specify their type. 
+
+- The arguments of the `function`, i.e. `(x,y)`, need to be named but we are not required to specify their type. This makes writing functions very easy, but it is also the source of many bugs, and slowness of R compared to type declaring languages (C, Fortran,Java,...).
+
 - A typical R function does not change objects^[This is a classical _functional programming_ paradigm. If you are used to _object oriented_ programming, you may want to read about [references classes](http://adv-r.had.co.nz/R5.html) which may be required if you are planning to compute with very complicated objects.] but rather creates new ones. 
-To save the output pf `my.sum` we will need to assign it using the `<-` operator.
-- The function will output its last evaluated expression. 
+To save the output of `my.sum` we will need to assign it using the `<-` operator.
+
+Here is a (slightly) more advanced example.
+
+```{r}
+my.sum.2 <- function(x, y , absolute=FALSE) {
+  if(absolute==TRUE) {
+    result <- abs(x+y)
+  }
+  else{
+    result <- x+y
+  } 
+  result
+}
+my.sum.2(-10,2, TRUE)
+```
+
+Things to note:
+
+- The function will output its last evaluated expression. You don't need to use the `return` function explicitly.
+- Using `absolute=FALSE` sets the default value of `absolute` to `FALSE`. This is overriden if `absolute` is stated explicitly in the function call.
+
+
+An important behavior of R is the _scoping rules_. This refers to the way R seeks for variables used in functions. 
+As a rule of thumb, R will first look for variables inside the function and if not found, will search for the variable values in outer environments^[More formally, this is called [Lexical Scoping](https://darrenjw.wordpress.com/2011/11/23/lexical-scope-and-function-closures-in-r/).].
+Think of the next example.
+
+```{r}
+a <- 1
+b <- 2
+x <- 3
+scoping <- function(a,b){
+  a+b+x
+}
+scoping(10,11)
+```
 
 
 

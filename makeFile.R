@@ -3,7 +3,9 @@ library(magrittr)
 rm(list=ls())
 
 rm(list=ls())
-bookdown::render_book("index.Rmd","bookdown::gitbook", clean_envir = TRUE, output_dir = 'docs') # render to HTML
+
+bookdown::render_book("index.Rmd","bookdown::gitbook", clean_envir = TRUE, output_dir = 'docs')
+bookdown::render_book("index.Rmd","bookdown::word_document2", clean_envir = TRUE, output_dir = 'docs')
 bookdown::render_book("index.Rmd","bookdown::pdf_book", clean_envir = TRUE, output_dir = 'docs') # render to HTML
 
 

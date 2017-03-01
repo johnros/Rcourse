@@ -9,7 +9,7 @@ In this chapter, we discuss several ways a computer solves systems of linear equ
 
 ## LU Factorization
 
-```{definition, label="lu"}
+```{definition, label="lu", name="LU Factorization"}
 For some matrix $A$, the LU factorization is defined as 
 \begin{align}
  A = L U 
@@ -25,7 +25,7 @@ For a square $n \times n$ matrix, the LU factorization requires $n^3/3$ operatio
 
 ## Cholesky Factorization
 
-```{definition, label="nonnegative"}
+```{definition, label="nonnegative", name="Non Negative Matrix"}
 A matrix $A$ is said to be _non-negative_ if $x'Ax \geq 0$ for all $x$.
 ```
 
@@ -33,7 +33,7 @@ Seeing the matrix $A$ as a function, non-negative matrices can be thought of as 
 
 
 
-```{definition, label="cholesky"}
+```{definition, label="cholesky", name="Cholesky Factorization"}
 For some non-negative matrix $A$, the Cholesky factorization is defined as 
 \begin{align}
  A = T'T 
@@ -49,7 +49,7 @@ It can be computed in $n^3/6$ operations, and requires storing $n(n+1)/2$ elemen
 
 ## QR Factorization
 
-```{definition, label="qr"}
+```{definition, label="qr", name="QR Factorization"}
 For some matrix $A$, the QR factorization is defined as 
 \begin{align}
  A = QR 
@@ -67,7 +67,7 @@ Three major methods for computing the QR factorization exist. These rely on _Hou
 
 ## Singular Value Factorization
 
-```{definition, label="svd"}
+```{definition, label="svd", name="SVD"}
 For an arbitrary $n\times m$ matrix  $A$, the _singular valued decomposition_ (SVD), is defined as \begin{align}
  A = U \Sigma V' 
 \end{align}

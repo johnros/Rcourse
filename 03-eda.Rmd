@@ -1,22 +1,22 @@
 # Exploratory Data Analysis {#eda}
 
 
-Exploratory Data Analysis (EDA) is a term cast by [John W. Tukey](https://en.wikipedia.org/wiki/John_Tukey) in his seminal book @tukey1977exploratory.
-It is the practice of inspecting, exploring your data before stating hypotheses, fitting predictors, and other more ambitious inferential goals.
+Exploratory Data Analysis (EDA) is a term cast by [John W. Tukey](https://en.wikipedia.org/wiki/John_Tukey) in his seminal book [@tukey1977exploratory].
+It is the practice of inspecting, and exploring your data, before stating hypotheses, fitting predictors, and other more ambitious inferential goals.
 It typically includes the computation of simple _summary statistics_ which capture some property of interest in the data, and _visualization_.
 EDA can be thought of as an assumption free, purely algorithmic practice.
 
 In this text we present EDA techniques along the following lines:
 
-- How we explore: with a summary statistic or visually.
-- How many variable analyzed simultaneously: univariate, bivariate, or multivariate.
-- What type of variable: categorical or continuous.
+- How we explore: with a summary statistic or visually?
+- How many variable analyzed simultaneously: univariate, bivariate, or multivariate?
+- What type of variable: categorical or continuous?
 
 
 ## Summary Statistics
 
 ### Categorical Data
-Categorical variable do not admit any mathematical operations on them. 
+Categorical variables do not admit any mathematical operations on them. 
 We cannot sum them, or even sort them. 
 We can only __count__ them. 
 As such, summaries of categorical variables will always start with the counting of the frequency of each category.
@@ -51,7 +51,7 @@ table1
 
 #### Summary of Multivariate Categorical Data
 You may be wondering how does R handle tables with more than two dimensions.
-It is indeed not trivial, and R offers several solutions.
+It is indeed not trivial, and R offers several solutions: `table` is easier to compute with, and `ftable` is human readable.
 
 ```{r}
 table2.1 <- table(gender, drink, age) # A multilevel table. 
@@ -80,7 +80,7 @@ Capture the "location" of the data. These include:
 
 ```{definition, name="Average"}
 The mean, or average, of a sample $x$ of lenth $n$, denoted $\bar x$ is defined as 
-$$ \bar x := n^{-1} \sum x_i $$
+$$ \bar x := n^{-1} \sum x_i. $$
 ```
 
 The sample mean is __non robust__. 
@@ -124,21 +124,21 @@ The _scale_ of the data, sometimes known as _spread_, can be thought of its vari
 
 ```{definition, name="Standard Deviation"}
 The standard deviation of a sample $x$, denoted $S(x)$, is defined as 
-$$ S(x):=\sqrt{(n-1)^{-1} \sum (x_i-\bar x)^2} $$
+$$ S(x):=\sqrt{(n-1)^{-1} \sum (x_i-\bar x)^2} . $$
 ```
 
 For reasons of robustness, we define other, more robust, measures of scale.
 
 ```{definition, name="MAD"}
 The Median Absolute Deviation from the median, denoted as $MAD(x)$, is defined as
-$$MAD(x):= c \: |x-x_{0.5}|_{0.5} $$
+$$MAD(x):= c \: |x-x_{0.5}|_{0.5} . $$
 ```
 
 where $c$ is some constant, typically set to $c=1.4826$ so that the MAD is a robust estimate of $S(x)$.
 
 ```{definition, name="IQR"}
 The Inter Quantile Range of a sample $x$, denoted as $IQR(x)$, is defined as 
-$$ IQR(x):= x_{0.75}-x_{0.25} $$
+$$ IQR(x):= x_{0.75}-x_{0.25} .$$
 ```
 
 Here are the R implementations
@@ -153,11 +153,11 @@ IQR(x) # IQR
 
 #### Summary of Asymmetry
 The symmetry of a univariate sample is easily understood.
-Summaries of asymmetry, also known as _skewness_ quantify the departure of the $x$ from a symmetric distribution.
+Summaries of asymmetry, also known as _skewness_, quantify the departure of the $x$ from a symmetric sample.
 
 ```{definition, name="Yule"}
 The Yule measure of assymetry, denoted $Yule(x)$ is defined as 
-$$Yule(x) := \frac{1/2 \: (x_{0.75}+x_{0.25}) - x_{0.5} }{1/2 \: IQR(x)} $$
+$$Yule(x) := \frac{1/2 \: (x_{0.75}+x_{0.25}) - x_{0.5} }{1/2 \: IQR(x)} .$$
 ```
 
 Here is an R implementation
@@ -166,15 +166,15 @@ Here is an R implementation
 yule <- function(x){
   numerator <- 0.5 * (quantile(x,0.75) + quantile(x,0.25))-median(x) 
   denominator <- 0.5* IQR(x)
-  numerator/denominator
+  c(numerator/denominator, use.names=FALSE)
 }
 yule(x)
 ```
 
 
 #### Summary of Bivariate Continous Data
-When dealing with bivariate, or multivariate data, we can obviously compute univariate summaries for each variable. 
-This is __not__ the topic of this section, in which we want to summarize the association __between__ the variables, and not withing them.
+When dealing with bivariate, or multivariate data, we can obviously compute univariate summaries for each variable separately. 
+This is not the topic of this section, in which we want to summarize the association __between__ the variables, and not within them.
 
 ```{definition, name="Covariance"}
 The covariance between two samples, $x$ and $y$, of same length $n$, is defined as 
@@ -185,15 +185,15 @@ We emphasize this is not the covariance you learned about in probability classes
 For this reasons, some authors call it the _empirical_ covariance. 
 
 ```{definition, name="Pearson's Correlation Coefficient"}
-Peasrson's correlation coefficient, a.k.a. Pearson's moment product correlation, or simply, the correlation, denoted by is defined as 
-$$r(x,y):=\frac{Cov(x,y)}{S(x)S(y)} $$
+Peasrson's correlation coefficient, a.k.a. Pearson's moment product correlation, or simply, the correlation, denoted `r(x,y)`, is defined as 
+$$r(x,y):=\frac{Cov(x,y)}{S(x)S(y)}. $$
 ```
 
 If you find this definition enigmatic, just think of the correlation as the covariance between $x$ and $y$ after transforming each to the unitless scale of z-scores.
 
 ```{definition, name="Z-Score"}
 The z-scores of a sample $x$ are defined as the mean-centered, scale normalized observations:
-$$z_i(x):= \frac{x_i-\bar x}{S(x)}$$ 
+$$z_i(x):= \frac{x_i-\bar x}{S(x)}.$$ 
 ```
 
 We thus have that $r(x,y)=Cov(z(x),z(y))$. 
@@ -206,9 +206,10 @@ Things get more complicated when summarizing the relation between multiple varia
 The most common summary of relation, is the __covariance matrix__, but we warn that only the simplest multivariate relations are fully summarized by this matrix. 
 
 ```{definition, name="Sample Covariance Matrix"}
-Given $n$ observations on $p$ variables, the _sample covariance matrix_, denoted $\hat \Sigma$ is defined as 
-$$\hat \Sigma_{i,j}=Cov(x_i,x_j)$$
-where $x_i,x_j$ are the $n$ observations on variables $x_i$ and $x_j$ respectively.
+Given $n$ observations on $p$ variables, denote $x_{i,j}$ the $i$'th observation of the $j$'th variable. 
+The _sample covariance matrix_, denoted $\hat \Sigma$ is defined as 
+$$\hat \Sigma_{k,l}=(n-1)^{-1} \sum_i [(x_{i,k}-\bar x_k)(x_{i,l}-\bar x_l)].$$
+Put differently, the $k,l$'th entry in $\hat \Sigma$ is the sample covariance between variables $k$ and $l$.
 ```
 
 ```{remark}
@@ -221,7 +222,7 @@ How would you define a robust covariance matrix?
 
 
 ## Visualization
-Summarizing the story in a variable to a single number clearly conceals much of the story in the data. 
+Summarizing the information in a variable to a single number clearly conceals much of the story in the sample. 
 This is akin to inspecting a person by its caricature, instead of a picture. 
 Visualizing the data, when possible, is more informative. 
 
@@ -256,7 +257,7 @@ plot(table2.1, main='Trivaraite mosaic plot')
 ### Continous Data
 
 #### Visualizing Univariate Continous Data
-There are endlessly many way to visualize continuous univariate data.
+Unlike categirical variables, there are endlessly many way to visualize continuous variables. 
 The simplest way is to look at the raw data via the `stripcart`.
 
 ```{r}
@@ -275,8 +276,8 @@ hist(sample1, freq=F, main='Frequencies')
 
 The bins of a histogram are non overlapping.
 We can adopt a sliding window approach, instead of binning. 
-This is the _density plot_ which is produce with the `density` functions, and added to an existing plot with the `lines` function.
-The `rug` function adds the original data points as ticks on the axes, and is strongly recommended to detect artifacts due to the binning of the histogram, or the smoothing of the density plot. 
+This is the _density plot_ which is produced with the `density` function, and added to an existing plot with the `lines` function.
+The `rug` function adds the original data points as ticks on the axes, and is strongly recommended to detect artifacts introduced by the binning of the histogram, or the smoothing of the density plot. 
 
 ```{r, results='hold'}
 hist(sample1, freq=F, main='Frequencies') 	
@@ -285,11 +286,11 @@ rug(sample1)
 ```
 
 ```{remark}
-Why would it make no sense of making a table, or a barplot, of continous data?
+Why would it make no sense to make a table, or a barplot, of continous data?
 ```
 
-One particularly useful visualization, due to John w. Tukey, is the _boxplot_.
-The boxplot is designed to capture the main phenomena in the data, and simultaneously point to outlines. 
+One particularly useful visualization, due to John W. Tukey, is the _boxplot_.
+The boxplot is designed to capture the main phenomena in the data, and simultaneously point to outliers. 
 
 ```{r}
 boxplot(sample1)	
@@ -306,7 +307,7 @@ plot(x2~x1)
 ```
 
 Like the univariate `stripchart`, the scatter plot will be an uninformative mess in the presence of a lot of data. 
-A nice bivariate counterpart of the univariate histogram is the _hexbin plot_, which tessellates the bivariate plane with hexagons.
+A nice bivariate counterpart of the univariate histogram is the _hexbin plot_, which tessellates the plane with hexagons, and reports their frequencies.
 
 ```{r}
 library(hexbin)
@@ -321,10 +322,10 @@ plot(hexbin(x = x1, y = x2))
 #### Visualizing Multivariate Continous Data
 Visualizing multivariate data is a tremendous challenge given that we cannot grasp $4$ dimensional spaces, nor can the computer screen present more than $2$ dimensional spaces.
 We thus have several options: 
-(i) To project the data to 2D. This is discussed in the Dimensionality Reduction section (\@ref(dim-reduce)).
-(ii) To visualize not the data, but the summaries. Like the covariance matrix.
+(i) To project the data to 2D. This is discussed in the Dimensionality Reduction Section \@ref(dim-reduce).
+(ii) To visualize not the data, but the summaries, like the covariance matrix.
 
-Since the covariance matrix, $\hat \Sigma$ is a matrix, it can be visualized as a matrix.
+Since the covariance matrix, $\hat \Sigma$ is a matrix, it can be visualized as an image.
 
 ```{r}
 covariance <- cov(longley) # The covariance of the longley dataset
@@ -337,6 +338,7 @@ lattice::levelplot(covariance)
 
 Like any other topic in this book, you can consult @venables2013modern.
 The seminal book on EDA, written long before R was around, is @tukey1977exploratory.
+For an excellent text on robust statistics see @wilcox2011introduction.
 
 
 
