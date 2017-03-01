@@ -78,7 +78,7 @@ We distinguish between several types of summaries, each capturing a different pr
 #### Summary of Location
 Capture the "location" of the data. These include:
 
-```{definition}
+```{definition, name="Average"}
 The mean, or average, of a sample $x$ of lenth $n$, denoted $\bar x$ is defined as 
 $$ \bar x := n^{-1} \sum x_i $$
 ```
@@ -89,7 +89,7 @@ For this reason, we define several other summaries of location, which are more r
 
 We start by defining the sample quantiles, themselves __not__ a summary of location.
 
-```{definition}
+```{definition, name="Quantiles"}
 The $\alpha$ quantile of a sample $x$, denoted $x_\alpha$, is (non uniquely) defined as a value above $100 \alpha \%$ of the sample, and below $100 (1-\alpha) \%$.
 ```
 
@@ -97,13 +97,13 @@ We emphasize that sample quantiles are non-uniquely defined. See `?quantile` for
 
 We can now define another summary of location, the median.
 
-```{definition}
+```{definition, name="Median"}
 The median of a sample $x$, denoted $x_{0.5}$ is the $\alpha=0.5$ quantile of the sample.
 ```
 
 A whole family of summaries of locations is the __alpha trimmed mean__.
 
-```{definition}
+```{definition, name="Alpha Trimmed Mean"}
 The $\alpha$ trimmed mean of a sample $x$, denoted $\bar x_\alpha$ is the average of the sample after removing the $\alpha$ largest and $\alpha$ smallest observations.
 ```
 
@@ -120,23 +120,23 @@ mean(x, trim = 0.2) # alpha trimmed mean with alpha=0.2
 
 
 #### Summary of Scale
-The scale of the data can be thought of its variability. 
+The _scale_ of the data, sometimes known as _spread_, can be thought of its variability. 
 
-```{definition}
+```{definition, name="Standard Deviation"}
 The standard deviation of a sample $x$, denoted $S(x)$, is defined as 
 $$ S(x):=\sqrt{(n-1)^{-1} \sum (x_i-\bar x)^2} $$
 ```
 
 For reasons of robustness, we define other, more robust, measures of scale.
 
-```{definition}
+```{definition, name="MAD"}
 The Median Absolute Deviation from the median, denoted as $MAD(x)$, is defined as
 $$MAD(x):= c \: |x-x_{0.5}|_{0.5} $$
 ```
 
 where $c$ is some constant, typically set to $c=1.4826$ so that the MAD is a robust estimate of $S(x)$.
 
-```{definition}
+```{definition, name="IQR"}
 The Inter Quantile Range of a sample $x$, denoted as $IQR(x)$, is defined as 
 $$ IQR(x):= x_{0.75}-x_{0.25} $$
 ```
@@ -155,7 +155,7 @@ IQR(x) # IQR
 The symmetry of a univariate sample is easily understood.
 Summaries of asymmetry, also known as _skewness_ quantify the departure of the $x$ from a symmetric distribution.
 
-```{definition}
+```{definition, name="Yule"}
 The Yule measure of assymetry, denoted $Yule(x)$ is defined as 
 $$Yule(x) := \frac{1/2 \: (x_{0.75}+x_{0.25}) - x_{0.5} }{1/2 \: IQR(x)} $$
 ```
@@ -176,7 +176,7 @@ yule(x)
 When dealing with bivariate, or multivariate data, we can obviously compute univariate summaries for each variable. 
 This is __not__ the topic of this section, in which we want to summarize the association __between__ the variables, and not withing them.
 
-```{definition}
+```{definition, name="Covariance"}
 The covariance between two samples, $x$ and $y$, of same length $n$, is defined as 
 $$Cov(x,y):= (n-1)^{-1} \sum (x_i-\bar x)(y_i-\bar y)  $$
 ```
@@ -184,14 +184,14 @@ $$Cov(x,y):= (n-1)^{-1} \sum (x_i-\bar x)(y_i-\bar y)  $$
 We emphasize this is not the covariance you learned about in probability classes, since it is not the covariance between two _random variables_ but rather, between two _samples_. 
 For this reasons, some authors call it the _empirical_ covariance. 
 
-```{definition}
+```{definition, name="Pearson's Correlation Coefficient"}
 Peasrson's correlation coefficient, a.k.a. Pearson's moment product correlation, or simply, the correlation, denoted by is defined as 
 $$r(x,y):=\frac{Cov(x,y)}{S(x)S(y)} $$
 ```
 
 If you find this definition enigmatic, just think of the correlation as the covariance between $x$ and $y$ after transforming each to the unitless scale of z-scores.
 
-```{definition}
+```{definition, name="Z-Score"}
 The z-scores of a sample $x$ are defined as the mean-centered, scale normalized observations:
 $$z_i(x):= \frac{x_i-\bar x}{S(x)}$$ 
 ```
@@ -205,8 +205,8 @@ The covariance is a simple summary of association between two variables, but it 
 Things get more complicated when summarizing the relation between multiple variables. 
 The most common summary of relation, is the __covariance matrix__, but we warn that only the simplest multivariate relations are fully summarized by this matrix. 
 
-```{definition}
-Given $n$ observations on $p$ variables, the covariance matrix of the sample, denoted $\hat \Sigma$ is defined as 
+```{definition, name="Sample Covariance Matrix"}
+Given $n$ observations on $p$ variables, the _sample covariance matrix_, denoted $\hat \Sigma$ is defined as 
 $$\hat \Sigma_{i,j}=Cov(x_i,x_j)$$
 where $x_i,x_j$ are the $n$ observations on variables $x_i$ and $x_j$ respectively.
 ```
@@ -340,3 +340,4 @@ The seminal book on EDA, written long before R was around, is @tukey1977explorat
 
 
 
+## Practice Yourself
