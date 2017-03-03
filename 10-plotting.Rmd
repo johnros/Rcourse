@@ -55,7 +55,6 @@ plot(Girth, type='l', main="type='l'")
 plot(Girth, type='s', main="type='s'")
 plot(Girth, type='b', main="type='b'")
 plot(Girth, type='p', main="type='p'")
-par(mfrow=c(1,1))
 ```
 
 Things to note:
@@ -80,7 +79,6 @@ plot(Girth, type='l', lty=3, lwd=2)
 plot(Girth, type='l', lty=4, lwd=2)
 plot(Girth, type='l', lty=5, lwd=2)
 plot(Girth, type='l', lty=6, lwd=2)
-par(mfrow=c(1,1))
 ```
 
 Add line by slope and intercept with `abline`.
@@ -419,7 +417,7 @@ We can add __layers__ using the `+` operator.
 Here, we add a smoothing line.
 
 ```{r}
-p + geom_smooth()
+p + geom_smooth(method = 'gam')
 ```
 
 Things to note:
@@ -463,7 +461,7 @@ To demonstrate the layers added with the __geoms__ functions, we start with a hi
 
 ```{r}
 pro <- ggplot(Milk, aes(x=protein))
-pro + geom_histogram()
+pro + geom_histogram(bins=30)
 ```
 
 A bar plot.
@@ -483,7 +481,7 @@ tp + geom_point()
 A smooth regression plot, reusing the `tp` object.
 
 ```{r}
-tp + geom_smooth()
+tp + geom_smooth(method='gam')
 ```
 
 And now, a simple line plot, reusing the `tp` object, and connecting lines along `Cow`.
@@ -503,7 +501,7 @@ The following will compute the mean and standard errors (default of `stat_summar
 
 ```{r}
 ggplot(Milk, aes(x=Time, y=protein)) +
-  stat_summary()
+  stat_summary(fun.data = 'mean_se')
 ```
 
 Some popular statistical summaries, have gained their own functions:
