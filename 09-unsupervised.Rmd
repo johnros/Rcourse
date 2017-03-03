@@ -216,7 +216,8 @@ This does not mean that they cannot be cast via their generative model, but rath
 
 
 #### Multidimensional Scaling (MDS)
-MDS can be thought of as a variation on PCA, that begins with the $n \times n$ graph^[The term Graph is typically used in this context instead of Network. But a graph allows only yes/no relations, while a network, which is a weighted graph, allows a continuous measure of similarity (or dissimilarity). _Network_ is thus more appropriate than _graph_.]} of distances between data points, and not the original $n \times p$ data. 
+MDS can be thought of as a variation on PCA, that begins with the $n \times n$ graph^[The term Graph is typically used in this context instead of Network. 
+But a graph allows only yes/no relations, while a network, which is a weighted graph, allows a continuous measure of similarity (or dissimilarity). _Network_ is thus more appropriate than _graph_.]} of distances between data points, and not the original $n \times p$ data. 
 
 MDS aims at embedding a graph of distances, while preserving the original distances.
 Basic results in graph/network theory [@graham1988isometric] suggest that the geometry of a graph cannot be preserved when embedding it into lower dimensions. 
@@ -529,11 +530,12 @@ We then use maximum likelihood to fit the mixture distribution, and finally, clu
 
 #### K-Means
 The _K-means_ algorithm is possibly the most popular clustering algorithm.
-The goal behind K-means clustering algorithm is finding a representative point for each of K clusters, and assign each data point to one of these clusters. 
-As each cluster has a representative point, this is also a _prototype method_
+The goal behind K-means clustering is finding a representative point for each of K clusters, and assign each data point to one of these clusters. 
+As each cluster has a representative point, this is also a _prototype method_.
 The clusters are defined so that they minimize the average Euclidean distance between all points to the center of the cluster.
 
-In K-means, the clusters are first defined, and then similarities computed. This is thus a _top-down_ method.
+In K-means, the clusters are first defined, and then similarities computed. 
+This is thus a _top-down_ method.
 
 K-means clustering requires the raw features $X$ as inputs, and not only a similarity graph. 
 This is evident when examining the algorithm below. 
@@ -561,7 +563,7 @@ _K-means++_ is a fast version of K-means thanks to a smart initialization.
 #### K-Medoids
 
 If a Euclidean distance is inappropriate for a particular set of variables, or that robustness to corrupt observations is required, or that we wish to constrain the cluster centers to be actual observations, then the _K-Medoids_ algorithm is an adaptation of K-means that allows this.
-It is also known under the name _partition around medoids_ (PAM) clustering.
+It is also known under the name _partition around medoids_ (PAM) clustering, suggesting its relation to [graph partitioning](https://en.wikipedia.org/wiki/Graph_partition).
 
 The k-medoids algorithm works as follows.
 
@@ -577,7 +579,8 @@ The k-medoids algorithm works as follows.
 ```{remark}
 If trained as a statistician, you may wonder- what population quantity is K-medoids actually estimating?
 The estimand of K-medoids is the median of their neighbourhood. 
-A delicate matter is that quantiles are not intuitive to define on multivariate random variables (lacking an ordering of the sapce), so that the "multivaraitre median", may be a more subtle quantity than you may think. See @small1990survey.
+A delicate matter is that quantiles are not easy to define for __multivariate__ variables so that the "multivaraitre median", may be a more subtle quantity than you may think. 
+See @small1990survey.
 ```
 
 
@@ -623,7 +626,6 @@ k <- 2
 kmeans.1 <- stats::kmeans(USArrests.1, centers = k)
 head(kmeans.1$cluster) # cluster asignments
 
-# Visualize using scatter plots of the original features
 pairs(USArrests.1, panel=function(x,y) text(x,y,kmeans.1$cluster))
 ```
 
@@ -634,7 +636,7 @@ Things to note:
 - The visual inspection confirms that similar states have been assigned to the same cluster. 
 
 
-#### K-means ++
+#### K-Means ++
 
 _K-Means++_ is a smart initialization for K-Means.
 The following code is taken from the [r-help](https://stat.ethz.ch/pipermail/r-help/2012-January/300051.html) mailing list.
@@ -655,12 +657,12 @@ kmpp <- function(X, k) {
   kmeans(X, X[C, ])
 }
 
-# Examine output:
 kmeans.2 <- kmpp(USArrests.1, k)
 head(kmeans.2$cluster)
 ```
 
-#### K-medoids
+#### K-Medoids
+Start by growing a distance graph with `dist` and then partition using `pam`.
 ```{r kmedoids, cache=TRUE}
 state.disimilarity <- dist(USArrests.1)
 kmed.1 <- cluster::pam(x= state.disimilarity, k=2)
@@ -683,7 +685,6 @@ Things to note:
 
 We start with agglomerative clustering with single-linkage.
 ```{r HirarchialClustering}
-# Single linkage:
 hirar.1 <- hclust(state.disimilarity, method='single')
 plot(hirar.1, labels=rownames(USArrests.1), ylab="Distance")
 ```
@@ -692,28 +693,29 @@ Things to note:
 
 - The clustering is done with the `hclust` function.
 - We choose the single-linkage distance using the `method='single'` argument.
-- We did not need to a-priori specify the number of clusters, $K$.
+- We did not need to a-priori specify the number of clusters, $K$, since all the possible $K$'s are included in the output tree. 
 - The `plot` function has a particular method for `hclust` class objects, and plots them as dendograms.
 
 
-We not try other types of linkages, to verify that the indeed affect the clustering.
-
-```{r}
-# Complete linkage:
+We try other types of linkages, to verify that the indeed affect the clustering.
+Starting with complete linkage.
+```{r complete linkage}
 hirar.2 <- hclust(state.disimilarity, method='complete')
 plot(hirar.2, labels=rownames(USArrests.1), ylab="Distance")
+```
 
-# Average linkage:
+Now with average linkage.
+```{r average linkage}
 hirar.3 <- hclust(state.disimilarity, method='average')
 plot(hirar.3, labels=rownames(USArrests.1), ylab="Distance")
 ```
 
+
 If we know how many clusters we want, we can use `cuttree` to get the class assignments. 
 
 ```{r}
-# Fixing the number of clusters:
 cut.2.2 <- cutree(hirar.2, k=2)
-head(cut.2.2)   # printing the "clustering vector"
+head(cut.2.2)
 ```
 
 
