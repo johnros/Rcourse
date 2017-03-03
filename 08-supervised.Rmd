@@ -4,44 +4,62 @@ Machine learning is very similar to statistics, but it is certainly not the same
 As the name suggests, in machine learning we want machines to learn.
 This means that we want to replace hard-coded expert algorithm, with data-driven self-learned algorithm.
 
-There are many learning setups, that depend on what is available to the machine. 
+There are many learning setups, that depend on what information is available to the machine. 
 The most common setup, discussed in this chapter, is _supervised learning_.
 The name takes from the fact that by giving the machine data samples with known inputs (a.k.a. features) and desired outputs (a.k.a. labels), the human is effectively supervising the learning. 
 If we think of the inputs as predictors, and outcomes as predicted, it is no wonder that supervised learning is very similar to statistical prediction.
 When asked "are these the same?" I like to give the example of internet fraud.
 If you take a sample of fraud "attacks", a statistical formulation of the problem is highly unlikely. 
 This is because fraud events are not randomly drawn from some distribution, but rather, arrive from an adversary learning the defenses and adapting to it. 
-This instance of supervised learning belongs in game theory, more than it does in statistics. 
+This instance of supervised learning is more similar to game theory than statistics. 
 
-Other types of machine learning problems include: 
+Other types of machine learning problems include [@sammut2011encyclopedia]: 
 
-- __Unsupervised learning__: See Chapter \@ref(unsupervised).
-- __Semi supervised learning__: Where only part of the samples are labeled. A.k.a. _co-training_, _learning from labeled and unlabeled data_, _transductive learning_. 
-- __Active learning__: Where the machine is allowed to query the user for labels. Very similar to _adaptive design of experiments_. 
-- __Reinforcement learning__:  Similar to active learning, in that the machine may query for labels. Different from active learning, in that the machine does not receive labels, but _rewards_. 
-- __Learning on a budget__: A version of active learning where querying for labels induces variable costs.
-- __Structure learning__: The learning of the dependence structure between variables. 
-- __Learning to learn__: Deals with the carriage of "experience" from one learning problem to another. A.k.a. _cummulative learning_ and _meta learning_.
-- __Manifold learning__: An instance of unsupervised learning, where the goal is to reduce the dimension of the data by embedding it into a lower dimensional manifold. A.k.a. _support estimation_.
+- __Unsupervised learning__: 
+See Chapter \@ref(unsupervised).
+
+- __Semi supervised learning__: 
+Where only part of the samples are labeled. 
+A.k.a. _co-training_, _learning from labeled and unlabeled data_, _transductive learning_. 
+
+- __Active learning__: 
+Where the machine is allowed to query the user for labels. Very similar to _adaptive design of experiments_. 
+
+- __Learning on a budget__: 
+A version of active learning where querying for labels induces variable costs.
+
+- __Reinforcement learning__:  
+Similar to active learning, in that the machine may query for labels. 
+Different from active learning, in that the machine does not receive labels, but _rewards_. 
+
+- __Structure learning__: 
+When predicting objects with structure such as dependent vectors, graphs, images, tensors, etc.
+
+- __Manifold learning__: An instance of unsupervised learning, where the goal is to reduce the dimension of the data by embedding it into a lower dimensional manifold. 
+A.k.a. _support estimation_.
+
+- __Learning to learn__: 
+Deals with the carriage of "experience" from one learning problem to another. 
+A.k.a. _cummulative learning_, _knowledge transfer_, and _meta learning_.
 
 
 
 
 
-## Problem setup
+## Problem Setup
 
-We now present the _empirical risk minimization_ to supervised learning. 
+We now present the _empirical risk minimization_ (ERM) approach to supervised learning, a.k.a. _M-estimation_ in the statistical literature. 
 
 ```{remark}
 We do not discuss purely algorithmic approaches such as K-nearest neighbour and _kernel smoothing_ due to space constraints. 
-For a broader review of supervised learning, see the Bibliographic Notes section.
+For a broader review of supervised learning, see the Bibliographic Notes.
 ```
 
 
 Given $n$ samples with inputs $x$ from some space $\mathcal{X}$ and desired outcome, $y$, from some space $\mathcal{Y}$.
 Samples, $(x,y)$ have some distribution we denote $P$.
 We want to learn a function that maps inputs to outputs. 
-This function is called a _hypothesis_, or _predictor_, or _classifier_ denoted $f$, that belongs to a hypothesis class $\mathcal{F}$ such that $f:\mathcal{X} \to \mathcal{Y}$.
+This function is called a _hypothesis_, or _predictor_, or _classifier_, denoted $f$, that belongs to a hypothesis class $\mathcal{F}$ such that $f:\mathcal{X} \to \mathcal{Y}$.
 We also choose some other function that fines us for erroneous prediction.
 This function is called the _loss_, and we denote it by $l:\mathcal{Y}\times \mathcal{Y} \to \mathbb{R}^+$.
 
@@ -53,36 +71,53 @@ The _hypothesis_ in machine learning is only vaguely related the _hypothesis_ in
 The _hypothesis_ in machine learning is not a bona-fide _statistical model_ since we don't assume it is the data generating process, but rather some function which we choose for its good predictive performance. 
 ```
 
-
 The fundamental task in supervised (statistical) learning is to recover a hypothesis that minimizes the average loss in the sample, and not in the population.
 This is know as the _risk minimization problem_.
+
+```{definition, name="Risk Function"}
+The _risk function_, a.k.a. _generalization error_, or _test error_, is the population average loss of a predictor $f$:
 \begin{align}
-  f^* := argmin_f \{ E_P[l(f(x),y)] \}
+  R(f):=E_P[l(f(x),y)].
+\end{align}
+```
+
+The best predictor, is the risk minimizer:
+\begin{align}
+  f^* := argmin_f \{R(f)\}.
   (\#eq:risk)  
 \end{align}
 
 To make things more explicit, $f$ may be a linear function, and $l$ a squared error loss, in which case problem \@ref(eq:risk) collapses to 
 \begin{align}
-  f^* := argmin_\beta \{ E_P[(x'\beta-y)^2] \}
+  f^* := argmin_\beta \{ E_{P(x,y)}[(x'\beta-y)^2] \}.
 \end{align}
 
 Another fundamental problem is that we do not know the distribution of all possible inputs and outputs, $P$.
 We typically only have a sample of $(x_i,y_i), i=1,\dots,n$.
 We thus state the _empirical_ counterpart of \@ref(eq:risk), which consists of minimizing the average loss.
 This is known as the _empirical risk miminization_ problem (ERM).
+
+```{definition, name="Empirical Risk"}
+The _empirical risk function_, a.k.a. _in-sample error_, or _train error_, is the sample average loss of a predictor $f$:
 \begin{align}
-  \hat f := argmin_f \{ \sum_i l(f(x_i),y_i) \}
+  R_n(f):= \sum_i l(f(x_i),y_i).
+\end{align}
+```
+
+A good candidate predictor, $\hat f$, is thus the _empirical risk minimizer_:
+\begin{align}
+  \hat f := argmin_f \{ R_n(f) \}.
   (\#eq:erm)  
 \end{align}
 
 Making things more explicit again by using a linear hypothesis with squared loss, we see that the empirical risk minimization problem collapses to an ordinary least-squares problem:
 \begin{align}
-  \hat f := argmin_\beta \{ \sum_i (x_\beta-y_i)^2 \}
+  \hat f := argmin_\beta \{ \sum_i (x_i\beta - y_i)^2 \}.
 \end{align}
 
-When data is samples are independent, then maximum likelihood estimation is also an instance of ERM, when using the (negative) log likelihood as the loss function.
+When data samples are assumingly independent, then maximum likelihood estimation is also an instance of ERM, when using the (negative) log likelihood as the loss function.
 
-If we don't assume any structure on the hypothesis, $f$, then $\hat f$ from \@ref(eq:erm) will interpolate the data, and will be a very bad predictor. 
+If we don't assume any structure on the hypothesis, $f$, then $\hat f$ from \@ref(eq:erm) will interpolate the data, and $\hat f$ will be a very bad predictor. 
 We say, it will _overfit_ the observed data, and will have bad performance on new data.
 
 We have several ways to avoid overfitting:
@@ -104,7 +139,7 @@ Some common hypothesis classes, $\mathcal{F}$, with restricted complexity, are:
 
 ### Common Complexity Penalties
 
-The most common complexity penalty applied to classes that have a finite dimensional parametric representation, such as a the linear class parametrized via its coefficients $\beta$.
+The most common complexity penalty applies to classes that have a finite dimensional parametric representation, such as the class of linear predictors, parametrized via its coefficients $\beta$.
 In such classes we may penalize for the norm of the parameters.
 Common penalties include:
 
@@ -112,29 +147,35 @@ Common penalties include:
 1. __Lasso penalty__: penalizing the $l_1$ norm of the parameter. I.e., $\Vert f \Vert=\Vert \beta \Vert_1=\sum_j |\beta_j|$
 1. __Elastic net__: a combination of the lasso and ridge penalty. I.e. ,$\Vert f \Vert= \alpha \Vert \beta \Vert_2^2 + (a-\alpha) \Vert \beta \Vert_1$.
 
-If the hypothesis class $\mathcal{F}$ does not admit a finite dimensional parametric representation, we may penalize it with some functional norm such as $\Vert f \Vert_2^2=\int f(t)^2 dt$. 
+If the hypothesis class $\mathcal{F}$ does not admit a finite dimensional parametric representation, we may penalize it with some functional norm such as $\Vert f \Vert=\sqrt{\int f(t)^2 dt}$. 
 
 
 ### Unbiased Risk Estimation
-The fundamental problem of overfitting, is that the empirical risk, \@ref(eq:erm), is downward biased to the true risk \@ref(eq:risk), a.k.a. _generalization error_, and _test error_.
+The fundamental problem of overfitting, is that the empirical risk, $R_n(\hat f)$, is downward biased to the population risk,  $R(\hat f)$.
+Formally: $$ R_n(\hat f)<R_n(f^*) $$
 Why is that? 
-Think of estimating a population's  mean with the sample minimum. 
+Think of estimating a population's mean with the sample minimum. 
 It can be done, but the minimum has to be debiased for it to estimate the population mean.
-Debiasing methods broadly fall under purely algorithmic _resampling_ based approaches, and theory driven debiasing corrections. 
-These corrections feel like the penalties above, but we state them here because unlike the ridge, and lasso, they are designed for a different purpose.
+Unbiased estimation of $R(f)$ broadly fall under: 
+(a) purely algorithmic _resampling_ based approaches, and 
+(b) theory driven estimators.
 
-1. __Train,Validate,Test__: The simplest form of validation is to split the data. 
-A _train_ set to train a set of hypotheses. 
-A _validation_ set to compute the out-of-sample expected loss, and pick the best performing hypothesis. 
+1. __Train-Validate-Test__: 
+The simplest form of validation is to split the data. 
+A _train_ set to train/estimate/learn $\hat f$. 
+A _validation_ set to compute the out-of-sample expected loss, $R(\hat f)$, and pick the best performing predictor. 
 A _test_ sample to compute the out-of-sample performance of the selected hypothesis.
 This is a very simple approach, but it is very "data inefficient", thus motivating the next method.
-1. __V-fold cross validation__: 
-By far the most popular performance assessment algorithm, in _V-fold CV_ we "fold" the data into $V$ non-overlapping sets. 
-For each of the $V$ sets, we fit a hypothesis to the non-selected fold, and assess the expected loss on the selected loss. 
+
+1. __V-Fold Cross Validation__: 
+By far the most popular risk estimation algorithm, in _V-fold CV_ we "fold" the data into $V$ non-overlapping sets. 
+For each of the $V$ sets, we learn $\hat f$ with the non-selected fold, and assess $R(\hat f)$) on the selected fold. 
 We then aggregate results over the $V$ folds, typically by averaging. 
+
 1. __AIC__:
 Akaike's information criterion (AIC) is a theory driven correction of the empirical risk, so that it is unbiased to the true risk.
 It is appropriate when using the likelihood loss. 
+
 1. __Cp__: 
 Mallow's Cp is an instance of AIC for likelihood loss under normal noise.
 
@@ -148,13 +189,13 @@ Other resampling based unbiased risk estimators include resampling __without rep
 
 An ERM problem with regularization will look like
 \begin{align}
-  \hat f := argmin_f \{ \sum_i l(f(x_i),y_i)  + \lambda \Vert f \Vert \}
+  \hat f := argmin_f \{ R_n(f)  + \lambda \Vert f \Vert \}.
   (\#eq:erm-regularized)  
 \end{align}
 
-Collecting ideas from the above sections, a typical supervised learning pipeline will include: choosing the hypothesis class, choosing the penalty function and level, choosing the assessment algorithm. 
-We emphasize that choosing the penalty function is not enough, and we need to choose how "hard" to apply it. 
-This if known as the _regularization level_, typically denoted by $\lambda$, which enters
+Collecting ideas from the above sections, a typical supervised learning pipeline will include: choosing the hypothesis class, choosing the penalty function and level, unbiased risk estimator. 
+We emphasize that choosing the penalty function, $\Vert f \Vert$ is not enough, and we need to choose how "hard" to apply it. 
+This if known as the _regularization level_, denoted by $\lambda$ in Eq.\@ref(eq:erm-regularized).
 
 Examples of such combos include:
 
@@ -166,11 +207,12 @@ Examples of such combos include:
 1. Logistic regression, $l_2$ penalty, V-fold CV.
 1. SVM classification, $l_2$ penalty, V-fold CV.
 1. Deep network, no penalty, V-fold CV.
+1. Etc.
 
 
 For fans of statistical hypothesis testing we will also emphasize: 
 Testing and prediction are related, but are not the same.
-__It is indeed possible that we will want to ignore a significant predictor, and add a non-significant one!__ [@foster2004variable]
+__It is indeed possible that we will want to ignore a significant predictor, and add a non-significant ones!__ [@foster2004variable]
 Some authors will use hypothesis testing as an initial screening of candidate predictors. 
 This is a useful heuristic, but that is all it is-- a heuristic.
 
@@ -182,7 +224,7 @@ This is a useful heuristic, but that is all it is-- a heuristic.
 At this point, we have a rich enough language to do supervised learning with R.
 
 In these examples, I will use two data sets from the __ElemStatLearn__ package: 
-`spam` for categorical predictions (spam mail or not spam?), and `prostate` for continuous predictions (size of cancerous tumor).
+`spam` for categorical predictions, and `prostate` for continuous predictions.
 In `spam` we will try to decide if a mail is spam or not. 
 In `prostate` we will try to predict the size of a cancerous tumor.
 You can now call `?prostate` and `?spam` to learn more about these data sets.
@@ -190,7 +232,7 @@ You can now call `?prostate` and `?spam` to learn more about these data sets.
 Some boring pre-processing. 
 
 ```{r preprocessing, cache=TRUE}
-library(ElemStatLearn) # for data
+library(ElemStatLearn) 
 data("prostate")
 data("spam")
 
@@ -224,7 +266,7 @@ spam.train.dummy <- spam.dummy[train.ind,]
 spam.test.dummy <- spam.dummy[!train.ind,]
 ```
 
-We also load some utility functions that we will require down the road. 
+We also define some utility functions that we will require down the road. 
 ```{r utility-functions}
 l2 <- function(x) x^2 %>% sum %>% sqrt 
 l1 <- function(x) abs(x) %>% sum  
@@ -248,7 +290,7 @@ MSE( predict(ols.1, newdata = prostate.test)- prostate.test$lcavol)
 
 We now implement a V-fold CV, instead of our train-test approach.
 The assignment of each observation to each fold is encoded in `fold.assignment`. 
-The following implementation is extremely inefficient, but easy to read. 
+The following code is extremely inefficient, but easy to read. 
 
 ```{r , cache=TRUE, dependson='preprocessing'}
 folds <- 10
@@ -269,7 +311,8 @@ MSE(errors)
 ```
 
 
-Let's try all possible models, and choose the best performer with respect to the Cp criterion.
+Let's try all possible models, and choose the best performer with respect to the Cp unbiased risk estimator.
+This is done with `leaps::regsubsets`.
 We see that the best performer has 3 predictors. 
 
 ```{r all subset, cache=TRUE, dependson='preprocessing'}
@@ -280,11 +323,11 @@ plot(regfit.full, scale = "Cp")
 ```
 
 
-Instead of the Cp criterion, we now compute the train and test errors for all the possible predictors^[Example taken from https://lagunita.stanford.edu/c4x/HumanitiesScience/StatLearning/asset/ch6.html].
+Instead of the Cp criterion, we now compute the train and test errors for all the possible predictor subsets^[Example taken from https://lagunita.stanford.edu/c4x/HumanitiesScience/StatLearning/asset/ch6.html].
+In the resulting plot we can see overfitting in action.
 
-```{r, results='hold', cache=TRUE, dependson='all subset'}
+```{r all subsets second, results='hold', cache=TRUE, dependson='all subset'}
 model.n <- regfit.full %>% summary %>% length
-X.train.named <- prostate.train %>% model.matrix(lcavol ~ ., data = .)
 X.train.named <- model.matrix(lcavol ~ ., data = prostate.train ) 
 X.test.named <- model.matrix(lcavol ~ ., data = prostate.test ) 
 
@@ -294,12 +337,16 @@ train.errors <- rep(NA, model.n)
 for (i in 1:model.n) {
     coefi <- coef(regfit.full, id = i)
     
-    pred <-  X.train.named[, names(coefi)] %*% coefi
-    train.errors[i] <- MSE(y.train - pred)
+    pred <-  X.train.named[, names(coefi)] %*% coefi # make in-sample predictions
+    train.errors[i] <- MSE(y.train - pred) # train errors
 
-    pred <-  X.test.named[, names(coefi)] %*% coefi
-    val.errors[i] <- MSE(y.test - pred)
+    pred <-  X.test.named[, names(coefi)] %*% coefi # make out-of-sample predictions
+    val.errors[i] <- MSE(y.test - pred) # test errors
 }
+```
+
+Plotting results.
+```{r, cache=TRUE, dependson="all subsets second"}
 plot(train.errors, ylab = "MSE", pch = 19, type = "o")
 points(val.errors, pch = 19, type = "b", col="blue")
 legend("topright", 
@@ -311,7 +358,8 @@ legend("topright",
 
 
 Checking all possible models is computationally very hard.
-_Forward selection_ is a greedy approach that adds one variable at a time, using the AIC criterion. If AIC falls, the variable is added. 
+_Forward selection_ is a greedy approach that adds one variable at a time, using the AIC risk estimator.
+If AIC decreases, the variable is added. 
 
 ```{r, cache=TRUE, dependson=c('preprocessing','OLS regression')}
 ols.0 <- lm(lcavol~1 ,data = prostate.train)
@@ -320,7 +368,7 @@ step(ols.0, scope=model.scope, direction='forward', trace = TRUE)
 ```
 
 
-We now learn a linear predictor on the `spam` data using, with least squares loss, and train-test validation. 
+We now learn a linear predictor on the `spam` data using, a least squares loss, and train-test risk estimator. 
 
 ```{r, cache=TRUE, dependson='preprocessing'}
 # train the predictor
@@ -362,6 +410,13 @@ Things to note:
 
 - The `alpha=0` parameters tells R to do ridge regression. Setting $alpha=1$ will do lasso, and any other value, with return an elastic net with appropriate weights. 
 - The `family='gaussian' argument tells R to fit a linear model, with least squares loss.
+- The test error is __smaller__ than the train error, which I attribute to the variability of the risk estimators. 
+
+```{remark}
+The variability of risk estimator is a very interesting problem, which recieved very little attention in the machine learning literature. 
+If this topic interests you, talk to me. 
+```
+
 
 We now use the lasso penalty.
 ```{r, cache=TRUE}
@@ -382,7 +437,7 @@ logistic.2 <- cv.glmnet(x=X.train.spam, y=y.train.spam, family = "binomial", alp
 
 Things to note:
 
-- We used `cv.glmnet` to do an automatic search for the optimal level of regularization (the `lambda` argument in `glmnet`).
+- We used `cv.glmnet` to do an automatic search for the optimal level of regularization (the `lambda` argument in `glmnet`) using V-fold CV.
 - We set `alpha=0` for ridge regression.
 
 ```{r}
@@ -401,7 +456,7 @@ missclassification(confusion.test)
 
 ### SVM
 
-A support vector machine (SVM) is a linear model with a particular loss function known as a _hinge loss_.
+A support vector machine (SVM) is a linear hypothesis class with a particular loss function known as a _hinge loss_.
 We learn an SVM with the `svm` function from the __e1071__ package, which is merely a wrapper for the __libsvm__ C library, which is the most popular implementation of SVM today.
 
 ```{r svm-classification, cache=TRUE}
@@ -481,7 +536,7 @@ MSE( predict(tree.1, newdata = prostate.test)- prostate.test$lcavol)
 
 Tree are very prone to overfitting.
 To avoid this, we reduce a tree's complexity by _pruning_ it. 
-This is done with the `prune` function.
+This is done with the `prune` function (not demonstrated herein).
 
 We now fit a classification tree.
 ```{r Tree classification, cache=TRUE}
@@ -501,7 +556,7 @@ missclassification(confusion.test)
 ### K-nearest neighbour (KNN)
 
 KNN is not an ERM problem.
-For completeness, we still show how to fit such a hypothesis.
+For completeness, we still show how to fit such a hypothesis class. 
 
 ```{r knn-classification, cache=TRUE}
 library(class)

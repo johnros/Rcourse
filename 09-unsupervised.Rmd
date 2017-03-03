@@ -31,9 +31,9 @@ If skill is indeed a one dimensional quality, then the questionnaire data should
 Consider $n$ microphones recording an individual. 
 The digitized recording consists of $p$ samples. 
 Are the recordings really a shapeless cloud of $n$ points in $\mathbb{R}^p$?
-Since they all record the same sound, one would expect the $n$ $p$-dimensional points to arrange around the source sound bit: a point in $\mathbb{R}^p$.
+Since they all record the same sound, one would expect the $n$ $p$-dimensional points to arrange around the source sound bit: a single point in $\mathbb{R}^p$.
 If microphones have different distances to the source, volumes may differ. 
-We would thus expect the $n$ points to arrange about a line that ends at the source. 	
+We would thus expect the $n$ points to arrange about a __line__ in $\mathbb{R}^p$. 	
 ```
 
 ### Principal Component Analysis {#pca}
@@ -53,6 +53,7 @@ But $30$ years before him, @pearson1901liii derived the same procedure with a di
 Pearson was also trying to give each individual a score. 
 He did not care about variance maximization, however. 
 He simply wanted a small set of coordinates in some (linear) space that approximates the original data well. 
+
 Before we proceed, we give an example to fix ideas.
 Consider the crime rate data in `USArrests`, which encodes reported murder events, assaults, rapes, and the urban population of each american state. 
 
@@ -61,10 +62,11 @@ head(USArrests)
 ```
 
 Following Hotelling's motivation, we may want to given each state a "crimilality score". 
-PCA returns the sequence of $1,\dots,4$ scores that best separate between states. 
+We first remove the `UrbanPop` variable, which does not encode crime levels. 
+We then z-score each variable with `scale`, and call PCA for a sequence of $1,\dots,3$ criminality scores that best separate between states. 
 
 ```{r, cache=TRUE}
-USArrests.1 <- USArrests[,-3] %>% scale # note the scaling, which is required by some
+USArrests.1 <- USArrests[,-3] %>% scale 
 pca.1 <- prcomp(USArrests.1, scale = TRUE)
 pca.1
 ```
@@ -76,9 +78,9 @@ We also don't want the score to be sensitive to the measurement __scale__.
 We thus perform PCA in the z-score scale of each variable, obtained with the `scale` function.
 - PCA is performed with the `prcomp` function. 
 It returns the contribution (weight) of the original variables, to the new crimeness score.  
-These weights are called the _loadings_.
+These weights are called the _loadings_ (or `Rotations` in the `procomp` output, which is rather confusing as we will later see).
 - The number of possible scores, is the same as the number of original variables in the data. 
-- The new scores are called the _principal components_, labeled `PC1`,...,`PC4` in our output.
+- The new scores are called the _principal components_, labeled `PC1`,...,`PC3` in our output.
 - The loadings on PC1 tell us that the best separation between states is along the average crime rate. 
 Why is this? 
 Because all the $3$ crime variables have a similar loading on PC1.
@@ -89,15 +91,15 @@ __If we now represent each state, not with its original $4$ variables, but only 
 
 
 
-### Preliminaries
+### Dimensionality Reduction Preliminaries
 
 Before presenting methods other than PCA, we need some terminology.
 
 - __Variable__: 
-A.k.a. _dimension_, or _feature_, or _column_ for reasons that will be obvious in the next item.
+A.k.a. _dimension_, or _feature_, or _column_.
 - __Data__: 
 A.k.a. _sample_, _observations_. 
-Will typically consist of $n$, $p$ dimensional vectors.
+Will typically consist of $n$, vectors of dimension $p$.
 We typically denote the data as a $n\times p$ matrix $X$. 
 - __Manifold__: 
 A generalization of a linear space, which is regular enough so that, __locally__, it has all the properties of a linear space. 
@@ -115,7 +117,7 @@ There are many motivations for dimensionality reduction:
 1. __Scoring__: 
 Give each observation an interpretable, simple score (Hotelling's motivation).
 1. __Latent structure__: 
-Recover unobservables from indirect measurements. 
+Recover unobservable information from indirect measurements. 
 E.g: Blind signal reconstruction, CT scan, cryo-electron microscopy, etc. 
 1. __Signal to Noise__: 
 Denoise measurements before further processing like clustering, supervised learning, etc. 
@@ -124,25 +126,25 @@ Save on RAM ,CPU, and communication when operating on a lower dimensional repres
 	
 
 
-### Latent Variable Approaches
-All generative approaches to dimensionality reduction will include some unobserved set of variables, which we can try to recover from the observable $X$. 
+### Latent Variable Generative Approaches
+All generative approaches to dimensionality reduction will include a set of latent/unobservable variables, which we can try to recover from the observables $X$. 
 The unobservable variables will typically have a lower dimension than the observables, thus, dimension is reduced. 
 We start with the simplest case of linear Factor Analysis. 
 
 #### Factor Analysis (FA)
 
 FA originates from the psychometric literature. 
-We thus revisit the IQ (actually g-factor^[https://en.wikipedia.org/wiki/G_factor_(psychometrics)]) Example~\@ref(ex:iq):
+We thus revisit the IQ (actually g-factor^[https://en.wikipedia.org/wiki/G_factor_(psychometrics)]) Example \@ref(ex:iq):
 
 ```{example}
 Assume $n$ respondents answer $p$ quantitative questions: $x_i \in \mathbb{R}^p, i=1,\dots,n$. 
-Also assume, their responses are some linear function $A \in \mathbb{R}^p$ of a single personality attribute, $s_i$. 
+Also assume, their responses are some linear function of a single personality attribute, $s_i$. 
 We can think of $s_i$ as the subject's ``intelligence''.
 We thus have 
 \begin{align}
 	x_i = A s_i + \varepsilon_i
 \end{align}
-And in matrix notation, for $q<p$ latent attributes:
+And in matrix notation:
 \begin{align}
 	X = S A+\varepsilon,
 	(\#eq:factor)
@@ -157,7 +159,7 @@ We may try to estimate $S A$ by assuming some distribution on $S$ and $\varepsil
 Under standard assumptions on the distribution of $S$ and $\varepsilon$, recovering  $S$ from $\widehat{S A }$ is still impossible as there are infinitely many such solutions.
 In the statistical parlance we say the problem is _non identifiable_, and in the applied mathematics parlance we say the problem is _ill posed_.
 To see this, consider an orthogonal _rotation_ matrix $R$ ($R' R=I$). 
-For each such $R$: $ S A = A R' R S = S^* A^* $.
+For each such $R$: $ S A = S R' R A = S^* A^* $.
 While both solve Eq.\@ref(eq:factor), $A$ and $A^*$ may have very different interpretations. 
 This is why many researchers find FA an unsatisfactory inference tool.
 
@@ -169,24 +171,24 @@ The reason the solution to PCA is well defined is that PCA does not seek a singl
 ```
 
 ```{remark}
-In classical FA in Eq.\@ref(eq:factor) is clearly an embedding to a linear space. 
-The one spanned by $S$. 
+In classical FA in Eq.\@ref(eq:factor) is clearly an embedding to a linear space:
+the one spanned by $S$. 
 Under the classical probabilistic assumptions on $S$ and $\varepsilon$ the embedding itself is also linear, and is sometimes solved with PCA. 
-Being a generative model, there is no restriction for the embedding to be linear, and there certainly exists sets of assumptions for which the FA embedding is non linear. 
+Being a generative model, there is no restriction for the embedding to be linear, and there certainly exists sets of assumptions for which the FA returns a non linear embedding into a linear space. 
 ```
 
 The FA terminology is slightly different than PCA:
 
 - __Factors__: 
 The unobserved attributes $S$. 
-Not to be confused with the _principal components_ in the context of PCA.
+Akin to the _principal components_ in PCA.
 - __Loading__:
 The $A$ matrix; the contribution of each factor to the observed $X$.
 - __Rotation__:	
 An arbitrary orthogonal re-combination of the factors, $S$, and loadings, $A$, which changes the interpretation of the result.
 
 
-The FA literature does offer several heuristics to ``fix'' the solution of the FA. 
+The FA literature offers several heuristics to "fix" the identifiability problem of FA. 
 These are known as _rotations_, and go under the names of _Varimax_, _Quartimax_, _Equimax_, _Oblimin_, _Promax_, and possibly others. 
 
 
@@ -214,7 +216,7 @@ This does not mean that they cannot be cast via their generative model, but rath
 
 
 #### Multidimensional Scaling (MDS)
-MDS can be thought of as a variation on PCA, that begins with a distance graph^[The term Graph is typically used in this context instead of Network. But a graph allows only yes/no relations, while a network, which is a weighted graph, allows a continuous measure of similarity (or dissimilarity). _Network_ is thus more appropriate than _graph_.]}.
+MDS can be thought of as a variation on PCA, that begins with the $n \times n$ graph^[The term Graph is typically used in this context instead of Network. But a graph allows only yes/no relations, while a network, which is a weighted graph, allows a continuous measure of similarity (or dissimilarity). _Network_ is thus more appropriate than _graph_.]} of distances between data points, and not the original $n \times p$ data. 
 
 MDS aims at embedding a graph of distances, while preserving the original distances.
 Basic results in graph/network theory [@graham1988isometric] suggest that the geometry of a graph cannot be preserved when embedding it into lower dimensions. 
@@ -241,6 +243,7 @@ Local MDS is not popular.
 Why is this? 
 Because it makes no sense: 
 If we believe the points reside in a non-Euclidean space, thus motivating the use of geodesic distances, why would we want to wrap up with regular MDS, which embeds in a linear space?!
+It does offer, however, some intuition to the following, more popular, algorithms.
 
 
 #### Isometric Feature Mapping (IsoMap) {#isomap}
@@ -268,7 +271,7 @@ TODO
 
 ### Dimensionality Reduction in R
 
-#### PCA
+#### PCA {#pca-in-r}
 
 We already saw the basics of PCA in \@ref(pca).
 The fitting is done with the `procomp` function.
@@ -282,11 +285,12 @@ ggbiplot::ggbiplot(pca.1)
 
 Things to note:
 
-- The bi-plot plots each data point along its PCs.
+
 - We used the `ggbiplot` function from the __ggbiplot__ (available from github, but not from CRAN), because it has a nicer output than `stats::biplot`. 
 - The bi-plot also plots the loadings as arrows. The coordinates of the arrows belong to the weight of each of the original variables in each PC. 
 For example, the x-value of each arrow is the loadings on the first PC (on the x-axis).
-Since the weights of Murder, Assault, and Rape are almost the same, and larger then UrbanPop, we conclude that PC1 captures the average crime rate in each state.
+Since the weights of Murder, Assault, and Rape are almost the same, we conclude that PC1 captures the average crime rate in each state.
+- The bi-plot plots each data point along its PCs.
 
 The _scree plot_ depicts the quality of the approximation of $X$ as $q$ grows. 
 This is depicted using the proportion of variability in $X$ that is removed by each added PC.
@@ -352,13 +356,12 @@ pca.1$rotation
 
 Things to note:
 
-- We perform FA with the `psych::principal` function.
+- We perform FA with the `psych::principal` function. The `Principal Component Analysis` title is due to the fact that FA without rotations, is equivalent to PCA.
 - The first factor (`fa.1$loadings`) has different weights than the first PC (`pca.1$rotation`) because of normalization. They are the same, however, in that the first PC, and the first factor, capture average crime levels.
 
 Graphical model fans will like the following plot, where the contribution of each variable to each factor is encoded in the width of the arrow. 
 
 ```{r, cache=TRUE}
-# Graph comparison: loadings encoded in colors
 qgraph::qgraph(fa.1)
 ```
 
@@ -370,7 +373,10 @@ fa.2 <- psych::principal(USArrests.1, nfactors = 2, rotate = "varimax")
 fa.2$loadings
 ```
 
+Things to note:
 
+- FA with a rotation is no longer equivalent to PCA.
+- The rotated factors are now called _rotated componentes_, and reported in `RC1` and `RC2`.
 
 
 #### ICA
@@ -382,15 +388,14 @@ plot(ica.1$S)
 abline(h=0, v=0, lty=2)
 text(ica.1$S, pos = 4, labels = rownames(USArrests.1))
 
-# Compare with two PCA (first two PCs):
+# Compare with PCA (first two PCs):
 arrows(x0 = ica.1$S[,1], y0 = ica.1$S[,2], x1 = pca.1$x[,2], y1 = pca.1$x[,1], col='red', pch=19, cex=0.5)
 ```
 
 Things to note:
 
 - ICA is fitted with `fastICA::fastICA`.
-- The ICA components are very different than the PCA components. 
-
+- The ICA components, like any other rotated components, are different than the PCA components. 
 
 
 
@@ -408,15 +413,16 @@ abline(h=0, v=0, lty=2)
 USArrests.2 <- USArrests[,1:2] %>%  scale
 text(mds.1, pos = 4, labels = rownames(USArrests.2), col = 'tomato')
 
-# Compare with two PCA (first two PCs):
+# Compare with PCA (first two PCs):
 points(pca.1$x[,1:2], col='red', pch=19, cex=0.5)
 ```
 
 Things to note:
 
-- For MDS, we first compute a dissimilarity graph with `dist`, and then learn the embedding with `cmdscale`.
-- As previously stated, the embedding of PCA is the same as classical MDS with Euclidean distances. 
-- See the `cluster::daisy` function for more dissimilarity measures.
+- We first compute a dissimilarity graph with `dist`. See the `cluster::daisy` function for more dissimilarity measures.
+- We learn the MDS embedding with `cmdscale`.
+- The embedding of PCA is the same as classical MDS with Euclidean distances. 
+
 
 
 Let's try other strain functions for MDS, like Sammon's strain, and compare it with the PCs.
@@ -426,7 +432,7 @@ plot(mds.2$points, pch = 19)
 abline(h=0, v=0, lty=2)
 text(mds.2$points, pos = 4, labels = rownames(USArrests.2))
 
-# Compare with two PCA (first two PCs):
+# Compare with PCA (first two PCs):
 arrows(
   x0 = mds.2$points[,1], y0 = mds.2$points[,2], 
   x1 = pca.1$x[,1], y1 = pca.1$x[,2], 
@@ -435,8 +441,8 @@ arrows(
 
 Things to note:
 
-- `MASS::sammon` does the fitting.
-- The embedding returned by the Sammon strain is different than that of the first two PCs.
+- `MASS::sammon` does the embedding.
+- Sammon strain is different than PCA.
 
 
 
@@ -470,14 +476,14 @@ kernlab::kpca()
 Consider the tagging of your friends' pictures on Facebook. 
 If you tagged some pictures, Facebook may try to use a supervised approach to automatically label photos. 
 If you never tagged pictures, a supervised approach is impossible. 
-It is still possible to group simiar pictures together.
+It is still possible, however, to group simiar pictures together.
 ```
 
 
 ```{example, label="spam"}
 Consider the problem of spam detection. 
 It would be nice if each user could label several thousands emails, to apply a supervised learning approach to spam detection.
-This is an unrealistic demand, so a pre-clustering stage is useful: the user only needs to tag a couple dozens of homogenous clusters, before solving the supervisedl learning problem. 
+This is an unrealistic demand, so a pre-clustering stage is useful: the user only needs to tag a couple dozens of homogenous clusters, before solving the supervised learning problem. 
 ```
 
 
@@ -489,27 +495,31 @@ There are many motivations for clustering:
 The most common use of clustering is probably as a an exploratory step, to identify homogeneous groups in the data.
 1. __Dimensionality reduction__:
 Clustering may be seen as a method for dimensionality reduction. 
-Unlike the approaches in the Dimensionality Reduction Section \@ref(dim-reduce), it does not "compress" variables but rather observations. 
+Unlike the approaches in the Dimensionality Reduction Section \@ref(dim-reduce), it does not compress __variables__ but rather __observations__. 
 Each group of homogeneous observations may then be represented as a single prototypical observation of the group.
 1. __Pre-Labelling__:
 Clustering may be performed as a pre-processing step for supervised learning, when labeling all the samples is impossible due to "budget" constraints, like in Example \@ref(ex:spam). This is sometimes known as _pre-clustering_.
 
 Clustering, like dimensionality reduction, may rely on some latent variable generative model, or on purely algorithmic approaches.
 
-### Latent Variable Approaches
+
+
+### Latent Variable Generative Approaches
 
 
 #### Finite Mixture {#finite-mixture}
 
 ```{example, label="males-females"}
-Consider the distribution of heights in some population.
-Given the gender, heights have a nice bell shaped distribution.
-If genders have not been recorded, We can view it as a _latent_, i.e., unobservale, with $K=2$ levels: males and females.
+Consider the distribution of heights.
+Heights have a nice bell shaped distribution within each gender.
+If genders have not been recorded, heights will be distributed like a _mixture_ of males and females. 
+The gender in this example, is a _latent_ variable taking $K=2$ levels: male and female.
 ```
 
 A _finite mixture_ is the marginal distribution of $K$ distinct classes, when the class variable is _latent_.
-This is useful for clustering since we can assume the number of classes, $K$, and the distribution of each class. 
-We can then use maximum likelihood estimation to fit the mixture distribution and assign observations to the most probable class.
+This is useful for clustering:
+We can assume the number of classes, $K$, and the distribution of each class. 
+We then use maximum likelihood to fit the mixture distribution, and finally, cluster by assigning observations to the most probable class.
 
 
 
@@ -517,7 +527,7 @@ We can then use maximum likelihood estimation to fit the mixture distribution an
 
 ### Purely Algorithmic Approaches
 
-#### K-means
+#### K-Means
 The _K-means_ algorithm is possibly the most popular clustering algorithm.
 The goal behind K-means clustering algorithm is finding a representative point for each of K clusters, and assign each data point to one of these clusters. 
 As each cluster has a representative point, this is also a _prototype method_
@@ -545,10 +555,10 @@ Principal points are points which are _self consistent_, i.e., they are the mean
 ```
 
 
-#### K-means++
+#### K-Means++
 _K-means++_ is a fast version of K-means thanks to a smart initialization. 
 
-#### K-medoids
+#### K-Medoids
 
 If a Euclidean distance is inappropriate for a particular set of variables, or that robustness to corrupt observations is required, or that we wish to constrain the cluster centers to be actual observations, then the _K-Medoids_ algorithm is an adaptation of K-means that allows this.
 It is also known under the name _partition around medoids_ (PAM) clustering.
