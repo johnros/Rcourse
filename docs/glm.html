@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-03-02">
+<meta name="date" content="2017-03-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -193,13 +193,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.1.1" data-path="multivariate.html"><a href="multivariate.html#signal-detection-with-r"><i class="fa fa-check"></i><b>8.1.1</b> Signal Detection with R</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="multivariate.html"><a href="multivariate.html#signal-counting"><i class="fa fa-check"></i><b>8.2</b> Signal Counting</a></li>
-<li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#signal-identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
+<li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>8.3.1</b> Signal Identification in R</a></li>
 </ul></li>
 <li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation</a></li>
 <li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression</a></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.6</b> Biblipgraphic Notes</a></li>
-<li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-6"><i class="fa fa-check"></i><b>8.7</b> Practice Yourself</a></li>
+<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>8.6.1</b> Graphical Models in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
+<li class="chapter" data-level="8.8" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-6"><i class="fa fa-check"></i><b>8.8</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>9</b> Supervised Learning</a><ul>
 <li class="chapter" data-level="9.1" data-path="supervised.html"><a href="supervised.html#problem-setup-3"><i class="fa fa-check"></i><b>9.1</b> Problem setup</a><ul>
@@ -394,24 +397,28 @@ implying that
 <p>Before we fit such a model, we try to justify this construction, in particular, the enigmatic link function in Eq.<a href="glm.html#eq:logistic-link">(6.2)</a>. Let’s look at the simplest possible case: the comparison of two groups indexed by <span class="math inline">\(x\)</span>: <span class="math inline">\(x=0\)</span> for the first, and <span class="math inline">\(x=1\)</span> for the second. We start with some definitions.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-125" class="definition"><strong>Definition 6.1  (Odds) </strong></span>The <em>odds</em>, is a scale of uncertitude defined as <span class="math display">\[\frac{P(y=1)}{P(y=0)}.\]</span>
+<span id="def:unnamed-chunk-125" class="definition"><strong>Definition 6.1  (Odds) </strong></span>The <em>odds</em>, of a binary random variable, <span class="math inline">\(y\)</span>, is defined as <span class="math display">\[\frac{P(y=1)}{P(y=0)}.\]</span>
 </div>
 <p></p>
+<p>Odds are the same as probabilities, but instead of of telling me there is a <span class="math inline">\(66\%\)</span> of success, they tell me the odds of success are “2 to 1”. If you ever placed a bet, the language of “odds” should not be unfamiliar to you.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-126" class="definition"><strong>Definition 6.2  (Odds Ratio) </strong></span>The <em>odds ratio</em> is a measure of the difference between two binary random variables defined as the ratio between their odds. Formally: <span class="math display">\[OR(y_1,y_2):=\frac{P(y_1=1)/P(y_1=0)}{P(y_2=1)/P(y_2=0)}.\]</span>
+<span id="def:unnamed-chunk-126" class="definition"><strong>Definition 6.2  (Odds Ratio) </strong></span>The <em>odds ratio</em> between two binary random variables, <span class="math inline">\(y_1\)</span> and <span class="math inline">\(y_2\)</span>, is defined as the ratio between their odds. Formally: <span class="math display">\[OR(y_1,y_2):=\frac{P(y_1=1)/P(y_1=0)}{P(y_2=1)/P(y_2=0)}.\]</span>
 </div>
 <p></p>
-<p>Odds are the same as probabilities, but instead of of telling me there is a <span class="math inline">\(66\%\)</span> of success, they tell me the odds of success are “2 to 1”.</p>
 <p>Odds ratios (OR) compares between the probabilities of two groups, only that it does not compare them in probability scale, but rather in odds scale.</p>
-Computing the OR between two conditions, indexed by <span class="math inline">\(y|x=1\)</span> and <span class="math inline">\(y|x=0\)</span>, under the logistic link assumption returns:
+Under the logistic link assumption, the OR between two conditions indexed by <span class="math inline">\(y|x=1\)</span> and <span class="math inline">\(y|x=0\)</span>, returns:
 <span class="math display">\[\begin{align}
    OR(y|x=1,y|x=0) 
    = \frac{P(y=1|x=1)/P(y=0|x=1)}{P(y=1|x=0)/P(y=0|x=0)} 
    = e^{\beta_1}.  
 \end{align}\]</span>
-<p>The last equality demystifies the choice of the link function in the logistic regression: <strong>it allows us to interpret <span class="math inline">\(\beta\)</span> of the logistic regression as a measure of change of binary random variables, namely, the the odds-ratios (in log scale)</strong>.</p>
-<p>Another popular link function is the normal quantile function, a.k.a., the Gaussian inverse CDF, leading to <em>probit regression</em> instead of logistic regression.</p>
+<p>The last equality demystifies the choice of the link function in the logistic regression: <strong>it allows us to interpret <span class="math inline">\(\beta\)</span> of the logistic regression as a measure of change of binary random variables, namely, as the (log) odds-ratios due to a unit increase in <span class="math inline">\(x\)</span></strong>.</p>
+
+<div class="remark">
+<span class="remark"><em>Remark. </em></span> Another popular link function is the normal quantile function, a.k.a., the Gaussian inverse CDF, leading to <em>probit regression</em> instead of logistic regression.
+</div>
+<p></p>
 <div id="logistic-regression-with-r" class="section level3">
 <h3><span class="header-section-number">6.2.1</span> Logistic Regression with R</h3>
 <p>Let’s get us some data. The <code>PlantGrowth</code> data records the weight of plants under three conditions: control, treatment1, and treatment2.</p>
@@ -423,11 +430,11 @@ Computing the OR between two conditions, indexed by <span class="math inline">\(
 ## 4   6.11  ctrl
 ## 5   4.50  ctrl
 ## 6   4.61  ctrl</code></pre>
-<p>We will now <code>attach</code> the data so that its contents is available in the workspace (don’t forget to <code>detach</code> afterwards, or you can expect some conflicting object names). We will also use the <code>cut</code> function to create a two-class response variable for Light, and Heavy plants (we are doing logistic regression, so we need a two-class response). As a general rule of thumb, when we discretize continuous variables, we lose information. for pedagogical reasons, however, we will proceed with this bad practice.</p>
+<p>We will now <code>attach</code> the data so that its contents is available in the workspace (don’t forget to <code>detach</code> afterwards, or you can expect some conflicting object names). We will also use the <code>cut</code> function to create a binary response variable for Light, and Heavy plants (we are doing logistic regression, so we need a two-class response). As a general rule of thumb, when we discretize continuous variables, we lose information. For pedagogical reasons, however, we will proceed with this bad practice.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(PlantGrowth)
 weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <span class="dv">2</span>, <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&#39;Light&#39;</span>, <span class="st">&#39;Heavy&#39;</span>))
 <span class="kw">plot</span>(<span class="kw">table</span>(group, weight.factor))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-128-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-129-1.png" width="50%" /></p>
 <p>Let’s fit a logistic regression, and inspect the output.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glm<span class="fl">.1</span>&lt;-<span class="st"> </span><span class="kw">glm</span>(weight.factor~group, <span class="dt">family=</span>binomial)
 <span class="kw">summary</span>(glm<span class="fl">.1</span>)</code></pre></div>
@@ -458,13 +465,13 @@ weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <
 <ul>
 <li>The <code>glm</code> function is our workhorse for all GLM models.</li>
 <li>The <code>family</code> argument of <code>glm</code> tells R the output is binomial, thus, performing a logistic regression.</li>
-<li>The <code>summary</code> function is content aware. It gives a different output for <code>glm</code> class objects than for other objects, such as the <code>lm</code> we saw in Chapter <a href="lm.html#lm">5</a>.</li>
+<li>The <code>summary</code> function is content aware. It gives a different output for <code>glm</code> class objects than for other objects, such as the <code>lm</code> we saw in Chapter <a href="lm.html#lm">5</a>. In fact, what <code>summary</code> does is merely call <code>summary.glm</code>.</li>
 <li>As usual, we get the coefficients table, but recall that they are to be interpreted as (log) odd-ratios.</li>
 <li>As usual, we get the significance for the test of no-effect, versus a two-sided alternative.</li>
 <li>The residuals of <code>glm</code> are slightly different than the <code>lm</code> residuals, and called <em>Deviance Residuals</em>.</li>
 <li>For help see <code>?glm</code>, <code>?family</code>, and <code>?summary.glm</code>.</li>
 </ul>
-<p>Like for linear models, we can use an ANOVA table to check if treatments have any effect, and not one treatment at a time. In the case of GLMS, this is called an <em>analysis of deviance</em> table.</p>
+<p>Like in the linear models, we can use an ANOVA table to check if treatments have any effect, and not one treatment at a time. In the case of GLMs, this is called an <em>analysis of deviance</em> table.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(glm<span class="fl">.1</span>, <span class="dt">test=</span><span class="st">&#39;LRT&#39;</span>)</code></pre></div>
 <pre><code>## Analysis of Deviance Table
 ## 
@@ -482,7 +489,7 @@ weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Things to note:</p>
 <ul>
-<li>The <code>anova</code> function, like the <code>summary</code> function, are content-aware and produce a different output for the <code>glm</code> class than for the <code>lm</code> class.</li>
+<li>The <code>anova</code> function, like the <code>summary</code> function, are content-aware and produce a different output for the <code>glm</code> class than for the <code>lm</code> class. All that <code>anova</code> does is call <code>anova.glm</code>.</li>
 <li>In GLMs there is no canonical test (like the F test for <code>lm</code>). We thus specify the type of test desired with the <code>test</code> argument.</li>
 <li>The distribution of the weights of the plants does vary with the treatment given, as we may see from the significance of the <code>group</code> factor.</li>
 <li>Readers familiar with ANOVA tables, should know that we computed the GLM equivalent of a type I sum- of-squares. Run <code>drop1(glm.1, test='Chisq')</code> for a GLM equivalent of a type III sum-of-squares.</li>
@@ -496,7 +503,7 @@ weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <
 ## 0.2 0.2 0.9 0.9 0.9 0.9 0.9 0.9 0.9 0.9 0.9 0.9</code></pre>
 <p>Things to note:</p>
 <ul>
-<li>Like the <code>summary</code> and <code>anova</code> functions, the <code>predict</code> function is aware that its input is of <code>glm</code> class.</li>
+<li>Like the <code>summary</code> and <code>anova</code> functions, the <code>predict</code> function is aware that its input is of <code>glm</code> class. All that <code>predict</code> does is call <code>predict.glm</code>.</li>
 <li>In GLMs there are many types of predictions. The <code>type</code> argument controls which type is returned.</li>
 <li>How do I know we are predicting the probability of a heavy plant, and not a light plant? Just run <code>contrasts(weight.factor)</code> to see which of the categories of the factor <code>weight.factor</code> is encoded as 1, and which as 0.</li>
 <li>For help see <code>?predict.glm</code>.</li>
@@ -590,14 +597,14 @@ weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <
 <ul>
 <li>We used the <code>~.</code> syntax to tell R to fit a model with all the available predictors.</li>
 <li>Since we want to focus on significant predictors, we used the <code>step</code> function to perform a <em>step-wise</em> regression, i.e. sequentially remove non-significant predictors. The function reports each model it has checked, and the variable it has decided to remove at each step.</li>
-<li>The output of <code>step</code> is a single model, with the subset of significant predictors.</li>
+<li>The output of <code>step</code> is a single model, with the subset of selected predictors.</li>
 </ul>
 </div>
 </div>
 <div id="poisson-regression" class="section level2">
 <h2><span class="header-section-number">6.3</span> Poisson Regression</h2>
 <p>Poisson regression means we fit a model assuming <span class="math inline">\(y|x \sim Poisson(\lambda(x))\)</span>. Put differently, we assume that for each treatment, encoded as a combinations of predictors <span class="math inline">\(x\)</span>, the response is Poisson distributed with a rate that depends on the predictors.</p>
-<p>The typical link function for Poisson regression is <span class="math inline">\(g(t)=e^t\)</span>. This means that we assume <span class="math inline">\(y|x \sim Poisson(\lambda(x) = e^{x&#39;\beta})\)</span>. Why is this a good choice? We again resort to the two-group case, encoded by <span class="math inline">\(x=1\)</span> and <span class="math inline">\(x=0\)</span>, to understand this model: <span class="math inline">\(\lambda(x=1)=e^{\beta_0+\beta_1}=e^{beta_0} \; e^{\beta_1}= \lambda(x=0) \; e^{\beta_1}\)</span>. We thus see that this link function implies that a change in <span class="math inline">\(x\)</span> <strong>multiples</strong> the rate of events. For our example<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a> we inspect the number of infected high-school kids, as a function of the days since the outbreak.</p>
+<p>The typical link function for Poisson regression is <span class="math inline">\(g(t)=e^t\)</span>. This means that we assume <span class="math inline">\(y|x \sim Poisson(\lambda(x) = e^{x&#39;\beta})\)</span>. Why is this a good choice? We again resort to the two-group case, encoded by <span class="math inline">\(x=1\)</span> and <span class="math inline">\(x=0\)</span>, to understand this model: <span class="math inline">\(\lambda(x=1)=e^{\beta_0+\beta_1}=e^{\beta_0} \; e^{\beta_1}= \lambda(x=0) \; e^{\beta_1}\)</span>. We thus see that this link function implies that a change in <span class="math inline">\(x\)</span> <strong>multiples</strong> the rate of events. For our example<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a> we inspect the number of infected high-school kids, as a function of the days since an outbreak.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cases &lt;-<span class="st">  </span>
 <span class="kw">structure</span>(<span class="kw">list</span>(<span class="dt">Days =</span> <span class="kw">c</span>(1L, 2L, 3L, 3L, 4L, 4L, 4L, 6L, 7L, 8L, 
 8L, 8L, 8L, 12L, 14L, 15L, 17L, 17L, 17L, 18L, 19L, 19L, 20L, 
@@ -617,53 +624,8 @@ weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <
     2L, 1L, 1L, 0L, 0L, 1L, 1L, 2L, 2L, 1L, 1L, 1L, 1L, 0L, 0L, 
     0L, 1L, 1L, 0L, 0L, 0L, 0L, 0L)), <span class="dt">.Names =</span> <span class="kw">c</span>(<span class="st">&quot;Days&quot;</span>, <span class="st">&quot;Students&quot;</span>
 ), <span class="dt">class =</span> <span class="st">&quot;data.frame&quot;</span>, <span class="dt">row.names =</span> <span class="kw">c</span>(<span class="ot">NA</span>, -109L))
-<span class="kw">attach</span>(cases)</code></pre></div>
-<pre><code>## The following objects are masked from cases (pos = 3):
-## 
-##     Days, Students</code></pre>
-<pre><code>## The following objects are masked from cases (pos = 4):
-## 
-##     Days, Students</code></pre>
-<pre><code>## The following objects are masked from cases (pos = 5):
-## 
-##     Days, Students</code></pre>
-<pre><code>## The following objects are masked from cases (pos = 6):
-## 
-##     Days, Students</code></pre>
-<pre><code>## The following objects are masked from cases (pos = 7):
-## 
-##     Days, Students</code></pre>
-<pre><code>## The following objects are masked from cases (pos = 9):
-## 
-##     Days, Students</code></pre>
-<pre><code>## The following objects are masked from cases (pos = 10):
-## 
-##     Days, Students</code></pre>
-<pre><code>## The following objects are masked from cases (pos = 11):
-## 
-##     Days, Students</code></pre>
-<pre><code>## The following objects are masked from cases (pos = 13):
-## 
-##     Days, Students</code></pre>
-<pre><code>## The following objects are masked from cases (pos = 15):
-## 
-##     Days, Students</code></pre>
-<pre><code>## The following objects are masked from cases (pos = 17):
-## 
-##     Days, Students</code></pre>
-<pre><code>## The following objects are masked from cases (pos = 19):
-## 
-##     Days, Students</code></pre>
-<pre><code>## The following objects are masked from cases (pos = 21):
-## 
-##     Days, Students</code></pre>
-<pre><code>## The following objects are masked from cases (pos = 23):
-## 
-##     Days, Students</code></pre>
-<pre><code>## The following objects are masked from cases (pos = 59):
-## 
-##     Days, Students</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(cases) </code></pre></div>
+<span class="kw">attach</span>(cases)
+<span class="kw">head</span>(cases) </code></pre></div>
 <pre><code>##   Days Students
 ## 1    1        6
 ## 2    2        8
@@ -673,7 +635,7 @@ weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <
 ## 6    4        3</code></pre>
 <p>And visually:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Days, Students, <span class="dt">xlab =</span> <span class="st">&quot;DAYS&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;STUDENTS&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-135-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-136-1.png" width="50%" /></p>
 <p>We now fit a model to check for the change in the rate of events as a function of the days since the outbreak.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glm<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Students ~<span class="st"> </span>Days, <span class="dt">family =</span> poisson)
 <span class="kw">summary</span>(glm<span class="fl">.3</span>)</code></pre></div>
@@ -702,7 +664,7 @@ weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <
 <p>Things to note:</p>
 <ul>
 <li>We used <code>family=poisson</code> in the <code>glm</code> function to tell R that we assume a Poisson distribution.</li>
-<li>The coefficients table is there as usual. When interpreting the table, we need to recall that the effect, i.e. the <span class="math inline">\(\hat \beta\)</span>, are <strong>multiplicative</strong> by assumption.</li>
+<li>The coefficients table is there as usual. When interpreting the table, we need to recall that the effect, i.e. the <span class="math inline">\(\hat \beta\)</span>, are <strong>multiplicative</strong> due to the assumed link function.</li>
 <li>Each day <strong>decreases</strong> the rate of events by a factor of about 0.02.</li>
 <li>For more information see <code>?glm</code> and <code>?family</code>.</li>
 </ul>

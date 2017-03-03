@@ -66,20 +66,21 @@ Let's look at the simplest possible case: the comparison of two groups indexed b
 We start with some definitions.
 
 ```{definition, name="Odds"}
-The _odds_, is a scale of uncertitude defined as $$\frac{P(y=1)}{P(y=0)}.$$
+The _odds_, of a binary random variable, $y$, is defined as $$\frac{P(y=1)}{P(y=0)}.$$
 ```
 
+Odds are the same as probabilities, but instead of of telling me there is a $66\%$ of success, they tell me the odds of success are "2 to 1".
+If you ever placed a bet, the language of "odds" should not be unfamiliar to you. 
+
 ```{definition, name="Odds Ratio"}
-The _odds ratio_ is a measure of the difference between two binary random variables defined as the ratio between their odds. 
+The _odds ratio_ between two binary random variables, $y_1$ and $y_2$, is defined as the ratio between their odds. 
 Formally:
 $$OR(y_1,y_2):=\frac{P(y_1=1)/P(y_1=0)}{P(y_2=1)/P(y_2=0)}.$$
 ```
 
-Odds are the same as probabilities, but instead of of telling me there is a $66\%$ of success, they tell me the odds of success are "2 to 1".
-
 Odds ratios (OR) compares between the probabilities of two groups, only that it does not compare  them in probability scale, but rather in odds scale. 
 
-Computing the OR between two conditions, indexed by $y|x=1$ and $y|x=0$, under the logistic link assumption returns:
+Under the logistic link assumption, the OR between two conditions indexed by $y|x=1$ and $y|x=0$, returns:
 \begin{align}
    OR(y|x=1,y|x=0) 
    = \frac{P(y=1|x=1)/P(y=0|x=1)}{P(y=1|x=0)/P(y=0|x=0)} 
@@ -87,9 +88,12 @@ Computing the OR between two conditions, indexed by $y|x=1$ and $y|x=0$, under t
 \end{align}
 
 
-The last equality demystifies the choice of the link function in the logistic regression: __it allows us to interpret $\beta$ of the logistic regression as a measure of change of binary random variables, namely, the the odds-ratios (in log scale)__.
+The last equality demystifies the choice of the link function in the logistic regression: __it allows us to interpret $\beta$ of the logistic regression as a measure of change of binary random variables, namely, as the (log) odds-ratios due to a unit increase in $x$__.
 
+```{remark}
 Another popular link function is the normal quantile function, a.k.a., the Gaussian inverse CDF, leading to _probit regression_ instead of logistic regression.
+```
+
 
 
 ### Logistic Regression with R
@@ -101,9 +105,9 @@ head(PlantGrowth)
 ```
 
 We will now `attach` the data so that its contents is available in the workspace (don't forget to `detach` afterwards, or you can expect some conflicting object names).
-We will also use the `cut` function to create a two-class response variable for Light, and Heavy plants (we are doing logistic regression, so we need a two-class response).
+We will also use the `cut` function to create a binary response variable for Light, and Heavy plants (we are doing logistic regression, so we need a two-class response).
 As a general rule of thumb, when we discretize continuous variables, we lose information. 
-for pedagogical reasons, however, we will proceed with this bad practice. 
+For pedagogical reasons, however, we will proceed with this bad practice. 
 ```{r}
 attach(PlantGrowth)
 weight.factor<- cut(weight, 2, labels=c('Light', 'Heavy'))
@@ -121,21 +125,21 @@ Things to note:
 
 - The `glm` function is our workhorse for all GLM models.
 - The `family` argument of `glm` tells R the output is binomial, thus, performing a logistic regression.
-- The `summary` function is content aware. It gives a different output for `glm` class objects than for other objects, such as the `lm` we saw in Chapter \@ref(lm).
+- The `summary` function is content aware. It gives a different output for `glm` class objects than for other objects, such as the `lm` we saw in Chapter \@ref(lm). In fact, what `summary` does is merely call `summary.glm`. 
 - As usual, we get the coefficients table, but recall that they are to be interpreted as (log) odd-ratios.
 - As usual, we get the significance for the test of no-effect, versus a two-sided alternative. 
 - The residuals of `glm` are slightly different than the `lm` residuals, and called _Deviance Residuals_. 
 - For help see `?glm`, `?family`, and `?summary.glm`.
 
-Like for linear models, we can use an ANOVA table to check if treatments have any effect, and not one treatment at a time. 
-In the case of GLMS, this is called an _analysis of deviance_ table. 
+Like in the linear models, we can use an ANOVA table to check if treatments have any effect, and not one treatment at a time. 
+In the case of GLMs, this is called an _analysis of deviance_ table. 
 ```{r}
 anova(glm.1, test='LRT')
 ```
 
 Things to note:
 
-- The `anova` function, like the `summary` function, are content-aware and produce a different output for the `glm` class than for the `lm` class.
+- The `anova` function, like the `summary` function, are content-aware and produce a different output for the `glm` class than for the `lm` class. All that `anova` does is call `anova.glm`.
 - In GLMs there is no canonical test (like the F test for `lm`). 
 We thus specify the type of test desired with the `test` argument. 
 - The distribution of the weights of the plants does vary with the treatment given, as we may see from the significance of the `group` factor.
@@ -151,7 +155,7 @@ predict(glm.1, type='response')
 
 Things to note:
 
-- Like the `summary` and `anova` functions, the `predict` function is aware that its input is of `glm` class. 
+- Like the `summary` and `anova` functions, the `predict` function is aware that its input is of `glm` class. All that `predict` does is call `predict.glm`. 
 - In GLMs there are many types of predictions. The `type` argument controls which type is returned. 
 - How do I know we are predicting the probability of a heavy plant, and not a light plant? Just run `contrasts(weight.factor)` to see which of the categories of the factor `weight.factor` is encoded as 1, and which as 0.
 - For help see `?predict.glm`.
@@ -181,7 +185,7 @@ Things to note:
 - We used the `~.` syntax to tell R to fit a model with all the available predictors.
 - Since we want to focus on significant predictors, we used the `step` function to perform a _step-wise_ regression, i.e. sequentially remove non-significant predictors. 
 The function reports each model it has checked, and the variable it has decided to remove at each step.
-- The output of `step` is a single model, with the subset of significant predictors. 
+- The output of `step` is a single model, with the subset of selected predictors. 
 
 
 
@@ -194,9 +198,9 @@ The typical link function for Poisson regression is $g(t)=e^t$.
 This means that we assume $y|x \sim Poisson(\lambda(x) = e^{x'\beta})$.
 Why is this a good choice?
 We again resort to the two-group case, encoded by $x=1$ and $x=0$, to understand this model:
-$\lambda(x=1)=e^{\beta_0+\beta_1}=e^{beta_0} \; e^{\beta_1}= \lambda(x=0) \; e^{\beta_1}$.
+$\lambda(x=1)=e^{\beta_0+\beta_1}=e^{\beta_0} \; e^{\beta_1}= \lambda(x=0) \; e^{\beta_1}$.
 We thus see that this link function implies that a change in $x$ __multiples__ the rate of events. 
-For our example^[Taken from http://www.theanalysisfactor.com/generalized-linear-models-in-r-part-6-poisson-regression-count-variables/] we inspect the number of infected high-school kids, as a function of the days since the outbreak.
+For our example^[Taken from http://www.theanalysisfactor.com/generalized-linear-models-in-r-part-6-poisson-regression-count-variables/] we inspect the number of infected high-school kids, as a function of the days since an  outbreak.
 ```{r}
 cases <-  
 structure(list(Days = c(1L, 2L, 3L, 3L, 4L, 4L, 4L, 6L, 7L, 8L, 
@@ -237,7 +241,7 @@ Things to note:
 
 - We used `family=poisson` in the `glm` function to tell R that we assume a Poisson distribution.
 - The coefficients table is there as usual. 
-When interpreting the table, we need to recall that the effect, i.e. the $\hat \beta$, are __multiplicative__ by assumption.
+When interpreting the table, we need to recall that the effect, i.e. the $\hat \beta$, are __multiplicative__ due to the assumed link function.
 - Each day __decreases__ the rate of events by a factor of about `r abs(round(summary(glm.3)$coef[2,1],2))`.
 - For more information see `?glm` and `?family`.
 

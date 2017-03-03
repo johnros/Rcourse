@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-03-02">
+<meta name="date" content="2017-03-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -193,13 +193,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.1.1" data-path="multivariate.html"><a href="multivariate.html#signal-detection-with-r"><i class="fa fa-check"></i><b>8.1.1</b> Signal Detection with R</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="multivariate.html"><a href="multivariate.html#signal-counting"><i class="fa fa-check"></i><b>8.2</b> Signal Counting</a></li>
-<li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#signal-identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
+<li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>8.3.1</b> Signal Identification in R</a></li>
 </ul></li>
 <li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation</a></li>
 <li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression</a></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.6</b> Biblipgraphic Notes</a></li>
-<li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-6"><i class="fa fa-check"></i><b>8.7</b> Practice Yourself</a></li>
+<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>8.6.1</b> Graphical Models in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
+<li class="chapter" data-level="8.8" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-6"><i class="fa fa-check"></i><b>8.8</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>9</b> Supervised Learning</a><ul>
 <li class="chapter" data-level="9.1" data-path="supervised.html"><a href="supervised.html#problem-setup-3"><i class="fa fa-check"></i><b>9.1</b> Problem setup</a><ul>
@@ -358,12 +361,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><strong>Signal identification</strong>: a.k.a. <em>multiple testing</em>, i.e., testing which of the elements in <span class="math inline">\(\mu\)</span> differ from <span class="math inline">\(\mu_0\)</span> and for <span class="math inline">\(\mu_0=0\)</span> in particular.</li>
 <li><strong>Signal estimation</strong>: a.k.a. <em>selective inference</em>, i.e., estimating the magnitudes of the departure of <span class="math inline">\(\mu\)</span> from <span class="math inline">\(\mu_0\)</span>, and for <span class="math inline">\(\mu_0=0\)</span> in particular.</li>
 <li><strong>Multivariate Regression</strong>: a.k.a. <em>MANOVA</em> in statistical literature, and <em>structured learning</em> in the machine learning literature.</li>
-<li><strong>Distribution fitting</strong>: A.k.a. <em>structure learning</em> in the machine learning literature, deals with the fitting a distribution to samples from <span class="math inline">\(y\)</span>. In particular, it deals with the identification of independencies between elements of <span class="math inline">\(y\)</span>. For samples from a multivariate Gaussian distribution, learning the distribution implies all the above problem applied to <span class="math inline">\(Var[y]\)</span>, instead of <span class="math inline">\(E[y]\)</span>.</li>
+<li><strong>Graphical Models</strong>: Learning <em>graphical models</em> deals with the fitting/learning the multivariate distribution of <span class="math inline">\(y\)</span>. In particular, it deals with the identification of independencies between elements of <span class="math inline">\(y\)</span>.</li>
 </ul>
 
 <div class="example">
 <p><span id="ex:icu" class="example"><strong>Example 8.1 </strong></span>Consider the problem of a patient monitored in the intensive care unit. At every minute the monitor takes <span class="math inline">\(p\)</span> physiological measurements: blood pressure, body temperature, etc. The total number of minutes in our data is <span class="math inline">\(n\)</span>, so that in total, we have <span class="math inline">\(n \times p\)</span> measurements, arranged in a matrix. We also know the typical measurements for this patient when healthy: <span class="math inline">\(\mu_0\)</span>.</p>
-Signal detection means testing if the patient’s measurement depart in any way than his healthy state, <span class="math inline">\(\mu_0\)</span>. Signal counting means measuring <em>how many</em> measurement depart from the healthy state. Signal identification means pin-pointing which of the measurements depart from his healthy state. Signal estimation means estimating the magnitude of the departure from the healthy state. Multivaraite regression means finding the factors which many explain the departure from the healthy state.
+Signal detection means testing if the patient’s measurement depart in any way from his healthy state, <span class="math inline">\(\mu_0\)</span>. Signal counting means measuring <em>how many</em> measurement depart from the healthy state. Signal identification means pin-pointing which of the physiological measurements depart from his healthy state. Signal estimation means estimating the magnitude of the departure from the healthy state. Multivaraite regression means finding the factors which many explain the departure from the healthy state. Fitting a distribution means finding the joint distribution of the physiological measurements, and in plarticular, their dependencies and independenceis.
 </div>
 <p></p>
 
@@ -380,12 +383,12 @@ Recall the univariate t-statistic of a data vector <span class="math inline">\(x
   \tag{8.1}
 \end{align}\]</span>
 <p>where <span class="math inline">\(Var[\bar{x}]=S^2(x)/n\)</span>, and <span class="math inline">\(S^2(x)\)</span> is the unbiased variance estimator <span class="math inline">\(S^2(x):=(n-1)^{-1}\sum (x_i-\bar x)^2\)</span>.</p>
-Generalizing Eq<a href="multivariate.html#eq:t-test">(8.1)</a> to the multivariate case: <span class="math inline">\(\mu_0\)</span> is a p-vector, <span class="math inline">\(\bar x\)</span> is a p-vector, and <span class="math inline">\(Var[\bar x]\)</span> is a <span class="math inline">\(p \times p\)</span> matrix of the covariance between the <span class="math inline">\(p\)</span> coordinated of <span class="math inline">\(\bar x\)</span>. When operating with vectors, the squaring becomes a quadratic form, and the division becomes a matrix inverse. We thus have
+Generalizing Eq<a href="multivariate.html#eq:t-test">(8.1)</a> to the multivariate case: <span class="math inline">\(\mu_0\)</span> is a <span class="math inline">\(p\)</span>-vector, <span class="math inline">\(\bar x\)</span> is a <span class="math inline">\(p\)</span>-vector, and <span class="math inline">\(Var[\bar x]\)</span> is a <span class="math inline">\(p \times p\)</span> matrix of the covariance between the <span class="math inline">\(p\)</span> coordinated of <span class="math inline">\(\bar x\)</span>. When operating with vectors, the squaring becomes a quadratic form, and the division becomes a matrix inverse. We thus have
 <span class="math display" id="eq:hotelling-test">\[\begin{align}
   T^2(x):= (\bar{x}-\mu_0)&#39; Var[\bar{x}]^{-1} (\bar{x}-\mu_0),
   \tag{8.2}
 \end{align}\]</span>
-Which is the definition of Hotelling’s <span class="math inline">\(T^2\)</span> test statistic. We typically denote the covariance between coordinates in <span class="math inline">\(x\)</span> with <span class="math inline">\(\hat \Sigma(x)\)</span>, so that <span class="math inline">\(\widehat \Sigma_{k,l}:=\widehat {Cov}[x_k,x_l]=(n-1)^{-1} \sum (x_{k,i}-\bar x_k)(x_{l,i}-\bar x_l)\)</span>. Using the <span class="math inline">\(\Sigma\)</span> notation, Eq.<a href="multivariate.html#eq:hotelling-test">(8.2)</a> becomes
+which is the definition of Hotelling’s <span class="math inline">\(T^2\)</span> test statistic. We typically denote the covariance between coordinates in <span class="math inline">\(x\)</span> with <span class="math inline">\(\hat \Sigma(x)\)</span>, so that <span class="math inline">\(\widehat \Sigma_{k,l}:=\widehat {Cov}[x_k,x_l]=(n-1)^{-1} \sum (x_{k,i}-\bar x_k)(x_{l,i}-\bar x_l)\)</span>. Using the <span class="math inline">\(\Sigma\)</span> notation, Eq.<a href="multivariate.html#eq:hotelling-test">(8.2)</a> becomes
 <span class="math display">\[\begin{align}
   T^2(x):= n (\bar{x}-\mu_0)&#39; \hat \Sigma(x)^{-1} (\bar{x}-\mu_0),
 \end{align}\]</span>
@@ -394,12 +397,12 @@ Which is the definition of Hotelling’s <span class="math inline">\(T^2\)</span
 <ol style="list-style-type: decimal">
 <li><strong>Low Dimension</strong>: We call a problem <em>low dimensional</em> if <span class="math inline">\(n \gg p\)</span>, i.e. <span class="math inline">\(p/n \approx 0\)</span>. This means there are many observations per estimated parameter.</li>
 <li><strong>High Dimension</strong>: We call a problem <em>high dimensional</em> if <span class="math inline">\(p/n \to c\)</span>, where <span class="math inline">\(c\in (0,1)\)</span>. This means there are more observations that parameters, but not many.</li>
-<li><strong>Very High Dimension</strong>: We call a problem <em>very high dimensional</em> if <span class="math inline">\(p/n \to c\)</span>, where <span class="math inline">\(1&lt;c&lt;\infty\)</span>. This means there are less observations than parameter, but not many.</li>
+<li><strong>Very High Dimension</strong>: We call a problem <em>very high dimensional</em> if <span class="math inline">\(p/n \to c\)</span>, where <span class="math inline">\(1&lt;c&lt;\infty\)</span>. This means there are less observations than parameter.</li>
 <li><strong>Extremely high dimensional</strong>: We call a problem <strong>extremely high dimensional</strong> if <span class="math inline">\(p/n \to \infty\)</span>. This means there are many more parameters than observations.</li>
 </ol>
-<p>Hotelling’s <span class="math inline">\(T^2\)</span> test only can only be used in the low dimensional regime. For some intuition on this statement, think of taking <span class="math inline">\(n=20\)</span> measurements of <span class="math inline">\(p=100\)</span> physiological variables. We seemingly have <span class="math inline">\(20\)</span> observations, but there are <span class="math inline">\(100\)</span> unknown quantities in <span class="math inline">\(\mu\)</span>. Would you trust your conclusion that <span class="math inline">\(\bar x\)</span> is different than <span class="math inline">\(\mu_0\)</span> based on merely <span class="math inline">\(20\)</span> observations.</p>
-<p>Put formally: We cannot compute Hotelling’s test when <span class="math inline">\(n&lt;p\)</span> because <span class="math inline">\(\hat \Sigma\)</span> is simply not invertible– this is an algebraic problem. We cannot compute Hotelling’s test when <span class="math inline">\(p/n \to c\)</span> because the signal-to-noise is very low– this is a statistical problem.</p>
-<p>Only in the low dimensional case can we compute and trust Hotelling’s test. When <span class="math inline">\(n \gg p\)</span> then <span class="math inline">\(T^2(x)\)</span> is roughly <span class="math inline">\(\chi^2\)</span> distributed with <span class="math inline">\(p\)</span> degrees of freedom. The F distribution may also be found in the literature in this context, and will appear if assuming the <span class="math inline">\(n\)</span> p-vectors are independent, and <span class="math inline">\(p\)</span>-variate Gaussian. This F distribution is non-robust the underlying assumptions, so from a practical point of view, I would not trust it unless <span class="math inline">\(n \gg p\)</span>.</p>
+<p>Hotelling’s <span class="math inline">\(T^2\)</span> test can only be used in the low dimensional regime. For some intuition on this statement, think of taking <span class="math inline">\(n=20\)</span> measurements of <span class="math inline">\(p=100\)</span> physiological variables. We seemingly have <span class="math inline">\(20\)</span> observations, but there are <span class="math inline">\(100\)</span> unknown quantities in <span class="math inline">\(\mu\)</span>. Would you trust your conclusion that <span class="math inline">\(\bar x\)</span> is different than <span class="math inline">\(\mu_0\)</span> based on merely <span class="math inline">\(20\)</span> observations.</p>
+<p>Put formally: We cannot compute Hotelling’s test when <span class="math inline">\(n&lt;p\)</span> because <span class="math inline">\(\hat \Sigma\)</span> is simply not invertible– this is an algebraic problem. We cannot compute Hotelling’s test when <span class="math inline">\(p/n \to c &gt; 0\)</span> because the signal-to-noise is very low– this is a statistical problem.</p>
+<p>Only in the low dimensional case can we compute and trust Hotelling’s test. When <span class="math inline">\(n \gg p\)</span> then <span class="math inline">\(T^2(x)\)</span> is roughly <span class="math inline">\(\chi^2\)</span> distributed with <span class="math inline">\(p\)</span> degrees of freedom. The F distribution may also be found in the literature in this context, and will appear if assuming the <span class="math inline">\(n\)</span> <span class="math inline">\(p\)</span>-vectors are independent, and <span class="math inline">\(p\)</span>-variate Gaussian. This F distribution is non-robust the underlying assumptions, so from a practical point of view, I would not trust the Hotelling test unless <span class="math inline">\(n \gg p\)</span>.</p>
 <div id="signal-detection-with-r" class="section level3">
 <h3><span class="header-section-number">8.1.1</span> Signal Detection with R</h3>
 <p>Let’s generate some data with no signal.</p>
@@ -411,7 +414,7 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 <span class="kw">dim</span>(x)</code></pre></div>
 <pre><code>## [1] 100  10</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(x)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-153-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-156-1.png" width="50%" /></p>
 <p>Now make our own Hotelling function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hotellingOneSample &lt;-<span class="st"> </span>function(x, <span class="dt">mu0=</span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="kw">ncol</span>(x))){
   n &lt;-<span class="st"> </span><span class="kw">nrow</span>(x)
@@ -435,7 +438,8 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 ## [1,] 0.803913</code></pre>
 <p>Things to note:</p>
 <ul>
-<li><code>stopifnot(n &gt; 5 * p)</code> is a little verification use to check that the problem is indeed low dimensional. Otherwise, the <span class="math inline">\(\chi^2\)</span> approximation will not hold.</li>
+<li><code>stopifnot(n &gt; 5 * p)</code> is a little verification to check that the problem is indeed low dimensional. Otherwise, the <span class="math inline">\(\chi^2\)</span> approximation cannot be trusted.<br />
+</li>
 <li><code>solve</code> returns a matrix inverse.</li>
 <li><code>%*%</code> is the matrix product operator (see also <code>crossprod()</code>).</li>
 <li>A function may return only a single object, so we wrap the statistic and its p-value in a <code>list</code> object.</li>
@@ -460,14 +464,14 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 <h2><span class="header-section-number">8.2</span> Signal Counting</h2>
 <p>There are many ways to approach the <em>signal counting</em> problem. For the purposes of this book, however, we will not discuss them directly, and solve the signal counting problem as a signal identification problem: if we know <strong>where</strong> <span class="math inline">\(\mu\)</span> departs from <span class="math inline">\(\mu_0\)</span>, we only need to count coordinates to solve the signal counting problem.</p>
 </div>
-<div id="signal-identification" class="section level2">
+<div id="identification" class="section level2">
 <h2><span class="header-section-number">8.3</span> Signal Identification</h2>
 <p>The problem of <em>signal identification</em> is also known as <em>selective testing</em>, or more commonly as <em>multiple testing</em>.</p>
-<p>In the ANOVA literature, an identification stage will typically follow a detection stage. These are known as the <em>imnibus F test</em>, and <em>post-hoc</em> tests, respectively. In the multiple testing literature there will typically be no preliminary detection stage. It is typically assumed that signal is present, and the only question is “where?”</p>
+<p>In the ANOVA literature, an identification stage will typically follow a detection stage. These are known as the <em>omnibus F test</em>, and <em>post-hoc</em> tests, respectively. In the multiple testing literature there will typically be no preliminary detection stage. It is typically assumed that signal is present, and the only question is “where?”</p>
 <p>The first question when approaching a multiple testing problem is “what is an error”? Is an error declaring a coordinate in <span class="math inline">\(\mu\)</span> to be different than <span class="math inline">\(\mu_0\)</span> when it is actually not? Is an error the proportion of such false declarations. The former is known as the <em>family wise error rate</em> (FWER), and the latter as the <em>false discovery rate</em> (FDR).</p>
 <div id="signal-identification-in-r" class="section level3">
 <h3><span class="header-section-number">8.3.1</span> Signal Identification in R</h3>
-<p>One (of many) ways to do signal identification involves the <code>stats::p.adjust</code> function. The function takes as inputs a <span class="math inline">\(p\)</span>-vector of p-values. This implies that: (i) you are assumed to be able to compute the p-value of each the <span class="math inline">\(p\)</span> hypothesis tested; one hypothesis for every coordinate in <span class="math inline">\(\mu\)</span>. (ii) unlike the Hotelling test, we do not try to estimate the covariance between coordinates. Not because it is not important, but rather, because the methods we will use apply to a wide variety of covariances.</p>
+<p>One (of many) ways to do signal identification involves the <code>stats::p.adjust</code> function. The function takes as inputs a <span class="math inline">\(p\)</span>-vector of <strong>p-values</strong>. This implies that: (i) you are assumed to be able to compute the p-value of each the <span class="math inline">\(p\)</span> hypothesis tested; one hypothesis for every coordinate in <span class="math inline">\(\mu\)</span>. (ii) unlike the Hotelling test, we do not try to estimate the covariance between coordinates. Not because it is not important, but rather, because the methods we will use apply to a wide variety of covariances, so the covariance does not need to be estimated.</p>
 <p>We start be generating some multivariate data and computing the coordinate-wise (i.e. hypothesis-wise) p-value.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mvtnorm)
 n &lt;-<span class="st"> </span><span class="fl">1e1</span>
@@ -477,11 +481,11 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 <span class="kw">dim</span>(x)</code></pre></div>
 <pre><code>## [1]  10 100</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(x)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-156-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-159-1.png" width="50%" /></p>
 <p>We now compute the pvalues of each coordinate. We use a coordinate-wise t-test. Why a t-test? Because for the purpose of demonstration we want a simple test. In reality, you may use any test that returns valid p-values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p.values &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="dt">X =</span> x, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> function(y) <span class="kw">t.test</span>(y)$p.value) 
 <span class="kw">plot</span>(p.values, <span class="dt">type=</span><span class="st">&#39;h&#39;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-157-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-160-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>We used the <code>apply</code> function to apply the same function to each column of <code>x</code>.</li>
@@ -514,21 +518,31 @@ p.values.BH &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.val
 </div>
 <div id="signal-estimation" class="section level2">
 <h2><span class="header-section-number">8.4</span> Signal Estimation</h2>
-<p>The estimation of the elements of <span class="math inline">\(\mu\)</span> is a seemingly straightforward task. This is not the case, however, if we estimate only the elemnts that were selected because they were significant (or any other data-dependent criterion). Clearly, estimating only significant entries will introduce a bias in the estimation. In the statistical literature, this is known as <em>selection bias</em>. Selection bias also occurs when you perform inference on regression coefficients after some model selection, say, with a lasso, or a forward search<a href="#fn17" class="footnoteRef" id="fnref17"><sup>17</sup></a>.</p>
+<p>The estimation of the elements of <span class="math inline">\(\mu\)</span> is a seemingly straightforward task. This is not the case, however, if we estimate only the elements that were selected because they were significant (or any other data-dependent criterion). Clearly, estimating only significant entries will introduce a bias in the estimation. In the statistical literature, this is known as <em>selection bias</em>. Selection bias also occurs when you perform inference on regression coefficients after some model selection, say, with a lasso, or a forward search<a href="#fn17" class="footnoteRef" id="fnref17"><sup>17</sup></a>.</p>
 <p>Selective inference is a complicated and active research topic so we will not offer any off-the-shelf solution to the matter. The curious reader is invited to read <span class="citation">J. D. Rosenblatt and Benjamini (<a href="#ref-rosenblatt2014selective">2014</a>)</span>, <span class="citation">Javanmard and Montanari (<a href="#ref-javanmard2014confidence">2014</a>)</span>, or <a href="http://www.stat.berkeley.edu/~wfithian/">Will Fithian’s</a> PhD thesis <span class="citation">(Fithian <a href="#ref-fithian2015topics">2015</a>)</span> for more on the topic.</p>
 </div>
 <div id="multivariate-regression" class="section level2">
 <h2><span class="header-section-number">8.5</span> Multivariate Regression</h2>
-<p><em>Multivaraite regression</em>, a.k.a. <em>MANOVA</em>, similar to <a href="https://en.wikipedia.org/wiki/Structured_prediction"><em>structured learning</em></a> in machine learning, is simply a regression problem where the outcome, <span class="math inline">\(y\)</span>, is not scalar values but vector valued. It is not to be confused with <em>multiple regression</em> where the preditor, <span class="math inline">\(x\)</span>, is vector valued, but the outcome is scalar.</p>
+<p><em>Multivaraite regression</em>, a.k.a. <em>MANOVA</em>, similar to <a href="https://en.wikipedia.org/wiki/Structured_prediction"><em>structured learning</em></a> in machine learning, is simply a regression problem where the outcome, <span class="math inline">\(y\)</span>, is not scalar values but vector valued. It is not to be confused with <em>multiple regression</em> where the predictor, <span class="math inline">\(x\)</span>, is vector valued, but the outcome is scalar.</p>
 <p>If the linear models generalize the two-sample t-test from two, to multiple populations, then multivariate regression generalizes Hotelling’s test in the same way.</p>
 <p>TODO</p>
 </div>
+<div id="graphical-models" class="section level2">
+<h2><span class="header-section-number">8.6</span> Graphical Models</h2>
+<p>Fitting a multivariate distribution, i.e. learning a <em>graphical model</em>, is a very hard task. To see why, consider the problem of <span class="math inline">\(p\)</span> continuous variables. In the simplest case, where we can assume normality, fitting a distributions means estimating the <span class="math inline">\(p\)</span> parameters in the expectation, <span class="math inline">\(\mu\)</span>, and <span class="math inline">\(p(p+1)/2\)</span> parameters in the covariance, <span class="math inline">\(\Sigma\)</span>. The number of observations required for this task, <span class="math inline">\(n\)</span>, may be formidable.</p>
+<p>A more humble task, is to identify <strong>independencies</strong>, known as <em>structure learning</em> in the machine learning literature. Under the multivariate normality assumption, this means identifying zero entries in <span class="math inline">\(\Sigma\)</span>, or more precisely, zero entries in <span class="math inline">\(\Sigma^{-1}\)</span>. This task can be approached as a <strong>signal identification</strong> problem (<a href="multivariate.html#identification">8.3</a>). The same solutions may be applied even if dealing with <span class="math inline">\(\Sigma\)</span> instead of <span class="math inline">\(\mu\)</span>.</p>
+<p>If multivariate normality cannot be assumed, then identifying independencies cannot be done via the covariance matrix <span class="math inline">\(\Sigma\)</span> and more elaborate algorithms are required.</p>
+<div id="graphical-models-in-r" class="section level3">
+<h3><span class="header-section-number">8.6.1</span> Graphical Models in R</h3>
+<p>TODO</p>
+</div>
+</div>
 <div id="biblipgraphic-notes" class="section level2">
-<h2><span class="header-section-number">8.6</span> Biblipgraphic Notes</h2>
-<p>For a general introduction to multivariate data analysis see <span class="citation">Anderson-Cook (<a href="#ref-anderson2004introduction">2004</a>)</span>. For an R oriented introduction, see <span class="citation">Everitt and Hothorn (<a href="#ref-everitt2011introduction">2011</a>)</span>. For more on the difficulties with high dimensional problems, see <span class="citation">Bai and Saranadasa (<a href="#ref-bai1996effect">1996</a>)</span>. For more on multiple testing, and signal identification, see <span class="citation">Efron (<a href="#ref-efron2012large">2012</a>)</span>. For more on the choice of your error rate see <span class="citation">J. Rosenblatt (<a href="#ref-rosenblatt2013practitioner">2013</a>)</span>.</p>
+<h2><span class="header-section-number">8.7</span> Biblipgraphic Notes</h2>
+<p>For a general introduction to multivariate data analysis see <span class="citation">Anderson-Cook (<a href="#ref-anderson2004introduction">2004</a>)</span>. For an R oriented introduction, see <span class="citation">Everitt and Hothorn (<a href="#ref-everitt2011introduction">2011</a>)</span>. For more on the difficulties with high dimensional problems, see <span class="citation">Bai and Saranadasa (<a href="#ref-bai1996effect">1996</a>)</span>. For more on multiple testing, and signal identification, see <span class="citation">Efron (<a href="#ref-efron2012large">2012</a>)</span>. For more on the choice of your error rate see <span class="citation">J. Rosenblatt (<a href="#ref-rosenblatt2013practitioner">2013</a>)</span>. For an excellent reivew on graphical models see <span class="citation">Kalisch and Bühlmann (<a href="#ref-kalisch2014causal">2014</a>)</span>. Everything you need on graphical models, Bayesian belief networks, and structure learning in R, is collected in the <a href="https://cran.r-project.org/web/views/gR.html">Task View</a>.</p>
 </div>
 <div id="practice-yourself-6" class="section level2">
-<h2><span class="header-section-number">8.7</span> Practice Yourself</h2>
+<h2><span class="header-section-number">8.8</span> Practice Yourself</h2>
 
 </div>
 </div>
@@ -561,11 +575,14 @@ p.values.BH &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.val
 <div id="ref-rosenblatt2013practitioner">
 <p>Rosenblatt, Jonathan. 2013. “A Practitioner’s Guide to Multiple Testing Error Rates.” <em>ArXiv Preprint ArXiv:1304.4920</em>.</p>
 </div>
+<div id="ref-kalisch2014causal">
+<p>Kalisch, Markus, and Peter Bühlmann. 2014. “Causal Structure Learning and Inference: A Selective Review.” <em>Quality Technology &amp; Quantitative Management</em> 11 (1). Taylor &amp; Francis: 3–21.</p>
+</div>
 </div>
 <div class="footnotes">
 <hr />
 <ol start="16">
-<li id="fn16"><p>This vocabulary is not standard in the literature, so when you read a text, you need to verify yourself which regime the author is considering.<a href="multivariate.html#fnref16">↩</a></p></li>
+<li id="fn16"><p>This vocabulary is not standard in the literature, so when you read a text, you need to verify yourself what the author means.<a href="multivariate.html#fnref16">↩</a></p></li>
 <li id="fn17"><p>You might this shocking, but it does mean that you cannot trust the <code>summary</code> table of a model that was selected from a multitude of models.<a href="multivariate.html#fnref17">↩</a></p></li>
 </ol>
 </div>

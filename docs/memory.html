@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-03-02">
+<meta name="date" content="2017-03-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -193,13 +193,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.1.1" data-path="multivariate.html"><a href="multivariate.html#signal-detection-with-r"><i class="fa fa-check"></i><b>8.1.1</b> Signal Detection with R</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="multivariate.html"><a href="multivariate.html#signal-counting"><i class="fa fa-check"></i><b>8.2</b> Signal Counting</a></li>
-<li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#signal-identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
+<li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>8.3.1</b> Signal Identification in R</a></li>
 </ul></li>
 <li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation</a></li>
 <li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression</a></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.6</b> Biblipgraphic Notes</a></li>
-<li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-6"><i class="fa fa-check"></i><b>8.7</b> Practice Yourself</a></li>
+<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>8.6.1</b> Graphical Models in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
+<li class="chapter" data-level="8.8" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-6"><i class="fa fa-check"></i><b>8.8</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>9</b> Supervised Learning</a><ul>
 <li class="chapter" data-level="9.1" data-path="supervised.html"><a href="supervised.html#problem-setup-3"><i class="fa fa-check"></i><b>9.1</b> Problem setup</a><ul>
@@ -425,24 +428,24 @@ tbl_df &lt;-<span class="st"> </span>tbl %&gt;%<span class="st"> </span>as.data.
                  )
              )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##     7.2     0.0     7.2</code></pre>
+##   7.332   0.000   7.367</code></pre>
 <p>And now the timing for <strong>data.table</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_dt[ ,  .( <span class="dt">x1 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x1)), <span class="dt">x2 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x2)), <span class="dt">x3 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x3)) ), .(v1,v2)]
   )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.308   0.000   0.310</code></pre>
+##   0.356   0.000   0.355</code></pre>
 <p>The winner is obvious. Let’s compare filtering (i.e. row subsets, i.e. SQL’s SELECT).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_df %&gt;%<span class="st"> </span><span class="kw">filter</span>(v1 ==<span class="st"> &quot;1&quot;</span>) 
   )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.016   0.000   0.017</code></pre>
+##   0.016   0.000   0.015</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_dt[v1 ==<span class="st"> &quot;1&quot;</span>] 
   )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.012   0.000   0.013</code></pre>
+##   0.020   0.000   0.019</code></pre>
 </div>
 </div>
 <div id="computing-from-a-database" class="section level2">

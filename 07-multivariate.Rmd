@@ -16,10 +16,9 @@ a.k.a. _multiple testing_, i.e., testing which of the elements in $\mu$ differ f
 a.k.a. _selective inference_, i.e., estimating the magnitudes of the departure of $\mu$ from $\mu_0$, and for $\mu_0=0$ in particular. 
 - __Multivariate Regression__:
 a.k.a. _MANOVA_ in statistical literature, and _structured learning_ in the machine learning literature. 
-- __Distribution fitting__:
-A.k.a. _structure learning_  in the machine learning literature, deals with the fitting a distribution to samples from $y$. 
+- __Graphical Models__:
+Learning _graphical models_ deals with the fitting/learning the multivariate distribution of $y$. 
 In particular, it deals with the identification of independencies between elements of $y$. 
-For samples from a multivariate Gaussian distribution, learning the distribution implies all the above problem applied to $Var[y]$, instead of $E[y]$.
 
 
 ```{example, label='icu'}
@@ -28,11 +27,12 @@ At every minute the monitor takes $p$ physiological measurements: blood pressure
 The total number of minutes in our data is $n$, so that in total, we have $n \times p$ measurements, arranged in a matrix. 
 We also know the typical measurements for this patient when healthy: $\mu_0$.
 
-Signal detection means testing if the patient's measurement depart in any way than his healthy state, $\mu_0$.
+Signal detection means testing if the patient's measurement depart in any way from his healthy state, $\mu_0$.
 Signal counting means measuring _how many_ measurement depart from the healthy state.
-Signal identification means pin-pointing which of the measurements depart from his healthy state. 
+Signal identification means pin-pointing which of the physiological measurements depart from his healthy state. 
 Signal estimation means estimating the magnitude of the departure from the healthy state. 
 Multivaraite regression means finding the factors which many explain the departure from the healthy state. 
+Fitting a distribution means finding the joint distribution of the physiological measurements, and in plarticular, their dependencies and independenceis. 
 ```
 
 
@@ -59,14 +59,14 @@ Recall the univariate t-statistic of a data vector $x$ of length $n$:
 where $Var[\bar{x}]=S^2(x)/n$, and $S^2(x)$ is the unbiased variance estimator $S^2(x):=(n-1)^{-1}\sum (x_i-\bar x)^2$.
 
 Generalizing Eq\@ref(eq:t-test) to the multivariate case: 
-$\mu_0$ is a p-vector, $\bar x$ is a p-vector, and $Var[\bar x]$ is a $p \times p$ matrix of the covariance between the $p$ coordinated of $\bar x$. 
+$\mu_0$ is a $p$-vector, $\bar x$ is a $p$-vector, and $Var[\bar x]$ is a $p \times p$ matrix of the covariance between the $p$ coordinated of $\bar x$. 
 When operating with vectors, the squaring becomes a quadratic form, and the division becomes a matrix inverse. 
 We thus have
 \begin{align}
   T^2(x):= (\bar{x}-\mu_0)' Var[\bar{x}]^{-1} (\bar{x}-\mu_0),
   (\#eq:hotelling-test)
 \end{align}
-Which is the definition of Hotelling's $T^2$ test statistic. 
+which is the definition of Hotelling's $T^2$ test statistic. 
 We typically denote the covariance between coordinates in $x$ with $\hat \Sigma(x)$, so that 
 $\widehat \Sigma_{k,l}:=\widehat {Cov}[x_k,x_l]=(n-1)^{-1} \sum (x_{k,i}-\bar x_k)(x_{l,i}-\bar x_l)$.
 Using the $\Sigma$ notation, Eq.\@ref(eq:hotelling-test) becomes 
@@ -75,7 +75,7 @@ Using the $\Sigma$ notation, Eq.\@ref(eq:hotelling-test) becomes
 \end{align}
 which is the standard notation of Hotelling's test statistic.
 
-To discuss the distribution of Hotelling's test statistic we need to introduce some vocabulary^[This vocabulary is not standard in the literature, so when you read a text, you need to verify yourself which regime the author is considering.]:
+To discuss the distribution of Hotelling's test statistic we need to introduce some vocabulary^[This vocabulary is not standard in the literature, so when you read a text, you need to verify yourself what the author means.]:
 
 1. __Low Dimension__:
 We call a problem _low dimensional_ if $n \gg p$, i.e. $p/n \approx 0$.
@@ -85,24 +85,24 @@ We call a problem _high dimensional_ if $p/n \to c$, where $c\in (0,1)$.
 This means there are more observations that parameters, but not many.
 1. __Very High Dimension__: 
 We call a problem _very high dimensional_ if $p/n \to c$, where $1<c<\infty$.
-This means there are less observations than parameter, but not many.
+This means there are less observations than parameter.
 1. __Extremely high dimensional__: 
 We call a problem __extremely high dimensional__ if $p/n \to \infty$.
 This means there are many more parameters than observations.
 
-Hotelling's $T^2$ test only can only be used in the low dimensional regime. 
+Hotelling's $T^2$ test can only be used in the low dimensional regime. 
 For some intuition on this statement, think of taking $n=20$ measurements of $p=100$ physiological variables. 
 We seemingly have $20$ observations, but there are $100$ unknown quantities in $\mu$. 
 Would you trust your conclusion that $\bar x$ is different than $\mu_0$ based on merely $20$ observations. 
 
 Put formally:
 We cannot compute Hotelling's test when $n<p$ because $\hat \Sigma$ is simply not invertible-- this is an algebraic problem.
-We cannot compute Hotelling's test when $p/n \to c$ because the signal-to-noise is very low-- this is a statistical problem. 
+We cannot compute Hotelling's test when $p/n \to c > 0$ because the signal-to-noise is very low-- this is a statistical problem. 
 
 Only in the low dimensional case can we compute and trust Hotelling's test. 
 When $n \gg p$ then $T^2(x)$ is roughly $\chi^2$ distributed with $p$ degrees of freedom. 
-The F distribution may also be found in the literature in this context, and will appear if assuming the $n$ p-vectors are independent, and $p$-variate Gaussian. 
-This F distribution is non-robust the underlying assumptions, so from a practical point of view, I would not trust it unless $n \gg p$.
+The F distribution may also be found in the literature in this context, and will appear if assuming the $n$ $p$-vectors are independent, and $p$-variate Gaussian. 
+This F distribution is non-robust the underlying assumptions, so from a practical point of view, I would not trust the Hotelling test unless $n \gg p$.
 
 
 
@@ -140,7 +140,7 @@ hotellingOneSample(x)
 
 Things to note:
 
-- `stopifnot(n > 5 * p)` is a little verification use to check that the problem is indeed low dimensional. Otherwise, the $\chi^2$ approximation will not hold. 
+- `stopifnot(n > 5 * p)` is a little verification to check that the problem is indeed low dimensional. Otherwise, the $\chi^2$ approximation cannot be trusted.  
 - `solve` returns a matrix inverse. 
 - `%*%` is the matrix product operator (see also `crossprod()`).
 - A function may return only a single object, so we wrap the statistic and its p-value in a `list` object.
@@ -164,11 +164,11 @@ There are many ways to approach the _signal counting_ problem.
 For the purposes of this book, however, we will not discuss them directly, and solve the signal counting problem as a signal identification problem: if we know __where__ $\mu$ departs from $\mu_0$, we only need to count coordinates to solve the signal counting problem. 
 
 
-## Signal Identification
+## Signal Identification {#identification}
 The problem of _signal identification_ is also known as _selective testing_, or more commonly as _multiple testing_.
 
 In the ANOVA literature, an identification stage will typically follow a detection stage.
-These are known as the _imnibus F test_, and _post-hoc_ tests, respectively.
+These are known as the _omnibus F test_, and _post-hoc_ tests, respectively.
 In the multiple testing literature there will typically be no preliminary detection stage. It is typically assumed that signal is present, and the only question is "where?"
 
 
@@ -181,10 +181,10 @@ The former is known as the _family wise error rate_ (FWER), and the latter as th
 ### Signal Identification in R
 
 One (of many) ways to do signal identification involves the `stats::p.adjust` function.
-The function takes as inputs a $p$-vector of p-values. 
+The function takes as inputs a $p$-vector of __p-values__. 
 This implies that: 
 (i) you are assumed to be able to compute the p-value of each the $p$ hypothesis tested; one hypothesis for every coordinate in $\mu$. 
-(ii) unlike the Hotelling test, we do not try to estimate the covariance between coordinates. Not because it is not important, but rather, because the methods we will use apply to a wide variety of covariances. 
+(ii) unlike the Hotelling test, we do not try to estimate the covariance between coordinates. Not because it is not important, but rather, because the methods we will use apply to a wide variety of covariances, so the covariance does not need to be estimated. 
 
 We start be generating some multivariate data and computing the coordinate-wise (i.e. hypothesis-wise) p-value.
 
@@ -250,7 +250,7 @@ Indeed- we are now able to detect that the first coordinates carry signal, becau
 ## Signal Estimation
 
 The estimation of the elements of $\mu$ is a seemingly straightforward task.
-This is not the case, however, if we estimate only the elemnts that were selected because they were significant (or any other data-dependent criterion).
+This is not the case, however, if we estimate only the elements that were selected because they were significant (or any other data-dependent criterion).
 Clearly, estimating only significant entries will introduce a bias in the estimation. 
 In the statistical literature, this is known as _selection bias_.
 Selection bias also occurs when you perform inference on regression coefficients after some model selection, say, with a lasso, or a forward search^[You might this shocking, but it does mean that you cannot trust the `summary` table of a model that was selected from a multitude of models.].
@@ -264,13 +264,30 @@ The curious reader is invited to read @rosenblatt2014selective, @javanmard2014co
 ## Multivariate Regression
 
 _Multivaraite regression_, a.k.a. _MANOVA_, similar to [_structured learning_](https://en.wikipedia.org/wiki/Structured_prediction) in machine learning, is simply a regression problem where the outcome, $y$, is not scalar values but vector valued. 
-It is not to be confused with _multiple regression_ where the preditor, $x$, is vector valued, but the outcome is scalar. 
+It is not to be confused with _multiple regression_ where the predictor, $x$, is vector valued, but the outcome is scalar. 
 
 If the linear models generalize the two-sample t-test from two, to multiple populations, then multivariate regression generalizes Hotelling's test in the same way.
 
 TODO
 
 
+## Graphical Models
+
+Fitting a multivariate distribution, i.e. learning a _graphical model_, is a very hard task.
+To see why, consider the problem of $p$ continuous variables. 
+In the simplest case, where we can assume normality, fitting a distributions means estimating the $p$ parameters in the expectation, $\mu$, and $p(p+1)/2$ parameters in the covariance, $\Sigma$. 
+The number of observations required for this task, $n$, may be formidable.
+
+A more humble task, is to identify __independencies__, known as _structure learning_ in the machine learning literature. 
+Under the multivariate normality assumption, this means identifying zero entries in $\Sigma$, or more precisely, zero entries in $\Sigma^{-1}$. 
+This task can be approached as a __signal identification__ problem (\@ref(identification)).
+The same solutions may be applied even if dealing with $\Sigma$ instead of $\mu$. 
+
+If multivariate normality cannot be assumed, then identifying independencies cannot be done via the covariance matrix $\Sigma$ and more elaborate algorithms are required. 
+
+
+### Graphical Models in R
+TODO
 
 
 
@@ -281,5 +298,7 @@ For an R oriented introduction, see @everitt2011introduction.
 For more on the difficulties with high dimensional problems, see @bai1996effect.
 For more on multiple testing, and signal identification, see @efron2012large.
 For more on the choice of your error rate see @rosenblatt2013practitioner.
+For an excellent reivew on graphical models see @kalisch2014causal. 
+Everything you need on graphical models, Bayesian belief networks, and structure learning in R, is collected in the [Task View](https://cran.r-project.org/web/views/gR.html).
 
 ## Practice Yourself

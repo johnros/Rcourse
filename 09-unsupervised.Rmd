@@ -539,7 +539,7 @@ The k-means algorithm works as follows:
 
 
 ```{remark}
-If are trained as a statistician, you may wonder- what population quantity is K-means actually estimating?
+If trained as a statistician, you may wonder- what population quantity is K-means actually estimating?
 The estimand of K-means is known as the _K principal points_.
 Principal points are points which are _self consistent_, i.e., they are the mean of their neighbourhood. 
 ```
@@ -564,6 +564,11 @@ The k-medoids algorithm works as follows.
 1. Return Cluster assignments and centers.
 
 
+```{remark}
+If trained as a statistician, you may wonder- what population quantity is K-medoids actually estimating?
+The estimand of K-medoids is the median of their neighbourhood. 
+A delicate matter is that quantiles are not intuitive to define on multivariate random variables (lacking an ordering of the sapce), so that the "multivaraitre median", may be a more subtle quantity than you may think. See @small1990survey.
+```
 
 
 #### Hirarchial Clustering

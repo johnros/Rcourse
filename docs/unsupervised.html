@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-03-02">
+<meta name="date" content="2017-03-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -193,13 +193,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.1.1" data-path="multivariate.html"><a href="multivariate.html#signal-detection-with-r"><i class="fa fa-check"></i><b>8.1.1</b> Signal Detection with R</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="multivariate.html"><a href="multivariate.html#signal-counting"><i class="fa fa-check"></i><b>8.2</b> Signal Counting</a></li>
-<li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#signal-identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
+<li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>8.3.1</b> Signal Identification in R</a></li>
 </ul></li>
 <li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation</a></li>
 <li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression</a></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.6</b> Biblipgraphic Notes</a></li>
-<li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-6"><i class="fa fa-check"></i><b>8.7</b> Practice Yourself</a></li>
+<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>8.6.1</b> Graphical Models in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
+<li class="chapter" data-level="8.8" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-6"><i class="fa fa-check"></i><b>8.8</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>9</b> Supervised Learning</a><ul>
 <li class="chapter" data-level="9.1" data-path="supervised.html"><a href="supervised.html#problem-setup-3"><i class="fa fa-check"></i><b>9.1</b> Problem setup</a><ul>
@@ -433,7 +436,7 @@ These weights are called the <em>loadings</em>.</li>
 <p>FA originates from the psychometric literature. We thus revisit the IQ (actually g-factor<a href="#fn22" class="footnoteRef" id="fnref22"><sup>22</sup></a>) Example~<a href="unsupervised.html#ex:iq">10.2</a>:</p>
 
 <div class="example">
-<span id="ex:unnamed-chunk-171" class="example"><strong>Example 10.4 </strong></span>Assume <span class="math inline">\(n\)</span> respondents answer <span class="math inline">\(p\)</span> quantitative questions: <span class="math inline">\(x_i \in \mathbb{R}^p, i=1,\dots,n\)</span>. Also assume, their responses are some linear function <span class="math inline">\(A \in \mathbb{R}^p\)</span> of a single personality attribute, <span class="math inline">\(s_i\)</span>. We can think of <span class="math inline">\(s_i\)</span> as the subject’s ``intelligence’’. We thus have
+<span id="ex:unnamed-chunk-174" class="example"><strong>Example 10.4 </strong></span>Assume <span class="math inline">\(n\)</span> respondents answer <span class="math inline">\(p\)</span> quantitative questions: <span class="math inline">\(x_i \in \mathbb{R}^p, i=1,\dots,n\)</span>. Also assume, their responses are some linear function <span class="math inline">\(A \in \mathbb{R}^p\)</span> of a single personality attribute, <span class="math inline">\(s_i\)</span>. We can think of <span class="math inline">\(s_i\)</span> as the subject’s ``intelligence’’. We thus have
 <span class="math display">\[\begin{align}
     x_i = A s_i + \varepsilon_i
 \end{align}\]</span>
@@ -524,7 +527,7 @@ where <span class="math inline">\(A\)</span> is the <span class="math inline">\(
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(devtools)
 <span class="co"># install_github(&quot;vqv/ggbiplot&quot;)</span>
 ggbiplot::<span class="kw">ggbiplot</span>(pca<span class="fl">.1</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-174-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-177-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>The bi-plot plots each data point along its PCs.</li>
@@ -533,9 +536,9 @@ ggbiplot::<span class="kw">ggbiplot</span>(pca<span class="fl">.1</span>) </code
 </ul>
 <p>The <em>scree plot</em> depicts the quality of the approximation of <span class="math inline">\(X\)</span> as <span class="math inline">\(q\)</span> grows. This is depicted using the proportion of variability in <span class="math inline">\(X\)</span> that is removed by each added PC. It is customary to choose <span class="math inline">\(q\)</span> as the first PC that has a relative low contribution to the approximation of <span class="math inline">\(X\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ggbiplot::<span class="kw">ggscreeplot</span>(pca<span class="fl">.1</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-175-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-178-1.png" width="50%" /></p>
 <p>See how the first PC captures the variability in the Assault levels and Murder levels, with a single score.</p>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-176-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-179-1.png" width="50%" /></p>
 <p>More implementations of PCA:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># FAST solutions:</span>
 gmodels::<span class="kw">fast.prcomp</span>()
@@ -603,7 +606,7 @@ fa<span class="fl">.1</span>$loadings</code></pre></div>
 <p>Graphical model fans will like the following plot, where the contribution of each variable to each factor is encoded in the width of the arrow.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Graph comparison: loadings encoded in colors</span>
 qgraph::<span class="kw">qgraph</span>(fa<span class="fl">.1</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-177-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-180-1.png" width="50%" /></p>
 <p>Let’s add a rotation (Varimax), and note that the rotation has indeed changed the loadings of the variables, thus the interpretation of the factors.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fa<span class="fl">.2</span> &lt;-<span class="st"> </span>psych::<span class="kw">principal</span>(USArrests<span class="fl">.1</span>, <span class="dt">nfactors =</span> <span class="dv">2</span>, <span class="dt">rotate =</span> <span class="st">&quot;varimax&quot;</span>)
 
@@ -684,10 +687,10 @@ state.similarity &lt;-<span class="st"> </span>MASS::<span class="kw">cov.rob</s
 
 spca1 &lt;-<span class="st"> </span>elasticnet::<span class="kw">spca</span>(state.similarity, <span class="dt">K=</span><span class="dv">2</span>, <span class="dt">type=</span><span class="st">&quot;Gram&quot;</span>, <span class="dt">sparse=</span><span class="st">&quot;penalty&quot;</span>, <span class="dt">trace=</span><span class="ot">FALSE</span>, <span class="dt">para=</span><span class="kw">c</span>(<span class="fl">0.06</span>,<span class="fl">0.16</span>))
 spca1$loadings</code></pre></div>
-<pre><code>##                 PC1 PC2
-## Murder  -0.72036274   0
-## Assault -0.69112808   0
-## Rape    -0.05847647  -1</code></pre>
+<pre><code>##                PC1 PC2
+## Murder  -0.7143088   0
+## Assault -0.2023409  -1
+## Rape    -0.6699411   0</code></pre>
 </div>
 <div id="kernel-pca-1" class="section level4">
 <h4><span class="header-section-number">10.1.5.6</span> Kernel PCA</h4>
@@ -747,7 +750,7 @@ spca1$loadings</code></pre></div>
 </ol>
 
 <div class="remark">
-<span class="remark"><em>Remark. </em></span> If are trained as a statistician, you may wonder- what population quantity is K-means actually estimating? The estimand of K-means is known as the <em>K principal points</em>. Principal points are points which are <em>self consistent</em>, i.e., they are the mean of their neighbourhood.
+<span class="remark"><em>Remark. </em></span> If trained as a statistician, you may wonder- what population quantity is K-means actually estimating? The estimand of K-means is known as the <em>K principal points</em>. Principal points are points which are <em>self consistent</em>, i.e., they are the mean of their neighbourhood.
 </div>
 <p></p>
 </div>
@@ -770,6 +773,11 @@ spca1$loadings</code></pre></div>
 </ol></li>
 <li>Return Cluster assignments and centers.</li>
 </ol>
+
+<div class="remark">
+<span class="remark"><em>Remark. </em></span> If trained as a statistician, you may wonder- what population quantity is K-medoids actually estimating? The estimand of K-medoids is the median of their neighbourhood. A delicate matter is that quantiles are not intuitive to define on multivariate random variables (lacking an ordering of the sapce), so that the “multivaraitre median”, may be a more subtle quantity than you may think. See <span class="citation">Small (<a href="#ref-small1990survey">1990</a>)</span>.
+</div>
+<p></p>
 </div>
 <div id="hirarchial-clustering" class="section level4">
 <h4><span class="header-section-number">10.2.2.4</span> Hirarchial Clustering</h4>
@@ -799,7 +807,7 @@ A particular advantage of these methods is that they do not require an a-priori 
 kmeans<span class="fl">.1</span> &lt;-<span class="st"> </span>stats::<span class="kw">kmeans</span>(USArrests<span class="fl">.1</span>, <span class="dt">centers =</span> k)
 <span class="kw">head</span>(kmeans<span class="fl">.1</span>$cluster) <span class="co"># cluster asignments</span></code></pre></div>
 <pre><code>##    Alabama     Alaska    Arizona   Arkansas California   Colorado 
-##          1          1          1          2          1          1</code></pre>
+##          2          2          2          1          2          2</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Visualize using scatter plots of the original features</span>
 <span class="kw">pairs</span>(USArrests<span class="fl">.1</span>, <span class="dt">panel=</span>function(x,y) <span class="kw">text</span>(x,y,kmeans<span class="fl">.1</span>$cluster))</code></pre></div>
 <p><img src="Rcourse_files/figure-html/kmeans-1.png" width="50%" /></p>
@@ -872,11 +880,11 @@ hirar<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">h
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Complete linkage:</span>
 hirar<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(state.disimilarity, <span class="dt">method=</span><span class="st">&#39;complete&#39;</span>)
 <span class="kw">plot</span>(hirar<span class="fl">.2</span>, <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests<span class="fl">.1</span>), <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-179-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-183-1.png" width="50%" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Average linkage:</span>
 hirar<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(state.disimilarity, <span class="dt">method=</span><span class="st">&#39;average&#39;</span>)
 <span class="kw">plot</span>(hirar<span class="fl">.3</span>, <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests<span class="fl">.1</span>), <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-179-2.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-183-2.png" width="50%" /></p>
 <p>If we know how many clusters we want, we can use <code>cuttree</code> to get the class assignments.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fixing the number of clusters:</span>
 cut<span class="fl">.2.2</span> &lt;-<span class="st"> </span><span class="kw">cutree</span>(hirar<span class="fl">.2</span>, <span class="dt">k=</span><span class="dv">2</span>)
@@ -905,6 +913,9 @@ cut<span class="fl">.2.2</span> &lt;-<span class="st"> </span><span class="kw">c
 </div>
 <div id="ref-graham1988isometric">
 <p>Graham, RL. 1988. “Isometric Embeddings of Graphs.” <em>Selected Topics in Graph Theory</em> 3. Academic Press San Diego, CA: 133–50.</p>
+</div>
+<div id="ref-small1990survey">
+<p>Small, Christopher G. 1990. “A Survey of Multidimensional Medians.” <em>International Statistical Review/Revue Internationale de Statistique</em>. JSTOR, 263–77.</p>
 </div>
 <div id="ref-friedman2001elements">
 <p>Friedman, Jerome, Trevor Hastie, and Robert Tibshirani. 2001. <em>The Elements of Statistical Learning</em>. Vol. 1. Springer series in statistics Springer, Berlin.</p>

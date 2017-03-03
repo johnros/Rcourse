@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-03-02">
+<meta name="date" content="2017-03-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -193,13 +193,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.1.1" data-path="multivariate.html"><a href="multivariate.html#signal-detection-with-r"><i class="fa fa-check"></i><b>8.1.1</b> Signal Detection with R</a></li>
 </ul></li>
 <li class="chapter" data-level="8.2" data-path="multivariate.html"><a href="multivariate.html#signal-counting"><i class="fa fa-check"></i><b>8.2</b> Signal Counting</a></li>
-<li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#signal-identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
+<li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>8.3.1</b> Signal Identification in R</a></li>
 </ul></li>
 <li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation</a></li>
 <li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression</a></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.6</b> Biblipgraphic Notes</a></li>
-<li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-6"><i class="fa fa-check"></i><b>8.7</b> Practice Yourself</a></li>
+<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>8.6.1</b> Graphical Models in R</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
+<li class="chapter" data-level="8.8" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-6"><i class="fa fa-check"></i><b>8.8</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>9</b> Supervised Learning</a><ul>
 <li class="chapter" data-level="9.1" data-path="supervised.html"><a href="supervised.html#problem-setup-3"><i class="fa fa-check"></i><b>9.1</b> Problem setup</a><ul>
@@ -430,12 +433,10 @@ X<span class="fl">.2</span>&lt;-<span class="st"> </span><span class="kw">as</sp
 ##   0.204   0.000   0.203</code></pre>
 <p>It is only left to verify that the returned coefficients are the same:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(lm<span class="fl">.2</span>, <span class="kw">unname</span>(lm<span class="fl">.1</span>$coefficients), <span class="dt">tolerance =</span> <span class="fl">1e-12</span>)</code></pre></div>
-<pre><code>## Warning: closing unused connection 6 (&lt;-localhost:11413)</code></pre>
-<pre><code>## Warning: closing unused connection 5 (&lt;-localhost:11413)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <p>You can also visualize the non zero entries, i.e., the sparsity structure.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(X<span class="fl">.2</span>[<span class="dv">1</span>:<span class="dv">26</span>,<span class="dv">1</span>:<span class="dv">26</span>])</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-257-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-261-1.png" width="50%" /></p>
 <div id="sparse-matrix-representations" class="section level2">
 <h2><span class="header-section-number">14.1</span> Sparse Matrix Representations</h2>
 <p>We start with some terminology of sparse matrices. We first distinguish between the two main goals of the efficient representation: (i) efficient writing, i.e., modification; (ii) efficient reading, i.e., access. For our purposes, we will typically want efficient reading, since the <code>model.matrix</code> will not change while a model is being fitted.</p>
@@ -542,12 +543,12 @@ for (sim in <span class="dv">1</span>:<span class="dv">10</span>){
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;bar&#39;</span>) +
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;errorbar&#39;</span>) +
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&#39;Elapsed Time in Seconds&#39;</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-258-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-262-1.png" width="50%" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(performance, <span class="kw">aes</span>(<span class="dt">x =</span> Format, <span class="dt">y =</span> Size /<span class="st"> </span><span class="dv">1000000</span>, <span class="dt">fill =</span> Format)) +
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;bar&#39;</span>) +
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;errorbar&#39;</span>) +
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&#39;Matrix Size in MB&#39;</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-259-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-263-1.png" width="50%" /></p>
 <p>How do we perform other types of regression with the <strong>glmnet</strong>? We just need to use the <code>family</code> and <code>alpha</code> arguments of <code>glmnet::glmnet</code>. The <code>family</code> argument governs the type of GLM to fit: logistic, poisson, probit, or other types of GLM. The <code>alpha</code> argument controls the type of regularization. Set to <code>alpha=0</code> for ridge, <code>alpha=1</code> for lasso, and any value in between for elasticnet regularization.</p>
 </div>
 </div>

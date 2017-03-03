@@ -1,39 +1,46 @@
 # Linear Mixed Models {#lme}
 
-```{example, label='fixed-effects'}
-Consider the problem of testing for a change in the distribution of the bottle caps produced.
-Bottle caps are produced by several machines. 
-We could standardize by removing each machine's average. 
-This first practice implies the within-machine variability is the only source of variability. 
+```{example, label='fixed-effects', name="Fixed and Random Machine Effect"}
+Consider the problem of testing for a change in the distribution of manufactured bottle caps.
+Bottle caps are produced by several machines.
+We could standardize over machines by removing each machine's average. 
+This implies the within-machine variability is the only source of variability we care about. 
 Alternatively, we could ignore the machine of origin. 
-This second practice implies there are two sources of variability: the within-machine variability, and the between-machine variability.
+This second practice implies there are two sources of variability we care about: the within-machine variability, and the between-machine variability.
 The former practice is known as a _fixed effects_  model.
 The latter as a _random effects_ model.
 ```
 
 
-```{example, label='random-effects'}
-Consider a crossover^[If you are unfamiliar with design of experiments, have a look at Chapter 6 of my Quality Engineering [class notes](https://github.com/johnros/qualityEngineering/blob/master/Class_notes/notes.pdf).] experimenal design where each subject is given 2 types of diets, and his/hers health condition is recorded.
-We could standardize by removing each subject's average, before comparing the diets (think of a paired t-test).
-This first practice implies the within-subject variability is the only source of variability.
+```{example, label='random-effects', name="Fixed and Random Subject Effect"}
+Consider a crossover^[If you are unfamiliar with design of experiments, have a look at Chapter 6 of my Quality Engineering [class notes](https://github.com/johnros/qualityEngineering/blob/master/Class_notes/notes.pdf).] experimenal design where each subject is given 2 types of diets, and his health condition is recorded.
+We could standardize over subjects by removing the subject-wise average, before comparing diets.
+This is what a paired t-test does, and implies the within-subject variability is the only source of variability we care about.
 Alternatively, we could ignore the subject of origin. 
-When doing so, we need to recall that observations from the same subject will be correlated.
-This second practice implies there are two sources of variability: the within-subject variability and the betwee-subject variability.
+This second practice implies there are two sources of variability we care about: the within-subject variability and the betwee-subject variability.
 ```
 
 The unifying theme of the above two examples, is that the variability we want to infer against has several sources. 
-This is typical in mixed models, which are so popular, that they have earned many names:
+Which are the sources of variability that need to concern us? 
+It depends on your purpose...
+
+Mixed models that they have earned many names:
 
 - __Mixed Effects__: 
-Because we may have both _fixed effects_ we want to estimate and remove, and _random effects_ which contribute to the variability. 
+Because we may have both _fixed effects_ we want to estimate and remove, and _random effects_ which contribute to the variability to infer against.
+
 - __Variance Components__: 
 Because as the examples show, variance has more than a single source (like in the Linear Models of Chapter \@ref(lm)).
+
 - __Hirarchial Models__: 
 Because as Example \@ref(ex:random-effects) demonstrates, we can think of the sampling as hierarchical-- first sample a subject, and then sample its response. 
+
 - __Repeated Measures__: 
 Because we many have several measurements from each unit, like in \@ref(ex:random-effects).
+
 - __Longitudinal Data__: 
 Because we follow units over time, like in Example \@ref(ex:random-effects).
+
 - __Panel Data__:
 Is the term typically used in econometric for such longitudinal data. 
 
@@ -41,9 +48,9 @@ Is the term typically used in econometric for such longitudinal data.
 We now emphasize: 
 
 1. Mixed effect models are a way to infer against the right level of variability.
-Using a naive linear model (which assumes a single source of variability) instead of a mixed effects model, probably means your inference is overly anti-conservative, i.e., error rates are higher than you think. 
+Using a naive linear model (which assumes a single source of variability) instead of a mixed effects model, probably means your inference is overly anti-conservative, i.e., the estimation error is higher than you think.
 1. A mixed effect models, as we will later see, is typically specified via its fixed and random effects. 
-It is possible, however, to specify a mixed effects model by putting all the fixed effects into a linear model, and putting all the random effects into the covariance between $\varepsilon$.
+It is possible, however, to specify a mixed effects model by putting all the fixed effects into a linear model, and putting all the random effects into the covariance between $\varepsilon$. This is known as _multivariate regression_, or _multivariate analysis of variance_ (MANOVA).
 For more on this view, see Chapter 8 in (the excellent) @weiss2005modeling.
 1. Like in previous chapters, by "model" we refer to the assumed generative distribution, i.e., the sampling distribution. 
 1. If you are using the model merely for predictions, and not for inference on the fixed effects or variance components, then stating the generative distribution may be be useful, but not necessarily. 
@@ -56,9 +63,9 @@ See the Supervised Learning Chapter \@ref(supervised) for more on prediction pro
   y|x,u = x'\beta + z'u + \varepsilon
   (\#eq:mixed-model)  
 \end{align}
-where $x$ are the factor with fixed effects, $\beta$ which we may want to study.
+where $x$ are the factors with fixed effects, $\beta$, which we may want to study.
 The factors $z$, with effects $u$, are the random effects which contribute to variability. 
-Put differently, we state $y|x,u$ merely as a convenient way to do inference on $y|x$, instead of directly specifying $Var[y|x]$ as a function of $u$. 
+Put differently, we state $y|x,u$ merely as a convenient way to do inference on $y|x$, instead of directly specifying $Var[y|x]$.
 
 Given a sample of $n$ observations $(y_i,x_i,z_i)$ from model \@ref(eq:mixed-model), we will want to estimate $(\beta,u)$.
 Under some assumption on the distribution of $\varepsilon$ and $z$, we can use _maximum likelihood_ (ML). 
@@ -69,10 +76,11 @@ In the context of mixed-models, however, ML is typically replaced with _restrict
 
 ## Mixed Models with R
 
-We will fit mixed models with the `lmer` function from the __lme4__ package. 
-We start with a small simulation demonstrating the importance of acknowledging your sources of variability.
+We will fit mixed models with the `lmer` function from the __lme4__ package, written by the mixed-models Guru [Douglas Bates](http://www.stat.wisc.edu/~bates/).
+We start with a small simulation demonstrating the importance of acknowledging your sources of variability, by fitting a linear model when a mixed model is appropriate. 
+We start by creating some synthetic data. 
 
-```{r lme vs lm}
+```{r}
 n.groups <- 10
 n.repeats <- 2
 groups <- gl(n = n.groups, k = n.repeats)
@@ -82,10 +90,15 @@ z <- z0[as.numeric(groups)] # create the random effect vector.
 epsilon <- rnorm(n,0,1) # create the measurement error vector.
 beta0 <- 2 # create the global mean
 y <- beta0 + z  + epsilon # generate synthetic sample
+```
+
+We can now fit the linear and mixed models.
+```{r, lme vs lm}
 lm.5 <- lm(y~z)  # fit a linear model
 library(lme4)
 lme.5 <- lmer(y~1|z) # fit a mixed-model
 ```
+
 
 The summary of the linear model
 
@@ -101,14 +114,14 @@ summary.lme.5 <- summary(lme.5)
 summary.lme.5
 ```
 Look at the standard error of the global mean, i.e., the intercept:
-for `lm` it is `r summary.lm.5$coefficients[1,2]`, and for `lme` it is `summary.lme.5$coefficients[1,2]`.
+for `lm` it is `r summary.lm.5$coefficients[1,2]`, and for `lme` it is `r summary.lme.5$coefficients[1,2]`.
 Why this difference? 
 Because `lm` discounts the group effect, while it should treat it as another source of variability.
 Clearly, inference using `lm` is overly optimistic.
 
 ### A Single Random Effect
 
-We will use the `Dyestuff` data from the package, which encodes the yield, in grams, of a coloring solution (dyestuff), produced in 6 batches using 5 different preparations.
+We will use the `Dyestuff` data from the __lme4__ package, which encodes the yield, in grams, of a coloring solution (dyestuff), produced in 6 batches using 5 different preparations.
 
 ```{r}
 data(Dyestuff, package='lme4')
@@ -123,7 +136,7 @@ plot(Yield~Batch)
 ```
 
 If we want to do inference on the mean yield, we need to account for the two sources of variability: the batch effect, and the measurement error. 
-We thus fit a mixed model, with an intercept and random batch effect (which means this is it not a bona-fide mixed-model, but rather, a simple random-effect model).
+We thus fit a mixed model, with an intercept and random batch effect, which means this is it not a bona-fide mixed-model, but rather, a simple random-effect model.
 
 ```{r random intercept}
 lme.1<- lmer( Yield ~ 1  | Batch  , Dyestuff )
@@ -134,8 +147,8 @@ Things to note:
 
 - As usual, `summary` is content aware and has a different behavior for `lme` class objects.
 - The syntax `Yield ~ 1  | Batch` tells R to fit a model with a global intercept (`1`) and a random Batch effect (`|Batch`). More on that later. 
-- The output distinguishes between random effects, a source of variability, and fixed effect, white's coefficients we want to study.
-- Were we not interested in the variance components, an (almost) equivalent `lm` formulation is `lm(Yield ~ Batch)`.
+- The output distinguishes between random effects, a source of variability, and fixed effect, which's coefficients we want to study.
+- Were we not interested in the variance components, and only in the coefficients or predictions, an (almost) equivalent `lm` formulation is `lm(Yield ~ Batch)`.
 
 Some utility functions let us query the `lme` object. 
 The function `coef` will work, but will return a cumbersome output. Better use `fixef` to extract the fixed effects, and `ranef` to extract the random effects.
@@ -184,7 +197,7 @@ Things to note:
 
 
 
-Since we have two random effect, we may compute the variability of the global mean (the only fixed effect) as we did before. 
+Since we have two random effects, we may compute the variability of the global mean (the only fixed effect) as we did before. 
 Perhaps more interestingly, we can compute the variability in the response, for a particular plate or sample type.
 
 ```{r}
@@ -223,7 +236,7 @@ lattice::xyplot(Reaction ~ Days | Subject, sleepstudy, aspect = "xy",
 ```
 
 We now want to estimate the (fixed) effect of the days of deprivation, while allowing each subject to have his/hers own effect.
-The fixed effect can thus be thought of as the average slope over subjects.
+The fixed `Days` effect can thus be thought of as the average slope over subjects.
 
 ```{r random slope}
 lme.3 <- lmer ( Reaction ~ Days + ( Days | Subject ) , data= sleepstudy )
@@ -232,7 +245,7 @@ lme.3 <- lmer ( Reaction ~ Days + ( Days | Subject ) , data= sleepstudy )
 Things to note:
 
 - We used the `Days|Subect` syntax to tell R we want to fit the model `~Days` within each subject.
-- Were we fitting the model for purposes of prediction only, an (almost) equivalent `lm`formulation is `lm(Reaction~Days*Subject)`.
+- Were we fitting the model for purposes of prediction only, an (almost) equivalent `lm` formulation is `lm(Reaction~Days*Subject)`.
 
 
 The fixed (i.e. average) day effect is:
@@ -251,6 +264,7 @@ Did we really need the whole `lme` machinery to fit a within-subject linear regr
 The answer is yes.
 The assumptions on the distribution of random effect, namely, that they are normally distributed, allows us to pool information from one subject to another. In the words of John Tukey: "we borrow strength over subjects".
 Is this a good thing? If the normality assumption is true, it certainly is.
+If, on the other hand, you have a lot of samples per subject, and you don't need to "borrow strength" from one subject to another, you can simply fit within-subject linear models without the mixed-models machinery.
 
 To demonstrate the "strength borrowing", here is a comparison of the subject-wise intercepts of the mixed-model, versus a subject-wise linear model. They are not the same.
 
@@ -320,6 +334,9 @@ print(xyplot(Reaction ~ Days | Subject, sleepstudy, aspect = "xy",
                                      lty = trellis.par.get("superpose.line")$lty[c(2:1,4)]))))
 ```
 
+```{r}
+detach(Penicillin)
+```
 
 
 ## Bibliographic Notes
