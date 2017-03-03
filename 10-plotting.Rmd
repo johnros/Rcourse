@@ -10,7 +10,7 @@ The basic __graphics__ package, distributed with the base R distribution, and th
 Before going into the details of the plotting packages, we start with some high-level philosophy.
 The __graphics__ package originates from the main-frame days. 
 Computers had no graphical interface, and the output of the plot was immediately sent to a printer. 
-For this reason, once a plot has been produced with the __graphics__ package, it cannot be queryied nor changed, except for further additions.
+Once a plot has been produced with the __graphics__ package, just like a printed output, it cannot be queryied nor changed, except for further additions.
 
 The philosophy of R is that __everyting is an object__.
 The __graphics__ package does not adhere to this philosophy, and indeed it was soon augmented with the __grid__ package [@Rlanguage], that treats plots as objects. 
@@ -20,17 +20,14 @@ __lattice__ is very powerful, but soon enough, it was overtaken in popularity by
 __ggplot2__ was the PhD project of [Hadley Wickham](http://hadley.nz/), a name to remember...
 Two fundamental ideas underlay __ggplot2__: (i) everything is an object, and (ii), plots can be described by a small set of building blocks. 
 The building blocks in __ggplot2__ are the ones stated by @wilkinson2006grammar.
-The objects and grammar of __ggplot2__ have later evolved to allow more complicated plotting and in particular, interactive plotting, in other packages. 
+The objects and grammar of __ggplot2__ have later evolved to allow more complicated plotting and in particular, interactive plotting. 
 
-Interactive plotting is a very important feature for EDA, and for reporting. 
+Interactive plotting is a very important feature for EDA, and reporting. 
 The major leap in interactive plotting was made possible by the advancement of web technologies, such as JavaScript.
 Why is this? 
 Because an interactive plot, or report, can be seen as a web-site. 
-Building upon the capabilities of JavaScript, and your web browser, to provide the interactivity, greatly facilitates the development of such plots, as the programmer can reply on the web-browsers capabilities for interactivity. 
+Building upon the capabilities of JavaScript and your web browser to provide the interactivity, greatly facilitates the development of such plots, as the programmer can rely on the web-browsers capabilities for interactivity. 
 
-One of the latest contributions to interactive plotting, is the __Shiny__ framework by RStudio [@shiny].
-__Shiny__, unlike other interactive plotting systems, is not a static web-site. 
-It is a web-server, that can query R, with all its facilities.
 
 
 ## The graphics System
