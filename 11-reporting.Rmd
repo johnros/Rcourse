@@ -21,7 +21,7 @@ knitr::knit_hooks$set(source = function(x, options){
 ```
 
 
-If you ever written a report, you are probably familiar with the process of preparing your figures in some software, say R, and then copy-pasting into your text editor, say MS Word. 
+If you have ever written a report, you are probably familiar with the process of preparing your figures in some software, say R, and then copy-pasting into your text editor, say MS Word. 
 While very popular, this process is both tedious, and plain painful if your data has changed and you need to update the report. 
 Wouldn't it be nice if you could produce figures and numbers from within the text of the report, and everything else would be automated?
 It turns out it is possible. 
@@ -29,30 +29,27 @@ There are actually several systems in R that allow this.
 We start with a brief review.
 
 1. __Sweave__:
-_Latex_ is a markup language that compiles to _Tex_ programs that compile to documents, typically PDFs.
+_LaTeX_ is a markup language that compiles to _Tex_ programs that compile, in turn, to documents (typically PS or PDFs).
 If you never heard of it, it may be because you were born the the MS Windows+MS Word era. 
-You should know, however, that _Latex_ was there much earlier, when computers were mainframes with text-only graphic devices. 
-You should also know that _Latex_ is still very popular (in some communities) due to its very rich markup syntax, and beautiful output. 
-_Sweave_ [@leisch2002sweave] is a compiler for _Latex_ that allows you do insert R commands in the _Latex_ source file, compile it, and get the result as part of the outputted PDF. 
+You should know, however, that _LaTeX_ was there much earlier, when computers were mainframes with text-only graphic devices. 
+You should also know that _LaTeX_ is still very popular (in some communities) due to its very rich markup syntax, and beautiful output. 
+_Sweave_ [@leisch2002sweave] is a compiler for _LaTeX_ that allows you do insert R commands in the _LaTeX_ source file, and get the result as part of the outputted PDF. 
 It's name suggests just that: it allows to weave S^[Recall, S was the original software from which R evolved.] output into the document, thus, Sweave. 
 
 1. __knitr__:
-_Markdown_ is a text editing syntax that is aimed to be human-readable, but also compilable by a machine. 
+_Markdown_ is a text editing syntax that, unlike _LaTeX_, is aimed to be human-readable, but also compilable by a machine. 
 If you ever tried to read HTML or Latex source files, you may understand why human-readability is a desirable property.
-There are many _markdown_ compilers. One of the most popular is _Pandoc_, written by the Berkeley philosopher(!) Jon MacFarlane. 
-The availability of _Pandoc_ gave [Yihui Xie](), a name to remember, the idea that it is time for Sweave to evolve. 
+There are many _markdown_ compilers. One of the most popular is Pandoc, written by the Berkeley philosopher(!) Jon MacFarlane. 
+The availability of Pandoc gave [Yihui Xie](), a name to remember, the idea that it is time for Sweave to evolve. 
 Yihui thus wrote __knitr__ [@xie2015dynamic], which allows to write human readable text in _Rmarkdown_, a superset of _markdown_, compile it with R and the compile it with Pandoc. 
 Because Pandoc can compile to PDF, but also to HTML, and DOCX, among others, this means that you can write in Rmarkdown, and get output in almost all text formats out there. 
 
 1. __bookdown__:
 __Bookdown__ [@xie2016bookdown] is an evolution of __knitr__, also written by Yihui Xie, now working for RStudio. 
-This book was actually written in __bookdown__.
+The text you are now reading was actually written in __bookdown__.
 It deals with the particular needs of writing large documents, and cross referencing in particular (which is very challenging if you want the text to be human readable).
 
 1. __Shiney__:
-The previous reporting frameworks are static in that R "dumps" its output and is never queryied again. 
-This does not mean that output is static, but only that R is not called. 
-__Shiny__ [@shiney] is different. 
 Shiny is essentially a framework for quick web-development. 
 It includes (i) an abstraction layer that specifies the layout of a web-site which is our report, (ii) the command to start a web server to deliver the site.
 For more on Shiny see @shiney.
@@ -80,10 +77,9 @@ Because __knitr__ builds upon _Pandoc markdown_, here is a simple example of mar
 Underscores or asterisks for `_italics1_` and `*italics2*` return _italics1_ and *italics2*.
 Double underscores or asterisks for `__bold1__` and `**bold2**` return __bold1__ and **bold2**.
 Subscripts are enclosed in tildes, `like~this~` (like~this~), and superscripts are enclosed in carets `like^this^` (like^this^).
-For `verbatim` use "`verbatim`".
 
 For links use `[text](link)`, like `[my site](www.john-ros.com)`.
-Image is the same as a link, starting with an exclamation, like this `![image title](image path)`.
+An image is the same as a link, starting with an exclamation, like this `![image caption](image path)`.
 
 An itemized list simply starts with hyphens:
 ```
@@ -114,14 +110,14 @@ Compiles into:
     1. second level number
 
 
-For more on markdown see [here](https://bookdown.org/yihui/bookdown/markdown-syntax.html).
+For more on markdown see https://bookdown.org/yihui/bookdown/markdown-syntax.html.
 
 
 
 
 ### Rmarkdown
 _Rmarkdown_, is an extension of _markdown_ due to RStudio, that allows to incorporate R expressions in the text, that will be evaluated at the time of compilation, and the output automatically inserted in the outputted text. 
-The output can be a `.PDF`, `.DOCX`, `.HTML` or others, thanks to the power of __pandoc__.
+The output can be a `.PDF`, `.DOCX`, `.HTML` or others, thanks to the power of _Pandoc_.
 
 The start of a code chunk is indicated by three backticks and the end of a code chunk is indicated by three backticks.
 Here is an example.
@@ -140,8 +136,8 @@ rnorm(10)
 
 Things to note:
 
-- The evaluated expression is added in a chunk of highlighted text.
-- The output is added prefixed with `##`.
+- The evaluated expression is added in a chunk of highlighted text, before the R output.
+- The output is prefixed with `##`.
 - The `eval=` argument is not required, since it is set to `eval=TRUE` by default. It does demonstrate how to set the options of the code chunk.
 
 
@@ -189,7 +185,7 @@ In particular, it has a more powerful cross referencing system.
 ## Shiny
 
 __Shiny__ [@shiny] is different than the previous systems, because it sets up an interactive web-site, and not a static file.
-The power of Shiny is that they layout of the web-site, and setting up the web-server, is made with several simple R commands, with no need for web-programming.
+The power of Shiny is that the layout of the web-site, and the settings of the web-server, is made with several simple R commands, with no need for web-programming.
 For this purpose, Shiny uses the [Bootstrap](http://getbootstrap.com) web development technology.
 Once you have your app up and running, you can setup your own Shiny server on the web, or publish it via [Shinyapps.io](https://www.shinyapps.io/).
 The freemium versions of the service can deal with a small amount of traffic. If you expect a lot of traffic, you will probably need the paid versions.

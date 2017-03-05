@@ -21,12 +21,12 @@ In the meanwhile, most of the parallel implementations are explicit.
 R provides many frameworks for explicit parallelism.
 Because the parallelism is initiated by the user, we first need to decide __when to parallelize?__
 As a rule of thumb, you want to parallelise when you encounter a CPU bottleneck, and not a memory bottleneck.
-Memory bottlenecks are released with Sparsity (Chapter \@ref(sparse)), or efficient memory usage (Chapter \@ref(memory)).
+Memory bottlenecks are released with sparsity (Chapter \@ref(sparse)), or efficient memory usage (Chapter \@ref(memory)).
 
 Several ways to diagnose your bottleneck include:
 
-- Keep your Windows Task Manager, or Linux `top` open, and look for the CPU load. 
-- The computation takes a long time, and when you stop it pressing ESC, R is immediately responsive (if it is not immediately responsive, you have a memory bottleneck).
+- Keep your Windows Task Manager, or Linux `top` open, and look for the CPU load, and RAM loads. 
+- The computation takes a long time, and when you stop it pressing ESC, R is immediately responsive. If it is not immediately responsive, you have a memory bottleneck.
 - Profile your code. See Hadley's [guide](http://adv-r.had.co.nz/Profiling.html).
 
 For reasons detailed in @kane2013scalable, we will present the __foreach__ parallelisation package [@foreach]. 
@@ -39,7 +39,7 @@ It will allow us to:
 
 What do we mean by "switch the underlying parallesation mechanism"? 
 It means there are several packages that will handle communication between machines. 
-Some are very general and will work on any cluster that does not even need to be on the same machine. 
+Some are very general and will work on any cluster. 
 Some are more specific and will work only on a single multicore machine (not a cluster) with a particular operating system.
 These mechanisms include __multicore__, __snow__, __parallel__, and __Rmpi__.
 The compatibility between these mechanisms and __foreach__ is provided by another set of packages:

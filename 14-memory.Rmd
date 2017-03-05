@@ -2,7 +2,7 @@
 
 As put by @kane2013scalable, it was quite  puzzling when very few of the competitors, for the Million dollars prize in the [Netflix challenge](https://en.wikipedia.org/wiki/Netflix_Prize), were statisticians.
 This is perhaps because the statistical community historically uses SAS, SPSS, and R. 
-The first two tools are very well equipped to deal with big data, but are very unfriendly when when trying to implement a new method. 
+The first two tools are very well equipped to deal with big data, but are very unfriendly when trying to implement a new method. 
 R, on the other hand, is very friendly for innovation, but was not equipped to deal with the large data sets of the Netflix challenge. 
 A lot has changed in R since 2006. This is the topic of this chapter. 
 
@@ -17,13 +17,13 @@ There are several scenarios to consider:
 1. Your data does not fit in RAM, but fits in your local storage (HD, SSD, etc.)
 1. Your data does not fit in your local storage.
 
-If your data fits in RAM, but is too large to compute with, the solution will typically be to replace the algorithm you are using.
-This will typically mean that instead of computing with the whole data, your algorithm will compute with parts of the data, also called _chunks_, or _batches_.
+If your data fits in RAM, but is too large to compute with, a solution is to replace the algorithm you are using.
+Instead of computing with the whole data, your algorithm will compute with parts of the data, also called _chunks_, or _batches_.
 These algorithms are known as _external memory algorithms_ (EMA).
 
 If your data does not fit in RAM, but fits in your local storage, you have two options.
 The first is to save your data in a _database management system_ (DBMS).
-This will allow you to use the algorithms provided by your DBMS, or let R use an EMA while loading from your DBMS. 
+This will allow you to use the algorithms provided by your DBMS, or let R use an EMA while "chunking" from your DBMS. 
 Alternatively, and preferably, you may avoid using a DBMS, and work with the data directly form your local storage by saving your data in some efficient manner. 
 
 Finally, if your data does not fit on you local storage, you will need some external storage solution such as a distributed DBMS, or distributed file system.
@@ -41,9 +41,9 @@ Also, while I LOVE Linux, I would never dare to recommend switching to Linux jus
 
 If our data can fit in RAM, but is still too large to compute with it (recall that fitting a model requires roughly 5-10 times more memory than saving it), there are several facilities to be used.
 The first, is the sparse representation discussed in Chapter \@ref(sparse), which is relevant when you have factors, which will typically map to sparse model matrices. 
-Another way is to use memory efficient algorithms. 
+Another way is to use _external memory algorithms_ (EMA). 
 
-The `giblm::giblm` function provides an EMA for linear regression.
+The `biglm::biglm` function provides an EMA for linear regression.
 The following if taken from the function's example.
 
 ```{r biglm}
@@ -75,7 +75,7 @@ b <- lm(ff, data=trees)
 rbind(coef(a),coef(b))
 ```
 
-Other packages that follow these lines, particularly with classification using SVMs, are  __LiblineaR__, and __RSofia__ packages. 
+Other packages that follow these lines, particularly with classification using SVMs, are  __LiblineaR__, and __RSofia__. 
 
 
 ### Summary Statistics from RAM
@@ -182,7 +182,7 @@ flights_sqlite <- copy_to(
 
 Things to note:
 
-- `src_sqlite` to starts an empty table, managed by SQLite, at the desired path.
+- `src_sqlite` to start an empty table, managed by SQLite, at the desired path.
 - `copy_to` copies data from R to the database. 
 - Typically, setting up a DBMS like this makes no sense, since it requires loading the data into RAM, which is precisely what we want to avoid.
 
@@ -273,8 +273,8 @@ Things to note:
 
 - The basic building block of the __bigmemory__ ecosystem, is the `big.matrix` class, we constructed with `read.big.matrix`. 
 - `read.big.matrix` handles the import to R, and the saving to a memory mapped file. The implementation is such that at no point does R hold the data in RAM.
-- The memory mapped file, `airline.desc` will be there after the session is over. It can thus be called by other R sessions using ` attach.big.matrix("airline.desc")`. This will be useful when parallelizing. 
--`pryr::object_size` return the size of the object. Since `x` holds only the memory mappings, it is much smaller than the 100MB of data that it holds. 
+- The memory mapped file will be there after the session is over. It can thus be called by other R sessions using ` attach.big.matrix("airline.desc")`. This will be useful when parallelizing. 
+- `pryr::object_size` return the size of the object. Since `x` holds only the memory mappings, it is much smaller than the 100MB of data that it holds. 
 
 
 
@@ -290,7 +290,7 @@ coef(biglm.2)
 
 Other notable packages that operate with `big.matrix` objects include:
 
-- __bigtabulate__: Extend the bigmemory package with 'table', 'tapply', and 'split' support for 'big.matrix' objects
+- __bigtabulate__: Extend the bigmemory package with 'table', 'tapply', and 'split' support for 'big.matrix' objects.
 - __bigalgebra__: For matrix operation.
 - __bigpca__: principle components analysis (PCA), or singular value decomposition (SVD).
 - __bigFastlm__: for (fast) linear models.
@@ -302,7 +302,7 @@ Other notable packages that operate with `big.matrix` objects include:
 ## ff
 
 The __ff__ packages replaces R's in-RAM storage mechanism with on-disk (efficient) storage.
-Unlike __bigmemory__, __ff__ supports all of R vactor types such as factors, and not only numerics.
+Unlike __bigmemory__, __ff__ supports all of R vector types such as factors, and not only numeric.
 Unlike `big.matrix`, which deals with (numeric) matrices, the `ffdf` class can deal with data frames. 
 
 Here is an example.
@@ -348,7 +348,8 @@ Things to note:
 
 - `biglm::biglm` notices the input of of class `ffdf` and calls the appropriate implementation.
 - The model formula, `payment ~ factor(sex) + factor(age) + place.served`, includes factors which cause no difficulty.
-- You cannot inspect the factor coding (dummy? effect?) using `model.matrix`. This is because EMA algorithms never really construct the whole matrix, let alone, save it in memory.
+- You cannot inspect the factor coding (dummy? effect?) using `model.matrix`. 
+This is because EMAs never really construct the whole matrix, let alone, save it in memory.
 
 
 
