@@ -189,7 +189,7 @@ Other resampling based unbiased risk estimators include resampling __without rep
 
 An ERM problem with regularization will look like
 \begin{align}
-  \hat f := argmin_f \{ R_n(f)  + \lambda \Vert f \Vert \}.
+  \hat f := argmin_{f \in \mathcal{F}} \{ R_n(f)  + \lambda \Vert f \Vert \}.
   (\#eq:erm-regularized)  
 \end{align}
 
@@ -212,7 +212,7 @@ Examples of such combos include:
 
 For fans of statistical hypothesis testing we will also emphasize: 
 Testing and prediction are related, but are not the same.
-__It is indeed possible that we will want to ignore a significant predictor, and add a non-significant ones!__ [@foster2004variable]
+__It is indeed possible that we will want to ignore a significant predictor, and add a non-significant one!__ [@foster2004variable]
 Some authors will use hypothesis testing as an initial screening of candidate predictors. 
 This is a useful heuristic, but that is all it is-- a heuristic.
 
