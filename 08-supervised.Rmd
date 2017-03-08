@@ -145,7 +145,7 @@ Common penalties include:
 
 1. __Ridge penalty__: penalizing the $l_2$ norm of the parameter. I.e. $\Vert f \Vert=\Vert \beta \Vert_2^2=\sum_j \beta_j^2$. 
 1. __Lasso penalty__: penalizing the $l_1$ norm of the parameter. I.e., $\Vert f \Vert=\Vert \beta \Vert_1=\sum_j |\beta_j|$
-1. __Elastic net__: a combination of the lasso and ridge penalty. I.e. ,$\Vert f \Vert= \alpha \Vert \beta \Vert_2^2 + (a-\alpha) \Vert \beta \Vert_1$.
+1. __Elastic net__: a combination of the lasso and ridge penalty. I.e. ,$\Vert f \Vert= \alpha \Vert \beta \Vert_2^2 + (1-\alpha) \Vert \beta \Vert_1$.
 
 If the hypothesis class $\mathcal{F}$ does not admit a finite dimensional parametric representation, we may penalize it with some functional norm such as $\Vert f \Vert=\sqrt{\int f(t)^2 dt}$. 
 
