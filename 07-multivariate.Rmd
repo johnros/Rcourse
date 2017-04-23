@@ -32,7 +32,7 @@ Signal counting means measuring _how many_ measurement depart from the healthy s
 Signal identification means pin-pointing which of the physiological measurements depart from his healthy state. 
 Signal estimation means estimating the magnitude of the departure from the healthy state. 
 Multivaraite regression means finding the factors which many explain the departure from the healthy state. 
-Fitting a distribution means finding the joint distribution of the physiological measurements, and in plarticular, their dependencies and independenceis. 
+Fitting a distribution means finding the joint distribution of the physiological measurements, and in particular, their dependencies and independenceis. 
 ```
 
 
@@ -82,7 +82,7 @@ We call a problem _low dimensional_ if $n \gg p$, i.e. $p/n \approx 0$.
 This means there are many observations per estimated parameter.
 1. __High Dimension__: 
 We call a problem _high dimensional_ if $p/n \to c$, where $c\in (0,1)$.
-This means there are more observations that parameters, but not many.
+This means there are more observations than parameters, but not many.
 1. __Very High Dimension__: 
 We call a problem _very high dimensional_ if $p/n \to c$, where $1<c<\infty$.
 This means there are less observations than parameter.
@@ -181,6 +181,7 @@ The former is known as the _family wise error rate_ (FWER), and the latter as th
 ### Signal Identification in R
 
 One (of many) ways to do signal identification involves the `stats::p.adjust` function.
+[TODO: clarify why use `p.adjust`?]
 The function takes as inputs a $p$-vector of __p-values__. 
 This implies that: 
 (i) you are assumed to be able to compute the p-value of each the $p$ hypothesis tested; one hypothesis for every coordinate in $\mu$. 
@@ -253,7 +254,7 @@ The estimation of the elements of $\mu$ is a seemingly straightforward task.
 This is not the case, however, if we estimate only the elements that were selected because they were significant (or any other data-dependent criterion).
 Clearly, estimating only significant entries will introduce a bias in the estimation. 
 In the statistical literature, this is known as _selection bias_.
-Selection bias also occurs when you perform inference on regression coefficients after some model selection, say, with a lasso, or a forward search^[You might this shocking, but it does mean that you cannot trust the `summary` table of a model that was selected from a multitude of models.].
+Selection bias also occurs when you perform inference on regression coefficients after some model selection, say, with a lasso, or a forward search^[You might find this shocking, but it does mean that you cannot trust the `summary` table of a model that was selected from a multitude of models.].
 
 Selective inference is a complicated and active research topic so we will not offer any off-the-shelf solution to the matter.
 The curious reader is invited to read @rosenblatt2014selective, @javanmard2014confidence, or [Will Fithian's](http://www.stat.berkeley.edu/~wfithian/) PhD thesis [@fithian2015topics] for more on the topic. 

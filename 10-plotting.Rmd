@@ -10,7 +10,7 @@ The basic __graphics__ package, distributed with the base R distribution, and th
 Before going into the details of the plotting packages, we start with some high-level philosophy.
 The __graphics__ package originates from the main-frame days. 
 Computers had no graphical interface, and the output of the plot was immediately sent to a printer. 
-Once a plot has been produced with the __graphics__ package, just like a printed output, it cannot be queryied nor changed, except for further additions.
+Once a plot has been produced with the __graphics__ package, just like a printed output, it cannot be queried nor changed, except for further additions.
 
 The philosophy of R is that __everyting is an object__.
 The __graphics__ package does not adhere to this philosophy, and indeed it was soon augmented with the __grid__ package [@Rlanguage], that treats plots as objects. 
@@ -48,6 +48,7 @@ plot(Girth ~ Height)
 Various types of plots.
 
 ```{r}
+par.old <- par(no.readonly = TRUE)
 par(mfrow=c(2,3))
 plot(Girth, type='h', main="type='h'") 
 plot(Girth, type='o', main="type='o'") 
@@ -55,11 +56,13 @@ plot(Girth, type='l', main="type='l'")
 plot(Girth, type='s', main="type='s'")
 plot(Girth, type='b', main="type='b'")
 plot(Girth, type='p', main="type='p'")
+par(par.old)
 ```
 
 Things to note:
 
 - The `par` command controls the plotting parameters. `mfrow=c(2,3)` is used to produce a matrix of plots with 2 rows and 3 columns.
+- The `par.old` object saves the original plotting setting. It is restored after plotting using `par(par.old)`.
 - The `type` argument controls the type of plot. 
 - The `main` argument controls the title.
 - See `?plot` and `?par` for more options.
@@ -122,7 +125,7 @@ mtext(expression(alpha==log(f[i])), side=4)
 
 Things to note:
 
-- The following functions add the elements they are names after: `segments`, `arrows`, `rect`, `polygon`, `title`. 
+- The following functions add the elements they are named after: `segments`, `arrows`, `rect`, `polygon`, `title`. 
 - `mtext` adds mathematical text. For more information for mathematical annotation see `?plotmath`.
 
 Add a legend.
@@ -353,7 +356,7 @@ See `?pdf` and `?jpeg` for more info.
 
 The philosophy of __ggplot2__ is very different from the __graphics__ device. 
 Recall, in __ggplot2__, a plot is a object.
-It can be queryied, it can be changed, and among other things, it can be plotted. 
+It can be queried, it can be changed, and among other things, it can be plotted. 
 
 __ggplot2__ provides a convenience function for many plots: `qplot`. 
 We take a non-typical approach by ignoring `qplot`, and presenting the fundamental building blocks. 
@@ -496,7 +499,7 @@ tp + geom_line(aes(group=Cow))
 ```
 
 The line plot is completely incomprehensible. 
-Better look at boxplots along time (even if ommitting the `Cow` information).
+Better look at boxplots along time (even if omitting the `Cow` information).
 ```{r}
 tp + geom_boxplot(aes(group=Time))
 ```
@@ -573,9 +576,10 @@ Finally, what every user of __ggplot2__ constantly uses, is the online documenta
 
 
 ## Interactive Graphics
+[TODO: improve intro]
 
 As already mentioned, the recent and dramatic advancement in interactive visualization was made possible by the advances in web technologies, and the [D3.JS](https://d3js.org/) JavaScript library in particular. 
-This is because it allows developers to rely on existing libraries designed for web browsing.
+This is because it allows developers to rely on existing libraries designed for web browsing instead of re-implementing interactive visualizations.
 These libraries are more visually pleasing, and computationally efficient, than anything they could have developed themselves.  
 
 Some noteworthy interactive plotting systems are the following:
@@ -585,36 +589,37 @@ Some noteworthy interactive plotting systems are the following:
 The __plotly__ package [@plotly] uses the (brilliant!) visualization framework of the [Plotly]() company to provide local, or web-publishable, interactive graphics. 
 
 - __dygraphs__:
-The [dygraphs](http://dygraphs.com/) JavaScript library is intended for interactive visualization of time series. 
+The [dygraphs](http://dygraphs.com/) JavaScript library is intended for interactive visualization of time series (`xts` class objects). 
 The __dygraphs__ R package is an interface allowing the plotting of R objects with this library.
 For more information see [here](https://rstudio.github.io/dygraphs/).
 
 - __rCharts__:
 If you like the __lattice__ plotting system, the __rCharts__ package will allow you to produce interactive plots from R using the __lattice__ syntax. 
-For more information see [here](http://rdatascience.io/rCharts/).
+For more information see [here](https://ramnathv.github.io/rCharts/).
 
 - __clickme__:
 Very similar to __rCharts__.
-
-- __ggv2__:
-[Vega](https://vega.github.io/vega/) is a grammar for plots, i.e., a syntax that describes a plots elements, along with the appropriate JavaScript visualization libraries. 
-__ggv2__ is an an experimental package that produces Vega interactive plots from R.
-For more information see [here](https://github.com/metagraf/rVega).
-
-- __rVega__:
-Same purpose as __ggv2__.
 
 - __googleVis__:
 TODO
 
 
+- Highcharter:
+TODO
+
+- Rbokeh:
+TODO
+
 - __HTML Widgets__:
 The __htmlwidgets__ package does not provide visualization, but rather, it facilitates the creation of new interactive visualizations. 
 This is because it handles all the technical details that are required to use R output within JavaScript visualization libraries. 
+It is available [here](http://www.htmlwidgets.org/), with a demo gallery [here](http://gallery.htmlwidgets.org/).
 
 
 
 ### Plotly
+TODO: remove messages
+
 ```{r}
 library(plotly)
 set.seed(100)
@@ -647,7 +652,7 @@ TODO
 ## Bibliographic Notes
 For the __graphics__ package, see @Rlanguage.
 For __ggplot2__ see @ggplot2.
-
+A [video](https://www.youtube.com/watch?v=9Objw9Tvhb4&feature=youtu.be) by one of my heroes,  [Brian Caffo](http://www.bcaffo.com/), discussing __graphics__ vs. __ggplot2__.
 
 
 

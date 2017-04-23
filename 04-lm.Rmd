@@ -32,7 +32,7 @@ Consider the study of return to education by analyzing the incomes of individual
 Consider the study of the effect of a new drug, by analyzing the level of blood coagulation after the administration of various amounts of the new drug. 
 ```
 
-Lets present the linear model.
+Let's present the linear model.
 We assume that a response^[The "response" is also know as the "dependent" variable in the statistical literature, or the "labels" in the machine learning literature.] variable is the sum of effects of some factors^[The "factors" are also known as the "independent variable", or  "the design", in the statistical literature, and the "features", or "attributes" in the machine learning literature.].
 Denoting the dependent by $y$, the factors by $x$, and the effects by $\beta$ the linear model assumption implies that 
 
@@ -380,7 +380,7 @@ lm.3 <- lm(StressReduction~(.)^2 - 1,data=data)
 The syntax `Treatment * Age` means "mains effects with second order interactions".
 The syntax `(.)^2` means "everything with second order interactions"
 
-Lets inspect the model
+Let's inspect the model
 ```{r}
 summary(lm.3)
 ```

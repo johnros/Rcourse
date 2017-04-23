@@ -61,7 +61,7 @@ Consider the crime rate data in `USArrests`, which encodes reported murder event
 head(USArrests)
 ```
 
-Following Hotelling's motivation, we may want to given each state a "crimilality score". 
+Following Hotelling's motivation, we may want to give each state a "crimilality score". 
 We first remove the `UrbanPop` variable, which does not encode crime levels. 
 We then z-score each variable with `scale`, and call PCA for a sequence of $1,\dots,3$ criminality scores that best separate between states. 
 
@@ -78,7 +78,7 @@ We also don't want the score to be sensitive to the measurement __scale__.
 We thus perform PCA in the z-score scale of each variable, obtained with the `scale` function.
 - PCA is performed with the `prcomp` function. 
 It returns the contribution (weight) of the original variables, to the new crimeness score.  
-These weights are called the _loadings_ (or `Rotations` in the `procomp` output, which is rather confusing as we will later see).
+These weights are called the _loadings_ (or `Rotations` in the `prcomp` output, which is rather confusing as we will later see).
 - The number of possible scores, is the same as the number of original variables in the data. 
 - The new scores are called the _principal components_, labeled `PC1`,...,`PC3` in our output.
 - The loadings on PC1 tell us that the best separation between states is along the average crime rate. 
@@ -159,7 +159,7 @@ We may try to estimate $S A$ by assuming some distribution on $S$ and $\varepsil
 Under standard assumptions on the distribution of $S$ and $\varepsilon$, recovering  $S$ from $\widehat{S A }$ is still impossible as there are infinitely many such solutions.
 In the statistical parlance we say the problem is _non identifiable_, and in the applied mathematics parlance we say the problem is _ill posed_.
 To see this, consider an orthogonal _rotation_ matrix $R$ ($R' R=I$). 
-For each such $R$: $ S A = S R' R A = S^* A^* $.
+For each such $R$: $S A = S R' R A = S^* A^*$.
 While both solve Eq.\@ref(eq:factor), $A$ and $A^*$ may have very different interpretations. 
 This is why many researchers find FA an unsatisfactory inference tool.
 
@@ -275,7 +275,7 @@ TODO
 #### PCA {#pca-in-r}
 
 We already saw the basics of PCA in \@ref(pca).
-The fitting is done with the `procomp` function.
+The fitting is done with the `prcomp` function.
 The _bi-plot_ is a useful way to visualize the output of PCA.
 
 ```{r}

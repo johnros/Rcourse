@@ -294,7 +294,7 @@ The following code is extremely inefficient, but easy to read.
 
 ```{r , cache=TRUE, dependson='preprocessing'}
 folds <- 10
-fold.assignment <- sample(1:5, nrow(prostate), replace = TRUE)
+fold.assignment <- sample(1:folds, nrow(prostate), replace = TRUE)
 errors <- NULL
 
 for (k in 1:folds){
@@ -533,6 +533,9 @@ MSE( predict(tree.1)- prostate.train$lcavol)
 # Test error:
 MSE( predict(tree.1, newdata = prostate.test)- prostate.test$lcavol)
 ```
+
+[TODO: plot with `rpart.plot`]
+
 
 Tree are very prone to overfitting.
 To avoid this, we reduce a tree's complexity by _pruning_ it. 

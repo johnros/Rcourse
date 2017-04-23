@@ -24,7 +24,7 @@ The unifying theme of the above two examples, is that the variability we want to
 Which are the sources of variability that need to concern us? 
 It depends on your purpose...
 
-Mixed models that they have earned many names:
+Mixed models are so fundamental, that they have earned many names:
 
 - __Mixed Effects__: 
 Because we may have both _fixed effects_ we want to estimate and remove, and _random effects_ which contribute to the variability to infer against.
@@ -116,7 +116,7 @@ summary.lme.5
 Look at the standard error of the global mean, i.e., the intercept:
 for `lm` it is `r summary.lm.5$coefficients[1,2]`, and for `lme` it is `r summary.lme.5$coefficients[1,2]`.
 Why this difference? 
-Because `lm` discounts the group effect, while it should treat it as another source of variability.
+Because `lm` discounts the group effect^[A.k.a. the _cluster effect_ in the epidemiological literature. ], while it should treat it as another source of variability.
 Clearly, inference using `lm` is overly optimistic.
 
 ### A Single Random Effect
@@ -156,9 +156,12 @@ The model matrix (of the fixed effects alone), can be extracted with `model.matr
 Note, however, that predictions with mixed-effect models are (i) a delicate matter, and (ii) better treated as prediction problems as in the Supervised Learning Chapter \@ref(supervised).
 
 
-### Several Random Effects
+### Multiple Random Effects
 
-Let's make things more interesting.
+Let's make things more interesting by allowing more than one random effect. 
+One-way ANOVA can be thought of as the fixed-effects counterpart of the single random effect.
+Our next example, involving two random effects, can be though of as the Two-way ANOVA counterpart. 
+
 In the `Penicillin` data, we measured the diameter of spread of an organism, along the plate used (a to x), and penicillin type (A to F). 
 
 ```{r}
@@ -236,7 +239,8 @@ lattice::xyplot(Reaction ~ Days | Subject, sleepstudy, aspect = "xy",
 ```
 
 We now want to estimate the (fixed) effect of the days of deprivation, while allowing each subject to have his/hers own effect.
-The fixed `Days` effect can thus be thought of as the average slope over subjects.
+Put differently, we want to estimate a _random slope_ for variable `day` for each subject.
+The fixed `Days` effect can be thought of as the average slope over subjects.
 
 ```{r random slope}
 lme.3 <- lmer ( Reaction ~ Days + ( Days | Subject ) , data= sleepstudy )
@@ -337,6 +341,10 @@ print(xyplot(Reaction ~ Days | Subject, sleepstudy, aspect = "xy",
 ```{r}
 detach(Penicillin)
 ```
+
+
+## The Variance-Components View
+<!-- inference on the random effects, not fixed effects.  -->
 
 
 ## Bibliographic Notes

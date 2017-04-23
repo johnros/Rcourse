@@ -8,7 +8,7 @@ Some useful pointers for this IDE include:
 
 - Ctrl+Return to run lines from editor.
 - Alt+Shift+k for RStudio keyboard shortcuts.
-- Ctrl+Alt+j to navigate between sections
+- Alt+Shift+j to navigate between sections
 - tab for auto-completion
 - Ctrl+1 to skip to editor. 
 - Ctrl+2 to skip to console.
@@ -143,7 +143,7 @@ ls()
 ```
 or with Ctrl+8 in RStudio. 
 
-If you lost your object, you can use `ls` with a text pattern to search for
+If you lost your object, you can use `ls` with a text pattern to search for it
 ```{r}
 ls(pattern='x')
 ```
@@ -162,7 +162,7 @@ R's memory management is discussed in Chapter \@ref(memory).
 
 ## Piping 
 Because R originates in Unix and Linux environments, it inherits much of its flavor.
-[Piping](http://ryanstutorials.net/linuxtutorial/piping.php) is an idea take from the Linux shell which allows to use the output of one expression as the input to another.
+[Piping](http://ryanstutorials.net/linuxtutorial/piping.php) is an idea taken from the Linux shell which allows to use the output of one expression as the input to another.
 Piping thus makes code easier to read and write. 
 
 ```{remark}
@@ -174,8 +174,8 @@ So:
 
 Prerequisites:
 ```{r}
-library(magrittr)
-x <- rbinom(n=1000, size=10, prob=0.5)
+library(magrittr) # load the piping functions
+x <- rbinom(n=1000, size=10, prob=0.5) # generate some toy data
 ```
 
 Examples
@@ -219,7 +219,8 @@ c(10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21) # manually
 10:21 # the `:` operator 							
 seq(from=10, to=21, by=1) # the seq() function
 ```
-Lets assign it to the object named "x":
+
+Let's assign it to the object named "x":
 ```{r}
 x <- c(10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21) 	
 ```
@@ -321,7 +322,7 @@ When your plotting gets serious, go to Chapter \@ref(plotting).
 We already saw that the basic building block of R objects is the vector.
 Vectors can be of the following types:
 
-- __character__ Where each element is a string. 
+- __character__ Where each element is a string, i.e., a sequence of alphanumeric symbols.
 - __numeric__ Where each element is a [real number](https://en.wikipedia.org/wiki/Real_number) in [double precision](https://en.wikipedia.org/wiki/Double-precision_floating-point_format) floating point format.
 - __integer__ Where each element is an [integer](https://en.wikipedia.org/wiki/Integer). 
 - __logical__ Where each element is either TRUE, FALSE, or NA^[R uses a [__three__ valued logic](https://en.wikipedia.org/wiki/Three-valued_logic) where a missing value (NA) is neither TRUE, nor FALSE.]
@@ -444,7 +445,7 @@ If you want to learn more about subsetting see [Hadley's guide](http://adv-r.had
 ## Data Import and Export 
 
 For any practical purpose, you will not be generating your data manually. 
-R comes with many importing and exporting mechanism which we now present.
+R comes with many importing and exporting mechanisms which we now present.
 If, however, you do a lot of data "munging", make sure to see Hadley-verse Chapter \@ref(hadley).
 If you work with MASSIVE data sets, read the Memory Efficiency Chapter \@ref(memory).
 
@@ -532,21 +533,21 @@ If you still insist see the __xlsx__ package.
 
 ### Massive files 
 
-The above importing and exporting mechanism were not designed for massive files. 
+The above importing and exporting mechanisms were not designed for massive files. 
 See the section on Sparse Representation (\@ref(sparse)) and Out-of-Ram Algorithms (\@ref(memory)) for more on working with massive data files.  
 
 
 ### Databases 
-R can does not need to read from text files; it can read directly from a data base.
+R does not need to read from text files; it can read directly from a database.
 This is very useful since it allows the filtering, selecting and joining operations to rely on the database's optimized algorithms.
-See [here](https://rforanalytics.wordpress.com/useful-links-for-r/odbc-databases-for-r/).
+See https://rforanalytics.wordpress.com/useful-links-for-r/odbc-databases-for-r/ for more information.
 
 
 
 
 ## Functions
 One of the most basic building blocks of programming is the ability of writing your own functions.
-A function in R, like everything else, is a an object accessible using its name.
+A function in R, like everything else, is an object accessible using its name.
 We first define a simple function that sums its two arguments
 ```{r}
 my.sum <- function(x,y) {
@@ -612,11 +613,38 @@ for (i in 1:5){
 ```
 
 
+
+## Apply 
+For applying the same function to a set of elements, there is no need to write an explicit loop.
+This is such en elementary operation that every programming language will provide some facility to __apply__, or __map__ the function to all elements of a set.
+R provides several facilities to perform this. 
+The most basic of which is `lapply` which applies a function over all elements of a list, and return a list of outputs:
+```{r lapply}
+the.list <- list(1,'a',mean)
+lapply(X = the.list, FUN = class)
+```
+
+R provides many variations on `lapply` to facilitate programing. 
+Here is a partial list:
+
+- `sapply`: The same as `lapply` but tries to arrange output in a vector or matrix, and not an unstructured list.
+- `vapply`: A safer version of `sapply`, where the output class is pre-specified.
+- `apply`: For applying over the rows or columns of matrices.
+- `mapply`: For applying functions with various inputs. 
+- `tapply`: For splitting vectors and applying functions on subsets. 
+- `rapply`: A recursive version of `lapply`.
+- `eapply`: Like `lapply`, only operates on `environments` instead of lists. 
+- `Map`+`Reduce`: For a [Common Lisp](https://en.wikipedia.org/wiki/Common_Lisp) look and feel of `lapply`.
+- `parallel::parLapply`: A parallel version of `lapply`.
+- `parallel::parLBapply`: A parallel version of `lapply`, with load balancing.
+
+
+
 ## Recursion 
 The R compiler is really not designed for recursion, and you will rarely need to do so.  
 See the RCpp Chapter \@ref(rcpp) for linking C code, which is better suited for recursion. 
-If you really insist to write recursions in R, make sure to use the `Recall` function, as this 
-Fibonacci series example demonstrates. 
+If you really insist to write recursions in R, make sure to use the `Recall` function, which, as the name suggests, recalls the function in which it is place. 
+Here is a demonstration with the Fibonacci series. 
 ```{r recusrion, cache=TRUE}
 fib<-function(n) {
     if (n < 2) fn<-1 
@@ -627,13 +655,16 @@ fib(5)
 ```
 
 
+## Dates and Times
+[TODO]
+
 
 ## Bibliographic Notes
 
 There are endlessly many introductory texts on R.
 For a list of free resources see [CrossValidated](http://stats.stackexchange.com/questions/138/free-resources-for-learning-r).
-I personally recommend the official introduction @venables2004introduction, or anything else Bill Venables writes. 
-For advanced R programming see @wickham2014advanced, or anything else Hadley Wickham writes. 
+I personally recommend the official introduction @venables2004introduction, [available online](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf), or anything else Bill Venables writes. 
+For advanced R programming see @wickham2014advanced, [available online](http://adv-r.had.co.nz/),  or anything else Hadley Wickham writes. 
 
 
 ## Practice Yourself

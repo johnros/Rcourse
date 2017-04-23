@@ -40,7 +40,7 @@ It's name suggests just that: it allows to weave S^[Recall, S was the original s
 _Markdown_ is a text editing syntax that, unlike _LaTeX_, is aimed to be human-readable, but also compilable by a machine. 
 If you ever tried to read HTML or Latex source files, you may understand why human-readability is a desirable property.
 There are many _markdown_ compilers. One of the most popular is Pandoc, written by the Berkeley philosopher(!) Jon MacFarlane. 
-The availability of Pandoc gave [Yihui Xie](), a name to remember, the idea that it is time for Sweave to evolve. 
+The availability of Pandoc gave [Yihui Xie](https://yihui.name/), a name to remember, the idea that it is time for Sweave to evolve. 
 Yihui thus wrote __knitr__ [@xie2015dynamic], which allows to write human readable text in _Rmarkdown_, a superset of _markdown_, compile it with R and the compile it with Pandoc. 
 Because Pandoc can compile to PDF, but also to HTML, and DOCX, among others, this means that you can write in Rmarkdown, and get output in almost all text formats out there. 
 
@@ -49,10 +49,10 @@ __Bookdown__ [@xie2016bookdown] is an evolution of __knitr__, also written by Yi
 The text you are now reading was actually written in __bookdown__.
 It deals with the particular needs of writing large documents, and cross referencing in particular (which is very challenging if you want the text to be human readable).
 
-1. __Shiney__:
+1. __Shiny__:
 Shiny is essentially a framework for quick web-development. 
 It includes (i) an abstraction layer that specifies the layout of a web-site which is our report, (ii) the command to start a web server to deliver the site.
-For more on Shiny see @shiney.
+For more on Shiny see @shiny.
 
 
 
@@ -81,8 +81,9 @@ Subscripts are enclosed in tildes, `like~this~` (like~this~), and superscripts a
 For links use `[text](link)`, like `[my site](www.john-ros.com)`.
 An image is the same as a link, starting with an exclamation, like this `![image caption](image path)`.
 
-An itemized list simply starts with hyphens:
+An itemized list simply starts with hyphens preceeded by a blank line (don't forget that!):
 ```
+
 - bullet
 - bullet
     - second level bullet
@@ -151,6 +152,8 @@ which compiles into
 plot(rnorm(10))
 ```
 
+TODO: more code chunk options.
+
 
 You can also call r expressions inline. 
 This is done with a single tick and the `r` argument.
@@ -186,7 +189,6 @@ In particular, it has a more powerful cross referencing system.
 
 __Shiny__ [@shiny] is different than the previous systems, because it sets up an interactive web-site, and not a static file.
 The power of Shiny is that the layout of the web-site, and the settings of the web-server, is made with several simple R commands, with no need for web-programming.
-For this purpose, Shiny uses the [Bootstrap](http://getbootstrap.com) web development technology.
 Once you have your app up and running, you can setup your own Shiny server on the web, or publish it via [Shinyapps.io](https://www.shinyapps.io/).
 The freemium versions of the service can deal with a small amount of traffic. If you expect a lot of traffic, you will probably need the paid versions.
 
@@ -231,7 +233,7 @@ More about widgets, in the [widget gallery](http://shiny.rstudio.com/gallery/wid
 
 
 The `inputId` on the UI are mapped to `input` arguments on the server side. 
-The value of the `mytext` `inputId` can be queryied by the server using `input$mytext`.
+The value of the `mytext` `inputId` can be queried by the server using `input$mytext`.
 These are called _reactive values_.
 The way the server "listens" to the UI, is governed by a set of functions that must wrap the `input` object. 
 These are the `observe`, `reactive`, and `reactive*` class of functions.
@@ -457,12 +459,17 @@ To keep learning, see the RStudio's [tutorial](http://shiny.rstudio.com/tutorial
 
 
 
+## Flexdashboard
+http://rmarkdown.rstudio.com/flexdashboard/
+
+TODO: write section
+
 ## Bibliographic Notes
 
 For RMarkdown see [here](http://rmarkdown.rstudio.com/).
 For everything on __knitr__ see [Yihui's blog](https://yihui.name/knitr/), or the book @xie2015dynamic.
 For a __bookdown__ manual, see @xie2016bookdown.
-For a Shiny manual, see @shiney, the [RStudio tutorial](http://shiny.rstudio.com/tutorial/), or [Zev Ross's](http://zevross.com/blog/2016/04/19/r-powered-web-applications-with-shiny-a-tutorial-and-cheat-sheet-with-40-example-apps/) excellent guide.
+For a Shiny manual, see @shiny, the [RStudio tutorial](http://shiny.rstudio.com/tutorial/), or [Zev Ross's](http://zevross.com/blog/2016/04/19/r-powered-web-applications-with-shiny-a-tutorial-and-cheat-sheet-with-40-example-apps/) excellent guide.
 Video tutorials are available [here](https://www.rstudio.com/resources/webinars/shiny-developer-conference/).
 
 ## Practice Yourself

@@ -8,8 +8,8 @@ EDA can be thought of as an assumption free, purely algorithmic practice.
 
 In this text we present EDA techniques along the following lines:
 
-- How we explore: with a summary statistic or visually?
-- How many variable analyzed simultaneously: univariate, bivariate, or multivariate?
+- How we explore: with summary statistics, or visually?
+- How many variables analyzed simultaneously: univariate, bivariate, or multivariate?
 - What type of variable: categorical or continuous?
 
 
@@ -72,14 +72,14 @@ prop.table(table1, margin = 2)
 Continuous variables admit many more operations than categorical.
 We can thus compute sums, means, quantiles, and more.
 
-#### Summary of Univariate Continous Data
+#### Summary of Univariate Continuous Data
 We distinguish between several types of summaries, each capturing a different property of the data.
 
 #### Summary of Location
 Capture the "location" of the data. These include:
 
 ```{definition, name="Average"}
-The mean, or average, of a sample $x$ of lenth $n$, denoted $\bar x$ is defined as 
+The mean, or average, of a sample $x$ of length $n$, denoted $\bar x$ is defined as 
 $$ \bar x := n^{-1} \sum x_i. $$
 ```
 
@@ -104,7 +104,7 @@ The median of a sample $x$, denoted $x_{0.5}$ is the $\alpha=0.5$ quantile of th
 A whole family of summaries of locations is the __alpha trimmed mean__.
 
 ```{definition, name="Alpha Trimmed Mean"}
-The $\alpha$ trimmed mean of a sample $x$, denoted $\bar x_\alpha$ is the average of the sample after removing the $\alpha$ largest and $\alpha$ smallest observations.
+The $\alpha$ trimmed mean of a sample $x$, denoted $\bar x_\alpha$ is the average of the sample after removing the $\alpha$ proportion of largest and $\alpha$ proportion of smallest observations.
 ```
 
 The simple mean and median are instances of the alpha trimmed mean: $\bar x_0$ and $\bar x_{0.5}$ respectively.
@@ -172,7 +172,7 @@ yule(x)
 ```
 
 
-#### Summary of Bivariate Continous Data
+#### Summary of Bivariate Continuous Data
 When dealing with bivariate, or multivariate data, we can obviously compute univariate summaries for each variable separately. 
 This is not the topic of this section, in which we want to summarize the association __between__ the variables, and not within them.
 
@@ -199,7 +199,7 @@ $$z_i(x):= \frac{x_i-\bar x}{S(x)}.$$
 We thus have that $r(x,y)=Cov(z(x),z(y))$. 
 
 
-#### Summary of Multivariate Continous Data
+#### Summary of Multivariate Continuous Data
 
 The covariance is a simple summary of association between two variables, but it certainly may not capture the whole "story".
 Things get more complicated when summarizing the relation between multiple variables. 
@@ -223,7 +223,7 @@ How would you define a robust covariance matrix?
 
 ## Visualization
 Summarizing the information in a variable to a single number clearly conceals much of the story in the sample. 
-This is akin to inspecting a person by its caricature, instead of a picture. 
+This is akin to inspecting a person using a caricature, instead of a picture. 
 Visualizing the data, when possible, is more informative. 
 
 ### Categorical Data
@@ -232,14 +232,14 @@ Recalling that with categorical variables we can only count the frequency of eac
 #### Visualizing Univariate Categorical Data
 
 ```{r, barplot}
-plot(table(age))
+barplot(table(age))
 ```
 
 
 
 #### Visualizing Bivariate Categorical Data
 There are several generalizations of the barplot, aimed to deal with the visualization of bivariate categorical data. 
-There are sometimes known as the _clustered bar plot_ and the _stacked bar plot_.
+They are sometimes known as the _clustered bar plot_ and the _stacked bar plot_.
 In this text, we advocate the use of the _mosaic plot_ which is also the default in R.
 ```{r}
 plot(table1, main='Bivariate mosaic plot')
@@ -254,11 +254,11 @@ plot(table2.1, main='Trivaraite mosaic plot')
 ```
 
 
-### Continous Data
+### Continuous Data
 
-#### Visualizing Univariate Continous Data
+#### Visualizing Univariate Continuous Data
 Unlike categirical variables, there are endlessly many way to visualize continuous variables. 
-The simplest way is to look at the raw data via the `stripcart`.
+The simplest way is to look at the raw data via the `stripchart`.
 
 ```{r}
 sample1 <- rexp(10) 							
@@ -268,11 +268,17 @@ stripchart(sample1)
 Clearly, if there are many observations, the `stripchart` will be a useless line of black dots. 
 We thus bin them together, and look at the frequency of each bin; this is the _histogram_.
 R's `histogram` function has very good defaults to choose the number of bins.
+Here is a histogram showing the counts of each bin.
 ```{r}
 sample1 <- rexp(100) 							
 hist(sample1, freq=T, main='Counts')      	
-hist(sample1, freq=F, main='Frequencies') 	
 ```
+
+The bin counts can be replaced with the proportion of each bin using the `freq` argument.
+```{r}
+hist(sample1, freq=F, main='Proportion') 	
+```
+
 
 The bins of a histogram are non overlapping.
 We can adopt a sliding window approach, instead of binning. 
@@ -286,7 +292,7 @@ rug(sample1)
 ```
 
 ```{remark}
-Why would it make no sense to make a table, or a barplot, of continous data?
+Why would it make no sense to make a table, or a barplot, of continuous data?
 ```
 
 One particularly useful visualization, due to John W. Tukey, is the _boxplot_.
@@ -297,7 +303,7 @@ boxplot(sample1)
 ```
 
 
-#### Visualizing Bivariate Continous Data
+#### Visualizing Bivariate Continuous Data
 The bivariate counterpart of the `stipchart` is the celebrated scatter plot. 
 ```{r}
 n <- 20
@@ -319,13 +325,15 @@ plot(hexbin(x = x1, y = x2))
 
 
 
-#### Visualizing Multivariate Continous Data
+#### Visualizing Multivariate Continuous Data
 Visualizing multivariate data is a tremendous challenge given that we cannot grasp $4$ dimensional spaces, nor can the computer screen present more than $2$ dimensional spaces.
 We thus have several options: 
 (i) To project the data to 2D. This is discussed in the Dimensionality Reduction Section \@ref(dim-reduce).
 (ii) To visualize not the data, but the summaries, like the covariance matrix.
 
 Since the covariance matrix, $\hat \Sigma$ is a matrix, it can be visualized as an image.
+Note the use of the `::` operator, which is used to call a function from some package, without loading the whole package. 
+We will use the `::` operator when we want to emphasize the package of origin of a function.
 
 ```{r}
 covariance <- cov(longley) # The covariance of the longley dataset

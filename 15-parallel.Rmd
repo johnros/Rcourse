@@ -67,7 +67,8 @@ result
 
 Things to note:
 
-- `makeCluster` creates an object with the information our cluster. One a single machine it is very simple. On a cluster of machines, you will need to specify the i.p. addresses or other identifiers of the machines. 
+- `makeCluster` creates an object with the information our cluster. 
+On a single machine it is very simple. On a cluster of machines, you will need to specify the i.p. addresses or other identifiers of the machines. 
 - `registerDoParallel` is used to inform the __foreach__ package of the presence of our cluster. 
 - The `foreach` function handles the looping. In particular note the `%dopar` operator that ensures that looping is in parallel. `%dopar%` can be replaced by `%do%` if you want serial looping (like the `for` loop), for instance, for debugging. 
 - The output of the various machines is collected by `foreach` to a list object. 
