@@ -44,6 +44,9 @@ Because we follow units over time, like in Example \@ref(ex:random-effects).
 - __Panel Data__:
 Is the term typically used in econometric for such longitudinal data. 
 
+- __MANOVA__:
+Almost all of the problems that may be solved with a multivariate analysis of variance (MANOVA), may be solved with a mixed model for reasons we detail in \@ref(manova).
+
 
 We now emphasize: 
 
@@ -70,6 +73,24 @@ Put differently, we state $y|x,u$ merely as a convenient way to do inference on 
 Given a sample of $n$ observations $(y_i,x_i,z_i)$ from model \@ref(eq:mixed-model), we will want to estimate $(\beta,u)$.
 Under some assumption on the distribution of $\varepsilon$ and $z$, we can use _maximum likelihood_ (ML). 
 In the context of mixed-models, however, ML is typically replaced with _restricted maximum likelihood_ (ReML), because it returns unbiased estimates of $Var[y|x]$ and ML does not.
+
+
+### Relation to MANOVA {#manova}
+Multivariate analysis of variance (MANOVA) deals with the estimation of effect on vector valued outcomes. 
+Put differently: in ANOVA the response, $y$, is univariate In MANOVA, the outcome is multivariate.
+MANOVA is useful when there are correlations among the entries of $y$.
+Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.
+
+Now assume that the outcome of a MANOVA is measurements of an individual at several time periods.
+The measurements are clearly correlated, so that MANOVA may be useful. 
+But one may also treat time as a random effect, with a univariate response. 
+We thus see that this seemingly MANOVA problem can be solved with the mixed models framework.
+
+What MANOVA problems cannot be solved with mixed models?
+There may be cases where the covariance of the multivariate outcome, $y$, is very complicated.
+If the covariance in $y$ may not be stated using a combination of random and fixed effects, then the covariance has to be stated explicitly in the MANOVA framework.
+It is also possible to consider mixed-models with multivariate outcomes, i.e., a _mixed MANOVA_, or _hirarchial MANOVA_.
+The R functions we present herein permit this.
 
 
 

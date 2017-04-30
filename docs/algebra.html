@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-04-23">
+<meta name="date" content="2017-04-30">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -181,7 +181,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.6" data-path="glm.html"><a href="glm.html#practice-yourself-4"><i class="fa fa-check"></i><b>6.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
-<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
+<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#manova"><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA</a></li>
+</ul></li>
 <li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
 <li class="chapter" data-level="7.2.2" data-path="lme.html"><a href="lme.html#multiple-random-effects"><i class="fa fa-check"></i><b>7.2.2</b> Multiple Random Effects</a></li>
@@ -363,7 +365,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="algebra" class="section level1">
 <h1><span class="header-section-number">Chapter 17</span> Numerical Linear Algebra</h1>
-<p>In your algebra courses you would write <span class="math inline">\(Ax=b\)</span> and solve <span class="math inline">\(x=A^{-1}b\)</span>. This is useful to understand the algebraic properties of <span class="math inline">\(x\)</span>, but a computer would never recover <span class="math inline">\(x\)</span> that way. Even the computation of the sample variance, <span class="math inline">\(S^2(x)=(n-1)^{-1}\sum (x_i-\bar x)^2\)</span> is not solved that way in a computer, because of numerical and speed considerations.</p>
+<p>In your algebra courses you would write <span class="math inline">\(Ax=b\)</span> and solve <span class="math inline">\(x=A^{-1}b\)</span>. This is useful to understand the algebraic properties of <span class="math inline">\(x\)</span>, but a computer would never recover <span class="math inline">\(x\)</span> that way. Even the computation of the sample variance, <span class="math inline">\(S^2(x)=(n-1)^{-1}\sum (x_i-\bar x )^2\)</span> is not solved that way in a computer, because of numerical and speed considerations.</p>
 <p>In this chapter, we discuss several ways a computer solves systems of linear equations, with their application to statistics, namely, to OLS problems.</p>
 <div id="lu-factorization" class="section level2">
 <h2><span class="header-section-number">17.1</span> LU Factorization</h2>
@@ -373,7 +375,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="math display">\[\begin{align}
  A = L U 
 \end{align}\]</span>
-where L is unit lower triangular and U is upper triangular.
+where <span class="math inline">\(L\)</span> is unit lower triangular and <span class="math inline">\(U\)</span> is upper triangular.
 </div>
 <p></p>
 <p>The LU factorization is essentially the matrix notation for the <a href="https://en.wikipedia.org/wiki/Gaussian_elimination">Gaussian elimination</a> you did in your introductory algebra courses.</p>
@@ -391,9 +393,9 @@ where L is unit lower triangular and U is upper triangular.
 <div class="definition">
 <span id="def:cholesky" class="definition"><strong>Definition 17.3  (Cholesky Factorization) </strong></span>For some non-negative matrix <span class="math inline">\(A\)</span>, the Cholesky factorization is defined as
 <span class="math display">\[\begin{align}
- A = T&#39;T 
+ A = T&#39; T 
 \end{align}\]</span>
-where T is upper triangular with positive diagonal elements.
+where <span class="math inline">\(T\)</span> is upper triangular with positive diagonal elements.
 </div>
 <p></p>
 <p>For obvious reasons, the Cholesky factorization is known as the <em>square root</em> of a matrix.</p>
@@ -405,9 +407,9 @@ where T is upper triangular with positive diagonal elements.
 <div class="definition">
 <span id="def:qr" class="definition"><strong>Definition 17.4  (QR Factorization) </strong></span>For some matrix <span class="math inline">\(A\)</span>, the QR factorization is defined as
 <span class="math display">\[\begin{align}
- A = QR 
+ A = Q R 
 \end{align}\]</span>
-where Q is orthogonal and R is upper triangular.
+where <span class="math inline">\(Q\)</span> is orthogonal and <span class="math inline">\(R\)</span> is upper triangular.
 </div>
 <p></p>
 <p>The QR factorization is very useful to solve the OLS problem as we will see in <a href="algebra.html#solving-ols">17.6</a>. The QR factorization takes <span class="math inline">\(2n^3/3\)</span> operations to compute. Three major methods for computing the QR factorization exist. These rely on <em>Householder transformations</em>, <em>Givens transformations</em>, and a (modified) <em>Gram-Schmidt procedure</em> <span class="citation">(Gentle <a href="#ref-gentle2012numerical">2012</a>)</span>.</p>
@@ -420,7 +422,7 @@ where Q is orthogonal and R is upper triangular.
 <span class="math display">\[\begin{align}
  A = U \Sigma V&#39; 
 \end{align}\]</span>
-where U is an orthonormal <span class="math inline">\(n \times n\)</span> matrix, V is an <span class="math inline">\(m \times m\)</span> orthonormal matrix, and <span class="math inline">\(\Sigma\)</span> is diagonal.
+where <span class="math inline">\(U\)</span> is an orthonormal <span class="math inline">\(n \times n\)</span> matrix, <span class="math inline">\(V\)</span> is an <span class="math inline">\(m \times m\)</span> orthonormal matrix, and <span class="math inline">\(\Sigma\)</span> is diagonal.
 </div>
 <p></p>
 <p>The SVD factorization is very useful for algebraic analysis, but less so for computations. This is because it is (typically) solved via the QR factorization.</p>

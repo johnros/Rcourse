@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-04-23">
+<meta name="date" content="2017-04-30">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -181,7 +181,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.6" data-path="glm.html"><a href="glm.html#practice-yourself-4"><i class="fa fa-check"></i><b>6.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
-<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
+<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#manova"><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA</a></li>
+</ul></li>
 <li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
 <li class="chapter" data-level="7.2.2" data-path="lme.html"><a href="lme.html#multiple-random-effects"><i class="fa fa-check"></i><b>7.2.2</b> Multiple Random Effects</a></li>
@@ -380,17 +382,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Here are some more examples of the types of problems we are discussing.</p>
 
 <div class="example">
-<span id="ex:unnamed-chunk-94" class="example"><strong>Example 5.3  (Plant Growth) </strong></span>Consider the treatment of various plants with various fertilizers to study the fertilizer’s effect on growth.
+<span id="ex:unnamed-chunk-96" class="example"><strong>Example 5.3  (Plant Growth) </strong></span>Consider the treatment of various plants with various fertilizers to study the fertilizer’s effect on growth.
 </div>
 <p></p>
 
 <div class="example">
-<span id="ex:unnamed-chunk-95" class="example"><strong>Example 5.4  (Return to Education) </strong></span>Consider the study of return to education by analyzing the incomes of individuals with different education years.
+<span id="ex:unnamed-chunk-97" class="example"><strong>Example 5.4  (Return to Education) </strong></span>Consider the study of return to education by analyzing the incomes of individuals with different education years.
 </div>
 <p></p>
 
 <div class="example">
-<span id="ex:unnamed-chunk-96" class="example"><strong>Example 5.5  (Drug Effect) </strong></span>Consider the study of the effect of a new drug, by analyzing the level of blood coagulation after the administration of various amounts of the new drug.
+<span id="ex:unnamed-chunk-98" class="example"><strong>Example 5.5  (Drug Effect) </strong></span>Consider the study of the effect of a new drug, by analyzing the level of blood coagulation after the administration of various amounts of the new drug.
 </div>
 <p></p>
 <p>Let’s present the linear model. We assume that a response<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a> variable is the sum of effects of some factors<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a>. Denoting the dependent by <span class="math inline">\(y\)</span>, the factors by <span class="math inline">\(x\)</span>, and the effects by <span class="math inline">\(\beta\)</span> the linear model assumption implies that</p>
@@ -453,9 +455,8 @@ Given the above assumptions, we can apply some probability theory and linear alg
 <h2><span class="header-section-number">5.2</span> OLS Estimation in R</h2>
 <p>We are now ready to estimate some linear models with R. We will use the <code>whiteside</code> data from the <strong>MASS</strong> package, recording the outside temperature and gas consumption, before and after an appartment’s insulation.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(MASS)
-<span class="kw">data</span>(MASS::whiteside)</code></pre></div>
-<pre><code>## Warning in data(MASS::whiteside): data set &#39;MASS::whiteside&#39; not found</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(whiteside) <span class="co"># inspect the data</span></code></pre></div>
+<span class="kw">data</span>(whiteside)
+<span class="kw">head</span>(whiteside) <span class="co"># inspect the data</span></code></pre></div>
 <pre><code>##    Insul Temp Gas
 ## 1 Before -0.8 7.2
 ## 2 Before -0.7 6.9
@@ -548,12 +549,12 @@ lm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</
 <p>We can use the <code>predict</code> function to make predictions, but we emphasize that if the purpose of the model is to make predictions, and not interpret coefficients, better skip to the Supervised Learning Chapter <a href="supervised.html#supervised">9</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">predict</span>(lm<span class="fl">.1</span>)~whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,]$Gas)
 <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-104-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-106-1.png" width="50%" /></p>
 <p>The model seems to fit the data nicely. A common measure of the goodness of fit is the <em>coefficient of determination</em>, more commonly known as the <span class="math inline">\(R^2\)</span>.</p>
 
 
 <div class="definition">
-<span id="def:unnamed-chunk-105" class="definition"><strong>Definition 5.1  (<span class="math inline">\(R^2\)</span>.) </strong></span>The coefficient of determination, denoted <span class="math inline">\(R^2\)</span>, is defined as
+<span id="def:unnamed-chunk-107" class="definition"><strong>Definition 5.1  (<span class="math inline">\(R^2\)</span>.) </strong></span>The coefficient of determination, denoted <span class="math inline">\(R^2\)</span>, is defined as
 <span class="math display">\[\begin{align}
   R^2:= 1-\frac{\sum_i (y_i - \hat y_i)^2}{\sum_i (y_i - \bar y)^2},
 \end{align}\]</span>
@@ -607,11 +608,11 @@ where <span class="math inline">\(\hat y_i\)</span> is the model’s prediction,
 <p>Can we check the assumptions required for inference? Some. Let’s start with the linearity assumption. If we were wrong, and the data is not arranged about a linear line, the residuals will have some shape. We thus plot the residuals as a function of the predictor to diagnose shape.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">residuals</span>(lm<span class="fl">.1</span>)~whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,]$Temp)
 <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-108-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-110-1.png" width="50%" /></p>
 <p>I can’t say I see any shape. Let’s fit a <strong>wrong</strong> model, just to see what “shape” means.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.1.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(Gas~<span class="kw">I</span>(Temp^<span class="dv">2</span>), <span class="dt">data=</span>whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,])
 <span class="kw">plot</span>(<span class="kw">residuals</span>(lm<span class="fl">.1.1</span>)~whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,]$Temp); <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-109-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-111-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>We used <code>I(Temp)^2</code> to specify the model <span class="math inline">\(Gas=\beta_0 + \beta_1 Temp^2+ \varepsilon\)</span>.</li>
@@ -620,10 +621,10 @@ where <span class="math inline">\(\hat y_i\)</span> is the model’s prediction,
 <p>To the next assumption. We assumed <span class="math inline">\(\varepsilon_i\)</span> are independent of everything else. The residuals, <span class="math inline">\(y_i-\hat y_i\)</span> can be thought of a sample of <span class="math inline">\(\varepsilon_i\)</span>. When diagnosing the linearity assumption, we already saw their distribution does not vary with the <span class="math inline">\(x\)</span>’s, <code>Temp</code> in our case. They may be correlated with themselves; a positive departure from the model, may be followed by a series of positive departures etc. Diagnosing these <em>auto-correlations</em> is a real art, which is not part of our course.</p>
 <p>The last assumption we required is normality. As previously stated, if <span class="math inline">\(n \gg p\)</span>, this assumption can be relaxed. If <span class="math inline">\(n \sim p\)</span>, i.e., <span class="math inline">\(n\)</span> is in the order of <span class="math inline">\(p\)</span>, we need to verify this assumption. My favorite tool for this task is the <em>qqplot</em>. A qqplot compares the quantiles of the sample with the respective quantiles of the assumed distribution. If quantiles align along a line, the assumed distribution if OK. If quantiles depart from a line, then the assumed distribution does not fit the sample.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qqnorm</span>(<span class="kw">resid</span>((lm<span class="fl">.1</span>)))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-110-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-112-1.png" width="50%" /></p>
 <p>The <code>qqnorm</code> function plots a qqplot against a normal distribution. Judging from the figure, the normality assumption is quite plausible. Let’s try the same on a non-normal sample, namely a uniformly distributed sample, to see how that would look.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qqnorm</span>(<span class="kw">runif</span>(<span class="dv">100</span>))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-111-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-113-1.png" width="50%" /></p>
 <div id="testing-a-hypothesis-on-a-single-coefficient" class="section level3">
 <h3><span class="header-section-number">5.3.1</span> Testing a Hypothesis on a Single Coefficient</h3>
 <p>The first inferential test we consider is a hypothesis test on a single coefficient. In our gas example, we may want to test that the temperature has no effect on the gas consumption. The answer for that is given immediately by <code>summary(lm.1)</code></p>
@@ -649,8 +650,8 @@ coefs.lm1</code></pre></div>
 </div>
 <p></p>
 <p>Our next example<a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a> contains a hypothetical sample of <span class="math inline">\(60\)</span> participants who are divided into three stress reduction treatment groups (mental, physical, and medical) and two gender groups (male and female). The stress reduction values are represented on a scale that ranges from 1 to 5. This dataset can be conceptualized as a comparison between three stress treatment programs, one using mental methods, one using physical training, and one using medication across genders. The values represent how effective the treatment programs were at reducing participant’s stress levels, with larger effects indicating higher effectiveness.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;dataset_anova_twoWay_comparisons.csv&#39;</span>)
-<span class="kw">head</span>(data)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">twoWay &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;dataset_anova_twoWay_comparisons.csv&#39;</span>)
+<span class="kw">head</span>(twoWay)</code></pre></div>
 <pre><code>##   Treatment   Age StressReduction
 ## 1    mental young              10
 ## 2    mental young               9
@@ -659,18 +660,18 @@ coefs.lm1</code></pre></div>
 ## 5    mental   mid               6
 ## 6    mental   mid               5</code></pre>
 <p>How many observations per group?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(data$Treatment, data$Age)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(twoWay$Treatment, twoWay$Age)</code></pre></div>
 <pre><code>##           
 ##            mid old young
 ##   medical    3   3     3
 ##   mental     3   3     3
 ##   physical   3   3     3</code></pre>
 <p>Since we have two factorial predictors, this multiple regression is nothing but a <em>two way ANOVA</em>. Let’s fit the model and inspect it.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(StressReduction~.-<span class="dv">1</span>,<span class="dt">data=</span>data)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(StressReduction~.-<span class="dv">1</span>,<span class="dt">data=</span>twoWay)
 <span class="kw">summary</span>(lm<span class="fl">.2</span>)</code></pre></div>
 <pre><code>## 
 ## Call:
-## lm(formula = StressReduction ~ . - 1, data = data)
+## lm(formula = StressReduction ~ . - 1, data = twoWay)
 ## 
 ## Residuals:
 ##    Min     1Q Median     3Q    Max 
@@ -724,17 +725,17 @@ coefs.lm1</code></pre></div>
 <li>The StressReduction seems to vary for different ages and treatments, since both factors are significant.</li>
 </ul>
 <p>As in any two-way ANOVA, we may want to ask if different age groups respond differently to different treatments. In the statistical parlance, this is called an <em>interaction</em>, or more precisely, an <em>interaction of order 2</em>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(StressReduction~Treatment+Age+Treatment:Age<span class="dv">-1</span>,<span class="dt">data=</span>data)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(StressReduction~Treatment+Age+Treatment:Age<span class="dv">-1</span>,<span class="dt">data=</span>twoWay)</code></pre></div>
 <p>The syntax <code>StressReduction~Treatment+Age+Treatment:Age-1</code> tells R to include main effects of Treatment, Age, and their interactions. Here are other ways to specify the same model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(StressReduction ~<span class="st"> </span>Treatment *<span class="st"> </span>Age -<span class="st"> </span><span class="dv">1</span>,<span class="dt">data=</span>data)
-lm<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(StressReduction~(.)^<span class="dv">2</span> -<span class="st"> </span><span class="dv">1</span>,<span class="dt">data=</span>data)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(StressReduction ~<span class="st"> </span>Treatment *<span class="st"> </span>Age -<span class="st"> </span><span class="dv">1</span>,<span class="dt">data=</span>twoWay)
+lm<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(StressReduction~(.)^<span class="dv">2</span> -<span class="st"> </span><span class="dv">1</span>,<span class="dt">data=</span>twoWay)</code></pre></div>
 <p>The syntax <code>Treatment * Age</code> means “mains effects with second order interactions”. The syntax <code>(.)^2</code> means “everything with second order interactions”</p>
 <p>Let’s inspect the model</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(lm<span class="fl">.3</span>)</code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = StressReduction ~ Treatment + Age + Treatment:Age - 
-##     1, data = data)
+##     1, data = twoWay)
 ## 
 ## Residuals:
 ##    Min     1Q Median     3Q    Max 
@@ -792,7 +793,7 @@ lm<span class="fl">.4</span> &lt;-<span class="st"> </span><span class="kw">glht
 <pre><code>## 
 ##   Simultaneous Tests for General Linear Hypotheses
 ## 
-## Fit: lm(formula = StressReduction ~ . - 1, data = data)
+## Fit: lm(formula = StressReduction ~ . - 1, data = twoWay)
 ## 
 ## Linear Hypotheses:
 ##        Estimate Std. Error t value Pr(&gt;|t|)  

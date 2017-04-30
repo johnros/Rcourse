@@ -14,7 +14,7 @@ For some matrix $A$, the LU factorization is defined as
 \begin{align}
  A = L U 
 \end{align}
-where L is unit lower triangular and U is upper triangular. 
+where $L$ is unit lower triangular and $U$ is upper triangular. 
 ```
 
 The LU factorization is essentially the matrix notation for the [Gaussian elimination](https://en.wikipedia.org/wiki/Gaussian_elimination) you did in your introductory algebra courses. 
@@ -36,9 +36,9 @@ Seeing the matrix $A$ as a function, non-negative matrices can be thought of as 
 ```{definition, label="cholesky", name="Cholesky Factorization"}
 For some non-negative matrix $A$, the Cholesky factorization is defined as 
 \begin{align}
- A = T'T 
+ A = T' T 
 \end{align}
-where T is upper triangular with positive diagonal elements.
+where $T$ is upper triangular with positive diagonal elements.
 ```
 
 For obvious reasons, the Cholesky factorization is known as the _square root_ of a matrix. 
@@ -52,9 +52,9 @@ It can be computed in $n^3/6$ operations, and requires storing $n(n+1)/2$ elemen
 ```{definition, label="qr", name="QR Factorization"}
 For some matrix $A$, the QR factorization is defined as 
 \begin{align}
- A = QR 
+ A = Q R 
 \end{align}
-where Q is orthogonal and R is upper triangular. 
+where $Q$ is orthogonal and $R$ is upper triangular. 
 ```
 
 The QR factorization is very useful to solve the OLS problem as we will see in \@ref(solving-ols).
@@ -71,7 +71,7 @@ Three major methods for computing the QR factorization exist. These rely on _Hou
 For an arbitrary $n\times m$ matrix  $A$, the _singular valued decomposition_ (SVD), is defined as \begin{align}
  A = U \Sigma V' 
 \end{align}
-where U is an orthonormal $n \times n$ matrix, V is an $m \times m$ orthonormal matrix, and $\Sigma$ is diagonal.
+where $U$ is an orthonormal $n \times n$ matrix, $V$ is an $m \times m$ orthonormal matrix, and $\Sigma$ is diagonal.
 ```
 
 The SVD factorization is very useful for algebraic analysis, but less so for computations.
