@@ -116,7 +116,7 @@
 
 \title{R (BGU course)}
 \author{Jonathan D. Rosenblatt}
-\date{2017-04-23}
+\date{2017-05-03}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -822,7 +822,7 @@ calling it without arguments:
 ##     fill = TRUE, comment.char = "", ...) 
 ## read.table(file = file, header = header, sep = sep, quote = quote, 
 ##     dec = dec, fill = fill, comment.char = comment.char, ...)
-## <bytecode: 0x47f3150>
+## <bytecode: 0x4334a28>
 ## <environment: namespace:utils>
 \end{verbatim}
 
@@ -2536,16 +2536,7 @@ appartment's insulation.
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(MASS)}
-\KeywordTok{data}\NormalTok{(MASS::whiteside)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning in data(MASS::whiteside): data set 'MASS::whiteside' not found
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(whiteside)}
 \KeywordTok{head}\NormalTok{(whiteside) }\CommentTok{# inspect the data}
 \end{Highlighting}
 \end{Shaded}
@@ -2979,8 +2970,8 @@ larger effects indicating higher effectiveness.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{data <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'dataset_anova_twoWay_comparisons.csv'}\NormalTok{)}
-\KeywordTok{head}\NormalTok{(data)}
+\NormalTok{twoWay <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'dataset_anova_twoWay_comparisons.csv'}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(twoWay)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2998,7 +2989,7 @@ How many observations per group?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{table}\NormalTok{(data$Treatment, data$Age)}
+\KeywordTok{table}\NormalTok{(twoWay$Treatment, twoWay$Age)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3015,7 +3006,7 @@ nothing but a \emph{two way ANOVA}. Let's fit the model and inspect it.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lm}\FloatTok{.2} \NormalTok{<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(StressReduction~.-}\DecValTok{1}\NormalTok{,}\DataTypeTok{data=}\NormalTok{data)}
+\NormalTok{lm}\FloatTok{.2} \NormalTok{<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(StressReduction~.-}\DecValTok{1}\NormalTok{,}\DataTypeTok{data=}\NormalTok{twoWay)}
 \KeywordTok{summary}\NormalTok{(lm}\FloatTok{.2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -3023,7 +3014,7 @@ nothing but a \emph{two way ANOVA}. Let's fit the model and inspect it.
 \begin{verbatim}
 ## 
 ## Call:
-## lm(formula = StressReduction ~ . - 1, data = data)
+## lm(formula = StressReduction ~ . - 1, data = twoWay)
 ## 
 ## Residuals:
 ##    Min     1Q Median     3Q    Max 
@@ -3130,7 +3121,7 @@ parlance, this is called an \emph{interaction}, or more precisely, an
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lm}\FloatTok{.3} \NormalTok{<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(StressReduction~Treatment+Age+Treatment:Age}\DecValTok{-1}\NormalTok{,}\DataTypeTok{data=}\NormalTok{data)}
+\NormalTok{lm}\FloatTok{.3} \NormalTok{<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(StressReduction~Treatment+Age+Treatment:Age}\DecValTok{-1}\NormalTok{,}\DataTypeTok{data=}\NormalTok{twoWay)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3141,8 +3132,8 @@ interactions. Here are other ways to specify the same model.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lm}\FloatTok{.3} \NormalTok{<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(StressReduction ~}\StringTok{ }\NormalTok{Treatment *}\StringTok{ }\NormalTok{Age -}\StringTok{ }\DecValTok{1}\NormalTok{,}\DataTypeTok{data=}\NormalTok{data)}
-\NormalTok{lm}\FloatTok{.3} \NormalTok{<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(StressReduction~(.)^}\DecValTok{2} \NormalTok{-}\StringTok{ }\DecValTok{1}\NormalTok{,}\DataTypeTok{data=}\NormalTok{data)}
+\NormalTok{lm}\FloatTok{.3} \NormalTok{<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(StressReduction ~}\StringTok{ }\NormalTok{Treatment *}\StringTok{ }\NormalTok{Age -}\StringTok{ }\DecValTok{1}\NormalTok{,}\DataTypeTok{data=}\NormalTok{twoWay)}
+\NormalTok{lm}\FloatTok{.3} \NormalTok{<-}\StringTok{ }\KeywordTok{lm}\NormalTok{(StressReduction~(.)^}\DecValTok{2} \NormalTok{-}\StringTok{ }\DecValTok{1}\NormalTok{,}\DataTypeTok{data=}\NormalTok{twoWay)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3162,7 +3153,7 @@ Let's inspect the model
 ## 
 ## Call:
 ## lm(formula = StressReduction ~ Treatment + Age + Treatment:Age - 
-##     1, data = data)
+##     1, data = twoWay)
 ## 
 ## Residuals:
 ##    Min     1Q Median     3Q    Max 
@@ -3272,7 +3263,7 @@ treatment.
 ## 
 ##   Simultaneous Tests for General Linear Hypotheses
 ## 
-## Fit: lm(formula = StressReduction ~ . - 1, data = data)
+## Fit: lm(formula = StressReduction ~ . - 1, data = twoWay)
 ## 
 ## Linear Hypotheses:
 ##        Estimate Std. Error t value Pr(>|t|)  
@@ -3962,6 +3953,10 @@ Mixed models are so fundamental, that they have earned many names:
 \item
   \textbf{Panel Data}: Is the term typically used in econometric for
   such longitudinal data.
+\item
+  \textbf{MANOVA}: Almost all of the problems that may be solved with a
+  multivariate analysis of variance (MANOVA), may be solved with a mixed
+  model for reasons we detail in \ref{manova}.
 \end{itemize}
 
 We now emphasize:
@@ -4014,6 +4009,30 @@ assumption on the distribution of \(\varepsilon\) and \(z\), we can use
 ML is typically replaced with \emph{restricted maximum likelihood}
 (ReML), because it returns unbiased estimates of \(Var[y|x]\) and ML
 does not.
+
+\subsection{Relation to MANOVA}\label{manova}
+
+Multivariate analysis of variance (MANOVA) deals with the estimation of
+effect on vector valued outcomes. Put differently: in ANOVA the
+response, \(y\), is univariate In MANOVA, the outcome is multivariate.
+MANOVA is useful when there are correlations among the entries of \(y\).
+Otherwise- one may simply solve many ANOVA problems, instead of a single
+MANOVA.
+
+Now assume that the outcome of a MANOVA is measurements of an individual
+at several time periods. The measurements are clearly correlated, so
+that MANOVA may be useful. But one may also treat time as a random
+effect, with a univariate response. We thus see that this seemingly
+MANOVA problem can be solved with the mixed models framework.
+
+What MANOVA problems cannot be solved with mixed models? There may be
+cases where the covariance of the multivariate outcome, \(y\), is very
+complicated. If the covariance in \(y\) may not be stated using a
+combination of random and fixed effects, then the covariance has to be
+stated explicitly in the MANOVA framework. It is also possible to
+consider mixed-models with multivariate outcomes, i.e., a \emph{mixed
+MANOVA}, or \emph{hirarchial MANOVA}. The R functions we present herein
+permit this.
 
 \section{Mixed Models with R}\label{mixed-models-with-r}
 
@@ -8386,6 +8405,11 @@ If you are comfortable with \textbf{ggplot2}, you may use the
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## Warning: We recommend that you use the dev version of ggplot2 with `ggplotly()`
+## Install it with: `devtools::install_github('hadley/ggplot2')`
+\end{verbatim}
+
 \includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-232-1}
 
 For more on \textbf{plotly} see \url{https://plot.ly/r/}.
@@ -10295,7 +10319,7 @@ We compare the aggregation speeds. Here is the timing for
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   6.892   0.000   6.898
+##  10.076   0.032  12.012
 \end{verbatim}
 
 And now the timing for \textbf{data.table}.
@@ -10310,7 +10334,7 @@ And now the timing for \textbf{data.table}.
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.304   0.004   0.309
+##   0.444   0.008   0.505
 \end{verbatim}
 
 The winner is obvious. Let's compare filtering (i.e.~row subsets,
@@ -10326,7 +10350,7 @@ i.e.~SQL's SELECT).
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.012   0.000   0.012
+##   0.016   0.000   0.021
 \end{verbatim}
 
 \begin{Shaded}
@@ -10339,7 +10363,7 @@ i.e.~SQL's SELECT).
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.016   0.000   0.015
+##   0.280   0.000   0.304
 \end{verbatim}
 
 \section{Computing from a Database}\label{computing-from-a-database}
@@ -11016,19 +11040,23 @@ means that in each iteration, we resample the data, and refit the model.
 \end{Shaded}
 
 \begin{verbatim}
-## Warning: closing unused connection 10 (<-localhost:11481)
+## Warning in .Internal(gc(verbose, reset)): closing unused connection 10 (<-
+## localhost:11707)
 \end{verbatim}
 
 \begin{verbatim}
-## Warning: closing unused connection 9 (<-localhost:11481)
+## Warning in .Internal(gc(verbose, reset)): closing unused connection 9 (<-
+## localhost:11707)
 \end{verbatim}
 
 \begin{verbatim}
-## Warning: closing unused connection 8 (<-localhost:11481)
+## Warning in .Internal(gc(verbose, reset)): closing unused connection 8 (<-
+## localhost:11707)
 \end{verbatim}
 
 \begin{verbatim}
-## Warning: closing unused connection 7 (<-localhost:11481)
+## Warning in .Internal(gc(verbose, reset)): closing unused connection 7 (<-
+## localhost:11707)
 \end{verbatim}
 
 \begin{Shaded}
@@ -11039,7 +11067,7 @@ means that in each iteration, we resample the data, and refit the model.
 
 \begin{verbatim}
 ## elapsed 
-##  24.491
+##  32.948
 \end{verbatim}
 
 Things to note:
@@ -11075,7 +11103,7 @@ to replace \texttt{\%dopar\%} with \texttt{\%do\%} to test.
 
 \begin{verbatim}
 ## elapsed 
-##  34.684
+##  55.237
 \end{verbatim}
 
 Yes. Parallelising is clearly faster.
@@ -11188,7 +11216,7 @@ In your algebra courses you would write \(Ax=b\) and solve
 \(x=A^{-1}b\). This is useful to understand the algebraic properties of
 \(x\), but a computer would never recover \(x\) that way. Even the
 computation of the sample variance,
-\(S^2(x)=(n-1)^{-1}\sum (x_i-\bar x)^2\) is not solved that way in a
+\(S^2(x)=(n-1)^{-1}\sum (x_i-\bar x )^2\) is not solved that way in a
 computer, because of numerical and speed considerations.
 
 In this chapter, we discuss several ways a computer solves systems of
@@ -11205,7 +11233,7 @@ problems.
  A = L U 
 \end{align}
 
-where L is unit lower triangular and U is upper triangular.
+where \(L\) is unit lower triangular and \(U\) is upper triangular.
 \EndKnitrBlock{definition}
 
 The LU factorization is essentially the matrix notation for the
@@ -11232,10 +11260,10 @@ Factorization) \fi }For some non-negative matrix \(A\), the Cholesky
 factorization is defined as
 
 \begin{align}
- A = T'T 
+ A = T' T 
 \end{align}
 
-where T is upper triangular with positive diagonal elements.
+where \(T\) is upper triangular with positive diagonal elements.
 \EndKnitrBlock{definition}
 
 For obvious reasons, the Cholesky factorization is known as the
@@ -11252,10 +11280,10 @@ can be computed in \(n^3/6\) operations, and requires storing
 \fi }For some matrix \(A\), the QR factorization is defined as
 
 \begin{align}
- A = QR 
+ A = Q R 
 \end{align}
 
-where Q is orthogonal and R is upper triangular.
+where \(Q\) is orthogonal and \(R\) is upper triangular.
 \EndKnitrBlock{definition}
 
 The QR factorization is very useful to solve the OLS problem as we will
@@ -11277,8 +11305,8 @@ decomposition} (SVD), is defined as
  A = U \Sigma V' 
 \end{align}
 
-where U is an orthonormal \(n \times n\) matrix, V is an \(m \times m\)
-orthonormal matrix, and \(\Sigma\) is diagonal.
+where \(U\) is an orthonormal \(n \times n\) matrix, \(V\) is an
+\(m \times m\) orthonormal matrix, and \(\Sigma\) is diagonal.
 \EndKnitrBlock{definition}
 
 The SVD factorization is very useful for algebraic analysis, but less so
@@ -11351,6 +11379,8 @@ algebra, see \citet{gentle2012numerical}, and \citet{golub2012matrix}.
 \section{Practice Yourself}\label{practice-yourself-17}
 
 \chapter{Debugging Tools}\label{debugging}
+
+TODO
 
 \section{Bibliographic Notes}\label{bibliographic-notes-16}
 

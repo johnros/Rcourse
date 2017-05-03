@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-04-30">
+<meta name="date" content="2017-05-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -48,9 +48,12 @@
 
 
 <script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<link href="libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
-<script src="libs/plotly-binding-4.5.6/plotly.js"></script>
+<link href="libs/plotlyjs-1.26.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.26.1/plotly-latest.min.js"></script>
+<script src="libs/plotly-binding-4.6.0/plotly.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
 
 
 <style type="text/css">
@@ -370,7 +373,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><p><strong>Sweave</strong>: <em>LaTeX</em> is a markup language that compiles to <em>Tex</em> programs that compile, in turn, to documents (typically PS or PDFs). If you never heard of it, it may be because you were born the the MS Windows+MS Word era. You should know, however, that <em>LaTeX</em> was there much earlier, when computers were mainframes with text-only graphic devices. You should also know that <em>LaTeX</em> is still very popular (in some communities) due to its very rich markup syntax, and beautiful output. <em>Sweave</em> <span class="citation">(Leisch <a href="#ref-leisch2002sweave">2002</a>)</span> is a compiler for <em>LaTeX</em> that allows you do insert R commands in the <em>LaTeX</em> source file, and get the result as part of the outputted PDF. It’s name suggests just that: it allows to weave S<a href="#fn26" class="footnoteRef" id="fnref26"><sup>26</sup></a> output into the document, thus, Sweave.</p></li>
 <li><p><strong>knitr</strong>: <em>Markdown</em> is a text editing syntax that, unlike <em>LaTeX</em>, is aimed to be human-readable, but also compilable by a machine. If you ever tried to read HTML or Latex source files, you may understand why human-readability is a desirable property. There are many <em>markdown</em> compilers. One of the most popular is Pandoc, written by the Berkeley philosopher(!) Jon MacFarlane. The availability of Pandoc gave <a href="https://yihui.name/">Yihui Xie</a>, a name to remember, the idea that it is time for Sweave to evolve. Yihui thus wrote <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015dynamic">2015</a>)</span>, which allows to write human readable text in <em>Rmarkdown</em>, a superset of <em>markdown</em>, compile it with R and the compile it with Pandoc. Because Pandoc can compile to PDF, but also to HTML, and DOCX, among others, this means that you can write in Rmarkdown, and get output in almost all text formats out there.</p></li>
 <li><p><strong>bookdown</strong>: <strong>Bookdown</strong> <span class="citation">(Xie <a href="#ref-xie2016bookdown">2016</a>)</span> is an evolution of <strong>knitr</strong>, also written by Yihui Xie, now working for RStudio. The text you are now reading was actually written in <strong>bookdown</strong>. It deals with the particular needs of writing large documents, and cross referencing in particular (which is very challenging if you want the text to be human readable).</p></li>
-<li><p><strong>Shiny</strong>: Shiny is essentially a framework for quick web-development. It includes (i) an abstraction layer that specifies the layout of a web-site which is our report, (ii) the command to start a web server to deliver the site. For more on Shiny see <span class="citation">RStudio, Inc (<a href="#ref-shiny">2013</a>)</span>.</p></li>
+<li><p><strong>Shiny</strong>: Shiny is essentially a framework for quick web-development. It includes (i) an abstraction layer that specifies the layout of a web-site which is our report, (ii) the command to start a web server to deliver the site. For more on Shiny see <span class="citation">Chang et al. (<a href="#ref-shiny">2017</a>)</span>.</p></li>
 </ol>
 <div id="knitr" class="section level2">
 <h2><span class="header-section-number">12.1</span> knitr</h2>
@@ -439,7 +442,7 @@ plot(rnorm(10))
 ```</code></pre>
 <p>which compiles into</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">rnorm</span>(<span class="dv">10</span>))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-239-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-237-1.png" width="50%" /></p>
 <p>TODO: more code chunk options.</p>
 <p>You can also call r expressions inline. This is done with a single tick and the <code>r</code> argument. For instance:</p>
 <blockquote>
@@ -461,7 +464,7 @@ plot(rnorm(10))
 </div>
 <div id="shiny" class="section level2">
 <h2><span class="header-section-number">12.3</span> Shiny</h2>
-<p><strong>Shiny</strong> <span class="citation">(RStudio, Inc <a href="#ref-shiny">2013</a>)</span> is different than the previous systems, because it sets up an interactive web-site, and not a static file. The power of Shiny is that the layout of the web-site, and the settings of the web-server, is made with several simple R commands, with no need for web-programming. Once you have your app up and running, you can setup your own Shiny server on the web, or publish it via <a href="https://www.shinyapps.io/">Shinyapps.io</a>. The freemium versions of the service can deal with a small amount of traffic. If you expect a lot of traffic, you will probably need the paid versions.</p>
+<p><strong>Shiny</strong> <span class="citation">(Chang et al. <a href="#ref-shiny">2017</a>)</span> is different than the previous systems, because it sets up an interactive web-site, and not a static file. The power of Shiny is that the layout of the web-site, and the settings of the web-server, is made with several simple R commands, with no need for web-programming. Once you have your app up and running, you can setup your own Shiny server on the web, or publish it via <a href="https://www.shinyapps.io/">Shinyapps.io</a>. The freemium versions of the service can deal with a small amount of traffic. If you expect a lot of traffic, you will probably need the paid versions.</p>
 <div id="installation-1" class="section level3">
 <h3><span class="header-section-number">12.3.1</span> Installation</h3>
 <p>To setup your first Shiny app, you will need the <strong>shiny</strong> package. You will probably want RStudio, which facilitates the process.</p>
@@ -678,7 +681,7 @@ function(input, output) {
 </div>
 <div id="bibliographic-notes-9" class="section level2">
 <h2><span class="header-section-number">12.5</span> Bibliographic Notes</h2>
-<p>For RMarkdown see <a href="http://rmarkdown.rstudio.com/">here</a>. For everything on <strong>knitr</strong> see <a href="https://yihui.name/knitr/">Yihui’s blog</a>, or the book <span class="citation">Xie (<a href="#ref-xie2015dynamic">2015</a>)</span>. For a <strong>bookdown</strong> manual, see <span class="citation">Xie (<a href="#ref-xie2016bookdown">2016</a>)</span>. For a Shiny manual, see <span class="citation">RStudio, Inc (<a href="#ref-shiny">2013</a>)</span>, the <a href="http://shiny.rstudio.com/tutorial/">RStudio tutorial</a>, or <a href="http://zevross.com/blog/2016/04/19/r-powered-web-applications-with-shiny-a-tutorial-and-cheat-sheet-with-40-example-apps/">Zev Ross’s</a> excellent guide. Video tutorials are available <a href="https://www.rstudio.com/resources/webinars/shiny-developer-conference/">here</a>.</p>
+<p>For RMarkdown see <a href="http://rmarkdown.rstudio.com/">here</a>. For everything on <strong>knitr</strong> see <a href="https://yihui.name/knitr/">Yihui’s blog</a>, or the book <span class="citation">Xie (<a href="#ref-xie2015dynamic">2015</a>)</span>. For a <strong>bookdown</strong> manual, see <span class="citation">Xie (<a href="#ref-xie2016bookdown">2016</a>)</span>. For a Shiny manual, see <span class="citation">Chang et al. (<a href="#ref-shiny">2017</a>)</span>, the <a href="http://shiny.rstudio.com/tutorial/">RStudio tutorial</a>, or <a href="http://zevross.com/blog/2016/04/19/r-powered-web-applications-with-shiny-a-tutorial-and-cheat-sheet-with-40-example-apps/">Zev Ross’s</a> excellent guide. Video tutorials are available <a href="https://www.rstudio.com/resources/webinars/shiny-developer-conference/">here</a>.</p>
 </div>
 <div id="practice-yourself-10" class="section level2">
 <h2><span class="header-section-number">12.6</span> Practice Yourself</h2>
@@ -697,7 +700,7 @@ function(input, output) {
 <p>Xie, Yihui. 2016. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. CRC Press.</p>
 </div>
 <div id="ref-shiny">
-<p>RStudio, Inc. 2013. <em>Easy Web Applications in R.</em></p>
+<p>Chang, Winston, Joe Cheng, JJ Allaire, Yihui Xie, and Jonathan McPherson. 2017. <em>Shiny: Web Application Framework for R</em>. <a href="https://CRAN.R-project.org/package=shiny" class="uri">https://CRAN.R-project.org/package=shiny</a>.</p>
 </div>
 </div>
 <div class="footnotes">

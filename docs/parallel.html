@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-04-30">
+<meta name="date" content="2017-05-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -48,9 +48,12 @@
 
 
 <script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<link href="libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
-<script src="libs/plotly-binding-4.5.6/plotly.js"></script>
+<link href="libs/plotlyjs-1.26.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.26.1/plotly-latest.min.js"></script>
+<script src="libs/plotly-binding-4.6.0/plotly.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
 
 
 <style type="text/css">
@@ -393,10 +396,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <p></p>
 <p>Let’s start with a simple example, taken from <a href="http://debian.mc.vanderbilt.edu/R/CRAN/web/packages/doParallel/vignettes/gettingstartedParallel.pdf">“Getting Started with doParallel and foreach”</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(doParallel)</code></pre></div>
-<pre><code>## Loading required package: iterators</code></pre>
-<pre><code>## Loading required package: parallel</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(<span class="dv">2</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(doParallel)
+cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(<span class="dv">2</span>)
 <span class="kw">registerDoParallel</span>(cl)
 result &lt;-<span class="st"> </span><span class="kw">foreach</span>(<span class="dt">i=</span><span class="dv">1</span>:<span class="dv">3</span>) %dopar%<span class="st"> </span><span class="kw">sqrt</span>(i)
 <span class="kw">class</span>(result)</code></pre></div>
@@ -429,10 +430,18 @@ ptime &lt;-<span class="st"> </span><span class="kw">system.time</span>({
  result1 &lt;-<span class="st"> </span><span class="kw">glm</span>(x[ind,<span class="dv">2</span>]~x[ind,<span class="dv">1</span>], <span class="dt">family=</span><span class="kw">binomial</span>(logit))
  <span class="kw">coefficients</span>(result1)
  }
- })[<span class="dv">3</span>]
-ptime</code></pre></div>
+ })[<span class="dv">3</span>]</code></pre></div>
+<pre><code>## Warning in .Internal(gc(verbose, reset)): closing unused connection 10 (&lt;-
+## localhost:11707)</code></pre>
+<pre><code>## Warning in .Internal(gc(verbose, reset)): closing unused connection 9 (&lt;-
+## localhost:11707)</code></pre>
+<pre><code>## Warning in .Internal(gc(verbose, reset)): closing unused connection 8 (&lt;-
+## localhost:11707)</code></pre>
+<pre><code>## Warning in .Internal(gc(verbose, reset)): closing unused connection 7 (&lt;-
+## localhost:11707)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ptime</code></pre></div>
 <pre><code>## elapsed 
-##  20.518</code></pre>
+##  32.874</code></pre>
 <p>Things to note:</p>
 <ul>
 <li>As usual, we use the <code>foreach</code> function with the <code>%dopar%</code> operator to loop in parallel.</li>
@@ -448,25 +457,16 @@ ptime</code></pre></div>
  }
  })[<span class="dv">3</span>]
 stime</code></pre></div>
-<pre><code>##  elapsed 
-## 1044.531</code></pre>
+<pre><code>## elapsed 
+##  52.533</code></pre>
 <p>Yes. Parallelising is clearly faster.</p>
 <p>Let’s see how we can combine the power of <strong>bigmemory</strong> and <strong>foreach</strong> by creating a file mapped <code>big.matrix</code> object, which is shared by all machines. The following example is taken from <span class="citation">Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span>, and uses the <code>big.matrix</code> object we created in Chapter <a href="memory.html#memory">15</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bigmemory)
 x &lt;-<span class="st"> </span><span class="kw">attach.big.matrix</span>(<span class="st">&quot;airline.desc&quot;</span>)
 
 <span class="kw">library</span>(foreach)
-<span class="kw">library</span>(doSNOW)</code></pre></div>
-<pre><code>## Loading required package: snow</code></pre>
-<pre><code>## 
-## Attaching package: &#39;snow&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:parallel&#39;:
-## 
-##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
-##     clusterExport, clusterMap, clusterSplit, makeCluster,
-##     parApply, parCapply, parLapply, parRapply, parSapply,
-##     splitIndices, stopCluster</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cl &lt;-<span class="st"> </span><span class="kw">makeSOCKcluster</span>(<span class="kw">rep</span>(<span class="st">&quot;localhost&quot;</span>, <span class="dv">4</span>)) <span class="co"># make a cluster of 4 machines</span>
+<span class="kw">library</span>(doSNOW)
+cl &lt;-<span class="st"> </span><span class="kw">makeSOCKcluster</span>(<span class="kw">rep</span>(<span class="st">&quot;localhost&quot;</span>, <span class="dv">4</span>)) <span class="co"># make a cluster of 4 machines</span>
 <span class="kw">registerDoSNOW</span>(cl) <span class="co"># register machines for foreach()</span></code></pre></div>
 <p>Get a “description” of the <code>big.matrix</code> object that will be used to call it from each machine.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xdesc &lt;-<span class="st"> </span><span class="kw">describe</span>(x) </code></pre></div>

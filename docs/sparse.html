@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-04-30">
+<meta name="date" content="2017-05-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -48,9 +48,12 @@
 
 
 <script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<link href="libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
-<script src="libs/plotly-binding-4.5.6/plotly.js"></script>
+<link href="libs/plotlyjs-1.26.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.26.1/plotly-latest.min.js"></script>
+<script src="libs/plotly-binding-4.6.0/plotly.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
 
 
 <style type="text/css">
@@ -448,7 +451,7 @@ X<span class="fl">.2</span>&lt;-<span class="st"> </span><span class="kw">as</sp
 <pre><code>## [1] TRUE</code></pre>
 <p>You can also visualize the non zero entries, i.e., the sparsity structure.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(X<span class="fl">.2</span>[<span class="dv">1</span>:<span class="dv">26</span>,<span class="dv">1</span>:<span class="dv">26</span>])</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-263-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-261-1.png" width="50%" /></p>
 <div id="sparse-matrix-representations" class="section level2">
 <h2><span class="header-section-number">14.1</span> Sparse Matrix Representations</h2>
 <p>We first distinguish between the two main goals of the efficient representation: (i) efficient writing, i.e., modification; (ii) efficient reading, i.e., access. For our purposes, we will typically want efficient reading, since the <code>model.matrix</code> will not change while a model is being fitted.</p>
@@ -557,12 +560,12 @@ for (sim in <span class="dv">1</span>:<span class="dv">10</span>){
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;bar&#39;</span>) +
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;errorbar&#39;</span>) +
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&#39;Elapsed Time in Seconds&#39;</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-264-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-262-1.png" width="50%" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(performance, <span class="kw">aes</span>(<span class="dt">x =</span> Format, <span class="dt">y =</span> Size /<span class="st"> </span><span class="dv">1000000</span>, <span class="dt">fill =</span> Format)) +
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;bar&#39;</span>) +
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;errorbar&#39;</span>) +
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&#39;Matrix Size in MB&#39;</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-265-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-263-1.png" width="50%" /></p>
 <p>How do we perform other types of regression with the <strong>glmnet</strong>? We just need to use the <code>family</code> and <code>alpha</code> arguments of <code>glmnet::glmnet</code>. The <code>family</code> argument governs the type of GLM to fit: logistic, Poisson, probit, or other types of GLM. The <code>alpha</code> argument controls the type of regularization. Set to <code>alpha=0</code> for ridge, <code>alpha=1</code> for lasso, and any value in between for elastic-net regularization.</p>
 </div>
 </div>

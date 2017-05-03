@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-04-30">
+<meta name="date" content="2017-05-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -48,9 +48,12 @@
 
 
 <script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<link href="libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
-<script src="libs/plotly-binding-4.5.6/plotly.js"></script>
+<link href="libs/plotlyjs-1.26.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.26.1/plotly-latest.min.js"></script>
+<script src="libs/plotly-binding-4.6.0/plotly.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
 
 
 <style type="text/css">
@@ -426,7 +429,7 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 <span class="kw">dim</span>(x)</code></pre></div>
 <pre><code>## [1] 100  10</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(x)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-159-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-157-1.png" width="50%" /></p>
 <p>Now make our own Hotelling function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hotellingOneSample &lt;-<span class="st"> </span>function(x, <span class="dt">mu0=</span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="kw">ncol</span>(x))){
   n &lt;-<span class="st"> </span><span class="kw">nrow</span>(x)
@@ -493,11 +496,11 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 <span class="kw">dim</span>(x)</code></pre></div>
 <pre><code>## [1]  10 100</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(x)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-162-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-160-1.png" width="50%" /></p>
 <p>We now compute the pvalues of each coordinate. We use a coordinate-wise t-test. Why a t-test? Because for the purpose of demonstration we want a simple test. In reality, you may use any test that returns valid p-values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p.values &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="dt">X =</span> x, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> function(y) <span class="kw">t.test</span>(y)$p.value) 
 <span class="kw">plot</span>(p.values, <span class="dt">type=</span><span class="st">&#39;h&#39;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-163-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-161-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>We used the <code>apply</code> function to apply the same function to each column of <code>x</code>.</li>

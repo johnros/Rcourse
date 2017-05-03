@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-04-30">
+<meta name="date" content="2017-05-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -48,9 +48,12 @@
 
 
 <script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<link href="libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
-<script src="libs/plotly-binding-4.5.6/plotly.js"></script>
+<link href="libs/plotlyjs-1.26.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.26.1/plotly-latest.min.js"></script>
+<script src="libs/plotly-binding-4.6.0/plotly.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
 
 
 <style type="text/css">
@@ -440,24 +443,24 @@ tbl_df &lt;-<span class="st"> </span>tbl %&gt;%<span class="st"> </span>as.data.
                  )
              )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   6.648   0.000   6.651</code></pre>
+##   9.216   0.000   9.924</code></pre>
 <p>And now the timing for <strong>data.table</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_dt[ ,  .( <span class="dt">x1 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x1)), <span class="dt">x2 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x2)), <span class="dt">x3 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x3)) ), .(v1,v2)]
   )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.376   0.000   0.335</code></pre>
+##   0.416   0.000   0.435</code></pre>
 <p>The winner is obvious. Let’s compare filtering (i.e. row subsets, i.e. SQL’s SELECT).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_df %&gt;%<span class="st"> </span><span class="kw">filter</span>(v1 ==<span class="st"> &quot;1&quot;</span>) 
   )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.012   0.000   0.011</code></pre>
+##   0.024   0.000   0.026</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_dt[v1 ==<span class="st"> &quot;1&quot;</span>] 
   )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   1.736   0.000   1.739</code></pre>
+##   0.016   0.000   0.018</code></pre>
 </div>
 </div>
 <div id="computing-from-a-database" class="section level2">

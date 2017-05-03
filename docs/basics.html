@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-04-30">
+<meta name="date" content="2017-05-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -48,9 +48,12 @@
 
 
 <script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<link href="libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
-<script src="libs/plotly-binding-4.5.6/plotly.js"></script>
+<link href="libs/plotlyjs-1.26.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.26.1/plotly-latest.min.js"></script>
+<script src="libs/plotly-binding-4.6.0/plotly.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
 
 
 <style type="text/css">
@@ -473,7 +476,7 @@ x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(x)  <span class="co"># compute variance</span></code></pre></div>
 <pre><code>## [1] 0.9888889</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(x) <span class="co"># plot histogram</span></code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-17-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-15-1.png" width="50%" /></p>
 <p>R saves every object you create in RAM<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. The collection of all such objects is the <strong>workspace</strong> which you can inspect with</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()</code></pre></div>
 <pre><code>## [1] &quot;x&quot;</code></pre>
@@ -553,12 +556,12 @@ car_data &lt;-<span class="st"> </span>
 ##     fill = TRUE, comment.char = &quot;&quot;, ...) 
 ## read.table(file = file, header = header, sep = sep, quote = quote, 
 ##     dec = dec, fill = fill, comment.char = comment.char, ...)
-## &lt;bytecode: 0x59fa768&gt;
+## &lt;bytecode: 0x4334a28&gt;
 ## &lt;environment: namespace:utils&gt;</code></pre>
 <p>Never mind what the function does. Note the <code>environment: namespace:utils</code> line at the end. It tells us that this function is part of the <strong>utils</strong> package. We did not need to know this because it is loaded by default. Here are the packages that are currently loaded:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">search</span>())</code></pre></div>
-<pre><code>## [1] &quot;.GlobalEnv&quot;       &quot;package:MASS&quot;     &quot;package:hexbin&quot;  
-## [4] &quot;package:magrittr&quot; &quot;tools:rstudio&quot;    &quot;package:stats&quot;</code></pre>
+<pre><code>## [1] &quot;.GlobalEnv&quot;         &quot;package:doSNOW&quot;     &quot;package:snow&quot;      
+## [4] &quot;package:doParallel&quot; &quot;package:parallel&quot;   &quot;package:iterators&quot;</code></pre>
 <p>Other packages can be loaded via the <code>library</code> function, or downloaded from the internet using the <code>install.packages</code> function before loading with <code>library</code>. R’s package import mechanism is quite powerful, and is one of the reasons for R’s success.</p>
 </div>
 <div id="simple-plotting" class="section level2">
@@ -567,24 +570,24 @@ car_data &lt;-<span class="st"> </span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x&lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">100</span>
 y&lt;-<span class="st"> </span><span class="dv">3</span>+<span class="kw">sin</span>(x) 
 <span class="kw">plot</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y) <span class="co"># x,y syntax                         </span></code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-32-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-30-1.png" width="50%" /></p>
 <p>Given an <code>x</code> argument and a <code>y</code> argument, <code>plot</code> tries to present a scatter plot. We call this the <code>x,y</code> syntax. R has another unique syntax to state functional relations. We call <code>y~x</code> the “tilde” syntax, which originates in works of <span class="citation">G. Wilkinson and Rogers (<a href="#ref-wilkinson1973symbolic">1973</a>)</span> and was adopted in the early days of S.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y ~<span class="st"> </span>x) <span class="co"># y~x syntax </span></code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-33-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-31-1.png" width="50%" /></p>
 <p>The syntax <code>y~x</code> is read as “y is a function of x”. We will prefer the <code>y~x</code> syntax over the <code>x,y</code> syntax since it is easier to read, and will be very useful when we discuss more complicated models.</p>
 <p>Here are some arguments that control the plot’s appearance. We use <code>type</code> to control the plot type, <code>main</code> to control the main title.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y~x, <span class="dt">type=</span><span class="st">&#39;l&#39;</span>, <span class="dt">main=</span><span class="st">&#39;Plotting a connected line&#39;</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-34-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-32-1.png" width="50%" /></p>
 <p>We use <code>xlab</code> for the x-axis label, <code>ylab</code> for the y-axis.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y~x, <span class="dt">type=</span><span class="st">&#39;h&#39;</span>, <span class="dt">main=</span><span class="st">&#39;Sticks plot&#39;</span>, <span class="dt">xlab=</span><span class="st">&#39;Insert x axis label&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;Insert y axis label&#39;</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-35-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-33-1.png" width="50%" /></p>
 <p>We use <code>pch</code> to control the point type.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y~x, <span class="dt">pch=</span><span class="dv">5</span>) <span class="co"># Point type with pcf</span></code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-36-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-34-1.png" width="50%" /></p>
 <p>We use <code>col</code> to control the color, <code>cex</code> for the point size, and <code>abline</code> to add a straight line.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y~x, <span class="dt">pch=</span><span class="dv">10</span>, <span class="dt">type=</span><span class="st">&#39;p&#39;</span>, <span class="dt">col=</span><span class="st">&#39;blue&#39;</span>, <span class="dt">cex=</span><span class="dv">4</span>) 
 <span class="kw">abline</span>(<span class="dv">3</span>, <span class="fl">0.002</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-37-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-35-1.png" width="50%" /></p>
 <p>For more plotting options run these</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">example</span>(plot)
 <span class="kw">example</span>(points)
@@ -848,7 +851,9 @@ scoping &lt;-<span class="st"> </span>function(a,b){
 ## [1] &quot;character&quot;
 ## 
 ## [[3]]
-## [1] &quot;function&quot;</code></pre>
+## [1] &quot;standardGeneric&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;methods&quot;</code></pre>
 <p>R provides many variations on <code>lapply</code> to facilitate programing. Here is a partial list:</p>
 <ul>
 <li><code>sapply</code>: The same as <code>lapply</code> but tries to arrange output in a vector or matrix, and not an unstructured list.</li>
