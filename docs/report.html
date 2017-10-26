@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R (BGU course)</title>
   <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
-  <meta name="generator" content="bookdown 0.3.9 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="R (BGU course)" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-05-03">
+<meta name="date" content="2017-10-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -47,13 +47,13 @@
 
 
 
-<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<link href="libs/plotlyjs-1.26.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.26.1/plotly-latest.min.js"></script>
-<script src="libs/plotly-binding-4.6.0/plotly.js"></script>
+<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -121,33 +121,36 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#practice-yourself"><i class="fa fa-check"></i><b>2.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
-<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.1</b> Simple calculator</a></li>
-<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.2</b> Probability calculator</a></li>
-<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.3</b> Getting Help</a></li>
-<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.4</b> Variable Asignment</a></li>
-<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.5</b> Piping</a></li>
-<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.6</b> Vector Creation and Manipulation</a></li>
-<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.7</b> Search Paths and Packages</a></li>
-<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.8</b> Simple Plotting</a></li>
-<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.9</b> Object Types</a></li>
-<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.10</b> Data Frames</a></li>
-<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.11</b> Exctraction</a></li>
-<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.12</b> Data Import and Export</a><ul>
-<li class="chapter" data-level="3.12.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.12.1</b> Import from WEB</a></li>
-<li class="chapter" data-level="3.12.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.12.2</b> Export as CSV</a></li>
-<li class="chapter" data-level="3.12.3" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.12.3</b> Reading From Text Files</a></li>
-<li class="chapter" data-level="3.12.4" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.12.4</b> Writing Data to Text Files</a></li>
-<li class="chapter" data-level="3.12.5" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.12.5</b> .XLS(X) files</a></li>
-<li class="chapter" data-level="3.12.6" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.12.6</b> Massive files</a></li>
-<li class="chapter" data-level="3.12.7" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.12.7</b> Databases</a></li>
+<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>3.1</b> File types</a></li>
+<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.2</b> Simple calculator</a></li>
+<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.3</b> Probability calculator</a></li>
+<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.4</b> Getting Help</a></li>
+<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.5</b> Variable Asignment</a></li>
+<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.6</b> Piping</a></li>
+<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.7</b> Vector Creation and Manipulation</a></li>
+<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.8</b> Search Paths and Packages</a></li>
+<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.9</b> Simple Plotting</a></li>
+<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.10</b> Object Types</a></li>
+<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.11</b> Data Frames</a></li>
+<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.12</b> Exctraction</a></li>
+<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#non-data.frame-object-classes"><i class="fa fa-check"></i><b>3.13</b> Non data.frame object classes</a></li>
+<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.14</b> Data Import and Export</a><ul>
+<li class="chapter" data-level="3.14.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.14.1</b> Import from WEB</a></li>
+<li class="chapter" data-level="3.14.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.14.2</b> Export as CSV</a></li>
+<li class="chapter" data-level="3.14.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>3.14.3</b> Export non-CSV files</a></li>
+<li class="chapter" data-level="3.14.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.14.4</b> Reading From Text Files</a></li>
+<li class="chapter" data-level="3.14.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.14.5</b> Writing Data to Text Files</a></li>
+<li class="chapter" data-level="3.14.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.14.6</b> .XLS(X) files</a></li>
+<li class="chapter" data-level="3.14.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.14.7</b> Massive files</a></li>
+<li class="chapter" data-level="3.14.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.14.8</b> Databases</a></li>
 </ul></li>
-<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.13</b> Functions</a></li>
-<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.14</b> Looping</a></li>
-<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.15</b> Apply</a></li>
-<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.16</b> Recursion</a></li>
-<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.17</b> Dates and Times</a></li>
-<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.18</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.19</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.15</b> Functions</a></li>
+<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.16</b> Looping</a></li>
+<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.17</b> Apply</a></li>
+<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.18</b> Recursion</a></li>
+<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.19</b> Dates and Times</a></li>
+<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.20</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.21</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
 <li class="chapter" data-level="4.1" data-path="eda.html"><a href="eda.html#summary-statistics"><i class="fa fa-check"></i><b>4.1</b> Summary Statistics</a><ul>
@@ -168,7 +171,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3.1" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.1</b> Testing a Hypothesis on a Single Coefficient</a></li>
 <li class="chapter" data-level="5.3.2" data-path="lm.html"><a href="lm.html#constructing-a-confidence-interval-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.2</b> Constructing a Confidence Interval on a Single Coefficient</a></li>
 <li class="chapter" data-level="5.3.3" data-path="lm.html"><a href="lm.html#multiple-regression"><i class="fa fa-check"></i><b>5.3.3</b> Multiple Regression</a></li>
-<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>5.3.4</b> Testing a Hypothesis on a Single Contrast</a></li>
+<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast-returning-to-the-model-without-interactions-lm.2."><i class="fa fa-check"></i><b>5.3.4</b> Testing a Hypothesis on a Single Contrast (*) Returning to the model without interactions, <code>lm.2</code>.</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="5.5" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
@@ -185,7 +188,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
 <li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#manova"><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA</a></li>
+<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#relation-to-manova-manova-multivariate-analysis-of-variance-manova-deals-with-the-estimation-of-effect-on-vector-valued-outcomes.-put-differently-in-anova-the-response-y-is-univariate-in-manova-the-outcome-is-multivariate.-manova-is-useful-when-there-are-correlations-among-the-entries-of-y.-otherwise--one-may-simply-solve-many-anova-problems-instead-of-a-single-manova."><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA (*) {#manova} Multivariate analysis of variance (MANOVA) deals with the estimation of effect on vector valued outcomes. Put differently: in ANOVA the response, <span class="math inline">\(y\)</span>, is univariate In MANOVA, the outcome is multivariate. MANOVA is useful when there are correlations among the entries of <span class="math inline">\(y\)</span>. Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
@@ -204,11 +207,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>8.3.1</b> Signal Identification in R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation</a></li>
-<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression</a><ul>
+<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation (*)</a></li>
+<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression (*)</a><ul>
 <li class="chapter" data-level="8.5.1" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression-with-r"><i class="fa fa-check"></i><b>8.5.1</b> Multivariate Regression with R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models</a><ul>
+<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models (*)</a><ul>
 <li class="chapter" data-level="8.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>8.6.1</b> Graphical Models in R</a></li>
 </ul></li>
 <li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
@@ -252,8 +255,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>11</b> Plotting</a><ul>
 <li class="chapter" data-level="11.1" data-path="plotting.html"><a href="plotting.html#the-graphics-system"><i class="fa fa-check"></i><b>11.1</b> The graphics System</a><ul>
 <li class="chapter" data-level="11.1.1" data-path="plotting.html"><a href="plotting.html#using-existing-plotting-functions"><i class="fa fa-check"></i><b>11.1.1</b> Using Existing Plotting Functions</a></li>
-<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#fancy-graphics-examples"><i class="fa fa-check"></i><b>11.1.2</b> Fancy graphics Examples</a></li>
-<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.3</b> Exporting a Plot</a></li>
+<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.2</b> Exporting a Plot</a></li>
+<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#fancy"><i class="fa fa-check"></i><b>11.1.3</b> Fancy graphics Examples</a></li>
 </ul></li>
 <li class="chapter" data-level="11.2" data-path="plotting.html"><a href="plotting.html#the-ggplot2-system"><i class="fa fa-check"></i><b>11.2</b> The ggplot2 System</a></li>
 <li class="chapter" data-level="11.3" data-path="plotting.html"><a href="plotting.html#interactive-graphics"><i class="fa fa-check"></i><b>11.3</b> Interactive Graphics</a><ul>
@@ -312,14 +315,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
 </ul></li>
-<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.4.1</b> matter</a></li>
+<li class="chapter" data-level="15.4.2" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.4.2</b> iotools</a></li>
+</ul></li>
 <li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.5</b> Computing from a Distributed File System</a></li>
 <li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.6</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#practice-yourself-13"><i class="fa fa-check"></i><b>15.7</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Explicit Parallelism</a></li>
-<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Explicit Parallelism</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
+</ul></li>
 <li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-14"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
 </ul></li>
@@ -345,7 +353,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="20.1" data-path="debugging.html"><a href="debugging.html#bibliographic-notes-16"><i class="fa fa-check"></i><b>20.1</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="20.2" data-path="debugging.html"><a href="debugging.html#practice-yourself-18"><i class="fa fa-check"></i><b>20.2</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="bib.html"><a href="bib.html"><i class="fa fa-check"></i><b>21</b> Bibliography</a></li>
+<li class="chapter" data-level="21" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>21</b> data.table</a></li>
+<li class="chapter" data-level="22" data-path="bib.html"><a href="bib.html"><i class="fa fa-check"></i><b>22</b> Bibliography</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -370,8 +379,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 12</span> Reports</h1>
 <p>If you have ever written a report, you are probably familiar with the process of preparing your figures in some software, say R, and then copy-pasting into your text editor, say MS Word. While very popular, this process is both tedious, and plain painful if your data has changed and you need to update the report. Wouldn’t it be nice if you could produce figures and numbers from within the text of the report, and everything else would be automated? It turns out it is possible. There are actually several systems in R that allow this. We start with a brief review.</p>
 <ol style="list-style-type: decimal">
-<li><p><strong>Sweave</strong>: <em>LaTeX</em> is a markup language that compiles to <em>Tex</em> programs that compile, in turn, to documents (typically PS or PDFs). If you never heard of it, it may be because you were born the the MS Windows+MS Word era. You should know, however, that <em>LaTeX</em> was there much earlier, when computers were mainframes with text-only graphic devices. You should also know that <em>LaTeX</em> is still very popular (in some communities) due to its very rich markup syntax, and beautiful output. <em>Sweave</em> <span class="citation">(Leisch <a href="#ref-leisch2002sweave">2002</a>)</span> is a compiler for <em>LaTeX</em> that allows you do insert R commands in the <em>LaTeX</em> source file, and get the result as part of the outputted PDF. It’s name suggests just that: it allows to weave S<a href="#fn26" class="footnoteRef" id="fnref26"><sup>26</sup></a> output into the document, thus, Sweave.</p></li>
-<li><p><strong>knitr</strong>: <em>Markdown</em> is a text editing syntax that, unlike <em>LaTeX</em>, is aimed to be human-readable, but also compilable by a machine. If you ever tried to read HTML or Latex source files, you may understand why human-readability is a desirable property. There are many <em>markdown</em> compilers. One of the most popular is Pandoc, written by the Berkeley philosopher(!) Jon MacFarlane. The availability of Pandoc gave <a href="https://yihui.name/">Yihui Xie</a>, a name to remember, the idea that it is time for Sweave to evolve. Yihui thus wrote <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015dynamic">2015</a>)</span>, which allows to write human readable text in <em>Rmarkdown</em>, a superset of <em>markdown</em>, compile it with R and the compile it with Pandoc. Because Pandoc can compile to PDF, but also to HTML, and DOCX, among others, this means that you can write in Rmarkdown, and get output in almost all text formats out there.</p></li>
+<li><p><strong>Sweave</strong>: <em>LaTeX</em> is a markup language that compiles to <em>Tex</em> programs that compile, in turn, to documents (typically PS or PDFs). If you never heard of it, it may be because you were born the the MS Windows+MS Word era. You should know, however, that <em>LaTeX</em> was there much earlier, when computers were mainframes with text-only graphic devices. You should also know that <em>LaTeX</em> is still very popular (in some communities) due to its very rich markup syntax, and beautiful output. <em>Sweave</em> <span class="citation">(Leisch <a href="#ref-leisch2002sweave">2002</a>)</span> is a compiler for <em>LaTeX</em> that allows you do insert R commands in the <em>LaTeX</em> source file, and get the result as part of the outputted PDF. It’s name suggests just that: it allows to weave S<a href="#fn27" class="footnoteRef" id="fnref27"><sup>27</sup></a> output into the document, thus, Sweave.</p></li>
+<li><p><strong>knitr</strong>: <em>Markdown</em> is a text editing syntax that, unlike <em>LaTeX</em>, is aimed to be human-readable, but also compilable by a machine. If you ever tried to read HTML or <em>LaTeX</em> source files, you may understand why human-readability is a desirable property. There are many <em>markdown</em> compilers. One of the most popular is Pandoc, written by the Berkeley philosopher(!) Jon MacFarlane. The availability of Pandoc gave <a href="https://yihui.name/">Yihui Xie</a>, a name to remember, the idea that it is time for Sweave to evolve. Yihui thus wrote <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015dynamic">2015</a>)</span>, which allows to write human readable text in <em>Rmarkdown</em>, a superset of <em>markdown</em>, compile it with R and the compile it with Pandoc. Because Pandoc can compile to PDF, but also to HTML, and DOCX, among others, this means that you can write in Rmarkdown, and get output in almost all text formats out there.</p></li>
 <li><p><strong>bookdown</strong>: <strong>Bookdown</strong> <span class="citation">(Xie <a href="#ref-xie2016bookdown">2016</a>)</span> is an evolution of <strong>knitr</strong>, also written by Yihui Xie, now working for RStudio. The text you are now reading was actually written in <strong>bookdown</strong>. It deals with the particular needs of writing large documents, and cross referencing in particular (which is very challenging if you want the text to be human readable).</p></li>
 <li><p><strong>Shiny</strong>: Shiny is essentially a framework for quick web-development. It includes (i) an abstraction layer that specifies the layout of a web-site which is our report, (ii) the command to start a web server to deliver the site. For more on Shiny see <span class="citation">Chang et al. (<a href="#ref-shiny">2017</a>)</span>.</p></li>
 </ol>
@@ -442,7 +451,7 @@ plot(rnorm(10))
 ```</code></pre>
 <p>which compiles into</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">rnorm</span>(<span class="dv">10</span>))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-237-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-245-1.png" width="50%" /></p>
 <p>TODO: more code chunk options.</p>
 <p>You can also call r expressions inline. This is done with a single tick and the <code>r</code> argument. For instance:</p>
 <blockquote>
@@ -482,7 +491,7 @@ plot(rnorm(10))
 <li>A server side, specified via the <code>server.R</code> file, in the app’s directory.</li>
 </ol>
 <p>You can run the app via the <strong>RunApp</strong> button in the RStudio interface, of by calling the app’s directory with the <code>shinyApp</code> or <code>runApp</code> functions– the former designed for single-app projects, and the latter, for multiple app projects.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shiny::<span class="kw">runApp</span>(<span class="st">&quot;my_app&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shiny<span class="op">::</span><span class="kw">runApp</span>(<span class="st">&quot;my_app&quot;</span>)</code></pre></div>
 <p>The site’s layout, is specified via <em>layout functions</em> in the <code>iu.R</code> file. For instance, the function <code>sidebarLayout</code>, as the name suggest, will create a sidebar. More layouts are detailed in the <a href="http://shiny.rstudio.com/articles/layout-guide.html">layout guide</a>.</p>
 <p>The active elements in the UI, that control your report, are known as <em>widgets</em>. Each widget will have a unique <code>inputId</code> so that it’s values can be sent from the UI to the server. More about widgets, in the <a href="http://shiny.rstudio.com/gallery/widget-gallery.html">widget gallery</a>.</p>
 <p>The <code>inputId</code> on the UI are mapped to <code>input</code> arguments on the server side. The value of the <code>mytext</code> <code>inputId</code> can be queried by the server using <code>input$mytext</code>. These are called <em>reactive values</em>. The way the server “listens” to the UI, is governed by a set of functions that must wrap the <code>input</code> object. These are the <code>observe</code>, <code>reactive</code>, and <code>reactive*</code> class of functions.</p>
@@ -512,11 +521,11 @@ plot(rnorm(10))
 <p>Here is the <code>server.R</code> file:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(shiny)
 
-<span class="kw">shinyServer</span>(function(input, output) {
+<span class="kw">shinyServer</span>(<span class="cf">function</span>(input, output) {
 
-  output$distPlot &lt;-<span class="st"> </span><span class="kw">renderPlot</span>({
+  output<span class="op">$</span>distPlot &lt;-<span class="st"> </span><span class="kw">renderPlot</span>({
     x    &lt;-<span class="st"> </span>faithful[, <span class="dv">2</span>]  <span class="co"># Old Faithful Geyser data</span>
-    bins &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="kw">min</span>(x), <span class="kw">max</span>(x), <span class="dt">length.out =</span> input$bins +<span class="st"> </span><span class="dv">1</span>)
+    bins &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="kw">min</span>(x), <span class="kw">max</span>(x), <span class="dt">length.out =</span> input<span class="op">$</span>bins <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)
 
     <span class="kw">hist</span>(x, <span class="dt">breaks =</span> bins, <span class="dt">col =</span> <span class="st">&#39;darkgray&#39;</span>, <span class="dt">border =</span> <span class="st">&#39;white&#39;</span>)
   })
@@ -532,7 +541,7 @@ plot(rnorm(10))
 <li>The server runs a function with an <code>input</code> and an <code>output</code>. The elements of <code>input</code> are the <code>inputId</code>s from the UI. The elements of the <code>output</code> will be called by the UI using their <code>outputId</code>.</li>
 </ul>
 <p>This is the output.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr::<span class="kw">include_url</span>(<span class="st">&#39;http://shiny.rstudio.com/gallery/example-01-hello.html&#39;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_url</span>(<span class="st">&#39;http://shiny.rstudio.com/gallery/example-01-hello.html&#39;</span>)</code></pre></div>
 <iframe src="http://shiny.rstudio.com/gallery/example-01-hello.html" width="50%" height="400px">
 </iframe>
 <p>Here is another example, taken from the RStudio <a href="https://github.com/rstudio/shiny-examples/tree/master/006-tabsets">Shiny examples</a>.</p>
@@ -573,31 +582,31 @@ plot(rnorm(10))
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(shiny)
 
 <span class="co"># Define server logic for random distribution application</span>
-function(input, output) {
+<span class="cf">function</span>(input, output) {
   
   data &lt;-<span class="st"> </span><span class="kw">reactive</span>({
-    dist &lt;-<span class="st"> </span>switch(input$dist,
+    dist &lt;-<span class="st"> </span><span class="cf">switch</span>(input<span class="op">$</span>dist,
                    <span class="dt">norm =</span> rnorm,
                    <span class="dt">unif =</span> runif,
                    <span class="dt">lnorm =</span> rlnorm,
                    <span class="dt">exp =</span> rexp,
                    rnorm)
     
-    <span class="kw">dist</span>(input$n)
+    <span class="kw">dist</span>(input<span class="op">$</span>n)
   })
   
-  output$plot &lt;-<span class="st"> </span><span class="kw">renderPlot</span>({
-    dist &lt;-<span class="st"> </span>input$dist
-    n &lt;-<span class="st"> </span>input$n
+  output<span class="op">$</span>plot &lt;-<span class="st"> </span><span class="kw">renderPlot</span>({
+    dist &lt;-<span class="st"> </span>input<span class="op">$</span>dist
+    n &lt;-<span class="st"> </span>input<span class="op">$</span>n
     
     <span class="kw">hist</span>(<span class="kw">data</span>(), <span class="dt">main=</span><span class="kw">paste</span>(<span class="st">&#39;r&#39;</span>, dist, <span class="st">&#39;(&#39;</span>, n, <span class="st">&#39;)&#39;</span>, <span class="dt">sep=</span><span class="st">&#39;&#39;</span>))
   })
   
-  output$summary &lt;-<span class="st"> </span><span class="kw">renderPrint</span>({
+  output<span class="op">$</span>summary &lt;-<span class="st"> </span><span class="kw">renderPrint</span>({
     <span class="kw">summary</span>(<span class="kw">data</span>())
   })
   
-  output$table &lt;-<span class="st"> </span><span class="kw">renderTable</span>({
+  output<span class="op">$</span>table &lt;-<span class="st"> </span><span class="kw">renderTable</span>({
     <span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">data</span>())
   })
   
@@ -614,7 +623,7 @@ function(input, output) {
 <li>The <code>output</code> object is constructed outside the <code>reactive</code> function. See how the elements of <code>output</code> correspond to the <code>outputId</code>s in the UI.</li>
 </ul>
 <p>This is the output:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr::<span class="kw">include_url</span>(<span class="st">&#39;https://shiny.rstudio.com/gallery/tabsets.html&#39;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_url</span>(<span class="st">&#39;https://shiny.rstudio.com/gallery/tabsets.html&#39;</span>)</code></pre></div>
 <iframe src="https://shiny.rstudio.com/gallery/tabsets.html" width="50%" height="400px">
 </iframe>
 </div>
@@ -639,7 +648,7 @@ function(input, output) {
 <li><code>textInput</code> A field to enter text.</li>
 </ul>
 <p>See examples <a href="https://shiny.rstudio.com/gallery/widget-gallery.html">here</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr::<span class="kw">include_url</span>(<span class="st">&#39;https://shiny.rstudio.com/gallery/widget-gallery.html&#39;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_url</span>(<span class="st">&#39;https://shiny.rstudio.com/gallery/widget-gallery.html&#39;</span>)</code></pre></div>
 <iframe src="https://shiny.rstudio.com/gallery/widget-gallery.html" width="50%" height="400px">
 </iframe>
 </div>
@@ -685,6 +694,10 @@ function(input, output) {
 </div>
 <div id="practice-yourself-10" class="section level2">
 <h2><span class="header-section-number">12.6</span> Practice Yourself</h2>
+<ol style="list-style-type: decimal">
+<li><p>Generate a report using <strong>knitr</strong> with your name as title, and a scatter plot of two random variables in the body. Save it as PDF, DOCX, and HTML.</p></li>
+<li><p>Recall that this book is written in <strong>bookdown</strong>, which is a superset of <strong>knitr</strong>. Go to the source .Rmd file of the first chapter, and parse it in your head: (<a href="https://raw.githubusercontent.com/johnros/Rcourse/master/02-r-basics.Rmd" class="uri">https://raw.githubusercontent.com/johnros/Rcourse/master/02-r-basics.Rmd</a>)</p></li>
+</ol>
 
 </div>
 </div>
@@ -705,8 +718,8 @@ function(input, output) {
 </div>
 <div class="footnotes">
 <hr />
-<ol start="26">
-<li id="fn26"><p>Recall, S was the original software from which R evolved.<a href="report.html#fnref26">↩</a></p></li>
+<ol start="27">
+<li id="fn27"><p>Recall, S was the original software from which R evolved.<a href="report.html#fnref27">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -726,7 +739,7 @@ function(input, output) {
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -760,7 +773,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

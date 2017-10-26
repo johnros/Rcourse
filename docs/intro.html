@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R (BGU course)</title>
   <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
-  <meta name="generator" content="bookdown 0.3.9 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="R (BGU course)" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-05-03">
+<meta name="date" content="2017-10-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -47,13 +47,13 @@
 
 
 
-<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<link href="libs/plotlyjs-1.26.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.26.1/plotly-latest.min.js"></script>
-<script src="libs/plotly-binding-4.6.0/plotly.js"></script>
+<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -121,33 +121,36 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#practice-yourself"><i class="fa fa-check"></i><b>2.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
-<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.1</b> Simple calculator</a></li>
-<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.2</b> Probability calculator</a></li>
-<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.3</b> Getting Help</a></li>
-<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.4</b> Variable Asignment</a></li>
-<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.5</b> Piping</a></li>
-<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.6</b> Vector Creation and Manipulation</a></li>
-<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.7</b> Search Paths and Packages</a></li>
-<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.8</b> Simple Plotting</a></li>
-<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.9</b> Object Types</a></li>
-<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.10</b> Data Frames</a></li>
-<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.11</b> Exctraction</a></li>
-<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.12</b> Data Import and Export</a><ul>
-<li class="chapter" data-level="3.12.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.12.1</b> Import from WEB</a></li>
-<li class="chapter" data-level="3.12.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.12.2</b> Export as CSV</a></li>
-<li class="chapter" data-level="3.12.3" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.12.3</b> Reading From Text Files</a></li>
-<li class="chapter" data-level="3.12.4" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.12.4</b> Writing Data to Text Files</a></li>
-<li class="chapter" data-level="3.12.5" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.12.5</b> .XLS(X) files</a></li>
-<li class="chapter" data-level="3.12.6" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.12.6</b> Massive files</a></li>
-<li class="chapter" data-level="3.12.7" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.12.7</b> Databases</a></li>
+<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>3.1</b> File types</a></li>
+<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.2</b> Simple calculator</a></li>
+<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.3</b> Probability calculator</a></li>
+<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.4</b> Getting Help</a></li>
+<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.5</b> Variable Asignment</a></li>
+<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.6</b> Piping</a></li>
+<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.7</b> Vector Creation and Manipulation</a></li>
+<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.8</b> Search Paths and Packages</a></li>
+<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.9</b> Simple Plotting</a></li>
+<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.10</b> Object Types</a></li>
+<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.11</b> Data Frames</a></li>
+<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.12</b> Exctraction</a></li>
+<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#non-data.frame-object-classes"><i class="fa fa-check"></i><b>3.13</b> Non data.frame object classes</a></li>
+<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.14</b> Data Import and Export</a><ul>
+<li class="chapter" data-level="3.14.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.14.1</b> Import from WEB</a></li>
+<li class="chapter" data-level="3.14.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.14.2</b> Export as CSV</a></li>
+<li class="chapter" data-level="3.14.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>3.14.3</b> Export non-CSV files</a></li>
+<li class="chapter" data-level="3.14.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.14.4</b> Reading From Text Files</a></li>
+<li class="chapter" data-level="3.14.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.14.5</b> Writing Data to Text Files</a></li>
+<li class="chapter" data-level="3.14.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.14.6</b> .XLS(X) files</a></li>
+<li class="chapter" data-level="3.14.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.14.7</b> Massive files</a></li>
+<li class="chapter" data-level="3.14.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.14.8</b> Databases</a></li>
 </ul></li>
-<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.13</b> Functions</a></li>
-<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.14</b> Looping</a></li>
-<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.15</b> Apply</a></li>
-<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.16</b> Recursion</a></li>
-<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.17</b> Dates and Times</a></li>
-<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.18</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.19</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.15</b> Functions</a></li>
+<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.16</b> Looping</a></li>
+<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.17</b> Apply</a></li>
+<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.18</b> Recursion</a></li>
+<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.19</b> Dates and Times</a></li>
+<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.20</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.21</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
 <li class="chapter" data-level="4.1" data-path="eda.html"><a href="eda.html#summary-statistics"><i class="fa fa-check"></i><b>4.1</b> Summary Statistics</a><ul>
@@ -168,7 +171,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3.1" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.1</b> Testing a Hypothesis on a Single Coefficient</a></li>
 <li class="chapter" data-level="5.3.2" data-path="lm.html"><a href="lm.html#constructing-a-confidence-interval-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.2</b> Constructing a Confidence Interval on a Single Coefficient</a></li>
 <li class="chapter" data-level="5.3.3" data-path="lm.html"><a href="lm.html#multiple-regression"><i class="fa fa-check"></i><b>5.3.3</b> Multiple Regression</a></li>
-<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>5.3.4</b> Testing a Hypothesis on a Single Contrast</a></li>
+<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast-returning-to-the-model-without-interactions-lm.2."><i class="fa fa-check"></i><b>5.3.4</b> Testing a Hypothesis on a Single Contrast (*) Returning to the model without interactions, <code>lm.2</code>.</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="5.5" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
@@ -185,7 +188,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
 <li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#manova"><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA</a></li>
+<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#relation-to-manova-manova-multivariate-analysis-of-variance-manova-deals-with-the-estimation-of-effect-on-vector-valued-outcomes.-put-differently-in-anova-the-response-y-is-univariate-in-manova-the-outcome-is-multivariate.-manova-is-useful-when-there-are-correlations-among-the-entries-of-y.-otherwise--one-may-simply-solve-many-anova-problems-instead-of-a-single-manova."><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA (*) {#manova} Multivariate analysis of variance (MANOVA) deals with the estimation of effect on vector valued outcomes. Put differently: in ANOVA the response, <span class="math inline">\(y\)</span>, is univariate In MANOVA, the outcome is multivariate. MANOVA is useful when there are correlations among the entries of <span class="math inline">\(y\)</span>. Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
@@ -204,11 +207,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>8.3.1</b> Signal Identification in R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation</a></li>
-<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression</a><ul>
+<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation (*)</a></li>
+<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression (*)</a><ul>
 <li class="chapter" data-level="8.5.1" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression-with-r"><i class="fa fa-check"></i><b>8.5.1</b> Multivariate Regression with R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models</a><ul>
+<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models (*)</a><ul>
 <li class="chapter" data-level="8.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>8.6.1</b> Graphical Models in R</a></li>
 </ul></li>
 <li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
@@ -252,8 +255,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>11</b> Plotting</a><ul>
 <li class="chapter" data-level="11.1" data-path="plotting.html"><a href="plotting.html#the-graphics-system"><i class="fa fa-check"></i><b>11.1</b> The graphics System</a><ul>
 <li class="chapter" data-level="11.1.1" data-path="plotting.html"><a href="plotting.html#using-existing-plotting-functions"><i class="fa fa-check"></i><b>11.1.1</b> Using Existing Plotting Functions</a></li>
-<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#fancy-graphics-examples"><i class="fa fa-check"></i><b>11.1.2</b> Fancy graphics Examples</a></li>
-<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.3</b> Exporting a Plot</a></li>
+<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.2</b> Exporting a Plot</a></li>
+<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#fancy"><i class="fa fa-check"></i><b>11.1.3</b> Fancy graphics Examples</a></li>
 </ul></li>
 <li class="chapter" data-level="11.2" data-path="plotting.html"><a href="plotting.html#the-ggplot2-system"><i class="fa fa-check"></i><b>11.2</b> The ggplot2 System</a></li>
 <li class="chapter" data-level="11.3" data-path="plotting.html"><a href="plotting.html#interactive-graphics"><i class="fa fa-check"></i><b>11.3</b> Interactive Graphics</a><ul>
@@ -312,14 +315,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
 </ul></li>
-<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.4.1</b> matter</a></li>
+<li class="chapter" data-level="15.4.2" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.4.2</b> iotools</a></li>
+</ul></li>
 <li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.5</b> Computing from a Distributed File System</a></li>
 <li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.6</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#practice-yourself-13"><i class="fa fa-check"></i><b>15.7</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Explicit Parallelism</a></li>
-<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Explicit Parallelism</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
+</ul></li>
 <li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-14"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
 </ul></li>
@@ -345,7 +353,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="20.1" data-path="debugging.html"><a href="debugging.html#bibliographic-notes-16"><i class="fa fa-check"></i><b>20.1</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="20.2" data-path="debugging.html"><a href="debugging.html#practice-yourself-18"><i class="fa fa-check"></i><b>20.2</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="bib.html"><a href="bib.html"><i class="fa fa-check"></i><b>21</b> Bibliography</a></li>
+<li class="chapter" data-level="21" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>21</b> data.table</a></li>
+<li class="chapter" data-level="22" data-path="bib.html"><a href="bib.html"><i class="fa fa-check"></i><b>22</b> Bibliography</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -420,7 +429,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -454,7 +463,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

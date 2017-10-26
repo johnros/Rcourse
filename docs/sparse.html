@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R (BGU course)</title>
   <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
-  <meta name="generator" content="bookdown 0.3.9 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="R (BGU course)" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-05-03">
+<meta name="date" content="2017-10-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -47,13 +47,13 @@
 
 
 
-<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<link href="libs/plotlyjs-1.26.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.26.1/plotly-latest.min.js"></script>
-<script src="libs/plotly-binding-4.6.0/plotly.js"></script>
+<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -121,33 +121,36 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#practice-yourself"><i class="fa fa-check"></i><b>2.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
-<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.1</b> Simple calculator</a></li>
-<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.2</b> Probability calculator</a></li>
-<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.3</b> Getting Help</a></li>
-<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.4</b> Variable Asignment</a></li>
-<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.5</b> Piping</a></li>
-<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.6</b> Vector Creation and Manipulation</a></li>
-<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.7</b> Search Paths and Packages</a></li>
-<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.8</b> Simple Plotting</a></li>
-<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.9</b> Object Types</a></li>
-<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.10</b> Data Frames</a></li>
-<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.11</b> Exctraction</a></li>
-<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.12</b> Data Import and Export</a><ul>
-<li class="chapter" data-level="3.12.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.12.1</b> Import from WEB</a></li>
-<li class="chapter" data-level="3.12.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.12.2</b> Export as CSV</a></li>
-<li class="chapter" data-level="3.12.3" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.12.3</b> Reading From Text Files</a></li>
-<li class="chapter" data-level="3.12.4" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.12.4</b> Writing Data to Text Files</a></li>
-<li class="chapter" data-level="3.12.5" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.12.5</b> .XLS(X) files</a></li>
-<li class="chapter" data-level="3.12.6" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.12.6</b> Massive files</a></li>
-<li class="chapter" data-level="3.12.7" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.12.7</b> Databases</a></li>
+<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>3.1</b> File types</a></li>
+<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.2</b> Simple calculator</a></li>
+<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.3</b> Probability calculator</a></li>
+<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.4</b> Getting Help</a></li>
+<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.5</b> Variable Asignment</a></li>
+<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.6</b> Piping</a></li>
+<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.7</b> Vector Creation and Manipulation</a></li>
+<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.8</b> Search Paths and Packages</a></li>
+<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.9</b> Simple Plotting</a></li>
+<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.10</b> Object Types</a></li>
+<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.11</b> Data Frames</a></li>
+<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.12</b> Exctraction</a></li>
+<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#non-data.frame-object-classes"><i class="fa fa-check"></i><b>3.13</b> Non data.frame object classes</a></li>
+<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.14</b> Data Import and Export</a><ul>
+<li class="chapter" data-level="3.14.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.14.1</b> Import from WEB</a></li>
+<li class="chapter" data-level="3.14.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.14.2</b> Export as CSV</a></li>
+<li class="chapter" data-level="3.14.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>3.14.3</b> Export non-CSV files</a></li>
+<li class="chapter" data-level="3.14.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.14.4</b> Reading From Text Files</a></li>
+<li class="chapter" data-level="3.14.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.14.5</b> Writing Data to Text Files</a></li>
+<li class="chapter" data-level="3.14.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.14.6</b> .XLS(X) files</a></li>
+<li class="chapter" data-level="3.14.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.14.7</b> Massive files</a></li>
+<li class="chapter" data-level="3.14.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.14.8</b> Databases</a></li>
 </ul></li>
-<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.13</b> Functions</a></li>
-<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.14</b> Looping</a></li>
-<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.15</b> Apply</a></li>
-<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.16</b> Recursion</a></li>
-<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.17</b> Dates and Times</a></li>
-<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.18</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.19</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.15</b> Functions</a></li>
+<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.16</b> Looping</a></li>
+<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.17</b> Apply</a></li>
+<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.18</b> Recursion</a></li>
+<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.19</b> Dates and Times</a></li>
+<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.20</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.21</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
 <li class="chapter" data-level="4.1" data-path="eda.html"><a href="eda.html#summary-statistics"><i class="fa fa-check"></i><b>4.1</b> Summary Statistics</a><ul>
@@ -168,7 +171,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3.1" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.1</b> Testing a Hypothesis on a Single Coefficient</a></li>
 <li class="chapter" data-level="5.3.2" data-path="lm.html"><a href="lm.html#constructing-a-confidence-interval-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.2</b> Constructing a Confidence Interval on a Single Coefficient</a></li>
 <li class="chapter" data-level="5.3.3" data-path="lm.html"><a href="lm.html#multiple-regression"><i class="fa fa-check"></i><b>5.3.3</b> Multiple Regression</a></li>
-<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>5.3.4</b> Testing a Hypothesis on a Single Contrast</a></li>
+<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast-returning-to-the-model-without-interactions-lm.2."><i class="fa fa-check"></i><b>5.3.4</b> Testing a Hypothesis on a Single Contrast (*) Returning to the model without interactions, <code>lm.2</code>.</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="5.5" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
@@ -185,7 +188,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
 <li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#manova"><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA</a></li>
+<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#relation-to-manova-manova-multivariate-analysis-of-variance-manova-deals-with-the-estimation-of-effect-on-vector-valued-outcomes.-put-differently-in-anova-the-response-y-is-univariate-in-manova-the-outcome-is-multivariate.-manova-is-useful-when-there-are-correlations-among-the-entries-of-y.-otherwise--one-may-simply-solve-many-anova-problems-instead-of-a-single-manova."><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA (*) {#manova} Multivariate analysis of variance (MANOVA) deals with the estimation of effect on vector valued outcomes. Put differently: in ANOVA the response, <span class="math inline">\(y\)</span>, is univariate In MANOVA, the outcome is multivariate. MANOVA is useful when there are correlations among the entries of <span class="math inline">\(y\)</span>. Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
@@ -204,11 +207,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>8.3.1</b> Signal Identification in R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation</a></li>
-<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression</a><ul>
+<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation (*)</a></li>
+<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression (*)</a><ul>
 <li class="chapter" data-level="8.5.1" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression-with-r"><i class="fa fa-check"></i><b>8.5.1</b> Multivariate Regression with R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models</a><ul>
+<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models (*)</a><ul>
 <li class="chapter" data-level="8.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>8.6.1</b> Graphical Models in R</a></li>
 </ul></li>
 <li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
@@ -252,8 +255,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>11</b> Plotting</a><ul>
 <li class="chapter" data-level="11.1" data-path="plotting.html"><a href="plotting.html#the-graphics-system"><i class="fa fa-check"></i><b>11.1</b> The graphics System</a><ul>
 <li class="chapter" data-level="11.1.1" data-path="plotting.html"><a href="plotting.html#using-existing-plotting-functions"><i class="fa fa-check"></i><b>11.1.1</b> Using Existing Plotting Functions</a></li>
-<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#fancy-graphics-examples"><i class="fa fa-check"></i><b>11.1.2</b> Fancy graphics Examples</a></li>
-<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.3</b> Exporting a Plot</a></li>
+<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.2</b> Exporting a Plot</a></li>
+<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#fancy"><i class="fa fa-check"></i><b>11.1.3</b> Fancy graphics Examples</a></li>
 </ul></li>
 <li class="chapter" data-level="11.2" data-path="plotting.html"><a href="plotting.html#the-ggplot2-system"><i class="fa fa-check"></i><b>11.2</b> The ggplot2 System</a></li>
 <li class="chapter" data-level="11.3" data-path="plotting.html"><a href="plotting.html#interactive-graphics"><i class="fa fa-check"></i><b>11.3</b> Interactive Graphics</a><ul>
@@ -312,14 +315,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
 </ul></li>
-<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.4.1</b> matter</a></li>
+<li class="chapter" data-level="15.4.2" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.4.2</b> iotools</a></li>
+</ul></li>
 <li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.5</b> Computing from a Distributed File System</a></li>
 <li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.6</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#practice-yourself-13"><i class="fa fa-check"></i><b>15.7</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Explicit Parallelism</a></li>
-<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Explicit Parallelism</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
+</ul></li>
 <li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-14"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
 </ul></li>
@@ -345,7 +353,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="20.1" data-path="debugging.html"><a href="debugging.html#bibliographic-notes-16"><i class="fa fa-check"></i><b>20.1</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="20.2" data-path="debugging.html"><a href="debugging.html#practice-yourself-18"><i class="fa fa-check"></i><b>20.2</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="bib.html"><a href="bib.html"><i class="fa fa-check"></i><b>21</b> Bibliography</a></li>
+<li class="chapter" data-level="21" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>21</b> data.table</a></li>
+<li class="chapter" data-level="22" data-path="bib.html"><a href="bib.html"><i class="fa fa-check"></i><b>22</b> Bibliography</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -374,23 +383,23 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>When using sparse representation, and the <strong>Matrix</strong> package, you will need an implementation of your favorite model fitting algorithm (e.g. <code>lm</code>) that is adapted to these sparse representations; otherwise, R will cast the sparse matrix into a regular (non-sparse) matrix, and you will have saved nothing in RAM.</p>
 
 <div class="remark">
-<span class="remark"><em>Remark. </em></span> If you are familiar with MATLAB you should know that one of the great capabilities of MATLAB, is the excellent treatment of sparse matrices with the <code>sparse</code> function.
+ <span class="remark"><em>Remark. </em></span> If you are familiar with MATLAB you should know that one of the great capabilities of MATLAB, is the excellent treatment of sparse matrices with the <code>sparse</code> function.
 </div>
-<p></p>
+
 <p>Before we go into details, here is a simple example. We will create a factor of letters with the <code>letters</code> function. Clearly, this factor can take only <span class="math inline">\(26\)</span> values. This means that <span class="math inline">\(25/26\)</span> of the <code>model.matrix</code> will be zeroes after dummy coding. We will compare the memory footprint of the naive <code>model.matrix</code> with the sparse representation of the same matrix.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
 reps &lt;-<span class="st"> </span><span class="fl">1e6</span> <span class="co"># number of samples</span>
 y&lt;-<span class="kw">rnorm</span>(reps)
-x&lt;-<span class="st"> </span>letters %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">sample</span>(reps, <span class="dt">replace=</span><span class="ot">TRUE</span>) %&gt;%<span class="st"> </span>
+x&lt;-<span class="st"> </span>letters <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">sample</span>(reps, <span class="dt">replace=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>factor</code></pre></div>
 <p>The object <code>x</code> is a factor of letters:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(x)</code></pre></div>
 <pre><code>## [1] n x z f a i
 ## Levels: a b c d e f g h i j k l m n o p q r s t u v w x y z</code></pre>
 <p>We dummy code <code>x</code> with the <code>model.matrix</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">X<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(~x<span class="dv">-1</span>)
-<span class="kw">head</span>(X<span class="fl">.1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">X.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>x<span class="op">-</span><span class="dv">1</span>)
+<span class="kw">head</span>(X.<span class="dv">1</span>)</code></pre></div>
 <pre><code>##   xa xb xc xd xe xf xg xh xi xj xk xl xm xn xo xp xq xr xs xt xu xv xw xx
 ## 1  0  0  0  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0  0  0  0  0  0  0
 ## 2  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1
@@ -407,8 +416,8 @@ x&lt;-<span class="st"> </span>letters %&gt;%<span class="st"> </span>
 ## 6  0  0</code></pre>
 <p>We call <strong>MatrixModels</strong> for an implementation of <code>model.matrix</code> that supports sparse representations.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(MatrixModels))
-X<span class="fl">.2</span>&lt;-<span class="st"> </span><span class="kw">as</span>(x,<span class="st">&quot;sparseMatrix&quot;</span>) %&gt;%<span class="st"> </span>t <span class="co"># Makes sparse dummy model.matrix</span>
-<span class="kw">head</span>(X<span class="fl">.2</span>)</code></pre></div>
+X.<span class="dv">2</span>&lt;-<span class="st"> </span><span class="kw">as</span>(x,<span class="st">&quot;sparseMatrix&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>t <span class="co"># Makes sparse dummy model.matrix</span>
+<span class="kw">head</span>(X.<span class="dv">2</span>)</code></pre></div>
 <pre><code>## 6 x 26 sparse Matrix of class &quot;dgCMatrix&quot;</code></pre>
 <pre><code>##    [[ suppressing 26 column names &#39;a&#39;, &#39;b&#39;, &#39;c&#39; ... ]]</code></pre>
 <pre><code>##                                                         
@@ -419,14 +428,14 @@ X<span class="fl">.2</span>&lt;-<span class="st"> </span><span class="kw">as</sp
 ## [5,] 1 . . . . . . . . . . . . . . . . . . . . . . . . .
 ## [6,] . . . . . . . . 1 . . . . . . . . . . . . . . . . .</code></pre>
 <p>Notice that the matrices have the same dimensions:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(X<span class="fl">.1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(X.<span class="dv">1</span>)</code></pre></div>
 <pre><code>## [1] 1000000      26</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(X<span class="fl">.2</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(X.<span class="dv">2</span>)</code></pre></div>
 <pre><code>## [1] 1000000      26</code></pre>
 <p>The memory footprint of the matrices, given by the <code>pryr::object_size</code> function, are very very different.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pryr::<span class="kw">object_size</span>(X<span class="fl">.1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pryr<span class="op">::</span><span class="kw">object_size</span>(X.<span class="dv">1</span>)</code></pre></div>
 <pre><code>## 264 MB</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pryr::<span class="kw">object_size</span>(X<span class="fl">.2</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pryr<span class="op">::</span><span class="kw">object_size</span>(X.<span class="dv">2</span>)</code></pre></div>
 <pre><code>## 12 MB</code></pre>
 <p>Things to note:</p>
 <ul>
@@ -435,23 +444,23 @@ X<span class="fl">.2</span>&lt;-<span class="st"> </span><span class="kw">as</sp
 <li>The <strong>pryr</strong> package provides many facilities for inspecting the memory footprint of your objects and code.</li>
 </ul>
 <p>With a sparse representation, we not only saved on RAM, but also on the computing time of fitting a model. Here is the timing of a non sparse representation:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(lm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(y ~<span class="st"> </span>X<span class="fl">.1</span>)) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(lm.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>X.<span class="dv">1</span>)) </code></pre></div>
 <pre><code>##    user  system elapsed 
 ##   3.828   0.120   3.946</code></pre>
 <p>Well actually, <code>lm</code> is a wrapper for the <code>lm.fit</code> function. If we override all the overhead of <code>lm</code>, and call <code>lm.fit</code> directly, we gain some time:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(lm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm.fit</span>(<span class="dt">y=</span>y, <span class="dt">x=</span>X<span class="fl">.1</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(lm.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lm.fit</span>(<span class="dt">y=</span>y, <span class="dt">x=</span>X.<span class="dv">1</span>))</code></pre></div>
 <pre><code>##    user  system elapsed 
 ##   1.080   0.008   1.088</code></pre>
 <p>We now do the same with the sparse representation:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(lm<span class="fl">.2</span> &lt;-<span class="st"> </span>MatrixModels:::<span class="kw">lm.fit.sparse</span>(X<span class="fl">.2</span>,y))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(lm.<span class="dv">2</span> &lt;-<span class="st"> </span>MatrixModels<span class="op">:::</span><span class="kw">lm.fit.sparse</span>(X.<span class="dv">2</span>,y))</code></pre></div>
 <pre><code>##    user  system elapsed 
 ##   0.208   0.012   0.224</code></pre>
 <p>It is only left to verify that the returned coefficients are the same:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(lm<span class="fl">.2</span>, <span class="kw">unname</span>(lm<span class="fl">.1</span>$coefficients), <span class="dt">tolerance =</span> <span class="fl">1e-12</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(lm.<span class="dv">2</span>, <span class="kw">unname</span>(lm.<span class="dv">1</span><span class="op">$</span>coefficients), <span class="dt">tolerance =</span> <span class="fl">1e-12</span>)</code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>You can also visualize the non zero entries, i.e., the sparsity structure.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(X<span class="fl">.2</span>[<span class="dv">1</span>:<span class="dv">26</span>,<span class="dv">1</span>:<span class="dv">26</span>])</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-261-1.png" width="50%" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(X.<span class="dv">2</span>[<span class="dv">1</span><span class="op">:</span><span class="dv">26</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">26</span>])</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-269-1.png" width="50%" /></p>
 <div id="sparse-matrix-representations" class="section level2">
 <h2><span class="header-section-number">14.1</span> Sparse Matrix Representations</h2>
 <p>We first distinguish between the two main goals of the efficient representation: (i) efficient writing, i.e., modification; (ii) efficient reading, i.e., access. For our purposes, we will typically want efficient reading, since the <code>model.matrix</code> will not change while a model is being fitted.</p>
@@ -511,24 +520,24 @@ X<span class="fl">.2</span>&lt;-<span class="st"> </span><span class="kw">as</sp
 <span class="kw">set.seed</span>(<span class="dv">1</span>)
 performance &lt;-<span class="st"> </span><span class="kw">data.frame</span>()
  
-for (sim in <span class="dv">1</span>:<span class="dv">10</span>){
+<span class="cf">for</span> (sim <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>){
   n &lt;-<span class="st"> </span><span class="dv">10000</span>
   p &lt;-<span class="st"> </span><span class="dv">500</span>
  
-  nzc &lt;-<span class="st"> </span><span class="kw">trunc</span>(p /<span class="st"> </span><span class="dv">10</span>)
+  nzc &lt;-<span class="st"> </span><span class="kw">trunc</span>(p <span class="op">/</span><span class="st"> </span><span class="dv">10</span>)
  
-  x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n *<span class="st"> </span>p), n, p) <span class="co">#make a dense matrix</span>
-  iz &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span>:(n *<span class="st"> </span>p),
-               <span class="dt">size =</span> n *<span class="st"> </span>p *<span class="st"> </span><span class="fl">0.85</span>,
+  x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(n <span class="op">*</span><span class="st"> </span>p), n, p) <span class="co">#make a dense matrix</span>
+  iz &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>(n <span class="op">*</span><span class="st"> </span>p),
+               <span class="dt">size =</span> n <span class="op">*</span><span class="st"> </span>p <span class="op">*</span><span class="st"> </span><span class="fl">0.85</span>,
                <span class="dt">replace =</span> <span class="ot">FALSE</span>)
   x[iz] &lt;-<span class="st"> </span><span class="dv">0</span> <span class="co"># sparsify by injecting zeroes</span>
   sx &lt;-<span class="st"> </span><span class="kw">Matrix</span>(x, <span class="dt">sparse =</span> <span class="ot">TRUE</span>) <span class="co"># save as a sparse object</span>
  
   beta &lt;-<span class="st"> </span><span class="kw">rnorm</span>(nzc)
-  fx &lt;-<span class="st"> </span>x[, <span class="kw">seq</span>(nzc)] %*%<span class="st"> </span>beta
+  fx &lt;-<span class="st"> </span>x[, <span class="kw">seq</span>(nzc)] <span class="op">%*%</span><span class="st"> </span>beta
  
   eps &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n)
-  y &lt;-<span class="st"> </span>fx +<span class="st"> </span>eps <span class="co"># make data</span>
+  y &lt;-<span class="st"> </span>fx <span class="op">+</span><span class="st"> </span>eps <span class="co"># make data</span>
  
   <span class="co"># Now to the actual model fitting:</span>
   sparse.times &lt;-<span class="st"> </span><span class="kw">system.time</span>(fit1 &lt;-<span class="st"> </span><span class="kw">glmnet</span>(sx, y)) <span class="co"># sparse glmnet</span>
@@ -556,16 +565,16 @@ for (sim in <span class="dv">1</span>:<span class="dv">10</span>){
 </ul>
 <p>We now inspect the computing time, and the memory footprint, only to discover that sparse representations make a BIG difference.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(<span class="st">&#39;ggplot2&#39;</span>))
-<span class="kw">ggplot</span>(performance, <span class="kw">aes</span>(<span class="dt">x =</span> Format, <span class="dt">y =</span> ElapsedTime, <span class="dt">fill =</span> Format)) +
-<span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;bar&#39;</span>) +
-<span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;errorbar&#39;</span>) +
+<span class="kw">ggplot</span>(performance, <span class="kw">aes</span>(<span class="dt">x =</span> Format, <span class="dt">y =</span> ElapsedTime, <span class="dt">fill =</span> Format)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;bar&#39;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;errorbar&#39;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&#39;Elapsed Time in Seconds&#39;</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-262-1.png" width="50%" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(performance, <span class="kw">aes</span>(<span class="dt">x =</span> Format, <span class="dt">y =</span> Size /<span class="st"> </span><span class="dv">1000000</span>, <span class="dt">fill =</span> Format)) +
-<span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;bar&#39;</span>) +
-<span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;errorbar&#39;</span>) +
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-270-1.png" width="50%" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(performance, <span class="kw">aes</span>(<span class="dt">x =</span> Format, <span class="dt">y =</span> Size <span class="op">/</span><span class="st"> </span><span class="dv">1000000</span>, <span class="dt">fill =</span> Format)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;bar&#39;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;errorbar&#39;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&#39;Matrix Size in MB&#39;</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-263-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-271-1.png" width="50%" /></p>
 <p>How do we perform other types of regression with the <strong>glmnet</strong>? We just need to use the <code>family</code> and <code>alpha</code> arguments of <code>glmnet::glmnet</code>. The <code>family</code> argument governs the type of GLM to fit: logistic, Poisson, probit, or other types of GLM. The <code>alpha</code> argument controls the type of regularization. Set to <code>alpha=0</code> for ridge, <code>alpha=1</code> for lasso, and any value in between for elastic-net regularization.</p>
 </div>
 </div>
@@ -610,7 +619,7 @@ for (sim in <span class="dv">1</span>:<span class="dv">10</span>){
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -644,7 +653,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

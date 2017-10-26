@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R (BGU course)</title>
   <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
-  <meta name="generator" content="bookdown 0.3.9 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="R (BGU course)" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-05-03">
+<meta name="date" content="2017-10-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -47,13 +47,13 @@
 
 
 
-<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<link href="libs/plotlyjs-1.26.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.26.1/plotly-latest.min.js"></script>
-<script src="libs/plotly-binding-4.6.0/plotly.js"></script>
+<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -121,33 +121,36 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#practice-yourself"><i class="fa fa-check"></i><b>2.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
-<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.1</b> Simple calculator</a></li>
-<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.2</b> Probability calculator</a></li>
-<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.3</b> Getting Help</a></li>
-<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.4</b> Variable Asignment</a></li>
-<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.5</b> Piping</a></li>
-<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.6</b> Vector Creation and Manipulation</a></li>
-<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.7</b> Search Paths and Packages</a></li>
-<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.8</b> Simple Plotting</a></li>
-<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.9</b> Object Types</a></li>
-<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.10</b> Data Frames</a></li>
-<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.11</b> Exctraction</a></li>
-<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.12</b> Data Import and Export</a><ul>
-<li class="chapter" data-level="3.12.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.12.1</b> Import from WEB</a></li>
-<li class="chapter" data-level="3.12.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.12.2</b> Export as CSV</a></li>
-<li class="chapter" data-level="3.12.3" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.12.3</b> Reading From Text Files</a></li>
-<li class="chapter" data-level="3.12.4" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.12.4</b> Writing Data to Text Files</a></li>
-<li class="chapter" data-level="3.12.5" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.12.5</b> .XLS(X) files</a></li>
-<li class="chapter" data-level="3.12.6" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.12.6</b> Massive files</a></li>
-<li class="chapter" data-level="3.12.7" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.12.7</b> Databases</a></li>
+<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>3.1</b> File types</a></li>
+<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.2</b> Simple calculator</a></li>
+<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.3</b> Probability calculator</a></li>
+<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.4</b> Getting Help</a></li>
+<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.5</b> Variable Asignment</a></li>
+<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.6</b> Piping</a></li>
+<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.7</b> Vector Creation and Manipulation</a></li>
+<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.8</b> Search Paths and Packages</a></li>
+<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.9</b> Simple Plotting</a></li>
+<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.10</b> Object Types</a></li>
+<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.11</b> Data Frames</a></li>
+<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.12</b> Exctraction</a></li>
+<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#non-data.frame-object-classes"><i class="fa fa-check"></i><b>3.13</b> Non data.frame object classes</a></li>
+<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.14</b> Data Import and Export</a><ul>
+<li class="chapter" data-level="3.14.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.14.1</b> Import from WEB</a></li>
+<li class="chapter" data-level="3.14.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.14.2</b> Export as CSV</a></li>
+<li class="chapter" data-level="3.14.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>3.14.3</b> Export non-CSV files</a></li>
+<li class="chapter" data-level="3.14.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.14.4</b> Reading From Text Files</a></li>
+<li class="chapter" data-level="3.14.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.14.5</b> Writing Data to Text Files</a></li>
+<li class="chapter" data-level="3.14.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.14.6</b> .XLS(X) files</a></li>
+<li class="chapter" data-level="3.14.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.14.7</b> Massive files</a></li>
+<li class="chapter" data-level="3.14.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.14.8</b> Databases</a></li>
 </ul></li>
-<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.13</b> Functions</a></li>
-<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.14</b> Looping</a></li>
-<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.15</b> Apply</a></li>
-<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.16</b> Recursion</a></li>
-<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.17</b> Dates and Times</a></li>
-<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.18</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.19</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.15</b> Functions</a></li>
+<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.16</b> Looping</a></li>
+<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.17</b> Apply</a></li>
+<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.18</b> Recursion</a></li>
+<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.19</b> Dates and Times</a></li>
+<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.20</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.21</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
 <li class="chapter" data-level="4.1" data-path="eda.html"><a href="eda.html#summary-statistics"><i class="fa fa-check"></i><b>4.1</b> Summary Statistics</a><ul>
@@ -168,7 +171,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3.1" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.1</b> Testing a Hypothesis on a Single Coefficient</a></li>
 <li class="chapter" data-level="5.3.2" data-path="lm.html"><a href="lm.html#constructing-a-confidence-interval-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.2</b> Constructing a Confidence Interval on a Single Coefficient</a></li>
 <li class="chapter" data-level="5.3.3" data-path="lm.html"><a href="lm.html#multiple-regression"><i class="fa fa-check"></i><b>5.3.3</b> Multiple Regression</a></li>
-<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>5.3.4</b> Testing a Hypothesis on a Single Contrast</a></li>
+<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast-returning-to-the-model-without-interactions-lm.2."><i class="fa fa-check"></i><b>5.3.4</b> Testing a Hypothesis on a Single Contrast (*) Returning to the model without interactions, <code>lm.2</code>.</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="5.5" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
@@ -185,7 +188,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
 <li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#manova"><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA</a></li>
+<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#relation-to-manova-manova-multivariate-analysis-of-variance-manova-deals-with-the-estimation-of-effect-on-vector-valued-outcomes.-put-differently-in-anova-the-response-y-is-univariate-in-manova-the-outcome-is-multivariate.-manova-is-useful-when-there-are-correlations-among-the-entries-of-y.-otherwise--one-may-simply-solve-many-anova-problems-instead-of-a-single-manova."><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA (*) {#manova} Multivariate analysis of variance (MANOVA) deals with the estimation of effect on vector valued outcomes. Put differently: in ANOVA the response, <span class="math inline">\(y\)</span>, is univariate In MANOVA, the outcome is multivariate. MANOVA is useful when there are correlations among the entries of <span class="math inline">\(y\)</span>. Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
@@ -204,11 +207,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>8.3.1</b> Signal Identification in R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation</a></li>
-<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression</a><ul>
+<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation (*)</a></li>
+<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression (*)</a><ul>
 <li class="chapter" data-level="8.5.1" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression-with-r"><i class="fa fa-check"></i><b>8.5.1</b> Multivariate Regression with R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models</a><ul>
+<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models (*)</a><ul>
 <li class="chapter" data-level="8.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>8.6.1</b> Graphical Models in R</a></li>
 </ul></li>
 <li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
@@ -252,8 +255,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>11</b> Plotting</a><ul>
 <li class="chapter" data-level="11.1" data-path="plotting.html"><a href="plotting.html#the-graphics-system"><i class="fa fa-check"></i><b>11.1</b> The graphics System</a><ul>
 <li class="chapter" data-level="11.1.1" data-path="plotting.html"><a href="plotting.html#using-existing-plotting-functions"><i class="fa fa-check"></i><b>11.1.1</b> Using Existing Plotting Functions</a></li>
-<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#fancy-graphics-examples"><i class="fa fa-check"></i><b>11.1.2</b> Fancy graphics Examples</a></li>
-<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.3</b> Exporting a Plot</a></li>
+<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.2</b> Exporting a Plot</a></li>
+<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#fancy"><i class="fa fa-check"></i><b>11.1.3</b> Fancy graphics Examples</a></li>
 </ul></li>
 <li class="chapter" data-level="11.2" data-path="plotting.html"><a href="plotting.html#the-ggplot2-system"><i class="fa fa-check"></i><b>11.2</b> The ggplot2 System</a></li>
 <li class="chapter" data-level="11.3" data-path="plotting.html"><a href="plotting.html#interactive-graphics"><i class="fa fa-check"></i><b>11.3</b> Interactive Graphics</a><ul>
@@ -312,14 +315,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
 </ul></li>
-<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.4.1</b> matter</a></li>
+<li class="chapter" data-level="15.4.2" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.4.2</b> iotools</a></li>
+</ul></li>
 <li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.5</b> Computing from a Distributed File System</a></li>
 <li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.6</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#practice-yourself-13"><i class="fa fa-check"></i><b>15.7</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Explicit Parallelism</a></li>
-<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Explicit Parallelism</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
+</ul></li>
 <li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-14"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
 </ul></li>
@@ -345,7 +353,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="20.1" data-path="debugging.html"><a href="debugging.html#bibliographic-notes-16"><i class="fa fa-check"></i><b>20.1</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="20.2" data-path="debugging.html"><a href="debugging.html#practice-yourself-18"><i class="fa fa-check"></i><b>20.2</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="bib.html"><a href="bib.html"><i class="fa fa-check"></i><b>21</b> Bibliography</a></li>
+<li class="chapter" data-level="21" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>21</b> data.table</a></li>
+<li class="chapter" data-level="22" data-path="bib.html"><a href="bib.html"><i class="fa fa-check"></i><b>22</b> Bibliography</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -374,23 +383,23 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">10.1</span> Dimensionality Reduction</h2>
 
 <div class="example">
-<span id="ex:bmi" class="example"><strong>Example 10.1 </strong></span>Consider the heights and weights of a sample of individuals. The data may seemingly reside in <span class="math inline">\(2\)</span> dimensions but given the height, we have a pretty good guess of a persons weight, and vice versa. We can thus state that heights and weights are not really two dimensional, but roughly lay on a <span class="math inline">\(1\)</span> dimensional subspace of <span class="math inline">\(\mathbb{R}^2\)</span>.
+<span id="exm:bmi" class="example"><strong>Example 10.1  </strong></span>Consider the heights and weights of a sample of individuals. The data may seemingly reside in <span class="math inline">\(2\)</span> dimensions but given the height, we have a pretty good guess of a persons weight, and vice versa. We can thus state that heights and weights are not really two dimensional, but roughly lay on a <span class="math inline">\(1\)</span> dimensional subspace of <span class="math inline">\(\mathbb{R}^2\)</span>.
 </div>
-<p></p>
+
 
 <div class="example">
-<span id="ex:iq" class="example"><strong>Example 10.2 </strong></span>Consider the correctness of the answers to a questionnaire with <span class="math inline">\(p\)</span> questions. The data may seemingly reside in a <span class="math inline">\(p\)</span> dimensional space, but assuming there is a thing as ``skill’’, then given the correctness of a person’s reply to a subset of questions, we have a good idea how he scores on the rest. Put differently, we don’t really need a <span class="math inline">\(200\)</span> question questionnaire– <span class="math inline">\(100\)</span> is more than enough. If skill is indeed a one dimensional quality, then the questionnaire data should organize around a single line in the <span class="math inline">\(p\)</span> dimensional cube.
+<span id="exm:iq" class="example"><strong>Example 10.2  </strong></span>Consider the correctness of the answers to a questionnaire with <span class="math inline">\(p\)</span> questions. The data may seemingly reside in a <span class="math inline">\(p\)</span> dimensional space, but assuming there is a thing as ``skill’’, then given the correctness of a person’s reply to a subset of questions, we have a good idea how he scores on the rest. Put differently, we don’t really need a <span class="math inline">\(200\)</span> question questionnaire– <span class="math inline">\(100\)</span> is more than enough. If skill is indeed a one dimensional quality, then the questionnaire data should organize around a single line in the <span class="math inline">\(p\)</span> dimensional cube.
 </div>
-<p></p>
+
 
 <div class="example">
-<span id="ex:blind-signal" class="example"><strong>Example 10.3 </strong></span>Consider <span class="math inline">\(n\)</span> microphones recording an individual. The digitized recording consists of <span class="math inline">\(p\)</span> samples. Are the recordings really a shapeless cloud of <span class="math inline">\(n\)</span> points in <span class="math inline">\(\mathbb{R}^p\)</span>? Since they all record the same sound, one would expect the <span class="math inline">\(n\)</span> <span class="math inline">\(p\)</span>-dimensional points to arrange around the source sound bit: a single point in <span class="math inline">\(\mathbb{R}^p\)</span>. If microphones have different distances to the source, volumes may differ. We would thus expect the <span class="math inline">\(n\)</span> points to arrange about a <strong>line</strong> in <span class="math inline">\(\mathbb{R}^p\)</span>.
+<span id="exm:blind-signal" class="example"><strong>Example 10.3  </strong></span>Consider <span class="math inline">\(n\)</span> microphones recording an individual. The digitized recording consists of <span class="math inline">\(p\)</span> samples. Are the recordings really a shapeless cloud of <span class="math inline">\(n\)</span> points in <span class="math inline">\(\mathbb{R}^p\)</span>? Since they all record the same sound, one would expect the <span class="math inline">\(n\)</span> <span class="math inline">\(p\)</span>-dimensional points to arrange around the source sound bit: a single point in <span class="math inline">\(\mathbb{R}^p\)</span>. If microphones have different distances to the source, volumes may differ. We would thus expect the <span class="math inline">\(n\)</span> points to arrange about a <strong>line</strong> in <span class="math inline">\(\mathbb{R}^p\)</span>.
 </div>
-<p></p>
+
 <div id="pca" class="section level3">
 <h3><span class="header-section-number">10.1.1</span> Principal Component Analysis</h3>
-<p><em>Principal Component Analysis</em> (PCA) is such a basic technique, it has been rediscovered and renamed independently in many fields. It can be found under the names of Discrete Karhunen–Loève Transform; Hotteling Transform; Proper Orthogonal Decomposition; Eckart–Young Theorem; Schmidt–Mirsky Theorem; Empirical Orthogonal Functions; Empirical Eigenfunction Decomposition; Empirical Component Analysis; Quasi-Harmonic Modes; Spectral Decomposition; Empirical Modal Analysis, and possibly more<a href="#fn21" class="footnoteRef" id="fnref21"><sup>21</sup></a>. The many names are quite interesting as they offer an insight into the different problems that led to PCA’s (re)discovery.</p>
-<p>Return to the BMI problem in Example <a href="unsupervised.html#ex:bmi">10.1</a>. Assume you wish to give each individual a “size score”, that is a <strong>linear</strong> combination of height and weight: PCA does just that. It returns the linear combination that has the largest variability, i.e., the combination which best distinguishes between individuals.</p>
+<p><em>Principal Component Analysis</em> (PCA) is such a basic technique, it has been rediscovered and renamed independently in many fields. It can be found under the names of Discrete Karhunen–Loève Transform; Hotteling Transform; Proper Orthogonal Decomposition; Eckart–Young Theorem; Schmidt–Mirsky Theorem; Empirical Orthogonal Functions; Empirical Eigenfunction Decomposition; Empirical Component Analysis; Quasi-Harmonic Modes; Spectral Decomposition; Empirical Modal Analysis, and possibly more<a href="#fn22" class="footnoteRef" id="fnref22"><sup>22</sup></a>. The many names are quite interesting as they offer an insight into the different problems that led to PCA’s (re)discovery.</p>
+<p>Return to the BMI problem in Example <a href="unsupervised.html#exm:bmi">10.1</a>. Assume you wish to give each individual a “size score”, that is a <strong>linear</strong> combination of height and weight: PCA does just that. It returns the linear combination that has the largest variability, i.e., the combination which best distinguishes between individuals.</p>
 <p>The variance maximizing motivation above was the one that guided <span class="citation">Hotelling (<a href="#ref-hotelling1933analysis">1933</a>)</span>. But <span class="math inline">\(30\)</span> years before him, <span class="citation">Pearson (<a href="#ref-pearson1901liii">1901</a>)</span> derived the same procedure with a different motivation in mind. Pearson was also trying to give each individual a score. He did not care about variance maximization, however. He simply wanted a small set of coordinates in some (linear) space that approximates the original data well.</p>
 <p>Before we proceed, we give an example to fix ideas. Consider the crime rate data in <code>USArrests</code>, which encodes reported murder events, assaults, rapes, and the urban population of each american state.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(USArrests)</code></pre></div>
@@ -402,13 +411,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## California    9.0     276       91 40.6
 ## Colorado      7.9     204       78 38.7</code></pre>
 <p>Following Hotelling’s motivation, we may want to give each state a “crimilality score”. We first remove the <code>UrbanPop</code> variable, which does not encode crime levels. We then z-score each variable with <code>scale</code>, and call PCA for a sequence of <span class="math inline">\(1,\dots,3\)</span> criminality scores that best separate between states.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">USArrests<span class="fl">.1</span> &lt;-<span class="st"> </span>USArrests[,-<span class="dv">3</span>] %&gt;%<span class="st"> </span>scale 
-pca<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">prcomp</span>(USArrests<span class="fl">.1</span>, <span class="dt">scale =</span> <span class="ot">TRUE</span>)
-pca<span class="fl">.1</span></code></pre></div>
-<pre><code>## Standard deviations:
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">USArrests.<span class="dv">1</span> &lt;-<span class="st"> </span>USArrests[,<span class="op">-</span><span class="dv">3</span>] <span class="op">%&gt;%</span><span class="st"> </span>scale 
+pca.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">prcomp</span>(USArrests.<span class="dv">1</span>, <span class="dt">scale =</span> <span class="ot">TRUE</span>)
+pca.<span class="dv">1</span></code></pre></div>
+<pre><code>## Standard deviations (1, .., p=3):
 ## [1] 1.5357670 0.6767949 0.4282154
 ## 
-## Rotation:
+## Rotation (n x k) = (3 x 3):
 ##                PC1        PC2        PC3
 ## Murder  -0.5826006  0.5339532 -0.6127565
 ## Assault -0.6079818  0.2140236  0.7645600
@@ -431,7 +440,7 @@ These weights are called the <em>loadings</em> (or <code>Rotations</code> in the
 <ul>
 <li><strong>Variable</strong>: A.k.a. <em>dimension</em>, or <em>feature</em>, or <em>column</em>.</li>
 <li><strong>Data</strong>: A.k.a. <em>sample</em>, <em>observations</em>. Will typically consist of <span class="math inline">\(n\)</span>, vectors of dimension <span class="math inline">\(p\)</span>. We typically denote the data as a <span class="math inline">\(n\times p\)</span> matrix <span class="math inline">\(X\)</span>.</li>
-<li><strong>Manifold</strong>: A generalization of a linear space, which is regular enough so that, <strong>locally</strong>, it has all the properties of a linear space. We will denote an arbitrary manifold by <span class="math inline">\(\mathcal{M}\)</span>, and by <span class="math inline">\(\mathcal{M}_q\)</span> a <span class="math inline">\(q\)</span> dimensional<a href="#fn22" class="footnoteRef" id="fnref22"><sup>22</sup></a> manifold.</li>
+<li><strong>Manifold</strong>: A generalization of a linear space, which is regular enough so that, <strong>locally</strong>, it has all the properties of a linear space. We will denote an arbitrary manifold by <span class="math inline">\(\mathcal{M}\)</span>, and by <span class="math inline">\(\mathcal{M}_q\)</span> a <span class="math inline">\(q\)</span> dimensional<a href="#fn23" class="footnoteRef" id="fnref23"><sup>23</sup></a> manifold.</li>
 <li><strong>Embedding</strong>: Informally speaking: a ``shape preserving’’ mapping of a space into another.</li>
 <li><strong>Linear Embedding</strong>: An embedding done via a linear operation (thus representable by a matrix).</li>
 <li><strong>Generative Model</strong>: Known to statisticians as the <strong>sampling distribution</strong>. The assumed stochastic process that generated the observed <span class="math inline">\(X\)</span>.</li>
@@ -449,10 +458,10 @@ These weights are called the <em>loadings</em> (or <code>Rotations</code> in the
 <p>All generative approaches to dimensionality reduction will include a set of latent/unobservable variables, which we can try to recover from the observables <span class="math inline">\(X\)</span>. The unobservable variables will typically have a lower dimension than the observables, thus, dimension is reduced. We start with the simplest case of linear Factor Analysis.</p>
 <div id="factor-analysis-fa" class="section level4">
 <h4><span class="header-section-number">10.1.3.1</span> Factor Analysis (FA)</h4>
-<p>FA originates from the psychometric literature. We thus revisit the IQ (actually g-factor<a href="#fn23" class="footnoteRef" id="fnref23"><sup>23</sup></a>) Example <a href="unsupervised.html#ex:iq">10.2</a>:</p>
+<p>FA originates from the psychometric literature. We thus revisit the IQ (actually g-factor<a href="#fn24" class="footnoteRef" id="fnref24"><sup>24</sup></a>) Example <a href="unsupervised.html#exm:iq">10.2</a>:</p>
 
 <div class="example">
-<span id="ex:unnamed-chunk-178" class="example"><strong>Example 10.4 </strong></span>Assume <span class="math inline">\(n\)</span> respondents answer <span class="math inline">\(p\)</span> quantitative questions: <span class="math inline">\(x_i \in \mathbb{R}^p, i=1,\dots,n\)</span>. Also assume, their responses are some linear function of a single personality attribute, <span class="math inline">\(s_i\)</span>. We can think of <span class="math inline">\(s_i\)</span> as the subject’s ``intelligence’’. We thus have
+<span id="exm:unnamed-chunk-183" class="example"><strong>Example 10.4  </strong></span>Assume <span class="math inline">\(n\)</span> respondents answer <span class="math inline">\(p\)</span> quantitative questions: <span class="math inline">\(x_i \in \mathbb{R}^p, i=1,\dots,n\)</span>. Also assume, their responses are some linear function of a single personality attribute, <span class="math inline">\(s_i\)</span>. We can think of <span class="math inline">\(s_i\)</span> as the subject’s ``intelligence’’. We thus have
 <span class="math display">\[\begin{align}
     x_i = A s_i + \varepsilon_i
 \end{align}\]</span>
@@ -463,18 +472,18 @@ And in matrix notation:
 \end{align}\]</span>
 where <span class="math inline">\(A\)</span> is the <span class="math inline">\(q \times p\)</span> matrix of factor loadings, and <span class="math inline">\(S\)</span> the <span class="math inline">\(n \times q\)</span> matrix of latent personality traits. In our particular example where <span class="math inline">\(q=1\)</span>, the problem is to recover the unobservable intelligence scores, <span class="math inline">\(s_1,\dots,s_n\)</span>, from the observed answers <span class="math inline">\(X\)</span>.
 </div>
-<p></p>
+
 <p>We may try to estimate <span class="math inline">\(S A\)</span> by assuming some distribution on <span class="math inline">\(S\)</span> and <span class="math inline">\(\varepsilon\)</span> and apply maximum likelihood. Under standard assumptions on the distribution of <span class="math inline">\(S\)</span> and <span class="math inline">\(\varepsilon\)</span>, recovering <span class="math inline">\(S\)</span> from <span class="math inline">\(\widehat{S A }\)</span> is still impossible as there are infinitely many such solutions. In the statistical parlance we say the problem is <em>non identifiable</em>, and in the applied mathematics parlance we say the problem is <em>ill posed</em>. To see this, consider an orthogonal <em>rotation</em> matrix <span class="math inline">\(R\)</span> (<span class="math inline">\(R&#39; R=I\)</span>). For each such <span class="math inline">\(R\)</span>: <span class="math inline">\(S A = S R&#39; R A = S^* A^*\)</span>. While both solve Eq.<a href="unsupervised.html#eq:factor">(10.1)</a>, <span class="math inline">\(A\)</span> and <span class="math inline">\(A^*\)</span> may have very different interpretations. This is why many researchers find FA an unsatisfactory inference tool.</p>
 
 <div class="remark">
-<span class="remark"><em>Remark. </em></span> The non-uniqueness (non-identifiability) of the FA solution under variable rotation is never mentioned in the PCA context. Why is this? This is because the methods solve different problems. The reason the solution to PCA is well defined is that PCA does not seek a single <span class="math inline">\(S\)</span> but rather a <strong>sequence</strong> of <span class="math inline">\(S_q\)</span> with dimensions growing from <span class="math inline">\(q=1\)</span> to <span class="math inline">\(q=p\)</span>.
+ <span class="remark"><em>Remark. </em></span> The non-uniqueness (non-identifiability) of the FA solution under variable rotation is never mentioned in the PCA context. Why is this? This is because the methods solve different problems. The reason the solution to PCA is well defined is that PCA does not seek a single <span class="math inline">\(S\)</span> but rather a <strong>sequence</strong> of <span class="math inline">\(S_q\)</span> with dimensions growing from <span class="math inline">\(q=1\)</span> to <span class="math inline">\(q=p\)</span>.
 </div>
-<p></p>
+
 
 <div class="remark">
-<span class="remark"><em>Remark. </em></span> In classical FA in Eq.<a href="unsupervised.html#eq:factor">(10.1)</a> is clearly an embedding to a linear space: the one spanned by <span class="math inline">\(S\)</span>. Under the classical probabilistic assumptions on <span class="math inline">\(S\)</span> and <span class="math inline">\(\varepsilon\)</span> the embedding itself is also linear, and is sometimes solved with PCA. Being a generative model, there is no restriction for the embedding to be linear, and there certainly exists sets of assumptions for which the FA returns a non linear embedding into a linear space.
+ <span class="remark"><em>Remark. </em></span> In classical FA in Eq.<a href="unsupervised.html#eq:factor">(10.1)</a> is clearly an embedding to a linear space: the one spanned by <span class="math inline">\(S\)</span>. Under the classical probabilistic assumptions on <span class="math inline">\(S\)</span> and <span class="math inline">\(\varepsilon\)</span> the embedding itself is also linear, and is sometimes solved with PCA. Being a generative model, there is no restriction for the embedding to be linear, and there certainly exists sets of assumptions for which the FA returns a non linear embedding into a linear space.
 </div>
-<p></p>
+
 <p>The FA terminology is slightly different than PCA:</p>
 <ul>
 <li><strong>Factors</strong>: The unobserved attributes <span class="math inline">\(S\)</span>. Akin to the <em>principal components</em> in PCA.</li>
@@ -488,7 +497,7 @@ where <span class="math inline">\(A\)</span> is the <span class="math inline">\(
 <p>Like FA, <em>independent compoent analysis</em> (ICA) is a family of latent space models, thus, a <em>meta-method</em>. It assumes data is generated as some function of the latent variables <span class="math inline">\(S\)</span>. In many cases this function is assumed to be linear in <span class="math inline">\(S\)</span> so that ICA is compared, if not confused, with PCA and even more so with FA.</p>
 <p>The fundamental idea of ICA is that <span class="math inline">\(S\)</span> has a joint distribution of <strong>non-Gaussian</strong>, <strong>independent</strong> variables. This independence assumption, solves the the non-uniqueness of <span class="math inline">\(S\)</span> in FA.</p>
 <p>Being a generative model, estimation of <span class="math inline">\(S\)</span> can then be done using maximum likelihood, or other estimation principles.</p>
-<p>ICA is a popular technique in signal processing, where <span class="math inline">\(A\)</span> is actually the signal, such as sound in Example <a href="unsupervised.html#ex:blind-signal">10.3</a>. Recovering <span class="math inline">\(A\)</span> is thus recovering the original signals mixing in the recorded <span class="math inline">\(X\)</span>.</p>
+<p>ICA is a popular technique in signal processing, where <span class="math inline">\(A\)</span> is actually the signal, such as sound in Example <a href="unsupervised.html#exm:blind-signal">10.3</a>. Recovering <span class="math inline">\(A\)</span> is thus recovering the original signals mixing in the recorded <span class="math inline">\(X\)</span>.</p>
 </div>
 </div>
 <div id="purely-algorithmic-approaches" class="section level3">
@@ -496,16 +505,16 @@ where <span class="math inline">\(A\)</span> is the <span class="math inline">\(
 <p>We now discuss dimensionality reduction approaches that are not stated via their generative model, but rather, directly as an algorithm. This does not mean that they cannot be cast via their generative model, but rather they were not motivated as such.</p>
 <div id="multidimensional-scaling-mds" class="section level4">
 <h4><span class="header-section-number">10.1.4.1</span> Multidimensional Scaling (MDS)</h4>
-<p>MDS can be thought of as a variation on PCA, that begins with the <span class="math inline">\(n \times n\)</span> graph<a href="#fn24" class="footnoteRef" id="fnref24"><sup>24</sup></a>} of distances between data points, and not the original <span class="math inline">\(n \times p\)</span> data.</p>
+<p>MDS can be thought of as a variation on PCA, that begins with the <span class="math inline">\(n \times n\)</span> graph<a href="#fn25" class="footnoteRef" id="fnref25"><sup>25</sup></a>} of distances between data points, and not the original <span class="math inline">\(n \times p\)</span> data.</p>
 <p>MDS aims at embedding a graph of distances, while preserving the original distances. Basic results in graph/network theory <span class="citation">(Graham <a href="#ref-graham1988isometric">1988</a>)</span> suggest that the geometry of a graph cannot be preserved when embedding it into lower dimensions. The different types of MDSs, such as <em>Classical MDS</em>, and <em>Sammon Mappings</em>, differ in the <em>stress function</em> penalizing for geometric distortion.</p>
 </div>
 <div id="local-multidimensional-scaling-local-mds" class="section level4">
 <h4><span class="header-section-number">10.1.4.2</span> Local Multidimensional Scaling (Local MDS)</h4>
 
 <div class="example">
-<span id="ex:non-euclidean" class="example"><strong>Example 10.5 </strong></span>Consider data of coordinates on the globe. At short distances, constructing a dissimilarity graph with Euclidean distances will capture the true distance between points. At long distances, however, the Euclidean distances as grossly inappropriate. A more extreme example is coordinates on the brain’s cerebral cortex. Being a highly folded surface, the Euclidean distance between points is far from the true geodesic distances along the cortex’s surface<a href="#fn25" class="footnoteRef" id="fnref25"><sup>25</sup></a>.
+<span id="exm:non-euclidean" class="example"><strong>Example 10.5  </strong></span>Consider data of coordinates on the globe. At short distances, constructing a dissimilarity graph with Euclidean distances will capture the true distance between points. At long distances, however, the Euclidean distances as grossly inappropriate. A more extreme example is coordinates on the brain’s cerebral cortex. Being a highly folded surface, the Euclidean distance between points is far from the true geodesic distances along the cortex’s surface<a href="#fn26" class="footnoteRef" id="fnref26"><sup>26</sup></a>.
 </div>
-<p></p>
+
 <p>Local MDS is aimed at solving the case where we don’t know how to properly measure distances. It is an algorithm that compounds both the construction of the dissimilarity graph, and the embedding. The solution of local MDS, as the name suggests, rests on the computation of <em>local</em> distances, where the Euclidean assumption may still be plausible, and then aggregate many such local distances, before calling upon regular MDS for the embedding.</p>
 <p>Because local MDS ends with a regular MDS, it can be seen as a non-linear embedding into a linear <span class="math inline">\(\mathcal{M}\)</span>.</p>
 <p>Local MDS is not popular. Why is this? Because it makes no sense: If we believe the points reside in a non-Euclidean space, thus motivating the use of geodesic distances, why would we want to wrap up with regular MDS, which embeds in a linear space?! It does offer, however, some intuition to the following, more popular, algorithms.</p>
@@ -542,8 +551,8 @@ where <span class="math inline">\(A\)</span> is the <span class="math inline">\(
 <p>We already saw the basics of PCA in <a href="unsupervised.html#pca">10.1.1</a>. The fitting is done with the <code>prcomp</code> function. The <em>bi-plot</em> is a useful way to visualize the output of PCA.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(devtools)
 <span class="co"># install_github(&quot;vqv/ggbiplot&quot;)</span>
-ggbiplot::<span class="kw">ggbiplot</span>(pca<span class="fl">.1</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-181-1.png" width="50%" /></p>
+ggbiplot<span class="op">::</span><span class="kw">ggbiplot</span>(pca.<span class="dv">1</span>) </code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-186-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>We used the <code>ggbiplot</code> function from the <strong>ggbiplot</strong> (available from github, but not from CRAN), because it has a nicer output than <code>stats::biplot</code>.</li>
@@ -551,27 +560,27 @@ ggbiplot::<span class="kw">ggbiplot</span>(pca<span class="fl">.1</span>) </code
 <li>The bi-plot plots each data point along its PCs.</li>
 </ul>
 <p>The <em>scree plot</em> depicts the quality of the approximation of <span class="math inline">\(X\)</span> as <span class="math inline">\(q\)</span> grows. This is depicted using the proportion of variability in <span class="math inline">\(X\)</span> that is removed by each added PC. It is customary to choose <span class="math inline">\(q\)</span> as the first PC that has a relative low contribution to the approximation of <span class="math inline">\(X\)</span>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ggbiplot::<span class="kw">ggscreeplot</span>(pca<span class="fl">.1</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-182-1.png" width="50%" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ggbiplot<span class="op">::</span><span class="kw">ggscreeplot</span>(pca.<span class="dv">1</span>)</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-187-1.png" width="50%" /></p>
 <p>See how the first PC captures the variability in the Assault levels and Murder levels, with a single score.</p>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-183-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-188-1.png" width="50%" /></p>
 <p>More implementations of PCA:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># FAST solutions:</span>
-gmodels::<span class="kw">fast.prcomp</span>()
+gmodels<span class="op">::</span><span class="kw">fast.prcomp</span>()
 
 <span class="co"># More detail in output:</span>
-FactoMineR::<span class="kw">PCA</span>()
+FactoMineR<span class="op">::</span><span class="kw">PCA</span>()
 
 <span class="co"># For flexibility in algorithms and visualization:</span>
-ade4::<span class="kw">dudi.pca</span>()
+ade4<span class="op">::</span><span class="kw">dudi.pca</span>()
 
 <span class="co"># Another one...</span>
-amap::<span class="kw">acp</span>()</code></pre></div>
+amap<span class="op">::</span><span class="kw">acp</span>()</code></pre></div>
 </div>
 <div id="fa" class="section level4">
 <h4><span class="header-section-number">10.1.5.2</span> FA</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fa<span class="fl">.1</span> &lt;-<span class="st"> </span>psych::<span class="kw">principal</span>(USArrests<span class="fl">.1</span>, <span class="dt">nfactors =</span> <span class="dv">2</span>, <span class="dt">rotate =</span> <span class="st">&quot;none&quot;</span>)
-fa<span class="fl">.1</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fa.<span class="dv">1</span> &lt;-<span class="st"> </span>psych<span class="op">::</span><span class="kw">principal</span>(USArrests.<span class="dv">1</span>, <span class="dt">nfactors =</span> <span class="dv">2</span>, <span class="dt">rotate =</span> <span class="st">&quot;none&quot;</span>)
+fa.<span class="dv">1</span></code></pre></div>
 <pre><code>## Principal Components Analysis
 ## Call: psych::principal(r = USArrests.1, nfactors = 2, rotate = &quot;none&quot;)
 ## Standardized loadings (pattern matrix) based upon correlation matrix
@@ -594,10 +603,10 @@ fa<span class="fl">.1</span></code></pre></div>
 ##  with the empirical chi square  0.87  with prob &lt;  NA 
 ## 
 ## Fit based upon off diagonal values = 0.99</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">biplot</span>(fa<span class="fl">.1</span>, <span class="dt">labels =</span>  <span class="kw">rownames</span>(USArrests<span class="fl">.1</span>)) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">biplot</span>(fa.<span class="dv">1</span>, <span class="dt">labels =</span>  <span class="kw">rownames</span>(USArrests.<span class="dv">1</span>)) </code></pre></div>
 <p><img src="Rcourse_files/figure-html/FA-1.png" width="50%" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Numeric comparison with PCA:</span>
-fa<span class="fl">.1</span>$loadings</code></pre></div>
+fa.<span class="dv">1</span><span class="op">$</span>loadings</code></pre></div>
 <pre><code>## 
 ## Loadings:
 ##         PC1    PC2   
@@ -609,7 +618,7 @@ fa<span class="fl">.1</span>$loadings</code></pre></div>
 ## SS loadings    2.359 0.458
 ## Proportion Var 0.786 0.153
 ## Cumulative Var 0.786 0.939</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca<span class="fl">.1</span>$rotation</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca.<span class="dv">1</span><span class="op">$</span>rotation</code></pre></div>
 <pre><code>##                PC1        PC2        PC3
 ## Murder  -0.5826006  0.5339532 -0.6127565
 ## Assault -0.6079818  0.2140236  0.7645600
@@ -620,12 +629,12 @@ fa<span class="fl">.1</span>$loadings</code></pre></div>
 <li>The first factor (<code>fa.1$loadings</code>) has different weights than the first PC (<code>pca.1$rotation</code>) because of normalization. They are the same, however, in that the first PC, and the first factor, capture average crime levels.</li>
 </ul>
 <p>Graphical model fans will like the following plot, where the contribution of each variable to each factor is encoded in the width of the arrow.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">qgraph::<span class="kw">qgraph</span>(fa<span class="fl">.1</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-184-1.png" width="50%" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">qgraph<span class="op">::</span><span class="kw">qgraph</span>(fa.<span class="dv">1</span>)</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-189-1.png" width="50%" /></p>
 <p>Let’s add a rotation (Varimax), and note that the rotation has indeed changed the loadings of the variables, thus the interpretation of the factors.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fa<span class="fl">.2</span> &lt;-<span class="st"> </span>psych::<span class="kw">principal</span>(USArrests<span class="fl">.1</span>, <span class="dt">nfactors =</span> <span class="dv">2</span>, <span class="dt">rotate =</span> <span class="st">&quot;varimax&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fa.<span class="dv">2</span> &lt;-<span class="st"> </span>psych<span class="op">::</span><span class="kw">principal</span>(USArrests.<span class="dv">1</span>, <span class="dt">nfactors =</span> <span class="dv">2</span>, <span class="dt">rotate =</span> <span class="st">&quot;varimax&quot;</span>)
 
-fa<span class="fl">.2</span>$loadings</code></pre></div>
+fa.<span class="dv">2</span><span class="op">$</span>loadings</code></pre></div>
 <pre><code>## 
 ## Loadings:
 ##         RC1   RC2  
@@ -645,14 +654,14 @@ fa<span class="fl">.2</span>$loadings</code></pre></div>
 </div>
 <div id="ica" class="section level4">
 <h4><span class="header-section-number">10.1.5.3</span> ICA</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ica<span class="fl">.1</span> &lt;-<span class="st"> </span>fastICA::<span class="kw">fastICA</span>(USArrests<span class="fl">.1</span>, <span class="dt">n.com=</span><span class="dv">2</span>) <span class="co"># Also performs projection pursuit</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ica.<span class="dv">1</span> &lt;-<span class="st"> </span>fastICA<span class="op">::</span><span class="kw">fastICA</span>(USArrests.<span class="dv">1</span>, <span class="dt">n.com=</span><span class="dv">2</span>) <span class="co"># Also performs projection pursuit</span>
 
-<span class="kw">plot</span>(ica<span class="fl">.1</span>$S)
+<span class="kw">plot</span>(ica.<span class="dv">1</span><span class="op">$</span>S)
 <span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span>, <span class="dt">v=</span><span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)
-<span class="kw">text</span>(ica<span class="fl">.1</span>$S, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">labels =</span> <span class="kw">rownames</span>(USArrests<span class="fl">.1</span>))
+<span class="kw">text</span>(ica.<span class="dv">1</span><span class="op">$</span>S, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">labels =</span> <span class="kw">rownames</span>(USArrests.<span class="dv">1</span>))
 
 <span class="co"># Compare with PCA (first two PCs):</span>
-<span class="kw">arrows</span>(<span class="dt">x0 =</span> ica<span class="fl">.1</span>$S[,<span class="dv">1</span>], <span class="dt">y0 =</span> ica<span class="fl">.1</span>$S[,<span class="dv">2</span>], <span class="dt">x1 =</span> pca<span class="fl">.1</span>$x[,<span class="dv">2</span>], <span class="dt">y1 =</span> pca<span class="fl">.1</span>$x[,<span class="dv">1</span>], <span class="dt">col=</span><span class="st">&#39;red&#39;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.5</span>)</code></pre></div>
+<span class="kw">arrows</span>(<span class="dt">x0 =</span> ica.<span class="dv">1</span><span class="op">$</span>S[,<span class="dv">1</span>], <span class="dt">y0 =</span> ica.<span class="dv">1</span><span class="op">$</span>S[,<span class="dv">2</span>], <span class="dt">x1 =</span> pca.<span class="dv">1</span><span class="op">$</span>x[,<span class="dv">2</span>], <span class="dt">y1 =</span> pca.<span class="dv">1</span><span class="op">$</span>x[,<span class="dv">1</span>], <span class="dt">col=</span><span class="st">&#39;red&#39;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.5</span>)</code></pre></div>
 <p><img src="Rcourse_files/figure-html/ICA-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
@@ -664,17 +673,17 @@ fa<span class="fl">.2</span>$loadings</code></pre></div>
 <h4><span class="header-section-number">10.1.5.4</span> MDS</h4>
 <p>Classical MDS, also compared with PCA.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We first need a dissimarity matrix/graph:</span>
-state.disimilarity &lt;-<span class="st"> </span><span class="kw">dist</span>(USArrests<span class="fl">.1</span>)
+state.disimilarity &lt;-<span class="st"> </span><span class="kw">dist</span>(USArrests.<span class="dv">1</span>)
 
-mds<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">cmdscale</span>(state.disimilarity)
+mds.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">cmdscale</span>(state.disimilarity)
 
-<span class="kw">plot</span>(mds<span class="fl">.1</span>, <span class="dt">pch =</span> <span class="dv">19</span>)
+<span class="kw">plot</span>(mds.<span class="dv">1</span>, <span class="dt">pch =</span> <span class="dv">19</span>)
 <span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span>, <span class="dt">v=</span><span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)
-USArrests<span class="fl">.2</span> &lt;-<span class="st"> </span>USArrests[,<span class="dv">1</span>:<span class="dv">2</span>] %&gt;%<span class="st">  </span>scale
-<span class="kw">text</span>(mds<span class="fl">.1</span>, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">labels =</span> <span class="kw">rownames</span>(USArrests<span class="fl">.2</span>), <span class="dt">col =</span> <span class="st">&#39;tomato&#39;</span>)
+USArrests.<span class="dv">2</span> &lt;-<span class="st"> </span>USArrests[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>] <span class="op">%&gt;%</span><span class="st">  </span>scale
+<span class="kw">text</span>(mds.<span class="dv">1</span>, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">labels =</span> <span class="kw">rownames</span>(USArrests.<span class="dv">2</span>), <span class="dt">col =</span> <span class="st">&#39;tomato&#39;</span>)
 
 <span class="co"># Compare with PCA (first two PCs):</span>
-<span class="kw">points</span>(pca<span class="fl">.1</span>$x[,<span class="dv">1</span>:<span class="dv">2</span>], <span class="dt">col=</span><span class="st">&#39;red&#39;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.5</span>)</code></pre></div>
+<span class="kw">points</span>(pca.<span class="dv">1</span><span class="op">$</span>x[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>], <span class="dt">col=</span><span class="st">&#39;red&#39;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.5</span>)</code></pre></div>
 <p><img src="Rcourse_files/figure-html/MDS-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
@@ -683,15 +692,15 @@ USArrests<span class="fl">.2</span> &lt;-<span class="st"> </span>USArrests[,<sp
 <li>The embedding of PCA is the same as classical MDS with Euclidean distances.</li>
 </ul>
 <p>Let’s try other strain functions for MDS, like Sammon’s strain, and compare it with the PCs.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mds<span class="fl">.2</span> &lt;-<span class="st"> </span>MASS::<span class="kw">sammon</span>(state.disimilarity, <span class="dt">trace =</span> <span class="ot">FALSE</span>)
-<span class="kw">plot</span>(mds<span class="fl">.2</span>$points, <span class="dt">pch =</span> <span class="dv">19</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mds.<span class="dv">2</span> &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">sammon</span>(state.disimilarity, <span class="dt">trace =</span> <span class="ot">FALSE</span>)
+<span class="kw">plot</span>(mds.<span class="dv">2</span><span class="op">$</span>points, <span class="dt">pch =</span> <span class="dv">19</span>)
 <span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span>, <span class="dt">v=</span><span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)
-<span class="kw">text</span>(mds<span class="fl">.2</span>$points, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">labels =</span> <span class="kw">rownames</span>(USArrests<span class="fl">.2</span>))
+<span class="kw">text</span>(mds.<span class="dv">2</span><span class="op">$</span>points, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">labels =</span> <span class="kw">rownames</span>(USArrests.<span class="dv">2</span>))
 
 <span class="co"># Compare with PCA (first two PCs):</span>
 <span class="kw">arrows</span>(
-  <span class="dt">x0 =</span> mds<span class="fl">.2</span>$points[,<span class="dv">1</span>], <span class="dt">y0 =</span> mds<span class="fl">.2</span>$points[,<span class="dv">2</span>], 
-  <span class="dt">x1 =</span> pca<span class="fl">.1</span>$x[,<span class="dv">1</span>], <span class="dt">y1 =</span> pca<span class="fl">.1</span>$x[,<span class="dv">2</span>], 
+  <span class="dt">x0 =</span> mds.<span class="dv">2</span><span class="op">$</span>points[,<span class="dv">1</span>], <span class="dt">y0 =</span> mds.<span class="dv">2</span><span class="op">$</span>points[,<span class="dv">2</span>], 
+  <span class="dt">x1 =</span> pca.<span class="dv">1</span><span class="op">$</span>x[,<span class="dv">1</span>], <span class="dt">y1 =</span> pca.<span class="dv">1</span><span class="op">$</span>x[,<span class="dv">2</span>], 
   <span class="dt">col=</span><span class="st">&#39;red&#39;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.5</span>)</code></pre></div>
 <p><img src="Rcourse_files/figure-html/SammonMDS-1.png" width="50%" /></p>
 <p>Things to note:</p>
@@ -703,10 +712,10 @@ USArrests<span class="fl">.2</span> &lt;-<span class="st"> </span>USArrests[,<sp
 <div id="sparse-pca" class="section level4">
 <h4><span class="header-section-number">10.1.5.5</span> Sparse PCA</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compute similarity graph</span>
-state.similarity &lt;-<span class="st"> </span>MASS::<span class="kw">cov.rob</span>(USArrests<span class="fl">.1</span>)$cov
+state.similarity &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">cov.rob</span>(USArrests.<span class="dv">1</span>)<span class="op">$</span>cov
 
-spca1 &lt;-<span class="st"> </span>elasticnet::<span class="kw">spca</span>(state.similarity, <span class="dt">K=</span><span class="dv">2</span>, <span class="dt">type=</span><span class="st">&quot;Gram&quot;</span>, <span class="dt">sparse=</span><span class="st">&quot;penalty&quot;</span>, <span class="dt">trace=</span><span class="ot">FALSE</span>, <span class="dt">para=</span><span class="kw">c</span>(<span class="fl">0.06</span>,<span class="fl">0.16</span>))
-spca1$loadings</code></pre></div>
+spca1 &lt;-<span class="st"> </span>elasticnet<span class="op">::</span><span class="kw">spca</span>(state.similarity, <span class="dt">K=</span><span class="dv">2</span>, <span class="dt">type=</span><span class="st">&quot;Gram&quot;</span>, <span class="dt">sparse=</span><span class="st">&quot;penalty&quot;</span>, <span class="dt">trace=</span><span class="ot">FALSE</span>, <span class="dt">para=</span><span class="kw">c</span>(<span class="fl">0.06</span>,<span class="fl">0.16</span>))
+spca1<span class="op">$</span>loadings</code></pre></div>
 <pre><code>##                PC1 PC2
 ## Murder  -0.6503748   0
 ## Assault -0.7452769   0
@@ -714,7 +723,7 @@ spca1$loadings</code></pre></div>
 </div>
 <div id="kernel-pca-1" class="section level4">
 <h4><span class="header-section-number">10.1.5.6</span> Kernel PCA</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">kernlab::<span class="kw">kpca</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">kernlab<span class="op">::</span><span class="kw">kpca</span>()</code></pre></div>
 </div>
 </div>
 </div>
@@ -722,20 +731,20 @@ spca1$loadings</code></pre></div>
 <h2><span class="header-section-number">10.2</span> Clustering</h2>
 
 <div class="example">
-<span id="ex:photos" class="example"><strong>Example 10.6 </strong></span>Consider the tagging of your friends’ pictures on Facebook. If you tagged some pictures, Facebook may try to use a supervised approach to automatically label photos. If you never tagged pictures, a supervised approach is impossible. It is still possible, however, to group simiar pictures together.
+<span id="exm:photos" class="example"><strong>Example 10.6  </strong></span>Consider the tagging of your friends’ pictures on Facebook. If you tagged some pictures, Facebook may try to use a supervised approach to automatically label photos. If you never tagged pictures, a supervised approach is impossible. It is still possible, however, to group simiar pictures together.
 </div>
-<p></p>
+
 
 <div class="example">
-<span id="ex:spam" class="example"><strong>Example 10.7 </strong></span>Consider the problem of spam detection. It would be nice if each user could label several thousands emails, to apply a supervised learning approach to spam detection. This is an unrealistic demand, so a pre-clustering stage is useful: the user only needs to tag a couple dozens of homogenous clusters, before solving the supervised learning problem.
+<span id="exm:spam" class="example"><strong>Example 10.7  </strong></span>Consider the problem of spam detection. It would be nice if each user could label several thousands emails, to apply a supervised learning approach to spam detection. This is an unrealistic demand, so a pre-clustering stage is useful: the user only needs to tag a couple dozens of homogenous clusters, before solving the supervised learning problem.
 </div>
-<p></p>
+
 <p>In clustering problems, we seek to group observations that are similar.</p>
 <p>There are many motivations for clustering:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Understanding</strong>: The most common use of clustering is probably as a an exploratory step, to identify homogeneous groups in the data.</li>
 <li><strong>Dimensionality reduction</strong>: Clustering may be seen as a method for dimensionality reduction. Unlike the approaches in the Dimensionality Reduction Section <a href="unsupervised.html#dim-reduce">10.1</a>, it does not compress <strong>variables</strong> but rather <strong>observations</strong>. Each group of homogeneous observations may then be represented as a single prototypical observation of the group.</li>
-<li><strong>Pre-Labelling</strong>: Clustering may be performed as a pre-processing step for supervised learning, when labeling all the samples is impossible due to “budget” constraints, like in Example <a href="unsupervised.html#ex:spam">10.7</a>. This is sometimes known as <em>pre-clustering</em>.</li>
+<li><strong>Pre-Labelling</strong>: Clustering may be performed as a pre-processing step for supervised learning, when labeling all the samples is impossible due to “budget” constraints, like in Example <a href="unsupervised.html#exm:spam">10.7</a>. This is sometimes known as <em>pre-clustering</em>.</li>
 </ol>
 <p>Clustering, like dimensionality reduction, may rely on some latent variable generative model, or on purely algorithmic approaches.</p>
 <div id="latent-variable-generative-approaches-1" class="section level3">
@@ -744,9 +753,9 @@ spca1$loadings</code></pre></div>
 <h4><span class="header-section-number">10.2.1.1</span> Finite Mixture</h4>
 
 <div class="example">
-<span id="ex:males-females" class="example"><strong>Example 10.8 </strong></span>Consider the distribution of heights. Heights have a nice bell shaped distribution within each gender. If genders have not been recorded, heights will be distributed like a <em>mixture</em> of males and females. The gender in this example, is a <em>latent</em> variable taking <span class="math inline">\(K=2\)</span> levels: male and female.
+<span id="exm:males-females" class="example"><strong>Example 10.8  </strong></span>Consider the distribution of heights. Heights have a nice bell shaped distribution within each gender. If genders have not been recorded, heights will be distributed like a <em>mixture</em> of males and females. The gender in this example, is a <em>latent</em> variable taking <span class="math inline">\(K=2\)</span> levels: male and female.
 </div>
-<p></p>
+
 <p>A <em>finite mixture</em> is the marginal distribution of <span class="math inline">\(K\)</span> distinct classes, when the class variable is <em>latent</em>. This is useful for clustering: We can assume the number of classes, <span class="math inline">\(K\)</span>, and the distribution of each class. We then use maximum likelihood to fit the mixture distribution, and finally, cluster by assigning observations to the most probable class.</p>
 </div>
 </div>
@@ -770,9 +779,9 @@ spca1$loadings</code></pre></div>
 </ol>
 
 <div class="remark">
-<span class="remark"><em>Remark. </em></span> If trained as a statistician, you may wonder- what population quantity is K-means actually estimating? The estimand of K-means is known as the <em>K principal points</em>. Principal points are points which are <em>self consistent</em>, i.e., they are the mean of their neighbourhood.
+ <span class="remark"><em>Remark. </em></span> If trained as a statistician, you may wonder- what population quantity is K-means actually estimating? The estimand of K-means is known as the <em>K principal points</em>. Principal points are points which are <em>self consistent</em>, i.e., they are the mean of their neighbourhood.
 </div>
-<p></p>
+
 </div>
 <div id="k-means-1" class="section level4">
 <h4><span class="header-section-number">10.2.2.2</span> K-Means++</h4>
@@ -795,9 +804,9 @@ spca1$loadings</code></pre></div>
 </ol>
 
 <div class="remark">
-<span class="remark"><em>Remark. </em></span> If trained as a statistician, you may wonder- what population quantity is K-medoids actually estimating? The estimand of K-medoids is the median of their neighbourhood. A delicate matter is that quantiles are not easy to define for <strong>multivariate</strong> variables so that the “multivaraitre median”, may be a more subtle quantity than you may think. See <span class="citation">Small (<a href="#ref-small1990survey">1990</a>)</span>.
+ <span class="remark"><em>Remark. </em></span> If trained as a statistician, you may wonder- what population quantity is K-medoids actually estimating? The estimand of K-medoids is the median of their neighbourhood. A delicate matter is that quantiles are not easy to define for <strong>multivariate</strong> variables so that the “multivaraitre median”, may be a more subtle quantity than you may think. See <span class="citation">Small (<a href="#ref-small1990survey">1990</a>)</span>.
 </div>
-<p></p>
+
 </div>
 <div id="hirarchial-clustering" class="section level4">
 <h4><span class="header-section-number">10.2.2.4</span> Hirarchial Clustering</h4>
@@ -824,11 +833,11 @@ A particular advantage of these methods is that they do not require an a-priori 
 <h4><span class="header-section-number">10.2.3.1</span> K-Means</h4>
 <p>The following code is an adaptation from <a href="http://people.stat.sc.edu/Hitchcock/chapter6_R_examples.txt">David Hitchcock</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">k &lt;-<span class="st"> </span><span class="dv">2</span>
-kmeans<span class="fl">.1</span> &lt;-<span class="st"> </span>stats::<span class="kw">kmeans</span>(USArrests<span class="fl">.1</span>, <span class="dt">centers =</span> k)
-<span class="kw">head</span>(kmeans<span class="fl">.1</span>$cluster) <span class="co"># cluster asignments</span></code></pre></div>
+kmeans.<span class="dv">1</span> &lt;-<span class="st"> </span>stats<span class="op">::</span><span class="kw">kmeans</span>(USArrests.<span class="dv">1</span>, <span class="dt">centers =</span> k)
+<span class="kw">head</span>(kmeans.<span class="dv">1</span><span class="op">$</span>cluster) <span class="co"># cluster asignments</span></code></pre></div>
 <pre><code>##    Alabama     Alaska    Arizona   Arkansas California   Colorado 
 ##          1          1          1          2          1          1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pairs</span>(USArrests<span class="fl">.1</span>, <span class="dt">panel=</span>function(x,y) <span class="kw">text</span>(x,y,kmeans<span class="fl">.1</span>$cluster))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pairs</span>(USArrests.<span class="dv">1</span>, <span class="dt">panel=</span><span class="cf">function</span>(x,y) <span class="kw">text</span>(x,y,kmeans.<span class="dv">1</span><span class="op">$</span>cluster))</code></pre></div>
 <p><img src="Rcourse_files/figure-html/kmeans-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
@@ -841,36 +850,36 @@ kmeans<span class="fl">.1</span> &lt;-<span class="st"> </span>stats::<span clas
 <h4><span class="header-section-number">10.2.3.2</span> K-Means ++</h4>
 <p><em>K-Means++</em> is a smart initialization for K-Means. The following code is taken from the <a href="https://stat.ethz.ch/pipermail/r-help/2012-January/300051.html">r-help</a> mailing list.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Write my own K-means++ function.</span>
-kmpp &lt;-<span class="st"> </span>function(X, k) {
+kmpp &lt;-<span class="st"> </span><span class="cf">function</span>(X, k) {
   
   n &lt;-<span class="st"> </span><span class="kw">nrow</span>(X)
   C &lt;-<span class="st"> </span><span class="kw">numeric</span>(k)
-  C[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span>:n, <span class="dv">1</span>)
+  C[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>n, <span class="dv">1</span>)
   
-  for (i in <span class="dv">2</span>:k) {
-    dm &lt;-<span class="st"> </span>pracma::<span class="kw">distmat</span>(X, X[C, ])
+  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>k) {
+    dm &lt;-<span class="st"> </span>pracma<span class="op">::</span><span class="kw">distmat</span>(X, X[C, ])
     pr &lt;-<span class="st"> </span><span class="kw">apply</span>(dm, <span class="dv">1</span>, min); pr[C] &lt;-<span class="st"> </span><span class="dv">0</span>
-    C[i] &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span>:n, <span class="dv">1</span>, <span class="dt">prob =</span> pr)
+    C[i] &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>n, <span class="dv">1</span>, <span class="dt">prob =</span> pr)
   }
   
   <span class="kw">kmeans</span>(X, X[C, ])
 }
 
-kmeans<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">kmpp</span>(USArrests<span class="fl">.1</span>, k)
-<span class="kw">head</span>(kmeans<span class="fl">.2</span>$cluster)</code></pre></div>
+kmeans.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">kmpp</span>(USArrests.<span class="dv">1</span>, k)
+<span class="kw">head</span>(kmeans.<span class="dv">2</span><span class="op">$</span>cluster)</code></pre></div>
 <pre><code>##    Alabama     Alaska    Arizona   Arkansas California   Colorado 
 ##          1          1          1          2          1          1</code></pre>
 </div>
 <div id="k-medoids-1" class="section level4">
 <h4><span class="header-section-number">10.2.3.3</span> K-Medoids</h4>
 <p>Start by growing a distance graph with <code>dist</code> and then partition using <code>pam</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">state.disimilarity &lt;-<span class="st"> </span><span class="kw">dist</span>(USArrests<span class="fl">.1</span>)
-kmed<span class="fl">.1</span> &lt;-<span class="st"> </span>cluster::<span class="kw">pam</span>(<span class="dt">x=</span> state.disimilarity, <span class="dt">k=</span><span class="dv">2</span>)
-<span class="kw">head</span>(kmed<span class="fl">.1</span>$clustering)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">state.disimilarity &lt;-<span class="st"> </span><span class="kw">dist</span>(USArrests.<span class="dv">1</span>)
+kmed.<span class="dv">1</span> &lt;-<span class="st"> </span>cluster<span class="op">::</span><span class="kw">pam</span>(<span class="dt">x=</span> state.disimilarity, <span class="dt">k=</span><span class="dv">2</span>)
+<span class="kw">head</span>(kmed.<span class="dv">1</span><span class="op">$</span>clustering)</code></pre></div>
 <pre><code>##    Alabama     Alaska    Arizona   Arkansas California   Colorado 
 ##          1          1          1          1          1          1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(pca<span class="fl">.1</span>$x[,<span class="dv">1</span>], pca<span class="fl">.1</span>$x[,<span class="dv">2</span>], <span class="dt">xlab=</span><span class="st">&quot;PC 1&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;PC 2&quot;</span>, <span class="dt">type =</span><span class="st">&#39;n&#39;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)
-<span class="kw">text</span>(pca<span class="fl">.1</span>$x[,<span class="dv">1</span>], pca<span class="fl">.1</span>$x[,<span class="dv">2</span>], <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests<span class="fl">.1</span>), <span class="dt">cex=</span><span class="fl">0.7</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">col=</span>kmed<span class="fl">.1</span>$cluster)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(pca.<span class="dv">1</span><span class="op">$</span>x[,<span class="dv">1</span>], pca.<span class="dv">1</span><span class="op">$</span>x[,<span class="dv">2</span>], <span class="dt">xlab=</span><span class="st">&quot;PC 1&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;PC 2&quot;</span>, <span class="dt">type =</span><span class="st">&#39;n&#39;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)
+<span class="kw">text</span>(pca.<span class="dv">1</span><span class="op">$</span>x[,<span class="dv">1</span>], pca.<span class="dv">1</span><span class="op">$</span>x[,<span class="dv">2</span>], <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests.<span class="dv">1</span>), <span class="dt">cex=</span><span class="fl">0.7</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">col=</span>kmed.<span class="dv">1</span><span class="op">$</span>cluster)</code></pre></div>
 <p><img src="Rcourse_files/figure-html/kmedoids-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
@@ -884,8 +893,8 @@ kmed<span class="fl">.1</span> &lt;-<span class="st"> </span>cluster::<span clas
 <div id="hirarchial-clustering-1" class="section level4">
 <h4><span class="header-section-number">10.2.3.4</span> Hirarchial Clustering</h4>
 <p>We start with agglomerative clustering with single-linkage.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hirar<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(state.disimilarity, <span class="dt">method=</span><span class="st">&#39;single&#39;</span>)
-<span class="kw">plot</span>(hirar<span class="fl">.1</span>, <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests<span class="fl">.1</span>), <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hirar.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(state.disimilarity, <span class="dt">method=</span><span class="st">&#39;single&#39;</span>)
+<span class="kw">plot</span>(hirar.<span class="dv">1</span>, <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests.<span class="dv">1</span>), <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>)</code></pre></div>
 <p><img src="Rcourse_files/figure-html/HirarchialClustering-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
@@ -895,16 +904,16 @@ kmed<span class="fl">.1</span> &lt;-<span class="st"> </span>cluster::<span clas
 <li>The <code>plot</code> function has a particular method for <code>hclust</code> class objects, and plots them as dendograms.</li>
 </ul>
 <p>We try other types of linkages, to verify that the indeed affect the clustering. Starting with complete linkage.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hirar<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(state.disimilarity, <span class="dt">method=</span><span class="st">&#39;complete&#39;</span>)
-<span class="kw">plot</span>(hirar<span class="fl">.2</span>, <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests<span class="fl">.1</span>), <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hirar.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(state.disimilarity, <span class="dt">method=</span><span class="st">&#39;complete&#39;</span>)
+<span class="kw">plot</span>(hirar.<span class="dv">2</span>, <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests.<span class="dv">1</span>), <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>)</code></pre></div>
 <p><img src="Rcourse_files/figure-html/complete%20linkage-1.png" width="50%" /></p>
 <p>Now with average linkage.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hirar<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(state.disimilarity, <span class="dt">method=</span><span class="st">&#39;average&#39;</span>)
-<span class="kw">plot</span>(hirar<span class="fl">.3</span>, <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests<span class="fl">.1</span>), <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hirar.<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(state.disimilarity, <span class="dt">method=</span><span class="st">&#39;average&#39;</span>)
+<span class="kw">plot</span>(hirar.<span class="dv">3</span>, <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests.<span class="dv">1</span>), <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>)</code></pre></div>
 <p><img src="Rcourse_files/figure-html/average%20linkage-1.png" width="50%" /></p>
 <p>If we know how many clusters we want, we can use <code>cuttree</code> to get the class assignments.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cut<span class="fl">.2.2</span> &lt;-<span class="st"> </span><span class="kw">cutree</span>(hirar<span class="fl">.2</span>, <span class="dt">k=</span><span class="dv">2</span>)
-<span class="kw">head</span>(cut<span class="fl">.2.2</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cut.<span class="fl">2.2</span> &lt;-<span class="st"> </span><span class="kw">cutree</span>(hirar.<span class="dv">2</span>, <span class="dt">k=</span><span class="dv">2</span>)
+<span class="kw">head</span>(cut.<span class="fl">2.2</span>)</code></pre></div>
 <pre><code>##    Alabama     Alaska    Arizona   Arkansas California   Colorado 
 ##          1          1          1          2          1          1</code></pre>
 </div>
@@ -942,12 +951,12 @@ kmed<span class="fl">.1</span> &lt;-<span class="st"> </span>cluster::<span clas
 </div>
 <div class="footnotes">
 <hr />
-<ol start="21">
-<li id="fn21"><p><a href="http://en.wikipedia.org/wiki/Principal_component_analysis" class="uri">http://en.wikipedia.org/wiki/Principal_component_analysis</a><a href="unsupervised.html#fnref21">↩</a></p></li>
-<li id="fn22"><p>You are probably used to thinking of the <strong>dimension</strong> of linear spaces. We will not rigorously define what is the dimension of a manifold, but you may think of it as the number of free coordinates needed to navigate along the manifold.<a href="unsupervised.html#fnref22">↩</a></p></li>
-<li id="fn23"><p><a href="https://en.wikipedia.org/wiki/G_factor_(psychometrics)" class="uri">https://en.wikipedia.org/wiki/G_factor_(psychometrics)</a><a href="unsupervised.html#fnref23">↩</a></p></li>
-<li id="fn24"><p>The term Graph is typically used in this context instead of Network. But a graph allows only yes/no relations, while a network, which is a weighted graph, allows a continuous measure of similarity (or dissimilarity). <em>Network</em> is thus more appropriate than <em>graph</em>.<a href="unsupervised.html#fnref24">↩</a></p></li>
-<li id="fn25"><p>Then again, it is possible that the true distances are the white matter fibers connecting going within the cortex, in which case, Euclidean distances are more appropriate than geodesic distances. We put that aside for now.<a href="unsupervised.html#fnref25">↩</a></p></li>
+<ol start="22">
+<li id="fn22"><p><a href="http://en.wikipedia.org/wiki/Principal_component_analysis" class="uri">http://en.wikipedia.org/wiki/Principal_component_analysis</a><a href="unsupervised.html#fnref22">↩</a></p></li>
+<li id="fn23"><p>You are probably used to thinking of the <strong>dimension</strong> of linear spaces. We will not rigorously define what is the dimension of a manifold, but you may think of it as the number of free coordinates needed to navigate along the manifold.<a href="unsupervised.html#fnref23">↩</a></p></li>
+<li id="fn24"><p><a href="https://en.wikipedia.org/wiki/G_factor_(psychometrics)" class="uri">https://en.wikipedia.org/wiki/G_factor_(psychometrics)</a><a href="unsupervised.html#fnref24">↩</a></p></li>
+<li id="fn25"><p>The term Graph is typically used in this context instead of Network. But a graph allows only yes/no relations, while a network, which is a weighted graph, allows a continuous measure of similarity (or dissimilarity). <em>Network</em> is thus more appropriate than <em>graph</em>.<a href="unsupervised.html#fnref25">↩</a></p></li>
+<li id="fn26"><p>Then again, it is possible that the true distances are the white matter fibers connecting going within the cortex, in which case, Euclidean distances are more appropriate than geodesic distances. We put that aside for now.<a href="unsupervised.html#fnref26">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -967,7 +976,7 @@ kmed<span class="fl">.1</span> &lt;-<span class="st"> </span>cluster::<span clas
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -1001,7 +1010,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

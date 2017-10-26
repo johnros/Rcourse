@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R (BGU course)</title>
   <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
-  <meta name="generator" content="bookdown 0.3.9 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="R (BGU course)" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-05-03">
+<meta name="date" content="2017-10-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -47,13 +47,13 @@
 
 
 
-<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<link href="libs/plotlyjs-1.26.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.26.1/plotly-latest.min.js"></script>
-<script src="libs/plotly-binding-4.6.0/plotly.js"></script>
+<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -121,33 +121,36 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#practice-yourself"><i class="fa fa-check"></i><b>2.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
-<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.1</b> Simple calculator</a></li>
-<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.2</b> Probability calculator</a></li>
-<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.3</b> Getting Help</a></li>
-<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.4</b> Variable Asignment</a></li>
-<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.5</b> Piping</a></li>
-<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.6</b> Vector Creation and Manipulation</a></li>
-<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.7</b> Search Paths and Packages</a></li>
-<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.8</b> Simple Plotting</a></li>
-<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.9</b> Object Types</a></li>
-<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.10</b> Data Frames</a></li>
-<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.11</b> Exctraction</a></li>
-<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.12</b> Data Import and Export</a><ul>
-<li class="chapter" data-level="3.12.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.12.1</b> Import from WEB</a></li>
-<li class="chapter" data-level="3.12.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.12.2</b> Export as CSV</a></li>
-<li class="chapter" data-level="3.12.3" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.12.3</b> Reading From Text Files</a></li>
-<li class="chapter" data-level="3.12.4" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.12.4</b> Writing Data to Text Files</a></li>
-<li class="chapter" data-level="3.12.5" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.12.5</b> .XLS(X) files</a></li>
-<li class="chapter" data-level="3.12.6" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.12.6</b> Massive files</a></li>
-<li class="chapter" data-level="3.12.7" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.12.7</b> Databases</a></li>
+<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>3.1</b> File types</a></li>
+<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.2</b> Simple calculator</a></li>
+<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.3</b> Probability calculator</a></li>
+<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.4</b> Getting Help</a></li>
+<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.5</b> Variable Asignment</a></li>
+<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.6</b> Piping</a></li>
+<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.7</b> Vector Creation and Manipulation</a></li>
+<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.8</b> Search Paths and Packages</a></li>
+<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.9</b> Simple Plotting</a></li>
+<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.10</b> Object Types</a></li>
+<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.11</b> Data Frames</a></li>
+<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.12</b> Exctraction</a></li>
+<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#non-data.frame-object-classes"><i class="fa fa-check"></i><b>3.13</b> Non data.frame object classes</a></li>
+<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.14</b> Data Import and Export</a><ul>
+<li class="chapter" data-level="3.14.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.14.1</b> Import from WEB</a></li>
+<li class="chapter" data-level="3.14.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.14.2</b> Export as CSV</a></li>
+<li class="chapter" data-level="3.14.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>3.14.3</b> Export non-CSV files</a></li>
+<li class="chapter" data-level="3.14.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.14.4</b> Reading From Text Files</a></li>
+<li class="chapter" data-level="3.14.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.14.5</b> Writing Data to Text Files</a></li>
+<li class="chapter" data-level="3.14.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.14.6</b> .XLS(X) files</a></li>
+<li class="chapter" data-level="3.14.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.14.7</b> Massive files</a></li>
+<li class="chapter" data-level="3.14.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.14.8</b> Databases</a></li>
 </ul></li>
-<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.13</b> Functions</a></li>
-<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.14</b> Looping</a></li>
-<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.15</b> Apply</a></li>
-<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.16</b> Recursion</a></li>
-<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.17</b> Dates and Times</a></li>
-<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.18</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.19</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.15</b> Functions</a></li>
+<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.16</b> Looping</a></li>
+<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.17</b> Apply</a></li>
+<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.18</b> Recursion</a></li>
+<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.19</b> Dates and Times</a></li>
+<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.20</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.21</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
 <li class="chapter" data-level="4.1" data-path="eda.html"><a href="eda.html#summary-statistics"><i class="fa fa-check"></i><b>4.1</b> Summary Statistics</a><ul>
@@ -168,7 +171,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3.1" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.1</b> Testing a Hypothesis on a Single Coefficient</a></li>
 <li class="chapter" data-level="5.3.2" data-path="lm.html"><a href="lm.html#constructing-a-confidence-interval-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.2</b> Constructing a Confidence Interval on a Single Coefficient</a></li>
 <li class="chapter" data-level="5.3.3" data-path="lm.html"><a href="lm.html#multiple-regression"><i class="fa fa-check"></i><b>5.3.3</b> Multiple Regression</a></li>
-<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>5.3.4</b> Testing a Hypothesis on a Single Contrast</a></li>
+<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast-returning-to-the-model-without-interactions-lm.2."><i class="fa fa-check"></i><b>5.3.4</b> Testing a Hypothesis on a Single Contrast (*) Returning to the model without interactions, <code>lm.2</code>.</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="5.5" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
@@ -185,7 +188,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
 <li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#manova"><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA</a></li>
+<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#relation-to-manova-manova-multivariate-analysis-of-variance-manova-deals-with-the-estimation-of-effect-on-vector-valued-outcomes.-put-differently-in-anova-the-response-y-is-univariate-in-manova-the-outcome-is-multivariate.-manova-is-useful-when-there-are-correlations-among-the-entries-of-y.-otherwise--one-may-simply-solve-many-anova-problems-instead-of-a-single-manova."><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA (*) {#manova} Multivariate analysis of variance (MANOVA) deals with the estimation of effect on vector valued outcomes. Put differently: in ANOVA the response, <span class="math inline">\(y\)</span>, is univariate In MANOVA, the outcome is multivariate. MANOVA is useful when there are correlations among the entries of <span class="math inline">\(y\)</span>. Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
@@ -204,11 +207,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>8.3.1</b> Signal Identification in R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation</a></li>
-<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression</a><ul>
+<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation (*)</a></li>
+<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression (*)</a><ul>
 <li class="chapter" data-level="8.5.1" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression-with-r"><i class="fa fa-check"></i><b>8.5.1</b> Multivariate Regression with R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models</a><ul>
+<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models (*)</a><ul>
 <li class="chapter" data-level="8.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>8.6.1</b> Graphical Models in R</a></li>
 </ul></li>
 <li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
@@ -252,8 +255,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>11</b> Plotting</a><ul>
 <li class="chapter" data-level="11.1" data-path="plotting.html"><a href="plotting.html#the-graphics-system"><i class="fa fa-check"></i><b>11.1</b> The graphics System</a><ul>
 <li class="chapter" data-level="11.1.1" data-path="plotting.html"><a href="plotting.html#using-existing-plotting-functions"><i class="fa fa-check"></i><b>11.1.1</b> Using Existing Plotting Functions</a></li>
-<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#fancy-graphics-examples"><i class="fa fa-check"></i><b>11.1.2</b> Fancy graphics Examples</a></li>
-<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.3</b> Exporting a Plot</a></li>
+<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.2</b> Exporting a Plot</a></li>
+<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#fancy"><i class="fa fa-check"></i><b>11.1.3</b> Fancy graphics Examples</a></li>
 </ul></li>
 <li class="chapter" data-level="11.2" data-path="plotting.html"><a href="plotting.html#the-ggplot2-system"><i class="fa fa-check"></i><b>11.2</b> The ggplot2 System</a></li>
 <li class="chapter" data-level="11.3" data-path="plotting.html"><a href="plotting.html#interactive-graphics"><i class="fa fa-check"></i><b>11.3</b> Interactive Graphics</a><ul>
@@ -312,14 +315,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
 </ul></li>
-<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.4.1</b> matter</a></li>
+<li class="chapter" data-level="15.4.2" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.4.2</b> iotools</a></li>
+</ul></li>
 <li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.5</b> Computing from a Distributed File System</a></li>
 <li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.6</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#practice-yourself-13"><i class="fa fa-check"></i><b>15.7</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Explicit Parallelism</a></li>
-<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Explicit Parallelism</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
+</ul></li>
 <li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-14"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
 </ul></li>
@@ -345,7 +353,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="20.1" data-path="debugging.html"><a href="debugging.html#bibliographic-notes-16"><i class="fa fa-check"></i><b>20.1</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="20.2" data-path="debugging.html"><a href="debugging.html#practice-yourself-18"><i class="fa fa-check"></i><b>20.2</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="bib.html"><a href="bib.html"><i class="fa fa-check"></i><b>21</b> Bibliography</a></li>
+<li class="chapter" data-level="21" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>21</b> data.table</a></li>
+<li class="chapter" data-level="22" data-path="bib.html"><a href="bib.html"><i class="fa fa-check"></i><b>22</b> Bibliography</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -376,6 +385,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><p><strong>Semi supervised learning</strong>: Where only part of the samples are labeled. A.k.a. <em>co-training</em>, <em>learning from labeled and unlabeled data</em>, <em>transductive learning</em>.</p></li>
 <li><p><strong>Active learning</strong>: Where the machine is allowed to query the user for labels. Very similar to <em>adaptive design of experiments</em>.</p></li>
 <li><p><strong>Learning on a budget</strong>: A version of active learning where querying for labels induces variable costs.</p></li>
+<li><p><strong>Weak learning</strong>: A version of supervised learning where the labels are given not by an expert, but rather by some heuristic rule. Example: mass-labelling cyber attacks by a rule based software, instead of a manual inspection.</p></li>
 <li><p><strong>Reinforcement learning</strong>:<br />
 Similar to active learning, in that the machine may query for labels. Different from active learning, in that the machine does not receive labels, but <em>rewards</em>.</p></li>
 <li><p><strong>Structure learning</strong>: When predicting objects with structure such as dependent vectors, graphs, images, tensors, etc.</p></li>
@@ -387,29 +397,29 @@ Similar to active learning, in that the machine may query for labels. Different 
 <p>We now present the <em>empirical risk minimization</em> (ERM) approach to supervised learning, a.k.a. <em>M-estimation</em> in the statistical literature.</p>
 
 <div class="remark">
-<span class="remark"><em>Remark. </em></span> We do not discuss purely algorithmic approaches such as K-nearest neighbour and <em>kernel smoothing</em> due to space constraints. For a broader review of supervised learning, see the Bibliographic Notes.
+ <span class="remark"><em>Remark. </em></span> We do not discuss purely algorithmic approaches such as K-nearest neighbour and <em>kernel smoothing</em> due to space constraints. For a broader review of supervised learning, see the Bibliographic Notes.
 </div>
-<p></p>
+
 <p>Given <span class="math inline">\(n\)</span> samples with inputs <span class="math inline">\(x\)</span> from some space <span class="math inline">\(\mathcal{X}\)</span> and desired outcome, <span class="math inline">\(y\)</span>, from some space <span class="math inline">\(\mathcal{Y}\)</span>. Samples, <span class="math inline">\((x,y)\)</span> have some distribution we denote <span class="math inline">\(P\)</span>. We want to learn a function that maps inputs to outputs. This function is called a <em>hypothesis</em>, or <em>predictor</em>, or <em>classifier</em>, denoted <span class="math inline">\(f\)</span>, that belongs to a hypothesis class <span class="math inline">\(\mathcal{F}\)</span> such that <span class="math inline">\(f:\mathcal{X} \to \mathcal{Y}\)</span>. We also choose some other function that fines us for erroneous prediction. This function is called the <em>loss</em>, and we denote it by <span class="math inline">\(l:\mathcal{Y}\times \mathcal{Y} \to \mathbb{R}^+\)</span>.</p>
 
 <div class="remark">
-<span class="remark"><em>Remark. </em></span> The <em>hypothesis</em> in machine learning is only vaguely related the <em>hypothesis</em> in statistical testing, which is quite confusing.
+ <span class="remark"><em>Remark. </em></span> The <em>hypothesis</em> in machine learning is only vaguely related the <em>hypothesis</em> in statistical testing, which is quite confusing.
 </div>
-<p></p>
+
 
 <div class="remark">
-<span class="remark"><em>Remark. </em></span> The <em>hypothesis</em> in machine learning is not a bona-fide <em>statistical model</em> since we don’t assume it is the data generating process, but rather some function which we choose for its good predictive performance.
+ <span class="remark"><em>Remark. </em></span> The <em>hypothesis</em> in machine learning is not a bona-fide <em>statistical model</em> since we don’t assume it is the data generating process, but rather some function which we choose for its good predictive performance.
 </div>
-<p></p>
+
 <p>The fundamental task in supervised (statistical) learning is to recover a hypothesis that minimizes the average loss in the sample, and not in the population. This is know as the <em>risk minimization problem</em>.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-166" class="definition"><strong>Definition 9.1  (Risk Function) </strong></span>The <em>risk function</em>, a.k.a. <em>generalization error</em>, or <em>test error</em>, is the population average loss of a predictor <span class="math inline">\(f\)</span>:
+<span id="def:unnamed-chunk-171" class="definition"><strong>Definition 9.1  (Risk Function)  </strong></span>The <em>risk function</em>, a.k.a. <em>generalization error</em>, or <em>test error</em>, is the population average loss of a predictor <span class="math inline">\(f\)</span>:
 <span class="math display">\[\begin{align}
   R(f):=E_P[l(f(x),y)].
 \end{align}\]</span>
 </div>
-<p></p>
+
 The best predictor, is the risk minimizer:
 <span class="math display" id="eq:risk">\[\begin{align}
   f^* := argmin_f \{R(f)\}.
@@ -422,12 +432,12 @@ To make things more explicit, <span class="math inline">\(f\)</span> may be a li
 <p>Another fundamental problem is that we do not know the distribution of all possible inputs and outputs, <span class="math inline">\(P\)</span>. We typically only have a sample of <span class="math inline">\((x_i,y_i), i=1,\dots,n\)</span>. We thus state the <em>empirical</em> counterpart of <a href="supervised.html#eq:risk">(9.1)</a>, which consists of minimizing the average loss. This is known as the <em>empirical risk miminization</em> problem (ERM).</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-167" class="definition"><strong>Definition 9.2  (Empirical Risk) </strong></span>The <em>empirical risk function</em>, a.k.a. <em>in-sample error</em>, or <em>train error</em>, is the sample average loss of a predictor <span class="math inline">\(f\)</span>:
+<span id="def:unnamed-chunk-172" class="definition"><strong>Definition 9.2  (Empirical Risk)  </strong></span>The <em>empirical risk function</em>, a.k.a. <em>in-sample error</em>, or <em>train error</em>, is the sample average loss of a predictor <span class="math inline">\(f\)</span>:
 <span class="math display">\[\begin{align}
   R_n(f):= \sum_i l(f(x_i),y_i).
 \end{align}\]</span>
 </div>
-<p></p>
+
 A good candidate predictor, <span class="math inline">\(\hat f\)</span>, is thus the <em>empirical risk minimizer</em>:
 <span class="math display" id="eq:erm">\[\begin{align}
   \hat f := argmin_f \{ R_n(f) \}.
@@ -452,7 +462,7 @@ Making things more explicit again by using a linear hypothesis with squared loss
 <li><strong>Linear hypotheses</strong>: such as linear models, GLMs, and (linear) support vector machines (SVM).</li>
 <li><strong>Neural networks</strong>: a.k.a. <em>feed-forward</em> neural nets, <em>artificial</em> neural nets, and the celebrated class of <em>deep</em> neural nets.</li>
 <li><strong>Tree</strong>: a.k.a. <em>decision rules</em>, is a class of hypotheses which can be stated as “if-then” rules.</li>
-<li><strong>Reproducing Kernel Hilbert Space</strong>: a.k.a. RKHS, is a subset of “the space of all functions<a href="#fn19" class="footnoteRef" id="fnref19"><sup>19</sup></a>” that is both large enough to capture very complicated relations, but small enough so that it is less prone to overfitting, and also surprisingly simple to compute with.</li>
+<li><strong>Reproducing Kernel Hilbert Space</strong>: a.k.a. RKHS, is a subset of “the space of all functions<a href="#fn20" class="footnoteRef" id="fnref20"><sup>20</sup></a>” that is both large enough to capture very complicated relations, but small enough so that it is less prone to overfitting, and also surprisingly simple to compute with.</li>
 <li><strong>Ensembles</strong>: a “meta” hypothesis class, which consists of taking multiple hypotheses, possibly from different classes, and combining them.</li>
 </ol>
 </div>
@@ -513,85 +523,85 @@ An ERM problem with regularization will look like
 <span class="kw">library</span>(magrittr) <span class="co"># for piping</span>
 
 <span class="co"># Preparing prostate data</span>
-prostate.train &lt;-<span class="st"> </span>prostate[prostate$train, <span class="kw">names</span>(prostate)!=<span class="st">&#39;train&#39;</span>]
-prostate.test &lt;-<span class="st"> </span>prostate[!prostate$train, <span class="kw">names</span>(prostate)!=<span class="st">&#39;train&#39;</span>] 
-y.train &lt;-<span class="st"> </span>prostate.train$lcavol
-X.train &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(prostate.train[, <span class="kw">names</span>(prostate.train)!=<span class="st">&#39;lcavol&#39;</span>] )
-y.test &lt;-<span class="st"> </span>prostate.test$lcavol 
-X.test &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(prostate.test[, <span class="kw">names</span>(prostate.test)!=<span class="st">&#39;lcavol&#39;</span>] )
+prostate.train &lt;-<span class="st"> </span>prostate[prostate<span class="op">$</span>train, <span class="kw">names</span>(prostate)<span class="op">!=</span><span class="st">&#39;train&#39;</span>]
+prostate.test &lt;-<span class="st"> </span>prostate[<span class="op">!</span>prostate<span class="op">$</span>train, <span class="kw">names</span>(prostate)<span class="op">!=</span><span class="st">&#39;train&#39;</span>] 
+y.train &lt;-<span class="st"> </span>prostate.train<span class="op">$</span>lcavol
+X.train &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(prostate.train[, <span class="kw">names</span>(prostate.train)<span class="op">!=</span><span class="st">&#39;lcavol&#39;</span>] )
+y.test &lt;-<span class="st"> </span>prostate.test<span class="op">$</span>lcavol 
+X.test &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(prostate.test[, <span class="kw">names</span>(prostate.test)<span class="op">!=</span><span class="st">&#39;lcavol&#39;</span>] )
 
 <span class="co"># Preparing spam data:</span>
 n &lt;-<span class="st"> </span><span class="kw">nrow</span>(spam)
 
 train.prop &lt;-<span class="st"> </span><span class="fl">0.66</span>
-train.ind &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>,<span class="ot">FALSE</span>) %&gt;%<span class="st">  </span>
-<span class="st">  </span><span class="kw">sample</span>(<span class="dt">size =</span> n, <span class="dt">prob =</span> <span class="kw">c</span>(train.prop,<span class="dv">1</span>-train.prop), <span class="dt">replace=</span><span class="ot">TRUE</span>)
+train.ind &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="ot">TRUE</span>,<span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st">  </span>
+<span class="st">  </span><span class="kw">sample</span>(<span class="dt">size =</span> n, <span class="dt">prob =</span> <span class="kw">c</span>(train.prop,<span class="dv">1</span><span class="op">-</span>train.prop), <span class="dt">replace=</span><span class="ot">TRUE</span>)
 spam.train &lt;-<span class="st"> </span>spam[train.ind,]
-spam.test &lt;-<span class="st"> </span>spam[!train.ind,]
+spam.test &lt;-<span class="st"> </span>spam[<span class="op">!</span>train.ind,]
 
-y.train.spam &lt;-<span class="st"> </span>spam.train$spam
-X.train.spam &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(spam.train[,<span class="kw">names</span>(spam.train)!=<span class="st">&#39;spam&#39;</span>] )
-y.test.spam &lt;-<span class="st"> </span>spam.test$spam
-X.test.spam &lt;-<span class="st">  </span><span class="kw">as.matrix</span>(spam.test[,<span class="kw">names</span>(spam.test)!=<span class="st">&#39;spam&#39;</span>]) 
+y.train.spam &lt;-<span class="st"> </span>spam.train<span class="op">$</span>spam
+X.train.spam &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(spam.train[,<span class="kw">names</span>(spam.train)<span class="op">!=</span><span class="st">&#39;spam&#39;</span>] )
+y.test.spam &lt;-<span class="st"> </span>spam.test<span class="op">$</span>spam
+X.test.spam &lt;-<span class="st">  </span><span class="kw">as.matrix</span>(spam.test[,<span class="kw">names</span>(spam.test)<span class="op">!=</span><span class="st">&#39;spam&#39;</span>]) 
 
 spam.dummy &lt;-<span class="st"> </span>spam
-spam.dummy$spam &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(spam$spam==<span class="st">&#39;spam&#39;</span>) 
+spam.dummy<span class="op">$</span>spam &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(spam<span class="op">$</span>spam<span class="op">==</span><span class="st">&#39;spam&#39;</span>) 
 spam.train.dummy &lt;-<span class="st"> </span>spam.dummy[train.ind,]
-spam.test.dummy &lt;-<span class="st"> </span>spam.dummy[!train.ind,]</code></pre></div>
+spam.test.dummy &lt;-<span class="st"> </span>spam.dummy[<span class="op">!</span>train.ind,]</code></pre></div>
 <p>We also define some utility functions that we will require down the road.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l2 &lt;-<span class="st"> </span>function(x) x^<span class="dv">2</span> %&gt;%<span class="st"> </span>sum %&gt;%<span class="st"> </span>sqrt 
-l1 &lt;-<span class="st"> </span>function(x) <span class="kw">abs</span>(x) %&gt;%<span class="st"> </span>sum  
-MSE &lt;-<span class="st"> </span>function(x) x^<span class="dv">2</span> %&gt;%<span class="st"> </span>mean 
-missclassification &lt;-<span class="st"> </span>function(tab) <span class="kw">sum</span>(tab[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)])/<span class="kw">sum</span>(tab)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">l2 &lt;-<span class="st"> </span><span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span> <span class="op">%&gt;%</span><span class="st"> </span>sum <span class="op">%&gt;%</span><span class="st"> </span>sqrt 
+l1 &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">abs</span>(x) <span class="op">%&gt;%</span><span class="st"> </span>sum  
+MSE &lt;-<span class="st"> </span><span class="cf">function</span>(x) x<span class="op">^</span><span class="dv">2</span> <span class="op">%&gt;%</span><span class="st"> </span>mean 
+missclassification &lt;-<span class="st"> </span><span class="cf">function</span>(tab) <span class="kw">sum</span>(tab[<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)])<span class="op">/</span><span class="kw">sum</span>(tab)</code></pre></div>
 <div id="least-squares" class="section level3">
 <h3><span class="header-section-number">9.2.1</span> Linear Models with Least Squares Loss</h3>
 <p>Starting with OLS regression, and a train-test data approach. Notice the better in-sample MSE than the out-of-sample. That is overfitting in action.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(lcavol~. ,<span class="dt">data =</span> prostate.train)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(lcavol<span class="op">~</span>. ,<span class="dt">data =</span> prostate.train)
 <span class="co"># Train error:</span>
-<span class="kw">MSE</span>( <span class="kw">predict</span>(ols<span class="fl">.1</span>)-<span class="st"> </span>prostate.train$lcavol) </code></pre></div>
+<span class="kw">MSE</span>( <span class="kw">predict</span>(ols.<span class="dv">1</span>)<span class="op">-</span><span class="st"> </span>prostate.train<span class="op">$</span>lcavol) </code></pre></div>
 <pre><code>## [1] 0.4383709</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test error:</span>
-<span class="kw">MSE</span>( <span class="kw">predict</span>(ols<span class="fl">.1</span>, <span class="dt">newdata =</span> prostate.test)-<span class="st"> </span>prostate.test$lcavol)</code></pre></div>
+<span class="kw">MSE</span>( <span class="kw">predict</span>(ols.<span class="dv">1</span>, <span class="dt">newdata =</span> prostate.test)<span class="op">-</span><span class="st"> </span>prostate.test<span class="op">$</span>lcavol)</code></pre></div>
 <pre><code>## [1] 0.5084068</code></pre>
 <p>We now implement a V-fold CV, instead of our train-test approach. The assignment of each observation to each fold is encoded in <code>fold.assignment</code>. The following code is extremely inefficient, but easy to read.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">folds &lt;-<span class="st"> </span><span class="dv">10</span>
-fold.assignment &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span>:folds, <span class="kw">nrow</span>(prostate), <span class="dt">replace =</span> <span class="ot">TRUE</span>)
+fold.assignment &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>folds, <span class="kw">nrow</span>(prostate), <span class="dt">replace =</span> <span class="ot">TRUE</span>)
 errors &lt;-<span class="st"> </span><span class="ot">NULL</span>
 
-for (k in <span class="dv">1</span>:folds){
-  prostate.cross.train &lt;-<span class="st"> </span>prostate[fold.assignment!=k,] <span class="co"># train subset</span>
-  prostate.cross.test &lt;-<span class="st">  </span>prostate[fold.assignment==k,] <span class="co"># test subset</span>
-  .ols &lt;-<span class="st"> </span><span class="kw">lm</span>(lcavol~. ,<span class="dt">data =</span> prostate.cross.train) <span class="co"># train</span>
+<span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>folds){
+  prostate.cross.train &lt;-<span class="st"> </span>prostate[fold.assignment<span class="op">!=</span>k,] <span class="co"># train subset</span>
+  prostate.cross.test &lt;-<span class="st">  </span>prostate[fold.assignment<span class="op">==</span>k,] <span class="co"># test subset</span>
+  .ols &lt;-<span class="st"> </span><span class="kw">lm</span>(lcavol<span class="op">~</span>. ,<span class="dt">data =</span> prostate.cross.train) <span class="co"># train</span>
   .predictions &lt;-<span class="st"> </span><span class="kw">predict</span>(.ols, <span class="dt">newdata=</span>prostate.cross.test)
-  .errors &lt;-<span class="st">  </span>.predictions -<span class="st"> </span>prostate.cross.test$lcavol <span class="co"># save prediction errors in the fold</span>
+  .errors &lt;-<span class="st">  </span>.predictions <span class="op">-</span><span class="st"> </span>prostate.cross.test<span class="op">$</span>lcavol <span class="co"># save prediction errors in the fold</span>
   errors &lt;-<span class="st"> </span><span class="kw">c</span>(errors, .errors) <span class="co"># aggregate error over folds.</span>
 }
 
 <span class="co"># Cross validated prediction error:</span>
 <span class="kw">MSE</span>(errors)</code></pre></div>
-<pre><code>## [1] 0.5808335</code></pre>
+<pre><code>## [1] 0.55879</code></pre>
 <p>Let’s try all possible models, and choose the best performer with respect to the Cp unbiased risk estimator. This is done with <code>leaps::regsubsets</code>. We see that the best performer has 3 predictors.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(leaps)
-regfit.full &lt;-<span class="st"> </span>prostate.train %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">regsubsets</span>(lcavol~.,<span class="dt">data =</span> ., <span class="dt">method =</span> <span class="st">&#39;exhaustive&#39;</span>) <span class="co"># best subset selection</span>
+regfit.full &lt;-<span class="st"> </span>prostate.train <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">regsubsets</span>(lcavol<span class="op">~</span>.,<span class="dt">data =</span> ., <span class="dt">method =</span> <span class="st">&#39;exhaustive&#39;</span>) <span class="co"># best subset selection</span>
 <span class="kw">plot</span>(regfit.full, <span class="dt">scale =</span> <span class="st">&quot;Cp&quot;</span>)</code></pre></div>
 <p><img src="Rcourse_files/figure-html/all%20subset-1.png" width="50%" /></p>
-<p>Instead of the Cp criterion, we now compute the train and test errors for all the possible predictor subsets<a href="#fn20" class="footnoteRef" id="fnref20"><sup>20</sup></a>. In the resulting plot we can see overfitting in action.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model.n &lt;-<span class="st"> </span>regfit.full %&gt;%<span class="st"> </span>summary %&gt;%<span class="st"> </span>length
-X.train.named &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(lcavol ~<span class="st"> </span>., <span class="dt">data =</span> prostate.train ) 
-X.test.named &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(lcavol ~<span class="st"> </span>., <span class="dt">data =</span> prostate.test ) 
+<p>Instead of the Cp criterion, we now compute the train and test errors for all the possible predictor subsets<a href="#fn21" class="footnoteRef" id="fnref21"><sup>21</sup></a>. In the resulting plot we can see overfitting in action.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model.n &lt;-<span class="st"> </span>regfit.full <span class="op">%&gt;%</span><span class="st"> </span>summary <span class="op">%&gt;%</span><span class="st"> </span>length
+X.train.named &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(lcavol <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> prostate.train ) 
+X.test.named &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(lcavol <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> prostate.test ) 
 
 
 val.errors &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, model.n)
 train.errors &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, model.n)
-for (i in <span class="dv">1</span>:model.n) {
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>model.n) {
     coefi &lt;-<span class="st"> </span><span class="kw">coef</span>(regfit.full, <span class="dt">id =</span> i)
     
-    pred &lt;-<span class="st">  </span>X.train.named[, <span class="kw">names</span>(coefi)] %*%<span class="st"> </span>coefi <span class="co"># make in-sample predictions</span>
-    train.errors[i] &lt;-<span class="st"> </span><span class="kw">MSE</span>(y.train -<span class="st"> </span>pred) <span class="co"># train errors</span>
+    pred &lt;-<span class="st">  </span>X.train.named[, <span class="kw">names</span>(coefi)] <span class="op">%*%</span><span class="st"> </span>coefi <span class="co"># make in-sample predictions</span>
+    train.errors[i] &lt;-<span class="st"> </span><span class="kw">MSE</span>(y.train <span class="op">-</span><span class="st"> </span>pred) <span class="co"># train errors</span>
 
-    pred &lt;-<span class="st">  </span>X.test.named[, <span class="kw">names</span>(coefi)] %*%<span class="st"> </span>coefi <span class="co"># make out-of-sample predictions</span>
-    val.errors[i] &lt;-<span class="st"> </span><span class="kw">MSE</span>(y.test -<span class="st"> </span>pred) <span class="co"># test errors</span>
+    pred &lt;-<span class="st">  </span>X.test.named[, <span class="kw">names</span>(coefi)] <span class="op">%*%</span><span class="st"> </span>coefi <span class="co"># make out-of-sample predictions</span>
+    val.errors[i] &lt;-<span class="st"> </span><span class="kw">MSE</span>(y.test <span class="op">-</span><span class="st"> </span>pred) <span class="co"># test errors</span>
 }</code></pre></div>
 <p>Plotting results.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(train.errors, <span class="dt">ylab =</span> <span class="st">&quot;MSE&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">type =</span> <span class="st">&quot;o&quot;</span>)
@@ -600,11 +610,11 @@ for (i in <span class="dv">1</span>:model.n) {
        <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;Training&quot;</span>, <span class="st">&quot;Validation&quot;</span>), 
        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;blue&quot;</span>), 
        <span class="dt">pch =</span> <span class="dv">19</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-169-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-174-1.png" width="50%" /></p>
 <p>Checking all possible models is computationally very hard. <em>Forward selection</em> is a greedy approach that adds one variable at a time, using the AIC risk estimator. If AIC decreases, the variable is added.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols<span class="fl">.0</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(lcavol~<span class="dv">1</span> ,<span class="dt">data =</span> prostate.train)
-model.scope &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">upper=</span>ols<span class="fl">.1</span>, <span class="dt">lower=</span>ols<span class="fl">.0</span>)
-<span class="kw">step</span>(ols<span class="fl">.0</span>, <span class="dt">scope=</span>model.scope, <span class="dt">direction=</span><span class="st">&#39;forward&#39;</span>, <span class="dt">trace =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols.<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(lcavol<span class="op">~</span><span class="dv">1</span> ,<span class="dt">data =</span> prostate.train)
+model.scope &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">upper=</span>ols.<span class="dv">1</span>, <span class="dt">lower=</span>ols.<span class="dv">0</span>)
+<span class="kw">step</span>(ols.<span class="dv">0</span>, <span class="dt">scope=</span>model.scope, <span class="dt">direction=</span><span class="st">&#39;forward&#39;</span>, <span class="dt">trace =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## Start:  AIC=30.1
 ## lcavol ~ 1
 ## 
@@ -652,39 +662,39 @@ model.scope &lt;-<span class="st"> </span><span class="kw">list</span>(<span cla
 ##     0.08798      0.53369      0.38879</code></pre>
 <p>We now learn a linear predictor on the <code>spam</code> data using, a least squares loss, and train-test risk estimator.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># train the predictor</span>
-ols<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(spam~., <span class="dt">data =</span> spam.train.dummy) 
+ols.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(spam<span class="op">~</span>., <span class="dt">data =</span> spam.train.dummy) 
 
 <span class="co"># make in-sample predictions</span>
-.predictions.train &lt;-<span class="st"> </span><span class="kw">predict</span>(ols<span class="fl">.2</span>) &gt;<span class="st"> </span><span class="fl">0.5</span> 
+.predictions.train &lt;-<span class="st"> </span><span class="kw">predict</span>(ols.<span class="dv">2</span>) <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span> 
 <span class="co"># inspect the confusion matrix</span>
-(confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train.dummy$spam)) </code></pre></div>
+(confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train.dummy<span class="op">$</span>spam)) </code></pre></div>
 <pre><code>##           truth
 ## prediction    0    1
-##      FALSE 1797  233
-##      TRUE    82  949</code></pre>
+##      FALSE 1770  244
+##      TRUE    85  975</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># compute the train (in sample) misclassification</span>
 <span class="kw">missclassification</span>(confusion.train) </code></pre></div>
-<pre><code>## [1] 0.1029075</code></pre>
+<pre><code>## [1] 0.1070267</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make out-of-sample prediction</span>
-.predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(ols<span class="fl">.2</span>, <span class="dt">newdata =</span> spam.test.dummy) &gt;<span class="st"> </span><span class="fl">0.5</span> 
+.predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(ols.<span class="dv">2</span>, <span class="dt">newdata =</span> spam.test.dummy) <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.5</span> 
 <span class="co"># inspect the confusion matrix</span>
-(confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test.dummy$spam))</code></pre></div>
+(confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test.dummy<span class="op">$</span>spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction   0   1
-##      FALSE 874 129
-##      TRUE   35 502</code></pre>
+##      FALSE 888 136
+##      TRUE   45 458</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># compute the train (in sample) misclassification</span>
 <span class="kw">missclassification</span>(confusion.test)</code></pre></div>
-<pre><code>## [1] 0.1064935</code></pre>
+<pre><code>## [1] 0.1185331</code></pre>
 <p>The <code>glmnet</code> package is an excellent package that provides ridge, lasso, and elastic net regularization, for all GLMs, so for linear models in particular.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressMessages</span>(<span class="kw">library</span>(glmnet))
-ridge<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">glmnet</span>(<span class="dt">x=</span>X.train, <span class="dt">y=</span>y.train, <span class="dt">family =</span> <span class="st">&#39;gaussian&#39;</span>, <span class="dt">alpha =</span> <span class="dv">0</span>)
+ridge.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">glmnet</span>(<span class="dt">x=</span>X.train, <span class="dt">y=</span>y.train, <span class="dt">family =</span> <span class="st">&#39;gaussian&#39;</span>, <span class="dt">alpha =</span> <span class="dv">0</span>)
 
 <span class="co"># Train error:</span>
-<span class="kw">MSE</span>( <span class="kw">predict</span>(ridge<span class="fl">.2</span>, <span class="dt">newx =</span>X.train)-<span class="st"> </span>y.train)</code></pre></div>
+<span class="kw">MSE</span>( <span class="kw">predict</span>(ridge.<span class="dv">2</span>, <span class="dt">newx =</span>X.train)<span class="op">-</span><span class="st"> </span>y.train)</code></pre></div>
 <pre><code>## [1] 1.006028</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test error:</span>
-<span class="kw">MSE</span>( <span class="kw">predict</span>(ridge<span class="fl">.2</span>, <span class="dt">newx =</span> X.test)-<span class="st"> </span>y.test)</code></pre></div>
+<span class="kw">MSE</span>( <span class="kw">predict</span>(ridge.<span class="dv">2</span>, <span class="dt">newx =</span> X.test)<span class="op">-</span><span class="st"> </span>y.test)</code></pre></div>
 <pre><code>## [1] 0.7678264</code></pre>
 <p>Things to note:</p>
 <ul>
@@ -694,216 +704,216 @@ ridge<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">g
 </ul>
 
 <div class="remark">
-<span class="remark"><em>Remark. </em></span> The variability of risk estimator is a very interesting problem, which recieved very little attention in the machine learning literature. If this topic interests you, talk to me.
+ <span class="remark"><em>Remark. </em></span> The variability of risk estimator is a very interesting problem, which recieved very little attention in the machine learning literature. If this topic interests you, talk to me.
 </div>
-<p></p>
+
 <p>We now use the lasso penalty.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lasso<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">glmnet</span>(<span class="dt">x=</span>X.train, <span class="dt">y=</span>y.train, , <span class="dt">family=</span><span class="st">&#39;gaussian&#39;</span>, <span class="dt">alpha =</span> <span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lasso.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">glmnet</span>(<span class="dt">x=</span>X.train, <span class="dt">y=</span>y.train, , <span class="dt">family=</span><span class="st">&#39;gaussian&#39;</span>, <span class="dt">alpha =</span> <span class="dv">1</span>)
 
 <span class="co"># Train error:</span>
-<span class="kw">MSE</span>( <span class="kw">predict</span>(lasso<span class="fl">.1</span>, <span class="dt">newx =</span>X.train)-<span class="st"> </span>y.train)</code></pre></div>
+<span class="kw">MSE</span>( <span class="kw">predict</span>(lasso.<span class="dv">1</span>, <span class="dt">newx =</span>X.train)<span class="op">-</span><span class="st"> </span>y.train)</code></pre></div>
 <pre><code>## [1] 0.5525279</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test error:</span>
-<span class="kw">MSE</span>( <span class="kw">predict</span>(lasso<span class="fl">.1</span>, <span class="dt">newx =</span> X.test)-<span class="st"> </span>y.test)</code></pre></div>
+<span class="kw">MSE</span>( <span class="kw">predict</span>(lasso.<span class="dv">1</span>, <span class="dt">newx =</span> X.test)<span class="op">-</span><span class="st"> </span>y.test)</code></pre></div>
 <pre><code>## [1] 0.5211263</code></pre>
 <p>We now use <code>glmnet</code> for classification.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logistic<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(<span class="dt">x=</span>X.train.spam, <span class="dt">y=</span>y.train.spam, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="dt">alpha =</span> <span class="dv">0</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logistic.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(<span class="dt">x=</span>X.train.spam, <span class="dt">y=</span>y.train.spam, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="dt">alpha =</span> <span class="dv">0</span>)</code></pre></div>
 <p>Things to note:</p>
 <ul>
 <li>We used <code>cv.glmnet</code> to do an automatic search for the optimal level of regularization (the <code>lambda</code> argument in <code>glmnet</code>) using V-fold CV.</li>
 <li>We set <code>alpha=0</code> for ridge regression.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Train confusion matrix:</span>
-.predictions.train &lt;-<span class="st"> </span><span class="kw">predict</span>(logistic<span class="fl">.2</span>, <span class="dt">newx =</span> X.train.spam, <span class="dt">type =</span> <span class="st">&#39;class&#39;</span>) 
-(confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train$spam))</code></pre></div>
+.predictions.train &lt;-<span class="st"> </span><span class="kw">predict</span>(logistic.<span class="dv">2</span>, <span class="dt">newx =</span> X.train.spam, <span class="dt">type =</span> <span class="st">&#39;class&#39;</span>) 
+(confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train<span class="op">$</span>spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email  1804  180
-##      spam     75 1002</code></pre>
+##      email  1772  180
+##      spam     83 1039</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Train misclassification error</span>
 <span class="kw">missclassification</span>(confusion.train)</code></pre></div>
-<pre><code>## [1] 0.08330611</code></pre>
+<pre><code>## [1] 0.08555628</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test confusion matrix:</span>
-.predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(logistic<span class="fl">.2</span>, <span class="dt">newx =</span> X.test.spam, <span class="dt">type=</span><span class="st">&#39;class&#39;</span>) 
+.predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(logistic.<span class="dv">2</span>, <span class="dt">newx =</span> X.test.spam, <span class="dt">type=</span><span class="st">&#39;class&#39;</span>) 
 (confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>y.test.spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email   876  101
-##      spam     33  530</code></pre>
+##      email   888   98
+##      spam     45  496</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test misclassification error:</span>
 <span class="kw">missclassification</span>(confusion.test)</code></pre></div>
-<pre><code>## [1] 0.08701299</code></pre>
+<pre><code>## [1] 0.09364768</code></pre>
 </div>
 <div id="svm" class="section level3">
 <h3><span class="header-section-number">9.2.2</span> SVM</h3>
 <p>A support vector machine (SVM) is a linear hypothesis class with a particular loss function known as a <em>hinge loss</em>. We learn an SVM with the <code>svm</code> function from the <strong>e1071</strong> package, which is merely a wrapper for the <strong>libsvm</strong> C library, which is the most popular implementation of SVM today.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(e1071)
-svm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">svm</span>(spam~., <span class="dt">data =</span> spam.train)
+svm.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">svm</span>(spam<span class="op">~</span>., <span class="dt">data =</span> spam.train)
 
 <span class="co"># Train confusion matrix:</span>
-.predictions.train &lt;-<span class="st"> </span><span class="kw">predict</span>(svm<span class="fl">.1</span>) 
-(confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train$spam))</code></pre></div>
+.predictions.train &lt;-<span class="st"> </span><span class="kw">predict</span>(svm.<span class="dv">1</span>) 
+(confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train<span class="op">$</span>spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email  1816  107
-##      spam     63 1075</code></pre>
+##      email  1796  106
+##      spam     59 1113</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.train)</code></pre></div>
-<pre><code>## [1] 0.05553741</code></pre>
+<pre><code>## [1] 0.05367599</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test confusion matrix:</span>
-.predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(svm<span class="fl">.1</span>, <span class="dt">newdata =</span> spam.test) 
-(confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test$spam))</code></pre></div>
+.predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(svm.<span class="dv">1</span>, <span class="dt">newdata =</span> spam.test) 
+(confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test<span class="op">$</span>spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email   878   63
-##      spam     31  568</code></pre>
+##      email   900   70
+##      spam     33  524</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.test)</code></pre></div>
-<pre><code>## [1] 0.06103896</code></pre>
+<pre><code>## [1] 0.06745252</code></pre>
 <p>We can also use SVM for regression.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">svm<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">svm</span>(lcavol~., <span class="dt">data =</span> prostate.train)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">svm.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">svm</span>(lcavol<span class="op">~</span>., <span class="dt">data =</span> prostate.train)
 
 <span class="co"># Train error:</span>
-<span class="kw">MSE</span>( <span class="kw">predict</span>(svm<span class="fl">.2</span>)-<span class="st"> </span>prostate.train$lcavol)</code></pre></div>
+<span class="kw">MSE</span>( <span class="kw">predict</span>(svm.<span class="dv">2</span>)<span class="op">-</span><span class="st"> </span>prostate.train<span class="op">$</span>lcavol)</code></pre></div>
 <pre><code>## [1] 0.3336868</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test error:</span>
-<span class="kw">MSE</span>( <span class="kw">predict</span>(svm<span class="fl">.2</span>, <span class="dt">newdata =</span> prostate.test)-<span class="st"> </span>prostate.test$lcavol)</code></pre></div>
+<span class="kw">MSE</span>( <span class="kw">predict</span>(svm.<span class="dv">2</span>, <span class="dt">newdata =</span> prostate.test)<span class="op">-</span><span class="st"> </span>prostate.test<span class="op">$</span>lcavol)</code></pre></div>
 <pre><code>## [1] 0.5633183</code></pre>
 </div>
 <div id="neural-nets" class="section level3">
 <h3><span class="header-section-number">9.2.3</span> Neural Nets</h3>
 <p>Neural nets (non deep) can be fitted, for example, with the <code>nnet</code> function in the <strong>nnet</strong> package. We start with a nnet regression.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nnet)
-nnet<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">nnet</span>(lcavol~., <span class="dt">size=</span><span class="dv">20</span>, <span class="dt">data=</span>prostate.train, <span class="dt">rang =</span> <span class="fl">0.1</span>, <span class="dt">decay =</span> <span class="fl">5e-4</span>, <span class="dt">maxit =</span> <span class="dv">1000</span>, <span class="dt">trace=</span><span class="ot">FALSE</span>)
+nnet.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">nnet</span>(lcavol<span class="op">~</span>., <span class="dt">size=</span><span class="dv">20</span>, <span class="dt">data=</span>prostate.train, <span class="dt">rang =</span> <span class="fl">0.1</span>, <span class="dt">decay =</span> <span class="fl">5e-4</span>, <span class="dt">maxit =</span> <span class="dv">1000</span>, <span class="dt">trace=</span><span class="ot">FALSE</span>)
 
 <span class="co"># Train error:</span>
-<span class="kw">MSE</span>( <span class="kw">predict</span>(nnet<span class="fl">.1</span>)-<span class="st"> </span>prostate.train$lcavol)</code></pre></div>
-<pre><code>## [1] 1.17402</code></pre>
+<span class="kw">MSE</span>( <span class="kw">predict</span>(nnet.<span class="dv">1</span>)<span class="op">-</span><span class="st"> </span>prostate.train<span class="op">$</span>lcavol)</code></pre></div>
+<pre><code>## [1] 1.184281</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test error:</span>
-<span class="kw">MSE</span>( <span class="kw">predict</span>(nnet<span class="fl">.1</span>, <span class="dt">newdata =</span> prostate.test)-<span class="st"> </span>prostate.test$lcavol)</code></pre></div>
-<pre><code>## [1] 1.406403</code></pre>
+<span class="kw">MSE</span>( <span class="kw">predict</span>(nnet.<span class="dv">1</span>, <span class="dt">newdata =</span> prostate.test)<span class="op">-</span><span class="st"> </span>prostate.test<span class="op">$</span>lcavol)</code></pre></div>
+<pre><code>## [1] 1.436513</code></pre>
 <p>And nnet classification.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nnet<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">nnet</span>(spam~., <span class="dt">size=</span><span class="dv">5</span>, <span class="dt">data=</span>spam.train, <span class="dt">rang =</span> <span class="fl">0.1</span>, <span class="dt">decay =</span> <span class="fl">5e-4</span>, <span class="dt">maxit =</span> <span class="dv">1000</span>, <span class="dt">trace=</span><span class="ot">FALSE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nnet.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">nnet</span>(spam<span class="op">~</span>., <span class="dt">size=</span><span class="dv">5</span>, <span class="dt">data=</span>spam.train, <span class="dt">rang =</span> <span class="fl">0.1</span>, <span class="dt">decay =</span> <span class="fl">5e-4</span>, <span class="dt">maxit =</span> <span class="dv">1000</span>, <span class="dt">trace=</span><span class="ot">FALSE</span>)
 
 <span class="co"># Train confusion matrix:</span>
-.predictions.train &lt;-<span class="st"> </span><span class="kw">predict</span>(nnet<span class="fl">.2</span>, <span class="dt">type=</span><span class="st">&#39;class&#39;</span>) 
-(confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train$spam))</code></pre></div>
+.predictions.train &lt;-<span class="st"> </span><span class="kw">predict</span>(nnet.<span class="dv">2</span>, <span class="dt">type=</span><span class="st">&#39;class&#39;</span>) 
+(confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train<span class="op">$</span>spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email  1826   42
-##      spam     53 1140</code></pre>
+##      email  1794   68
+##      spam     61 1151</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.train)</code></pre></div>
-<pre><code>## [1] 0.03103561</code></pre>
+<pre><code>## [1] 0.04196487</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test confusion matrix:</span>
-.predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(nnet<span class="fl">.2</span>, <span class="dt">newdata =</span> spam.test, <span class="dt">type=</span><span class="st">&#39;class&#39;</span>) 
-(confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test$spam))</code></pre></div>
+.predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(nnet.<span class="dv">2</span>, <span class="dt">newdata =</span> spam.test, <span class="dt">type=</span><span class="st">&#39;class&#39;</span>) 
+(confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test<span class="op">$</span>spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email   861   35
-##      spam     48  596</code></pre>
+##      email   889   47
+##      spam     44  547</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.test)</code></pre></div>
-<pre><code>## [1] 0.0538961</code></pre>
+<pre><code>## [1] 0.05959398</code></pre>
 </div>
 <div id="classification-and-regression-trees-cart" class="section level3">
 <h3><span class="header-section-number">9.2.4</span> Classification and Regression Trees (CART)</h3>
 <p>A CART, is not a linear model. It partitions the feature space <span class="math inline">\(\mathcal{X}\)</span>, thus creating a set of if-then rules for prediction or classification. This view clarifies the name of the function <code>rpart</code>, which <em>recursively partitions</em> the feature space.</p>
 <p>We start with a regression tree.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rpart)
-tree<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">rpart</span>(lcavol~., <span class="dt">data=</span>prostate.train)
+tree.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">rpart</span>(lcavol<span class="op">~</span>., <span class="dt">data=</span>prostate.train)
 
 <span class="co"># Train error:</span>
-<span class="kw">MSE</span>( <span class="kw">predict</span>(tree<span class="fl">.1</span>)-<span class="st"> </span>prostate.train$lcavol)</code></pre></div>
+<span class="kw">MSE</span>( <span class="kw">predict</span>(tree.<span class="dv">1</span>)<span class="op">-</span><span class="st"> </span>prostate.train<span class="op">$</span>lcavol)</code></pre></div>
 <pre><code>## [1] 0.4909568</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test error:</span>
-<span class="kw">MSE</span>( <span class="kw">predict</span>(tree<span class="fl">.1</span>, <span class="dt">newdata =</span> prostate.test)-<span class="st"> </span>prostate.test$lcavol)</code></pre></div>
+<span class="kw">MSE</span>( <span class="kw">predict</span>(tree.<span class="dv">1</span>, <span class="dt">newdata =</span> prostate.test)<span class="op">-</span><span class="st"> </span>prostate.test<span class="op">$</span>lcavol)</code></pre></div>
 <pre><code>## [1] 0.5623316</code></pre>
 <p>[TODO: plot with <code>rpart.plot</code>]</p>
 <p>Tree are very prone to overfitting. To avoid this, we reduce a tree’s complexity by <em>pruning</em> it. This is done with the <code>prune</code> function (not demonstrated herein).</p>
 <p>We now fit a classification tree.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tree<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">rpart</span>(spam~., <span class="dt">data=</span>spam.train)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tree.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">rpart</span>(spam<span class="op">~</span>., <span class="dt">data=</span>spam.train)
 
 <span class="co"># Train confusion matrix:</span>
-.predictions.train &lt;-<span class="st"> </span><span class="kw">predict</span>(tree<span class="fl">.2</span>, <span class="dt">type=</span><span class="st">&#39;class&#39;</span>) 
-(confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train$spam))</code></pre></div>
+.predictions.train &lt;-<span class="st"> </span><span class="kw">predict</span>(tree.<span class="dv">2</span>, <span class="dt">type=</span><span class="st">&#39;class&#39;</span>) 
+(confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train<span class="op">$</span>spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email  1742  169
-##      spam    137 1013</code></pre>
+##      email  1753  173
+##      spam    102 1046</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.train)</code></pre></div>
-<pre><code>## [1] 0.09996733</code></pre>
+<pre><code>## [1] 0.08945999</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test confusion matrix:</span>
-.predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(tree<span class="fl">.2</span>, <span class="dt">newdata =</span> spam.test, <span class="dt">type=</span><span class="st">&#39;class&#39;</span>) 
-(confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test$spam))</code></pre></div>
+.predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(tree.<span class="dv">2</span>, <span class="dt">newdata =</span> spam.test, <span class="dt">type=</span><span class="st">&#39;class&#39;</span>) 
+(confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test<span class="op">$</span>spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email   840   85
-##      spam     69  546</code></pre>
+##      email   860   96
+##      spam     73  498</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.test)</code></pre></div>
-<pre><code>## [1] 0.1</code></pre>
+<pre><code>## [1] 0.1106745</code></pre>
 </div>
 <div id="k-nearest-neighbour-knn" class="section level3">
 <h3><span class="header-section-number">9.2.5</span> K-nearest neighbour (KNN)</h3>
 <p>KNN is not an ERM problem. For completeness, we still show how to fit such a hypothesis class.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(class)
-knn<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">knn</span>(<span class="dt">train =</span> X.train.spam, <span class="dt">test =</span> X.test.spam, <span class="dt">cl =</span>y.train.spam, <span class="dt">k =</span> <span class="dv">1</span>)
+knn.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">knn</span>(<span class="dt">train =</span> X.train.spam, <span class="dt">test =</span> X.test.spam, <span class="dt">cl =</span>y.train.spam, <span class="dt">k =</span> <span class="dv">1</span>)
 
 <span class="co"># Test confusion matrix:</span>
-.predictions.test &lt;-<span class="st"> </span>knn<span class="fl">.1</span> 
-(confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test$spam))</code></pre></div>
+.predictions.test &lt;-<span class="st"> </span>knn.<span class="dv">1</span> 
+(confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test<span class="op">$</span>spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email   776  154
-##      spam    133  477</code></pre>
+##      email   814  151
+##      spam    119  443</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.test)</code></pre></div>
-<pre><code>## [1] 0.1863636</code></pre>
+<pre><code>## [1] 0.1768173</code></pre>
 </div>
 <div id="linear-discriminant-analysis-lda" class="section level3">
 <h3><span class="header-section-number">9.2.6</span> Linear Discriminant Analysis (LDA)</h3>
 <p>LDA is equivalent to least squares classification <a href="supervised.html#least-squares">9.2.1</a>. There are, however, some dedicated functions to fit it.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(MASS) 
-lda<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lda</span>(spam~., spam.train)
+lda.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lda</span>(spam<span class="op">~</span>., spam.train)
 
 <span class="co"># Train confusion matrix:</span>
-.predictions.train &lt;-<span class="st"> </span><span class="kw">predict</span>(lda<span class="fl">.1</span>)$class
-(confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train$spam))</code></pre></div>
+.predictions.train &lt;-<span class="st"> </span><span class="kw">predict</span>(lda.<span class="dv">1</span>)<span class="op">$</span>class
+(confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train<span class="op">$</span>spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email  1795  231
-##      spam     84  951</code></pre>
+##      email  1769  237
+##      spam     86  982</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.train)</code></pre></div>
-<pre><code>## [1] 0.1029075</code></pre>
+<pre><code>## [1] 0.1050748</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test confusion matrix:</span>
-.predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(lda<span class="fl">.1</span>, <span class="dt">newdata =</span> spam.test)$class
-(confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test$spam))</code></pre></div>
+.predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(lda.<span class="dv">1</span>, <span class="dt">newdata =</span> spam.test)<span class="op">$</span>class
+(confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test<span class="op">$</span>spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email   873  129
-##      spam     36  502</code></pre>
+##      email   888  134
+##      spam     45  460</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.test)</code></pre></div>
-<pre><code>## [1] 0.1071429</code></pre>
+<pre><code>## [1] 0.1172233</code></pre>
 </div>
 <div id="naive-bayes" class="section level3">
 <h3><span class="header-section-number">9.2.7</span> Naive Bayes</h3>
 <p>A Naive-Bayes classifier is also not part of the ERM framework. It is, however, very popular, so we present it.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(e1071)
-nb<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">naiveBayes</span>(spam~., <span class="dt">data =</span> spam.train)
+nb.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">naiveBayes</span>(spam<span class="op">~</span>., <span class="dt">data =</span> spam.train)
 
 <span class="co"># Train confusion matrix:</span>
-.predictions.train &lt;-<span class="st"> </span><span class="kw">predict</span>(nb<span class="fl">.1</span>, <span class="dt">newdata =</span> spam.train)
-(confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train$spam))</code></pre></div>
+.predictions.train &lt;-<span class="st"> </span><span class="kw">predict</span>(nb.<span class="dv">1</span>, <span class="dt">newdata =</span> spam.train)
+(confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train<span class="op">$</span>spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email  1046   65
-##      spam    833 1117</code></pre>
+##      email  1049   77
+##      spam    806 1142</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.train)</code></pre></div>
-<pre><code>## [1] 0.2933682</code></pre>
+<pre><code>## [1] 0.2872479</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test confusion matrix:</span>
-.predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(nb<span class="fl">.1</span>, <span class="dt">newdata =</span> spam.test)
-(confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test$spam))</code></pre></div>
+.predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(nb.<span class="dv">1</span>, <span class="dt">newdata =</span> spam.test)
+(confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test<span class="op">$</span>spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email   517   37
-##      spam    392  594</code></pre>
+##      email   527   24
+##      spam    406  570</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.test)</code></pre></div>
-<pre><code>## [1] 0.2785714</code></pre>
+<pre><code>## [1] 0.2815979</code></pre>
 </div>
 </div>
 <div id="bibliographic-notes-6" class="section level2">
@@ -956,9 +966,9 @@ nb<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">naiv
 </div>
 <div class="footnotes">
 <hr />
-<ol start="19">
-<li id="fn19"><p>It is even a subset of the Hilbert space, itself a subset of the space of all functions.<a href="supervised.html#fnref19">↩</a></p></li>
-<li id="fn20"><p>Example taken from <a href="https://lagunita.stanford.edu/c4x/HumanitiesScience/StatLearning/asset/ch6.html" class="uri">https://lagunita.stanford.edu/c4x/HumanitiesScience/StatLearning/asset/ch6.html</a><a href="supervised.html#fnref20">↩</a></p></li>
+<ol start="20">
+<li id="fn20"><p>It is even a subset of the Hilbert space, itself a subset of the space of all functions.<a href="supervised.html#fnref20">↩</a></p></li>
+<li id="fn21"><p>Example taken from <a href="https://lagunita.stanford.edu/c4x/HumanitiesScience/StatLearning/asset/ch6.html" class="uri">https://lagunita.stanford.edu/c4x/HumanitiesScience/StatLearning/asset/ch6.html</a><a href="supervised.html#fnref21">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -978,7 +988,7 @@ nb<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">naiv
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -1012,7 +1022,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

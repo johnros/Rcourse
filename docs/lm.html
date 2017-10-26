@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R (BGU course)</title>
   <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
-  <meta name="generator" content="bookdown 0.3.9 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="R (BGU course)" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-05-03">
+<meta name="date" content="2017-10-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -47,13 +47,13 @@
 
 
 
-<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<link href="libs/plotlyjs-1.26.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.26.1/plotly-latest.min.js"></script>
-<script src="libs/plotly-binding-4.6.0/plotly.js"></script>
+<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -121,33 +121,36 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#practice-yourself"><i class="fa fa-check"></i><b>2.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
-<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.1</b> Simple calculator</a></li>
-<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.2</b> Probability calculator</a></li>
-<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.3</b> Getting Help</a></li>
-<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.4</b> Variable Asignment</a></li>
-<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.5</b> Piping</a></li>
-<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.6</b> Vector Creation and Manipulation</a></li>
-<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.7</b> Search Paths and Packages</a></li>
-<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.8</b> Simple Plotting</a></li>
-<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.9</b> Object Types</a></li>
-<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.10</b> Data Frames</a></li>
-<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.11</b> Exctraction</a></li>
-<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.12</b> Data Import and Export</a><ul>
-<li class="chapter" data-level="3.12.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.12.1</b> Import from WEB</a></li>
-<li class="chapter" data-level="3.12.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.12.2</b> Export as CSV</a></li>
-<li class="chapter" data-level="3.12.3" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.12.3</b> Reading From Text Files</a></li>
-<li class="chapter" data-level="3.12.4" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.12.4</b> Writing Data to Text Files</a></li>
-<li class="chapter" data-level="3.12.5" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.12.5</b> .XLS(X) files</a></li>
-<li class="chapter" data-level="3.12.6" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.12.6</b> Massive files</a></li>
-<li class="chapter" data-level="3.12.7" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.12.7</b> Databases</a></li>
+<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>3.1</b> File types</a></li>
+<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.2</b> Simple calculator</a></li>
+<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.3</b> Probability calculator</a></li>
+<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.4</b> Getting Help</a></li>
+<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.5</b> Variable Asignment</a></li>
+<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.6</b> Piping</a></li>
+<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.7</b> Vector Creation and Manipulation</a></li>
+<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.8</b> Search Paths and Packages</a></li>
+<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.9</b> Simple Plotting</a></li>
+<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.10</b> Object Types</a></li>
+<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.11</b> Data Frames</a></li>
+<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.12</b> Exctraction</a></li>
+<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#non-data.frame-object-classes"><i class="fa fa-check"></i><b>3.13</b> Non data.frame object classes</a></li>
+<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.14</b> Data Import and Export</a><ul>
+<li class="chapter" data-level="3.14.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.14.1</b> Import from WEB</a></li>
+<li class="chapter" data-level="3.14.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.14.2</b> Export as CSV</a></li>
+<li class="chapter" data-level="3.14.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>3.14.3</b> Export non-CSV files</a></li>
+<li class="chapter" data-level="3.14.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.14.4</b> Reading From Text Files</a></li>
+<li class="chapter" data-level="3.14.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.14.5</b> Writing Data to Text Files</a></li>
+<li class="chapter" data-level="3.14.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.14.6</b> .XLS(X) files</a></li>
+<li class="chapter" data-level="3.14.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.14.7</b> Massive files</a></li>
+<li class="chapter" data-level="3.14.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.14.8</b> Databases</a></li>
 </ul></li>
-<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.13</b> Functions</a></li>
-<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.14</b> Looping</a></li>
-<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.15</b> Apply</a></li>
-<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.16</b> Recursion</a></li>
-<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.17</b> Dates and Times</a></li>
-<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.18</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.19</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.15</b> Functions</a></li>
+<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.16</b> Looping</a></li>
+<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.17</b> Apply</a></li>
+<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.18</b> Recursion</a></li>
+<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.19</b> Dates and Times</a></li>
+<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.20</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.21</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
 <li class="chapter" data-level="4.1" data-path="eda.html"><a href="eda.html#summary-statistics"><i class="fa fa-check"></i><b>4.1</b> Summary Statistics</a><ul>
@@ -168,7 +171,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3.1" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.1</b> Testing a Hypothesis on a Single Coefficient</a></li>
 <li class="chapter" data-level="5.3.2" data-path="lm.html"><a href="lm.html#constructing-a-confidence-interval-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.2</b> Constructing a Confidence Interval on a Single Coefficient</a></li>
 <li class="chapter" data-level="5.3.3" data-path="lm.html"><a href="lm.html#multiple-regression"><i class="fa fa-check"></i><b>5.3.3</b> Multiple Regression</a></li>
-<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>5.3.4</b> Testing a Hypothesis on a Single Contrast</a></li>
+<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast-returning-to-the-model-without-interactions-lm.2."><i class="fa fa-check"></i><b>5.3.4</b> Testing a Hypothesis on a Single Contrast (*) Returning to the model without interactions, <code>lm.2</code>.</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="5.5" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
@@ -185,7 +188,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
 <li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#manova"><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA</a></li>
+<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#relation-to-manova-manova-multivariate-analysis-of-variance-manova-deals-with-the-estimation-of-effect-on-vector-valued-outcomes.-put-differently-in-anova-the-response-y-is-univariate-in-manova-the-outcome-is-multivariate.-manova-is-useful-when-there-are-correlations-among-the-entries-of-y.-otherwise--one-may-simply-solve-many-anova-problems-instead-of-a-single-manova."><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA (*) {#manova} Multivariate analysis of variance (MANOVA) deals with the estimation of effect on vector valued outcomes. Put differently: in ANOVA the response, <span class="math inline">\(y\)</span>, is univariate In MANOVA, the outcome is multivariate. MANOVA is useful when there are correlations among the entries of <span class="math inline">\(y\)</span>. Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
@@ -204,11 +207,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>8.3.1</b> Signal Identification in R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation</a></li>
-<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression</a><ul>
+<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation (*)</a></li>
+<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression (*)</a><ul>
 <li class="chapter" data-level="8.5.1" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression-with-r"><i class="fa fa-check"></i><b>8.5.1</b> Multivariate Regression with R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models</a><ul>
+<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models (*)</a><ul>
 <li class="chapter" data-level="8.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>8.6.1</b> Graphical Models in R</a></li>
 </ul></li>
 <li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
@@ -252,8 +255,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>11</b> Plotting</a><ul>
 <li class="chapter" data-level="11.1" data-path="plotting.html"><a href="plotting.html#the-graphics-system"><i class="fa fa-check"></i><b>11.1</b> The graphics System</a><ul>
 <li class="chapter" data-level="11.1.1" data-path="plotting.html"><a href="plotting.html#using-existing-plotting-functions"><i class="fa fa-check"></i><b>11.1.1</b> Using Existing Plotting Functions</a></li>
-<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#fancy-graphics-examples"><i class="fa fa-check"></i><b>11.1.2</b> Fancy graphics Examples</a></li>
-<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.3</b> Exporting a Plot</a></li>
+<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.2</b> Exporting a Plot</a></li>
+<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#fancy"><i class="fa fa-check"></i><b>11.1.3</b> Fancy graphics Examples</a></li>
 </ul></li>
 <li class="chapter" data-level="11.2" data-path="plotting.html"><a href="plotting.html#the-ggplot2-system"><i class="fa fa-check"></i><b>11.2</b> The ggplot2 System</a></li>
 <li class="chapter" data-level="11.3" data-path="plotting.html"><a href="plotting.html#interactive-graphics"><i class="fa fa-check"></i><b>11.3</b> Interactive Graphics</a><ul>
@@ -312,14 +315,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
 </ul></li>
-<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.4.1</b> matter</a></li>
+<li class="chapter" data-level="15.4.2" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.4.2</b> iotools</a></li>
+</ul></li>
 <li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.5</b> Computing from a Distributed File System</a></li>
 <li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.6</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#practice-yourself-13"><i class="fa fa-check"></i><b>15.7</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Explicit Parallelism</a></li>
-<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Explicit Parallelism</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
+</ul></li>
 <li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-14"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
 </ul></li>
@@ -345,7 +353,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="20.1" data-path="debugging.html"><a href="debugging.html#bibliographic-notes-16"><i class="fa fa-check"></i><b>20.1</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="20.2" data-path="debugging.html"><a href="debugging.html#practice-yourself-18"><i class="fa fa-check"></i><b>20.2</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="bib.html"><a href="bib.html"><i class="fa fa-check"></i><b>21</b> Bibliography</a></li>
+<li class="chapter" data-level="21" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>21</b> data.table</a></li>
+<li class="chapter" data-level="22" data-path="bib.html"><a href="bib.html"><i class="fa fa-check"></i><b>22</b> Bibliography</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -372,40 +381,40 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">5.1</span> Problem Setup</h2>
 
 <div class="example">
-<span id="ex:cap-experiment" class="example"><strong>Example 5.1  (Bottle Cap Production) </strong></span>Consider a randomized experiment designed to study the effects of temperature and pressure on the diameter of manufactured a bottle cap.
+<span id="exm:cap-experiment" class="example"><strong>Example 5.1  (Bottle Cap Production)  </strong></span>Consider a randomized experiment designed to study the effects of temperature and pressure on the diameter of manufactured a bottle cap.
 </div>
-<p></p>
+
 
 <div class="example">
-<span id="ex:rental" class="example"><strong>Example 5.2  (Rental Prices) </strong></span>Consider the prediction of rental prices given an appartment’s attributes.
+<span id="exm:rental" class="example"><strong>Example 5.2  (Rental Prices)  </strong></span>Consider the prediction of rental prices given an appartment’s attributes.
 </div>
-<p></p>
+
 <p>Both examples require some statistical model, but they are very different. The first is a <em>causal inference</em> problem: we want to design an intervention so that we need to recover the causal effect of temperature and pressure. The second is a <em>prediction</em> problem, a.k.a. a <em>forecasting</em> problem, in which we don’t care about the causal effects, we just want good predictions.</p>
-<p>In this chapter we discuss the causal problem in Example <a href="lm.html#ex:cap-experiment">5.1</a>. This means that when we assume a model, we assume it is the actual <em>data generating process</em>, i.e., we assume the <em>sampling distribution</em> is well specified. The second type of problems is discussed in the Supervised Learning Chapter <a href="supervised.html#supervised">9</a>.</p>
+<p>In this chapter we discuss the causal problem in Example <a href="lm.html#exm:cap-experiment">5.1</a>. This means that when we assume a model, we assume it is the actual <em>data generating process</em>, i.e., we assume the <em>sampling distribution</em> is well specified. The second type of problems is discussed in the Supervised Learning Chapter <a href="supervised.html#supervised">9</a>.</p>
 <p>Here are some more examples of the types of problems we are discussing.</p>
 
 <div class="example">
-<span id="ex:unnamed-chunk-94" class="example"><strong>Example 5.3  (Plant Growth) </strong></span>Consider the treatment of various plants with various fertilizers to study the fertilizer’s effect on growth.
+<span id="exm:unnamed-chunk-95" class="example"><strong>Example 5.3  (Plant Growth)  </strong></span>Consider the treatment of various plants with various fertilizers to study the fertilizer’s effect on growth.
 </div>
-<p></p>
+
 
 <div class="example">
-<span id="ex:unnamed-chunk-95" class="example"><strong>Example 5.4  (Return to Education) </strong></span>Consider the study of return to education by analyzing the incomes of individuals with different education years.
+<span id="exm:unnamed-chunk-96" class="example"><strong>Example 5.4  (Return to Education)  </strong></span>Consider the study of return to education by analyzing the incomes of individuals with different education years.
 </div>
-<p></p>
+
 
 <div class="example">
-<span id="ex:unnamed-chunk-96" class="example"><strong>Example 5.5  (Drug Effect) </strong></span>Consider the study of the effect of a new drug, by analyzing the level of blood coagulation after the administration of various amounts of the new drug.
+<span id="exm:unnamed-chunk-97" class="example"><strong>Example 5.5  (Drug Effect)  </strong></span>Consider the study of the effect of a new drug, by analyzing the level of blood coagulation after the administration of various amounts of the new drug.
 </div>
-<p></p>
-<p>Let’s present the linear model. We assume that a response<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a> variable is the sum of effects of some factors<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a>. Denoting the dependent by <span class="math inline">\(y\)</span>, the factors by <span class="math inline">\(x\)</span>, and the effects by <span class="math inline">\(\beta\)</span> the linear model assumption implies that</p>
+
+<p>Let’s present the linear model. We assume that a response<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a> variable is the sum of effects of some factors<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a>. Denoting the dependent by <span class="math inline">\(y\)</span>, the factors by <span class="math inline">\(x\)</span>, and the effects by <span class="math inline">\(\beta\)</span> the linear model assumption implies that the expected response is the sum of the factors effects:</p>
 <span class="math display" id="eq:linear-mean">\[\begin{align}
-  E[y]=\sum_j x_j \beta_j=x&#39;\beta .
+  E[y]=\sum_{j=0}^p x_j \beta_j=x&#39;\beta .
   \tag{5.1}
 \end{align}\]</span>
 Clearly, there may be other factors that affect the the caps’ diameters. We thus introduce an error term<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a>, denoted by <span class="math inline">\(\varepsilon\)</span>, to capture the effects of all unmodeled factors and measurement error<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a>. The implied generative process of a sample of <span class="math inline">\(i=1,\dots,n\)</span> observations it thus
 <span class="math display" id="eq:linear-observed">\[\begin{align}
-  y_i = \sum_j x_{i,j} \beta_j + \varepsilon_i , i=1,\dots,n .
+  y_i = x_i&#39;\beta + \varepsilon_i = \sum_j x_{i,j} \beta_j + \varepsilon_i , i=1,\dots,n .
   \tag{5.2}
 \end{align}\]</span>
 or in matrix notation
@@ -413,13 +422,17 @@ or in matrix notation
   y = X \beta + \varepsilon .
   \tag{5.3}
 \end{align}\]</span>
-<p>Let’s demonstrate Eq.<a href="lm.html#eq:linear-observed">(5.2)</a>. In our cap example (<a href="lm.html#ex:cap-experiment">5.1</a>), assuming that pressure and temperature have two levels each (say, high and low), we would write <span class="math inline">\(x_{i,1}=1\)</span> if the pressure of the <span class="math inline">\(i\)</span>’th measurement was set to high, and <span class="math inline">\(x_{i,1}=-1\)</span> if the <strong>pressure</strong> was set to low. Similarly, we would write <span class="math inline">\(x_{i,2}=1\)</span>, and <span class="math inline">\(x_{i,2}=-1\)</span>, if the <strong>temperature</strong> was set to high, or low, respectively. The coding with <span class="math inline">\(\{-1,1\}\)</span> is known as <em>effect coding</em>. If you prefer coding with <span class="math inline">\(\{0,1\}\)</span>, this is known as <em>dummy coding</em>.</p>
-<p>In <a href="https://en.wikipedia.org/wiki/Regression_toward_the_mean">Galton’s</a> classical regression problem, where we try to seek the relation between the heights of sons and fathers then <span class="math inline">\(p=1\)</span>, <span class="math inline">\(y_i\)</span> is the height of the <span class="math inline">\(i\)</span>’th father, and <span class="math inline">\(x_i\)</span> the height of the <span class="math inline">\(i\)</span>’th son.</p>
+<p>Let’s demonstrate Eq.<a href="lm.html#eq:linear-observed">(5.2)</a>. In our cap example (<a href="lm.html#exm:cap-experiment">5.1</a>), assuming that pressure and temperature have two levels each (say, high and low), we would write <span class="math inline">\(x_{i,1}=1\)</span> if the pressure of the <span class="math inline">\(i\)</span>’th measurement was set to high, and <span class="math inline">\(x_{i,1}=-1\)</span> if the <strong>pressure</strong> was set to low. Similarly, we would write <span class="math inline">\(x_{i,2}=1\)</span>, and <span class="math inline">\(x_{i,2}=-1\)</span>, if the <strong>temperature</strong> was set to high, or low, respectively. The coding with <span class="math inline">\(\{-1,1\}\)</span> is known as <em>effect coding</em>. If you prefer coding with <span class="math inline">\(\{0,1\}\)</span>, this is known as <em>dummy coding</em>. The choice of coding has no real effect on the results, provided that you remember what coding you used when interpreting <span class="math inline">\(\hat \beta\)</span>.</p>
+
+<div class="remark">
+ <span class="remark"><em>Remark. </em></span> In <a href="https://en.wikipedia.org/wiki/Regression_toward_the_mean">Galton’s</a> classical regression problem, where we try to seek the relation between the heights of sons and fathers then <span class="math inline">\(p=1\)</span>, <span class="math inline">\(y_i\)</span> is the height of the <span class="math inline">\(i\)</span>’th father, and <span class="math inline">\(x_i\)</span> the height of the <span class="math inline">\(i\)</span>’th son.
+</div>
+
 <p>There are many reasons linear models are very popular:</p>
 <ol style="list-style-type: decimal">
 <li><p>Before the computer age, these were pretty much the only models that could actually be computed<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a>. The whole Analysis of Variance (ANOVA) literature is an instance of linear models, that relies on sums of squares, which do not require a computer to work with.</p></li>
 <li><p>For purposes of prediction, where the actual data generating process is not of primary importance, they are popular because they simply work. Why is that? They are simple so that they do not require a lot of data to be computed. Put differently, they may be biased, but their variance is small enough to make them more accurate than other models.</p></li>
-<li><p>For categorical or factorial predictors, <strong>any</strong> functional relation can be cast as a linear model.</p></li>
+<li><p>For non continuous predictors, <strong>any</strong> functional relation can be cast as a linear model.</p></li>
 <li><p>For the purpose of <em>screening</em>, where we only want to show the existence of an effect, and are less interested in the magnitude of that effect, a linear model is enough.</p></li>
 <li><p>If the true generative relation is not linear, but smooth enough, then the linear function is a good approximation via Taylor’s theorem.</p></li>
 </ol>
@@ -436,9 +449,9 @@ and in matrix notation
 \end{align}\]</span>
 
 <div class="remark">
-<span class="remark"><em>Remark. </em></span> Personally, I prefer the matrix notation because it is suggestive of the geometry of the problem. The reader is referred to <span class="citation">Friedman, Hastie, and Tibshirani (<a href="#ref-friedman2001elements">2001</a>)</span>, Section 3.2, for more on the geometry of OLS.
+ <span class="remark"><em>Remark. </em></span> Personally, I prefer the matrix notation because it is suggestive of the geometry of the problem. The reader is referred to <span class="citation">Friedman, Hastie, and Tibshirani (<a href="#ref-friedman2001elements">2001</a>)</span>, Section 3.2, for more on the geometry of OLS.
 </div>
-<p></p>
+
 <p>Different software suits, and even different R packages, solve Eq.<a href="lm.html#eq:ols">(5.4)</a> in different ways so that we skip the details of how exactly it is solved. These are discussed in Chapters <a href="algebra.html#algebra">17</a> and <a href="convex.html#convex">18</a>.</p>
 <p>The last matter we need to attend is how to do inference on <span class="math inline">\(\hat \beta\)</span>. For that, we will need some assumptions on <span class="math inline">\(\varepsilon\)</span>. A typical set of assumptions is the following:</p>
 <ol style="list-style-type: decimal">
@@ -456,9 +469,9 @@ Given the above assumptions, we can apply some probability theory and linear alg
 </div>
 <div id="ols-estimation-in-r" class="section level2">
 <h2><span class="header-section-number">5.2</span> OLS Estimation in R</h2>
-<p>We are now ready to estimate some linear models with R. We will use the <code>whiteside</code> data from the <strong>MASS</strong> package, recording the outside temperature and gas consumption, before and after an appartment’s insulation.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(MASS)
-<span class="kw">data</span>(whiteside)
+<p>We are now ready to estimate some linear models with R. We will use the <code>whiteside</code> data from the <strong>MASS</strong> package, recording the outside temperature and gas consumption, before and after an apartment’s insulation.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(MASS) <span class="co"># load the package</span>
+<span class="kw">data</span>(whiteside) <span class="co"># load the data</span>
 <span class="kw">head</span>(whiteside) <span class="co"># inspect the data</span></code></pre></div>
 <pre><code>##    Insul Temp Gas
 ## 1 Before -0.8 7.2
@@ -468,21 +481,22 @@ Given the above assumptions, we can apply some probability theory and linear alg
 ## 5 Before  2.9 5.8
 ## 6 Before  3.2 5.8</code></pre>
 <p>We do the OLS estimation on the pre-insulation data with <code>lm</code> function, possibly the most important function in R.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(Gas~Temp, <span class="dt">data=</span>whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,]) <span class="co"># OLS estimation </span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(Gas<span class="op">~</span>Temp, <span class="dt">data=</span>whiteside[whiteside<span class="op">$</span>Insul<span class="op">==</span><span class="st">&#39;Before&#39;</span>,]) <span class="co"># OLS estimation </span></code></pre></div>
 <p>Things to note:</p>
 <ul>
 <li>We used the tilde syntax <code>Gas~Temp</code>, reading “gas as linear function of temperature”.</li>
-<li>The <code>data</code> argument tells R where to look for the variables Gas and Temp. We used only observations before the insulation.</li>
+<li>The <code>data</code> argument tells R where to look for the variables Gas and Temp. We used <code>Insul=='Before'</code> to subset observations before the insulation.</li>
 <li>The result is assigned to the object <code>lm.1</code>.</li>
 </ul>
-<p>Alternative formulations with the same results would be</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="dt">y=</span>Gas, <span class="dt">x=</span>Temp, <span class="dt">data=</span>whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,]) 
-lm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="dt">y=</span>whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,]$Gas, <span class="dt">x=</span>whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,]$Temp)  </code></pre></div>
+<p>Like any other language, spoken or programable, there are many ways to say the same thing. Some more elegant than others…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="dt">y=</span>Gas, <span class="dt">x=</span>Temp, <span class="dt">data=</span>whiteside[whiteside<span class="op">$</span>Insul<span class="op">==</span><span class="st">&#39;Before&#39;</span>,]) 
+lm.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="dt">y=</span>whiteside[whiteside<span class="op">$</span>Insul<span class="op">==</span><span class="st">&#39;Before&#39;</span>,]<span class="op">$</span>Gas,<span class="dt">x=</span>whiteside[whiteside<span class="op">$</span>Insul<span class="op">==</span><span class="st">&#39;Before&#39;</span>,]<span class="op">$</span>Temp)  
+lm.<span class="dv">1</span> &lt;-<span class="st"> </span>whiteside[whiteside<span class="op">$</span>Insul<span class="op">==</span><span class="st">&#39;Before&#39;</span>,] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lm</span>(Gas<span class="op">~</span>Temp, <span class="dt">data=</span>.)</code></pre></div>
 <p>The output is an object of class <code>lm</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(lm<span class="fl">.1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(lm.<span class="dv">1</span>)</code></pre></div>
 <pre><code>## [1] &quot;lm&quot;</code></pre>
 <p>Objects of class <code>lm</code> are very complicated. They store a lot of information which may be used for inference, plotting, etc. The <code>str</code> function, short for “structure”, shows us the various elements of the object.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(lm<span class="fl">.1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(lm.<span class="dv">1</span>)</code></pre></div>
 <pre><code>## List of 12
 ##  $ coefficients : Named num [1:2] 6.854 -0.393
 ##   ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;(Intercept)&quot; &quot;Temp&quot;
@@ -540,8 +554,9 @@ lm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</
 ##   .. .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
 ##   .. .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;Gas&quot; &quot;Temp&quot;
 ##  - attr(*, &quot;class&quot;)= chr &quot;lm&quot;</code></pre>
-<p>At this point, we only want <span class="math inline">\(\hat \beta\)</span> which can be extracted with the <code>coef</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(lm<span class="fl">.1</span>)</code></pre></div>
+<p>In RStudio it is particularly easy to extract objects. Just write <code>your.object$</code> and press <code>tab</code> after the <code>$</code> for autocompletion.</p>
+<p>If we only want <span class="math inline">\(\hat \beta\)</span>, it can also be extracted with the <code>coef</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(lm.<span class="dv">1</span>)</code></pre></div>
 <pre><code>## (Intercept)        Temp 
 ##   6.8538277  -0.3932388</code></pre>
 <p>Things to note:</p>
@@ -550,27 +565,27 @@ lm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</
 <li><p>The effect of temperature, i.e., <span class="math inline">\(\hat \beta_1\)</span>, is -0.39. The negative sign means that the higher the temperature, the less gas is consumed. The magnitude of the coefficient means that for a unit increase in the outside temperature, the gas consumption decreases by 0.39 units.</p></li>
 </ul>
 <p>We can use the <code>predict</code> function to make predictions, but we emphasize that if the purpose of the model is to make predictions, and not interpret coefficients, better skip to the Supervised Learning Chapter <a href="supervised.html#supervised">9</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">predict</span>(lm<span class="fl">.1</span>)~whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,]$Gas)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">predict</span>(lm.<span class="dv">1</span>)<span class="op">~</span>whiteside[whiteside<span class="op">$</span>Insul<span class="op">==</span><span class="st">&#39;Before&#39;</span>,]<span class="op">$</span>Gas)
 <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-104-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-106-1.png" width="50%" /></p>
 <p>The model seems to fit the data nicely. A common measure of the goodness of fit is the <em>coefficient of determination</em>, more commonly known as the <span class="math inline">\(R^2\)</span>.</p>
 
 
 <div class="definition">
-<span id="def:unnamed-chunk-105" class="definition"><strong>Definition 5.1  (<span class="math inline">\(R^2\)</span>.) </strong></span>The coefficient of determination, denoted <span class="math inline">\(R^2\)</span>, is defined as
+<span id="def:unnamed-chunk-107" class="definition"><strong>Definition 5.1  (R2)  </strong></span>The coefficient of determination, denoted <span class="math inline">\(R^2\)</span>, is defined as
 <span class="math display">\[\begin{align}
   R^2:= 1-\frac{\sum_i (y_i - \hat y_i)^2}{\sum_i (y_i - \bar y)^2},
 \end{align}\]</span>
 where <span class="math inline">\(\hat y_i\)</span> is the model’s prediction, <span class="math inline">\(\hat y_i = x_i \hat \beta\)</span>.
 </div>
-<p></p>
+
 <p>It can be easily computed</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R2 &lt;-<span class="st"> </span>function(y, y.hat){
-  numerator &lt;-<span class="st"> </span>(y-y.hat)^<span class="dv">2</span> %&gt;%<span class="st"> </span>sum
-  denominator &lt;-<span class="st"> </span>(y-<span class="kw">mean</span>(y))^<span class="dv">2</span> %&gt;%<span class="st"> </span>sum
-  <span class="dv">1</span>-numerator/denominator
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R2 &lt;-<span class="st"> </span><span class="cf">function</span>(y, y.hat){
+  numerator &lt;-<span class="st"> </span>(y<span class="op">-</span>y.hat)<span class="op">^</span><span class="dv">2</span> <span class="op">%&gt;%</span><span class="st"> </span>sum
+  denominator &lt;-<span class="st"> </span>(y<span class="op">-</span><span class="kw">mean</span>(y))<span class="op">^</span><span class="dv">2</span> <span class="op">%&gt;%</span><span class="st"> </span>sum
+  <span class="dv">1</span><span class="op">-</span>numerator<span class="op">/</span>denominator
 }
-<span class="kw">R2</span>(<span class="dt">y=</span>whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,]$Gas, <span class="dt">y.hat=</span><span class="kw">predict</span>(lm<span class="fl">.1</span>))</code></pre></div>
+<span class="kw">R2</span>(<span class="dt">y=</span>whiteside[whiteside<span class="op">$</span>Insul<span class="op">==</span><span class="st">&#39;Before&#39;</span>,]<span class="op">$</span>Gas, <span class="dt">y.hat=</span><span class="kw">predict</span>(lm.<span class="dv">1</span>))</code></pre></div>
 <pre><code>## [1] 0.9438081</code></pre>
 <p>This is a nice result implying that about <span class="math inline">\(94\%\)</span> of the variability in gas consumption can be attributed to changes in the outside temperature.</p>
 <p>Obviously, R does provide the means to compute something as basic as <span class="math inline">\(R^2\)</span>, but I will let you find it for yourselves.</p>
@@ -579,7 +594,7 @@ where <span class="math inline">\(\hat y_i\)</span> is the model’s prediction,
 <h2><span class="header-section-number">5.3</span> Inference</h2>
 <p>To perform inference on <span class="math inline">\(\hat \beta\)</span>, in order to test hypotheses and construct confidence intervals, we need to quantify the uncertainly in the reported <span class="math inline">\(\hat \beta\)</span>. This is exactly what Eq.<a href="lm.html#eq:ols-distribution">(5.6)</a> gives us.</p>
 <p>Luckily, we don’t need to manipulate multivariate distributions manually, and everything we need is already implemented. The most important function is <code>summary</code> which gives us an overview of the model’s fit. We emphasize that that fitting a model with <code>lm</code> is an assumption free algorithmic step. Inference using <code>summary</code> is <strong>not</strong> assumption free, and requires the set of assumptions leading to Eq.<a href="lm.html#eq:ols-distribution">(5.6)</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(lm<span class="fl">.1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(lm.<span class="dv">1</span>)</code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Gas ~ Temp, data = whiteside[whiteside$Insul == 
@@ -609,30 +624,35 @@ where <span class="math inline">\(\hat y_i\)</span> is the model’s prediction,
 </ul>
 <p>As the name suggests, <code>summary</code> is merely a summary. The full <code>summary(lm.1)</code> object is a monstrous object. Its various elements can be queried using <code>str(sumary(lm.1))</code>.</p>
 <p>Can we check the assumptions required for inference? Some. Let’s start with the linearity assumption. If we were wrong, and the data is not arranged about a linear line, the residuals will have some shape. We thus plot the residuals as a function of the predictor to diagnose shape.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">residuals</span>(lm<span class="fl">.1</span>)~whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,]$Temp)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">residuals</span>(lm.<span class="dv">1</span>)<span class="op">~</span>whiteside[whiteside<span class="op">$</span>Insul<span class="op">==</span><span class="st">&#39;Before&#39;</span>,]<span class="op">$</span>Temp)
 <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-108-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-110-1.png" width="50%" /></p>
 <p>I can’t say I see any shape. Let’s fit a <strong>wrong</strong> model, just to see what “shape” means.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.1.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(Gas~<span class="kw">I</span>(Temp^<span class="dv">2</span>), <span class="dt">data=</span>whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,])
-<span class="kw">plot</span>(<span class="kw">residuals</span>(lm<span class="fl">.1.1</span>)~whiteside[whiteside$Insul==<span class="st">&#39;Before&#39;</span>,]$Temp); <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-109-1.png" width="50%" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm.<span class="fl">1.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(Gas<span class="op">~</span><span class="kw">I</span>(Temp<span class="op">^</span><span class="dv">2</span>), <span class="dt">data=</span>whiteside[whiteside<span class="op">$</span>Insul<span class="op">==</span><span class="st">&#39;Before&#39;</span>,])
+<span class="kw">plot</span>(<span class="kw">residuals</span>(lm.<span class="fl">1.1</span>)<span class="op">~</span>whiteside[whiteside<span class="op">$</span>Insul<span class="op">==</span><span class="st">&#39;Before&#39;</span>,]<span class="op">$</span>Temp); <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-111-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>We used <code>I(Temp)^2</code> to specify the model <span class="math inline">\(Gas=\beta_0 + \beta_1 Temp^2+ \varepsilon\)</span>.</li>
 <li>The residuals have a “belly”. Because they are not a cloud around the linear trend, and we have the wrong model.</li>
 </ul>
 <p>To the next assumption. We assumed <span class="math inline">\(\varepsilon_i\)</span> are independent of everything else. The residuals, <span class="math inline">\(y_i-\hat y_i\)</span> can be thought of a sample of <span class="math inline">\(\varepsilon_i\)</span>. When diagnosing the linearity assumption, we already saw their distribution does not vary with the <span class="math inline">\(x\)</span>’s, <code>Temp</code> in our case. They may be correlated with themselves; a positive departure from the model, may be followed by a series of positive departures etc. Diagnosing these <em>auto-correlations</em> is a real art, which is not part of our course.</p>
-<p>The last assumption we required is normality. As previously stated, if <span class="math inline">\(n \gg p\)</span>, this assumption can be relaxed. If <span class="math inline">\(n \sim p\)</span>, i.e., <span class="math inline">\(n\)</span> is in the order of <span class="math inline">\(p\)</span>, we need to verify this assumption. My favorite tool for this task is the <em>qqplot</em>. A qqplot compares the quantiles of the sample with the respective quantiles of the assumed distribution. If quantiles align along a line, the assumed distribution if OK. If quantiles depart from a line, then the assumed distribution does not fit the sample.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qqnorm</span>(<span class="kw">resid</span>((lm<span class="fl">.1</span>)))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-110-1.png" width="50%" /></p>
-<p>The <code>qqnorm</code> function plots a qqplot against a normal distribution. Judging from the figure, the normality assumption is quite plausible. Let’s try the same on a non-normal sample, namely a uniformly distributed sample, to see how that would look.</p>
+<p>The last assumption we required is normality. As previously stated, if <span class="math inline">\(n \gg p\)</span>, this assumption can be relaxed. If <span class="math inline">\(n\)</span> is in the order of <span class="math inline">\(p\)</span>, we need to verify this assumption. My favorite tool for this task is the <em>qqplot</em>. A qqplot compares the quantiles of the sample with the respective quantiles of the assumed distribution. If quantiles align along a line, the assumed distribution if OK. If quantiles depart from a line, then the assumed distribution does not fit the sample.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qqnorm</span>(<span class="kw">resid</span>(lm.<span class="dv">1</span>))</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-112-1.png" width="50%" /></p>
+<p>Things to note:</p>
+<ul>
+<li>The <code>qqnorm</code> function plots a qqplot against a normal distribution. For non-normal distributions try <code>qqplot</code>.</li>
+<li><code>resid(lm.1)</code> extracts the residuals from the linear model, i.e., the vector of <span class="math inline">\(y_i-x_i&#39;\hat \beta\)</span>.</li>
+</ul>
+<p>Judging from the figure, the normality assumption is quite plausible. Let’s try the same on a non-normal sample, namely a uniformly distributed sample, to see how that would look.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qqnorm</span>(<span class="kw">runif</span>(<span class="dv">100</span>))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-111-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-113-1.png" width="50%" /></p>
 <div id="testing-a-hypothesis-on-a-single-coefficient" class="section level3">
 <h3><span class="header-section-number">5.3.1</span> Testing a Hypothesis on a Single Coefficient</h3>
 <p>The first inferential test we consider is a hypothesis test on a single coefficient. In our gas example, we may want to test that the temperature has no effect on the gas consumption. The answer for that is given immediately by <code>summary(lm.1)</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">summary.lm1 &lt;-<span class="st"> </span><span class="kw">summary</span>(lm<span class="fl">.1</span>)
-coefs.lm1 &lt;-<span class="st"> </span>summary.lm1$coefficients
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">summary.lm1 &lt;-<span class="st"> </span><span class="kw">summary</span>(lm.<span class="dv">1</span>)
+coefs.lm1 &lt;-<span class="st"> </span>summary.lm1<span class="op">$</span>coefficients
 coefs.lm1</code></pre></div>
 <pre><code>##               Estimate Std. Error   t value     Pr(&gt;|t|)
 ## (Intercept)  6.8538277 0.11842341  57.87561 2.717533e-27
@@ -642,17 +662,17 @@ coefs.lm1</code></pre></div>
 <div id="constructing-a-confidence-interval-on-a-single-coefficient" class="section level3">
 <h3><span class="header-section-number">5.3.2</span> Constructing a Confidence Interval on a Single Coefficient</h3>
 <p>Since the <code>summary</code> function gives us the standard errors of <span class="math inline">\(\hat \beta\)</span>, we can immediately compute <span class="math inline">\(\hat \beta_j \pm 2 \sqrt{Var[\hat \beta_j]}\)</span> to get ourselves a (roughly) <span class="math inline">\(95\%\)</span> confidence interval. In our example the interval is</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coefs.lm1[<span class="dv">2</span>,<span class="dv">1</span>] +<span class="st"> </span><span class="kw">c</span>(-<span class="dv">2</span>,<span class="dv">2</span>) *<span class="st"> </span>coefs.lm1[<span class="dv">2</span>,<span class="dv">2</span>]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coefs.lm1[<span class="dv">2</span>,<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>coefs.lm1[<span class="dv">2</span>,<span class="dv">2</span>]</code></pre></div>
 <pre><code>## [1] -0.4324108 -0.3540668</code></pre>
 </div>
 <div id="multiple-regression" class="section level3">
 <h3><span class="header-section-number">5.3.3</span> Multiple Regression</h3>
 
 <div class="remark">
-<span class="remark"><em>Remark. </em></span> <em>Multiple regression</em> is not to be confused with <em>multivariate regression</em> discussed in Chapter <a href="multivariate.html#multivariate">8</a>.
+ <span class="remark"><em>Remark. </em></span> <em>Multiple regression</em> is not to be confused with <em>multivariate regression</em> discussed in Chapter <a href="multivariate.html#multivariate">8</a>.
 </div>
-<p></p>
-<p>Our next example<a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a> contains a hypothetical sample of <span class="math inline">\(60\)</span> participants who are divided into three stress reduction treatment groups (mental, physical, and medical) and two gender groups (male and female). The stress reduction values are represented on a scale that ranges from 1 to 5. This dataset can be conceptualized as a comparison between three stress treatment programs, one using mental methods, one using physical training, and one using medication across genders. The values represent how effective the treatment programs were at reducing participant’s stress levels, with larger effects indicating higher effectiveness.</p>
+
+<p>Our next example<a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a> contains a hypothetical sample of <span class="math inline">\(60\)</span> participants who are divided into three stress reduction treatment groups (mental, physical, and medical) and two gender groups (male and female). The stress reduction values are represented on a scale that ranges from 1 to 5. The values represent how effective the treatment programs were at reducing participant’s stress levels, with larger effects indicating higher effectiveness.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">twoWay &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;dataset_anova_twoWay_comparisons.csv&#39;</span>)
 <span class="kw">head</span>(twoWay)</code></pre></div>
 <pre><code>##   Treatment   Age StressReduction
@@ -663,15 +683,15 @@ coefs.lm1</code></pre></div>
 ## 5    mental   mid               6
 ## 6    mental   mid               5</code></pre>
 <p>How many observations per group?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(twoWay$Treatment, twoWay$Age)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(twoWay<span class="op">$</span>Treatment, twoWay<span class="op">$</span>Age)</code></pre></div>
 <pre><code>##           
 ##            mid old young
 ##   medical    3   3     3
 ##   mental     3   3     3
 ##   physical   3   3     3</code></pre>
 <p>Since we have two factorial predictors, this multiple regression is nothing but a <em>two way ANOVA</em>. Let’s fit the model and inspect it.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(StressReduction~.-<span class="dv">1</span>,<span class="dt">data=</span>twoWay)
-<span class="kw">summary</span>(lm<span class="fl">.2</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(StressReduction<span class="op">~</span>.<span class="op">-</span><span class="dv">1</span>,<span class="dt">data=</span>twoWay)
+<span class="kw">summary</span>(lm.<span class="dv">2</span>)</code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = StressReduction ~ . - 1, data = twoWay)
@@ -700,7 +720,7 @@ coefs.lm1</code></pre></div>
 <li><p>All the (main) effects seem to be significant.</p></li>
 <li><p>The data has 2 factors, but the coefficients table has 4 predictors. This is because <code>lm</code> noticed that <code>Treatment</code> and <code>Age</code> are factors. The numerical values of the factors are meaningless. Instead, R has constructed a dummy variable for each level of each factor. The names of the effect are a concatenation of the factor’s name, and its level. You can inspect these dummy variables with the <code>model.matrix</code> command.</p></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">model.matrix</span>(lm<span class="fl">.2</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">model.matrix</span>(lm.<span class="dv">2</span>))</code></pre></div>
 <pre><code>##   Treatmentmedical Treatmentmental Treatmentphysical Ageold Ageyoung
 ## 1                0               1                 0      0        1
 ## 2                0               1                 0      0        1
@@ -710,7 +730,7 @@ coefs.lm1</code></pre></div>
 ## 6                0               1                 0      0        0</code></pre>
 <p>If you don’t want the default dummy coding, look at <code>?contrasts</code>.</p>
 <p>If you are more familiar with the ANOVA literature, or that you don’t want the effects of each level separately, but rather, the effect of <strong>all</strong> the levels of each factor, use the <code>anova</code> command.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(lm<span class="fl">.2</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(lm.<span class="dv">2</span>)</code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: StressReduction
@@ -728,13 +748,13 @@ coefs.lm1</code></pre></div>
 <li>The StressReduction seems to vary for different ages and treatments, since both factors are significant.</li>
 </ul>
 <p>As in any two-way ANOVA, we may want to ask if different age groups respond differently to different treatments. In the statistical parlance, this is called an <em>interaction</em>, or more precisely, an <em>interaction of order 2</em>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(StressReduction~Treatment+Age+Treatment:Age<span class="dv">-1</span>,<span class="dt">data=</span>twoWay)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm.<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(StressReduction<span class="op">~</span>Treatment<span class="op">+</span>Age<span class="op">+</span>Treatment<span class="op">:</span>Age<span class="op">-</span><span class="dv">1</span>,<span class="dt">data=</span>twoWay)</code></pre></div>
 <p>The syntax <code>StressReduction~Treatment+Age+Treatment:Age-1</code> tells R to include main effects of Treatment, Age, and their interactions. Here are other ways to specify the same model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(StressReduction ~<span class="st"> </span>Treatment *<span class="st"> </span>Age -<span class="st"> </span><span class="dv">1</span>,<span class="dt">data=</span>twoWay)
-lm<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(StressReduction~(.)^<span class="dv">2</span> -<span class="st"> </span><span class="dv">1</span>,<span class="dt">data=</span>twoWay)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm.<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(StressReduction <span class="op">~</span><span class="st"> </span>Treatment <span class="op">*</span><span class="st"> </span>Age <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,<span class="dt">data=</span>twoWay)
+lm.<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(StressReduction<span class="op">~</span>(.)<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,<span class="dt">data=</span>twoWay)</code></pre></div>
 <p>The syntax <code>Treatment * Age</code> means “mains effects with second order interactions”. The syntax <code>(.)^2</code> means “everything with second order interactions”</p>
 <p>Let’s inspect the model</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(lm<span class="fl">.3</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(lm.<span class="dv">3</span>)</code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = StressReduction ~ Treatment + Age + Treatment:Age - 
@@ -768,7 +788,7 @@ lm<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">lm</
 <li>The assumptions required for inference are clearly not met in this example, which is there just to demonstrate R’s capabilities.</li>
 </ul>
 <p>Asking if all the interactions are significant, is asking if the different age groups have the same response to different treatments. Can we answer that based on the various interactions? We might, but it is possible that no single interaction is significant, while the combination is. To test for all the interactions together, we can simply check if the model without interactions is (significantly) better than a model with interactions. I.e., compare <code>lm.2</code> to <code>lm.3</code>. This is done with the <code>anova</code> command.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(lm<span class="fl">.2</span>,lm<span class="fl">.3</span>, <span class="dt">test=</span><span class="st">&#39;F&#39;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(lm.<span class="dv">2</span>,lm.<span class="dv">3</span>, <span class="dt">test=</span><span class="st">&#39;F&#39;</span>)</code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: StressReduction ~ (Treatment + Age) - 1
@@ -776,23 +796,22 @@ lm<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">lm</
 ##   Res.Df RSS Df Sum of Sq  F Pr(&gt;F)
 ## 1     22  18                       
 ## 2     18  18  4         0  0      1</code></pre>
-<p>We see that <code>lm.3</code> is <strong>not</strong> better than <code>lm.2</code>, so that we can conclude that there are no interactions: different ages have the same response to different treatments.</p>
+<p>We see that <code>lm.3</code> is <strong>not</strong> (significantly) better than <code>lm.2</code>, so that we can conclude that there are no interactions: different ages have the same response to different treatments.</p>
 </div>
-<div id="testing-a-hypothesis-on-a-single-contrast" class="section level3">
-<h3><span class="header-section-number">5.3.4</span> Testing a Hypothesis on a Single Contrast</h3>
-<p>Returning to the model without interactions, <code>lm.2</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(<span class="kw">summary</span>(lm<span class="fl">.2</span>))</code></pre></div>
+<div id="testing-a-hypothesis-on-a-single-contrast-returning-to-the-model-without-interactions-lm.2." class="section level3">
+<h3><span class="header-section-number">5.3.4</span> Testing a Hypothesis on a Single Contrast (*) Returning to the model without interactions, <code>lm.2</code>.</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(<span class="kw">summary</span>(lm.<span class="dv">2</span>))</code></pre></div>
 <pre><code>##                   Estimate Std. Error   t value     Pr(&gt;|t|)
 ## Treatmentmedical         4  0.3892495 10.276186 7.336391e-10
 ## Treatmentmental          6  0.3892495 15.414279 2.835706e-13
 ## Treatmentphysical        5  0.3892495 12.845233 1.064101e-11
 ## Ageold                  -3  0.4264014 -7.035624 4.647299e-07
 ## Ageyoung                 3  0.4264014  7.035624 4.647299e-07</code></pre>
-<p>We see that the effect of the various treatments is rather similar. It is possible that all treatments actually have the same effect. Comparing the levels of a factor is called a <em>contrast</em>. Let’s test if the medical treatment, has in fact, the same effect as the physical treatment.</p>
+<p>We see that the effect of the various treatments is rather similar. It is possible that all treatments actually have the same effect. Comparing the effects of factor levels is called a <em>contrast</em>. Let’s test if the medical treatment, has in fact, the same effect as the physical treatment.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(multcomp)
-my.contrast &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(-<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="dt">nrow =</span>  <span class="dv">1</span>)
-lm<span class="fl">.4</span> &lt;-<span class="st"> </span><span class="kw">glht</span>(lm<span class="fl">.2</span>, <span class="dt">linfct=</span>my.contrast)
-<span class="kw">summary</span>(lm<span class="fl">.4</span>)</code></pre></div>
+my.contrast &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="dt">nrow =</span>  <span class="dv">1</span>)
+lm.<span class="dv">4</span> &lt;-<span class="st"> </span><span class="kw">glht</span>(lm.<span class="dv">2</span>, <span class="dt">linfct=</span>my.contrast)
+<span class="kw">summary</span>(lm.<span class="dv">4</span>)</code></pre></div>
 <pre><code>## 
 ##   Simultaneous Tests for General Linear Hypotheses
 ## 
@@ -818,6 +837,19 @@ lm<span class="fl">.4</span> &lt;-<span class="st"> </span><span class="kw">glht
 </div>
 <div id="practice-yourself-3" class="section level2">
 <h2><span class="header-section-number">5.5</span> Practice Yourself</h2>
+<ol style="list-style-type: decimal">
+<li>Inspect women’s heights and weights with <code>?women</code>.
+<ol style="list-style-type: decimal">
+<li>What is the change in weight per unit change in height? Use the <code>lm</code> function.</li>
+<li>Is the relation of height on weight significant? Use <code>summary</code>.</li>
+<li>Plot the residuals of the linear model with <code>plot</code> and <code>resid</code>.</li>
+<li>Plot the predictions of the model using <code>abline</code>.</li>
+<li>Inspect the normality of residuals using <code>qqnorm</code>.</li>
+<li>Inspect the design matrix using <code>model.matrix</code>.</li>
+</ol></li>
+<li>Write a function that takes an <code>lm</code> class object, and returns the confidence interval on the first coefficient. Apply it on the height and weight data.</li>
+<li>Use the <code>ANOVA</code> function to test the significance of the effect of height.</li>
+</ol>
 
 </div>
 </div>
@@ -862,7 +894,7 @@ lm<span class="fl">.4</span> &lt;-<span class="st"> </span><span class="kw">glht
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -896,7 +928,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

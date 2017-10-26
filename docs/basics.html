@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R (BGU course)</title>
   <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
-  <meta name="generator" content="bookdown 0.3.9 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="R (BGU course)" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-05-03">
+<meta name="date" content="2017-10-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -47,13 +47,13 @@
 
 
 
-<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<link href="libs/plotlyjs-1.26.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.26.1/plotly-latest.min.js"></script>
-<script src="libs/plotly-binding-4.6.0/plotly.js"></script>
+<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -121,33 +121,36 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#practice-yourself"><i class="fa fa-check"></i><b>2.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
-<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.1</b> Simple calculator</a></li>
-<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.2</b> Probability calculator</a></li>
-<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.3</b> Getting Help</a></li>
-<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.4</b> Variable Asignment</a></li>
-<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.5</b> Piping</a></li>
-<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.6</b> Vector Creation and Manipulation</a></li>
-<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.7</b> Search Paths and Packages</a></li>
-<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.8</b> Simple Plotting</a></li>
-<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.9</b> Object Types</a></li>
-<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.10</b> Data Frames</a></li>
-<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.11</b> Exctraction</a></li>
-<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.12</b> Data Import and Export</a><ul>
-<li class="chapter" data-level="3.12.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.12.1</b> Import from WEB</a></li>
-<li class="chapter" data-level="3.12.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.12.2</b> Export as CSV</a></li>
-<li class="chapter" data-level="3.12.3" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.12.3</b> Reading From Text Files</a></li>
-<li class="chapter" data-level="3.12.4" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.12.4</b> Writing Data to Text Files</a></li>
-<li class="chapter" data-level="3.12.5" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.12.5</b> .XLS(X) files</a></li>
-<li class="chapter" data-level="3.12.6" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.12.6</b> Massive files</a></li>
-<li class="chapter" data-level="3.12.7" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.12.7</b> Databases</a></li>
+<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>3.1</b> File types</a></li>
+<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.2</b> Simple calculator</a></li>
+<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.3</b> Probability calculator</a></li>
+<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.4</b> Getting Help</a></li>
+<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.5</b> Variable Asignment</a></li>
+<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.6</b> Piping</a></li>
+<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.7</b> Vector Creation and Manipulation</a></li>
+<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.8</b> Search Paths and Packages</a></li>
+<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.9</b> Simple Plotting</a></li>
+<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.10</b> Object Types</a></li>
+<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.11</b> Data Frames</a></li>
+<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.12</b> Exctraction</a></li>
+<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#non-data.frame-object-classes"><i class="fa fa-check"></i><b>3.13</b> Non data.frame object classes</a></li>
+<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.14</b> Data Import and Export</a><ul>
+<li class="chapter" data-level="3.14.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.14.1</b> Import from WEB</a></li>
+<li class="chapter" data-level="3.14.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.14.2</b> Export as CSV</a></li>
+<li class="chapter" data-level="3.14.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>3.14.3</b> Export non-CSV files</a></li>
+<li class="chapter" data-level="3.14.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.14.4</b> Reading From Text Files</a></li>
+<li class="chapter" data-level="3.14.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.14.5</b> Writing Data to Text Files</a></li>
+<li class="chapter" data-level="3.14.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.14.6</b> .XLS(X) files</a></li>
+<li class="chapter" data-level="3.14.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.14.7</b> Massive files</a></li>
+<li class="chapter" data-level="3.14.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.14.8</b> Databases</a></li>
 </ul></li>
-<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.13</b> Functions</a></li>
-<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.14</b> Looping</a></li>
-<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.15</b> Apply</a></li>
-<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.16</b> Recursion</a></li>
-<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.17</b> Dates and Times</a></li>
-<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.18</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.19</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.15</b> Functions</a></li>
+<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.16</b> Looping</a></li>
+<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.17</b> Apply</a></li>
+<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.18</b> Recursion</a></li>
+<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.19</b> Dates and Times</a></li>
+<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.20</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.21</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
 <li class="chapter" data-level="4.1" data-path="eda.html"><a href="eda.html#summary-statistics"><i class="fa fa-check"></i><b>4.1</b> Summary Statistics</a><ul>
@@ -168,7 +171,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3.1" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.1</b> Testing a Hypothesis on a Single Coefficient</a></li>
 <li class="chapter" data-level="5.3.2" data-path="lm.html"><a href="lm.html#constructing-a-confidence-interval-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.2</b> Constructing a Confidence Interval on a Single Coefficient</a></li>
 <li class="chapter" data-level="5.3.3" data-path="lm.html"><a href="lm.html#multiple-regression"><i class="fa fa-check"></i><b>5.3.3</b> Multiple Regression</a></li>
-<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>5.3.4</b> Testing a Hypothesis on a Single Contrast</a></li>
+<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast-returning-to-the-model-without-interactions-lm.2."><i class="fa fa-check"></i><b>5.3.4</b> Testing a Hypothesis on a Single Contrast (*) Returning to the model without interactions, <code>lm.2</code>.</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="5.5" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
@@ -185,7 +188,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
 <li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#manova"><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA</a></li>
+<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#relation-to-manova-manova-multivariate-analysis-of-variance-manova-deals-with-the-estimation-of-effect-on-vector-valued-outcomes.-put-differently-in-anova-the-response-y-is-univariate-in-manova-the-outcome-is-multivariate.-manova-is-useful-when-there-are-correlations-among-the-entries-of-y.-otherwise--one-may-simply-solve-many-anova-problems-instead-of-a-single-manova."><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA (*) {#manova} Multivariate analysis of variance (MANOVA) deals with the estimation of effect on vector valued outcomes. Put differently: in ANOVA the response, <span class="math inline">\(y\)</span>, is univariate In MANOVA, the outcome is multivariate. MANOVA is useful when there are correlations among the entries of <span class="math inline">\(y\)</span>. Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
@@ -204,11 +207,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>8.3.1</b> Signal Identification in R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation</a></li>
-<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression</a><ul>
+<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation (*)</a></li>
+<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression (*)</a><ul>
 <li class="chapter" data-level="8.5.1" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression-with-r"><i class="fa fa-check"></i><b>8.5.1</b> Multivariate Regression with R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models</a><ul>
+<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models (*)</a><ul>
 <li class="chapter" data-level="8.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>8.6.1</b> Graphical Models in R</a></li>
 </ul></li>
 <li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
@@ -252,8 +255,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>11</b> Plotting</a><ul>
 <li class="chapter" data-level="11.1" data-path="plotting.html"><a href="plotting.html#the-graphics-system"><i class="fa fa-check"></i><b>11.1</b> The graphics System</a><ul>
 <li class="chapter" data-level="11.1.1" data-path="plotting.html"><a href="plotting.html#using-existing-plotting-functions"><i class="fa fa-check"></i><b>11.1.1</b> Using Existing Plotting Functions</a></li>
-<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#fancy-graphics-examples"><i class="fa fa-check"></i><b>11.1.2</b> Fancy graphics Examples</a></li>
-<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.3</b> Exporting a Plot</a></li>
+<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.2</b> Exporting a Plot</a></li>
+<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#fancy"><i class="fa fa-check"></i><b>11.1.3</b> Fancy graphics Examples</a></li>
 </ul></li>
 <li class="chapter" data-level="11.2" data-path="plotting.html"><a href="plotting.html#the-ggplot2-system"><i class="fa fa-check"></i><b>11.2</b> The ggplot2 System</a></li>
 <li class="chapter" data-level="11.3" data-path="plotting.html"><a href="plotting.html#interactive-graphics"><i class="fa fa-check"></i><b>11.3</b> Interactive Graphics</a><ul>
@@ -312,14 +315,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
 </ul></li>
-<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.4.1</b> matter</a></li>
+<li class="chapter" data-level="15.4.2" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.4.2</b> iotools</a></li>
+</ul></li>
 <li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.5</b> Computing from a Distributed File System</a></li>
 <li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.6</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#practice-yourself-13"><i class="fa fa-check"></i><b>15.7</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Explicit Parallelism</a></li>
-<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Explicit Parallelism</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
+</ul></li>
 <li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-14"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
 </ul></li>
@@ -345,7 +353,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="20.1" data-path="debugging.html"><a href="debugging.html#bibliographic-notes-16"><i class="fa fa-check"></i><b>20.1</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="20.2" data-path="debugging.html"><a href="debugging.html#practice-yourself-18"><i class="fa fa-check"></i><b>20.2</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="bib.html"><a href="bib.html"><i class="fa fa-check"></i><b>21</b> Bibliography</a></li>
+<li class="chapter" data-level="21" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>21</b> data.table</a></li>
+<li class="chapter" data-level="22" data-path="bib.html"><a href="bib.html"><i class="fa fa-check"></i><b>22</b> Bibliography</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -373,7 +382,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul>
 <li>Ctrl+Return to run lines from editor.</li>
 <li>Alt+Shift+k for RStudio keyboard shortcuts.</li>
-<li>Alt+Shift+j to navigate between sections</li>
+<li>Ctrl+r to browse the command history.</li>
+<li>Alt+Shift+j to navigate between code sections</li>
 <li>tab for auto-completion</li>
 <li>Ctrl+1 to skip to editor.</li>
 <li>Ctrl+2 to skip to console.</li>
@@ -386,16 +396,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Alt+Shift+o unfold all.</li>
 </ul></li>
 </ul>
+<div id="file-types" class="section level2">
+<h2><span class="header-section-number">3.1</span> File types</h2>
+<p>The file types you need to know when using R are the following:</p>
+<ul>
+<li><strong>.R</strong>: An ASCII text file containing R scripts only.</li>
+<li><strong>.Rmd</strong>: An ASCII text file. If opened in RStudio can be run as an R-Notebook or compiled using knitr, bookdown, etc.</li>
+</ul>
+</div>
 <div id="simple-calculator" class="section level2">
-<h2><span class="header-section-number">3.1</span> Simple calculator</h2>
-<p>R can be used as a simple calculator.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">10+5</span></code></pre></div>
+<h2><span class="header-section-number">3.2</span> Simple calculator</h2>
+<p>R can be used as a simple calculator. Create a new R Notebook (.Rmd file) within RStudio using File-&gt; New -&gt; R Notebook, and run the following commands.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">10</span><span class="op">+</span><span class="dv">5</span></code></pre></div>
 <pre><code>## [1] 15</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">70</span>*<span class="dv">81</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">70</span><span class="op">*</span><span class="dv">81</span></code></pre></div>
 <pre><code>## [1] 5670</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span>**<span class="dv">4</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span><span class="op">**</span><span class="dv">4</span></code></pre></div>
 <pre><code>## [1] 16</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span>^<span class="dv">4</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span><span class="op">^</span><span class="dv">4</span></code></pre></div>
 <pre><code>## [1] 16</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(<span class="dv">10</span>)                         </code></pre></div>
 <pre><code>## [1] 2.302585</code></pre>
@@ -405,18 +423,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <pre><code>## [1] 3</code></pre>
 </div>
 <div id="probability-calculator" class="section level2">
-<h2><span class="header-section-number">3.2</span> Probability calculator</h2>
-<p>R can be used as a probability calculator. You probably wish you knew this when you did your Intro To Probability.</p>
-<p>The binomial distribution function:</p>
+<h2><span class="header-section-number">3.3</span> Probability calculator</h2>
+<p>R can be used as a probability calculator. You probably wish you knew this when you did your Intro To Probability classes.</p>
+<p>The Binomial distribution function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbinom</span>(<span class="dt">x=</span><span class="dv">3</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>)  <span class="co"># Compute P(X=3) for X~B(n=10, p=0.5) </span></code></pre></div>
 <pre><code>## [1] 0.1171875</code></pre>
 <p>Notice that arguments do not need to be named explicitly</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbinom</span>(<span class="dv">3</span>, <span class="dv">10</span>, <span class="fl">0.5</span>)</code></pre></div>
 <pre><code>## [1] 0.1171875</code></pre>
-<p>The binomial cumulative distribution function (CDF):</p>
+<p>The Binomial cumulative distribution function (CDF):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pbinom</span>(<span class="dt">q=</span><span class="dv">3</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>) <span class="co"># Compute P(X&lt;=3) for X~B(n=10, p=0.5)   </span></code></pre></div>
 <pre><code>## [1] 0.171875</code></pre>
-<p>The binomial quantile function:</p>
+<p>The Binomial quantile function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qbinom</span>(<span class="dt">p=</span><span class="fl">0.1718</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>) <span class="co"># For X~B(n=10, p=0.5) returns k such that P(X&lt;=k)=0.1718</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>Generate random variables:</p>
@@ -431,15 +449,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <p>Demonstrating this idea, using the CDF of several popular distributions:</p>
 <ul>
-<li><code>pbinom()</code> for the binomial CDF.</li>
+<li><code>pbinom()</code> for the Binomial CDF.</li>
 <li><code>ppois()</code> for the Poisson CDF.</li>
 <li><code>pnorm()</code> for the Gaussian CDF.</li>
-<li><code>pexp()</code> for the exponential CDF.</li>
+<li><code>pexp()</code> for the Exponential CDF.</li>
 </ul>
 <p>For more information see <code>?distributions</code>.</p>
 </div>
 <div id="getting-help" class="section level2">
-<h2><span class="header-section-number">3.3</span> Getting Help</h2>
+<h2><span class="header-section-number">3.4</span> Getting Help</h2>
 <p>One of the most important parts of working with a language, is to know where to find help. R has several in-line facilities, besides the various help resources in the R <a href="intro.html#ecosystem">ecosystem</a>.</p>
 <p>Get help for a particular function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?dbinom 
@@ -451,16 +469,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help.start</span>() </code></pre></div>
 </div>
 <div id="variable-asignment" class="section level2">
-<h2><span class="header-section-number">3.4</span> Variable Asignment</h2>
+<h2><span class="header-section-number">3.5</span> Variable Asignment</h2>
 <p>Assignment of some output into an object named “x”:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x =<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>) <span class="co"># Works. Bad style.</span>
 x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>) </code></pre></div>
 <p>If you are familiar with other programming languages you may prefer the <code>=</code> assignment rather than the <code>&lt;-</code> assignment. We recommend you make the effort to change your preferences. This is because thinking with <code>&lt;-</code> helps to read your code, distinguishes between assignments and function arguments: think of <code>function(argument=value)</code> versus <code>function(argument&lt;-value)</code>. It also helps understand special assignment operators such as <code>&lt;&lt;-</code> and <code>-&gt;</code>.</p>
 
 <div class="remark">
-<span class="remark"><em>Remark. </em></span> <strong>Style</strong>: We do not discuss style guidelines in this text, but merely remind the reader that good style is extremely important. When you write code, think of other readers, but also think of future self. See <a href="http://adv-r.had.co.nz/Style.html">Hadley’s style guide</a> for more.
+ <span class="remark"><em>Remark. </em></span> <strong>Style</strong>: We do not discuss style guidelines in this text, but merely remind the reader that good style is extremely important. When you write code, think of other readers, but also think of future self. See <a href="http://adv-r.had.co.nz/Style.html">Hadley’s style guide</a> for more.
 </div>
-<p></p>
+
 <p>To print the contents of an object just type its name</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x</code></pre></div>
 <pre><code>##  [1] 7 4 6 3 4 5 2 5 7 4</code></pre>
@@ -491,55 +509,50 @@ x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">
 <p>You may think that if an object is removed then its memory is freed. This is almost true, and depends on a negotiation mechanism between R and the operating system. R’s memory management is discussed in Chapter <a href="memory.html#memory">15</a>.</p>
 </div>
 <div id="piping" class="section level2">
-<h2><span class="header-section-number">3.5</span> Piping</h2>
+<h2><span class="header-section-number">3.6</span> Piping</h2>
 <p>Because R originates in Unix and Linux environments, it inherits much of its flavor. <a href="http://ryanstutorials.net/linuxtutorial/piping.php">Piping</a> is an idea taken from the Linux shell which allows to use the output of one expression as the input to another. Piping thus makes code easier to read and write.</p>
 
 <div class="remark">
-<span class="remark"><em>Remark. </em></span> Volleyball fans may be confused with the idea of spiking a ball from the 3-meter line, also called <a href="https://www.youtube.com/watch?v=GWW15Nr1lQM">piping</a>. So: (a) These are very different things. (b) If you can pipe, <a href="http://in.bgu.ac.il/sport/Pages/asa.aspx">ASA-BGU</a> is looking for you!
+ <span class="remark"><em>Remark. </em></span> Volleyball fans may be confused with the idea of spiking a ball from the 3-meter line, also called <a href="https://www.youtube.com/watch?v=GWW15Nr1lQM">piping</a>. So: (a) These are very different things. (b) If you can pipe, <a href="http://in.bgu.ac.il/sport/Pages/asa.aspx">ASA-BGU</a> is looking for you!
 </div>
-<p></p>
+
 <p>Prerequisites:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr) <span class="co"># load the piping functions</span>
 x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">1000</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>) <span class="co"># generate some toy data</span></code></pre></div>
 <p>Examples</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x %&gt;%<span class="st"> </span><span class="kw">var</span>() <span class="co"># Instead of var(x)</span>
-x %&gt;%<span class="st"> </span><span class="kw">hist</span>()  <span class="co"># Instead of hist(x)</span>
-x %&gt;%<span class="st"> </span><span class="kw">mean</span>() %&gt;%<span class="st"> </span><span class="kw">round</span>(<span class="dv">2</span>) %&gt;%<span class="st"> </span><span class="kw">add</span>(<span class="dv">10</span>) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">var</span>() <span class="co"># Instead of var(x)</span>
+x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">hist</span>()  <span class="co"># Instead of hist(x)</span>
+x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add</span>(<span class="dv">10</span>) </code></pre></div>
 <p>The next example<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> demonstrates the benefits of piping. The next two chunks of code do the same thing. Try parsing them in your mind:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Functional (onion) style</span>
 car_data &lt;-<span class="st"> </span>
-<span class="st">  </span><span class="kw">transform</span>(<span class="kw">aggregate</span>(. ~<span class="st"> </span>cyl, 
-                      <span class="dt">data =</span> <span class="kw">subset</span>(mtcars, hp &gt;<span class="st"> </span><span class="dv">100</span>), 
-                      <span class="dt">FUN =</span> function(x) <span class="kw">round</span>(<span class="kw">mean</span>(x, <span class="dv">2</span>))), 
-            <span class="dt">kpl =</span> mpg*<span class="fl">0.4251</span>)</code></pre></div>
+<span class="st">  </span><span class="kw">transform</span>(<span class="kw">aggregate</span>(. <span class="op">~</span><span class="st"> </span>cyl, 
+                      <span class="dt">data =</span> <span class="kw">subset</span>(mtcars, hp <span class="op">&gt;</span><span class="st"> </span><span class="dv">100</span>), 
+                      <span class="dt">FUN =</span> <span class="cf">function</span>(x) <span class="kw">round</span>(<span class="kw">mean</span>(x, <span class="dv">2</span>))), 
+            <span class="dt">kpl =</span> mpg<span class="op">*</span><span class="fl">0.4251</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Piping (magrittr) style</span>
 car_data &lt;-<span class="st"> </span>
-<span class="st">  </span>mtcars %&gt;%
-<span class="st">  </span><span class="kw">subset</span>(hp &gt;<span class="st"> </span><span class="dv">100</span>) %&gt;%
-<span class="st">  </span><span class="kw">aggregate</span>(. ~<span class="st"> </span>cyl, <span class="dt">data =</span> ., <span class="dt">FUN =</span> . %&gt;%<span class="st"> </span>mean %&gt;%<span class="st"> </span><span class="kw">round</span>(<span class="dv">2</span>)) %&gt;%
-<span class="st">  </span><span class="kw">transform</span>(<span class="dt">kpl =</span> mpg %&gt;%<span class="st"> </span><span class="kw">multiply_by</span>(<span class="fl">0.4251</span>)) %&gt;%
+<span class="st">  </span>mtcars <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">subset</span>(hp <span class="op">&gt;</span><span class="st"> </span><span class="dv">100</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">aggregate</span>(. <span class="op">~</span><span class="st"> </span>cyl, <span class="dt">data =</span> ., <span class="dt">FUN =</span> . <span class="op">%&gt;%</span><span class="st"> </span>mean <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">2</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">transform</span>(<span class="dt">kpl =</span> mpg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">multiply_by</span>(<span class="fl">0.4251</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span>print</code></pre></div>
 <p>Tip: RStudio has a keyboard shortcut for the <code>%&gt;%</code> operator. Try Ctrl+Shift+m.</p>
 </div>
 <div id="vector-creation-and-manipulation" class="section level2">
-<h2><span class="header-section-number">3.6</span> Vector Creation and Manipulation</h2>
+<h2><span class="header-section-number">3.7</span> Vector Creation and Manipulation</h2>
 <p>The most basic building block in R is the <strong>vector</strong>. We will now see how to create them, and access their elements (i.e. subsetting). Here are three ways to create the same arbitrary vector:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>, <span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">21</span>) <span class="co"># manually</span>
-<span class="dv">10</span>:<span class="dv">21</span> <span class="co"># the `:` operator                            </span>
+<span class="dv">10</span><span class="op">:</span><span class="dv">21</span> <span class="co"># the `:` operator                            </span>
 <span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">10</span>, <span class="dt">to=</span><span class="dv">21</span>, <span class="dt">by=</span><span class="dv">1</span>) <span class="co"># the seq() function</span></code></pre></div>
 <p>Let’s assign it to the object named “x”:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>, <span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">21</span>)  </code></pre></div>
-
-<div class="remark">
-<span class="remark"><em>Remark. </em></span> In line with the linux look and feel, variables starting with a dot (.) are saved but are hidden. To show them see <code>?ls</code>.
-</div>
-<p></p>
 <p>Operations usually work element-wise:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x<span class="dv">+2</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x<span class="op">+</span><span class="dv">2</span></code></pre></div>
 <pre><code>##  [1] 12 13 14 15 16 17 18 19 20 21 22 23</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x*<span class="dv">2</span>    </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x<span class="op">*</span><span class="dv">2</span>    </code></pre></div>
 <pre><code>##  [1] 20 22 24 26 28 30 32 34 36 38 40 42</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x^<span class="dv">2</span>    </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x<span class="op">^</span><span class="dv">2</span>    </code></pre></div>
 <pre><code>##  [1] 100 121 144 169 196 225 256 289 324 361 400 441</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(x)  </code></pre></div>
 <pre><code>##  [1] 3.162278 3.316625 3.464102 3.605551 3.741657 3.872983 4.000000
@@ -549,45 +562,45 @@ car_data &lt;-<span class="st"> </span>
 ##  [8] 2.833213 2.890372 2.944439 2.995732 3.044522</code></pre>
 </div>
 <div id="search-paths-and-packages" class="section level2">
-<h2><span class="header-section-number">3.7</span> Search Paths and Packages</h2>
+<h2><span class="header-section-number">3.8</span> Search Paths and Packages</h2>
 <p>R can be easily extended with packages, which are merely a set of documented functions, which can be loaded or unloaded conveniently. Let’s look at the function <code>read.csv</code>. We can see its contents by calling it without arguments:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read.csv</code></pre></div>
 <pre><code>## function (file, header = TRUE, sep = &quot;,&quot;, quote = &quot;\&quot;&quot;, dec = &quot;.&quot;, 
 ##     fill = TRUE, comment.char = &quot;&quot;, ...) 
 ## read.table(file = file, header = header, sep = sep, quote = quote, 
 ##     dec = dec, fill = fill, comment.char = comment.char, ...)
-## &lt;bytecode: 0x4334a28&gt;
+## &lt;bytecode: 0x6b35a60&gt;
 ## &lt;environment: namespace:utils&gt;</code></pre>
-<p>Never mind what the function does. Note the <code>environment: namespace:utils</code> line at the end. It tells us that this function is part of the <strong>utils</strong> package. We did not need to know this because it is loaded by default. Here are the packages that are currently loaded:</p>
+<p>Never mind what the function does. Note the <code>environment: namespace:utils</code> line at the end. It tells us that this function is part of the <strong>utils</strong> package. We did not need to know this because it is loaded by default. Here are some packages that I have currently loaded:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">search</span>())</code></pre></div>
 <pre><code>## [1] &quot;.GlobalEnv&quot;         &quot;package:doSNOW&quot;     &quot;package:snow&quot;      
 ## [4] &quot;package:doParallel&quot; &quot;package:parallel&quot;   &quot;package:iterators&quot;</code></pre>
 <p>Other packages can be loaded via the <code>library</code> function, or downloaded from the internet using the <code>install.packages</code> function before loading with <code>library</code>. R’s package import mechanism is quite powerful, and is one of the reasons for R’s success.</p>
 </div>
 <div id="simple-plotting" class="section level2">
-<h2><span class="header-section-number">3.8</span> Simple Plotting</h2>
+<h2><span class="header-section-number">3.9</span> Simple Plotting</h2>
 <p>R has many plotting facilities as we will further detail in the Plotting Chapter <a href="plotting.html#plotting">11</a>. We start with the simplest facilities, namely, the <code>plot</code> function from the <strong>graphics</strong> package, which is loaded by default.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x&lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">100</span>
-y&lt;-<span class="st"> </span><span class="dv">3</span>+<span class="kw">sin</span>(x) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x&lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span>
+y&lt;-<span class="st"> </span><span class="dv">3</span><span class="op">+</span><span class="kw">sin</span>(x) 
 <span class="kw">plot</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y) <span class="co"># x,y syntax                         </span></code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-30-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-29-1.png" width="50%" /></p>
 <p>Given an <code>x</code> argument and a <code>y</code> argument, <code>plot</code> tries to present a scatter plot. We call this the <code>x,y</code> syntax. R has another unique syntax to state functional relations. We call <code>y~x</code> the “tilde” syntax, which originates in works of <span class="citation">G. Wilkinson and Rogers (<a href="#ref-wilkinson1973symbolic">1973</a>)</span> and was adopted in the early days of S.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y ~<span class="st"> </span>x) <span class="co"># y~x syntax </span></code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-31-1.png" width="50%" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x) <span class="co"># y~x syntax </span></code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-30-1.png" width="50%" /></p>
 <p>The syntax <code>y~x</code> is read as “y is a function of x”. We will prefer the <code>y~x</code> syntax over the <code>x,y</code> syntax since it is easier to read, and will be very useful when we discuss more complicated models.</p>
 <p>Here are some arguments that control the plot’s appearance. We use <code>type</code> to control the plot type, <code>main</code> to control the main title.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y~x, <span class="dt">type=</span><span class="st">&#39;l&#39;</span>, <span class="dt">main=</span><span class="st">&#39;Plotting a connected line&#39;</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-32-1.png" width="50%" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y<span class="op">~</span>x, <span class="dt">type=</span><span class="st">&#39;l&#39;</span>, <span class="dt">main=</span><span class="st">&#39;Plotting a connected line&#39;</span>) </code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-31-1.png" width="50%" /></p>
 <p>We use <code>xlab</code> for the x-axis label, <code>ylab</code> for the y-axis.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y~x, <span class="dt">type=</span><span class="st">&#39;h&#39;</span>, <span class="dt">main=</span><span class="st">&#39;Sticks plot&#39;</span>, <span class="dt">xlab=</span><span class="st">&#39;Insert x axis label&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;Insert y axis label&#39;</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-33-1.png" width="50%" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y<span class="op">~</span>x, <span class="dt">type=</span><span class="st">&#39;h&#39;</span>, <span class="dt">main=</span><span class="st">&#39;Sticks plot&#39;</span>, <span class="dt">xlab=</span><span class="st">&#39;Insert x axis label&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;Insert y axis label&#39;</span>) </code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-32-1.png" width="50%" /></p>
 <p>We use <code>pch</code> to control the point type.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y~x, <span class="dt">pch=</span><span class="dv">5</span>) <span class="co"># Point type with pcf</span></code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-34-1.png" width="50%" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y<span class="op">~</span>x, <span class="dt">pch=</span><span class="dv">5</span>) <span class="co"># Point type with pcf</span></code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-33-1.png" width="50%" /></p>
 <p>We use <code>col</code> to control the color, <code>cex</code> for the point size, and <code>abline</code> to add a straight line.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y~x, <span class="dt">pch=</span><span class="dv">10</span>, <span class="dt">type=</span><span class="st">&#39;p&#39;</span>, <span class="dt">col=</span><span class="st">&#39;blue&#39;</span>, <span class="dt">cex=</span><span class="dv">4</span>) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y<span class="op">~</span>x, <span class="dt">pch=</span><span class="dv">10</span>, <span class="dt">type=</span><span class="st">&#39;p&#39;</span>, <span class="dt">col=</span><span class="st">&#39;blue&#39;</span>, <span class="dt">cex=</span><span class="dv">4</span>) 
 <span class="kw">abline</span>(<span class="dv">3</span>, <span class="fl">0.002</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-35-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-34-1.png" width="50%" /></p>
 <p>For more plotting options run these</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">example</span>(plot)
 <span class="kw">example</span>(points)
@@ -596,7 +609,7 @@ y&lt;-<span class="st"> </span><span class="dv">3</span>+<span class="kw">sin</s
 <p>When your plotting gets serious, go to Chapter <a href="plotting.html#plotting">11</a>.</p>
 </div>
 <div id="object-types" class="section level2">
-<h2><span class="header-section-number">3.9</span> Object Types</h2>
+<h2><span class="header-section-number">3.10</span> Object Types</h2>
 <p>We already saw that the basic building block of R objects is the vector. Vectors can be of the following types:</p>
 <ul>
 <li><strong>character</strong> Where each element is a string, i.e., a sequence of alphanumeric symbols.</li>
@@ -605,16 +618,16 @@ y&lt;-<span class="st"> </span><span class="dv">3</span>+<span class="kw">sin</s
 <li><strong>logical</strong> Where each element is either TRUE, FALSE, or NA<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></li>
 <li><strong>complex</strong> Where each element is a complex number.</li>
 <li><strong>list</strong> Where each element is an arbitrary R object.</li>
-<li><strong>factor</strong> Factors are not actually vector objects, but they feel like such. They are used to encode any finite set of values. This will be very useful when fitting linear model, but may be confusing if you think you are dealing with a character vector when in fact you are dealing with a factor. Be alert!</li>
+<li><strong>factor</strong> Factors are not actually vector objects, but they feel like such. They are used to encode any finite set of values. This will be very useful when fitting linear model because they include information on contrasts, i.e., on the encoding of the factors levels. You should always be alert and recall when you are dealing with a factor or with a character vector. They have different behaviors.</li>
 </ul>
 <p>Vectors can be combined into larger objects. A <code>matrix</code> can be thought of as the binding of several vectors of the same type. In reality, a matrix is merely a vector with a dimension attribute, that tells R to read it as a matrix and not a vector.</p>
-<p>If vectors of different types (but same length) are binded, we get a <code>data.frame</code> which is the most fundamental object in R for data analysis.</p>
+<p>If vectors of different types (but same length) are binded, we get a <code>data.frame</code> which is the most fundamental object in R for data analysis. Data frames are brilliant, but a lot has been learned since their invention. They have thus been extended in recent years with the <code>data.table</code> class in the <strong>data.table</strong> package, and <code>tbl</code> class, pronounced [Tibble] (<a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html" class="uri">https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html</a>).</p>
 </div>
 <div id="data-frames" class="section level2">
-<h2><span class="header-section-number">3.10</span> Data Frames</h2>
+<h2><span class="header-section-number">3.11</span> Data Frames</h2>
 <p>Creating a simple data frame:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x&lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>
-y&lt;-<span class="st"> </span><span class="dv">3</span> +<span class="st"> </span><span class="kw">sin</span>(x) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x&lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>
+y&lt;-<span class="st"> </span><span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="kw">sin</span>(x) 
 frame1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>x, <span class="dt">sin=</span>y)    </code></pre></div>
 <p>Let’s inspect our data frame:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(frame1)</code></pre></div>
@@ -626,8 +639,8 @@ frame1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span cl
 ## 5 5 2.041076
 ## 6 6 2.720585</code></pre>
 <p>Now using the RStudio Excel-like viewer:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">frame1 %&gt;%<span class="st"> </span><span class="kw">View</span>() </code></pre></div>
-<p>We highly advise against editing the data this way since there will be no documentation of the changes you made.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">frame1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">View</span>() </code></pre></div>
+<p>We highly advise against editing the data this way since there will be no documentation of the changes you made. Always transform your data using scripts, so that everything is documented.</p>
 <p>Verifying this is a data frame:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1) <span class="co"># the object is of type data.frame</span></code></pre></div>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
@@ -642,7 +655,7 @@ frame1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span cl
 <pre><code>## [1] 2</code></pre>
 </div>
 <div id="exctraction" class="section level2">
-<h2><span class="header-section-number">3.11</span> Exctraction</h2>
+<h2><span class="header-section-number">3.12</span> Exctraction</h2>
 <p>R provides many ways to subset and extract elements from vectors and other objects. The basics are fairly simple, but not paying attention to the “personality” of each extraction mechanism may cause you a lot of headache.</p>
 <p>For starters, extraction is done with the <code>[</code> operator. The operator can take vectors of many types.</p>
 <p>Extracting element with by integer index:</p>
@@ -660,13 +673,13 @@ frame1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span cl
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1[<span class="st">&#39;sin&#39;</span>])  <span class="co"># extracts a data frame</span></code></pre></div>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1[,<span class="dv">1</span>:<span class="dv">2</span>])  <span class="co"># extracts a data frame</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])  <span class="co"># extracts a data frame</span></code></pre></div>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1[<span class="dv">2</span>])  <span class="co"># extracts a data frame</span></code></pre></div>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1[<span class="dv">2</span>, ])  <span class="co"># extract a data frame</span></code></pre></div>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1$sin)  <span class="co"># extracts a column vector</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1<span class="op">$</span>sin)  <span class="co"># extracts a column vector</span></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <p>The <code>subset()</code> function does the same</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">subset</span>(frame1, <span class="dt">select=</span>sin) 
@@ -675,7 +688,9 @@ frame1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span cl
 <p>If you want to force the stripping of the class attribute when extracting, try the <code>[[</code> mechanism instead of <code>[</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span>frame1[<span class="dv">1</span>] <span class="co"># [ extraction</span>
 b &lt;-<span class="st"> </span>frame1[[<span class="dv">1</span>]] <span class="co"># [[ extraction</span>
-a==b <span class="co"># objects are element-wise identical </span></code></pre></div>
+<span class="kw">class</span>(a)<span class="op">==</span><span class="kw">class</span>(b) <span class="co"># objects have differing classes</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a<span class="op">==</span>b <span class="co"># objects are element-wise identical </span></code></pre></div>
 <pre><code>##          x
 ##  [1,] TRUE
 ##  [2,] TRUE
@@ -687,8 +702,6 @@ a==b <span class="co"># objects are element-wise identical </span></code></pre><
 ##  [8,] TRUE
 ##  [9,] TRUE
 ## [10,] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(a)==<span class="kw">class</span>(b)</code></pre></div>
-<pre><code>## [1] FALSE</code></pre>
 <p>The different types of output classes cause different behaviors. Compare the behavior of <code>[</code> on seemingly identical objects.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">frame1[<span class="dv">1</span>][<span class="dv">1</span>]</code></pre></div>
 <pre><code>##     x
@@ -706,11 +719,15 @@ a==b <span class="co"># objects are element-wise identical </span></code></pre><
 <pre><code>## [1] 1</code></pre>
 <p>If you want to learn more about subsetting see <a href="http://adv-r.had.co.nz/Subsetting.html">Hadley’s guide</a>.</p>
 </div>
+<div id="non-data.frame-object-classes" class="section level2">
+<h2><span class="header-section-number">3.13</span> Non data.frame object classes</h2>
+<p>As previously mentioned, the <code>data.frame</code> class has been extended in recent years. The best known extensions are the <code>data.table</code> and the <code>tbl</code>. For beginners, it is important to know R’s basics, so we keep focusing on data frames. For more advanced users, I recommend learning the (amazing) <code>data.table</code> syntax.</p>
+</div>
 <div id="data-import-and-export" class="section level2">
-<h2><span class="header-section-number">3.12</span> Data Import and Export</h2>
+<h2><span class="header-section-number">3.14</span> Data Import and Export</h2>
 <p>For any practical purpose, you will not be generating your data manually. R comes with many importing and exporting mechanisms which we now present. If, however, you do a lot of data “munging”, make sure to see Hadley-verse Chapter <a href="hadley.html#hadley">13</a>. If you work with MASSIVE data sets, read the Memory Efficiency Chapter <a href="memory.html#memory">15</a>.</p>
 <div id="import-from-web" class="section level3">
-<h3><span class="header-section-number">3.12.1</span> Import from WEB</h3>
+<h3><span class="header-section-number">3.14.1</span> Import from WEB</h3>
 <p>The <code>read.table</code> function is the main importing workhorse. It can import directly from the web.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">URL &lt;-<span class="st"> &#39;http://statweb.stanford.edu/~tibs/ElemStatLearn/datasets/bone.data&#39;</span>
 tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(URL)</code></pre></div>
@@ -723,12 +740,12 @@ tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(URL)</c
 ## 4     1 13.75   male 0.005857545
 ## 5     2 13.25   male  0.01026393
 ## 6     2  14.3   male   0.2105263</code></pre>
-<p>Ohh dear. The header row was not recognized. Fix with <code>header=TRUE</code>:</p>
+<p>Ohh dear. <code>read.,table</code> tried to guess the structure of the input, but failed to recognize the header row. Set it manually with <code>header=TRUE</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(URL, <span class="dt">header =</span> <span class="ot">TRUE</span>) 
 <span class="kw">head</span>(tirgul1)</code></pre></div>
 </div>
 <div id="export-as-csv" class="section level3">
-<h3><span class="header-section-number">3.12.2</span> Export as CSV</h3>
+<h3><span class="header-section-number">3.14.2</span> Export as CSV</h3>
 <p>Let’s write a simple file so that we have something to import</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(airquality) <span class="co">#  examine the data to export</span></code></pre></div>
 <pre><code>##   Ozone Solar.R Wind Temp Month Day
@@ -752,12 +769,16 @@ tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(URL)</c
 ## 6 6    28      NA 14.9   66     5   6</code></pre>
 
 <div class="remark">
-<span class="remark"><em>Remark. </em></span> Windows users may need to use “\” instead of “/”.
+ <span class="remark"><em>Remark. </em></span> Windows users may need to use “\” instead of “/”.
 </div>
-<p></p>
+
+</div>
+<div id="export-non-csv-files" class="section level3">
+<h3><span class="header-section-number">3.14.3</span> Export non-CSV files</h3>
+<p>You can export your R objects in endlessly many ways: If insread of the comma delimiter in .csv you want other column delimiters, look into <code>?write.table</code>. If you are exporting only for R users, you can consider exporting as binary objects with <code>saveRDS</code>, <code>feather::write_feather</code>, or <code>fst::write.fst</code>. See (<a href="http://www.fstpackage.org/" class="uri">http://www.fstpackage.org/</a>) for a comparison.</p>
 </div>
 <div id="reading-from-text-files" class="section level3">
-<h3><span class="header-section-number">3.12.3</span> Reading From Text Files</h3>
+<h3><span class="header-section-number">3.14.4</span> Reading From Text Files</h3>
 <p>Some general notes on importing text files via the <code>read.table</code> function. But first, we need to know what is the active directory. Here is how to get and set R’s active directory:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>() <span class="co">#What is the working directory?</span>
 <span class="kw">setwd</span>() <span class="co">#Setting the working directory in Linux</span></code></pre></div>
@@ -765,32 +786,32 @@ tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(URL)</c
 <ul>
 <li><code>read.table</code> will try to guess column separators (tab, comma, etc.)</li>
 <li><code>read.table</code> will try to guess if a header row is present.</li>
-<li><code>read.table</code> will convert character vectors to factors unless told not to.</li>
+<li><code>read.table</code> will convert character vectors to factors unless told not to using the <code>stringsAsFactors=FALSE</code> argument.</li>
 <li>The output of <code>read.table</code> needs to be explicitly assigned to an object for it to be saved.</li>
 </ul>
 </div>
 <div id="writing-data-to-text-files" class="section level3">
-<h3><span class="header-section-number">3.12.4</span> Writing Data to Text Files</h3>
+<h3><span class="header-section-number">3.14.5</span> Writing Data to Text Files</h3>
 <p>The function <code>write.table</code> is the exporting counterpart of <code>read.table</code>.</p>
 </div>
 <div id="xlsx-files" class="section level3">
-<h3><span class="header-section-number">3.12.5</span> .XLS(X) files</h3>
+<h3><span class="header-section-number">3.14.6</span> .XLS(X) files</h3>
 <p>Strongly recommended to convert to .csv in Excel, and then import as csv. If you still insist see the <strong>xlsx</strong> package.</p>
 </div>
 <div id="massive-files" class="section level3">
-<h3><span class="header-section-number">3.12.6</span> Massive files</h3>
+<h3><span class="header-section-number">3.14.7</span> Massive files</h3>
 <p>The above importing and exporting mechanisms were not designed for massive files. See the section on Sparse Representation (<a href="sparse.html#sparse">14</a>) and Out-of-Ram Algorithms (<a href="memory.html#memory">15</a>) for more on working with massive data files.</p>
 </div>
 <div id="databases" class="section level3">
-<h3><span class="header-section-number">3.12.7</span> Databases</h3>
-<p>R does not need to read from text files; it can read directly from a database. This is very useful since it allows the filtering, selecting and joining operations to rely on the database’s optimized algorithms. See <a href="https://rforanalytics.wordpress.com/useful-links-for-r/odbc-databases-for-r/" class="uri">https://rforanalytics.wordpress.com/useful-links-for-r/odbc-databases-for-r/</a> for more information.</p>
+<h3><span class="header-section-number">3.14.8</span> Databases</h3>
+<p>R does not need to read from text files; it can read directly from a database. This is very useful since it allows the filtering, selecting and joining operations to rely on the database’s optimized algorithms. Then again, if you will only be analyzing your data with R, you are probably better of by working from a file, without the databases’ overhead. See Chapter <a href="memory.html#memory">15</a> for more on this matter.</p>
 </div>
 </div>
 <div id="functions" class="section level2">
-<h2><span class="header-section-number">3.13</span> Functions</h2>
+<h2><span class="header-section-number">3.15</span> Functions</h2>
 <p>One of the most basic building blocks of programming is the ability of writing your own functions. A function in R, like everything else, is an object accessible using its name. We first define a simple function that sums its two arguments</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my.sum &lt;-<span class="st"> </span>function(x,y) {
-  <span class="kw">return</span>(x+y)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my.sum &lt;-<span class="st"> </span><span class="cf">function</span>(x,y) {
+  <span class="kw">return</span>(x<span class="op">+</span>y)
 }
 <span class="kw">my.sum</span>(<span class="dv">10</span>,<span class="dv">2</span>)</code></pre></div>
 <pre><code>## [1] 12</code></pre>
@@ -801,36 +822,37 @@ tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(URL)</c
 <li><p>A typical R function does not change objects<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> but rather creates new ones. To save the output of <code>my.sum</code> we will need to assign it using the <code>&lt;-</code> operator.</p></li>
 </ul>
 <p>Here is a (slightly) more advanced example.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my.sum<span class="fl">.2</span> &lt;-<span class="st"> </span>function(x, y , <span class="dt">absolute=</span><span class="ot">FALSE</span>) {
-  if(absolute==<span class="ot">TRUE</span>) {
-    result &lt;-<span class="st"> </span><span class="kw">abs</span>(x+y)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my.sum.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="cf">function</span>(x, y , <span class="dt">absolute=</span><span class="ot">FALSE</span>) {
+  <span class="cf">if</span>(absolute<span class="op">==</span><span class="ot">TRUE</span>) {
+    result &lt;-<span class="st"> </span><span class="kw">abs</span>(x<span class="op">+</span>y)
   }
-  else{
-    result &lt;-<span class="st"> </span>x+y
+  <span class="cf">else</span>{
+    result &lt;-<span class="st"> </span>x<span class="op">+</span>y
   } 
   result
 }
-<span class="kw">my.sum.2</span>(-<span class="dv">10</span>,<span class="dv">2</span>, <span class="ot">TRUE</span>)</code></pre></div>
+<span class="kw">my.sum.2</span>(<span class="op">-</span><span class="dv">10</span>,<span class="dv">2</span>, <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## [1] 8</code></pre>
 <p>Things to note:</p>
 <ul>
+<li><code>if(condition){expression1} else{expression2}</code> does just what the name suggests.</li>
 <li>The function will output its last evaluated expression. You don’t need to use the <code>return</code> function explicitly.</li>
-<li>Using <code>absolute=FALSE</code> sets the default value of <code>absolute</code> to <code>FALSE</code>. This is overriden if <code>absolute</code> is stated explicitly in the function call.</li>
+<li>Using <code>absolute=FALSE</code> sets the default value of <code>absolute</code> to <code>FALSE</code>. This is overridden if <code>absolute</code> is stated explicitly in the function call.</li>
 </ul>
 <p>An important behavior of R is the <em>scoping rules</em>. This refers to the way R seeks for variables used in functions. As a rule of thumb, R will first look for variables inside the function and if not found, will search for the variable values in outer environments<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>. Think of the next example.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span>
 b &lt;-<span class="st"> </span><span class="dv">2</span>
 x &lt;-<span class="st"> </span><span class="dv">3</span>
-scoping &lt;-<span class="st"> </span>function(a,b){
-  a+b+x
+scoping &lt;-<span class="st"> </span><span class="cf">function</span>(a,b){
+  a<span class="op">+</span>b<span class="op">+</span>x
 }
 <span class="kw">scoping</span>(<span class="dv">10</span>,<span class="dv">11</span>)</code></pre></div>
 <pre><code>## [1] 24</code></pre>
 </div>
 <div id="looping" class="section level2">
-<h2><span class="header-section-number">3.14</span> Looping</h2>
+<h2><span class="header-section-number">3.16</span> Looping</h2>
 <p>The real power of scripting is when repeated operations are done by iteration. R supports the usual <code>for</code>, <code>while</code>, and <code>repated</code> loops. Here is an embarrassingly simple example</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for (i in <span class="dv">1</span>:<span class="dv">5</span>){
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>){
     <span class="kw">print</span>(i)
     }</code></pre></div>
 <pre><code>## [1] 1
@@ -838,12 +860,22 @@ scoping &lt;-<span class="st"> </span>function(a,b){
 ## [1] 3
 ## [1] 4
 ## [1] 5</code></pre>
+<p>A slightly more advanced example, is vector multiplication</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result &lt;-<span class="st"> </span><span class="dv">0</span>
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){
+  result &lt;-<span class="st"> </span>result<span class="op">+</span><span class="st"> </span>x[i]<span class="op">*</span>y[i]
+}</code></pre></div>
+
+<div class="remark">
+ <span class="remark"><em>Remark. </em></span> <strong>Vector Operations</strong>: You should NEVER write your own vector and matrix products like in the previous example. Only use existing facilities such as <code>%*%</code>, <code>sum()</code>, etc.
+</div>
+
 </div>
 <div id="apply" class="section level2">
-<h2><span class="header-section-number">3.15</span> Apply</h2>
+<h2><span class="header-section-number">3.17</span> Apply</h2>
 <p>For applying the same function to a set of elements, there is no need to write an explicit loop. This is such en elementary operation that every programming language will provide some facility to <strong>apply</strong>, or <strong>map</strong> the function to all elements of a set. R provides several facilities to perform this. The most basic of which is <code>lapply</code> which applies a function over all elements of a list, and return a list of outputs:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">the.list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span>,<span class="st">&#39;a&#39;</span>,mean)
-<span class="kw">lapply</span>(<span class="dt">X =</span> the.list, <span class="dt">FUN =</span> class)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">the.list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span>,<span class="st">&#39;a&#39;</span>,mean) <span class="co"># a list of 3 elements from different calsses</span>
+<span class="kw">lapply</span>(<span class="dt">X =</span> the.list, <span class="dt">FUN =</span> class) <span class="co"># apply the function `class` to each elements</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;numeric&quot;
 ## 
@@ -854,7 +886,7 @@ scoping &lt;-<span class="st"> </span>function(a,b){
 ## [1] &quot;standardGeneric&quot;
 ## attr(,&quot;package&quot;)
 ## [1] &quot;methods&quot;</code></pre>
-<p>R provides many variations on <code>lapply</code> to facilitate programing. Here is a partial list:</p>
+<p>R provides many variations on <code>lapply</code> to facilitate programming. Here is a partial list:</p>
 <ul>
 <li><code>sapply</code>: The same as <code>lapply</code> but tries to arrange output in a vector or matrix, and not an unstructured list.</li>
 <li><code>vapply</code>: A safer version of <code>sapply</code>, where the output class is pre-specified.</li>
@@ -864,32 +896,39 @@ scoping &lt;-<span class="st"> </span>function(a,b){
 <li><code>rapply</code>: A recursive version of <code>lapply</code>.</li>
 <li><code>eapply</code>: Like <code>lapply</code>, only operates on <code>environments</code> instead of lists.</li>
 <li><code>Map</code>+<code>Reduce</code>: For a <a href="https://en.wikipedia.org/wiki/Common_Lisp">Common Lisp</a> look and feel of <code>lapply</code>.</li>
-<li><code>parallel::parLapply</code>: A parallel version of <code>lapply</code>.</li>
-<li><code>parallel::parLBapply</code>: A parallel version of <code>lapply</code>, with load balancing.</li>
+<li><code>parallel::parLapply</code>: A parallel version of <code>lapply</code> from the package <strong>parallel</strong>.</li>
+<li><code>parallel::parLBapply</code>: A parallel version of <code>lapply</code>, with load balancing from the package <strong>parallel</strong>.</li>
 </ul>
 </div>
 <div id="recursion" class="section level2">
-<h2><span class="header-section-number">3.16</span> Recursion</h2>
+<h2><span class="header-section-number">3.18</span> Recursion</h2>
 <p>The R compiler is really not designed for recursion, and you will rarely need to do so.<br />
 See the RCpp Chapter <a href="rcpp.html#rcpp">19</a> for linking C code, which is better suited for recursion. If you really insist to write recursions in R, make sure to use the <code>Recall</code> function, which, as the name suggests, recalls the function in which it is place. Here is a demonstration with the Fibonacci series.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fib&lt;-function(n) {
-    if (n &lt;<span class="st"> </span><span class="dv">2</span>) fn&lt;-<span class="dv">1</span> 
-    else fn&lt;-<span class="kw">Recall</span>(n -<span class="st"> </span><span class="dv">1</span>) +<span class="st"> </span><span class="kw">Recall</span>(n -<span class="st"> </span><span class="dv">2</span>) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fib&lt;-<span class="cf">function</span>(n) {
+    <span class="cf">if</span> (n <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>) fn&lt;-<span class="dv">1</span> 
+    <span class="cf">else</span> fn&lt;-<span class="kw">Recall</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">Recall</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">2</span>) 
     <span class="kw">return</span>(fn)
 } 
 <span class="kw">fib</span>(<span class="dv">5</span>)</code></pre></div>
 <pre><code>## [1] 8</code></pre>
 </div>
 <div id="dates-and-times" class="section level2">
-<h2><span class="header-section-number">3.17</span> Dates and Times</h2>
+<h2><span class="header-section-number">3.19</span> Dates and Times</h2>
 <p>[TODO]</p>
 </div>
 <div id="bibliographic-notes-1" class="section level2">
-<h2><span class="header-section-number">3.18</span> Bibliographic Notes</h2>
+<h2><span class="header-section-number">3.20</span> Bibliographic Notes</h2>
 <p>There are endlessly many introductory texts on R. For a list of free resources see <a href="http://stats.stackexchange.com/questions/138/free-resources-for-learning-r">CrossValidated</a>. I personally recommend the official introduction <span class="citation">Venables et al. (<a href="#ref-venables2004introduction">2004</a>)</span>, <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf">available online</a>, or anything else Bill Venables writes. For advanced R programming see <span class="citation">Wickham (<a href="#ref-wickham2014advanced">2014</a>)</span>, <a href="http://adv-r.had.co.nz/">available online</a>, or anything else Hadley Wickham writes.</p>
+<p>For Imporitng and Exporting see (<a href="https://cran.r-project.org/doc/manuals/r-release/R-data.html" class="uri">https://cran.r-project.org/doc/manuals/r-release/R-data.html</a>). For working with databases see (<a href="https://rforanalytics.wordpress.com/useful-links-for-r/odbc-databases-for-r/" class="uri">https://rforanalytics.wordpress.com/useful-links-for-r/odbc-databases-for-r/</a>).</p>
 </div>
 <div id="practice-yourself-1" class="section level2">
-<h2><span class="header-section-number">3.19</span> Practice Yourself</h2>
+<h2><span class="header-section-number">3.21</span> Practice Yourself</h2>
+<ol style="list-style-type: decimal">
+<li>Save the numbers 1 to 100 into an object named <code>object</code>.</li>
+<li>Write a loop that computes the mean of <code>object</code>.</li>
+<li>Write a function that computes the mean of its input, and apply it on <code>object</code>.</li>
+<li>Make a matrix of random numbers using <code>A &lt;- matrix(rnorm(40), ncol=10, nrow=4)</code>. Compute the mean of each columns. Do it using your own loop and then do the same with <code>lapply</code> or <code>apply</code>.</li>
+</ol>
 
 </div>
 </div>
@@ -911,7 +950,7 @@ See the RCpp Chapter <a href="rcpp.html#rcpp">19</a> for linking C code, which i
 <li id="fn1"><p>S and S-Plus used to save objects on disk. Working from RAM has advantages and disadvantages. More on this in Chapter <a href="memory.html#memory">15</a>.<a href="basics.html#fnref1">↩</a></p></li>
 <li id="fn2"><p>Taken from <a href="http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html" class="uri">http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html</a><a href="basics.html#fnref2">↩</a></p></li>
 <li id="fn3"><p>R uses a <a href="https://en.wikipedia.org/wiki/Three-valued_logic"><strong>three</strong> valued logic</a> where a missing value (NA) is neither TRUE, nor FALSE.<a href="basics.html#fnref3">↩</a></p></li>
-<li id="fn4"><p>This is a classical <em>functional programming</em> paradigm. If you are used to <em>object oriented</em> programming, you may want to read about <a href="http://adv-r.had.co.nz/R5.html">references classes</a> which may be required if you are planning to compute with very complicated objects.<a href="basics.html#fnref4">↩</a></p></li>
+<li id="fn4"><p>This is a classical <em>functional programming</em> paradigm. If you want an object oriented flavor of R programming, see Hadley’s <a href="http://adv-r.had.co.nz/OO-essentials.html">Advanced R book</a>.<a href="basics.html#fnref4">↩</a></p></li>
 <li id="fn5"><p>More formally, this is called <a href="https://darrenjw.wordpress.com/2011/11/23/lexical-scope-and-function-closures-in-r/">Lexical Scoping</a>.<a href="basics.html#fnref5">↩</a></p></li>
 </ol>
 </div>
@@ -932,7 +971,7 @@ See the RCpp Chapter <a href="rcpp.html#rcpp">19</a> for linking C code, which i
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -966,7 +1005,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

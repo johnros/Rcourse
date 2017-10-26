@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>R (BGU course)</title>
   <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
-  <meta name="generator" content="bookdown 0.3.9 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="R (BGU course)" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-05-03">
+<meta name="date" content="2017-10-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -47,13 +47,13 @@
 
 
 
-<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
-<link href="libs/plotlyjs-1.26.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.26.1/plotly-latest.min.js"></script>
-<script src="libs/plotly-binding-4.6.0/plotly.js"></script>
+<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -121,33 +121,36 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#practice-yourself"><i class="fa fa-check"></i><b>2.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
-<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.1</b> Simple calculator</a></li>
-<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.2</b> Probability calculator</a></li>
-<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.3</b> Getting Help</a></li>
-<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.4</b> Variable Asignment</a></li>
-<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.5</b> Piping</a></li>
-<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.6</b> Vector Creation and Manipulation</a></li>
-<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.7</b> Search Paths and Packages</a></li>
-<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.8</b> Simple Plotting</a></li>
-<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.9</b> Object Types</a></li>
-<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.10</b> Data Frames</a></li>
-<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.11</b> Exctraction</a></li>
-<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.12</b> Data Import and Export</a><ul>
-<li class="chapter" data-level="3.12.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.12.1</b> Import from WEB</a></li>
-<li class="chapter" data-level="3.12.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.12.2</b> Export as CSV</a></li>
-<li class="chapter" data-level="3.12.3" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.12.3</b> Reading From Text Files</a></li>
-<li class="chapter" data-level="3.12.4" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.12.4</b> Writing Data to Text Files</a></li>
-<li class="chapter" data-level="3.12.5" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.12.5</b> .XLS(X) files</a></li>
-<li class="chapter" data-level="3.12.6" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.12.6</b> Massive files</a></li>
-<li class="chapter" data-level="3.12.7" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.12.7</b> Databases</a></li>
+<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>3.1</b> File types</a></li>
+<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.2</b> Simple calculator</a></li>
+<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.3</b> Probability calculator</a></li>
+<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.4</b> Getting Help</a></li>
+<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.5</b> Variable Asignment</a></li>
+<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.6</b> Piping</a></li>
+<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.7</b> Vector Creation and Manipulation</a></li>
+<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.8</b> Search Paths and Packages</a></li>
+<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.9</b> Simple Plotting</a></li>
+<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.10</b> Object Types</a></li>
+<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.11</b> Data Frames</a></li>
+<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.12</b> Exctraction</a></li>
+<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#non-data.frame-object-classes"><i class="fa fa-check"></i><b>3.13</b> Non data.frame object classes</a></li>
+<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.14</b> Data Import and Export</a><ul>
+<li class="chapter" data-level="3.14.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.14.1</b> Import from WEB</a></li>
+<li class="chapter" data-level="3.14.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.14.2</b> Export as CSV</a></li>
+<li class="chapter" data-level="3.14.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>3.14.3</b> Export non-CSV files</a></li>
+<li class="chapter" data-level="3.14.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.14.4</b> Reading From Text Files</a></li>
+<li class="chapter" data-level="3.14.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.14.5</b> Writing Data to Text Files</a></li>
+<li class="chapter" data-level="3.14.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.14.6</b> .XLS(X) files</a></li>
+<li class="chapter" data-level="3.14.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.14.7</b> Massive files</a></li>
+<li class="chapter" data-level="3.14.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.14.8</b> Databases</a></li>
 </ul></li>
-<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.13</b> Functions</a></li>
-<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.14</b> Looping</a></li>
-<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.15</b> Apply</a></li>
-<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.16</b> Recursion</a></li>
-<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.17</b> Dates and Times</a></li>
-<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.18</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.19</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.15</b> Functions</a></li>
+<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.16</b> Looping</a></li>
+<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.17</b> Apply</a></li>
+<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.18</b> Recursion</a></li>
+<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.19</b> Dates and Times</a></li>
+<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.20</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.21</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
 <li class="chapter" data-level="4.1" data-path="eda.html"><a href="eda.html#summary-statistics"><i class="fa fa-check"></i><b>4.1</b> Summary Statistics</a><ul>
@@ -168,7 +171,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3.1" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.1</b> Testing a Hypothesis on a Single Coefficient</a></li>
 <li class="chapter" data-level="5.3.2" data-path="lm.html"><a href="lm.html#constructing-a-confidence-interval-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.2</b> Constructing a Confidence Interval on a Single Coefficient</a></li>
 <li class="chapter" data-level="5.3.3" data-path="lm.html"><a href="lm.html#multiple-regression"><i class="fa fa-check"></i><b>5.3.3</b> Multiple Regression</a></li>
-<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>5.3.4</b> Testing a Hypothesis on a Single Contrast</a></li>
+<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast-returning-to-the-model-without-interactions-lm.2."><i class="fa fa-check"></i><b>5.3.4</b> Testing a Hypothesis on a Single Contrast (*) Returning to the model without interactions, <code>lm.2</code>.</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="5.5" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
@@ -185,7 +188,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
 <li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#manova"><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA</a></li>
+<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#relation-to-manova-manova-multivariate-analysis-of-variance-manova-deals-with-the-estimation-of-effect-on-vector-valued-outcomes.-put-differently-in-anova-the-response-y-is-univariate-in-manova-the-outcome-is-multivariate.-manova-is-useful-when-there-are-correlations-among-the-entries-of-y.-otherwise--one-may-simply-solve-many-anova-problems-instead-of-a-single-manova."><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA (*) {#manova} Multivariate analysis of variance (MANOVA) deals with the estimation of effect on vector valued outcomes. Put differently: in ANOVA the response, <span class="math inline">\(y\)</span>, is univariate In MANOVA, the outcome is multivariate. MANOVA is useful when there are correlations among the entries of <span class="math inline">\(y\)</span>. Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
@@ -204,11 +207,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
 <li class="chapter" data-level="8.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>8.3.1</b> Signal Identification in R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation</a></li>
-<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression</a><ul>
+<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation (*)</a></li>
+<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression (*)</a><ul>
 <li class="chapter" data-level="8.5.1" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression-with-r"><i class="fa fa-check"></i><b>8.5.1</b> Multivariate Regression with R</a></li>
 </ul></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models</a><ul>
+<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models (*)</a><ul>
 <li class="chapter" data-level="8.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>8.6.1</b> Graphical Models in R</a></li>
 </ul></li>
 <li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
@@ -252,8 +255,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>11</b> Plotting</a><ul>
 <li class="chapter" data-level="11.1" data-path="plotting.html"><a href="plotting.html#the-graphics-system"><i class="fa fa-check"></i><b>11.1</b> The graphics System</a><ul>
 <li class="chapter" data-level="11.1.1" data-path="plotting.html"><a href="plotting.html#using-existing-plotting-functions"><i class="fa fa-check"></i><b>11.1.1</b> Using Existing Plotting Functions</a></li>
-<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#fancy-graphics-examples"><i class="fa fa-check"></i><b>11.1.2</b> Fancy graphics Examples</a></li>
-<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.3</b> Exporting a Plot</a></li>
+<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.2</b> Exporting a Plot</a></li>
+<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#fancy"><i class="fa fa-check"></i><b>11.1.3</b> Fancy graphics Examples</a></li>
 </ul></li>
 <li class="chapter" data-level="11.2" data-path="plotting.html"><a href="plotting.html#the-ggplot2-system"><i class="fa fa-check"></i><b>11.2</b> The ggplot2 System</a></li>
 <li class="chapter" data-level="11.3" data-path="plotting.html"><a href="plotting.html#interactive-graphics"><i class="fa fa-check"></i><b>11.3</b> Interactive Graphics</a><ul>
@@ -312,14 +315,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
 </ul></li>
-<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.4.1</b> matter</a></li>
+<li class="chapter" data-level="15.4.2" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.4.2</b> iotools</a></li>
+</ul></li>
 <li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.5</b> Computing from a Distributed File System</a></li>
 <li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.6</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#practice-yourself-13"><i class="fa fa-check"></i><b>15.7</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Explicit Parallelism</a></li>
-<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Explicit Parallelism</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
+</ul></li>
 <li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-14"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
 </ul></li>
@@ -345,7 +353,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="20.1" data-path="debugging.html"><a href="debugging.html#bibliographic-notes-16"><i class="fa fa-check"></i><b>20.1</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="20.2" data-path="debugging.html"><a href="debugging.html#practice-yourself-18"><i class="fa fa-check"></i><b>20.2</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="bib.html"><a href="bib.html"><i class="fa fa-check"></i><b>21</b> Bibliography</a></li>
+<li class="chapter" data-level="21" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>21</b> data.table</a></li>
+<li class="chapter" data-level="22" data-path="bib.html"><a href="bib.html"><i class="fa fa-check"></i><b>22</b> Bibliography</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -374,21 +383,34 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><strong>Signal detection</strong>: a.k.a. <em>multivariate hypothesis testing</em>, i.e., testing if <span class="math inline">\(\mu\)</span> equals <span class="math inline">\(\mu_0\)</span> and for <span class="math inline">\(\mu_0=0\)</span> in particular.</li>
 <li><strong>Signal counting</strong>: Counting the number of elements in <span class="math inline">\(\mu\)</span> that differ from <span class="math inline">\(\mu_0\)</span>, and for <span class="math inline">\(\mu_0=0\)</span> in particular.</li>
 <li><strong>Signal identification</strong>: a.k.a. <em>multiple testing</em>, i.e., testing which of the elements in <span class="math inline">\(\mu\)</span> differ from <span class="math inline">\(\mu_0\)</span> and for <span class="math inline">\(\mu_0=0\)</span> in particular.</li>
-<li><strong>Signal estimation</strong>: a.k.a. <em>selective inference</em>, i.e., estimating the magnitudes of the departure of <span class="math inline">\(\mu\)</span> from <span class="math inline">\(\mu_0\)</span>, and for <span class="math inline">\(\mu_0=0\)</span> in particular.</li>
+<li><strong>Signal estimation</strong>: Estimating the magnitudes of the departure of <span class="math inline">\(\mu\)</span> from <span class="math inline">\(\mu_0\)</span>, and for <span class="math inline">\(\mu_0=0\)</span> in particular. If estimation follows a <em>signal detection</em> or <em>signal identification</em> stage, this is known as a <em>selective estimation</em> problem.</li>
 <li><strong>Multivariate Regression</strong>: a.k.a. <em>MANOVA</em> in statistical literature, and <em>structured learning</em> in the machine learning literature.</li>
 <li><strong>Graphical Models</strong>: Learning <em>graphical models</em> deals with the fitting/learning the multivariate distribution of <span class="math inline">\(y\)</span>. In particular, it deals with the identification of independencies between elements of <span class="math inline">\(y\)</span>.</li>
 </ul>
 
 <div class="example">
-<p><span id="ex:icu" class="example"><strong>Example 8.1 </strong></span>Consider the problem of a patient monitored in the intensive care unit. At every minute the monitor takes <span class="math inline">\(p\)</span> physiological measurements: blood pressure, body temperature, etc. The total number of minutes in our data is <span class="math inline">\(n\)</span>, so that in total, we have <span class="math inline">\(n \times p\)</span> measurements, arranged in a matrix. We also know the typical measurements for this patient when healthy: <span class="math inline">\(\mu_0\)</span>.</p>
-Signal detection means testing if the patient’s measurement depart in any way from his healthy state, <span class="math inline">\(\mu_0\)</span>. Signal counting means measuring <em>how many</em> measurement depart from the healthy state. Signal identification means pin-pointing which of the physiological measurements depart from his healthy state. Signal estimation means estimating the magnitude of the departure from the healthy state. Multivaraite regression means finding the factors which many explain the departure from the healthy state. Fitting a distribution means finding the joint distribution of the physiological measurements, and in particular, their dependencies and independenceis.
+<span id="exm:icu" class="example"><strong>Example 8.1  </strong></span>Consider the problem of a patient monitored in the intensive care unit. At every minute the monitor takes <span class="math inline">\(p\)</span> physiological measurements: blood pressure, body temperature, etc. The total number of minutes in our data is <span class="math inline">\(n\)</span>, so that in total, we have <span class="math inline">\(n \times p\)</span> measurements, arranged in a matrix. We also know the typical measurements for this patient when healthy: <span class="math inline">\(\mu_0\)</span>.
 </div>
-<p></p>
+
+
+<div class="example">
+<span id="exm:regression" class="example"><strong>Example 8.2  </strong></span>Consider the problem of the simplest multiple regression. The estimated coefficient, <span class="math inline">\(\hat \beta\)</span> are a random vector. Regression theory tells us that its covariance is <span class="math inline">\((X&#39;X)^{-1}\sigma^2\)</span>, and null mean of <span class="math inline">\(\beta\)</span>. We thus see that inference on the vector of regression coefficients, is nothing more than a multivaraite inference problem.
+</div>
+
+<p>Demonstrating our terminology on Example <a href="multivariate.html#exm:icu">8.1</a>: Signal detection means testing if the patient’s measurement depart in any way from his healthy state, <span class="math inline">\(\mu_0\)</span>. Signal counting means measuring <em>how many</em> measurement depart from the healthy state. Signal identification means pin-pointing which of the physiological measurements depart from his healthy state. Signal estimation means estimating the magnitude of the departure from the healthy state. Multivariate regression means finding the factors which many explain the departure from the healthy state. Fitting a distribution means finding the joint distribution of the physiological measurements, and in particular, their dependence and independence.</p>
 
 <div class="remark">
-<span class="remark"><em>Remark. </em></span> In the above, “signal” is defined in terms of <span class="math inline">\(\mu\)</span>. It is possible that the signal is not in the location, <span class="math inline">\(\mu\)</span>, but rather in the covariance, <span class="math inline">\(\Sigma\)</span>. We do not discuss these problems here, and refer the reader to <span class="citation">Nadler (<a href="#ref-nadler2008finite">2008</a>)</span>.
+ <span class="remark"><em>Remark. </em></span> In the above, “signal” is defined in terms of <span class="math inline">\(\mu\)</span>. It is possible that the signal is not in the location, <span class="math inline">\(\mu\)</span>, but rather in the covariance, <span class="math inline">\(\Sigma\)</span>. We do not discuss these problems here, and refer the reader to <span class="citation">Nadler (<a href="#ref-nadler2008finite">2008</a>)</span>.
 </div>
-<p></p>
+
+<p>Another possible question is: does a multivariate analysis gives us something we cannot get from a mass-univariate analysis (i.e., a multivariate analysis on each variable separately). In Example <a href="multivariate.html#exm:icu">8.1</a> we could have just performed multiple univariate tests, and sign an alarm when any of the univariate detectors was triggered. The reason we want a multivariate detector, and not multiple univariate detectors is that it is possible that each measurement alone is borderline, but together, the signal accumulates. In our ICU example is may mean that the pulse is borderline, the body temperature is borderline, etc. Analyzed simultaneously, it is clear that the patient is in distress.</p>
+<p>The next figure<a href="#fn17" class="footnoteRef" id="fnref17"><sup>17</sup></a> illustrates the idea that some bi-variate measurements may seem ordinary univariately, while very anomalous when examined bi-variately.</p>
+
+<div class="remark">
+ <span class="remark"><em>Remark. </em></span> The following figure may also be used to demonstrate the difference between Euclidean Distance and Mahalanobis Distance.
+</div>
+
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-161-1.png" width="50%" /></p>
 <div id="signal-detection" class="section level2">
 <h2><span class="header-section-number">8.1</span> Signal Detection</h2>
 <p>Signal detection deals with the detection of the departure of <span class="math inline">\(\mu\)</span> from some <span class="math inline">\(\mu_0\)</span>, and especially, <span class="math inline">\(\mu_0=0\)</span>. This problem can be thought of as the multivariate counterpart of the univariate hypothesis test. Indeed, the most fundamental approach is a mere generalization of the t-test, known as <em>Hotelling’s <span class="math inline">\(T^2\)</span> test</em>.</p>
@@ -408,12 +430,11 @@ which is the definition of Hotelling’s <span class="math inline">\(T^2\)</span
   T^2(x):= n (\bar{x}-\mu_0)&#39; \hat \Sigma(x)^{-1} (\bar{x}-\mu_0),
 \end{align}\]</span>
 <p>which is the standard notation of Hotelling’s test statistic.</p>
-<p>To discuss the distribution of Hotelling’s test statistic we need to introduce some vocabulary<a href="#fn17" class="footnoteRef" id="fnref17"><sup>17</sup></a>:</p>
+<p>For inference, we need the null distribution of Hotelling’s test statistic. For this we introduce some vocabulary<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a>:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Low Dimension</strong>: We call a problem <em>low dimensional</em> if <span class="math inline">\(n \gg p\)</span>, i.e. <span class="math inline">\(p/n \approx 0\)</span>. This means there are many observations per estimated parameter.</li>
 <li><strong>High Dimension</strong>: We call a problem <em>high dimensional</em> if <span class="math inline">\(p/n \to c\)</span>, where <span class="math inline">\(c\in (0,1)\)</span>. This means there are more observations than parameters, but not many.</li>
 <li><strong>Very High Dimension</strong>: We call a problem <em>very high dimensional</em> if <span class="math inline">\(p/n \to c\)</span>, where <span class="math inline">\(1&lt;c&lt;\infty\)</span>. This means there are less observations than parameter.</li>
-<li><strong>Extremely high dimensional</strong>: We call a problem <strong>extremely high dimensional</strong> if <span class="math inline">\(p/n \to \infty\)</span>. This means there are many more parameters than observations.</li>
 </ol>
 <p>Hotelling’s <span class="math inline">\(T^2\)</span> test can only be used in the low dimensional regime. For some intuition on this statement, think of taking <span class="math inline">\(n=20\)</span> measurements of <span class="math inline">\(p=100\)</span> physiological variables. We seemingly have <span class="math inline">\(20\)</span> observations, but there are <span class="math inline">\(100\)</span> unknown quantities in <span class="math inline">\(\mu\)</span>. Would you trust your conclusion that <span class="math inline">\(\bar x\)</span> is different than <span class="math inline">\(\mu_0\)</span> based on merely <span class="math inline">\(20\)</span> observations.</p>
 <p>Put formally: We cannot compute Hotelling’s test when <span class="math inline">\(n&lt;p\)</span> because <span class="math inline">\(\hat \Sigma\)</span> is simply not invertible– this is an algebraic problem. We cannot compute Hotelling’s test when <span class="math inline">\(p/n \to c &gt; 0\)</span> because the signal-to-noise is very low– this is a statistical problem.</p>
@@ -422,57 +443,60 @@ which is the definition of Hotelling’s <span class="math inline">\(T^2\)</span
 <h3><span class="header-section-number">8.1.1</span> Signal Detection with R</h3>
 <p>Let’s generate some data with no signal.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mvtnorm)
-n &lt;-<span class="st"> </span><span class="fl">1e2</span>
-p &lt;-<span class="st"> </span><span class="fl">1e1</span>
+n &lt;-<span class="st"> </span><span class="fl">1e2</span> <span class="co"># observations</span>
+p &lt;-<span class="st"> </span><span class="fl">1.8e1</span> <span class="co"># parameter dimension</span>
 mu &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,p) <span class="co"># no signal</span>
 x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt">n =</span> n, <span class="dt">mean =</span> mu)
 <span class="kw">dim</span>(x)</code></pre></div>
-<pre><code>## [1] 100  10</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(x)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-157-1.png" width="50%" /></p>
+<pre><code>## [1] 100  18</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lattice<span class="op">::</span><span class="kw">levelplot</span>(x)</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-162-1.png" width="50%" /></p>
 <p>Now make our own Hotelling function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hotellingOneSample &lt;-<span class="st"> </span>function(x, <span class="dt">mu0=</span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="kw">ncol</span>(x))){
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hotellingOneSample &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">mu0=</span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="kw">ncol</span>(x))){
   n &lt;-<span class="st"> </span><span class="kw">nrow</span>(x)
   p &lt;-<span class="st"> </span><span class="kw">ncol</span>(x)
-  <span class="kw">stopifnot</span>(n &gt;<span class="st"> </span><span class="dv">5</span>*<span class="st"> </span>p)
+  <span class="kw">stopifnot</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">5</span><span class="op">*</span><span class="st"> </span>p)
   bar.x &lt;-<span class="st"> </span><span class="kw">colMeans</span>(x)
   Sigma &lt;-<span class="st"> </span><span class="kw">var</span>(x)
   Sigma.inv &lt;-<span class="st"> </span><span class="kw">solve</span>(Sigma)
-  T2 &lt;-<span class="st"> </span>n *<span class="st"> </span>(bar.x-mu0) %*%<span class="st"> </span>Sigma.inv %*%<span class="st"> </span>(bar.x-mu0)
+  T2 &lt;-<span class="st"> </span>n <span class="op">*</span><span class="st"> </span>(bar.x<span class="op">-</span>mu0) <span class="op">%*%</span><span class="st"> </span>Sigma.inv <span class="op">%*%</span><span class="st"> </span>(bar.x<span class="op">-</span>mu0)
   p.value &lt;-<span class="st"> </span><span class="kw">pchisq</span>(<span class="dt">q =</span> T2, <span class="dt">df =</span> p, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)
   <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">statistic=</span>T2, <span class="dt">pvalue=</span>p.value))
 }
 
 <span class="kw">hotellingOneSample</span>(x)</code></pre></div>
 <pre><code>## $statistic
-##          [,1]
-## [1,] 11.62034
+##         [,1]
+## [1,] 24.5659
 ## 
 ## $pvalue
 ##           [,1]
-## [1,] 0.3112691</code></pre>
+## [1,] 0.1373481</code></pre>
 <p>Things to note:</p>
 <ul>
-<li><code>stopifnot(n &gt; 5 * p)</code> is a little verification to check that the problem is indeed low dimensional. Otherwise, the <span class="math inline">\(\chi^2\)</span> approximation cannot be trusted.<br />
-</li>
+<li><code>stopifnot(n &gt; 5 * p)</code> is a little verification to check that the problem is indeed low dimensional. Otherwise, the <span class="math inline">\(\chi^2\)</span> approximation cannot be trusted.</li>
 <li><code>solve</code> returns a matrix inverse.</li>
 <li><code>%*%</code> is the matrix product operator (see also <code>crossprod()</code>).</li>
 <li>A function may return only a single object, so we wrap the statistic and its p-value in a <code>list</code> object.</li>
 </ul>
-<p>Just for verification, we compare our home made Hotelling’s test, to the implementation in the <strong>rrcov</strong> package. The results look good!</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rrcov::<span class="kw">T2.test</span>(x)</code></pre></div>
+<p>Just for verification, we compare our home made Hotelling’s test, to the implementation in the <strong>rrcov</strong> package. The statistic is clearly OK, but our <span class="math inline">\(\chi^2\)</span> approximation of the distribution leaves room to desire. Personally, I would never trust a Hotelling test if <span class="math inline">\(n\)</span> is not much greater than <span class="math inline">\(p\)</span>…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rrcov<span class="op">::</span><span class="kw">T2.test</span>(x)</code></pre></div>
 <pre><code>## 
 ##  One-sample Hotelling test
 ## 
 ## data:  x
-## T2 = 11.6200, F = 1.0564, df1 = 10, df2 = 90, p-value = 0.4041
-## alternative hypothesis: true mean vector is not equal to (0, 0, 0, 0, 0, 0, 0, 0, 0, 0)&#39; 
+## T2 = 24.5660, F = 1.1304, df1 = 18, df2 = 82, p-value = 0.3394
+## alternative hypothesis: true mean vector is not equal to (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)&#39; 
 ## 
 ## sample estimates:
-##                      [,1]        [,2]       [,3]        [,4]       [,5]
-## mean x-vector 0.005833426 -0.07827891 -0.2037361 -0.04510206 0.05225777
-##                    [,6]       [,7]        [,8]        [,9]       [,10]
-## mean x-vector 0.1917247 -0.1753363 -0.03269077 -0.01459064 -0.06307548</code></pre>
+##                     [,1]        [,2]        [,3]       [,4]        [,5]
+## mean x-vector -0.2070607 -0.08193089 -0.09478763 -0.1009277 -0.07248795
+##                      [,6]        [,7]       [,8]       [,9]       [,10]
+## mean x-vector -0.06507923 -0.01386766 0.04585657 0.02727034 -0.04591464
+##                     [,11]       [,12]      [,13]      [,14]     [,15]
+## mean x-vector -0.03163345 -0.07533653 -0.1485371 0.08498026 0.1894081
+##                  [,16]      [,17]     [,18]
+## mean x-vector 0.195912 -0.1097779 0.1213396</code></pre>
 </div>
 </div>
 <div id="signal-counting" class="section level2">
@@ -483,11 +507,11 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 <h2><span class="header-section-number">8.3</span> Signal Identification</h2>
 <p>The problem of <em>signal identification</em> is also known as <em>selective testing</em>, or more commonly as <em>multiple testing</em>.</p>
 <p>In the ANOVA literature, an identification stage will typically follow a detection stage. These are known as the <em>omnibus F test</em>, and <em>post-hoc</em> tests, respectively. In the multiple testing literature there will typically be no preliminary detection stage. It is typically assumed that signal is present, and the only question is “where?”</p>
-<p>The first question when approaching a multiple testing problem is “what is an error”? Is an error declaring a coordinate in <span class="math inline">\(\mu\)</span> to be different than <span class="math inline">\(\mu_0\)</span> when it is actually not? Is an error the proportion of such false declarations. The former is known as the <em>family wise error rate</em> (FWER), and the latter as the <em>false discovery rate</em> (FDR).</p>
+<p>The first question when approaching a multiple testing problem is “what is an error”? Is an error declaring a coordinate in <span class="math inline">\(\mu\)</span> to be different than <span class="math inline">\(\mu_0\)</span> when it is actually not? Is an error an overly high proportion of falsely identified coordinates? The former is known as the <em>family wise error rate</em> (FWER), and the latter as the <em>false discovery rate</em> (FDR).</p>
 <div id="signal-identification-in-r" class="section level3">
 <h3><span class="header-section-number">8.3.1</span> Signal Identification in R</h3>
 <p>One (of many) ways to do signal identification involves the <code>stats::p.adjust</code> function. [TODO: clarify why use <code>p.adjust</code>?] The function takes as inputs a <span class="math inline">\(p\)</span>-vector of <strong>p-values</strong>. This implies that: (i) you are assumed to be able to compute the p-value of each the <span class="math inline">\(p\)</span> hypothesis tested; one hypothesis for every coordinate in <span class="math inline">\(\mu\)</span>. (ii) unlike the Hotelling test, we do not try to estimate the covariance between coordinates. Not because it is not important, but rather, because the methods we will use apply to a wide variety of covariances, so the covariance does not need to be estimated.</p>
-<p>We start be generating some multivariate data and computing the coordinate-wise (i.e. hypothesis-wise) p-value.</p>
+<p>We start be generating some high-dimensional multivariate data and computing the coordinate-wise (i.e. hypothesis-wise) p-value.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mvtnorm)
 n &lt;-<span class="st"> </span><span class="fl">1e1</span>
 p &lt;-<span class="st"> </span><span class="fl">1e2</span>
@@ -495,60 +519,64 @@ mu &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0<
 x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt">n =</span> n, <span class="dt">mean =</span> mu)
 <span class="kw">dim</span>(x)</code></pre></div>
 <pre><code>## [1]  10 100</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(x)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-160-1.png" width="50%" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lattice<span class="op">::</span><span class="kw">levelplot</span>(x)</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-165-1.png" width="50%" /></p>
 <p>We now compute the pvalues of each coordinate. We use a coordinate-wise t-test. Why a t-test? Because for the purpose of demonstration we want a simple test. In reality, you may use any test that returns valid p-values.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p.values &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="dt">X =</span> x, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> function(y) <span class="kw">t.test</span>(y)$p.value) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t.pval &lt;-<span class="st"> </span><span class="cf">function</span>(y) <span class="kw">t.test</span>(y)<span class="op">$</span>p.value
+p.values &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="dt">X =</span> x, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> t.pval) 
 <span class="kw">plot</span>(p.values, <span class="dt">type=</span><span class="st">&#39;h&#39;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-161-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-166-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
+<li><code>t.pval</code> is a function that merely returns the p-value of a t.test.</li>
 <li>We used the <code>apply</code> function to apply the same function to each column of <code>x</code>.</li>
+<li><code>MARGIN=2</code> tells <code>apply</code> to compute over columns and not rows.</li>
 <li>The output, <code>p.values</code>, is a vector of 100 p-values.</li>
 </ul>
 <p>We are now ready to do the identification, i.e., find which coordinate of <span class="math inline">\(\mu\)</span> is different than <span class="math inline">\(\mu_0=0\)</span>. The workflow is: (i) Compute an <code>adjusted p-value</code>. (ii) Compare the adjusted p-value to the desired error level.</p>
 <p>If we want <span class="math inline">\(FWER \leq 0.05\)</span>, meaning that we allow a <span class="math inline">\(5\%\)</span> probability of making any mistake, we will use the <code>method=&quot;holm&quot;</code> argument of <code>p.adjust</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">alpha &lt;-<span class="st"> </span><span class="fl">0.05</span>
 p.values.holm &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.values, <span class="dt">method =</span> <span class="st">&#39;holm&#39;</span> )
-<span class="kw">table</span>(p.values.holm &lt;<span class="st"> </span>alpha)</code></pre></div>
+<span class="kw">table</span>(p.values.holm <span class="op">&lt;</span><span class="st"> </span>alpha)</code></pre></div>
 <pre><code>## 
 ## FALSE 
 ##   100</code></pre>
 <p>If we want <span class="math inline">\(FDR \leq 0.05\)</span>, meaning that we allow the proportion of false discoveries to be no larger than <span class="math inline">\(5\%\)</span>, we use the <code>method=&quot;BH&quot;</code> argument of <code>p.adjust</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">alpha &lt;-<span class="st"> </span><span class="fl">0.05</span>
 p.values.BH &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.values, <span class="dt">method =</span> <span class="st">&#39;BH&#39;</span> )
-<span class="kw">table</span>(p.values.BH &lt;<span class="st"> </span>alpha)</code></pre></div>
+<span class="kw">table</span>(p.values.BH <span class="op">&lt;</span><span class="st"> </span>alpha)</code></pre></div>
 <pre><code>## 
 ## FALSE 
 ##   100</code></pre>
-<p>We now inject some signal in <span class="math inline">\(\mu\)</span> just to see that the process works. We will artificially inject signal in the first 10 coordinates.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mu[<span class="dv">1</span>:<span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">2</span> <span class="co"># inject signal</span>
+<p>We now inject some strong signal in <span class="math inline">\(\mu\)</span> just to see that the process works. We will artificially inject signal in the first 10 coordinates.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mu[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>] &lt;-<span class="st"> </span><span class="dv">2</span> <span class="co"># inject signal</span>
 x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt">n =</span> n, <span class="dt">mean =</span> mu) <span class="co"># generate data</span>
-p.values &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="dt">X =</span> x, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> function(y) <span class="kw">t.test</span>(y)$p.value) 
+p.values &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="dt">X =</span> x, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> t.pval) 
 p.values.BH &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.values, <span class="dt">method =</span> <span class="st">&#39;BH&#39;</span> )
-<span class="kw">which</span>(p.values.BH &lt;<span class="st"> </span>alpha)</code></pre></div>
-<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 46 53</code></pre>
+<span class="kw">which</span>(p.values.BH <span class="op">&lt;</span><span class="st"> </span>alpha)</code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 <p>Indeed- we are now able to detect that the first coordinates carry signal, because their respective coordinate-wise null hypotheses have been rejected.</p>
 </div>
 </div>
 <div id="signal-estimation" class="section level2">
-<h2><span class="header-section-number">8.4</span> Signal Estimation</h2>
-<p>The estimation of the elements of <span class="math inline">\(\mu\)</span> is a seemingly straightforward task. This is not the case, however, if we estimate only the elements that were selected because they were significant (or any other data-dependent criterion). Clearly, estimating only significant entries will introduce a bias in the estimation. In the statistical literature, this is known as <em>selection bias</em>. Selection bias also occurs when you perform inference on regression coefficients after some model selection, say, with a lasso, or a forward search<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a>.</p>
+<h2><span class="header-section-number">8.4</span> Signal Estimation (*)</h2>
+<p>The estimation of the elements of <span class="math inline">\(\mu\)</span> is a seemingly straightforward task. This is not the case, however, if we estimate only the elements that were selected because they were significant (or any other data-dependent criterion). Clearly, estimating only significant entries will introduce a bias in the estimation. In the statistical literature, this is known as <em>selection bias</em>. Selection bias also occurs when you perform inference on regression coefficients after some model selection, say, with a lasso, or a forward search<a href="#fn19" class="footnoteRef" id="fnref19"><sup>19</sup></a>.</p>
 <p>Selective inference is a complicated and active research topic so we will not offer any off-the-shelf solution to the matter. The curious reader is invited to read <span class="citation">J. D. Rosenblatt and Benjamini (<a href="#ref-rosenblatt2014selective">2014</a>)</span>, <span class="citation">Javanmard and Montanari (<a href="#ref-javanmard2014confidence">2014</a>)</span>, or <a href="http://www.stat.berkeley.edu/~wfithian/">Will Fithian’s</a> PhD thesis <span class="citation">(Fithian <a href="#ref-fithian2015topics">2015</a>)</span> for more on the topic.</p>
 </div>
 <div id="multivariate-regression" class="section level2">
-<h2><span class="header-section-number">8.5</span> Multivariate Regression</h2>
+<h2><span class="header-section-number">8.5</span> Multivariate Regression (*)</h2>
 <p><em>Multivaraite regression</em>, a.k.a. <em>MANOVA</em>, similar to <a href="https://en.wikipedia.org/wiki/Structured_prediction"><em>structured learning</em></a> in machine learning, is simply a regression problem where the outcome, <span class="math inline">\(y\)</span>, is not scalar values but vector valued. It is not to be confused with <em>multiple regression</em> where the predictor, <span class="math inline">\(x\)</span>, is vector valued, but the outcome is scalar.</p>
 <p>If the linear models generalize the two-sample t-test from two, to multiple populations, then multivariate regression generalizes Hotelling’s test in the same way.</p>
+<p>When the entries of <span class="math inline">\(y\)</span> are independent, MANOVA collapses to multiple univariate regressions. It is only when entries in <span class="math inline">\(y\)</span> are correlated that we can gain in accuracy and power by harnessing these correlations through the MANOVA framework.</p>
 <div id="multivariate-regression-with-r" class="section level3">
 <h3><span class="header-section-number">8.5.1</span> Multivariate Regression with R</h3>
 <p>TODO</p>
 </div>
 </div>
 <div id="graphical-models" class="section level2">
-<h2><span class="header-section-number">8.6</span> Graphical Models</h2>
+<h2><span class="header-section-number">8.6</span> Graphical Models (*)</h2>
 <p>Fitting a multivariate distribution, i.e. learning a <em>graphical model</em>, is a very hard task. To see why, consider the problem of <span class="math inline">\(p\)</span> continuous variables. In the simplest case, where we can assume normality, fitting a distributions means estimating the <span class="math inline">\(p\)</span> parameters in the expectation, <span class="math inline">\(\mu\)</span>, and <span class="math inline">\(p(p+1)/2\)</span> parameters in the covariance, <span class="math inline">\(\Sigma\)</span>. The number of observations required for this task, <span class="math inline">\(n\)</span>, may be formidable.</p>
-<p>A more humble task, is to identify <strong>independencies</strong>, known as <em>structure learning</em> in the machine learning literature. Under the multivariate normality assumption, this means identifying zero entries in <span class="math inline">\(\Sigma\)</span>, or more precisely, zero entries in <span class="math inline">\(\Sigma^{-1}\)</span>. This task can be approached as a <strong>signal identification</strong> problem (<a href="multivariate.html#identification">8.3</a>). The same solutions may be applied even if dealing with <span class="math inline">\(\Sigma\)</span> instead of <span class="math inline">\(\mu\)</span>.</p>
+<p>A more humble task, is to identify <strong>independencies</strong>, known as <em>structure learning</em> in the machine learning literature. Under the multivariate normality assumption, this means identifying zero entries in <span class="math inline">\(\Sigma\)</span>, or more precisely, zero entries in <span class="math inline">\(\Sigma^{-1}\)</span>. This task can be approached as a <strong>signal identification</strong> problem (<a href="multivariate.html#identification">8.3</a>). The same solutions may be applied to identify non-zero entries in <span class="math inline">\(\Sigma\)</span>, instead of <span class="math inline">\(\mu\)</span> as discussed until now.</p>
 <p>If multivariate normality cannot be assumed, then identifying independencies cannot be done via the covariance matrix <span class="math inline">\(\Sigma\)</span> and more elaborate algorithms are required.</p>
 <div id="graphical-models-in-r" class="section level3">
 <h3><span class="header-section-number">8.6.1</span> Graphical Models in R</h3>
@@ -557,10 +585,20 @@ p.values.BH &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.val
 </div>
 <div id="biblipgraphic-notes" class="section level2">
 <h2><span class="header-section-number">8.7</span> Biblipgraphic Notes</h2>
-<p>For a general introduction to multivariate data analysis see <span class="citation">Anderson-Cook (<a href="#ref-anderson2004introduction">2004</a>)</span>. For an R oriented introduction, see <span class="citation">Everitt and Hothorn (<a href="#ref-everitt2011introduction">2011</a>)</span>. For more on the difficulties with high dimensional problems, see <span class="citation">Bai and Saranadasa (<a href="#ref-bai1996effect">1996</a>)</span>. For more on multiple testing, and signal identification, see <span class="citation">Efron (<a href="#ref-efron2012large">2012</a>)</span>. For more on the choice of your error rate see <span class="citation">J. Rosenblatt (<a href="#ref-rosenblatt2013practitioner">2013</a>)</span>. For an excellent reivew on graphical models see <span class="citation">Kalisch and Bühlmann (<a href="#ref-kalisch2014causal">2014</a>)</span>. Everything you need on graphical models, Bayesian belief networks, and structure learning in R, is collected in the <a href="https://cran.r-project.org/web/views/gR.html">Task View</a>.</p>
+<p>For a general introduction to multivariate data analysis see <span class="citation">Anderson-Cook (<a href="#ref-anderson2004introduction">2004</a>)</span>. For an R oriented introduction, see <span class="citation">Everitt and Hothorn (<a href="#ref-everitt2011introduction">2011</a>)</span>. For more on the difficulties with high dimensional problems, see <span class="citation">Bai and Saranadasa (<a href="#ref-bai1996effect">1996</a>)</span>. For some cutting edge solutions for testing in high-dimension, see <span class="citation">Goeman, Van De Geer, and Van Houwelingen (<a href="#ref-goeman2006testing">2006</a>)</span>. For more on multiple testing, and signal identification, see <span class="citation">Efron (<a href="#ref-efron2012large">2012</a>)</span>. For more on the choice of your error rate see <span class="citation">J. Rosenblatt (<a href="#ref-rosenblatt2013practitioner">2013</a>)</span>. For an excellent review on graphical models see <span class="citation">Kalisch and Bühlmann (<a href="#ref-kalisch2014causal">2014</a>)</span>. Everything you need on graphical models, Bayesian belief networks, and structure learning in R, is collected in the <a href="https://cran.r-project.org/web/views/gR.html">Task View</a>.</p>
 </div>
 <div id="practice-yourself-6" class="section level2">
 <h2><span class="header-section-number">8.8</span> Practice Yourself</h2>
+<ol style="list-style-type: decimal">
+<li>Generate multivariate data from two groups: <code>rmvnorm(n = 100, mean = rep(0,10))</code> for the first, and <code>rmvnorm(n = 100, mean = rep(0.1,10))</code> for the second.
+<ol style="list-style-type: lower-alpha">
+<li>Do we agree the groups differ?</li>
+<li>Implement the two-group Hotelling test described in Wikipedia: (<a href="https://en.wikipedia.org/wiki/Hotelling%27s_T-squared_distribution#Two-sample_statistic">https://en.wikipedia.org/wiki/Hotelling%27s_T-squared_distribution#Two-sample_statistic</a>).</li>
+<li>Verify that you are able to detect that the groups differ.</li>
+<li>Perform a two-group t-test on each coordinate. On which coordinates can you detect signal while controlling the FWER ? On which while controlling the FDR? Use <code>p.adjust</code>.</li>
+</ol></li>
+<li>Return to the previous problem, but set <code>n=10</code>. Verify that you cannot compute your Hotelling statistic.</li>
+</ol>
 
 </div>
 </div>
@@ -587,11 +625,14 @@ p.values.BH &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.val
 <div id="ref-bai1996effect">
 <p>Bai, Zhidong, and Hewa Saranadasa. 1996. “Effect of High Dimension: By an Example of a Two Sample Problem.” <em>Statistica Sinica</em>. JSTOR, 311–29.</p>
 </div>
+<div id="ref-goeman2006testing">
+<p>Goeman, Jelle J, Sara A Van De Geer, and Hans C Van Houwelingen. 2006. “Testing Against a High Dimensional Alternative.” <em>Journal of the Royal Statistical Society: Series B (Statistical Methodology)</em> 68 (3). Wiley Online Library: 477–93.</p>
+</div>
 <div id="ref-efron2012large">
 <p>Efron, Bradley. 2012. <em>Large-Scale Inference: Empirical Bayes Methods for Estimation, Testing, and Prediction</em>. Vol. 1. Cambridge University Press.</p>
 </div>
 <div id="ref-rosenblatt2013practitioner">
-<p>Rosenblatt, Jonathan. 2013. “A Practitioner’s Guide to Multiple Testing Error Rates.” <em>ArXiv Preprint ArXiv:1304.4920</em>.</p>
+<p>Rosenblatt, Jonathan. 2013. “A Practitioner’s Guide to Multiple Testing Error Rates.” <em>arXiv Preprint arXiv:1304.4920</em>.</p>
 </div>
 <div id="ref-kalisch2014causal">
 <p>Kalisch, Markus, and Peter Bühlmann. 2014. “Causal Structure Learning and Inference: A Selective Review.” <em>Quality Technology &amp; Quantitative Management</em> 11 (1). Taylor &amp; Francis: 3–21.</p>
@@ -600,8 +641,9 @@ p.values.BH &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.val
 <div class="footnotes">
 <hr />
 <ol start="17">
-<li id="fn17"><p>This vocabulary is not standard in the literature, so when you read a text, you need to verify yourself what the author means.<a href="multivariate.html#fnref17">↩</a></p></li>
-<li id="fn18"><p>You might find this shocking, but it does mean that you cannot trust the <code>summary</code> table of a model that was selected from a multitude of models.<a href="multivariate.html#fnref18">↩</a></p></li>
+<li id="fn17"><p>My thanks to Efrat Vilneski for the figure.<a href="multivariate.html#fnref17">↩</a></p></li>
+<li id="fn18"><p>This vocabulary is not standard in the literature, so when you read a text, you need to verify yourself what the author means.<a href="multivariate.html#fnref18">↩</a></p></li>
+<li id="fn19"><p>You might find this shocking, but it does mean that you cannot trust the <code>summary</code> table of a model that was selected from a multitude of models.<a href="multivariate.html#fnref19">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -621,7 +663,7 @@ p.values.BH &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.val
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -655,7 +697,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);
