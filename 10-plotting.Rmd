@@ -8,7 +8,7 @@ In this text, we will focus on two plotting packages.
 The basic __graphics__ package, distributed with the base R distribution, and the __ggplot2__ package. 
 
 Before going into the details of the plotting packages, we start with some high-level philosophy.
-The __graphics__ package originates from the main-frame days. 
+The __graphics__ package originates from the mainframe days. 
 Computers had no graphical interface, and the output of the plot was immediately sent to a printer. 
 Once a plot has been produced with the __graphics__ package, just like a printed output, it cannot be queried nor changed, except for further additions.
 
@@ -18,8 +18,8 @@ __grid__ is a low level graphics interface, and users may be more familiar with 
 
 __lattice__ is very powerful, but soon enough, it was overtaken in popularity by the __ggplot2__ package [@ggplot2].
 __ggplot2__ was the PhD project of [Hadley Wickham](http://hadley.nz/), a name to remember...
-Two fundamental ideas underlay __ggplot2__: (i) everything is an object, and (ii), plots can be described by a small set of building blocks. 
-The building blocks in __ggplot2__ are the ones stated by @wilkinson2006grammar.
+Two fundamental ideas underlay __ggplot2__: (i) everything is an object, and (ii), plots can be described by a simple grammar, i.e., a language to describe the building blocks of the plot. 
+The grammar in __ggplot2__ are is the one stated by @wilkinson2006grammar.
 The objects and grammar of __ggplot2__ have later evolved to allow more complicated plotting and in particular, interactive plotting. 
 
 Interactive plotting is a very important feature for EDA, and reporting. 
@@ -67,7 +67,7 @@ Things to note:
 - The `main` argument controls the title.
 - See `?plot` and `?par` for more options.
 
-Control the plotting characters with the `pch` argument. 
+Control the plotting characters with the `pch` argument, and size with the `cex` argument. 
 ```{r}
 plot(Girth, pch='+', cex=3)
 ```
@@ -114,19 +114,19 @@ Add other elements.
 
 ```{r}
 plot(Girth)
-segments(x0=rep(c(5,10), 7), y0=7:20, x1=rep(c(5,10), 7)+2, y1=(7:20)+2 )
-arrows(x0=13,y0=16,x1=16,y1=17, )
-rect(xleft=10, ybottom=12,  xright=12, ytop=16)
-polygon(x=c(10,11,12,11.5,10.5), y=c(9,9.5,10,10.5,9.8), col='grey')
-title(main='This plot makes no sense', sub='Or does it?')
-mtext('Printing in the margins', side=2)
+segments(x0=rep(c(5,10), 7), y0=7:20, x1=rep(c(5,10), 7)+2, y1=(7:20)+2 ) # line segments
+arrows(x0=13,y0=16,x1=16,y1=17) # arrows
+rect(xleft=10, ybottom=12,  xright=12, ytop=16) # rectangle
+polygon(x=c(10,11,12,11.5,10.5), y=c(9,9.5,10,10.5,9.8), col='grey') # polygon
+title(main='This plot makes no sense', sub='Or does it?') 
+mtext('Printing in the margins', side=2) # math text
 mtext(expression(alpha==log(f[i])), side=4)
 ```
 
 Things to note:
 
 - The following functions add the elements they are named after: `segments`, `arrows`, `rect`, `polygon`, `title`. 
-- `mtext` adds mathematical text. For more information for mathematical annotation see `?plotmath`.
+- `mtext` adds mathematical text, which needs to be wrapped in `expression()`. For more information for mathematical annotation see `?plotmath`.
 
 Add a legend.
 ```{r}
@@ -166,12 +166,56 @@ Always detach.
 detach(trees)
 ```
 
+### Exporting a Plot
+
+The pipeline for exporting graphics is similar to the export of data. 
+Instead of the `write.table` or `save` functions, we will use the `pdf`, `tiff`, `png`, functions. Depending on the type of desired output.
+
+
+Check and set the working directory.
+
+```{r, eval=FALSE}
+getwd()
+setwd("/tmp/")
+```
+
+Export tiff.
+
+```{r, eval=FALSE}
+tiff(filename='graphicExample.tiff')
+plot(rnorm(100))
+dev.off()
+```
+
+Things to note:
+
+- The `tiff` function tells R to open a .tiff file, and write the output of a plot.
+- Only a single (the last) plot is saved.
+- `dev.off` to close the tiff device, and return the plotting to the R console (or RStudio).
+
+If you want to produce several plots, you can use a counter in the file's name. The counter uses the [printf](https://en.wikipedia.org/wiki/Printf_format_string) format string.
+
+```{r, evel=FALSE}
+tiff(filename='graphicExample%d.tiff') #Creates a sequence of files
+plot(rnorm(100))
+boxplot(rnorm(100))
+hist(rnorm(100))
+dev.off()
+```
+
+To see the list of all open devices use `dev.list()`. 
+To close __all__ device, (not only the last one), use `graphics.off()`.
+
+
+See `?pdf` and `?jpeg` for more info.
 
 
 
 
 
-### Fancy graphics Examples
+
+
+### Fancy graphics Examples {#fancy}
 
 Building a line graph from scratch.
 
@@ -305,50 +349,6 @@ lines(x, y)
 
 
 
-### Exporting a Plot
-
-The pipeline for exporting graphics is similar to the export of data. 
-Instead of the `write.table` or `save` functions, we will use the `pdf`, `tiff`, `png`, functions. Depending on the type of desired output.
-
-
-Check and set the working directory.
-
-```{r, eval=FALSE}
-getwd()
-setwd("/tmp/")
-```
-
-Export tiff.
-
-```{r, eval=FALSE}
-tiff(filename='graphicExample.tiff')
-plot(rnorm(100))
-dev.off()
-```
-
-Things to note:
-
-- The `tiff` function tells R to open a .tiff file, and write the output of a plot.
-- Only a single (the last) plot is saved.
-- `dev.off` to close the tiff device, and return the plotting to the R console (or RStudio).
-
-If you want to produce several plots, you can use a counter in the file's name. The counter uses the [printf](https://en.wikipedia.org/wiki/Printf_format_string) format string.
-
-```{r, evel=FALSE}
-tiff(filename='graphicExample%d.tiff') #Creates a sequence of files
-plot(rnorm(100))
-boxplot(rnorm(100))
-hist(rnorm(100))
-dev.off()
-```
-
-To see the list of all open devices use `dev.list()`. 
-To close __all__ device, (not only the last one), use `graphics.off()`.
-
-
-See `?pdf` and `?jpeg` for more info.
-
-
 
 
 ## The ggplot2 System
@@ -367,12 +367,10 @@ The following is taken from [UCLA's idre](http://www.ats.ucla.edu/stat/r/seminar
 
 A __ggplot2__ object will have the following elements:
 
-- __Data__ are the variables mapped to aesthetic features of the graph.
-- __Aes__ is the mapping between objects to their visualization.
-- __Geoms__ are the objects/shapes you see on the graph.
-- __Stats__ are statistical transformations that summarize data, such as the mean or confidence intervals.
-- __Scales__ define which aesthetic values are mapped to data values. Legends and axes display these mappings.
-- __Coordiante systems__ define the plane on which data are mapped on the graphic.
+- __Data__ the data frame holding the data to be plotted.
+- __Aes__ defines the mapping between variables to their visualization.
+- __Geoms__ are the objects/shapes you add as layers to your graph.
+- __Stats__ are statistical transformations when you are not plotting the raw data, such as the mean or confidence intervals.
 - __Faceting__ splits the data into subsets to create multiple variations of the same graph (paneling).
 
 The `nlme::Milk` dataset has the protein level of various cows, at various times, with various diets.
@@ -531,7 +529,6 @@ We can also define our own statistical summaries.
 medianlog <- function(y) {median(log(y))}
 ggplot(Milk, aes(x=Time, y=protein)) +
   stat_summary(fun.y="medianlog", geom="line")
-
 ```
 
 
@@ -550,7 +547,7 @@ ggplot(Milk, aes(x=protein, color=Diet)) +
 ```{r}
 ggplot(Milk, aes(x=Time, y=protein)) +
   geom_point() +
-  facet_grid(Diet~.)
+  facet_grid(Diet~.) # `.~Diet` to split along columns and not rows.
 ```
 
 To control the looks of the plot, __ggplot2__ uses __themes__.
@@ -568,15 +565,22 @@ ggplot(Milk, aes(x=Time, y=protein)) +
         axis.title.x=element_blank())
 ```
 
-Saving plots can be done using the `pdf` function, but possibly easier with the `ggsave` function.
 
-Finally, what every user of __ggplot2__ constantly uses, is the online documentation at http://docs.ggplot2.org.
+Saving plots can be done using `ggplot2::ggsave`, or with `pdf` like the __graphics__ plots:
+```{r, eval=FALSE}
+pdf(file = 'myplot.pdf')
+print(tp) # You will need an explicit print command!
+dev.off()
+```
+
+
+
+Finally, what every user of __ggplot2__ constantly uses, is the (excellent!) online documentation at http://docs.ggplot2.org.
 
 
 
 
 ## Interactive Graphics
-[TODO: improve intro]
 
 As already mentioned, the recent and dramatic advancement in interactive visualization was made possible by the advances in web technologies, and the [D3.JS](https://d3js.org/) JavaScript library in particular. 
 This is because it allows developers to rely on existing libraries designed for web browsing instead of re-implementing interactive visualizations.
@@ -618,24 +622,26 @@ It is available [here](http://www.htmlwidgets.org/), with a demo gallery [here](
 
 
 ### Plotly
-TODO: remove messages
+
+You can create nice interactive graphs using `plotly::plot_ly`:
 
 ```{r}
 library(plotly)
 set.seed(100)
 d <- diamonds[sample(nrow(diamonds), 1000), ]
-plot_ly(d, x = ~carat, y = ~price, color = ~carat,
-        size = ~carat, text = ~paste("Clarity: ", clarity))
+```
+```{r, eval=FALSE}
+plot_ly(data = d, x = ~carat, y = ~price, color = ~carat, size = ~carat, text = ~paste("Clarity: ", clarity))
 ```
 
-If you are comfortable with __ggplot2__, you may use the __ggplot2__ syntax, and export the final result to __plotly__.
+
+More conveniently, any __ggplot2__ graph can be made interactive using `plotly::ggplotly`:
 
 ```{r}
 p <- ggplot(data = d, aes(x = carat, y = price)) +
   geom_smooth(aes(colour = cut, fill = cut), method = 'loess') + 
-  facet_wrap(~ cut)
-
-ggplotly(p)
+  facet_wrap(~ cut) # make ggplot
+ggplotly(p) # from ggplot to plotly
 ```
 
 For more on __plotly__ see https://plot.ly/r/.
@@ -657,3 +663,18 @@ A [video](https://www.youtube.com/watch?v=9Objw9Tvhb4&feature=youtu.be) by one o
 
 
 ## Practice Yourself
+
+1. Go to the Fancy Graphics Section \@ref(fancy). Try parsing the commands in your head. 
+
+1. Recall the `medianlog` example and replace the `medianlog` function with a [harmonic mean](https://en.wikipedia.org/wiki/Harmonic_mean). 
+    ```{r, eval=FALSE}
+medianlog <- function(y) {median(log(y))}
+ggplot(Milk, aes(x=Time, y=protein)) +
+  stat_summary(fun.y="medianlog", geom="line")
+```
+    
+1. Write a function that creates a boxplot from scratch. See how I built a line graph in Section \@ref(fancy). 
+
+1. Export my plotly example using the RStudio interface and send it to yourself by email. 
+
+
