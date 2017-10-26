@@ -14,7 +14,7 @@ Both examples require some statistical model, but they are very different.
 The first is a _causal inference_ problem: we want to design an intervention so that we need to recover the causal effect of temperature and pressure.
 The second is a _prediction_ problem, a.k.a. a _forecasting_ problem, in which we don't care about the causal effects, we just want good predictions.
 
-In this chapter we discuss the causal problem in Example \@ref(ex:cap-experiment).
+In this chapter we discuss the causal problem in Example \@ref(exm:cap-experiment).
 This means that when we assume a model, we assume it is the actual _data generating process_, i.e., we assume the _sampling distribution_ is well specified.
 The second type of problems is discussed in the Supervised Learning Chapter \@ref(supervised).
 
@@ -34,18 +34,17 @@ Consider the study of the effect of a new drug, by analyzing the level of blood 
 
 Let's present the linear model.
 We assume that a response^[The "response" is also know as the "dependent" variable in the statistical literature, or the "labels" in the machine learning literature.] variable is the sum of effects of some factors^[The "factors" are also known as the "independent variable", or  "the design", in the statistical literature, and the "features", or "attributes" in the machine learning literature.].
-Denoting the dependent by $y$, the factors by $x$, and the effects by $\beta$ the linear model assumption implies that 
-
+Denoting the dependent by $y$, the factors by $x$, and the effects by $\beta$ the linear model assumption implies that the expected response is the sum of the factors effects:
 
 \begin{align}
-  E[y]=\sum_j x_j \beta_j=x'\beta .
+  E[y]=\sum_{j=0}^p x_j \beta_j=x'\beta .
   (\#eq:linear-mean)
 \end{align}
 Clearly, there may be other factors that affect the the caps' diameters. 
 We thus introduce an error term^[The "error term" is also known as the "noise", or the "common causes of variability".], denoted by $\varepsilon$, to capture the effects of all unmodeled factors and measurement error^[You may philosophize if the measurement error is a mere instance of unmodeled factors or not, but this has no real implication for our purposes.]. 
 The implied generative process of a sample of $i=1,\dots,n$ observations it thus
 \begin{align}
-  y_i = \sum_j x_{i,j} \beta_j + \varepsilon_i , i=1,\dots,n .
+  y_i = x_i'\beta + \varepsilon_i = \sum_j x_{i,j} \beta_j + \varepsilon_i , i=1,\dots,n .
   (\#eq:linear-observed)
 \end{align}
 or in matrix notation
@@ -56,13 +55,15 @@ or in matrix notation
 
 
 Let's demonstrate Eq.\@ref(eq:linear-observed).
-In our cap example (\@ref(ex:cap-experiment)), assuming that pressure and temperature have two levels each (say, high and low), we would write $x_{i,1}=1$ if the pressure of the $i$'th measurement was set to high, and $x_{i,1}=-1$ if the __pressure__ was set to low. 
+In our cap example (\@ref(exm:cap-experiment)), assuming that pressure and temperature have two levels each (say, high and low), we would write $x_{i,1}=1$ if the pressure of the $i$'th measurement was set to high, and $x_{i,1}=-1$ if the __pressure__ was set to low. 
 Similarly, we would write $x_{i,2}=1$, and $x_{i,2}=-1$, if the __temperature__ was set to high, or low, respectively.
 The coding with $\{-1,1\}$ is known as _effect coding_.
 If you prefer coding with $\{0,1\}$, this is known as _dummy coding_.
+The choice of coding has no real effect on the results, provided that you remember what coding you used when interpreting $\hat \beta$.
 
+```{remark}
 In [Galton's](https://en.wikipedia.org/wiki/Regression_toward_the_mean) classical regression problem, where we try to seek the relation between the heights of sons and fathers then $p=1$, $y_i$ is the height of the $i$'th father, and $x_i$ the height of the $i$'th son.
-
+```
 
 There are many reasons linear models are very popular:
 
@@ -74,7 +75,7 @@ Why is that?
 They are simple so that they do not require a lot of data to be computed. 
 Put differently, they may be biased, but their variance is small enough to make them more accurate than other models.
 
-1. For categorical or factorial predictors, __any__ functional relation can be cast as a linear model.
+1. For non continuous  predictors, __any__ functional relation can be cast as a linear model.
 
 1. For the purpose of _screening_, where we only want to show the existence of an effect, and are less interested in the magnitude of that effect, a linear model is enough.
 
@@ -128,10 +129,10 @@ The reason I am not too strict about the normality assumption above, is that Eq.
 ## OLS Estimation in R
 
 We are now ready to estimate some linear models with R.
-We will use the `whiteside` data from the __MASS__ package, recording the outside temperature and gas consumption, before and after an appartment's insulation.
+We will use the `whiteside` data from the __MASS__ package, recording the outside temperature and gas consumption, before and after an apartment's insulation.
 ```{r, cache=TRUE}
-library(MASS)
-data(whiteside)
+library(MASS) # load the package
+data(whiteside) # load the data
 head(whiteside) # inspect the data
 ```
 
@@ -143,13 +144,14 @@ Things to note:
 
 - We used the tilde syntax `Gas~Temp`, reading "gas as linear function of temperature".
 - The `data` argument tells R where to look for the variables Gas and Temp.
-We used only observations before the insulation.
+We used `Insul=='Before'` to subset observations before the insulation.
 - The result is assigned to the object `lm.1`.
 
-Alternative formulations with the same results would be
+Like any other language, spoken or programable, there are many ways to say the same thing. Some more elegant than others...
 ```{r, eval=FALSE}
 lm.1 <- lm(y=Gas, x=Temp, data=whiteside[whiteside$Insul=='Before',]) 
-lm.1 <- lm(y=whiteside[whiteside$Insul=='Before',]$Gas, x=whiteside[whiteside$Insul=='Before',]$Temp)  
+lm.1 <- lm(y=whiteside[whiteside$Insul=='Before',]$Gas,x=whiteside[whiteside$Insul=='Before',]$Temp)  
+lm.1 <- whiteside[whiteside$Insul=='Before',] %>% lm(Gas~Temp, data=.)
 ```
 
 The output is an object of class `lm`.
@@ -164,7 +166,9 @@ The `str` function, short for "structure", shows us the various elements of the 
 str(lm.1)
 ```
 
-At this point, we only want $\hat \beta$ which can be extracted with the `coef` function.
+In RStudio it is particularly easy to extract objects. Just write `your.object$` and press `tab` after the `$` for autocompletion.
+
+If we only want $\hat \beta$, it can also be extracted with the `coef` function.
 ```{r}
 coef(lm.1)
 ```
@@ -190,7 +194,7 @@ A common measure of the goodness of fit is the _coefficient of determination_, m
 
 (ref:R2) $R^2$.
 
-```{definition, name='(ref:R2)'}
+```{definition, name='R2'}
 The coefficient of determination, denoted $R^2$, is defined as
 \begin{align}
   R^2:= 1-\frac{\sum_i (y_i - \hat y_i)^2}{\sum_i (y_i - \bar y)^2},
@@ -267,16 +271,20 @@ Diagnosing these _auto-correlations_ is a real art, which is not part of our cou
 
 The last assumption we required is normality. 
 As previously stated, if $n \gg p$, this assumption can be relaxed. 
-If $n \sim p$, i.e., $n$ is in the order of $p$, we need to verify this assumption.
+If $n$ is in the order of $p$, we need to verify this assumption.
 My favorite tool for this task is the _qqplot_.
 A qqplot compares the quantiles of the sample with the respective quantiles of the assumed distribution.
 If quantiles align along a line, the assumed distribution if OK.
 If quantiles depart from a line, then the assumed distribution does not fit the sample.
 ```{r}
-qqnorm(resid((lm.1)))
+qqnorm(resid(lm.1))
 ```
 
-The `qqnorm` function plots a qqplot against a normal distribution.
+Things to note:
+
+- The `qqnorm` function plots a qqplot against a normal distribution. For non-normal distributions try `qqplot`. 
+- `resid(lm.1)` extracts the residuals from the linear model, i.e., the vector of $y_i-x_i'\hat \beta$.
+
 Judging from the figure, the normality assumption is quite plausible. 
 Let's try the same on a non-normal sample, namely a uniformly distributed sample, to see how that would look.
 ```{r}
@@ -306,6 +314,9 @@ coefs.lm1[2,1] + c(-2,2) * coefs.lm1[2,2]
 ```
 
 
+
+
+
 ### Multiple Regression
 
 ```{remark}
@@ -315,7 +326,6 @@ _Multiple regression_ is not to be confused with _multivariate regression_ discu
 
 Our next example^[The example is taken from http://rtutorialseries.blogspot.co.il/2011/02/r-tutorial-series-two-way-anova-with.html] contains a hypothetical sample of $60$ participants who are divided into three stress reduction treatment groups (mental, physical, and medical) and two gender groups (male and female). 
 The stress reduction values are represented on a scale that ranges from 1 to 5. 
-This dataset can be conceptualized as a comparison between three stress treatment programs, one using mental methods, one using physical training, and one using medication across genders. 
 The values represent how effective the treatment programs were at reducing participant's stress levels, with larger effects indicating higher effectiveness.
 
 ```{r, cache=TRUE}
@@ -399,17 +409,17 @@ This is done with the `anova` command.
 ```{r}
 anova(lm.2,lm.3, test='F')
 ```
-We see that `lm.3` is __not__  better than `lm.2`, so that we can conclude that there are no interactions: different ages have the same response to different treatments.
+We see that `lm.3` is __not__  (significantly) better than `lm.2`, so that we can conclude that there are no interactions: different ages have the same response to different treatments.
 
 
-### Testing a Hypothesis on a Single Contrast
+### Testing a Hypothesis on a Single Contrast (*)
 Returning to the model without interactions, `lm.2`.
 ```{r}
 coef(summary(lm.2))
 ```
 We see that the effect of the various treatments is rather similar. 
 It is possible that all treatments actually have the same effect.
-Comparing the levels of a factor is called a _contrast_.
+Comparing the effects of factor levels is called a _contrast_.
 Let's test if the medical treatment, has in fact, the same effect as the physical treatment.
 ```{r}
 library(multcomp)
@@ -433,3 +443,13 @@ For the theory of linear models, I like @greene2003econometric.
 
 
 ## Practice Yourself
+
+1. Inspect women's heights and weights with `?women`.
+    1. What is the change in weight per unit change in height? Use the `lm` function.
+    1. Is the relation of height on weight significant? Use `summary`.
+    1. Plot the residuals of the linear model with `plot` and `resid`.
+    1. Plot the predictions of the model using `abline`. 
+    1. Inspect the normality of residuals using `qqnorm`.
+    1. Inspect the design matrix using `model.matrix`.
+1. Write a function that takes an `lm` class object, and returns the confidence interval on the first coefficient. Apply it on the height and weight data. 
+1. Use the `ANOVA` function to test the significance of the effect of height.

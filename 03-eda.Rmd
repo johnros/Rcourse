@@ -2,6 +2,7 @@
 
 
 Exploratory Data Analysis (EDA) is a term cast by [John W. Tukey](https://en.wikipedia.org/wiki/John_Tukey) in his seminal book [@tukey1977exploratory].
+It is also (arguably) known as _Visual Analytics_, or _Descriptive Statistics_.
 It is the practice of inspecting, and exploring your data, before stating hypotheses, fitting predictors, and other more ambitious inferential goals.
 It typically includes the computation of simple _summary statistics_ which capture some property of interest in the data, and _visualization_.
 EDA can be thought of as an assumption free, purely algorithmic practice.
@@ -24,10 +25,11 @@ As such, summaries of categorical variables will always start with the counting 
 #### Summary of Univariate Categorical Data
 
 ```{r}
+# Make some data
 gender <- c(rep('Boy', 10), rep('Girl', 12))
 drink <- c(rep('Coke', 5), rep('Sprite', 3), rep('Coffee', 6), rep('Tea', 7), rep('Water', 1))  
 age <-  sample(c('Young', 'Old'), size = length(gender), replace = TRUE)
-
+# Count frequencies
 table(gender)
 table(drink)
 table(age)
@@ -44,14 +46,15 @@ prop.table(table(gender))
 
 ```{r}
 library(magrittr)
-cbind(gender, drink) %>% head # inspect the raw data
-table1 <- table(gender, drink) 
+cbind(gender, drink) %>% head # bind vectors into matrix and inspect
+table1 <- table(gender, drink) # count frequencies of bivariate combinations
 table1										
 ```
 
 #### Summary of Multivariate Categorical Data
 You may be wondering how does R handle tables with more than two dimensions.
-It is indeed not trivial, and R offers several solutions: `table` is easier to compute with, and `ftable` is human readable.
+It is indeed not trivial to report this in a human-readable way. 
+R offers several solutions: `table` is easier to compute with, and `ftable` is human readable.
 
 ```{r}
 table2.1 <- table(gender, drink, age) # A multilevel table. 
@@ -61,6 +64,7 @@ table.2.2
 ```
 
 If you want proportions instead of counts, you need to specify the denominator, i.e., the margins. 
+Think: what is the margin in each of the following outputs?
 
 ```{r}
 prop.table(table1, margin = 1)
@@ -70,7 +74,7 @@ prop.table(table1, margin = 2)
 
 ### Continous Data
 Continuous variables admit many more operations than categorical.
-We can thus compute sums, means, quantiles, and more.
+We can compute sums, means, quantiles, and more.
 
 #### Summary of Univariate Continuous Data
 We distinguish between several types of summaries, each capturing a different property of the data.
@@ -79,7 +83,7 @@ We distinguish between several types of summaries, each capturing a different pr
 Capture the "location" of the data. These include:
 
 ```{definition, name="Average"}
-The mean, or average, of a sample $x$ of length $n$, denoted $\bar x$ is defined as 
+The mean, or average, of a sample $x:=(x_1,\dots,x_n)$, denoted $\bar x$ is defined as 
 $$ \bar x := n^{-1} \sum x_i. $$
 ```
 
@@ -95,7 +99,7 @@ The $\alpha$ quantile of a sample $x$, denoted $x_\alpha$, is (non uniquely) def
 
 We emphasize that sample quantiles are non-uniquely defined. See `?quantile` for the 9(!) different definitions that R provides. 
 
-We can now define another summary of location, the median.
+Using the sample quantiles, we can now define another summary of location, the __median__.
 
 ```{definition, name="Median"}
 The median of a sample $x$, denoted $x_{0.5}$ is the $\alpha=0.5$ quantile of the sample.
@@ -112,7 +116,7 @@ The simple mean and median are instances of the alpha trimmed mean: $\bar x_0$ a
 Here are the R implementations:
 
 ```{r}
-x <- rexp(100)
+x <- rexp(100) # generate some random data
 mean(x) # simple mean
 median(x) # median
 mean(x, trim = 0.2) # alpha trimmed mean with alpha=0.2
@@ -134,7 +138,7 @@ The Median Absolute Deviation from the median, denoted as $MAD(x)$, is defined a
 $$MAD(x):= c \: |x-x_{0.5}|_{0.5} . $$
 ```
 
-where $c$ is some constant, typically set to $c=1.4826$ so that the MAD is a robust estimate of $S(x)$.
+where $c$ is some constant, typically set to $c=1.4826$ so that MAD and $S(x)$ have the same large sample limit.
 
 ```{definition, name="IQR"}
 The Inter Quantile Range of a sample $x$, denoted as $IQR(x)$, is defined as 
@@ -152,7 +156,6 @@ IQR(x) # IQR
 
 
 #### Summary of Asymmetry
-The symmetry of a univariate sample is easily understood.
 Summaries of asymmetry, also known as _skewness_, quantify the departure of the $x$ from a symmetric sample.
 
 ```{definition, name="Yule"}
@@ -182,7 +185,7 @@ $$Cov(x,y):= (n-1)^{-1} \sum (x_i-\bar x)(y_i-\bar y)  $$
 ```
 
 We emphasize this is not the covariance you learned about in probability classes, since it is not the covariance between two _random variables_ but rather, between two _samples_. 
-For this reasons, some authors call it the _empirical_ covariance. 
+For this reasons, some authors call it the _empirical covariance_, or _sample covariance_.
 
 ```{definition, name="Pearson's Correlation Coefficient"}
 Peasrson's correlation coefficient, a.k.a. Pearson's moment product correlation, or simply, the correlation, denoted `r(x,y)`, is defined as 
@@ -201,14 +204,14 @@ We thus have that $r(x,y)=Cov(z(x),z(y))$.
 
 #### Summary of Multivariate Continuous Data
 
-The covariance is a simple summary of association between two variables, but it certainly may not capture the whole "story".
-Things get more complicated when summarizing the relation between multiple variables. 
-The most common summary of relation, is the __covariance matrix__, but we warn that only the simplest multivariate relations are fully summarized by this matrix. 
+The covariance is a simple summary of association between two variables, but it certainly may not capture the whole "story" when dealing with more than two variables. 
+The most common summary of multivariate relation, is the __covariance matrix__, but we warn that only the simplest multivariate relations are fully summarized by this matrix. 
 
 ```{definition, name="Sample Covariance Matrix"}
 Given $n$ observations on $p$ variables, denote $x_{i,j}$ the $i$'th observation of the $j$'th variable. 
 The _sample covariance matrix_, denoted $\hat \Sigma$ is defined as 
-$$\hat \Sigma_{k,l}=(n-1)^{-1} \sum_i [(x_{i,k}-\bar x_k)(x_{i,l}-\bar x_l)].$$
+$$\hat \Sigma_{k,l}=(n-1)^{-1} \sum_i [(x_{i,k}-\bar x_k)(x_{i,l}-\bar x_l)],$$
+where $\bar x_k:=n^{-1} \sum_i x_{i,k}$. 
 Put differently, the $k,l$'th entry in $\hat \Sigma$ is the sample covariance between variables $k$ and $l$.
 ```
 
@@ -257,7 +260,7 @@ plot(table2.1, main='Trivaraite mosaic plot')
 ### Continuous Data
 
 #### Visualizing Univariate Continuous Data
-Unlike categirical variables, there are endlessly many way to visualize continuous variables. 
+Unlike categorical variables, there are endlessly many way to visualize continuous variables. 
 The simplest way is to look at the raw data via the `stripchart`.
 
 ```{r}
@@ -296,7 +299,7 @@ Why would it make no sense to make a table, or a barplot, of continuous data?
 ```
 
 One particularly useful visualization, due to John W. Tukey, is the _boxplot_.
-The boxplot is designed to capture the main phenomena in the data, and simultaneously point to outliers. 
+The boxplot is designed to capture the main phenomena in the data, and simultaneously point to outlines. 
 
 ```{r}
 boxplot(sample1)	
@@ -316,7 +319,7 @@ Like the univariate `stripchart`, the scatter plot will be an uninformative mess
 A nice bivariate counterpart of the univariate histogram is the _hexbin plot_, which tessellates the plane with hexagons, and reports their frequencies.
 
 ```{r}
-library(hexbin)
+library(hexbin) # load required library
 n <- 2e5
 x1 <- rexp(n)
 x2 <- 2* x1 + 4 + rnorm(n)
@@ -329,7 +332,7 @@ plot(hexbin(x = x1, y = x2))
 Visualizing multivariate data is a tremendous challenge given that we cannot grasp $4$ dimensional spaces, nor can the computer screen present more than $2$ dimensional spaces.
 We thus have several options: 
 (i) To project the data to 2D. This is discussed in the Dimensionality Reduction Section \@ref(dim-reduce).
-(ii) To visualize not the data, but the summaries, like the covariance matrix.
+(ii) To visualize not the raw data, but rather its summaries, like the covariance matrix.
 
 Since the covariance matrix, $\hat \Sigma$ is a matrix, it can be visualized as an image.
 Note the use of the `::` operator, which is used to call a function from some package, without loading the whole package. 
@@ -351,3 +354,15 @@ For an excellent text on robust statistics see @wilcox2011introduction.
 
 
 ## Practice Yourself
+
+1. Read about the Titanic data set using `?Titanic`. Inspect it with the `table` and with the `ftable` commands. Which do you prefer?
+1. Inspect the Titanic data with a plot. Start with `plot(Titanic)` Try also `lattice::dotplot`. Which is the passenger category with most survivors? Which plot do you prefer? Which scales better to more categories?
+1. Read about the women data using `?women`. 
+    1. Compute the average of each variable. What is the average of the heights?
+    1. Plot a histogram of the heights. Add ticks using `rug`.
+    1. Plot a boxplot of the weights. 
+    1. Plot the heights and weights using a scatter plot. Add ticks using `rug`.
+1. Choose $\alpha$ to define a new symmetry measure: $1/2(x_\alpha+x_{1-\alpha})-x_{0.5}$.
+Write a function that computes it, and apply it on women's heights data. 
+1. Compute the covariance matrix of women's heights and weights. Compute the correlation matrix. View the correlation matrix as an image using `lattice::levelplot`. 
+1. Pick a dataset with two LONG continous variables from `?datasets`. Plot it using `hexbin::hexbin`.

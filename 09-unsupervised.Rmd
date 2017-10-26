@@ -44,7 +44,7 @@ Discrete Karhunen–Loève Transform; Hotteling Transform; Proper Orthogonal Dec
 The many names are quite interesting as they offer an insight into the different problems that led to PCA's (re)discovery.
 
 
-Return to the BMI problem in Example \@ref(ex:bmi).
+Return to the BMI problem in Example \@ref(exm:bmi).
 Assume you wish to give each individual a "size score", that is a __linear__ combination of height and weight: PCA does just that. 
 It returns the linear combination that has the largest variability, i.e., the combination which best distinguishes between individuals. 
 
@@ -134,7 +134,7 @@ We start with the simplest case of linear Factor Analysis.
 #### Factor Analysis (FA)
 
 FA originates from the psychometric literature. 
-We thus revisit the IQ (actually g-factor^[https://en.wikipedia.org/wiki/G_factor_(psychometrics)]) Example \@ref(ex:iq):
+We thus revisit the IQ (actually g-factor^[https://en.wikipedia.org/wiki/G_factor_(psychometrics)]) Example \@ref(exm:iq):
 
 ```{example}
 Assume $n$ respondents answer $p$ quantitative questions: $x_i \in \mathbb{R}^p, i=1,\dots,n$. 
@@ -202,7 +202,7 @@ This independence assumption, solves the the non-uniqueness of $S$ in FA.
 
 Being a generative model, estimation of $S$ can then be done using maximum likelihood, or other estimation principles. 
 
-ICA is a popular technique in signal processing, where $A$ is actually the signal, such as sound in Example \@ref(ex:blind-signal).
+ICA is a popular technique in signal processing, where $A$ is actually the signal, such as sound in Example \@ref(exm:blind-signal).
 Recovering $A$ is thus recovering the original signals mixing in the recorded $X$. 
 
 
@@ -499,7 +499,7 @@ Clustering may be seen as a method for dimensionality reduction.
 Unlike the approaches in the Dimensionality Reduction Section \@ref(dim-reduce), it does not compress __variables__ but rather __observations__. 
 Each group of homogeneous observations may then be represented as a single prototypical observation of the group.
 1. __Pre-Labelling__:
-Clustering may be performed as a pre-processing step for supervised learning, when labeling all the samples is impossible due to "budget" constraints, like in Example \@ref(ex:spam). This is sometimes known as _pre-clustering_.
+Clustering may be performed as a pre-processing step for supervised learning, when labeling all the samples is impossible due to "budget" constraints, like in Example \@ref(exm:spam). This is sometimes known as _pre-clustering_.
 
 Clustering, like dimensionality reduction, may rely on some latent variable generative model, or on purely algorithmic approaches.
 

@@ -9,29 +9,45 @@ Do we expect the variability of events to be constant about the trend? Probably 
 ```
 
 
+```{example, label='cars'}
+Consider the relation between the length of the observation period, and the number of cars passing a cross-roads. 
+Do you agree that the longer the period, the more cars are expected, but also more variability is expected?
+```
+
+
 
 ## Problem Setup
 
 In the Linear Models Chapter \@ref(lm), we assumed the generative process to be 
 \begin{align}
-  y|x=x'\beta+\varepsilon
+  y|x=x'\beta+\varepsilon,
   (\#eq:linear-mean-again)
 \end{align}
+where the $y|x$ notation is read "the response $y$ given the predictors $x$".
 
-This does not allow for (assumingly) non-linear relations, nor does it allow for the variability of $\varepsilon$ to change with $x$.
-_Generalize linear models_ (GLM), as the name suggests, are a generalization that allow that^[Do not confuse _generalized linear models_ with [_non-linear regression_](https://en.wikipedia.org/wiki/Nonlinear_regression), or [_generalized least squares_](https://en.wikipedia.org/wiki/Generalized_least_squares). These are different things, that we do not discuss.].
+This does not allow for the non-linear relations of Example \@ref(exm:cigarettes), nor does it allow for the distrbituion of $\varepsilon$ to change with $x$, as in Example \@ref(exm:cars).
+_Generalize linear models_ (GLM), as the name suggests, are a generalization of the linear models in Chapter \@ref(lm) that allow that^[Do not confuse _generalized linear models_ with [_non-linear regression_](https://en.wikipedia.org/wiki/Nonlinear_regression), or [_generalized least squares_](https://en.wikipedia.org/wiki/Generalized_least_squares). These are different things, that we do not discuss.].
 
 
 To understand GLM, we recall that with the normality of $\varepsilon$, Eq.\@ref(eq:linear-mean-again) implies that 
 $$
  y|x \sim \mathcal{N}(x'\beta, \sigma^2)
 $$
-For Example \@ref(ex:cigarettes), we would like something in the lines of 
+For Example \@ref(exm:cigarettes), we would like something in the lines of 
 $$
  y|x \sim Binom(1,p(x))
 $$
+
+For Example \@ref(exm:cars), we would like something in the lines of 
+$$
+ y|x \sim Pois(1,\lambda(x))
+$$
+
+
+
 More generally, for some distribution $F(\theta)$, with a parameter $\theta$, we would like
 \begin{align}
+  (\#eq:general)
   y|x \sim F(\theta(x))
 \end{align}
 
@@ -42,17 +58,21 @@ Possible examples include
  y|x &\sim \mathcal{N}(\mu(x),\sigma^2(x)) 
 \end{align}
 
-GLMs constrain $\theta$ to be some known function, $g$, of a linear combination of the $x$'s. 
-Formally, $$\theta(x)=g(x'\beta),$$ where $$x'\beta=\beta_0 + \sum_j x_j \beta_j.$$
-The function $g$ is called the _link_ function.
+GLMs allow models of the type of Eq.\@ref(eq:general), while imposing some constraints on $F$ and on the relation $\theta(x)$.
+GLMs assume the data distribution $F$ to be in a "well-behaved" family known as the [_Natural Exponential Family_](https://en.wikipedia.org/wiki/Natural_exponential_family) of distributions. 
+GLMs also assume that $\theta$ is a rescaling of a linear combination of $x$s.
+Formally
+$$g(\theta(x))=x'\beta,$$ where $$x'\beta=\beta_0 + \sum_j x_j \beta_j.$$
+The function $g$ is called the _link_ function, its inverse, $g^{-1}$ is the _mean function_. 
+This terminology will later be required to understand R's output.
 
 
 ## Logistic Regression
 
-The best known of the GLM class of models is the _logistic regression_ that deals with Binomial, or more precisely, Bernoulli distributed data. 
-The link function in the logistic regression is the _logistic function_
+The best known of the GLM class of models is the _logistic regression_ that deals with Binomial, or more precisely, Bernoulli-distributed data. 
+The link function in the logistic regression is the _logit function_
 \begin{align}
-  g(t)=\frac{e^t}{(1+e^t)}
+  g(t)=log(\frac{t}{(1-t)})
   (\#eq:logistic-link)  
 \end{align}
  implying that 
@@ -78,9 +98,11 @@ Formally:
 $$OR(y_1,y_2):=\frac{P(y_1=1)/P(y_1=0)}{P(y_2=1)/P(y_2=0)}.$$
 ```
 
-Odds ratios (OR) compares between the probabilities of two groups, only that it does not compare  them in probability scale, but rather in odds scale. 
+Odds ratios (OR) compare between the probabilities of two groups, only that it does not compare  them in probability scale, but rather in odds scale. 
+You can also think of ORs as a measure of distance between two Brenoulli distributions. 
+ORs have better mathematical properties than other candidate distance measures, such as $P(y_1=1)-P(y_2=1)$.
 
-Under the logistic link assumption, the OR between two conditions indexed by $y|x=1$ and $y|x=0$, returns:
+Under the logit link assumption, the OR between two conditions indexed by $y|x=1$ and $y|x=0$, returns:
 \begin{align}
    OR(y|x=1,y|x=0) 
    = \frac{P(y=1|x=1)/P(y=0|x=1)}{P(y=1|x=0)/P(y=0|x=0)} 
@@ -108,9 +130,11 @@ We will now `attach` the data so that its contents is available in the workspace
 We will also use the `cut` function to create a binary response variable for Light, and Heavy plants (we are doing logistic regression, so we need a two-class response).
 As a general rule of thumb, when we discretize continuous variables, we lose information. 
 For pedagogical reasons, however, we will proceed with this bad practice. 
+
+Look at the following output and think: how many `group` effects do we expect? What should be the sign of each effect?
 ```{r}
 attach(PlantGrowth)
-weight.factor<- cut(weight, 2, labels=c('Light', 'Heavy'))
+weight.factor<- cut(weight, 2, labels=c('Light', 'Heavy')) # binarize weights
 plot(table(group, weight.factor))
 ```
 
@@ -124,10 +148,10 @@ summary(glm.1)
 Things to note:
 
 - The `glm` function is our workhorse for all GLM models.
-- The `family` argument of `glm` tells R the output is binomial, thus, performing a logistic regression.
+- The `family` argument of `glm` tells R the respose variable is brenoulli, thus, performing a logistic regression.
 - The `summary` function is content aware. It gives a different output for `glm` class objects than for other objects, such as the `lm` we saw in Chapter \@ref(lm). In fact, what `summary` does is merely call `summary.glm`. 
 - As usual, we get the coefficients table, but recall that they are to be interpreted as (log) odd-ratios.
-- As usual, we get the significance for the test of no-effect, versus a two-sided alternative. 
+- As usual, we get the significance for the test of no-effect, versus a two-sided alternative. P-values are asymptotic, thus, only approximate (and can be very bad approximations in small samples). 
 - The residuals of `glm` are slightly different than the `lm` residuals, and called _Deviance Residuals_. 
 - For help see `?glm`, `?family`, and `?summary.glm`.
 
@@ -140,7 +164,7 @@ anova(glm.1, test='LRT')
 Things to note:
 
 - The `anova` function, like the `summary` function, are content-aware and produce a different output for the `glm` class than for the `lm` class. All that `anova` does is call `anova.glm`.
-- In GLMs there is no canonical test (like the F test for `lm`). 
+- In GLMs there is no canonical test (like the F test for `lm`). `LRT` implies we want an approximate Likelihood Ratio Test. 
 We thus specify the type of test desired with the `test` argument. 
 - The distribution of the weights of the plants does vary with the treatment given, as we may see from the significance of the `group` factor.
 - Readers familiar with ANOVA tables, should know that we computed the GLM equivalent of a type I sum- of-squares. 
@@ -199,7 +223,8 @@ This means that we assume $y|x \sim Poisson(\lambda(x) = e^{x'\beta})$.
 Why is this a good choice?
 We again resort to the two-group case, encoded by $x=1$ and $x=0$, to understand this model:
 $\lambda(x=1)=e^{\beta_0+\beta_1}=e^{\beta_0} \; e^{\beta_1}= \lambda(x=0) \; e^{\beta_1}$.
-We thus see that this link function implies that a change in $x$ __multiples__ the rate of events. 
+We thus see that this link function implies that a change in $x$ __multiples__ the rate of events by $e^{\beta_1}$.
+
 For our example^[Taken from http://www.theanalysisfactor.com/generalized-linear-models-in-r-part-6-poisson-regression-count-variables/] we inspect the number of infected high-school kids, as a function of the days since an  outbreak.
 ```{r}
 cases <-  
@@ -225,7 +250,7 @@ attach(cases)
 head(cases) 
 ```
 
-And visually:
+Look at the following plot and think: what is the sign of the effect of time on the number of sick students?
 ```{r}
 plot(Days, Students, xlab = "DAYS", ylab = "STUDENTS", pch = 16)
 ```
@@ -242,7 +267,7 @@ Things to note:
 - We used `family=poisson` in the `glm` function to tell R that we assume a Poisson distribution.
 - The coefficients table is there as usual. 
 When interpreting the table, we need to recall that the effect, i.e. the $\hat \beta$, are __multiplicative__ due to the assumed link function.
-- Each day __decreases__ the rate of events by a factor of about `r abs(round(summary(glm.3)$coef[2,1],2))`.
+- Each day __decreases__ the rate of events by a factor of about $e^{\beta_1}=$`r abs(round(summary(glm.3)$coef[2,1],2))`.
 - For more information see `?glm` and `?family`.
 
 ```{r, echo=FALSE}
@@ -264,3 +289,16 @@ For a less technical exposition, we refer to the usual @venables2013modern.
 ## Practice Yourself
 
 1. Try using `lm` for analyzing the plant growth data in `weight.factor` as a function of `group` in the `PlantGrowth` data. 
+
+1. Generate some synthetic data for a logistic regression:
+    a. Generate two predictor variables of length $100$. They can be random from your favorite distribution.
+    a. Fix `beta<- c(-1,2)`, and generate the response with:`rbinom(n=100,size=1,prob=exp(x %*% beta)/(1+exp(x %*% beta)))`. Think: why is this the model implied by the logistic regression?
+    a. Fit a Logistic regression to your synthetic data using `glm`.
+    a. Are the estimated coefficients similar to the true ones you used?
+    a. What is the estimated probability of an event at `x=1,1`? Use `predict.glm` but make sure to read the documentation on the `type` argument.
+
+1. Read about the Acute Myelogenous Leukemia survival data with `?survival::aml`.
+    a. Use `glm` to estimate the effect of the maintenance chemotherapy on survival times. Assuming times are exponentially distributed, and recalling that the Gamma distribution generalizes the exponential, use `family=Gamma`.
+    
+
+    
