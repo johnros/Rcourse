@@ -630,6 +630,7 @@ library(plotly)
 set.seed(100)
 d <- diamonds[sample(nrow(diamonds), 1000), ]
 ```
+
 ```{r, eval=FALSE}
 plot_ly(data = d, x = ~carat, y = ~price, color = ~carat, size = ~carat, text = ~paste("Clarity: ", clarity))
 ```
@@ -643,6 +644,13 @@ p <- ggplot(data = d, aes(x = carat, y = price)) +
   facet_wrap(~ cut) # make ggplot
 ggplotly(p) # from ggplot to plotly
 ```
+
+How about exporting __plotly__ objects?
+Well, a __plotly__ object is nothing more than a little web site: an HTML file.
+When showing a __plotly__ figure, RStudio merely servers you as a web browser. 
+You could, alternatively, export this HTML file to send your colleagues as an email attachment, or embed it in a web site.
+To export these, use the `plotly::export` or the `htmlwidgets::saveWidget` functions.
+
 
 For more on __plotly__ see https://plot.ly/r/.
 
@@ -667,7 +675,7 @@ A [video](https://www.youtube.com/watch?v=9Objw9Tvhb4&feature=youtu.be) by one o
 1. Go to the Fancy Graphics Section \@ref(fancy). Try parsing the commands in your head. 
 
 1. Recall the `medianlog` example and replace the `medianlog` function with a [harmonic mean](https://en.wikipedia.org/wiki/Harmonic_mean). 
-    ```{r, eval=FALSE}
+    ```{r}
 medianlog <- function(y) {median(log(y))}
 ggplot(Milk, aes(x=Time, y=protein)) +
   stat_summary(fun.y="medianlog", geom="line")

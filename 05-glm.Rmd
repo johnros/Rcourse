@@ -267,7 +267,7 @@ Things to note:
 - We used `family=poisson` in the `glm` function to tell R that we assume a Poisson distribution.
 - The coefficients table is there as usual. 
 When interpreting the table, we need to recall that the effect, i.e. the $\hat \beta$, are __multiplicative__ due to the assumed link function.
-- Each day __decreases__ the rate of events by a factor of about $e^{\beta_1}=$`r abs(round(summary(glm.3)$coef[2,1],2))`.
+- Each day __decreases__ the rate of events by a factor of about $e^{\beta_1}=$ `r abs(round(summary(glm.3)$coef[2,1],2))`.
 - For more information see `?glm` and `?family`.
 
 ```{r, echo=FALSE}

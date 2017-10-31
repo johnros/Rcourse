@@ -11,6 +11,10 @@ bookdown::render_book("index.Rmd","bookdown::gitbook", clean_envir = TRUE) # ren
 bookdown::render_book("index.Rmd","bookdown::word_document2", clean_envir = TRUE) # rendoer to DOCX
 bookdown::render_book("index.Rmd","bookdown::pdf_book", clean_envir = TRUE) # rendoer to PDF
 
+bookdown::preview_chapter('20-datatable.Rmd',"bookdown::gitbook" )
+bookdown::preview_chapter('20-datatable.Rmd',"bookdown::word_document2" )
+bookdown::preview_chapter('20-datatable.Rmd',"bookdown::pdf_book" )
+
 bookdown::preview_chapter('16-algebra.Rmd',"bookdown::gitbook" )
 bookdown::preview_chapter('16-algebra.Rmd',"bookdown::word_document2" )
 bookdown::preview_chapter('16-algebra.Rmd',"bookdown::pdf_book" )

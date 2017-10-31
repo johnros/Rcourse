@@ -126,6 +126,8 @@ Given the above assumptions, we can apply some probability theory and linear alg
 
 The reason I am not too strict about the normality assumption above, is that Eq.\@ref(eq:ols-distribution) is approximately correct even if $\varepsilon$ is not normal, provided that there are many more observations than factors ($n \gg p$).
 
+
+
 ## OLS Estimation in R
 
 We are now ready to estimate some linear models with R.
@@ -315,21 +317,41 @@ coefs.lm1[2,1] + c(-2,2) * coefs.lm1[2,2]
 
 
 
-
-
 ### Multiple Regression
 
 ```{remark}
 _Multiple regression_ is not to be confused with _multivariate regression_ discussed in Chapter \@ref(multivariate).
 ```
 
+The `swiss` dataset encodes the fertility at each of Switzerland's 47 French speaking provinces, along other socio-economic indicators. Let's see if these are statistically related:
+```{r}
+head(swiss)
+lm.5 <- lm(data=swiss, Fertility~Agriculture+Examination+Education+Education+Catholic+Infant.Mortality)
+summary(lm.5)
+```
+
+Things to note:
+
+- The `~` syntax allows to specify various predictors separated by the `+` operator. 
+- The summary of the model now reports the estimated effect, i.e., the regression coefficient, of each of the variables. 
+
+Clearly, naming each variable explicitely is a tedios task if there are many. The use of `Fertility~.` in the next example reads: "Fertility as a function of all other variables in the `swiss` data.frame".
+
+```{r}
+lm.5 <- lm(data=swiss, Fertility~.)
+summary(lm.5)
+```
+
+
+
+### ANOVA (*)
 
 Our next example^[The example is taken from http://rtutorialseries.blogspot.co.il/2011/02/r-tutorial-series-two-way-anova-with.html] contains a hypothetical sample of $60$ participants who are divided into three stress reduction treatment groups (mental, physical, and medical) and two gender groups (male and female). 
 The stress reduction values are represented on a scale that ranges from 1 to 5. 
 The values represent how effective the treatment programs were at reducing participant's stress levels, with larger effects indicating higher effectiveness.
 
 ```{r, cache=TRUE}
-twoWay <- read.csv('dataset_anova_twoWay_comparisons.csv')
+twoWay <- read.csv('data/dataset_anova_twoWay_comparisons.csv')
 head(twoWay)
 ```
 
@@ -338,28 +360,25 @@ How many observations per group?
 table(twoWay$Treatment, twoWay$Age)
 ```
 
-
 Since we have two factorial predictors, this multiple regression is nothing but a _two way ANOVA_.
 Let's fit the model and inspect it.
 ```{r}
-lm.2 <- lm(StressReduction~.-1,data=twoWay)
+lm.2 <- lm(StressReduction~.,data=twoWay)
 summary(lm.2)
 ```
 Things to note:
 
 - The  `StressReduction~.` syntax is read as "Stress reduction as a function of everything else".
 
-- The `StressReduction~.-1` means that I do not want an intercept in the model, so that the baseline response is 0.
-
 - All the (main) effects seem to be significant. 
 
-- The data has 2 factors, but the coefficients table has 4 predictors. This is because `lm` noticed that `Treatment` and `Age` are factors. 
+- The data has 2 factors, but the coefficients table has 4 predictors. This is because `lm` noticed that `Treatment` and `Age` are factors. Each level of each factor is thus encoded as a different (dummy) variable.
 The numerical values of the factors are meaningless.
 Instead, R has constructed a dummy variable for each level of each factor. 
 The names of the effect are a concatenation of the factor's name, and its level.
 You can inspect these dummy variables with the `model.matrix` command. 
 ```{r}
-head(model.matrix(lm.2))
+model.matrix(lm.2) %>% lattice::levelplot()
 ```
 If you don't want the default dummy coding, look at `?contrasts`.
 
@@ -375,6 +394,20 @@ Things to note:
 - The significance of each factor is computed using an F-test. 
 - The degrees of freedom, encoding the number of levels of a factor, is given in the `Df` column.
 - The StressReduction seems to vary for different ages and treatments, since both factors are significant.
+
+If you are extremely more comfortable with the ANOVA literature, you could have replaced the `lm` command with the `aov` command all along.
+```{r}
+lm.2.2 <- aov(StressReduction~.,data=twoWay)
+class(lm.2.2)
+summary(lm.2.2)
+```
+
+Things to note:
+
+- The `lm` function has been replaced with an `aov` function. 
+- The output of `aov` is an `aov` class object, which extends the `lm` class.
+- The summary of an `aov` does not like like the summary of an `lm` object, but rather, like an ANOVA table. 
+
 
 As in any two-way ANOVA, we may want to ask if different age groups respond differently to different treatments. 
 In the statistical parlance, this is called an _interaction_, or more precisely, an _interaction of order 2_.

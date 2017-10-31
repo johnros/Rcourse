@@ -19,6 +19,7 @@ The data may seemingly reside in $2$ dimensions but given the height, we have a 
 We can thus state that heights and weights are not really two dimensional, but roughly lay on a $1$ dimensional subspace of $\mathbb{R}^2$. 
 ```
 
+
 ```{example, label='iq'}
 Consider the correctness of the answers to a questionnaire with $p$ questions. 
 The data may seemingly reside in a $p$ dimensional space, but assuming there is a thing as ``skill'', then given the correctness of a person's reply to a subset of questions, we have a good idea how he scores on the rest. 
@@ -76,14 +77,19 @@ Things to note:
 - Distinguishing between states, i.e., finding the variance maximizing scores, should be indifferent to the __average__ of each variable. 
 We also don't want the score to be sensitive to the measurement __scale__. 
 We thus perform PCA in the z-score scale of each variable, obtained with the `scale` function.
+
 - PCA is performed with the `prcomp` function. 
 It returns the contribution (weight) of the original variables, to the new crimeness score.  
 These weights are called the _loadings_ (or `Rotations` in the `prcomp` output, which is rather confusing as we will later see).
+
 - The number of possible scores, is the same as the number of original variables in the data. 
+
 - The new scores are called the _principal components_, labeled `PC1`,...,`PC3` in our output.
+
 - The loadings on PC1 tell us that the best separation between states is along the average crime rate. 
 Why is this? 
 Because all the $3$ crime variables have a similar loading on PC1.
+
 - The other PCs are slightly harder to interpret, but it is an interesting exercise.
 
 __If we now represent each state, not with its original $4$ variables, but only with the first $2$ PCs (for example), we have reduced the dimensionality of the data.__
@@ -105,12 +111,15 @@ We typically denote the data as a $n\times p$ matrix $X$.
 A generalization of a linear space, which is regular enough so that, __locally__, it has all the properties of a linear space. 
 We will denote an arbitrary manifold by $\mathcal{M}$, and by $\mathcal{M}_q$ a $q$ dimensional^[You are probably used to thinking of the __dimension__ of linear spaces. We will not rigorously define what is the dimension of a manifold, but you may think of it as the number of free coordinates needed to navigate along the manifold.] manifold.
 - __Embedding__: 
-Informally speaking: a ``shape preserving'' mapping of a space into another. 
+Informally speaking: a "shape preserving" mapping of a space into another (see figure below).
 - __Linear Embedding__: 
-An embedding done via a linear operation (thus representable by a matrix). 
+An embedding done via a linear operation. 
 - __Generative Model__: 
 Known to statisticians as the __sampling distribution__. 
 The assumed stochastic process that generated the observed $X$. 
+
+![Various embedding algorithms. Source: http://scikit-learn.org/stable/auto_examples/manifold/plot_manifold_sphere.html#sphx-glr-auto-examples-manifold-plot-manifold-sphere-py](art/sphx_glr_plot_manifold_sphere_001.png)
+
 
 There are many motivations for dimensionality reduction:
 
@@ -217,7 +226,7 @@ This does not mean that they cannot be cast via their generative model, but rath
 
 #### Multidimensional Scaling (MDS)
 MDS can be thought of as a variation on PCA, that begins with the $n \times n$ graph^[The term Graph is typically used in this context instead of Network. 
-But a graph allows only yes/no relations, while a network, which is a weighted graph, allows a continuous measure of similarity (or dissimilarity). _Network_ is thus more appropriate than _graph_.]} of distances between data points, and not the original $n \times p$ data. 
+But a graph allows only yes/no relations, while a network, which is a weighted graph, allows a continuous measure of similarity (or dissimilarity). _Network_ is thus more appropriate than _graph_.] of distances between data points, and not the original $n \times p$ data. 
 
 MDS aims at embedding a graph of distances, while preserving the original distances.
 Basic results in graph/network theory [@graham1988isometric] suggest that the geometry of a graph cannot be preserved when embedding it into lower dimensions. 
@@ -362,7 +371,7 @@ Things to note:
 
 Graphical model fans will like the following plot, where the contribution of each variable to each factor is encoded in the width of the arrow. 
 
-```{r, cache=TRUE}
+```{r}
 qgraph::qgraph(fa.1)
 ```
 

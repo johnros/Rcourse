@@ -12,7 +12,7 @@ The latter as a _random effects_ model.
 ```
 
 
-```{example, label='randomeffects', name="Fixed and Random Subject Effect"}
+```{example, label='random-effects', name="Fixed and Random Subject Effect"}
 Consider a crossover^[If you are unfamiliar with design of experiments, have a look at Chapter 6 of my Quality Engineering [class notes](https://github.com/johnros/qualityEngineering/blob/master/Class_notes/notes.pdf).] experimenal design where each subject is given 2 types of diets, and his health condition is recorded.
 We could standardize over subjects by removing the subject-wise average, before comparing diets.
 This is what a paired t-test does, and implies the within-subject variability is the only source of variability we care about.
@@ -33,13 +33,13 @@ Because we may have both _fixed effects_ we want to estimate and remove, and _ra
 Because as the examples show, variance has more than a single source (like in the Linear Models of Chapter \@ref(lm)).
 
 - __Hirarchial Models__: 
-Because as Example \@ref(exm:randomeffects) demonstrates, we can think of the sampling as hierarchical-- first sample a subject, and then sample its response. 
+Because as Example \@ref(exm:random-effects) demonstrates, we can think of the sampling as hierarchical-- first sample a subject, and then sample its response. 
 
 - __Repeated Measures__: 
-Because we make several measurements from each unit, like in Example \@ref(exm:randomeffects).
+Because we make several measurements from each unit, like in Example \@ref(exm:random-effects).
 
 - __Longitudinal Data__: 
-Because we follow units over time, like in Example \@ref(exm:randomeffects).
+Because we follow units over time, like in Example \@ref(exm:random-effects).
 
 - __Panel Data__:
 Is the term typically used in econometric for such longitudinal data. 
@@ -51,7 +51,7 @@ Many of the problems that may be solved with a multivariate analysis of variance
 We now emphasize: 
 
 1. Mixed effect models are a way to infer against the right level of variability.
-Using a naive linear model (which assumes a single source of variability) instead of a mixed effects model, probably means your inference is overly anti-conservative. Put differently, the uncertainty in your estimates is higher than the linear model from Chapter @ref(lm) may suggest.
+Using a naive linear model (which assumes a single source of variability) instead of a mixed effects model, probably means your inference is overly anti-conservative. Put differently, the uncertainty in your estimates is higher than the linear model from Chapter \@ref(lm) may suggest.
 1. A mixed effect models, as we will later see, is typically specified via its fixed and random effects. 
 It is possible, however, to specify a mixed effects model by putting all the fixed effects into a linear model, and putting all the random effects into the covariance matrix of $\varepsilon$. This is known as _multivariate regression_, or _multivariate analysis of variance_ (MANOVA).
 For more on this view, see Chapter 8 in (the excellent) @weiss2005modeling.
@@ -69,7 +69,7 @@ Also recall that machine learning from non-independent observations (such as mix
 \end{align}
 where $x$ are the factors with fixed effects, $\beta$, which we may want to study.
 The factors $z$, with effects $u$, are the random effects which contribute to variability. 
-In our diet exaple (\@ref(exm:randomeffect))
+In our diet exaple (\@ref(exm:random-effects))
 
 The reader may notice that we state $y|x,u$ merely as a convenient way to do inference on $y|x$, instead of directly specifying $Var[y|x]$.
 
