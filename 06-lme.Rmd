@@ -120,7 +120,7 @@ We can now fit the linear and mixed models.
 ```{r, lme vs lm}
 lm.5 <- lm(y~z)  # fit a linear model
 library(lme4)
-lme.5 <- lmer(y~1|z) # fit a mixed-model
+lme.5 <- lmer(y~1|groups) # fit a mixed-model
 ```
 
 

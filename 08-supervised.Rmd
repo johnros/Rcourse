@@ -444,7 +444,7 @@ Things to note:
 - We used `cv.glmnet` to do an automatic search for the optimal level of regularization (the `lambda` argument in `glmnet`) using V-fold CV.
 - We set `alpha=0` for ridge regression.
 
-```{r}
+```{r predict-glmnet}
 # Train confusion matrix:
 .predictions.train <- predict(logistic.2, newx = X.train.spam, type = 'class') 
 (confusion.train <- table(prediction=.predictions.train, truth=spam.train$spam))

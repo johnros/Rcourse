@@ -172,19 +172,19 @@ R's memory management is discussed in Chapter \@ref(memory).
 
 ## Missing
 Unlike typically programming, when working with real life data, you may have __missing__ values: measurements that were simply not recorded/stored/etc.
-_R_ has rather sophosticated mechanisms to deal with missing values. 
+_R_ has rather sophisticated mechanisms to deal with missing values. 
 It distinguishes between the following types:
 
 1. `NA`: Not Available entries. 
 1. `NaN`: Not a number. 
 
-_R_ tries to defend the analysit, and return an error, or `NA` when the presence of missing values invalidates the calculation:
+_R_ tries to defend the analyst, and return an error, or `NA` when the presence of missing values invalidates the calculation:
 ```{r}
 missing.example <- c(10,11,12,NA)
 mean(missing.example)
 ```
 
-Most fnuctions will typically have an inner mechanism to deal with these. In the `mean` function, there is an `na.rm` argument, telling _R_ how to Remove `NA`s.
+Most functions will typically have an inner mechanism to deal with these. In the `mean` function, there is an `na.rm` argument, telling _R_ how to Remove `NA`s.
 ```{r}
 mean(missing.example, na.rm = TRUE)
 ```
@@ -544,7 +544,7 @@ Windows users may need to use "\\" instead of "/".
 
 ### Export non-CSV files
 You can export your R objects in endlessly many ways:
-If insread of the comma delimiter in .csv you want other column delimiters, look into `?write.table`.
+If instead of the comma delimiter in .csv you want other column delimiters, look into `?write.table`.
 If you are exporting only for R users, you can consider exporting as binary objects with `saveRDS`, `feather::write_feather`, or `fst::write.fst`. 
 See (http://www.fstpackage.org/) for a comparison.
 
@@ -730,7 +730,7 @@ For a list of free resources see [CrossValidated](http://stats.stackexchange.com
 I personally recommend the official introduction @venables2004introduction, [available online](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf), or anything else Bill Venables writes. 
 For advanced R programming see @wickham2014advanced, [available online](http://adv-r.had.co.nz/),  or anything else Hadley Wickham writes. 
 
-For Imporitng and Exporting see  (https://cran.r-project.org/doc/manuals/r-release/R-data.html).
+For Importing and Exporting see  (https://cran.r-project.org/doc/manuals/r-release/R-data.html).
 For working with databases see (https://rforanalytics.wordpress.com/useful-links-for-r/odbc-databases-for-r/).
 
 
