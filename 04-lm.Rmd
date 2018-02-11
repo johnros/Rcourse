@@ -113,7 +113,7 @@ A typical set of assumptions is the following:
 
 1. __Independence__: we assume $\varepsilon_i$ are independent of everything else. 
 Think of them as the measurement error of an instrument: it is independent of the measured value and of previous measurements. 
-1. __Centered__: we assume that $E[\varepsilon]=0$, meaning there is no systematic error. 
+1. __Centered__: we assume that $E[\varepsilon]=0$, meaning there is no systematic error, sometimes it called The "Linearity assumption". 
 1. __Normality__: we will typically assume that $\varepsilon \sim \mathcal{N}(0,\sigma^2)$, but we will later see that this is not really required. 
 
 We emphasize that these assumptions are only needed for inference on $\hat \beta$ and not for the estimation itself, which is done by the purely algorithmic framework of OLS.
@@ -347,7 +347,7 @@ summary(lm.5)
 ### ANOVA (*)
 
 Our next example^[The example is taken from http://rtutorialseries.blogspot.co.il/2011/02/r-tutorial-series-two-way-anova-with.html] contains a hypothetical sample of $60$ participants who are divided into three stress reduction treatment groups (mental, physical, and medical) and two gender groups (male and female). 
-The stress reduction values are represented on a scale that ranges from 1 to 5. 
+The stress reduction values are represented on a scale that ranges from 1 to 10. 
 The values represent how effective the treatment programs were at reducing participant's stress levels, with larger effects indicating higher effectiveness.
 
 ```{r, cache=TRUE}
@@ -370,7 +370,7 @@ Things to note:
 
 - The  `StressReduction~.` syntax is read as "Stress reduction as a function of everything else".
 
-- All the (main) effects seem to be significant. 
+- All the (main) effects and the intercept seem to be significant. 
 
 - The data has 2 factors, but the coefficients table has 4 predictors. This is because `lm` noticed that `Treatment` and `Age` are factors. Each level of each factor is thus encoded as a different (dummy) variable.
 The numerical values of the factors are meaningless.
@@ -406,7 +406,7 @@ Things to note:
 
 - The `lm` function has been replaced with an `aov` function. 
 - The output of `aov` is an `aov` class object, which extends the `lm` class.
-- The summary of an `aov` does not like like the summary of an `lm` object, but rather, like an ANOVA table. 
+- The summary of an `aov` does not like the summary of an `lm` object, but rather, like an ANOVA table. 
 
 
 As in any two-way ANOVA, we may want to ask if different age groups respond differently to different treatments. 
@@ -486,3 +486,14 @@ For the theory of linear models, I like @greene2003econometric.
     1. Inspect the design matrix using `model.matrix`.
 1. Write a function that takes an `lm` class object, and returns the confidence interval on the first coefficient. Apply it on the height and weight data. 
 1. Use the `ANOVA` function to test the significance of the effect of height.
+
+1. Read about the “mtcars” dataset using `? mtcars`.Inspect the dependency of the fuel consumption (mpg) in the weight (wt) and the 1/4 mile time (qsec).
+    1. Make a pairs scatter plot with `plot(mtcars[,c("mpg","wt","qsec")])`
+Does the connection look linear?
+    1. Fit a multiple linear regression with `lm`. Call it `model1`.
+    1. Try to add the transmission (am) as independent variable. Let R know this is a categorical variable with `factor(am)`. Call it `model2`.
+    1. Compare the “Adjusted R-squared” measure of the two models (we can’t use the regular R2 to compare two models with a different number of variables). 
+    1. Do the coefficients significant?
+    1. Inspect the normality of residuals and the linearity assumptions. 
+    1. Now Inspect the hypothesis that the effect of weight is different between the transmission types with adding interaction to the model `wt*factor(am)`. 
+    1. According to this model, what is the addition of one unit of weight in a manual transmission to the fuel consumption (-2.973-4.141=-7.11)?
