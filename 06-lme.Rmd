@@ -77,7 +77,7 @@ Given a sample of $n$ observations $(y_i,x_i,z_i)$ from model \@ref(eq:mixed-mod
 Under some assumption on the distribution of $\varepsilon$ and $z$, we can use _maximum likelihood_ (ML). 
 In the context of mixed-models, however, ML is typically replaced with _restricted maximum likelihood_ (ReML), because it returns unbiased estimates of $Var[y|x]$ and ML does not.
 
-
+AH todo: Something went wrong:
 ### Relation to MANOVA (*) {#manova}
 Multivariate analysis of variance (MANOVA) deals with the estimation of effect on vector valued outcomes. 
 Put differently: in ANOVA the response, $y$, is univariate In MANOVA, the outcome is multivariate.
@@ -391,3 +391,9 @@ As usual, a hands on view can be found in @venables2013modern.
     a. Compare the standard errors. 
     a. Compare the predictions of the two models. 
 1. [Very Advanced!] Return to the `Penicillin` data and use the `gls` function to fit a generalized linear model, equivalent to the LME model in our text. 
+1. Read about the “oats” dataset using `? MASS::oats `.Inspect the dependency of the yield (Y) in the Varieties (V) and the Nitrogen treatment (N).
+    1. Fit a linear model, does the effect of the treatment significant? The interaction between the Varieties and Nitrogen is significant?
+    1. An expert told you that could be a variance between the different blocks (B) which can bias the analysis. fit a LMM for the data.
+    1. Do you think the blocks should be taken into account as “random effect” or “fixed effect”?
+
+
