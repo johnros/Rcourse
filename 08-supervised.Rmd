@@ -631,3 +631,9 @@ Terminology taken from @sammut2011encyclopedia.
 For a review of resampling based unbiased risk estimation (i.e. cross validation) see the exceptional review of @arlot2010survey.
 
 ## Practice Yourself
+
+1. In chapter 6.6 we fit a Generalized Linear Model for the `MASS::epil` data (Poisson family). We assume that the number of seizures (y) depending on the age of the patient (age) and the treatment (trt). 
+    1. What was the MSE of the model?
+    1. Now, try to fit another model which including all the attributes in the dataset with Ridge penalty using `glmnet` (`alpha=0`). 
+    1. Fit a model which including all the attributes in the dataset with Lasso penalty using `glmnet` (`alpha=1`). 
+    1. Compare the MSE of the three models. According to this  measure which one is the best model? 
