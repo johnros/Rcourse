@@ -637,3 +637,10 @@ For a review of resampling based unbiased risk estimation (i.e. cross validation
     1. Now, try to fit another model which including all the attributes in the dataset with Ridge penalty using `glmnet` (`alpha=0`). 
     1. Fit a model which including all the attributes in the dataset with Lasso penalty using `glmnet` (`alpha=1`). 
     1. Compare the MSE of the three models. According to this  measure which one is the best model? 
+    
+1. Read about the “Glass” dataset using `library(e1071)` and `?Glass`. 
+    1. Divide the dataset to train set and test set.
+    1. For classifying the glass type fit the six classification models which you learned about in chapters 9.2.2-9.2.7.
+    1. Compute the accuracy for each classifier with `sum(diag(confusion.test))/sum(confusion.test)`. 
+Which is the best classifier according to this measure?
+
