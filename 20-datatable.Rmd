@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # data.table {#datatable}
 
 `data.table` is an excellent extension of the `data.frame` class.
@@ -20,51 +25,55 @@ dim(auto) #  Rows and columns
 names(auto) # Variable names
 class(auto) # Object class
 file.info('data/autos.csv') # File info on disk
-object.size(auto) %>% print(humanReadable=TRUE, units = 'MB') # File size in memory
+gdata::humanReadable(68439217)
+object.size(auto) %>% print(units = 'auto') # File size in memory
 ```
 
 Things to note:
 
 - The import has been done with `fread` instead of `read.csv`. This is more efficient, and directly creates a `data.table` object.
 - The import is very fast. 
+- The data after import is slightly larger than when stored on disk (in this case).
 
 Let's start with verifying that it behaves like a `data.frame` when expected.
 ```{r}
 auto[,2] %>% head
-auto[1,2] %>% head
 auto[[2]] %>% head
+auto[1,2] %>% head
 ```
 
-But notice the difference between `data.frame` and `data.table` when subsetting multiple rows. 
-You should always be explicit when you subset rows/columns!
+But notice the difference between `data.frame` and `data.table` when subsetting multiple rows. Uhh!
 ```{r}
 auto[1:3] %>% dim # data.table will exctract *rows*
 as.data.frame(auto)[1:3] %>% dim # data.frame will exctract *columns*
 ```
-
+Just use columns (`,`) and be explicit regarding the dimension you are extracting...
 
 
 Now let's do some `data.table` specific operations.
 The general syntax has the form `DT[i,j,by]`.
 SQL users may think of `i` as `WHERE`, `j` as `SELECT`, and `by` as `GROUP BY`.
 We don't need to name the arguments explicitly.
+Also, the `Tab` key will typically help you to fill in column names.
 
 ```{r}
-auto[,vehicleType,] %>% table # exctract column
-auto[vehicleType=='coupe',,] %>% dim # exctract rows
+auto[,vehicleType,] %>% table # Exctract column and tabulate
+auto[vehicleType=='coupe',,] %>% dim # Exctract rows 
+auto[,gearbox:model,] %>% head # exctract column range
 auto[,gearbox,] %>% table
 auto[vehicleType=='coupe' & gearbox=='automatik',,] %>% dim # intersect conditions
-auto[, mean(price), by=vehicleType] # average price per car group
-auto[,gearbox:model,] %>% head # exctract column range
+auto[,table(vehicleType),] # uhh? why would this even work?!?
+auto[, mean(price), by=vehicleType] # average price by car group
 ```
 
 
-The `.N` operator is very useful if you need to count the length of the result:
+The `.N` operator is very useful if you need to count the length of the result. 
+Notice where I use it:
 ```{r}
 auto[.N-1,,] # will exctract the *last* row
-auto[,.N] # will count rows per type
+auto[,.N] # will count rows
+auto[,.N, vehicleType] # will count rows by type
 ```
-
 
 
 You may concatenate results into a vector:
@@ -72,45 +81,36 @@ You may concatenate results into a vector:
 auto[,c(mean(price), mean(powerPS)),]
 ```
 
-This `c()` syntax does not behave well is splitting:
+This `c()` syntax no longer behaves well if splitting:
 ```{r}
 auto[,c(mean(price), mean(powerPS)), by=vehicleType]
 ```
 
-`data.table' uses the `.()` syntax for concatenating (actually, for listing):
+Use a `list()` instead of `c()`, within `data.table` commands:
 ```{r}
-auto[,.(mean(price), mean(powerPS)), by=vehicleType]
-```
-
-An equivalent formulation, replacing `.()` with an explicit `list()`:
-```{r, eval=FALSE}
 auto[,list(mean(price), mean(powerPS)), by=vehicleType]
 ```
 
+You can add names to your new variables:
+```{r}
+auto[,list(Price=mean(price), Power=mean(powerPS)), by=vehicleType]
+```
 
-You may include column names
+You can use `.()` to replace the longer `list()` command:
 ```{r}
 auto[,.(Price=mean(price), Power=mean(powerPS)), by=vehicleType]
 ```
 
-Or split by multiple variables:
+And split by multiple variables:
 ```{r}
 auto[,.(Price=mean(price), Power=mean(powerPS)), by=.(vehicleType,fuelType)]
 ```
 
-
-
-
+Compute with variables created on the fly:
 ```{r}
 auto[,sum(price<1e4),] # Count prices higher than 10,000
 auto[,mean(price<1e4),] # Proportion of prices larger than 10,000
-```
-
-
-
-Notice the grouping by two variables with the `.()` syntax.
-```{r}
-auto[,.(Price=mean(price)), by=.(vehicleType,gearbox)]
+auto[,.(Power=mean(powerPS)), by=.(PriceRange=price>1e4)] 
 ```
 
 You may sort along one or more columns
@@ -119,10 +119,6 @@ auto[order(-price), price,] %>% head # Order along price. Descending
 auto[order(price, -lastSeen), price,] %>% head# Order along price and last seen . Ascending and descending.
 ```
 
-You may group using a computed variable
-```{r}
-auto[,.(Power=mean(powerPS)), by=.(PriceRange=price>1e4)]
-```
 
 You may apply a function to ALL columns using a Subset of the Data using `.SD`
 ```{r}
