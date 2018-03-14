@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Linear Models {#lm}
 
 ## Problem Setup
@@ -34,10 +39,10 @@ Consider the study of the effect of a new drug for hemophilia, by analyzing the 
 
 Let's present the linear model.
 We assume that a response^[The "response" is also know as the "dependent" variable in the statistical literature, or the "labels" in the machine learning literature.] variable is the sum of effects of some factors^[The "factors" are also known as the "independent variable", or  "the design", in the statistical literature, and the "features", or "attributes" in the machine learning literature.].
-Denoting the dependent by $y$, the factors by $x$, and the effects by $\beta$ the linear model assumption implies that the expected response is the sum of the factors effects:
+Denoting the response variable by $y$, the factors by $x=(x_1,\dots,x_p)$, and the effects by $\beta:=(\beta_1,\dots,\beta_p)$ the linear model assumption implies that the expected response is the sum of the factors effects:
 
 \begin{align}
-  E[y]=\sum_{j=0}^p x_j \beta_j=x'\beta .
+  E[y]=x_1 \beta_1 + \dots + x_p \beta_p = \sum_{j=1}^p x_j \beta_j = x'\beta .
   (\#eq:linear-mean)
 \end{align}
 Clearly, there may be other factors that affect the the caps' diameters. 
@@ -134,13 +139,15 @@ We are now ready to estimate some linear models with R.
 We will use the `whiteside` data from the __MASS__ package, recording the outside temperature and gas consumption, before and after an apartment's insulation.
 ```{r, cache=TRUE}
 library(MASS) # load the package
+library(data.table) # for some data manipulations
 data(whiteside) # load the data
 head(whiteside) # inspect the data
 ```
 
 We do the OLS estimation on the pre-insulation data with `lm` function, possibly the most important function in R.
 ```{r}
-lm.1 <- lm(Gas~Temp, data=whiteside[whiteside$Insul=='Before',]) # OLS estimation 
+whiteside <- data.table(whiteside)
+lm.1 <- lm(Gas~Temp, data=whiteside[Insul=='Before']) # OLS estimation 
 ```
 Things to note:
 
@@ -178,7 +185,7 @@ coef(lm.1)
 Things to note:
 
 - R automatically adds an `(Intercept)` term. 
-This means we estimate $y=\beta_0 + \beta_1 Gas + \varepsilon$ and not $y=\beta_1 Gas + \varepsilon$. 
+This means we estimate $Gas=\beta_0 + \beta_1 Temp + \varepsilon$ and not $Gas=\beta_1 Temp + \varepsilon$. 
 This makes sense because we are interested in the contribution of the temperature to the variability of the gas consumption about its __mean__, and not about zero.
 
 - The effect of temperature, i.e., $\hat \beta_1$, is `r round(coef(lm.1)[[2]],2)`. 
@@ -187,7 +194,7 @@ The magnitude of the coefficient means that for a unit increase in the outside t
 
 We can use the `predict` function to make predictions, but we emphasize that if the purpose of the model is to make predictions, and not interpret coefficients, better skip to the Supervised Learning Chapter \@ref(supervised).
 ```{r, results='hold'}
-plot(predict(lm.1)~whiteside[whiteside$Insul=='Before',]$Gas)
+plot(predict(lm.1)~whiteside[Insul=='Before',Gas])
 abline(0,1, lty=2)
 ```
 
@@ -211,7 +218,7 @@ R2 <- function(y, y.hat){
   denominator <- (y-mean(y))^2 %>% sum
   1-numerator/denominator
 }
-R2(y=whiteside[whiteside$Insul=='Before',]$Gas, y.hat=predict(lm.1))
+R2(y=whiteside[Insul=='Before',Gas], y.hat=predict(lm.1))
 ```
 
 This is a nice result implying that about $94\%$ of the variability in gas consumption can be attributed to changes in the outside temperature. 
@@ -247,15 +254,15 @@ Some.
 Let's start with the linearity assumption.
 If we were wrong, and the data is not arranged about a linear line, the residuals will have some shape. We thus plot the residuals as a function of the predictor to diagnose shape. 
 ```{r, results='hold'}
-plot(residuals(lm.1)~whiteside[whiteside$Insul=='Before',]$Temp)
+plot(residuals(lm.1)~whiteside[Insul=='Before',Temp])
 abline(0,0, lty=2)
 ```
 
 I can't say I see any shape.
 Let's fit a __wrong__ model, just to see what "shape" means.
 ```{r}
-lm.1.1 <- lm(Gas~I(Temp^2), data=whiteside[whiteside$Insul=='Before',])
-plot(residuals(lm.1.1)~whiteside[whiteside$Insul=='Before',]$Temp); abline(0,0, lty=2)
+lm.1.1 <- lm(Gas~I(Temp^2), data=whiteside[Insul=='Before',])
+plot(residuals(lm.1.1)~whiteside[Insul=='Before',Temp]); abline(0,0, lty=2)
 ```
 
 Things to note:
@@ -446,6 +453,7 @@ We see that `lm.3` is __not__  (significantly) better than `lm.2`, so that we ca
 
 
 ### Testing a Hypothesis on a Single Contrast (*)
+
 Returning to the model without interactions, `lm.2`.
 ```{r}
 coef(summary(lm.2))
