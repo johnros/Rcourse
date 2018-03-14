@@ -89,7 +89,7 @@ We start with some definitions.
 The _odds_, of a binary random variable, $y$, is defined as $$\frac{P(y=1)}{P(y=0)}.$$
 ```
 
-Odds are the same as probabilities, but instead of of telling me there is a $66\%$ of success, they tell me the odds of success are "2 to 1".
+Odds are the same as probabilities, but instead of telling me there is a $66\%$ of success, they tell me the odds of success are "2 to 1".
 If you ever placed a bet, the language of "odds" should not be unfamiliar to you. 
 
 ```{definition, name="Odds Ratio"}
@@ -295,10 +295,12 @@ For a less technical exposition, we refer to the usual @venables2013modern.
     a. Fix `beta<- c(-1,2)`, and generate the response with:`rbinom(n=100,size=1,prob=exp(x %*% beta)/(1+exp(x %*% beta)))`. Think: why is this the model implied by the logistic regression?
     a. Fit a Logistic regression to your synthetic data using `glm`.
     a. Are the estimated coefficients similar to the true ones you used?
-    a. What is the estimated probability of an event at `x=1,1`? Use `predict.glm` but make sure to read the documentation on the `type` argument.
-
+    a. What is the estimated probability of an event at `x=1,1`? Use `predict.glm` but make sure to read the documentation on the `type` argument. 
 1. Read about the Acute Myelogenous Leukemia survival data with `?survival::aml`.
+#AH TODO: Since “time” is regarding to survival or censoring time I’m not sure GLM is the right tool.
     a. Use `glm` to estimate the effect of the maintenance chemotherapy on survival times. Assuming times are exponentially distributed, and recalling that the Gamma distribution generalizes the exponential, use `family=Gamma`.
-    
-
-    
+1. Read about the “epil” dataset using `? MASS::epil `.Inspect the dependency of The number of seizures (y) in the age of the patient (age) and the treatment (trt).
+    1. Fit a Poisson regression with `glm` and ` family = "poisson"`. 
+    1. Do the coefficients significant?   
+    1. Does the treatment reduce the frequency of the seizures?
+    1. According to this model, what would be the number of seizures for 20 years old patient with progabide treatment? ( `exp(2.533-0.0133*20-0.0925)` )   
