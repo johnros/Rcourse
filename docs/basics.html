@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-12-05">
+<meta name="date" content="2018-03-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -189,9 +189,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.6" data-path="glm.html"><a href="glm.html#practice-yourself-4"><i class="fa fa-check"></i><b>6.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
-<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#relation-to-manova-manova-multivariate-analysis-of-variance-manova-deals-with-the-estimation-of-effect-on-vector-valued-outcomes.-put-differently-in-anova-the-response-y-is-univariate-in-manova-the-outcome-is-multivariate.-manova-is-useful-when-there-are-correlations-among-the-entries-of-y.-otherwise--one-may-simply-solve-many-anova-problems-instead-of-a-single-manova."><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA (*) {#manova} Multivariate analysis of variance (MANOVA) deals with the estimation of effect on vector valued outcomes. Put differently: in ANOVA the response, <span class="math inline">\(y\)</span>, is univariate In MANOVA, the outcome is multivariate. MANOVA is useful when there are correlations among the entries of <span class="math inline">\(y\)</span>. Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.</a></li>
-</ul></li>
+<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
 <li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
 <li class="chapter" data-level="7.2.2" data-path="lme.html"><a href="lme.html#multiple-random-effects"><i class="fa fa-check"></i><b>7.2.2</b> Multiple Random Effects</a></li>
@@ -391,7 +389,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>We now start with the basics of R. If you have any experience at all with R, you can probably skip this section.</p>
 <p>First, make sure you work with the RStudio IDE. Some useful pointers for this IDE include:</p>
 <ul>
-<li>Ctrl+Return to run lines from editor.</li>
+<li>Ctrl+Return(Enter) to run lines from editor.</li>
 <li>Alt+Shift+k for RStudio keyboard shortcuts.</li>
 <li>Ctrl+r to browse the command history.</li>
 <li>Alt+Shift+j to navigate between code sections</li>
@@ -406,6 +404,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Alt+o collapse all.</li>
 <li>Alt+Shift+o unfold all.</li>
 </ul></li>
+<li>Alt+“-” for the assignment operator <code>&lt;-</code>.</li>
 </ul>
 <div id="file-types" class="section level2">
 <h2><span class="header-section-number">3.1</span> File types</h2>
@@ -418,7 +417,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="simple-calculator" class="section level2">
 <h2><span class="header-section-number">3.2</span> Simple calculator</h2>
 <p>R can be used as a simple calculator. Create a new R Notebook (.Rmd file) within RStudio using File-&gt; New -&gt; R Notebook, and run the following commands.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">10</span><span class="op">+</span><span class="dv">5</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">10</span><span class="op">+</span><span class="dv">5</span> </code></pre></div>
 <pre><code>## [1] 15</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">70</span><span class="op">*</span><span class="dv">81</span></code></pre></div>
 <pre><code>## [1] 5670</code></pre>
@@ -599,12 +598,12 @@ car_data &lt;-<span class="st"> </span>
 ##     fill = TRUE, comment.char = &quot;&quot;, ...) 
 ## read.table(file = file, header = header, sep = sep, quote = quote, 
 ##     dec = dec, fill = fill, comment.char = comment.char, ...)
-## &lt;bytecode: 0x5b7bb90&gt;
+## &lt;bytecode: 0x4b11f50&gt;
 ## &lt;environment: namespace:utils&gt;</code></pre>
 <p>Never mind what the function does. Note the <code>environment: namespace:utils</code> line at the end. It tells us that this function is part of the <strong>utils</strong> package. We did not need to know this because it is loaded by default. Here are some packages that I have currently loaded:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">search</span>())</code></pre></div>
-<pre><code>## [1] &quot;.GlobalEnv&quot;            &quot;package:bindrcpp&quot;      &quot;package:bookdown&quot;     
-## [4] &quot;package:biganalytics&quot;  &quot;package:bigmemory&quot;     &quot;package:bigmemory.sri&quot;</code></pre>
+<pre><code>## [1] &quot;.GlobalEnv&quot;       &quot;package:magrittr&quot; &quot;package:bookdown&quot;
+## [4] &quot;tools:rstudio&quot;    &quot;package:stats&quot;    &quot;package:graphics&quot;</code></pre>
 <p>Other packages can be loaded via the <code>library</code> function, or downloaded from the internet using the <code>install.packages</code> function before loading with <code>library</code>. R’s package import mechanism is quite powerful, and is one of the reasons for R’s success.</p>
 </div>
 <div id="simple-plotting" class="section level2">
@@ -831,7 +830,7 @@ tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(URL)</c
 </div>
 <div id="massive-files" class="section level3">
 <h3><span class="header-section-number">3.15.7</span> Massive files</h3>
-<p>The above importing and exporting mechanisms were not designed for massive files. See the section on Sparse Representation (<a href="sparse.html#sparse">14</a>) and Out-of-Ram Algorithms (<a href="memory.html#memory">15</a>) for more on working with massive data files.</p>
+<p>The above importing and exporting mechanisms were not designed for massive files. See the section on the <strong>data.table</strong> package (<a href="datatable.html#datatable">21</a>), Sparse Representation (<a href="sparse.html#sparse">14</a>), and Out-of-Ram Algorithms (<a href="memory.html#memory">15</a>) for more on working with massive data files.</p>
 </div>
 <div id="databases" class="section level3">
 <h3><span class="header-section-number">3.15.8</span> Databases</h3>
@@ -849,10 +848,11 @@ tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(URL)</c
 <p>From this example you may notice that:</p>
 <ul>
 <li><p>The function <code>function</code> tells R to construct a function object.</p></li>
-<li><p>The arguments of the <code>function</code>, i.e. <code>(x,y)</code>, need to be named but we are not required to specify their type. This makes writing functions very easy, but it is also the source of many bugs, and slowness of R compared to type declaring languages (C, Fortran,Java,…).</p></li>
+<li><p>Unlike some programming languages, a period (<code>.</code>) is allowed as part of an object’s name.</p></li>
+<li><p>The arguments of the <code>function</code>, i.e. <code>(x,y)</code>, need to be named but we are not required to specify their class. This makes writing functions very easy, but it is also the source of many bugs, and slowness of R compared to type declaring languages (C, Fortran,Java,…).</p></li>
 <li><p>A typical R function does not change objects<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> but rather creates new ones. To save the output of <code>my.sum</code> we will need to assign it using the <code>&lt;-</code> operator.</p></li>
 </ul>
-<p>Here is a (slightly) more advanced example.</p>
+<p>Here is a (slightly) more advanced function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my.sum.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="cf">function</span>(x, y , <span class="dt">absolute=</span><span class="ot">FALSE</span>) {
   <span class="cf">if</span>(absolute<span class="op">==</span><span class="ot">TRUE</span>) {
     result &lt;-<span class="st"> </span><span class="kw">abs</span>(x<span class="op">+</span>y)
@@ -866,9 +866,9 @@ tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(URL)</c
 <pre><code>## [1] 8</code></pre>
 <p>Things to note:</p>
 <ul>
-<li><code>if(condition){expression1} else{expression2}</code> does just what the name suggests.</li>
-<li>The function will output its last evaluated expression. You don’t need to use the <code>return</code> function explicitly.</li>
-<li>Using <code>absolute=FALSE</code> sets the default value of <code>absolute</code> to <code>FALSE</code>. This is overridden if <code>absolute</code> is stated explicitly in the function call.</li>
+<li><p><code>if(condition){expression1} else{expression2}</code> does just what the name suggests.</p></li>
+<li><p>The function will output its last evaluated expression. You don’t need to use the <code>return</code> function explicitly.</p></li>
+<li><p>Using <code>absolute=FALSE</code> sets the default value of <code>absolute</code> to <code>FALSE</code>. This is overridden if <code>absolute</code> is stated explicitly in the function call.</p></li>
 </ul>
 <p>An important behavior of R is the <em>scoping rules</em>. This refers to the way R seeks for variables used in functions. As a rule of thumb, R will first look for variables inside the function and if not found, will search for the variable values in outer environments<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>. Think of the next example.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span>
@@ -901,6 +901,11 @@ scoping &lt;-<span class="st"> </span><span class="cf">function</span>(a,b){
  <span class="remark"><em>Remark. </em></span> <strong>Vector Operations</strong>: You should NEVER write your own vector and matrix products like in the previous example. Only use existing facilities such as <code>%*%</code>, <code>sum()</code>, etc.
 </div>
 
+
+<div class="remark">
+ <span class="remark"><em>Remark. </em></span> <strong>Parallel Operations</strong>: If you already know that you will be needing to parallelize your work, get used to working with <code>foreach</code> loops in the <strong>foreach</strong> package, rather then regular <code>for</code> loops.
+</div>
+
 </div>
 <div id="apply" class="section level2">
 <h2><span class="header-section-number">3.18</span> Apply</h2>
@@ -914,15 +919,15 @@ scoping &lt;-<span class="st"> </span><span class="cf">function</span>(a,b){
 ## [1] &quot;character&quot;
 ## 
 ## [[3]]
-## [1] &quot;standardGeneric&quot;
-## attr(,&quot;package&quot;)
-## [1] &quot;methods&quot;</code></pre>
+## [1] &quot;function&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(<span class="dt">X =</span> the.list, <span class="dt">FUN =</span> class) <span class="co"># lapply with cleaned output</span></code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;   &quot;character&quot; &quot;function&quot;</code></pre>
 <p>R provides many variations on <code>lapply</code> to facilitate programming. Here is a partial list:</p>
 <ul>
 <li><code>sapply</code>: The same as <code>lapply</code> but tries to arrange output in a vector or matrix, and not an unstructured list.</li>
 <li><code>vapply</code>: A safer version of <code>sapply</code>, where the output class is pre-specified.</li>
 <li><code>apply</code>: For applying over the rows or columns of matrices.</li>
-<li><code>mapply</code>: For applying functions with various inputs.</li>
+<li><code>mapply</code>: For applying functions with more than a single input.</li>
 <li><code>tapply</code>: For splitting vectors and applying functions on subsets.</li>
 <li><code>rapply</code>: A recursive version of <code>lapply</code>.</li>
 <li><code>eapply</code>: Like <code>lapply</code>, only operates on <code>environments</code> instead of lists.</li>
@@ -937,7 +942,7 @@ scoping &lt;-<span class="st"> </span><span class="cf">function</span>(a,b){
 See the RCpp Chapter <a href="rcpp.html#rcpp">19</a> for linking C code, which is better suited for recursion. If you really insist to write recursions in R, make sure to use the <code>Recall</code> function, which, as the name suggests, recalls the function in which it is place. Here is a demonstration with the Fibonacci series.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fib&lt;-<span class="cf">function</span>(n) {
     <span class="cf">if</span> (n <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>) fn&lt;-<span class="dv">1</span> 
-    <span class="cf">else</span> fn&lt;-<span class="kw">Recall</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">Recall</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">2</span>) 
+    <span class="cf">else</span> fn &lt;-<span class="st"> </span><span class="kw">Recall</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">Recall</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">2</span>) 
     <span class="kw">return</span>(fn)
 } 
 <span class="kw">fib</span>(<span class="dv">5</span>)</code></pre></div>
@@ -945,7 +950,7 @@ See the RCpp Chapter <a href="rcpp.html#rcpp">19</a> for linking C code, which i
 </div>
 <div id="dates-and-times" class="section level2">
 <h2><span class="header-section-number">3.20</span> Dates and Times</h2>
-<p>[TODO]</p>
+<p>[TODO. In the meanwhile, see the <strong>lubridate</strong> pacakge].</p>
 </div>
 <div id="bibliographic-notes-1" class="section level2">
 <h2><span class="header-section-number">3.21</span> Bibliographic Notes</h2>
@@ -955,10 +960,19 @@ See the RCpp Chapter <a href="rcpp.html#rcpp">19</a> for linking C code, which i
 <div id="practice-yourself-1" class="section level2">
 <h2><span class="header-section-number">3.22</span> Practice Yourself</h2>
 <ol style="list-style-type: decimal">
-<li>Save the numbers 1 to 100 into an object named <code>object</code>.</li>
-<li>Write a loop that computes the mean of <code>object</code>.</li>
-<li>Write a function that computes the mean of its input, and apply it on <code>object</code>.</li>
-<li>Make a matrix of random numbers using <code>A &lt;- matrix(rnorm(40), ncol=10, nrow=4)</code>. Compute the mean of each columns. Do it using your own loop and then do the same with <code>lapply</code> or <code>apply</code>.</li>
+<li><p>Load the package <strong>MASS</strong>. That was easy. Now load <strong>ggplot2</strong>, after looking into <code>install.pacakges()</code>.</p></li>
+<li><p>Save the numbers 1 to 1,000,000 (<code>1e6</code>) into an object named <code>object</code>.</p></li>
+<li><p>Write a function that computes the mean of its input. Write a version that uses <code>sum()</code>, and another that uses a <code>for</code> loop and the summation <code>+</code>. Try checking which is faster using <code>system.time</code>. Is the difference considerable? Ask me about it in class.</p></li>
+<li><p>Write a function that returns <code>TRUE</code> if a number is divisible by 13, <code>FALSE</code> if not, and a nice warning to the user if the input is not an integer number.</p></li>
+<li><p>Apply the previous function to all the numbers in <code>object</code>. Try using a <code>for</code> loop, but also a mapping/apply function.</p></li>
+<li><p>Make a matrix of random numbers using <code>A &lt;- matrix(rnorm(40), ncol=10, nrow=4)</code>. Compute the mean of each columns. Do it using your own loop and then do the same with <code>lapply</code> or <code>apply</code>.</p></li>
+<li><p>Make a data frame (<code>dataA</code>) with three columns, and 100 rows. The first column with 100 numbers generated from the <span class="math inline">\(\mathcal{N}(10,1)\)</span> distribution, second column with samples from <span class="math inline">\(Poiss(\lambda=4)\)</span>. The third column contains only <code>1</code>.<br />
+Make another data frame (<code>dataB</code>) with three columns and 100 rows. Now with <span class="math inline">\(\mathcal{N}(10,0.5^2)\)</span>, <span class="math inline">\(Poiss(\lambda=4)\)</span> and <code>2</code>. Combine the two data frames into an object named <code>dataAB</code> with <code>rbind</code>. Make a scatter plot of <code>dataAB</code> where the x-axes is the first column, the y-axes is the second and define the shape of the points to be the third column.</p></li>
+<li>In a sample generated of 1,000 observations from the <span class="math inline">\(\mathcal{N}(10,1)\)</span> distribution:
+<ol style="list-style-type: decimal">
+<li>What is the proportion of samples smaller than <span class="math inline">\(12.4\)</span> ?</li>
+<li>What is the <span class="math inline">\(0.23\)</span> percentile of the sample?</li>
+</ol></li>
 </ol>
 
 </div>

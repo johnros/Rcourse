@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-12-05">
+<meta name="date" content="2018-03-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -189,9 +189,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.6" data-path="glm.html"><a href="glm.html#practice-yourself-4"><i class="fa fa-check"></i><b>6.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
-<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#relation-to-manova-manova-multivariate-analysis-of-variance-manova-deals-with-the-estimation-of-effect-on-vector-valued-outcomes.-put-differently-in-anova-the-response-y-is-univariate-in-manova-the-outcome-is-multivariate.-manova-is-useful-when-there-are-correlations-among-the-entries-of-y.-otherwise--one-may-simply-solve-many-anova-problems-instead-of-a-single-manova."><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA (*) {#manova} Multivariate analysis of variance (MANOVA) deals with the estimation of effect on vector valued outcomes. Put differently: in ANOVA the response, <span class="math inline">\(y\)</span>, is univariate In MANOVA, the outcome is multivariate. MANOVA is useful when there are correlations among the entries of <span class="math inline">\(y\)</span>. Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.</a></li>
-</ul></li>
+<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
 <li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
 <li class="chapter" data-level="7.2.2" data-path="lme.html"><a href="lme.html#multiple-random-effects"><i class="fa fa-check"></i><b>7.2.2</b> Multiple Random Effects</a></li>
@@ -425,11 +423,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>where <span class="math inline">\(x\)</span> are the factors with fixed effects, <span class="math inline">\(\beta\)</span>, which we may want to study. The factors <span class="math inline">\(z\)</span>, with effects <span class="math inline">\(u\)</span>, are the random effects which contribute to variability. In our diet exaple (<a href="lme.html#exm:random-effects">7.2</a>)</p>
 <p>The reader may notice that we state <span class="math inline">\(y|x,u\)</span> merely as a convenient way to do inference on <span class="math inline">\(y|x\)</span>, instead of directly specifying <span class="math inline">\(Var[y|x]\)</span>.</p>
 <p>Given a sample of <span class="math inline">\(n\)</span> observations <span class="math inline">\((y_i,x_i,z_i)\)</span> from model <a href="lme.html#eq:mixed-model">(7.1)</a>, we will want to estimate <span class="math inline">\((\beta,u)\)</span>. Under some assumption on the distribution of <span class="math inline">\(\varepsilon\)</span> and <span class="math inline">\(z\)</span>, we can use <em>maximum likelihood</em> (ML). In the context of mixed-models, however, ML is typically replaced with <em>restricted maximum likelihood</em> (ReML), because it returns unbiased estimates of <span class="math inline">\(Var[y|x]\)</span> and ML does not.</p>
-<div id="relation-to-manova-manova-multivariate-analysis-of-variance-manova-deals-with-the-estimation-of-effect-on-vector-valued-outcomes.-put-differently-in-anova-the-response-y-is-univariate-in-manova-the-outcome-is-multivariate.-manova-is-useful-when-there-are-correlations-among-the-entries-of-y.-otherwise--one-may-simply-solve-many-anova-problems-instead-of-a-single-manova." class="section level3">
-<h3><span class="header-section-number">7.1.1</span> Relation to MANOVA (*) {#manova} Multivariate analysis of variance (MANOVA) deals with the estimation of effect on vector valued outcomes. Put differently: in ANOVA the response, <span class="math inline">\(y\)</span>, is univariate In MANOVA, the outcome is multivariate. MANOVA is useful when there are correlations among the entries of <span class="math inline">\(y\)</span>. Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.</h3>
+<p>AH todo: Something went wrong: ### Relation to MANOVA (*) {#manova} Multivariate analysis of variance (MANOVA) deals with the estimation of effect on vector valued outcomes. Put differently: in ANOVA the response, <span class="math inline">\(y\)</span>, is univariate In MANOVA, the outcome is multivariate. MANOVA is useful when there are correlations among the entries of <span class="math inline">\(y\)</span>. Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.</p>
 <p>Now assume that the outcome of a MANOVA is measurements of an individual at several time periods. The measurements are clearly correlated, so that MANOVA may be useful. But one may also treat time as a random effect, with a univariate response. We thus see that this seemingly MANOVA problem can be solved with the mixed models framework.</p>
 <p>What MANOVA problems cannot be solved with mixed models? There may be cases where the covariance of the multivariate outcome, <span class="math inline">\(y\)</span>, is very complicated. If the covariance in <span class="math inline">\(y\)</span> may not be stated using a combination of random and fixed effects, then the covariance has to be stated explicitly in the MANOVA framework. It is also possible to consider mixed-models with multivariate outcomes, i.e., a <em>mixed MANOVA</em>, or <em>hirarchial MANOVA</em>. The R functions we present herein permit this.</p>
-</div>
 </div>
 <div id="mixed-models-with-r" class="section level2">
 <h2><span class="header-section-number">7.2</span> Mixed Models with R</h2>
@@ -456,40 +452,40 @@ summary.lm.<span class="dv">5</span></code></pre></div>
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -1.78669 -0.80482  0.01636  0.27450  1.98068 
+## -2.04300 -0.48411 -0.01778  0.20007  3.08603 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  1.87511    0.28133   6.665 2.97e-06 ***
-## z            0.99705    0.02861  34.849  &lt; 2e-16 ***
+## (Intercept)  2.28561    0.23575   9.695 1.43e-08 ***
+## z            1.02241    0.02531  40.403  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 1.117 on 18 degrees of freedom
-## Multiple R-squared:  0.9854, Adjusted R-squared:  0.9846 
-## F-statistic:  1214 on 1 and 18 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 1.05 on 18 degrees of freedom
+## Multiple R-squared:  0.9891, Adjusted R-squared:  0.9885 
+## F-statistic:  1632 on 1 and 18 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>The summary of the mixed-model</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">summary.lme.<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">summary</span>(lme.<span class="dv">5</span>)
 summary.lme.<span class="dv">5</span></code></pre></div>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: y ~ 1 | groups
 ## 
-## REML criterion at convergence: 102.4
+## REML criterion at convergence: 105.9
 ## 
 ## Scaled residuals: 
 ##      Min       1Q   Median       3Q      Max 
-## -1.56148 -0.37060 -0.01119  0.43693  1.60800 
+## -1.42301 -0.41645  0.07234  0.34391  1.44556 
 ## 
 ## Random effects:
 ##  Groups   Name        Variance Std.Dev.
-##  groups   (Intercept) 84.4338  9.1888  
-##  Residual              0.9275  0.9631  
+##  groups   (Intercept) 99.958   9.998   
+##  Residual              1.129   1.063   
 ## Number of obs: 20, groups:  groups, 10
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept)    6.388      2.914   2.192</code></pre>
-<p>Look at the standard error of the global mean, i.e., the intercept: for <code>lm</code> it is 0.2813296, and for <code>lme</code> it is 2.9137187. Why this difference? Because <code>lm</code> discounts the group effect<a href="#fn16" class="footnoteRef" id="fnref16"><sup>16</sup></a>, while it should treat it as another source of variability. Clearly, inference using <code>lm</code> underestimates our uncertainty.</p>
+## (Intercept)    3.110      3.171   0.981</code></pre>
+<p>Look at the standard error of the global mean, i.e., the intercept: for <code>lm</code> it is 0.2357452, and for <code>lme</code> it is 3.1705245. Why this difference? Because <code>lm</code> discounts the group effect<a href="#fn16" class="footnoteRef" id="fnref16"><sup>16</sup></a>, while it should treat it as another source of variability. Clearly, inference using <code>lm</code> underestimates our uncertainty.</p>
 <div id="a-single-random-effect" class="section level3">
 <h3><span class="header-section-number">7.2.1</span> A Single Random Effect</h3>
 <p>We will use the <code>Dyestuff</code> data from the <strong>lme4</strong> package, which encodes the yield, in grams, of a coloring solution (dyestuff), produced in 6 batches using 5 different preparations.</p>
@@ -505,7 +501,7 @@ summary.lme.<span class="dv">5</span></code></pre></div>
 ## 6     B  1540</code></pre>
 <p>And visually</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Yield<span class="op">~</span>Batch)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-150-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-148-1.png" width="50%" /></p>
 <p>If we want to do inference on the mean yield, we need to account for the two sources of variability: the batch effect, and the measurement error. We thus fit a mixed model, with an intercept and random batch effect, which means this is it not a bona-fide mixed-model, but rather, a simple random-effect model.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme.<span class="dv">1</span>&lt;-<span class="st"> </span><span class="kw">lmer</span>( Yield <span class="op">~</span><span class="st"> </span><span class="dv">1</span>  <span class="op">|</span><span class="st"> </span>Batch  , Dyestuff )
 <span class="kw">summary</span>(lme.<span class="dv">1</span>)</code></pre></div>
@@ -562,7 +558,7 @@ summary.lme.<span class="dv">5</span></code></pre></div>
 ##      E 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ##      F 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</code></pre>
 <p>And visually:</p>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-154-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-152-1.png" width="50%" /></p>
 <p>Let’s fit a mixed-effects model with a random plate effect, and a random sample effect:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">lmer</span> ( diameter <span class="op">~</span><span class="st">  </span><span class="dv">1</span><span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span><span class="st"> </span>plate ) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span><span class="st"> </span>sample ) , Penicillin )
 <span class="kw">fixef</span>(lme.<span class="dv">2</span>) <span class="co"># Fixed effects</span></code></pre></div>
@@ -615,10 +611,10 @@ summary.lme.<span class="dv">5</span></code></pre></div>
 qrr2 &lt;-<span class="st"> </span>lattice<span class="op">::</span><span class="kw">dotplot</span>(random.effect.lme2, <span class="dt">strip =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>Variability in response for each plate, over various sample types:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(qrr2[[<span class="dv">1</span>]]) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-157-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-155-1.png" width="50%" /></p>
 <p>Variability in response for each sample type, over the various plates:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(qrr2[[<span class="dv">2</span>]])  </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-158-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-156-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>The <code>condVar</code> argument of the <code>ranef</code> function tells R to compute the variability in response conditional on each random effect at a time.</li>
@@ -628,7 +624,7 @@ qrr2 &lt;-<span class="st"> </span>lattice<span class="op">::</span><span class=
 <div id="a-full-mixed-model" class="section level3">
 <h3><span class="header-section-number">7.2.3</span> A Full Mixed-Model</h3>
 <p>In the <code>sleepstudy</code> data, we recorded the reaction times to a series of tests (<code>Reaction</code>), after various subject (<code>Subject</code>) underwent various amounts of sleep deprivation (<code>Day</code>).</p>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-159-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-157-1.png" width="50%" /></p>
 <p>We now want to estimate the (fixed) effect of the days of sleep deprivation on response time, while allowing each subject to have his/hers own effect. Put differently, we want to estimate a <em>random slope</em> for the effect of <code>day</code>. The fixed <code>Days</code> effect can be thought of as the average slope over subjects.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme.<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">lmer</span> ( Reaction <span class="op">~</span><span class="st"> </span>Days <span class="op">+</span><span class="st"> </span>( Days <span class="op">|</span><span class="st"> </span>Subject ) , <span class="dt">data=</span> sleepstudy )</code></pre></div>
 <p>Things to note:</p>
@@ -665,9 +661,9 @@ qrr2 &lt;-<span class="st"> </span>lattice<span class="op">::</span><span class=
 ## 372  12.3145394   1.2840297</code></pre>
 <p>Did we really need the whole <code>lme</code> machinery to fit a within-subject linear regression and then average over subjects? The answer is yes. The assumptions on the distribution of random effect, namely, that they are normally distributed, allows us to pool information from one subject to another. In the words of John Tukey: “we borrow strength over subjects”. Is this a good thing? If the normality assumption is true, it certainly is. If, on the other hand, you have a lot of samples per subject, and you don’t need to “borrow strength” from one subject to another, you can simply fit within-subject linear models without the mixed-models machinery.</p>
 <p>To demonstrate the “strength borrowing”, here is a comparison of the subject-wise intercepts of the mixed-model, versus a subject-wise linear model. They are not the same.</p>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-162-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-160-1.png" width="50%" /></p>
 <p>Here is a comparison of the random-day effect from <code>lme</code> versus a subject-wise linear model. They are not the same.</p>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-163-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-161-1.png" width="50%" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(Penicillin)</code></pre></div>
 </div>
 </div>
@@ -689,6 +685,12 @@ qrr2 &lt;-<span class="st"> </span>lattice<span class="op">::</span><span class=
 <li>Compare the predictions of the two models.</li>
 </ol></li>
 <li>[Very Advanced!] Return to the <code>Penicillin</code> data and use the <code>gls</code> function to fit a generalized linear model, equivalent to the LME model in our text.</li>
+<li>Read about the “oats” dataset using <code>? MASS::oats</code>.Inspect the dependency of the yield (Y) in the Varieties (V) and the Nitrogen treatment (N).
+<ol style="list-style-type: decimal">
+<li>Fit a linear model, does the effect of the treatment significant? The interaction between the Varieties and Nitrogen is significant?</li>
+<li>An expert told you that could be a variance between the different blocks (B) which can bias the analysis. fit a LMM for the data.</li>
+<li>Do you think the blocks should be taken into account as “random effect” or “fixed effect”?</li>
+</ol></li>
 </ol>
 
 </div>

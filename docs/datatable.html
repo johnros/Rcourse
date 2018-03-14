@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-12-05">
+<meta name="date" content="2018-03-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -189,9 +189,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.6" data-path="glm.html"><a href="glm.html#practice-yourself-4"><i class="fa fa-check"></i><b>6.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
-<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#relation-to-manova-manova-multivariate-analysis-of-variance-manova-deals-with-the-estimation-of-effect-on-vector-valued-outcomes.-put-differently-in-anova-the-response-y-is-univariate-in-manova-the-outcome-is-multivariate.-manova-is-useful-when-there-are-correlations-among-the-entries-of-y.-otherwise--one-may-simply-solve-many-anova-problems-instead-of-a-single-manova."><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA (*) {#manova} Multivariate analysis of variance (MANOVA) deals with the estimation of effect on vector valued outcomes. Put differently: in ANOVA the response, <span class="math inline">\(y\)</span>, is univariate In MANOVA, the outcome is multivariate. MANOVA is useful when there are correlations among the entries of <span class="math inline">\(y\)</span>. Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.</a></li>
-</ul></li>
+<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
 <li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
 <li class="chapter" data-level="7.2.2" data-path="lme.html"><a href="lme.html#multiple-random-effects"><i class="fa fa-check"></i><b>7.2.2</b> Multiple Random Effects</a></li>
@@ -410,13 +408,16 @@ auto &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st
 <pre><code>##                    size isdir mode               mtime               ctime
 ## data/autos.csv 68439217 FALSE  664 2016-11-28 15:47:00 2017-10-30 22:48:56
 ##                              atime  uid  gid   uname  grname
-## data/autos.csv 2017-12-05 08:25:24 1000 1000 johnros johnros</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">object.size</span>(auto) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">humanReadable=</span><span class="ot">TRUE</span>, <span class="dt">units =</span> <span class="st">&#39;MB&#39;</span>) <span class="co"># File size in memory</span></code></pre></div>
+## data/autos.csv 2018-03-14 23:58:10 1000 1000 johnros johnros</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gdata<span class="op">::</span><span class="kw">humanReadable</span>(<span class="dv">68439217</span>)</code></pre></div>
+<pre><code>## [1] &quot;65.3 MiB&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">object.size</span>(auto) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">units =</span> <span class="st">&#39;auto&#39;</span>) <span class="co"># File size in memory</span></code></pre></div>
 <pre><code>## 97.9 Mb</code></pre>
 <p>Things to note:</p>
 <ul>
 <li>The import has been done with <code>fread</code> instead of <code>read.csv</code>. This is more efficient, and directly creates a <code>data.table</code> object.</li>
 <li>The import is very fast.</li>
+<li>The data after import is slightly larger than when stored on disk (in this case).</li>
 </ul>
 <p>Let’s start with verifying that it behaves like a <code>data.frame</code> when expected.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="dv">2</span>] <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre></div>
@@ -427,9 +428,6 @@ auto &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st
 ## 4:                              GOLF_4_1_4__3T\xdcRER
 ## 5:                     Skoda_Fabia_1.4_TDI_PD_Classic
 ## 6: BMW_316i___e36_Limousine___Bastlerfahrzeug__Export</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[<span class="dv">1</span>,<span class="dv">2</span>] <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre></div>
-<pre><code>##          name
-## 1: Golf_3_1.6</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[[<span class="dv">2</span>]] <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre></div>
 <pre><code>## [1] &quot;Golf_3_1.6&quot;                                        
 ## [2] &quot;A5_Sportback_2.7_Tdi&quot;                              
@@ -437,27 +435,45 @@ auto &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st
 ## [4] &quot;GOLF_4_1_4__3T\xdcRER&quot;                             
 ## [5] &quot;Skoda_Fabia_1.4_TDI_PD_Classic&quot;                    
 ## [6] &quot;BMW_316i___e36_Limousine___Bastlerfahrzeug__Export&quot;</code></pre>
-<p>But notice the difference between <code>data.frame</code> and <code>data.table</code> when subsetting multiple rows. You should always be explicit when you subset rows/columns!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[<span class="dv">1</span>,<span class="dv">2</span>] <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre></div>
+<pre><code>##          name
+## 1: Golf_3_1.6</code></pre>
+<p>But notice the difference between <code>data.frame</code> and <code>data.table</code> when subsetting multiple rows. Uhh!</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>] <span class="op">%&gt;%</span><span class="st"> </span>dim <span class="co"># data.table will exctract *rows*</span></code></pre></div>
 <pre><code>## [1]  3 20</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.data.frame</span>(auto)[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>] <span class="op">%&gt;%</span><span class="st"> </span>dim <span class="co"># data.frame will exctract *columns*</span></code></pre></div>
 <pre><code>## [1] 371824      3</code></pre>
-<p>Now let’s do some <code>data.table</code> specific operations. The general syntax has the form <code>DT[i,j,by]</code>. SQL users may think of <code>i</code> as <code>WHERE</code>, <code>j</code> as <code>SELECT</code>, and <code>by</code> as <code>GROUP BY</code>. We don’t need to name the arguments explicitly.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,vehicleType,] <span class="op">%&gt;%</span><span class="st"> </span>table <span class="co"># exctract column</span></code></pre></div>
+<p>Just use columns (<code>,</code>) and be explicit regarding the dimension you are extracting…</p>
+<p>Now let’s do some <code>data.table</code> specific operations. The general syntax has the form <code>DT[i,j,by]</code>. SQL users may think of <code>i</code> as <code>WHERE</code>, <code>j</code> as <code>SELECT</code>, and <code>by</code> as <code>GROUP BY</code>. We don’t need to name the arguments explicitly. Also, the <code>Tab</code> key will typically help you to fill in column names.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,vehicleType,] <span class="op">%&gt;%</span><span class="st"> </span>table <span class="co"># Exctract column and tabulate</span></code></pre></div>
 <pre><code>## .
 ##                andere        bus     cabrio      coupe kleinwagen 
 ##      37899       3362      30220      22914      19026      80098 
 ##      kombi  limousine        suv 
 ##      67626      95963      14716</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[vehicleType<span class="op">==</span><span class="st">&#39;coupe&#39;</span>,,] <span class="op">%&gt;%</span><span class="st"> </span>dim <span class="co"># exctract rows</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[vehicleType<span class="op">==</span><span class="st">&#39;coupe&#39;</span>,,] <span class="op">%&gt;%</span><span class="st"> </span>dim <span class="co"># Exctract rows </span></code></pre></div>
 <pre><code>## [1] 19026    20</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,gearbox<span class="op">:</span>model,] <span class="op">%&gt;%</span><span class="st"> </span>head <span class="co"># exctract column range</span></code></pre></div>
+<pre><code>##      gearbox powerPS model
+## 1:   manuell       0  golf
+## 2:   manuell     190      
+## 3: automatik     163 grand
+## 4:   manuell      75  golf
+## 5:   manuell      69 fabia
+## 6:   manuell     102   3er</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,gearbox,] <span class="op">%&gt;%</span><span class="st"> </span>table</code></pre></div>
 <pre><code>## .
 ##           automatik   manuell 
 ##     20223     77169    274432</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[vehicleType<span class="op">==</span><span class="st">&#39;coupe&#39;</span> <span class="op">&amp;</span><span class="st"> </span>gearbox<span class="op">==</span><span class="st">&#39;automatik&#39;</span>,,] <span class="op">%&gt;%</span><span class="st"> </span>dim <span class="co"># intersect conditions</span></code></pre></div>
 <pre><code>## [1] 6008   20</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[, <span class="kw">mean</span>(price), by=vehicleType] <span class="co"># average price per car group</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">table</span>(vehicleType),] <span class="co"># uhh? why would this even work?!?</span></code></pre></div>
+<pre><code>## vehicleType
+##                andere        bus     cabrio      coupe kleinwagen 
+##      37899       3362      30220      22914      19026      80098 
+##      kombi  limousine        suv 
+##      67626      95963      14716</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[, <span class="kw">mean</span>(price), by=vehicleType] <span class="co"># average price by car group</span></code></pre></div>
 <pre><code>## Warning in gmean(price): Group 9 summed to more than type &#39;integer&#39;
 ## can hold so the result has been coerced to &#39;numeric&#39; automatically, for
 ## convenience.</code></pre>
@@ -471,15 +487,7 @@ auto &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st
 ## 7:         bus  10300.686
 ## 8:       kombi   7739.518
 ## 9:      andere 676327.100</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,gearbox<span class="op">:</span>model,] <span class="op">%&gt;%</span><span class="st"> </span>head <span class="co"># exctract column range</span></code></pre></div>
-<pre><code>##      gearbox powerPS model
-## 1:   manuell       0  golf
-## 2:   manuell     190      
-## 3: automatik     163 grand
-## 4:   manuell      75  golf
-## 5:   manuell      69 fabia
-## 6:   manuell     102   3er</code></pre>
-<p>The <code>.N</code> operator is very useful if you need to count the length of the result:</p>
+<p>The <code>.N</code> operator is very useful if you need to count the length of the result. Notice where I use it:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[.N<span class="op">-</span><span class="dv">1</span>,,] <span class="co"># will exctract the *last* row</span></code></pre></div>
 <pre><code>##            dateCrawled                   name seller offerType price
 ## 1: 2016-03-20 19:41:08 VW_Golf_Kombi_1_9l_TDI privat   Angebot  3400
@@ -489,12 +497,23 @@ auto &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st
 ## 1:                   6   diesel volkswagen                  
 ##            dateCreated nrOfPictures postalCode            lastSeen
 ## 1: 2016-03-20 00:00:00            0      40764 2016-03-24 12:45:21</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,.N] <span class="co"># will count rows per type</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,.N] <span class="co"># will count rows</span></code></pre></div>
 <pre><code>## [1] 371824</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,.N, vehicleType] <span class="co"># will count rows by type</span></code></pre></div>
+<pre><code>##    vehicleType     N
+## 1:             37899
+## 2:       coupe 19026
+## 3:         suv 14716
+## 4:  kleinwagen 80098
+## 5:   limousine 95963
+## 6:      cabrio 22914
+## 7:         bus 30220
+## 8:       kombi 67626
+## 9:      andere  3362</code></pre>
 <p>You may concatenate results into a vector:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">c</span>(<span class="kw">mean</span>(price), <span class="kw">mean</span>(powerPS)),]</code></pre></div>
 <pre><code>## [1] 17286.2996   115.5414</code></pre>
-<p>This <code>c()</code> syntax does not behave well is splitting:</p>
+<p>This <code>c()</code> syntax no longer behaves well if splitting:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">c</span>(<span class="kw">mean</span>(price), <span class="kw">mean</span>(powerPS)), by=vehicleType]</code></pre></div>
 <pre><code>##     vehicleType           V1
 ##  1:              20124.68801
@@ -515,8 +534,8 @@ auto &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st
 ## 16:       kombi    136.40654
 ## 17:      andere 676327.09964
 ## 18:      andere    102.11154</code></pre>
-<p><code>data.table' uses the</code>.()` syntax for concatenating (actually, for listing):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,.(<span class="kw">mean</span>(price), <span class="kw">mean</span>(powerPS)), by=vehicleType]</code></pre></div>
+<p>Use a <code>list()</code> instead of <code>c()</code>, within <code>data.table</code> commands:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">list</span>(<span class="kw">mean</span>(price), <span class="kw">mean</span>(powerPS)), by=vehicleType]</code></pre></div>
 <pre><code>## Warning in gmean(price): Group 9 summed to more than type &#39;integer&#39;
 ## can hold so the result has been coerced to &#39;numeric&#39; automatically, for
 ## convenience.</code></pre>
@@ -530,9 +549,22 @@ auto &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st
 ## 7:         bus  10300.686 113.58137
 ## 8:       kombi   7739.518 136.40654
 ## 9:      andere 676327.100 102.11154</code></pre>
-<p>An equivalent formulation, replacing <code>.()</code> with an explicit <code>list()</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">list</span>(<span class="kw">mean</span>(price), <span class="kw">mean</span>(powerPS)), by=vehicleType]</code></pre></div>
-<p>You may include column names</p>
+<p>You can add names to your new variables:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">list</span>(<span class="dt">Price=</span><span class="kw">mean</span>(price), <span class="dt">Power=</span><span class="kw">mean</span>(powerPS)), by=vehicleType]</code></pre></div>
+<pre><code>## Warning in gmean(price): Group 9 summed to more than type &#39;integer&#39;
+## can hold so the result has been coerced to &#39;numeric&#39; automatically, for
+## convenience.</code></pre>
+<pre><code>##    vehicleType      Price     Power
+## 1:              20124.688  71.23249
+## 2:       coupe  25951.506 172.97614
+## 3:         suv  13252.392 166.01903
+## 4:  kleinwagen   5691.167  68.75733
+## 5:   limousine  11111.107 132.26936
+## 6:      cabrio  15072.998 145.17684
+## 7:         bus  10300.686 113.58137
+## 8:       kombi   7739.518 136.40654
+## 9:      andere 676327.100 102.11154</code></pre>
+<p>You can use <code>.()</code> to replace the longer <code>list()</code> command:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,.(<span class="dt">Price=</span><span class="kw">mean</span>(price), <span class="dt">Power=</span><span class="kw">mean</span>(powerPS)), by=vehicleType]</code></pre></div>
 <pre><code>## Warning in gmean(price): Group 9 summed to more than type &#39;integer&#39;
 ## can hold so the result has been coerced to &#39;numeric&#39; automatically, for
@@ -547,7 +579,7 @@ auto &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st
 ## 7:         bus  10300.686 113.58137
 ## 8:       kombi   7739.518 136.40654
 ## 9:      andere 676327.100 102.11154</code></pre>
-<p>Or split by multiple variables:</p>
+<p>And split by multiple variables:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,.(<span class="dt">Price=</span><span class="kw">mean</span>(price), <span class="dt">Power=</span><span class="kw">mean</span>(powerPS)), by=.(vehicleType,fuelType)]</code></pre></div>
 <pre><code>## Warning in gmean(price): Group 37 summed to more than type &#39;integer&#39;
 ## can hold so the result has been coerced to &#39;numeric&#39; automatically, for
@@ -625,54 +657,20 @@ auto &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st
 ## 70:      andere   hybrid    10900.000 136.000000
 ## 71:         bus  elektro     9800.000  60.000000
 ##     vehicleType fuelType        Price      Power</code></pre>
+<p>Compute with variables created on the fly:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">sum</span>(price<span class="op">&lt;</span><span class="fl">1e4</span>),] <span class="co"># Count prices higher than 10,000</span></code></pre></div>
 <pre><code>## [1] 310497</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">mean</span>(price<span class="op">&lt;</span><span class="fl">1e4</span>),] <span class="co"># Proportion of prices larger than 10,000</span></code></pre></div>
 <pre><code>## [1] 0.8350644</code></pre>
-<p>Notice the grouping by two variables with the <code>.()</code> syntax.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,.(<span class="dt">Price=</span><span class="kw">mean</span>(price)), by=.(vehicleType,gearbox)]</code></pre></div>
-<pre><code>## Warning in gmean(price): Group 16 summed to more than type &#39;integer&#39;
-## can hold so the result has been coerced to &#39;numeric&#39; automatically, for
-## convenience.</code></pre>
-<pre><code>##     vehicleType   gearbox      Price
-##  1:               manuell   8634.364
-##  2:       coupe   manuell  12400.354
-##  3:         suv automatik  16784.747
-##  4:  kleinwagen   manuell   4604.674
-##  5:   limousine   manuell   8501.177
-##  6:      cabrio   manuell  14894.581
-##  7:         bus   manuell   6320.779
-##  8:       kombi   manuell   7462.864
-##  9:         suv   manuell  10038.929
-## 10:  kleinwagen            33095.001
-## 11:                        52170.035
-## 12:  kleinwagen automatik   3887.873
-## 13:   limousine automatik  18996.221
-## 14:       kombi automatik   8908.798
-## 15:   limousine             3904.094
-## 16:      andere   manuell 824344.396
-## 17:         bus automatik  10599.586
-## 18:       coupe automatik  35475.156
-## 19:      cabrio automatik  16289.691
-## 20:       coupe           233124.065
-## 21:       kombi             3441.906
-## 22:             automatik   7603.548
-## 23:      cabrio             9751.342
-## 24:         bus           124897.290
-## 25:      andere             3661.203
-## 26:      andere automatik   7366.262
-## 27:         suv             7270.198
-##     vehicleType   gearbox      Price</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,.(<span class="dt">Power=</span><span class="kw">mean</span>(powerPS)), by=.(<span class="dt">PriceRange=</span>price<span class="op">&gt;</span><span class="fl">1e4</span>)] </code></pre></div>
+<pre><code>##    PriceRange    Power
+## 1:      FALSE 101.8838
+## 2:       TRUE 185.9029</code></pre>
 <p>You may sort along one or more columns</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[<span class="kw">order</span>(<span class="op">-</span>price), price,] <span class="op">%&gt;%</span><span class="st"> </span>head <span class="co"># Order along price. Descending</span></code></pre></div>
 <pre><code>## [1] 2147483647   99999999   99999999   99999999   99999999   99999999</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[<span class="kw">order</span>(price, <span class="op">-</span>lastSeen), price,] <span class="op">%&gt;%</span><span class="st"> </span>head<span class="co"># Order along price and last seen . Ascending and descending.</span></code></pre></div>
 <pre><code>## [1] 0 0 0 0 0 0</code></pre>
-<p>You may group using a computed variable</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,.(<span class="dt">Power=</span><span class="kw">mean</span>(powerPS)), by=.(<span class="dt">PriceRange=</span>price<span class="op">&gt;</span><span class="fl">1e4</span>)]</code></pre></div>
-<pre><code>##    PriceRange    Power
-## 1:      FALSE 101.8838
-## 2:       TRUE 185.9029</code></pre>
 <p>You may apply a function to ALL columns using a Subset of the Data using <code>.SD</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">count.uniques &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">length</span>(<span class="kw">unique</span>(x))
 auto[,<span class="kw">lapply</span>(.SD, count.uniques), vehicleType]</code></pre></div>

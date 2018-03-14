@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-12-05">
+<meta name="date" content="2018-03-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -189,9 +189,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.6" data-path="glm.html"><a href="glm.html#practice-yourself-4"><i class="fa fa-check"></i><b>6.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
-<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#relation-to-manova-manova-multivariate-analysis-of-variance-manova-deals-with-the-estimation-of-effect-on-vector-valued-outcomes.-put-differently-in-anova-the-response-y-is-univariate-in-manova-the-outcome-is-multivariate.-manova-is-useful-when-there-are-correlations-among-the-entries-of-y.-otherwise--one-may-simply-solve-many-anova-problems-instead-of-a-single-manova."><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA (*) {#manova} Multivariate analysis of variance (MANOVA) deals with the estimation of effect on vector valued outcomes. Put differently: in ANOVA the response, <span class="math inline">\(y\)</span>, is univariate In MANOVA, the outcome is multivariate. MANOVA is useful when there are correlations among the entries of <span class="math inline">\(y\)</span>. Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.</a></li>
-</ul></li>
+<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
 <li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
 <li class="chapter" data-level="7.2.2" data-path="lme.html"><a href="lme.html#multiple-random-effects"><i class="fa fa-check"></i><b>7.2.2</b> Multiple Random Effects</a></li>
@@ -443,13 +441,13 @@ implying that
 <p>Before we fit such a model, we try to justify this construction, in particular, the enigmatic link function in Eq.<a href="glm.html#eq:logistic-link">(6.3)</a>. Let’s look at the simplest possible case: the comparison of two groups indexed by <span class="math inline">\(x\)</span>: <span class="math inline">\(x=0\)</span> for the first, and <span class="math inline">\(x=1\)</span> for the second. We start with some definitions.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-134" class="definition"><strong>Definition 6.1  (Odds)  </strong></span>The <em>odds</em>, of a binary random variable, <span class="math inline">\(y\)</span>, is defined as <span class="math display">\[\frac{P(y=1)}{P(y=0)}.\]</span>
+<span id="def:unnamed-chunk-132" class="definition"><strong>Definition 6.1  (Odds)  </strong></span>The <em>odds</em>, of a binary random variable, <span class="math inline">\(y\)</span>, is defined as <span class="math display">\[\frac{P(y=1)}{P(y=0)}.\]</span>
 </div>
 
-<p>Odds are the same as probabilities, but instead of of telling me there is a <span class="math inline">\(66\%\)</span> of success, they tell me the odds of success are “2 to 1”. If you ever placed a bet, the language of “odds” should not be unfamiliar to you.</p>
+<p>Odds are the same as probabilities, but instead of telling me there is a <span class="math inline">\(66\%\)</span> of success, they tell me the odds of success are “2 to 1”. If you ever placed a bet, the language of “odds” should not be unfamiliar to you.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-135" class="definition"><strong>Definition 6.2  (Odds Ratio)  </strong></span>The <em>odds ratio</em> between two binary random variables, <span class="math inline">\(y_1\)</span> and <span class="math inline">\(y_2\)</span>, is defined as the ratio between their odds. Formally: <span class="math display">\[OR(y_1,y_2):=\frac{P(y_1=1)/P(y_1=0)}{P(y_2=1)/P(y_2=0)}.\]</span>
+<span id="def:unnamed-chunk-133" class="definition"><strong>Definition 6.2  (Odds Ratio)  </strong></span>The <em>odds ratio</em> between two binary random variables, <span class="math inline">\(y_1\)</span> and <span class="math inline">\(y_2\)</span>, is defined as the ratio between their odds. Formally: <span class="math display">\[OR(y_1,y_2):=\frac{P(y_1=1)/P(y_1=0)}{P(y_2=1)/P(y_2=0)}.\]</span>
 </div>
 
 <p>Odds ratios (OR) compare between the probabilities of two groups, only that it does not compare them in probability scale, but rather in odds scale. You can also think of ORs as a measure of distance between two Brenoulli distributions. ORs have better mathematical properties than other candidate distance measures, such as <span class="math inline">\(P(y_1=1)-P(y_2=1)\)</span>.</p>
@@ -481,7 +479,7 @@ Under the logit link assumption, the OR between two conditions indexed by <span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(PlantGrowth)
 weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <span class="dv">2</span>, <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&#39;Light&#39;</span>, <span class="st">&#39;Heavy&#39;</span>)) <span class="co"># binarize weights</span>
 <span class="kw">plot</span>(<span class="kw">table</span>(group, weight.factor))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-138-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-136-1.png" width="50%" /></p>
 <p>Let’s fit a logistic regression, and inspect the output.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glm.<span class="dv">1</span>&lt;-<span class="st"> </span><span class="kw">glm</span>(weight.factor<span class="op">~</span>group, <span class="dt">family=</span>binomial)
 <span class="kw">summary</span>(glm.<span class="dv">1</span>)</code></pre></div>
@@ -683,7 +681,7 @@ weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <
 ## 6    4        3</code></pre>
 <p>Look at the following plot and think: what is the sign of the effect of time on the number of sick students?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(Days, Students, <span class="dt">xlab =</span> <span class="st">&quot;DAYS&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;STUDENTS&quot;</span>, <span class="dt">pch =</span> <span class="dv">16</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-145-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-143-1.png" width="50%" /></p>
 <p>We now fit a model to check for the change in the rate of events as a function of the days since the outbreak.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glm.<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">glm</span>(Students <span class="op">~</span><span class="st"> </span>Days, <span class="dt">family =</span> poisson)
 <span class="kw">summary</span>(glm.<span class="dv">3</span>)</code></pre></div>
@@ -737,9 +735,17 @@ weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <
 <li>Are the estimated coefficients similar to the true ones you used?</li>
 <li>What is the estimated probability of an event at <code>x=1,1</code>? Use <code>predict.glm</code> but make sure to read the documentation on the <code>type</code> argument.</li>
 </ol></li>
-<li>Read about the Acute Myelogenous Leukemia survival data with <code>?survival::aml</code>.
+<li>Read about the Acute Myelogenous Leukemia survival data with <code>?survival::aml</code>. #AH TODO: Since “time” is regarding to survival or censoring time I’m not sure GLM is the right tool.
 <ol style="list-style-type: lower-alpha">
 <li>Use <code>glm</code> to estimate the effect of the maintenance chemotherapy on survival times. Assuming times are exponentially distributed, and recalling that the Gamma distribution generalizes the exponential, use <code>family=Gamma</code>.</li>
+</ol></li>
+<li>Read about the “epil” dataset using <code>? MASS::epil</code>.Inspect the dependency of The number of seizures (y) in the age of the patient (age) and the treatment (trt).
+<ol style="list-style-type: decimal">
+<li>Fit a Poisson regression with <code>glm</code> and <code>family = &quot;poisson&quot;</code>.</li>
+<li>Do the coefficients significant?<br />
+</li>
+<li>Does the treatment reduce the frequency of the seizures?</li>
+<li>According to this model, what would be the number of seizures for 20 years old patient with progabide treatment? ( <code>exp(2.533-0.0133*20-0.0925)</code> )</li>
 </ol></li>
 </ol>
 

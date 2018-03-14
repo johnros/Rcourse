@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-12-05">
+<meta name="date" content="2018-03-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -189,9 +189,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.6" data-path="glm.html"><a href="glm.html#practice-yourself-4"><i class="fa fa-check"></i><b>6.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
-<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#relation-to-manova-manova-multivariate-analysis-of-variance-manova-deals-with-the-estimation-of-effect-on-vector-valued-outcomes.-put-differently-in-anova-the-response-y-is-univariate-in-manova-the-outcome-is-multivariate.-manova-is-useful-when-there-are-correlations-among-the-entries-of-y.-otherwise--one-may-simply-solve-many-anova-problems-instead-of-a-single-manova."><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA (*) {#manova} Multivariate analysis of variance (MANOVA) deals with the estimation of effect on vector valued outcomes. Put differently: in ANOVA the response, <span class="math inline">\(y\)</span>, is univariate In MANOVA, the outcome is multivariate. MANOVA is useful when there are correlations among the entries of <span class="math inline">\(y\)</span>. Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.</a></li>
-</ul></li>
+<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
 <li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
 <li class="chapter" data-level="7.2.2" data-path="lme.html"><a href="lme.html#multiple-random-effects"><i class="fa fa-check"></i><b>7.2.2</b> Multiple Random Effects</a></li>
@@ -421,7 +419,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
  <span class="remark"><em>Remark. </em></span> The following figure may also be used to demonstrate the difference between Euclidean Distance and Mahalanobis Distance.
 </div>
 
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-167-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-165-1.png" width="50%" /></p>
 <div id="signal-detection" class="section level2">
 <h2><span class="header-section-number">8.1</span> Signal Detection</h2>
 <p>Signal detection deals with the detection of the departure of <span class="math inline">\(\mu\)</span> from some <span class="math inline">\(\mu_0\)</span>, and especially, <span class="math inline">\(\mu_0=0\)</span>. This problem can be thought of as the multivariate counterpart of the univariate hypothesis test. Indeed, the most fundamental approach is a mere generalization of the t-test, known as <em>Hotelling’s <span class="math inline">\(T^2\)</span> test</em>.</p>
@@ -461,7 +459,7 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 <span class="kw">dim</span>(x)</code></pre></div>
 <pre><code>## [1] 100  18</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lattice<span class="op">::</span><span class="kw">levelplot</span>(x)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-168-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-166-1.png" width="50%" /></p>
 <p>Now make our own Hotelling function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hotellingOneSample &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">mu0=</span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="kw">ncol</span>(x))){
   n &lt;-<span class="st"> </span><span class="kw">nrow</span>(x)
@@ -478,11 +476,11 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 <span class="kw">hotellingOneSample</span>(x)</code></pre></div>
 <pre><code>## $statistic
 ##          [,1]
-## [1,] 16.69594
+## [1,] 15.91177
 ## 
 ## $pvalue
 ##           [,1]
-## [1,] 0.5440953</code></pre>
+## [1,] 0.5987051</code></pre>
 <p>Things to note:</p>
 <ul>
 <li><code>stopifnot(n &gt; 5 * p)</code> is a little verification to check that the problem is indeed low dimensional. Otherwise, the <span class="math inline">\(\chi^2\)</span> approximation cannot be trusted.</li>
@@ -496,18 +494,18 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 ##  One-sample Hotelling test
 ## 
 ## data:  x
-## T2 = 16.69600, F = 0.76828, df1 = 18, df2 = 82, p-value = 0.73
+## T2 = 15.91200, F = 0.73219, df1 = 18, df2 = 82, p-value = 0.7687
 ## alternative hypothesis: true mean vector is not equal to (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)&#39; 
 ## 
 ## sample estimates:
-##                       [,1]       [,2]      [,3]       [,4]       [,5]
-## mean x-vector -0.008354575 0.03143679 0.1121955 -0.1929474 0.09645882
-##                      [,6]        [,7]       [,8]       [,9]       [,10]
-## mean x-vector -0.05175541 -0.01449182 -0.1120928 0.01841223 -0.05181125
-##                     [,11]      [,12]      [,13]       [,14]      [,15]
-## mean x-vector -0.03619344 -0.1213792 0.06283715 0.002334538 0.04066499
-##                   [,16]       [,17]      [,18]
-## mean x-vector 0.1332878 -0.06548329 0.07497054</code></pre>
+##                      [,1]         [,2]      [,3]      [,4]        [,5]
+## mean x-vector -0.03467575 -0.008974188 0.1026656 0.0188196 -0.03088267
+##                     [,6]       [,7]       [,8]       [,9]      [,10]
+## mean x-vector 0.02468387 0.06018973 0.02080923 -0.1421728 -0.1526817
+##                   [,11]       [,12]      [,13]       [,14]      [,15]
+## mean x-vector 0.1378604 -0.07014879 0.07543001 -0.08481649 -0.1466111
+##                     [,16]       [,17]       [,18]
+## mean x-vector -0.06770437 -0.04840431 -0.01895608</code></pre>
 </div>
 </div>
 <div id="signal-counting" class="section level2">
@@ -531,12 +529,12 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 <span class="kw">dim</span>(x)</code></pre></div>
 <pre><code>## [1]  10 100</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lattice<span class="op">::</span><span class="kw">levelplot</span>(x)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-171-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-169-1.png" width="50%" /></p>
 <p>We now compute the pvalues of each coordinate. We use a coordinate-wise t-test. Why a t-test? Because for the purpose of demonstration we want a simple test. In reality, you may use any test that returns valid p-values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t.pval &lt;-<span class="st"> </span><span class="cf">function</span>(y) <span class="kw">t.test</span>(y)<span class="op">$</span>p.value
 p.values &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="dt">X =</span> x, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> t.pval) 
 <span class="kw">plot</span>(p.values, <span class="dt">type=</span><span class="st">&#39;h&#39;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-172-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-170-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li><code>t.pval</code> is a function that merely returns the p-value of a t.test.</li>
@@ -565,7 +563,7 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 p.values &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="dt">X =</span> x, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> t.pval) 
 p.values.BH &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.values, <span class="dt">method =</span> <span class="st">&#39;BH&#39;</span> )
 <span class="kw">which</span>(p.values.BH <span class="op">&lt;</span><span class="st"> </span>alpha)</code></pre></div>
-<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 81</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 <p>Indeed- we are now able to detect that the first coordinates carry signal, because their respective coordinate-wise null hypotheses have been rejected.</p>
 </div>
 </div>

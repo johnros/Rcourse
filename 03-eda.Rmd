@@ -1,7 +1,12 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Exploratory Data Analysis {#eda}
 
 
-Exploratory Data Analysis (EDA) is a term cast by [John W. Tukey](https://en.wikipedia.org/wiki/John_Tukey) in his seminal book [@tukey1977exploratory].
+Exploratory Data Analysis (EDA) is a term coined by [John W. Tukey](https://en.wikipedia.org/wiki/John_Tukey) in his seminal book [@tukey1977exploratory].
 It is also (arguably) known as _Visual Analytics_, or _Descriptive Statistics_.
 It is the practice of inspecting, and exploring your data, before stating hypotheses, fitting predictors, and other more ambitious inferential goals.
 It typically includes the computation of simple _summary statistics_ which capture some property of interest in the data, and _visualization_.
@@ -9,7 +14,7 @@ EDA can be thought of as an assumption free, purely algorithmic practice.
 
 In this text we present EDA techniques along the following lines:
 
-- How we explore: with summary statistics, or visually?
+- How we explore: with summary-statistics, or visually?
 - How many variables analyzed simultaneously: univariate, bivariate, or multivariate?
 - What type of variable: categorical or continuous?
 
@@ -57,7 +62,7 @@ It is indeed not trivial to report this in a human-readable way.
 R offers several solutions: `table` is easier to compute with, and `ftable` is human readable.
 
 ```{r}
-table2.1 <- table(gender, drink, age) # A multilevel table. 
+table2.1 <- table(gender, drink, age) # A machine readable table. 
 table2.1
 table.2.2 <- ftable(gender, drink, age) # A human readable table.
 table.2.2
@@ -239,7 +244,6 @@ barplot(table(age))
 ```
 
 
-
 #### Visualizing Bivariate Categorical Data
 There are several generalizations of the barplot, aimed to deal with the visualization of bivariate categorical data. 
 They are sometimes known as the _clustered bar plot_ and the _stacked bar plot_.
@@ -340,7 +344,8 @@ We will use the `::` operator when we want to emphasize the package of origin of
 
 ```{r}
 covariance <- cov(longley) # The covariance of the longley dataset
-lattice::levelplot(covariance)
+correlations <- cor(longley) # The correlations of the longley dataset
+lattice::levelplot(correlations)
 ```
 
 
@@ -356,13 +361,18 @@ For an excellent text on robust statistics see @wilcox2011introduction.
 ## Practice Yourself
 
 1. Read about the Titanic data set using `?Titanic`. Inspect it with the `table` and with the `ftable` commands. Which do you prefer?
+
 1. Inspect the Titanic data with a plot. Start with `plot(Titanic)` Try also `lattice::dotplot`. Which is the passenger category with most survivors? Which plot do you prefer? Which scales better to more categories?
+
 1. Read about the women data using `?women`. 
     1. Compute the average of each variable. What is the average of the heights?
     1. Plot a histogram of the heights. Add ticks using `rug`.
     1. Plot a boxplot of the weights. 
     1. Plot the heights and weights using a scatter plot. Add ticks using `rug`.
+
 1. Choose $\alpha$ to define a new symmetry measure: $1/2(x_\alpha+x_{1-\alpha})-x_{0.5}$.
 Write a function that computes it, and apply it on women's heights data. 
+
 1. Compute the covariance matrix of women's heights and weights. Compute the correlation matrix. View the correlation matrix as an image using `lattice::levelplot`. 
+
 1. Pick a dataset with two LONG continous variables from `?datasets`. Plot it using `hexbin::hexbin`.

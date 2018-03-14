@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2017-12-05">
+<meta name="date" content="2018-03-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -189,9 +189,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.6" data-path="glm.html"><a href="glm.html#practice-yourself-4"><i class="fa fa-check"></i><b>6.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
-<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#relation-to-manova-manova-multivariate-analysis-of-variance-manova-deals-with-the-estimation-of-effect-on-vector-valued-outcomes.-put-differently-in-anova-the-response-y-is-univariate-in-manova-the-outcome-is-multivariate.-manova-is-useful-when-there-are-correlations-among-the-entries-of-y.-otherwise--one-may-simply-solve-many-anova-problems-instead-of-a-single-manova."><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA (*) {#manova} Multivariate analysis of variance (MANOVA) deals with the estimation of effect on vector valued outcomes. Put differently: in ANOVA the response, <span class="math inline">\(y\)</span>, is univariate In MANOVA, the outcome is multivariate. MANOVA is useful when there are correlations among the entries of <span class="math inline">\(y\)</span>. Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.</a></li>
-</ul></li>
+<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
 <li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
 <li class="chapter" data-level="7.2.2" data-path="lme.html"><a href="lme.html#multiple-random-effects"><i class="fa fa-check"></i><b>7.2.2</b> Multiple Random Effects</a></li>
@@ -425,7 +423,7 @@ Similar to active learning, in that the machine may query for labels. Different 
 <p>The fundamental task in supervised (statistical) learning is to recover a hypothesis that minimizes the average loss in the sample, and not in the population. This is know as the <em>risk minimization problem</em>.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-177" class="definition"><strong>Definition 9.1  (Risk Function)  </strong></span>The <em>risk function</em>, a.k.a. <em>generalization error</em>, or <em>test error</em>, is the population average loss of a predictor <span class="math inline">\(f\)</span>:
+<span id="def:unnamed-chunk-175" class="definition"><strong>Definition 9.1  (Risk Function)  </strong></span>The <em>risk function</em>, a.k.a. <em>generalization error</em>, or <em>test error</em>, is the population average loss of a predictor <span class="math inline">\(f\)</span>:
 <span class="math display">\[\begin{align}
   R(f):=E_P[l(f(x),y)].
 \end{align}\]</span>
@@ -443,7 +441,7 @@ To make things more explicit, <span class="math inline">\(f\)</span> may be a li
 <p>Another fundamental problem is that we do not know the distribution of all possible inputs and outputs, <span class="math inline">\(P\)</span>. We typically only have a sample of <span class="math inline">\((x_i,y_i), i=1,\dots,n\)</span>. We thus state the <em>empirical</em> counterpart of <a href="supervised.html#eq:risk">(9.1)</a>, which consists of minimizing the average loss. This is known as the <em>empirical risk miminization</em> problem (ERM).</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-178" class="definition"><strong>Definition 9.2  (Empirical Risk)  </strong></span>The <em>empirical risk function</em>, a.k.a. <em>in-sample error</em>, or <em>train error</em>, is the sample average loss of a predictor <span class="math inline">\(f\)</span>:
+<span id="def:unnamed-chunk-176" class="definition"><strong>Definition 9.2  (Empirical Risk)  </strong></span>The <em>empirical risk function</em>, a.k.a. <em>in-sample error</em>, or <em>train error</em>, is the sample average loss of a predictor <span class="math inline">\(f\)</span>:
 <span class="math display">\[\begin{align}
   R_n(f):= \sum_i l(f(x_i),y_i).
 \end{align}\]</span>
@@ -621,7 +619,7 @@ train.errors &lt;-<span class="st"> </span><span class="kw">rep</span>(<span cla
        <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;Training&quot;</span>, <span class="st">&quot;Validation&quot;</span>), 
        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;blue&quot;</span>), 
        <span class="dt">pch =</span> <span class="dv">19</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-180-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-178-1.png" width="50%" /></p>
 <p>Checking all possible models is computationally very hard. <em>Forward selection</em> is a greedy approach that adds one variable at a time, using the AIC risk estimator. If AIC decreases, the variable is added.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols.<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(lcavol<span class="op">~</span><span class="dv">1</span> ,<span class="dt">data =</span> prostate.train)
 model.scope &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">upper=</span>ols.<span class="dv">1</span>, <span class="dt">lower=</span>ols.<span class="dv">0</span>)
@@ -933,6 +931,21 @@ nb.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">naiv
 </div>
 <div id="practice-yourself-7" class="section level2">
 <h2><span class="header-section-number">9.4</span> Practice Yourself</h2>
+<ol style="list-style-type: decimal">
+<li>In chapter 6.6 we fit a Generalized Linear Model for the <code>MASS::epil</code> data (Poisson family). We assume that the number of seizures (y) depending on the age of the patient (age) and the treatment (trt).
+<ol style="list-style-type: decimal">
+<li>What was the MSE of the model?</li>
+<li>Now, try to fit another model which including all the attributes in the dataset with Ridge penalty using <code>glmnet</code> (<code>alpha=0</code>).</li>
+<li>Fit a model which including all the attributes in the dataset with Lasso penalty using <code>glmnet</code> (<code>alpha=1</code>).</li>
+<li>Compare the MSE of the three models. According to this measure which one is the best model?</li>
+</ol></li>
+<li>Read about the “Glass” dataset using <code>library(e1071)</code> and <code>?Glass</code>.
+<ol style="list-style-type: decimal">
+<li>Divide the dataset to train set and test set.</li>
+<li>For classifying the glass type fit the six classification models which you learned about in chapters 9.2.2-9.2.7.</li>
+<li>Compute the accuracy for each classifier with <code>sum(diag(confusion.test))/sum(confusion.test)</code>. Which is the best classifier according to this measure?</li>
+</ol></li>
+</ol>
 
 </div>
 </div>
