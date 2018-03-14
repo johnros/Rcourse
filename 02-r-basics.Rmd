@@ -24,6 +24,7 @@ Some useful pointers for this IDE include:
     - Alt+Shift+l unfold chunk.
     - Alt+o collapse all.
     - Alt+Shift+o unfold all.
+- Alt+"-" for the assignment operator `<-`.
 
 ## File types
 
@@ -38,7 +39,7 @@ R can be used as a simple calculator.
 Create a new R Notebook (.Rmd file) within RStudio using File-> New -> R Notebook, and run the following commands. 
 
 ```{r}
-10+5
+10+5 
 70*81
 2**4
 2^4
@@ -588,7 +589,7 @@ If you still insist see the __xlsx__ package.
 ### Massive files 
 
 The above importing and exporting mechanisms were not designed for massive files. 
-See the section on Sparse Representation (\@ref(sparse)) and Out-of-Ram Algorithms (\@ref(memory)) for more on working with massive data files.  
+See the section on the __data.table__ package (\@ref(datatable)), Sparse Representation (\@ref(sparse)), and Out-of-Ram Algorithms (\@ref(memory)) for more on working with massive data files.  
 
 
 ### Databases 
@@ -604,7 +605,7 @@ See Chapter \@ref(memory) for more on this matter.
 One of the most basic building blocks of programming is the ability of writing your own functions.
 A function in R, like everything else, is an object accessible using its name.
 We first define a simple function that sums its two arguments
-```{r}
+```{r functionFirst}
 my.sum <- function(x,y) {
   return(x+y)
 }
@@ -615,14 +616,16 @@ From this example you may notice that:
 
 - The function `function` tells R to construct a function object.
 
-- The arguments of the `function`, i.e. `(x,y)`, need to be named but we are not required to specify their type. This makes writing functions very easy, but it is also the source of many bugs, and slowness of R compared to type declaring languages (C, Fortran,Java,...).
+- Unlike some programming languages, a period (`.`) is allowed as part of an object's name.
+
+- The arguments of the `function`, i.e. `(x,y)`, need to be named but we are not required to specify their class. This makes writing functions very easy, but it is also the source of many bugs, and slowness of R compared to type declaring languages (C, Fortran,Java,...).
 
 - A typical R function does not change objects^[This is a classical _functional programming_ paradigm. If you want an object oriented flavor of R programming, see Hadley's [Advanced R book](http://adv-r.had.co.nz/OO-essentials.html).] but rather creates new ones. 
 To save the output of `my.sum` we will need to assign it using the `<-` operator.
 
-Here is a (slightly) more advanced example.
 
-```{r}
+Here is a (slightly) more advanced function:
+```{r functionSecond}
 my.sum.2 <- function(x, y , absolute=FALSE) {
   if(absolute==TRUE) {
     result <- abs(x+y)
@@ -638,15 +641,18 @@ my.sum.2(-10,2, TRUE)
 Things to note:
 
 - `if(condition){expression1} else{expression2}` does just what the name suggests.
+
 - The function will output its last evaluated expression. You don't need to use the `return` function explicitly.
+
 - Using `absolute=FALSE` sets the default value of `absolute` to `FALSE`. This is overridden if `absolute` is stated explicitly in the function call.
 
 
-An important behavior of R is the _scoping rules_. This refers to the way R seeks for variables used in functions. 
+An important behavior of R is the _scoping rules_. 
+This refers to the way R seeks for variables used in functions. 
 As a rule of thumb, R will first look for variables inside the function and if not found, will search for the variable values in outer environments^[More formally, this is called [Lexical Scoping](https://darrenjw.wordpress.com/2011/11/23/lexical-scope-and-function-closures-in-r/).].
 Think of the next example.
 
-```{r}
+```{r scoping}
 a <- 1
 b <- 2
 x <- 3
@@ -681,6 +687,11 @@ __Vector Operations__:
 You should NEVER write your own vector and matrix products like in the previous example. Only use existing facilities such as `%*%`, `sum()`, etc.
 ```
 
+```{remark}
+__Parallel Operations__:
+If you already know that you will be needing to parallelize your work, get used to working with `foreach` loops in the __foreach__ package, rather then regular `for` loops. 
+```
+
 
 
 ## Apply 
@@ -691,6 +702,7 @@ The most basic of which is `lapply` which applies a function over all elements o
 ```{r lapply}
 the.list <- list(1,'a',mean) # a list of 3 elements from different calsses
 lapply(X = the.list, FUN = class) # apply the function `class` to each elements
+sapply(X = the.list, FUN = class) # lapply with cleaned output
 ```
 
 R provides many variations on `lapply` to facilitate programming. 
@@ -699,7 +711,7 @@ Here is a partial list:
 - `sapply`: The same as `lapply` but tries to arrange output in a vector or matrix, and not an unstructured list.
 - `vapply`: A safer version of `sapply`, where the output class is pre-specified.
 - `apply`: For applying over the rows or columns of matrices.
-- `mapply`: For applying functions with various inputs. 
+- `mapply`: For applying functions with more than a single input. 
 - `tapply`: For splitting vectors and applying functions on subsets. 
 - `rapply`: A recursive version of `lapply`.
 - `eapply`: Like `lapply`, only operates on `environments` instead of lists. 
@@ -717,7 +729,7 @@ Here is a demonstration with the Fibonacci series.
 ```{r recusrion, cache=TRUE}
 fib<-function(n) {
     if (n < 2) fn<-1 
-    else fn<-Recall(n - 1) + Recall(n - 2) 
+    else fn <- Recall(n - 1) + Recall(n - 2) 
     return(fn)
 } 
 fib(5)
@@ -725,7 +737,7 @@ fib(5)
 
 
 ## Dates and Times
-[TODO]
+[TODO. In the meanwhile, see the __lubridate__ pacakge].
 
 
 ## Bibliographic Notes
@@ -742,7 +754,19 @@ For working with databases see (https://rforanalytics.wordpress.com/useful-links
 
 ## Practice Yourself
 
-1. Save the numbers 1 to 100 into an object named `object`.
-1. Write a loop that computes the mean of `object`.
-1. Write a function that computes the mean of its input, and apply it on `object`.
-1. Make a matrix of random numbers using `A <- matrix(rnorm(40), ncol=10, nrow=4)`. Compute the mean of each columns. Do it using your own loop and then do the same with `lapply` or `apply`.
+1. Load the package __MASS__. That was easy. Now load __ggplot2__, after looking into `install.pacakges()`.
+
+1. Save the numbers 1 to 1,000,000 (`1e6`)  into an object named `object`.
+
+1. Write a function that computes the mean of its input. 
+Write a version that uses `sum()`, and another that uses a `for` loop and the summation `+`. 
+Try checking which is faster using `system.time`. 
+Is the difference considerable? Ask me about it in class. 
+
+1. Write a function that returns `TRUE` if a number is divisible by 13, `FALSE` if not, and a nice warning to the user if the input is not an integer number. 
+
+1. Apply the previous function to all the numbers in `object`. Try using a `for` loop, but also a mapping/apply function.
+
+1. Make a matrix of random numbers using `A <- matrix(rnorm(40), ncol=10, nrow=4)`. 
+Compute the mean of each columns. 
+Do it using your own loop and then do the same with `lapply` or `apply`.
