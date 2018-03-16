@@ -103,7 +103,7 @@ auto[,.(Price=mean(price), Power=mean(powerPS)), by=vehicleType]
 
 And split by multiple variables:
 ```{r}
-auto[,.(Price=mean(price), Power=mean(powerPS)), by=.(vehicleType,fuelType)]
+auto[,.(Price=mean(price), Power=mean(powerPS)), by=.(vehicleType,fuelType)] %>% head
 ```
 
 Compute with variables created on the fly:

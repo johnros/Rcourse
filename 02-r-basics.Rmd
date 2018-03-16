@@ -635,7 +635,7 @@ my.sum.2 <- function(x, y , absolute=FALSE) {
   } 
   result
 }
-my.sum.2(-10,2, TRUE)
+my.sum.2(-10,2,TRUE)
 ```
 
 Things to note:
@@ -677,6 +677,9 @@ for (i in 1:5){
 A slightly more advanced example, is vector multiplication
 ```{r, eval=FALSE}
 result <- 0
+n <- 1e3
+x <- 1:n
+y <- (1:n)/n
 for(i in 1:n){
   result <- result+ x[i]*y[i]
 }
