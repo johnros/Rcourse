@@ -705,7 +705,7 @@ Things to note:
 - We did not need to a-priori specify the number of clusters, $K$, since all the possible $K$'s are included in the output tree. 
 - The `plot` function has a particular method for `hclust` class objects, and plots them as dendograms.
 
-
+AH TODO: Something went wrong here with the plots:
 We try other types of linkages, to verify that the indeed affect the clustering.
 Starting with complete linkage.
 ```{r complete linkage}
@@ -736,3 +736,13 @@ For more on everything, see @friedman2001elements.
 For a softer introduction, see @james2013introduction.
 
 ## Practice Yourself
+Read about the “Iris” dataset using `? iris`. Since we want to practice some unsupervised techniques, remove the `Species` column.
+1. Make pairs scatter plot. Can you identify some clusters in the data? 
+1. Perform K-means with `centers=3`. Perform Kmeans++. To extract the clustering results (cluster of each instance) use `kmeans$clusters`. Compare the accuracy of the two algorithms (use the species column from the original dataset). 
+1. Perform hierarchal clustering with `hclust`, `method=”single”` and `method=”average”`.Extract the clustering results with `cutree`.  Compare the accuracy of the two linkage methods.
+1. Perform PCA on the data with `prcomp` function. 
+    1. Print the Rotation matrix.
+    1. Print the PCA’s vectors with `pca$x`. These vectors are the new values for each instance in the dataset after the rotation. 
+    1. Let’s look at the first component (PC1) with `plot(pca$x[,1])`  (i.e reduce the dimensionality from 4 to 1 features). Can you identify visually the three clusters (species)?    
+    1. Determine the color of the points to be the truth species with `col=iris$Species`.
+
