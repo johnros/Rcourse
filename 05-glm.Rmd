@@ -10,29 +10,24 @@ Do we expect the variability of events to be constant about the trend? Probably 
 
 
 ```{example, label='cars'}
-Consider the relation between the length of the observation period, and the number of cars passing a cross-roads. 
-Do you agree that the longer the period, the more cars are expected, but also more variability is expected?
+Consider the relation between the travel times to the distance travelled.
+Do you agree that the longer the distance travelled, then not only the travel times get longer, but thye also get more variable?
 ```
 
 
 
 ## Problem Setup
 
-In the Linear Models Chapter \@ref(lm), we assumed the generative process to be 
-\begin{align}
-  y|x=x'\beta+\varepsilon,
-  (\#eq:linear-mean-again)
-\end{align}
-where the $y|x$ notation is read "the response $y$ given the predictors $x$".
-
-This does not allow for the non-linear relations of Example \@ref(exm:cigarettes), nor does it allow for the distrbituion of $\varepsilon$ to change with $x$, as in Example \@ref(exm:cars).
-_Generalize linear models_ (GLM), as the name suggests, are a generalization of the linear models in Chapter \@ref(lm) that allow that^[Do not confuse _generalized linear models_ with [_non-linear regression_](https://en.wikipedia.org/wiki/Nonlinear_regression), or [_generalized least squares_](https://en.wikipedia.org/wiki/Generalized_least_squares). These are different things, that we do not discuss.].
-
-
-To understand GLM, we recall that with the normality of $\varepsilon$, Eq.\@ref(eq:linear-mean-again) implies that 
+In the Linear Models Chapter \@ref(lm), we assumed the generative process to be linear in the effects of the predictors $x$. 
+We now write that same linear model, slightly differently:
 $$
- y|x \sim \mathcal{N}(x'\beta, \sigma^2)
+ y|x \sim \mathcal{N}(x'\beta, \sigma^2).
 $$
+
+This model not allow for the non-linear relations of Example \@ref(exm:cigarettes), nor does it allow for the distrbituion of $\varepsilon$ to change with $x$, as in Example \@ref(exm:cars).
+_Generalize linear models_ (GLM), as the name suggests, are a generalization of the linear models in Chapter \@ref(lm) that allow that^[Do not confuse _generalized linear models_ with [_non-linear regression_](https://en.wikipedia.org/wiki/Nonlinear_regression), or [_generalized least squares_](https://en.wikipedia.org/wiki/Generalized_least_squares). 
+These are different things, that we do not discuss.].
+
 For Example \@ref(exm:cigarettes), we would like something in the lines of 
 $$
  y|x \sim Binom(1,p(x))
@@ -40,12 +35,19 @@ $$
 
 For Example \@ref(exm:cars), we would like something in the lines of 
 $$
- y|x \sim Pois(1,\lambda(x))
+ y|x \sim \mathcal{N}(x'\beta,\sigma^2(x)),
+$$
+or more generally
+$$
+ y|x \sim \mathcal{N}(\mu(x),\sigma^2(x)),
+$$
+or maybe not Gaussian
+$$
+ y|x \sim Pois(\lambda(x)).
 $$
 
 
-
-More generally, for some distribution $F(\theta)$, with a parameter $\theta$, we would like
+Even more generally, for some distribution $F(\theta)$, with a parameter $\theta$, we would like to assume that the data is generated via 
 \begin{align}
   (\#eq:general)
   y|x \sim F(\theta(x))
@@ -60,10 +62,15 @@ Possible examples include
 
 GLMs allow models of the type of Eq.\@ref(eq:general), while imposing some constraints on $F$ and on the relation $\theta(x)$.
 GLMs assume the data distribution $F$ to be in a "well-behaved" family known as the [_Natural Exponential Family_](https://en.wikipedia.org/wiki/Natural_exponential_family) of distributions. 
-GLMs also assume that $\theta$ is a rescaling of a linear combination of $x$s.
+This family includes the Gaussian, Gamma, Binomial, Poisson, and Negative Binomial distributions. 
+These five include as special cases the exponential, chi-squared, Rayleigh, Weibull, Bernoulli, and geometric distributions.
+
+GLMs also assume that the distribution's parameter, $\theta$, is some simple function of a linear combination of the effects.
+In our cigarettes example this amounts to assuming that each cigarette has an additive effect, but not on the probability of cancer, but rather, on some simple function of it.
 Formally
-$$g(\theta(x))=x'\beta,$$ where $$x'\beta=\beta_0 + \sum_j x_j \beta_j.$$
-The function $g$ is called the _link_ function, its inverse, $g^{-1}$ is the _mean function_. 
+$$g(\theta(x))=x'\beta,$$ and we recall that $$x'\beta=\beta_0 + \sum_j x_j \beta_j.$$
+The function $g$ is called the _link_ function, its inverse, $g^{-1}$ is the _mean function_.
+We thus say that "the effects of each cigarette is linear __in link scale__". 
 This terminology will later be required to understand R's output.
 
 
@@ -72,12 +79,12 @@ This terminology will later be required to understand R's output.
 The best known of the GLM class of models is the _logistic regression_ that deals with Binomial, or more precisely, Bernoulli-distributed data. 
 The link function in the logistic regression is the _logit function_
 \begin{align}
-  g(t)=log(\frac{t}{(1-t)})
+  g(t)=log\left( \frac{t}{(1-t)} \right)
   (\#eq:logistic-link)  
 \end{align}
- implying that 
+ implying that under the logistic model assumptions
 \begin{align}
-  y|x \sim Binom \left( 1, p=\frac{e^{x'\beta}}{1+e^{x'\beta}} \right)
+  y|x \sim Binom \left( 1, p=\frac{e^{x'\beta}}{1+e^{x'\beta}} \right).
   (\#eq:logistic)
 \end{align}
 
@@ -102,7 +109,7 @@ Odds ratios (OR) compare between the probabilities of two groups, only that it d
 You can also think of ORs as a measure of distance between two Brenoulli distributions. 
 ORs have better mathematical properties than other candidate distance measures, such as $P(y_1=1)-P(y_2=1)$.
 
-Under the logit link assumption, the OR between two conditions indexed by $y|x=1$ and $y|x=0$, returns:
+Under the logit link assumption formalized in Eq.\@ref(eq:logistic), the OR between two conditions indexed by $y|x=1$ and $y|x=0$, returns:
 \begin{align}
    OR(y|x=1,y|x=0) 
    = \frac{P(y=1|x=1)/P(y=0|x=1)}{P(y=1|x=0)/P(y=0|x=0)} 
@@ -150,7 +157,7 @@ Things to note:
 - The `glm` function is our workhorse for all GLM models.
 - The `family` argument of `glm` tells R the respose variable is brenoulli, thus, performing a logistic regression.
 - The `summary` function is content aware. It gives a different output for `glm` class objects than for other objects, such as the `lm` we saw in Chapter \@ref(lm). In fact, what `summary` does is merely call `summary.glm`. 
-- As usual, we get the coefficients table, but recall that they are to be interpreted as (log) odd-ratios.
+- As usual, we get the coefficients table, but recall that they are to be interpreted as (log) odd-ratios, i.e., in "link scale". To return to probabilities ("response scale"), we will need to undo the logistic transformation.
 - As usual, we get the significance for the test of no-effect, versus a two-sided alternative. P-values are asymptotic, thus, only approximate (and can be very bad approximations in small samples). 
 - The residuals of `glm` are slightly different than the `lm` residuals, and called _Deviance Residuals_. 
 - For help see `?glm`, `?family`, and `?summary.glm`.
@@ -180,7 +187,7 @@ predict(glm.1, type='response')
 Things to note:
 
 - Like the `summary` and `anova` functions, the `predict` function is aware that its input is of `glm` class. All that `predict` does is call `predict.glm`. 
-- In GLMs there are many types of predictions. The `type` argument controls which type is returned. 
+- In GLMs there are many types of predictions. The `type` argument controls which type is returned. Use `type=response` for predictions in probability scale; use `type=link' for predictions in log-odds scale.
 - How do I know we are predicting the probability of a heavy plant, and not a light plant? Just run `contrasts(weight.factor)` to see which of the categories of the factor `weight.factor` is encoded as 1, and which as 0.
 - For help see `?predict.glm`.
 
@@ -218,7 +225,7 @@ The function reports each model it has checked, and the variable it has decided 
 Poisson regression means we fit a model assuming $y|x \sim Poisson(\lambda(x))$.
 Put differently, we assume that for each treatment, encoded as a combinations of predictors $x$, the response is Poisson distributed with a rate that depends on the predictors. 
 
-The typical link function for Poisson regression is $g(t)=e^t$.
+The typical link function for Poisson regression is the logarithm: $g(t)=log(t)$.
 This means that we assume $y|x \sim Poisson(\lambda(x) = e^{x'\beta})$.
 Why is this a good choice?
 We again resort to the two-group case, encoded by $x=1$ and $x=0$, to understand this model:
@@ -250,7 +257,11 @@ attach(cases)
 head(cases) 
 ```
 
-Look at the following plot and think: what is the sign of the effect of time on the number of sick students?
+Look at the following plot and think: 
+
+- Can we assume that the errors have constant variace?
+- What is the sign of the effect of time on the number of sick students?
+- Can we assume a linear effect of time?
 ```{r}
 plot(Days, Students, xlab = "DAYS", ylab = "STUDENTS", pch = 16)
 ```
