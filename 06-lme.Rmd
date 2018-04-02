@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Linear Mixed Models {#lme}
 
 ```{example, label='dependence', name="Dependent Samples on the Mean"}
@@ -9,6 +14,7 @@ From this example one may think that dependence is a bad thing. This is a false 
 
 ```{example, label='repeated-measures', name="Repeated Measures"}
 Consider a prospective study, i.e., data that originates from selecting a set of subjects and making measurements on them over time. 
+Also assume that tome subjects received some treatment, and other did not. 
 When we want to infer on the population from which these subjects have been sampeled, we need to recall that some series of observations came from the same subject. 
 If we were to ignore the subject of origin, and treat each observation as an independent sample point, we will think we have more information in our data than we actually have. 
 For a rough intuition, think of a case where observatiosn within subject are perfectly dependent. 
@@ -45,12 +51,11 @@ Alternatively, for inference on the population of "all subjects" we need to adre
 ```
 
 
-The unifying theme of the above two examples, is that the variability we want to infer against has several sources. 
+The unifying theme of the above examples, is that the variability in our data has several sources. 
 Which are the sources of variability that need to concern us? 
 This is a delicate matter which depends on your goals. 
 As a rule of thumb, we will suggest the following view:
-__If information of an effect is available at the time of prediction, treat it as a fixed effect. If it is not, treat it as a random-effect.__
-
+__If information of an effect will be available at the time of prediction, treat it as a fixed effect. If it is not, treat it as a random-effect.__
 
 
 Mixed models are so fundamental, that they have earned many names:
@@ -64,6 +69,9 @@ Because as the examples show, variance has more than a single source (like in th
 - __Hirarchial Models__: 
 Because as Example \@ref(exm:random-effects) demonstrates, we can think of the sampling as hierarchical-- first sample a subject, and then sample its response. 
 
+- __Multilevel Analysis__:
+For the same reasons it is also known as Hierarchical Models. 
+
 - __Repeated Measures__: 
 Because we make several measurements from each unit, like in Example \@ref(exm:random-effects).
 
@@ -75,6 +83,10 @@ Is the term typically used in econometric for such longitudinal data.
 
 - __MANOVA__:
 Many of the problems that may be solved with a multivariate analysis of variance (MANOVA), may be solved with a mixed model for reasons we detail in \@ref(multivariate).
+
+- __Structured Prediction__:
+In the machine learning literature, predicting outcomes with structure, such as correlated vectors, is known as Structured Learning. 
+Because mixed-models merely specify correlations, using a mixed-model for making predictions may be thought of as an instance of structured prediction.
 
 
 Whether we are aiming to infer on a generative model's parameters, or to make predictions, there is no "right" nor "wrong" approach. Instead, there is always some implied measure of error, and an algorithm may be good, or bad, with respect to this measure (think of false and true positives, for instance).
@@ -108,24 +120,31 @@ Also recall that machine learning from non-independent observations (such as mix
 \end{align}
 where $x$ are the factors with fixed effects, $\beta$, which we may want to study.
 The factors $z$, with effects $u$, are the random effects which contribute to variability. 
-In our diet example (\@ref(exm:random-effects))
+In our repeated measures example (\@ref(exm:repeated-measures)) the treatment is a fixed effect, and the subject is a random effect. 
+In our bottle-caps example (\@ref(exm:fixed-effects)) the time (before vs. after) is a fixed effect, and the machines may be either a fixed or a random effect (depending on the purpose of inference). 
+In our diet example (\@ref(exm:random-effects)) the diet is the fixed effect and the family is a random effect.
 
-The reader may notice that we state $y|x,u$ merely as a convenient way to do inference on $y|x$, instead of directly specifying $Var[y|x]$.
+Notice that we state $y|x,z$ merely as a convenient way to do inference on $y|x$, instead of directly specifying $Var[y|x]$. 
+Using only the [law of total variance](https://en.wikipedia.org/wiki/Law_of_total_variance) we have $$Var[y|x]=E_z[Var_\varepsilon[y|x,z]]+Var_z[E_\varepsilon[y|x,z]]=\\
+Var[\varepsilon]+Var_z[x'\beta+z'u]=\\
+Var[\varepsilon]+u'Var[z]u.$$
+This is exactly the power of mixed-effect models: we specify the covariance via the sampling hierarchy.
 
 Given a sample of $n$ observations $(y_i,x_i,z_i)$ from model \@ref(eq:mixed-model), we will want to estimate $(\beta,u)$.
 Under some assumption on the distribution of $\varepsilon$ and $z$, we can use _maximum likelihood_ (ML). 
 In the context of mixed-models, however, ML is typically replaced with _restricted maximum likelihood_ (ReML), because it returns unbiased estimates of $Var[y|x]$ and ML does not.
 
-AH too: Something went wrong:
-### Relation to MANOVA (*) {#manova}
-Multivariate analysis of variance (MANOVA) deals with the estimation of effect on vector valued outcomes. 
-Put differently: in ANOVA the response, $y$, is univariate In MANOVA, the outcome is multivariate.
+
+### Relation to MANOVA {#manova}
+
+Multivariate analysis of variance (MANOVA) deals with the estimation of effect on __vector valued__ outcomes. 
+Put differently: in ANOVA the response, $y$, is univariate. In MANOVA, the outcome is multivariate.
 MANOVA is useful when there are correlations among the entries of $y$.
 Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.
 
 Now assume that the outcome of a MANOVA is measurements of an individual at several time periods.
 The measurements are clearly correlated, so that MANOVA may be useful. 
-But one may also treat time as a random effect, with a univariate response. 
+But one may also treat the subject as a random effect, with a univariate response. 
 We thus see that this seemingly MANOVA problem can be solved with the mixed models framework.
 
 What MANOVA problems cannot be solved with mixed models?
@@ -135,31 +154,37 @@ It is also possible to consider mixed-models with multivariate outcomes, i.e., a
 The R functions we present herein permit this.
 
 
+### Non-Linear Mixed Models
+
+The idea of random-effects can also be implemented for non-linear mean models. Formally, this means that $y|x,z=f(x,z,\varepsilon)$ for some non-linear $f$. 
+This is known as _non-linead-mixed-models_, which will not be discussed in this text. 
 
 
 ## Mixed Models with R
 
 We will fit mixed models with the `lmer` function from the __lme4__ package, written by the mixed-models Guru [Douglas Bates](http://www.stat.wisc.edu/~bates/).
-We start with a small simulation demonstrating the importance of acknowledging your sources of variability, by fitting a linear model when a mixed model is appropriate. 
-We start by creating some synthetic data. 
+We start with a small simulation demonstrating the importance of acknowledging your sources of variability. Our demonstration consists of fitting a linear model that assumes independence, when data is clearly dependent. 
 
 ```{r}
-n.groups <- 10
-n.repeats <- 2
-groups <- gl(n = n.groups, k = n.repeats) # create the group factor
+# Simulation parameters
+n.groups <- 4 # number of groups
+n.repeats <- 2 # sample per group
+groups <- gl(n = n.groups, k = n.repeats) # create a group factor
 n <- length(groups)
 z0 <- rnorm(10,0,10) # generate group effects
-z <- z0[as.numeric(groups)] # assign effect to group
+z <- z0[as.numeric(groups)] # generate random effects
 epsilon <- rnorm(n,0,1) # generate measurement error
+
+# Generate data
 beta0 <- 2 # set global mean
 y <- beta0 + z  + epsilon # generate synthetic sample
 ```
 
 We can now fit the linear and mixed models.
 ```{r, lme vs lm}
-lm.5 <- lm(y~z)  # fit a linear model
+lm.5 <- lm(y~z)  # fit a linear model assuming independence
 library(lme4)
-lme.5 <- lmer(y~1|groups) # fit a mixed-model
+lme.5 <- lmer(y~1|groups) # fit a mixed-model that deals with the group dependence
 ```
 
 
@@ -179,12 +204,14 @@ summary.lme.5
 Look at the standard error of the global mean, i.e., the intercept:
 for `lm` it is `r summary.lm.5$coefficients[1,2]`, and for `lme` it is `r summary.lme.5$coefficients[1,2]`.
 Why this difference? 
-Because `lm` discounts the group effect^[A.k.a. the _cluster effect_ in the epidemiological literature. ], while it should treat it as another source of variability.
-Clearly, inference using `lm` underestimates our uncertainty.
+Because `lm` treats the group effect^[A.k.a. the _cluster effect_.] as a fixed while the mixed model treats the group effect as a source of noise/uncertainty.
+Clearly, inference using `lm` underestimates our uncertainty in the estimated population mean ($\beta_0$).
+
+
 
 ### A Single Random Effect
 
-We will use the `Dyestuff` data from the __lme4__ package, which encodes the yield, in grams, of a coloring solution (dyestuff), produced in 6 batches using 5 different preparations.
+We will use the `Dyestuff` data from the __lme4__ package, which encodes the yield, in grams, of a coloring solution (`dyestuff`), produced in 6 batches using 5 different preparations.
 
 ```{r}
 data(Dyestuff, package='lme4')
@@ -195,11 +222,11 @@ head(Dyestuff)
 And visually
 
 ```{r}
-plot(Yield~Batch)
+dotplot(Yield~Batch)
 ```
 
-If we want to do inference on the mean yield, we need to account for the two sources of variability: the batch effect, and the measurement error. 
-We thus fit a mixed model, with an intercept and random batch effect, which means this is it not a bona-fide mixed-model, but rather, a simple random-effect model.
+If we want to do inference on the (global) mean yield, we need to account for the two sources of variability: the within-batch variability, and the between-batch variability 
+We thus fit a mixed model, with an intercept and random batch effect.
 
 ```{r random intercept}
 lme.1<- lmer( Yield ~ 1  | Batch  , Dyestuff )
@@ -208,15 +235,15 @@ summary(lme.1)
 
 Things to note:
 
-- As usual, `summary` is content aware and has a different behavior for `lme` class objects.
 - The syntax `Yield ~ 1  | Batch` tells R to fit a model with a global intercept (`1`) and a random Batch effect (`|Batch`). More on that later. 
-- The output distinguishes between random effects, a source of variability, and fixed effect, which's coefficients we want to study. The mean of the random effect is not reported because it is unassumingly 0 for all random effects.
+- As usual, `summary` is content aware and has a different behavior for `lme` class objects.
+- The output distinguishes between random effects ($u$), a source of variability, and fixed effect ($\beta$), which we want to study. The mean of the random effect is not reported because it is unassumingly 0.
 - Were we not interested in the variance components, and only in the coefficients or predictions, an (almost) equivalent `lm` formulation is `lm(Yield ~ Batch)`.
 
 Some utility functions let us query the `lme` object. 
 The function `coef` will work, but will return a cumbersome output. Better use `fixef` to extract the fixed effects, and `ranef` to extract the random effects.
 The model matrix (of the fixed effects alone), can be extracted with `model.matrix`, and predictions made with `predict`.
-Note, however, that predictions with mixed-effect models are (i) a delicate matter, and (ii) better treated as prediction problems as in the Supervised Learning Chapter \@ref(supervised).
+Note, however, that predictions with mixed-effect models are better treated as prediction problems as in the Supervised Learning Chapter \@ref(supervised), but are a very delicate matter. 
 
 ```{r}
 detach(Dyestuff)
@@ -341,7 +368,7 @@ The assumptions on the distribution of random effect, namely, that they are norm
 Is this a good thing? If the normality assumption is true, it certainly is.
 If, on the other hand, you have a lot of samples per subject, and you don't need to "borrow strength" from one subject to another, you can simply fit within-subject linear models without the mixed-models machinery.
 
-To demonstrate the "strength borrowing", here is a comparison of the subject-wise intercepts of the mixed-model, versus a subject-wise linear model. They are not the same.
+To demonstrate the "strength borrowing", here is a comparison of the lme, versus the effects of fitting a linear model to each subject separately. 
 
 ```{r, echo=FALSE}
 library(lattice)
@@ -423,6 +450,7 @@ Most of the examples in this chapter are from the documentation of the __lme4__ 
 For a more theoretical view see @weiss2005modeling or @searle2009variance.
 As usual, a hands on view can be found in @venables2013modern.
 Sometimes it is unclear if an effect is random or fixed; on the difference between the two types of inference see @rosset2018fixed and references therein.
+For more on predictions in linear mixed models see @robinson1991blup, @rabinowicz2018assessing, and references therein.
 
 ## Practice Yourself
 

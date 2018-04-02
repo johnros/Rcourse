@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2018-03-15">
+<meta name="date" content="2018-04-02">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -121,6 +121,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#practice-yourself"><i class="fa fa-check"></i><b>2.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
+<li class="chapter" data-level="3.0.1" data-path="basics.html"><a href="basics.html#other-ides"><i class="fa fa-check"></i><b>3.0.1</b> Other IDEs</a></li>
 <li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>3.1</b> File types</a></li>
 <li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.2</b> Simple calculator</a></li>
 <li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.3</b> Probability calculator</a></li>
@@ -173,7 +174,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3.2" data-path="lm.html"><a href="lm.html#constructing-a-confidence-interval-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.2</b> Constructing a Confidence Interval on a Single Coefficient</a></li>
 <li class="chapter" data-level="5.3.3" data-path="lm.html"><a href="lm.html#multiple-regression"><i class="fa fa-check"></i><b>5.3.3</b> Multiple Regression</a></li>
 <li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#anova"><i class="fa fa-check"></i><b>5.3.4</b> ANOVA (*)</a></li>
-<li class="chapter" data-level="5.3.5" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast-returning-to-the-model-without-interactions-lm.2."><i class="fa fa-check"></i><b>5.3.5</b> Testing a Hypothesis on a Single Contrast (*) Returning to the model without interactions, <code>lm.2</code>.</a></li>
+<li class="chapter" data-level="5.3.5" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>5.3.5</b> Testing a Hypothesis on a Single Contrast (*)</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="5.5" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
@@ -189,7 +190,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.6" data-path="glm.html"><a href="glm.html#practice-yourself-4"><i class="fa fa-check"></i><b>6.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
-<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
+<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#manova"><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA</a></li>
+<li class="chapter" data-level="7.1.2" data-path="lme.html"><a href="lme.html#non-linear-mixed-models"><i class="fa fa-check"></i><b>7.1.2</b> Non-Linear Mixed Models</a></li>
+</ul></li>
 <li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
 <li class="chapter" data-level="7.2.2" data-path="lme.html"><a href="lme.html#multiple-random-effects"><i class="fa fa-check"></i><b>7.2.2</b> Multiple Random Effects</a></li>
@@ -315,13 +319,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
 </ul></li>
-<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a><ul>
-<li class="chapter" data-level="15.4.1" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.4.1</b> matter</a></li>
-<li class="chapter" data-level="15.4.2" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.4.2</b> iotools</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
+<li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.5</b> matter</a></li>
+<li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.6</b> iotools</a></li>
+<li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#hdf5"><i class="fa fa-check"></i><b>15.7</b> HDF5</a></li>
+<li class="chapter" data-level="15.8" data-path="memory.html"><a href="memory.html#delayedarray"><i class="fa fa-check"></i><b>15.8</b> DelayedArray</a><ul>
+<li class="chapter" data-level="15.8.1" data-path="memory.html"><a href="memory.html#delayedmatrixstats"><i class="fa fa-check"></i><b>15.8.1</b> DelayedMatrixStats</a></li>
+<li class="chapter" data-level="15.8.2" data-path="memory.html"><a href="memory.html#beachmat"><i class="fa fa-check"></i><b>15.8.2</b> beachmat</a></li>
+<li class="chapter" data-level="15.8.3" data-path="memory.html"><a href="memory.html#restfulse"><i class="fa fa-check"></i><b>15.8.3</b> restfulSE</a></li>
 </ul></li>
-<li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.5</b> Computing from a Distributed File System</a></li>
-<li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.6</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#practice-yourself-13"><i class="fa fa-check"></i><b>15.7</b> Practice Yourself</a></li>
+<li class="chapter" data-level="15.9" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.9</b> Computing from a Distributed File System</a></li>
+<li class="chapter" data-level="15.10" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.10</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="15.11" data-path="memory.html"><a href="memory.html#practice-yourself-13"><i class="fa fa-check"></i><b>15.11</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
 <li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
@@ -435,7 +444,7 @@ a &lt;-<span class="st"> </span><span class="kw">update</span>(a,chunk3)
 <p>Other packages that follow these lines, particularly with classification using SVMs, are <strong>LiblineaR</strong>, and <strong>RSofia</strong>.</p>
 <div id="summary-statistics-from-ram" class="section level3">
 <h3><span class="header-section-number">15.1.1</span> Summary Statistics from RAM</h3>
-<p>If you are not going to do any model fitting, and all you want is efficient filtering, selection and summary statistics, then a lot of my warnings above are irrelevant. For these purposes, the facilities provided by <strong>base</strong>, <strong>stats</strong>, and <strong>dplyr</strong> are probably enough. If the data is large, however, these facilities may be too slow. If your data fits into RAM, but speed bothers you, take a look at the <strong>data.table</strong> package. The syntax is less friendly than <strong>dplyr</strong>, but <strong>data.table</strong> is BLAZING FAST compared to competitors. Here is a little benchmark<a href="#fn28" class="footnoteRef" id="fnref28"><sup>28</sup></a>.</p>
+<p>If you are not going to do any model fitting, and all you want is efficient filtering, selection and summary statistics, then a lot of my warnings above are irrelevant. For these purposes, the facilities provided by <strong>base</strong>, <strong>stats</strong>, and <strong>dplyr</strong> are probably enough. If the data is large, however, these facilities may be too slow. If your data fits into RAM, but speed bothers you, take a look at the <strong>data.table</strong> package. The syntax is less friendly than <strong>dplyr</strong>, but <strong>data.table</strong> is BLAZING FAST compared to competitors. Here is a little benchmark<a href="#fn27" class="footnoteRef" id="fnref27"><sup>27</sup></a>.</p>
 <p>First, we setup the data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)
 
@@ -461,30 +470,30 @@ tbl_df &lt;-<span class="st"> </span>tbl <span class="op">%&gt;%</span><span cla
                  )
              )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   7.548   0.004   7.563</code></pre>
+##   7.948   0.000   7.949</code></pre>
 <p>And now the timing for <strong>data.table</strong>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_dt[ ,  .( <span class="dt">x1 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x1)), <span class="dt">x2 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x2)), <span class="dt">x3 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x3)) ), .(v1,v2)]
   )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.336   0.000   0.335</code></pre>
+##   0.352   0.000   0.351</code></pre>
 <p>The winner is obvious. Let’s compare filtering (i.e. row subsets, i.e. SQL’s SELECT).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(v1 <span class="op">==</span><span class="st"> &quot;1&quot;</span>) 
   )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.016   0.000   0.015</code></pre>
+##   0.016   0.000   0.016</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_dt[v1 <span class="op">==</span><span class="st"> &quot;1&quot;</span>] 
   )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.016   0.000   0.015</code></pre>
+##   0.012   0.000   0.013</code></pre>
 </div>
 </div>
 <div id="computing-from-a-database" class="section level2">
 <h2><span class="header-section-number">15.2</span> Computing from a Database</h2>
 <p>The early solutions to oversized data relied on storing your data in some DBMS such as <em>MySQL</em>, <em>PostgresSQL</em>, <em>SQLite</em>, <em>H2</em>, <em>Oracle</em>, etc. Several R packages provide interfaces to these DBMSs, such as <strong>sqldf</strong>, <strong>RDBI</strong>, <strong>RSQite</strong>. Some will even include the DBMS as part of the package itself.</p>
-<p>Storing your data in a DBMS has the advantage that you can typically rely on DBMS providers to include very efficient algorithms for the queries they support. On the downside, SQL queries may include a lot of summary statistics, but will rarely include model fitting<a href="#fn29" class="footnoteRef" id="fnref29"><sup>29</sup></a>. This means that even for simple things like linear models, you will have to revert to R’s facilities– typically some sort of EMA with chunking from the DBMS. For this reason, and others, we prefer to compute from efficient file structures, as described in Section <a href="memory.html#file-structure">15.3</a>.</p>
+<p>Storing your data in a DBMS has the advantage that you can typically rely on DBMS providers to include very efficient algorithms for the queries they support. On the downside, SQL queries may include a lot of summary statistics, but will rarely include model fitting<a href="#fn28" class="footnoteRef" id="fnref28"><sup>28</sup></a>. This means that even for simple things like linear models, you will have to revert to R’s facilities– typically some sort of EMA with chunking from the DBMS. For this reason, and others, we prefer to compute from efficient file structures, as described in Section <a href="memory.html#file-structure">15.3</a>.</p>
 <p>If, however, you have a powerful DBMS around, or you only need summary statistics, or you are an SQL master, keep reading.</p>
 <p>The package <strong>RSQLite</strong> includes an SQLite server, which we now setup for demonstration. The package <strong>dplyr</strong>, discussed in the Hadleyverse Chapter <a href="hadley.html#hadley">13</a>, will take care of translating the <strong>dplyr</strong> syntax, to the SQL syntax of the DBMS. The following example is taken from the <strong>dplyr</strong> <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html">Databases vignette</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RSQLite)
@@ -708,25 +717,40 @@ mymodel.ffdf &lt;-<span class="st"> </span><span class="kw">biglm</span>(payment
 <li>The model formula, <code>payment ~ factor(sex) + factor(age) + place.served</code>, includes factors which cause no difficulty.</li>
 <li>You cannot inspect the factor coding (dummy? effect?) using <code>model.matrix</code>. This is because EMAs never really construct the whole matrix, let alone, save it in memory.</li>
 </ul>
-<div id="matter" class="section level3">
-<h3><span class="header-section-number">15.4.1</span> matter</h3>
+</div>
+<div id="matter" class="section level2">
+<h2><span class="header-section-number">15.5</span> matter</h2>
 <p>TODO</p>
 </div>
-<div id="iotools" class="section level3">
-<h3><span class="header-section-number">15.4.2</span> iotools</h3>
+<div id="iotools" class="section level2">
+<h2><span class="header-section-number">15.6</span> iotools</h2>
 <p>TODO</p>
+</div>
+<div id="hdf5" class="section level2">
+<h2><span class="header-section-number">15.7</span> HDF5</h2>
+</div>
+<div id="delayedarray" class="section level2">
+<h2><span class="header-section-number">15.8</span> DelayedArray</h2>
+<div id="delayedmatrixstats" class="section level3">
+<h3><span class="header-section-number">15.8.1</span> DelayedMatrixStats</h3>
+</div>
+<div id="beachmat" class="section level3">
+<h3><span class="header-section-number">15.8.2</span> beachmat</h3>
+</div>
+<div id="restfulse" class="section level3">
+<h3><span class="header-section-number">15.8.3</span> restfulSE</h3>
 </div>
 </div>
 <div id="computing-from-a-distributed-file-system" class="section level2">
-<h2><span class="header-section-number">15.5</span> Computing from a Distributed File System</h2>
+<h2><span class="header-section-number">15.9</span> Computing from a Distributed File System</h2>
 <p>If your data is SOOO big that it cannot fit on your local storage, you will need a distributed file system or DBMS. We do not cover this topic here, and refer the reader to the <strong>RHipe</strong>, <strong>RHadoop</strong>, and <strong>RSpark</strong> packages and references therein.</p>
 </div>
 <div id="bibliographic-notes-11" class="section level2">
-<h2><span class="header-section-number">15.6</span> Bibliographic Notes</h2>
+<h2><span class="header-section-number">15.10</span> Bibliographic Notes</h2>
 <p>An absolute SUPERB review on computing with big data is <span class="citation">Wang et al. (<a href="#ref-wang2015statistical">2015</a>)</span>, and references therein (<span class="citation">Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span> in particular). For an up-to-date list of the packages that deal with memory constraints, see the <strong>Large memory and out-of-memory data</strong> section in the High Performance Computing <a href="https://cran.r-project.org/web/views/HighPerformanceComputing.html">R task view</a>.</p>
 </div>
 <div id="practice-yourself-13" class="section level2">
-<h2><span class="header-section-number">15.7</span> Practice Yourself</h2>
+<h2><span class="header-section-number">15.11</span> Practice Yourself</h2>
 
 </div>
 </div>
@@ -741,9 +765,9 @@ mymodel.ffdf &lt;-<span class="st"> </span><span class="kw">biglm</span>(payment
 </div>
 <div class="footnotes">
 <hr />
-<ol start="28">
-<li id="fn28"><p>The code was contributed by Liad Shekel.<a href="memory.html#fnref28">↩</a></p></li>
-<li id="fn29"><p>This is slowly changing. Indeed, Microsoft’s SQL Server 2016 is already providing <a href="https://blogs.technet.microsoft.com/dataplatforminsider/2016/03/29/in-database-advanced-analytics-with-r-in-sql-server-2016/">in-database-analytics</a>, and other will surely follow.<a href="memory.html#fnref29">↩</a></p></li>
+<ol start="27">
+<li id="fn27"><p>The code was contributed by Liad Shekel.<a href="memory.html#fnref27">↩</a></p></li>
+<li id="fn28"><p>This is slowly changing. Indeed, Microsoft’s SQL Server 2016 is already providing <a href="https://blogs.technet.microsoft.com/dataplatforminsider/2016/03/29/in-database-advanced-analytics-with-r-in-sql-server-2016/">in-database-analytics</a>, and other will surely follow.<a href="memory.html#fnref28">↩</a></p></li>
 </ol>
 </div>
             </section>

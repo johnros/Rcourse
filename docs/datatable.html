@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2018-03-15">
+<meta name="date" content="2018-04-02">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -121,6 +121,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#practice-yourself"><i class="fa fa-check"></i><b>2.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
+<li class="chapter" data-level="3.0.1" data-path="basics.html"><a href="basics.html#other-ides"><i class="fa fa-check"></i><b>3.0.1</b> Other IDEs</a></li>
 <li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>3.1</b> File types</a></li>
 <li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.2</b> Simple calculator</a></li>
 <li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.3</b> Probability calculator</a></li>
@@ -173,7 +174,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3.2" data-path="lm.html"><a href="lm.html#constructing-a-confidence-interval-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.2</b> Constructing a Confidence Interval on a Single Coefficient</a></li>
 <li class="chapter" data-level="5.3.3" data-path="lm.html"><a href="lm.html#multiple-regression"><i class="fa fa-check"></i><b>5.3.3</b> Multiple Regression</a></li>
 <li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#anova"><i class="fa fa-check"></i><b>5.3.4</b> ANOVA (*)</a></li>
-<li class="chapter" data-level="5.3.5" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast-returning-to-the-model-without-interactions-lm.2."><i class="fa fa-check"></i><b>5.3.5</b> Testing a Hypothesis on a Single Contrast (*) Returning to the model without interactions, <code>lm.2</code>.</a></li>
+<li class="chapter" data-level="5.3.5" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>5.3.5</b> Testing a Hypothesis on a Single Contrast (*)</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="5.5" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
@@ -189,7 +190,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.6" data-path="glm.html"><a href="glm.html#practice-yourself-4"><i class="fa fa-check"></i><b>6.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
-<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
+<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#manova"><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA</a></li>
+<li class="chapter" data-level="7.1.2" data-path="lme.html"><a href="lme.html#non-linear-mixed-models"><i class="fa fa-check"></i><b>7.1.2</b> Non-Linear Mixed Models</a></li>
+</ul></li>
 <li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
 <li class="chapter" data-level="7.2.2" data-path="lme.html"><a href="lme.html#multiple-random-effects"><i class="fa fa-check"></i><b>7.2.2</b> Multiple Random Effects</a></li>
@@ -315,13 +319,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
 </ul></li>
-<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a><ul>
-<li class="chapter" data-level="15.4.1" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.4.1</b> matter</a></li>
-<li class="chapter" data-level="15.4.2" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.4.2</b> iotools</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
+<li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.5</b> matter</a></li>
+<li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.6</b> iotools</a></li>
+<li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#hdf5"><i class="fa fa-check"></i><b>15.7</b> HDF5</a></li>
+<li class="chapter" data-level="15.8" data-path="memory.html"><a href="memory.html#delayedarray"><i class="fa fa-check"></i><b>15.8</b> DelayedArray</a><ul>
+<li class="chapter" data-level="15.8.1" data-path="memory.html"><a href="memory.html#delayedmatrixstats"><i class="fa fa-check"></i><b>15.8.1</b> DelayedMatrixStats</a></li>
+<li class="chapter" data-level="15.8.2" data-path="memory.html"><a href="memory.html#beachmat"><i class="fa fa-check"></i><b>15.8.2</b> beachmat</a></li>
+<li class="chapter" data-level="15.8.3" data-path="memory.html"><a href="memory.html#restfulse"><i class="fa fa-check"></i><b>15.8.3</b> restfulSE</a></li>
 </ul></li>
-<li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.5</b> Computing from a Distributed File System</a></li>
-<li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.6</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#practice-yourself-13"><i class="fa fa-check"></i><b>15.7</b> Practice Yourself</a></li>
+<li class="chapter" data-level="15.9" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.9</b> Computing from a Distributed File System</a></li>
+<li class="chapter" data-level="15.10" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.10</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="15.11" data-path="memory.html"><a href="memory.html#practice-yourself-13"><i class="fa fa-check"></i><b>15.11</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
 <li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
@@ -408,7 +417,7 @@ auto &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st
 <pre><code>##                    size isdir mode               mtime               ctime
 ## data/autos.csv 68439217 FALSE  664 2016-11-28 15:47:00 2017-10-30 22:48:56
 ##                              atime  uid  gid   uname  grname
-## data/autos.csv 2018-03-14 23:58:10 1000 1000 johnros johnros</code></pre>
+## data/autos.csv 2018-04-01 23:52:13 1000 1000 johnros johnros</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gdata<span class="op">::</span><span class="kw">humanReadable</span>(<span class="dv">68439217</span>)</code></pre></div>
 <pre><code>## [1] &quot;65.3 MiB&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">object.size</span>(auto) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">units =</span> <span class="st">&#39;auto&#39;</span>) <span class="co"># File size in memory</span></code></pre></div>
@@ -580,83 +589,17 @@ auto &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st
 ## 8:       kombi   7739.518 136.40654
 ## 9:      andere 676327.100 102.11154</code></pre>
 <p>And split by multiple variables:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,.(<span class="dt">Price=</span><span class="kw">mean</span>(price), <span class="dt">Power=</span><span class="kw">mean</span>(powerPS)), by=.(vehicleType,fuelType)]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,.(<span class="dt">Price=</span><span class="kw">mean</span>(price), <span class="dt">Power=</span><span class="kw">mean</span>(powerPS)), by=.(vehicleType,fuelType)] <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre></div>
 <pre><code>## Warning in gmean(price): Group 37 summed to more than type &#39;integer&#39;
 ## can hold so the result has been coerced to &#39;numeric&#39; automatically, for
 ## convenience.</code></pre>
-<pre><code>##     vehicleType fuelType        Price      Power
-##  1:               benzin    11820.443  70.144766
-##  2:       coupe   diesel    51170.248 179.487039
-##  3:         suv   diesel    15549.369 168.161149
-##  4:  kleinwagen   benzin     5786.514  68.743090
-##  5:  kleinwagen   diesel     4295.550  76.836660
-##  6:   limousine   benzin     6974.360 127.870246
-##  7:      cabrio   benzin    10673.413 147.063874
-##  8:         bus   benzin     5007.837 112.997127
-##  9:  kleinwagen              6575.304  57.272879
-## 10:       kombi   diesel     7717.390 143.084948
-## 11:       kombi   benzin     8505.697 129.593180
-## 12:       kombi              3194.817 123.230171
-## 13:         bus   diesel    13671.089 115.516662
-## 14:       coupe   benzin    22048.534 174.953055
-## 15:                         31961.267  66.878570
-## 16:   limousine   diesel    13644.460 144.182170
-## 17:      andere             37582.461 154.830556
-## 18:               diesel     5076.690  87.696302
-## 19:      andere   diesel     4545.590  83.865398
-## 20:   limousine             52270.634 106.347130
-## 21:         suv              8100.394 116.529279
-## 22:         suv   benzin    10187.581 161.018952
-## 23:       coupe             21512.372 120.224309
-## 24:         bus              4122.915  82.868121
-## 25:      cabrio            113710.680 114.892291
-## 26:         bus      lpg     3908.019 125.474383
-## 27:      andere   benzin    73975.337 107.286914
-## 28:   limousine      lpg    23217.197 164.060983
-## 29:       kombi      lpg     3215.888 144.016170
-## 30:   limousine   andere     4004.824  54.215686
-## 31:         suv      lpg     8320.890 211.598023
-## 32:               andere     2182.677  23.806452
-## 33:      cabrio   diesel    13119.963 141.081687
-## 34:      cabrio      lpg     5411.757 145.855967
-## 35:   limousine   hybrid    13108.216 115.960784
-## 36:       coupe      lpg     5628.022 179.910256
-## 37:      andere   andere 48808689.682 100.977273
-## 38:  kleinwagen      lpg     2931.335  71.071869
-## 39:                  lpg     3055.327 106.801282
-## 40:         bus      cng     4830.621  97.370833
-## 41:       kombi      cng     5322.860 108.117647
-## 42:   limousine  elektro    37662.333 253.000000
-## 43:                  cng     2836.549  61.098039
-## 44:      andere      lpg     6534.400 157.433333
-## 45:       kombi   hybrid    16886.630 105.703704
-## 46:   limousine      cng     5320.725 150.025000
-## 47:  kleinwagen      cng     4381.025  89.425000
-## 48:      andere      cng     2653.357  97.857143
-## 49:  kleinwagen   andere     1477.345  38.310345
-## 50:  kleinwagen  elektro     9508.412  46.352941
-## 51:       coupe  elektro    19214.571 142.714286
-## 52:              elektro     9875.000  84.750000
-## 53:       kombi   andere     2927.200  53.680000
-## 54:         bus   andere     9641.000  74.100000
-## 55:      andere  elektro     3948.250   6.083333
-## 56:       coupe   hybrid    34389.000 111.833333
-## 57:  kleinwagen   hybrid    10434.368  75.315789
-## 58:         suv   andere     5266.556  68.222222
-## 59:         suv   hybrid    22543.200 258.750000
-## 60:       kombi  elektro     6050.000 118.200000
-## 61:               hybrid     4428.062  43.812500
-## 62:      cabrio      cng     4266.667  95.666667
-## 63:      cabrio   andere     4035.667  57.000000
-## 64:      cabrio  elektro     9180.833  50.333333
-## 65:         suv      cng     2599.750  48.250000
-## 66:         suv  elektro   179433.333 177.333333
-## 67:       coupe      cng     4833.333  84.333333
-## 68:       coupe   andere     5833.333  36.666667
-## 69:         bus   hybrid     7325.000 125.833333
-## 70:      andere   hybrid    10900.000 136.000000
-## 71:         bus  elektro     9800.000  60.000000
-##     vehicleType fuelType        Price      Power</code></pre>
+<pre><code>##    vehicleType fuelType     Price     Power
+## 1:               benzin 11820.443  70.14477
+## 2:       coupe   diesel 51170.248 179.48704
+## 3:         suv   diesel 15549.369 168.16115
+## 4:  kleinwagen   benzin  5786.514  68.74309
+## 5:  kleinwagen   diesel  4295.550  76.83666
+## 6:   limousine   benzin  6974.360 127.87025</code></pre>
 <p>Compute with variables created on the fly:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">sum</span>(price<span class="op">&lt;</span><span class="fl">1e4</span>),] <span class="co"># Count prices higher than 10,000</span></code></pre></div>
 <pre><code>## [1] 310497</code></pre>

@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2018-03-15">
+<meta name="date" content="2018-04-02">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -121,6 +121,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#practice-yourself"><i class="fa fa-check"></i><b>2.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
+<li class="chapter" data-level="3.0.1" data-path="basics.html"><a href="basics.html#other-ides"><i class="fa fa-check"></i><b>3.0.1</b> Other IDEs</a></li>
 <li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>3.1</b> File types</a></li>
 <li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.2</b> Simple calculator</a></li>
 <li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.3</b> Probability calculator</a></li>
@@ -173,7 +174,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.3.2" data-path="lm.html"><a href="lm.html#constructing-a-confidence-interval-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.2</b> Constructing a Confidence Interval on a Single Coefficient</a></li>
 <li class="chapter" data-level="5.3.3" data-path="lm.html"><a href="lm.html#multiple-regression"><i class="fa fa-check"></i><b>5.3.3</b> Multiple Regression</a></li>
 <li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#anova"><i class="fa fa-check"></i><b>5.3.4</b> ANOVA (*)</a></li>
-<li class="chapter" data-level="5.3.5" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast-returning-to-the-model-without-interactions-lm.2."><i class="fa fa-check"></i><b>5.3.5</b> Testing a Hypothesis on a Single Contrast (*) Returning to the model without interactions, <code>lm.2</code>.</a></li>
+<li class="chapter" data-level="5.3.5" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>5.3.5</b> Testing a Hypothesis on a Single Contrast (*)</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="5.5" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
@@ -189,7 +190,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.6" data-path="glm.html"><a href="glm.html#practice-yourself-4"><i class="fa fa-check"></i><b>6.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
-<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
+<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#manova"><i class="fa fa-check"></i><b>7.1.1</b> Relation to MANOVA</a></li>
+<li class="chapter" data-level="7.1.2" data-path="lme.html"><a href="lme.html#non-linear-mixed-models"><i class="fa fa-check"></i><b>7.1.2</b> Non-Linear Mixed Models</a></li>
+</ul></li>
 <li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
 <li class="chapter" data-level="7.2.2" data-path="lme.html"><a href="lme.html#multiple-random-effects"><i class="fa fa-check"></i><b>7.2.2</b> Multiple Random Effects</a></li>
@@ -315,13 +319,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
 </ul></li>
-<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a><ul>
-<li class="chapter" data-level="15.4.1" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.4.1</b> matter</a></li>
-<li class="chapter" data-level="15.4.2" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.4.2</b> iotools</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
+<li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.5</b> matter</a></li>
+<li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.6</b> iotools</a></li>
+<li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#hdf5"><i class="fa fa-check"></i><b>15.7</b> HDF5</a></li>
+<li class="chapter" data-level="15.8" data-path="memory.html"><a href="memory.html#delayedarray"><i class="fa fa-check"></i><b>15.8</b> DelayedArray</a><ul>
+<li class="chapter" data-level="15.8.1" data-path="memory.html"><a href="memory.html#delayedmatrixstats"><i class="fa fa-check"></i><b>15.8.1</b> DelayedMatrixStats</a></li>
+<li class="chapter" data-level="15.8.2" data-path="memory.html"><a href="memory.html#beachmat"><i class="fa fa-check"></i><b>15.8.2</b> beachmat</a></li>
+<li class="chapter" data-level="15.8.3" data-path="memory.html"><a href="memory.html#restfulse"><i class="fa fa-check"></i><b>15.8.3</b> restfulSE</a></li>
 </ul></li>
-<li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.5</b> Computing from a Distributed File System</a></li>
-<li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.6</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#practice-yourself-13"><i class="fa fa-check"></i><b>15.7</b> Practice Yourself</a></li>
+<li class="chapter" data-level="15.9" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.9</b> Computing from a Distributed File System</a></li>
+<li class="chapter" data-level="15.10" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>15.10</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="15.11" data-path="memory.html"><a href="memory.html#practice-yourself-13"><i class="fa fa-check"></i><b>15.11</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
 <li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
@@ -413,7 +422,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 
 <p>Another possible question is: does a multivariate analysis gives us something we cannot get from a mass-univariate analysis (i.e., a multivariate analysis on each variable separately). In Example <a href="multivariate.html#exm:icu">8.1</a> we could have just performed multiple univariate tests, and sign an alarm when any of the univariate detectors was triggered. The reason we want a multivariate detector, and not multiple univariate detectors is that it is possible that each measurement alone is borderline, but together, the signal accumulates. In our ICU example is may mean that the pulse is borderline, the body temperature is borderline, etc. Analyzed simultaneously, it is clear that the patient is in distress.</p>
-<p>The next figure<a href="#fn17" class="footnoteRef" id="fnref17"><sup>17</sup></a> illustrates the idea that some bi-variate measurements may seem ordinary univariately, while very anomalous when examined bi-variately.</p>
+<p>The next figure<a href="#fn16" class="footnoteRef" id="fnref16"><sup>16</sup></a> illustrates the idea that some bi-variate measurements may seem ordinary univariately, while very anomalous when examined bi-variately.</p>
 
 <div class="remark">
  <span class="remark"><em>Remark. </em></span> The following figure may also be used to demonstrate the difference between Euclidean Distance and Mahalanobis Distance.
@@ -439,7 +448,7 @@ which is the definition of Hotelling’s <span class="math inline">\(T^2\)</span
   T^2(x):= n (\bar{x}-\mu_0)&#39; \hat \Sigma(x)^{-1} (\bar{x}-\mu_0),
 \end{align}\]</span>
 <p>which is the standard notation of Hotelling’s test statistic.</p>
-<p>For inference, we need the null distribution of Hotelling’s test statistic. For this we introduce some vocabulary<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a>:</p>
+<p>For inference, we need the null distribution of Hotelling’s test statistic. For this we introduce some vocabulary<a href="#fn17" class="footnoteRef" id="fnref17"><sup>17</sup></a>:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Low Dimension</strong>: We call a problem <em>low dimensional</em> if <span class="math inline">\(n \gg p\)</span>, i.e. <span class="math inline">\(p/n \approx 0\)</span>. This means there are many observations per estimated parameter.</li>
 <li><strong>High Dimension</strong>: We call a problem <em>high dimensional</em> if <span class="math inline">\(p/n \to c\)</span>, where <span class="math inline">\(c\in (0,1)\)</span>. This means there are more observations than parameters, but not many.</li>
@@ -476,11 +485,11 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 <span class="kw">hotellingOneSample</span>(x)</code></pre></div>
 <pre><code>## $statistic
 ##          [,1]
-## [1,] 15.91177
+## [1,] 15.85198
 ## 
 ## $pvalue
 ##           [,1]
-## [1,] 0.5987051</code></pre>
+## [1,] 0.6028771</code></pre>
 <p>Things to note:</p>
 <ul>
 <li><code>stopifnot(n &gt; 5 * p)</code> is a little verification to check that the problem is indeed low dimensional. Otherwise, the <span class="math inline">\(\chi^2\)</span> approximation cannot be trusted.</li>
@@ -494,18 +503,18 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 ##  One-sample Hotelling test
 ## 
 ## data:  x
-## T2 = 15.91200, F = 0.73219, df1 = 18, df2 = 82, p-value = 0.7687
+## T2 = 15.85200, F = 0.72944, df1 = 18, df2 = 82, p-value = 0.7716
 ## alternative hypothesis: true mean vector is not equal to (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)&#39; 
 ## 
 ## sample estimates:
-##                      [,1]         [,2]      [,3]      [,4]        [,5]
-## mean x-vector -0.03467575 -0.008974188 0.1026656 0.0188196 -0.03088267
-##                     [,6]       [,7]       [,8]       [,9]      [,10]
-## mean x-vector 0.02468387 0.06018973 0.02080923 -0.1421728 -0.1526817
-##                   [,11]       [,12]      [,13]       [,14]      [,15]
-## mean x-vector 0.1378604 -0.07014879 0.07543001 -0.08481649 -0.1466111
-##                     [,16]       [,17]       [,18]
-## mean x-vector -0.06770437 -0.04840431 -0.01895608</code></pre>
+##                     [,1]      [,2]       [,3]     [,4]      [,5]
+## mean x-vector 0.04753548 0.0217144 -0.1534152 -0.14067 0.1417923
+##                      [,6]       [,7]        [,8]       [,9]       [,10]
+## mean x-vector -0.08881329 0.08418828 -0.06422076 -0.1633374 -0.04710313
+##                     [,11]       [,12]       [,13]        [,14]     [,15]
+## mean x-vector -0.05002829 -0.01033344 -0.03467575 -0.008974188 0.1026656
+##                   [,16]       [,17]      [,18]
+## mean x-vector 0.0188196 -0.03088267 0.02468387</code></pre>
 </div>
 </div>
 <div id="signal-counting" class="section level2">
@@ -563,13 +572,13 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 p.values &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="dt">X =</span> x, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> t.pval) 
 p.values.BH &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.values, <span class="dt">method =</span> <span class="st">&#39;BH&#39;</span> )
 <span class="kw">which</span>(p.values.BH <span class="op">&lt;</span><span class="st"> </span>alpha)</code></pre></div>
-<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<pre><code>## [1]  1  3  4  5  6  7  8  9 10</code></pre>
 <p>Indeed- we are now able to detect that the first coordinates carry signal, because their respective coordinate-wise null hypotheses have been rejected.</p>
 </div>
 </div>
 <div id="signal-estimation" class="section level2">
 <h2><span class="header-section-number">8.4</span> Signal Estimation (*)</h2>
-<p>The estimation of the elements of <span class="math inline">\(\mu\)</span> is a seemingly straightforward task. This is not the case, however, if we estimate only the elements that were selected because they were significant (or any other data-dependent criterion). Clearly, estimating only significant entries will introduce a bias in the estimation. In the statistical literature, this is known as <em>selection bias</em>. Selection bias also occurs when you perform inference on regression coefficients after some model selection, say, with a lasso, or a forward search<a href="#fn19" class="footnoteRef" id="fnref19"><sup>19</sup></a>.</p>
+<p>The estimation of the elements of <span class="math inline">\(\mu\)</span> is a seemingly straightforward task. This is not the case, however, if we estimate only the elements that were selected because they were significant (or any other data-dependent criterion). Clearly, estimating only significant entries will introduce a bias in the estimation. In the statistical literature, this is known as <em>selection bias</em>. Selection bias also occurs when you perform inference on regression coefficients after some model selection, say, with a lasso, or a forward search<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a>.</p>
 <p>Selective inference is a complicated and active research topic so we will not offer any off-the-shelf solution to the matter. The curious reader is invited to read <span class="citation">J. D. Rosenblatt and Benjamini (<a href="#ref-rosenblatt2014selective">2014</a>)</span>, <span class="citation">Javanmard and Montanari (<a href="#ref-javanmard2014confidence">2014</a>)</span>, or <a href="http://www.stat.berkeley.edu/~wfithian/">Will Fithian’s</a> PhD thesis <span class="citation">(Fithian <a href="#ref-fithian2015topics">2015</a>)</span> for more on the topic.</p>
 </div>
 <div id="multivariate-regression" class="section level2">
@@ -649,10 +658,10 @@ p.values.BH &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.val
 </div>
 <div class="footnotes">
 <hr />
-<ol start="17">
-<li id="fn17"><p>My thanks to Efrat Vilneski for the figure.<a href="multivariate.html#fnref17">↩</a></p></li>
-<li id="fn18"><p>This vocabulary is not standard in the literature, so when you read a text, you need to verify yourself what the author means.<a href="multivariate.html#fnref18">↩</a></p></li>
-<li id="fn19"><p>You might find this shocking, but it does mean that you cannot trust the <code>summary</code> table of a model that was selected from a multitude of models.<a href="multivariate.html#fnref19">↩</a></p></li>
+<ol start="16">
+<li id="fn16"><p>My thanks to Efrat Vilneski for the figure.<a href="multivariate.html#fnref16">↩</a></p></li>
+<li id="fn17"><p>This vocabulary is not standard in the literature, so when you read a text, you need to verify yourself what the author means.<a href="multivariate.html#fnref17">↩</a></p></li>
+<li id="fn18"><p>You might find this shocking, but it does mean that you cannot trust the <code>summary</code> table of a model that was selected from a multitude of models.<a href="multivariate.html#fnref18">↩</a></p></li>
 </ol>
 </div>
             </section>
