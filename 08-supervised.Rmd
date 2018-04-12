@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Supervised Learning {#supervised}
 
 Machine learning is very similar to statistics, but it is certainly not the same.
@@ -524,6 +529,9 @@ missclassification(confusion.test)
 
 A CART, is not a linear model.
 It partitions the feature space $\mathcal{X}$, thus creating a set of if-then rules for prediction or classification.
+
+#### The rpart Package
+
 This view clarifies the name of the function `rpart`, which _recursively partitions_ the feature space. 
 
 We start with a regression tree.
@@ -559,6 +567,10 @@ missclassification(confusion.train)
 (confusion.test <- table(prediction=.predictions.test, truth=spam.test$spam))
 missclassification(confusion.test)
 ```
+
+#### The caret Package 
+TODO
+
 
 ### K-nearest neighbour (KNN)
 
@@ -616,7 +628,18 @@ missclassification(confusion.test)
 ```
 
 
+### Random Forrest
 
+#### The randomForest  Package
+
+#### The ranger Package
+
+
+### Gradient Boosting
+ 
+#### The gbm Package
+
+#### The xgboost Package
 
 
 

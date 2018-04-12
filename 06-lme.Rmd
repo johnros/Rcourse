@@ -14,15 +14,15 @@ From this example one may think that dependence is a bad thing. This is a false 
 
 ```{example, label='repeated-measures', name="Repeated Measures"}
 Consider a prospective study, i.e., data that originates from selecting a set of subjects and making measurements on them over time. 
-Also assume that tome subjects received some treatment, and other did not. 
-When we want to infer on the population from which these subjects have been sampeled, we need to recall that some series of observations came from the same subject. 
-If we were to ignore the subject of origin, and treat each observation as an independent sample point, we will think we have more information in our data than we actually have. 
+Also assume that some subjects received some treatment, and other did not. 
+When we want to infer on the population from which these subjects have been sampled, we need to recall that some series of observations came from the same subject. 
+If we were to ignore the subject of origin, and treat each observation as an independent sample point, we will think we have more information in our data than we actually do. 
 For a rough intuition, think of a case where observatiosn within subject are perfectly dependent. 
 ```
 
 The sources of variability, i.e. noise, are known in the statistical literature as "random effects". 
 Specifying these sources determines the correlation structure in our measurements.
-In the simplest linear models of Chapter \@ref(lm), we thought of the variability as a measurement error, independent of anything else. This, however, is rarely the case when time or space is involved.
+In the simplest linear models of Chapter \@ref(lm), we thought of the variability as a measurement error, independent of anything else. This, however, is rarely the case when time or space are involved.
 
 The variability in our data is rarely the object of interest.
 It is merely the source of uncertainty in our measurements. 
@@ -33,11 +33,11 @@ Here are some examples of such models.
 
 ```{example, label='fixed-effects', name="Fixed and Random Machine Effect"}
 Consider the problem of testing for a change in the distribution of diamteters of manufactured bottle caps.
-We want to study the (fixed) effect of time: before versus after.
+We want to study the (fixed) effect of time: before versus after. 
 Bottle caps are produced by several machines.
 Clearly there is variablity in the diameters within-machine and between-machines.
 Given many measurements on many bottle caps from many machines, we could standardize measurements by removing each machine's average.
-This implies the within-machine variability is the only source of variability we care about.
+This implies the within-machine variability is the only source of variability we care about, because the substration of the machine effect, removed information on the between-machine variability.  
 Alternatively, we could treat the between-machine variability as another source of noise/uncertainty when inferring on the temporal fixed effect. 
 ```
 
@@ -46,7 +46,8 @@ Alternatively, we could treat the between-machine variability as another source 
 ```{example, label='random-effects', name="Fixed and Random Subject Effect"}
 Consider an experimenal design where each subject is given 2 types of diets, and his health condition is recorded.
 We could standardize over subjects by removing the subject-wise average, before comparing diets.
-This is what a paired t-test does, and implies the within-subject variability is the only source of variability we care about.
+This is what a paired t-test does.
+This also implies the within-subject variability is the only source of variability we care about.
 Alternatively, for inference on the population of "all subjects" we need to adress the between-subject variability, and not only the within-subject variability. 
 ```
 
@@ -128,36 +129,12 @@ Notice that we state $y|x,z$ merely as a convenient way to do inference on $y|x$
 Using only the [law of total variance](https://en.wikipedia.org/wiki/Law_of_total_variance) we have $$Var[y|x]=E_z[Var_\varepsilon[y|x,z]]+Var_z[E_\varepsilon[y|x,z]]=\\
 Var[\varepsilon]+Var_z[x'\beta+z'u]=\\
 Var[\varepsilon]+u'Var[z]u.$$
-This is exactly the power of mixed-effect models: we specify the covariance via the sampling hierarchy.
+This is exactly the power of mixed-effect models: we specify the covariance not via the matrix $Var[y,z]$, but rather via the sampling hierarchy.
 
 Given a sample of $n$ observations $(y_i,x_i,z_i)$ from model \@ref(eq:mixed-model), we will want to estimate $(\beta,u)$.
 Under some assumption on the distribution of $\varepsilon$ and $z$, we can use _maximum likelihood_ (ML). 
 In the context of mixed-models, however, ML is typically replaced with _restricted maximum likelihood_ (ReML), because it returns unbiased estimates of $Var[y|x]$ and ML does not.
 
-
-### Relation to MANOVA {#manova}
-
-Multivariate analysis of variance (MANOVA) deals with the estimation of effect on __vector valued__ outcomes. 
-Put differently: in ANOVA the response, $y$, is univariate. In MANOVA, the outcome is multivariate.
-MANOVA is useful when there are correlations among the entries of $y$.
-Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.
-
-Now assume that the outcome of a MANOVA is measurements of an individual at several time periods.
-The measurements are clearly correlated, so that MANOVA may be useful. 
-But one may also treat the subject as a random effect, with a univariate response. 
-We thus see that this seemingly MANOVA problem can be solved with the mixed models framework.
-
-What MANOVA problems cannot be solved with mixed models?
-There may be cases where the covariance of the multivariate outcome, $y$, is very complicated.
-If the covariance in $y$ may not be stated using a combination of random and fixed effects, then the covariance has to be stated explicitly in the MANOVA framework.
-It is also possible to consider mixed-models with multivariate outcomes, i.e., a _mixed MANOVA_, or _hirarchial MANOVA_.
-The R functions we present herein permit this.
-
-
-### Non-Linear Mixed Models
-
-The idea of random-effects can also be implemented for non-linear mean models. Formally, this means that $y|x,z=f(x,z,\varepsilon)$ for some non-linear $f$. 
-This is known as _non-linead-mixed-models_, which will not be discussed in this text. 
 
 
 ## Mixed Models with R
@@ -169,15 +146,15 @@ We start with a small simulation demonstrating the importance of acknowledging y
 # Simulation parameters
 n.groups <- 4 # number of groups
 n.repeats <- 2 # sample per group
-groups <- gl(n = n.groups, k = n.repeats) # create a group factor
+groups <- rep(1:n.groups, each=n.repeats) %>% as.factor
 n <- length(groups)
-z0 <- rnorm(10,0,10) # generate group effects
-z <- z0[as.numeric(groups)] # generate random effects
+z0 <- rnorm(n.groups,0,10) # generate group effects
+(z <- z0[as.numeric(groups)]) # generate and inspect random group effects
 epsilon <- rnorm(n,0,1) # generate measurement error
 
 # Generate data
 beta0 <- 2 # set global mean
-y <- beta0 + z  + epsilon # generate synthetic sample
+y <- beta0 + z + epsilon # generate synthetic sample
 ```
 
 We can now fit the linear and mixed models.
@@ -208,6 +185,18 @@ Because `lm` treats the group effect^[A.k.a. the _cluster effect_.] as a fixed w
 Clearly, inference using `lm` underestimates our uncertainty in the estimated population mean ($\beta_0$).
 
 
+Now let's adopt the paired t-test view, which removes the group mean, so that it implicitly ignores the between-group variability. Which is the model compatible with this view?
+
+```{r}
+diffs <- tapply(y, groups, diff) 
+diffs # Q:what is this estimating? A: epsilon+epsilon.
+sd(diffs) # 
+```
+
+So we see that a paired t-test infers only against the within-group variability. 
+Q:Is this a good think?
+A: depends...
+
 
 ### A Single Random Effect
 
@@ -222,7 +211,7 @@ head(Dyestuff)
 And visually
 
 ```{r}
-dotplot(Yield~Batch)
+lattice::dotplot(Yield~Batch)
 ```
 
 If we want to do inference on the (global) mean yield, we need to account for the two sources of variability: the within-batch variability, and the between-batch variability 
@@ -245,6 +234,8 @@ The function `coef` will work, but will return a cumbersome output. Better use `
 The model matrix (of the fixed effects alone), can be extracted with `model.matrix`, and predictions made with `predict`.
 Note, however, that predictions with mixed-effect models are better treated as prediction problems as in the Supervised Learning Chapter \@ref(supervised), but are a very delicate matter. 
 
+
+
 ```{r}
 detach(Dyestuff)
 ```
@@ -254,9 +245,9 @@ detach(Dyestuff)
 
 Let's make things more interesting by allowing more than one random effect. 
 One-way ANOVA can be thought of as the fixed-effects counterpart of the single random effect.
-Our next example, involving two random effects, can be though of as the Two-way ANOVA counterpart. 
 
 In the `Penicillin` data, we measured the diameter of spread of an organism, along the plate used (a to x), and penicillin type (A to F). 
+We will now try to infer on the diameter of typical organism, and compute its variability over plates and Penicillin types.
 
 ```{r}
 head(Penicillin)
@@ -281,7 +272,7 @@ lattice::dotplot(reorder(plate, diameter) ~ diameter,data=Penicillin,
 Let's fit a mixed-effects model with a random plate effect, and a random sample effect:
 
 ```{r}
-lme.2 <- lmer ( diameter ~  1+ (1| plate ) + (1| sample ) , Penicillin )
+lme.2 <- lmer ( diameter ~  1  + (1|plate )+(1|sample) , Penicillin )
 fixef(lme.2) # Fixed effects
 ranef(lme.2) # Random effects
 ```
@@ -291,7 +282,6 @@ Things to note:
 - The syntax `1+ (1| plate ) + (1| sample )` fits a global intercept (mean), a random plate effect, and a random sample effect.
 - Were we not interested in the variance components, an (almost) equivalent `lm` formulation is `lm(diameter ~ plate + sample)`.
 - The output of `ranef` is somewhat controversial. Think about it: Why would we want to plot the estimates of a random variable? 
-
 
 
 Since we have two random effects, we may compute the variability of the global mean (the only fixed effect) as we did before. 
@@ -320,6 +310,27 @@ Things to note:
 - The `dotplot` function, from the __lattice__ package, is only there for the fancy plotting.
 
 
+We used the penicillin exampe to demonstrate the incoporation of two random-effects. We could have, however, compared between penicillin types. For this matter, penicillin types are fixed effects to infer on, and not part of the uncertainty in the mean diameter. The appropriate model is the following:
+
+```{r}
+lme.2.2 <- lmer( diameter ~  1  + sample + (1|plate) , Penicillin )
+```
+
+I may now ask myself: does the `sample`, i.e. penicillin, have any effect? This is what the ANOVA table typically gives us. The next table can be thought of as a "repeated measures ANOVA":
+
+```{r}
+anova(lme.2.2)
+```
+
+Uhh! No p-values. Why is this? Because Doug Bates, the author of __lme4__ makes a [strong argument](https://stat.ethz.ch/pipermail/r-help/2006-May/094765.html) against current methods of computing p-values in mixed models. If you insist on an p-value, you may recur to other packages that provide that, at your own caution:
+
+```{r}
+car::Anova(lme.2.2) 
+```
+
+... and yes; the penicillin type has a significant effect on the diamter.
+
+
 
 
 ### A Full Mixed-Model
@@ -328,8 +339,8 @@ In the `sleepstudy` data, we recorded the reaction times to a series of tests (`
 
 ```{r, echo=FALSE}
 data(sleepstudy)
-lattice::xyplot(Reaction ~ Days | Subject, sleepstudy, aspect = "xy",
-             layout = c(9,2), type = c("g", "p", "r"),
+lattice::xyplot(Reaction ~ Days | Subject, data=sleepstudy, 
+             type = c("g", "p", "r"),
              index.cond = function(x,y) coef(lm(y ~ x))[1],
              xlab = "Days of sleep deprivation",
              ylab = "Average reaction time (ms)")
@@ -436,13 +447,52 @@ print(xyplot(Reaction ~ Days | Subject, sleepstudy, aspect = "xy",
                                      lty = trellis.par.get("superpose.line")$lty[c(2:1,4)]))))
 ```
 
+
 ```{r}
 detach(Penicillin)
 ```
 
 
+
+
+## Mixed GLM
+TODO
+
+
+## Relation to MANOVA {#manova}
+
+Multivariate analysis of variance (MANOVA) deals with the estimation of effect on __vector valued__ outcomes. 
+Put differently: in ANOVA the response, $y$, is univariate. In MANOVA, the outcome is multivariate.
+MANOVA is useful when there are correlations among the entries of $y$.
+Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.
+
+Now assume that the outcome of a MANOVA is measurements of an individual at several time periods.
+The measurements are clearly correlated, so that MANOVA may be useful. 
+But one may also treat the subject as a random effect, with a univariate response. 
+We thus see that this seemingly MANOVA problem can be solved with the mixed models framework.
+
+What MANOVA problems cannot be solved with mixed models?
+There may be cases where the covariance of the multivariate outcome, $y$, is very complicated.
+If the covariance in $y$ may not be stated using a combination of random and fixed effects, then the covariance has to be stated explicitly in the MANOVA framework.
+It is also possible to consider mixed-models with multivariate outcomes, i.e., a _mixed MANOVA_, or _hirarchial MANOVA_.
+The R functions we present herein permit this.
+
+
+## Non-Linear Mixed Models
+
+The idea of random-effects can also be implemented for non-linear mean models. Formally, this means that $y|x,z=f(x,z,\varepsilon)$ for some non-linear $f$. 
+This is known as _non-linead-mixed-models_, which will not be discussed in this text. 
+
+
+
+
+
 ## The Variance-Components View
 TODO
+
+
+
+
 
 
 ## Bibliographic Notes
