@@ -297,7 +297,7 @@ For exponential, gamma, and other response distributions, see `?glm` or the refe
 The ultimate reference on GLMs is @mccullagh1984generalized. 
 For a less technical exposition, we refer to the usual @venables2013modern.
 
-## Practice Yourself
+## Practice Yourself {#practice-glm}
 
 1. Try using `lm` for analyzing the plant growth data in `weight.factor` as a function of `group` in the `PlantGrowth` data. 
 
@@ -307,11 +307,9 @@ For a less technical exposition, we refer to the usual @venables2013modern.
     a. Fit a Logistic regression to your synthetic data using `glm`.
     a. Are the estimated coefficients similar to the true ones you used?
     a. What is the estimated probability of an event at `x=1,1`? Use `predict.glm` but make sure to read the documentation on the `type` argument. 
-1. Read about the Acute Myelogenous Leukemia survival data with `?survival::aml`.
-#AH TODO: Since “time” is regarding to survival or censoring time I’m not sure GLM is the right tool.
-    a. Use `glm` to estimate the effect of the maintenance chemotherapy on survival times. Assuming times are exponentially distributed, and recalling that the Gamma distribution generalizes the exponential, use `family=Gamma`.
-1. Read about the “epil” dataset using `? MASS::epil `.Inspect the dependency of The number of seizures (y) in the age of the patient (age) and the treatment (trt).
+
+1. Read about the `epil` dataset using `? MASS::epil`. Inspect the dependency of the number of seizures ($y$) in the age of the patient (`age`) and the treatment (`trt`).
     1. Fit a Poisson regression with `glm` and ` family = "poisson"`. 
-    1. Do the coefficients significant?   
+    1. Are the coefficients significant?   
     1. Does the treatment reduce the frequency of the seizures?
-    1. According to this model, what would be the number of seizures for 20 years old patient with progabide treatment? ( `exp(2.533-0.0133*20-0.0925)` )   
+    1. According to this model, what would be the number of seizures for 20 years old patient with progabide treatment?   

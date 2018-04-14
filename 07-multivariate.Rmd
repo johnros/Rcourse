@@ -1,26 +1,14 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Multivariate Data Analysis {#multivariate}
 
 The term "multivariate data analysis" is so broad and so overloaded, that we start by clarifying what is discussed and what is not discussed in this chapter.
 Broadly speaking, we will discuss statistical _inference_, and leave more "exploratory flavored" matters like clustering, and visualization, to the Unsupervised Learning Chapter \@ref(unsupervised).
 
-More formally, let $y$ be a $p$ variate random vector, with $E[y]=\mu$.
-Here is the set of problems we will discuss, in order of their statistical difficulty. 
-
-- __Signal detection__: 
-a.k.a. _multivariate hypothesis testing_, i.e., testing if $\mu$ equals $\mu_0$ and for $\mu_0=0$ in particular.
-- __Signal counting__: 
-Counting the number of elements in $\mu$ that differ from $\mu_0$, and for $\mu_0=0$ in particular.
-- __Signal identification__:
-a.k.a. _multiple testing_, i.e., testing which of the elements in $\mu$ differ from $\mu_0$ and for $\mu_0=0$ in particular. 
-- __Signal estimation__: 
-Estimating the magnitudes of the departure of $\mu$ from $\mu_0$, and for $\mu_0=0$ in particular. 
-If estimation follows a _signal detection_ or _signal identification_ stage, this is known as a _selective estimation_ problem.
-- __Multivariate Regression__:
-a.k.a. _MANOVA_ in statistical literature, and _structured learning_ in the machine learning literature. 
-- __Graphical Models__:
-Learning _graphical models_ deals with the fitting/learning the multivariate distribution of $y$. 
-In particular, it deals with the identification of independencies between elements of $y$. 
-
+We start with an example.
 
 ```{example, label='icu'}
 Consider the problem of a patient monitored in the intensive care unit. 
@@ -29,22 +17,58 @@ The total number of minutes in our data is $n$, so that in total, we have $n \ti
 We also know the typical measurements for this patient when healthy: $\mu_0$.
 ```
 
+Formally, let $y$ be single (random) measurement of a $p$-variate random vector.
+Denote $\mu:=E[y]$.
+Here is the set of problems we will discuss, in order of their statistical difficulty. 
+
+- __Signal detection__: 
+a.k.a. _multivariate hypothesis testing_, i.e., testing if $\mu$ equals $\mu_0$ and for $\mu_0=0$ in particular. 
+In our example: "are the current measurement different than a typical one?"
+
+- __Signal counting__: 
+Counting the number of elements in $\mu$ that differ from $\mu_0$, and for $\mu_0=0$ in particular.
+In our example: "how many measurements differ than their typical values?"
+
+- __Signal identification__:
+a.k.a. _multiple testing_, i.e., testing which of the elements in $\mu$ differ from $\mu_0$ and for $\mu_0=0$ in particular. 
+In the ANOVA literature, this is known as a __post-hoc__ analysis.
+In our example: "which measurements differ than their typical values?"
+
+- __Signal estimation__: 
+Estimating the magnitudes of the departure of $\mu$ from $\mu_0$, and for $\mu_0=0$ in particular. 
+If estimation follows a _signal detection_ or _signal identification_ stage, this is known as a _selective estimation_ problem.
+In our example: "what is the value of the measurements that differ than their typical values?"
+
+- __Multivariate Regression__:
+a.k.a. _MANOVA_ in statistical literature, and _structured learning_ in the machine learning literature. 
+In our example: "what factors affect the physiological measurements?"
+
+- __Graphical Models__:
+Learning _graphical models_ deals with the fitting/learning the multivariate distribution of $y$. 
+In particular, it deals with the identification of independencies between elements of $y$. 
+In our example: "what is the joint distribution of the $p$-measurements?"
+
+
+```{example, label='brain-imaging'}
+Consider the problem of detecting regions of cognitive function in the brain using fMRI.
+Each measurement is the activation level at each location in a brain's region.
+If the region has a cognitive function, the mean activation differs than $\mu_0=0$ when the region is evoked.
+```
+
+```{example, label='genetics'}
+Consider the problem of detecting cancer encoding regions in the genome.
+Each measurement is the vector of the genetic configuration of an individual.
+A cancer encoding region will have a different (multivariate) distribution between sick and healthy.
+In particular, $\mu$ of sick will differ from $\mu$ of healthy.
+```
+
+
 ```{example, label='regression'}
 Consider the problem of the simplest multiple regression. 
 The estimated coefficient, $\hat \beta$ are a random vector.
 Regression theory tells us that its covariance is $(X'X)^{-1}\sigma^2$, and null mean of $\beta$.
 We thus see that inference on the vector of regression coefficients, is nothing more than a multivaraite inference problem.
 ```
-
-
-
-Demonstrating our terminology on Example \@ref(exm:icu): 
-Signal detection means testing if the patient's measurement depart in any way from his healthy state, $\mu_0$.
-Signal counting means measuring _how many_ measurement depart from the healthy state.
-Signal identification means pin-pointing which of the physiological measurements depart from his healthy state. 
-Signal estimation means estimating the magnitude of the departure from the healthy state. 
-Multivariate regression means finding the factors which many explain the departure from the healthy state. 
-Fitting a distribution means finding the joint distribution of the physiological measurements, and in particular, their dependence and independence. 
 
 
 ```{remark}
@@ -71,7 +95,6 @@ library(ellipse)
 library(ggplot2)
 library(MASS)
 
-
 samples<-1000 
 r<-0.8
 ds <- mvrnorm(samples, mu = c(0,0), Sigma = matrix(c(1,r,r,1), ncol = 2), empirical = TRUE)
@@ -94,8 +117,10 @@ p
 
 ## Signal Detection
 Signal detection deals with the detection of the departure of $\mu$ from some $\mu_0$, and especially, $\mu_0=0$.
-This problem can be thought of as the multivariate counterpart of the univariate hypothesis test. 
-Indeed, the most fundamental approach is a mere generalization of the t-test, known as _Hotelling's $T^2$ test_. 
+This problem can be thought of as the multivariate counterpart of the univariate hypothesis t-test. 
+
+### Hotelling's T2 Test
+The most fundamental approach to signal detection is a mere generalization of the t-test, known as _Hotelling's $T^2$ test_. 
 
 Recall the univariate t-statistic of a data vector $x$ of length $n$:
 \begin{align}
@@ -138,14 +163,21 @@ For some intuition on this statement, think of taking $n=20$ measurements of $p=
 We seemingly have $20$ observations, but there are $100$ unknown quantities in $\mu$. 
 Would you trust your conclusion that $\bar x$ is different than $\mu_0$ based on merely $20$ observations. 
 
-Put formally:
-We cannot compute Hotelling's test when $n<p$ because $\hat \Sigma$ is simply not invertible-- this is an algebraic problem.
-We cannot compute Hotelling's test when $p/n \to c > 0$ because the signal-to-noise is very low-- this is a statistical problem. 
+The above criticism is formalized in @bai1996effect. 
+For modern applications, Hotelling's $T^2$ is not recommended, since many modern alternatives have been made available. See @rosenblatt2016better and references for a review.
 
-Only in the low dimensional case can we compute and trust Hotelling's test. 
-When $n \gg p$ then $T^2(x)$ is roughly $\chi^2$ distributed with $p$ degrees of freedom. 
-The F distribution may also be found in the literature in this context, and will appear if assuming the $n$ $p$-vectors are independent, and $p$-variate Gaussian. 
-This F distribution is non-robust the underlying assumptions, so from a practical point of view, I would not trust the Hotelling test unless $n \gg p$.
+
+### Simes' Test
+A different approach to signal detection is justified by our fear of covariances. 
+Indeed, estimating covariances is very difficult. That is why $T^2$ only works in low-dimensional problems. 
+It would be nice if we could compute a vector of $p$ variable-wise p-values, ignoring covariances, and still be capable of valid signal detection.
+One such algorithm, that allows statistically valid detection under a wide range of covariances (even if we don't know the covariance) is known as _Simes' Test_.
+The statistic is defined vie the following algorithm:
+
+1. Compute $p$ variable-wise p-values: $p_1,\dots,p_j$.
+1. Denote $p_{(1)},\dots,p_{(j)}$ the sorted p-values.
+1. Simes' statistic is $p_{Simes}:=min_j\{p_{(j)} \times p/j\}$.
+1. Reject the "no signal" null hypothesis at significance $\alpha$ if $p_{Simes}<\alpha$. 
 
 
 
@@ -155,8 +187,8 @@ Let's generate some data with no signal.
 
 ```{r}
 library(mvtnorm)
-n <- 1e2 # observations
-p <- 1.8e1 # parameter dimension
+n <- 100 # observations
+p <- 18 # parameter dimension
 mu <- rep(0,p) # no signal
 x <- rmvnorm(n = n, mean = mu)
 dim(x)
@@ -177,7 +209,6 @@ hotellingOneSample <- function(x, mu0=rep(0,ncol(x))){
   p.value <- pchisq(q = T2, df = p, lower.tail = FALSE)
   return(list(statistic=T2, pvalue=p.value))
 }
-
 hotellingOneSample(x)
 ```
 
@@ -190,15 +221,29 @@ Things to note:
 
 Just for verification, we compare our home made Hotelling's test, to the implementation in the __rrcov__ package. 
 The statistic is clearly OK, but our $\chi^2$ approximation of the distribution leaves room to desire. 
-Personally, I would never trust a Hotelling test if $n$ is not much greater than $p$...
+Personally, I would never trust a Hotelling test if $n$ is not much greater than $p$, in which case I would use a high-dimensional adaptation (see Bibliography).
 
 ```{r}
 rrcov::T2.test(x)
 ```
 
+Let's do the same with Simes':
+```{r}
+Simes <- function(x){
+  p.vals <- apply(x, 2, function(z) t.test(z)$p.value) # Compute variable-wise pvalues
+  p.Simes <- p * min(sort(p.vals)/seq_along(p.vals)) # Compute the Simes statistic
+  return(c(pvalue=p.Simes))
+}
+Simes(x)
+```
 
-
-
+And now we verify that both tests can indeed detect signal when present. Are p-values small enough to reject the "no signal" null hypothesis?
+```{r}
+mu <- rep(x = 10/p,times=p) # inject signal
+x <- rmvnorm(n = n, mean = mu)
+hotellingOneSample(x)
+Simes(x)
+```
 
 
 ## Signal Counting 
@@ -223,11 +268,12 @@ The former is known as the _family wise error rate_ (FWER), and the latter as th
 ### Signal Identification in R
 
 One (of many) ways to do signal identification involves the `stats::p.adjust` function.
-[TODO: clarify why use `p.adjust`?]
-The function takes as inputs a $p$-vector of __p-values__. 
-This implies that: 
-(i) you are assumed to be able to compute the p-value of each the $p$ hypothesis tested; one hypothesis for every coordinate in $\mu$. 
-(ii) unlike the Hotelling test, we do not try to estimate the covariance between coordinates. Not because it is not important, but rather, because the methods we will use apply to a wide variety of covariances, so the covariance does not need to be estimated. 
+The function takes as inputs a $p$-vector of the variable-wise __p-values__. 
+Why do we start with variable-wise p-values, and not the full data set?
+
+a. Because we want to make inference variable-wise, so it is natural to start with variable-wise statistics. 
+a. Because we want to avoid dealing with covariances if possible. Computing variable-wise p-values does not require estimating covariances. 
+a. So that the identification problem is decoupled from the variable-wise inference problem, and may be applied much more generally than in the setup we presented. 
 
 We start be generating some high-dimensional multivariate data and computing the coordinate-wise (i.e. hypothesis-wise) p-value.
 
@@ -259,16 +305,17 @@ Things to note:
 - The output, `p.values`, is a vector of 100 p-values. 
 
 We are now ready to do the identification, i.e., find which coordinate of $\mu$ is different than $\mu_0=0$.
-The workflow is: 
-(i) Compute an `adjusted p-value`. 
-(ii) Compare the adjusted p-value to the desired error level.
+The workflow for identification has the same structure, regardless of the desired error guarantees: 
+
+1. Compute an `adjusted p-value`. 
+1. Compare the adjusted p-value to the desired error level.
 
 If we want $FWER \leq 0.05$, meaning that we allow a $5\%$ probability of making any mistake, we will use the `method="holm"` argument of `p.adjust`.
 
 ```{r holm}
 alpha <- 0.05
 p.values.holm <- p.adjust(p.values, method = 'holm' )
-table(p.values.holm < alpha)
+which(p.values.holm < alpha)
 ```
 
 If we want $FDR \leq 0.05$, meaning that we allow the proportion of false discoveries to be no larger than $5\%$, we use the `method="BH"` argument of `p.adjust`.
@@ -276,14 +323,14 @@ If we want $FDR \leq 0.05$, meaning that we allow the proportion of false discov
 ```{r bh}
 alpha <- 0.05
 p.values.BH <- p.adjust(p.values, method = 'BH' )
-table(p.values.BH < alpha)
+which(p.values.BH < alpha)
 ```
 
 We now inject some strong signal in $\mu$ just to see that the process works.
 We will artificially inject signal in the first 10 coordinates.
 
 ```{r}
-mu[1:10] <- 2 # inject signal
+mu[1:10] <- 2 # inject signal in first 10 variables
 x <- rmvnorm(n = n, mean = mu) # generate data
 p.values <- apply(X = x, MARGIN = 2, FUN = t.pval) 
 p.values.BH <- p.adjust(p.values, method = 'BH' )
@@ -348,7 +395,8 @@ TODO
 For a general introduction to multivariate data analysis see @anderson2004introduction.
 For an R oriented introduction, see @everitt2011introduction.
 For more on the difficulties with high dimensional problems, see @bai1996effect.
-For some cutting edge solutions for testing in high-dimension, see @goeman2006testing.
+For some cutting edge solutions for testing in high-dimension, see @rosenblatt2016better and references therein.
+Simes' test is not very well known. It is introduced in @simes1986improved, and proven to control the type I error of detection under a PRDS type of dependence in @benjamini2001control.
 For more on multiple testing, and signal identification, see @efron2012large.
 For more on the choice of your error rate see @rosenblatt2013practitioner.
 For an excellent review on graphical models see @kalisch2014causal. 
