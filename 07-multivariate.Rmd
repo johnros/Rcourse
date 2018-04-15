@@ -413,4 +413,14 @@ Everything you need on graphical models, Bayesian belief networks, and structure
 
 1. Return to the previous problem, but set `n=10`. Verify that you cannot compute your Hotelling statistic. 
 
-
+Generate multivariate data with:
+```{r}
+mean<-c(0.2,3,4,0.1,6)
+set.seed(3)
+mean<-rexp(50,6)
+multi<-  rmvnorm(n = 100, mean = mean) 
+```
+3. Use Hotelling's test to determine if μ equals $\mu_0=0$ in confidence of 95%. What is the P.value? 
+    1. perform t.test on each variable and extract the P.value. Try to identify visually the variables which departed from $\mu_0$  in confidence of 95%.
+    1. Use `p.adjust` function to determine in which variables there are any departures from $\mu_0=0$ with probability of more than 5%.
+    1. Use `p.adjust` function to determine in which variables the proportion of departures is more than 5%.
