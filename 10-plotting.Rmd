@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Plotting {#plotting}
 
 Whether you are doing EDA, or preparing your results for publication, you need plots.
@@ -579,6 +584,15 @@ Finally, what every user of __ggplot2__ constantly uses, is the (excellent!) onl
 
 
 
+### Extensions of the ggplot2 System
+
+Because __ggplot2__ plots are R objects, they can be used for computations and altered. 
+Many authors, have thus extended the basic __ggplot2__ functionality. 
+A list of __ggplot2__ extensions is curated by Daniel Emaasit at  [http://www.ggplot2-exts.org](http://www.ggplot2-exts.org/gallery/).
+The RStudio team has its own list of recommended packages at [RStartHere](https://github.com/rstudio/RStartHere).
+
+
+
 
 ## Interactive Graphics
 
@@ -586,39 +600,11 @@ As already mentioned, the recent and dramatic advancement in interactive visuali
 This is because it allows developers to rely on existing libraries designed for web browsing instead of re-implementing interactive visualizations.
 These libraries are more visually pleasing, and computationally efficient, than anything they could have developed themselves.  
 
-Some noteworthy interactive plotting systems are the following:
-
-
-- __plotly__:
-The __plotly__ package [@plotly] uses the (brilliant!) visualization framework of the [Plotly]() company to provide local, or web-publishable, interactive graphics. 
-
-- __dygraphs__:
-The [dygraphs](http://dygraphs.com/) JavaScript library is intended for interactive visualization of time series (`xts` class objects). 
-The __dygraphs__ R package is an interface allowing the plotting of R objects with this library.
-For more information see [here](https://rstudio.github.io/dygraphs/).
-
-- __rCharts__:
-If you like the __lattice__ plotting system, the __rCharts__ package will allow you to produce interactive plots from R using the __lattice__ syntax. 
-For more information see [here](https://ramnathv.github.io/rCharts/).
-
-- __clickme__:
-Very similar to __rCharts__.
-
-- __googleVis__:
-TODO
-
-
-- Highcharter:
-TODO
-
-- Rbokeh:
-TODO
-
-- __HTML Widgets__:
 The __htmlwidgets__ package does not provide visualization, but rather, it facilitates the creation of new interactive visualizations. 
 This is because it handles all the technical details that are required to use R output within JavaScript visualization libraries. 
-It is available [here](http://www.htmlwidgets.org/), with a demo gallery [here](http://gallery.htmlwidgets.org/).
 
+For a list of interactive visualization tools that rely on __htmlwidgets__ see the [RStartsHere](https://github.com/rstudio/RStartHere) page. 
+In the following sections, we discuss a selected subset.
 
 
 ### Plotly
@@ -653,11 +639,6 @@ To export these, use the `plotly::export` or the `htmlwidgets::saveWidget` funct
 
 
 For more on __plotly__ see https://plot.ly/r/.
-
-
-### HTML Widgets
-TODO
-
 
 
 

@@ -137,6 +137,20 @@ In the context of mixed-models, however, ML is typically replaced with _restrict
 
 
 
+### Non-Linear Mixed Models
+The idea of random-effects can also be implemented for non-linear mean models. Formally, this means that $y|x,z=f(x,z,\varepsilon)$ for some non-linear $f$. 
+This is known as _non-linead-mixed-models_, which will not be discussed in this text. 
+
+
+
+### Generalized Linear Mixed Models (GLMM)
+You can marry the ideas of random effects, with non-linear link functions, and non-Gaussian distribution of the response. 
+These are known as [Generalized Linear Mixed Models](https://en.wikipedia.org/wiki/Generalized_linear_mixed_model). 
+[Wikidot](http://glmm.wikidot.com/pkg-comparison) has a nice comparison of several software suits for GLMMs.
+
+
+
+
 ## Mixed Models with R
 
 We will fit mixed models with the `lmer` function from the __lme4__ package, written by the mixed-models Guru [Douglas Bates](http://www.stat.wisc.edu/~bates/).
@@ -455,9 +469,6 @@ detach(Penicillin)
 
 
 
-## Mixed GLM
-TODO
-
 
 ## Relation to MANOVA {#manova}
 
@@ -478,10 +489,6 @@ It is also possible to consider mixed-models with multivariate outcomes, i.e., a
 The R functions we present herein permit this.
 
 
-## Non-Linear Mixed Models
-
-The idea of random-effects can also be implemented for non-linear mean models. Formally, this means that $y|x,z=f(x,z,\varepsilon)$ for some non-linear $f$. 
-This is known as _non-linead-mixed-models_, which will not be discussed in this text. 
 
 
 
@@ -497,10 +504,12 @@ TODO
 
 ## Bibliographic Notes
 Most of the examples in this chapter are from the documentation of the __lme4__ package [@lme4]. 
-For a more theoretical view see @weiss2005modeling or @searle2009variance.
+For a general and very applied treatment, see @pinero2000mixed.
 As usual, a hands on view can be found in @venables2013modern.
+For a more theoretical view see @weiss2005modeling or @searle2009variance.
 Sometimes it is unclear if an effect is random or fixed; on the difference between the two types of inference see @rosset2018fixed and references therein.
 For more on predictions in linear mixed models see @robinson1991blup, @rabinowicz2018assessing, and references therein.
+
 
 ## Practice Yourself
 
