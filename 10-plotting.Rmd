@@ -661,9 +661,20 @@ medianlog <- function(y) {median(log(y))}
 ggplot(Milk, aes(x=Time, y=protein)) +
   stat_summary(fun.y="medianlog", geom="line")
 ```
-    
+``` 
 1. Write a function that creates a boxplot from scratch. See how I built a line graph in Section \@ref(fancy). 
 
 1. Export my plotly example using the RStudio interface and send it to yourself by email. 
 
+ggplot2:
+
+1. Read about the “oats” dataset using `? MASS::oats `.
+    1. Inspect, visually, the dependency of the yield (Y) in the Varieties (V) and the Nitrogen treatment (N).
+    1. Compute the mean and the standard error of the yield for every value of Varieties and Nitrogen treatment.
+    1. Change the axis labels to be informative with `labs` function and give a title to the plot with `ggtitle` function.
+
+1. Read about the “mtcars” data set using `? mtcars`.
+    1. Inspect, visually, the dependency of the Fuel consumption (mpg) in the weight (wt) 
+    1. Inspect, visually, the assumption that the Fuel consumption also depends on the number of cylinders. 
+    1. Is there an interaction between the number of cylinders to the weight (i.e. the slope of the regression line is different between the number of cylinders)?  Use `geom_smooth`.
 
