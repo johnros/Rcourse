@@ -43,11 +43,6 @@ In our example: "what is the value of the measurements that differ than their ty
 a.k.a. _MANOVA_ in statistical literature, and _structured learning_ in the machine learning literature. 
 In our example: "what factors affect the physiological measurements?"
 
-- __Graphical Models__:
-Learning _graphical models_ deals with the fitting/learning the multivariate distribution of $y$. 
-In particular, it deals with the identification of independencies between elements of $y$. 
-In our example: "what is the joint distribution of the $p$-measurements?"
-
 
 ```{example, label='brain-imaging'}
 Consider the problem of detecting regions of cognitive function in the brain using fMRI.
@@ -167,11 +162,28 @@ The above criticism is formalized in @bai1996effect.
 For modern applications, Hotelling's $T^2$ is not recommended, since many modern alternatives have been made available. See @rosenblatt2016better and references for a review.
 
 
+### Various Types of Signal to Detect
+In the previous, we assumed that the signal is a departure of $\mu$ from some $\mu_0$. 
+For vactor-valued data $y$, that is distributed $F$, we may define "signal" as any departure from some $F_0$. 
+This is the multivaraite counterpart of goodness-of-fit (GOF) tests. 
+
+Even when restricting "signal" to departures of $\mu$ from $\mu_0$, we may try to detect various types of signal:
+
+1. __Dense Signal__: when the departure is in all coordinates of $\mu$. 
+1. __Sparse Signal__: when the departure is in a subset of coordinates of $\mu$.
+
+A manufactoring motivation is consistent with a dense signal: if a manufacturing process has failed, we expect a change in many measurements (i.e. coordinates of $\mu$). 
+A brain-imaging motivation is consistent with a dense signal: if a region encodes cognitive function, we expect a change in many brain locations (i.e. coordinates of $\mu$.)
+A genetic motivation is consistent with a sparse signal: if susceptibility of disease is genetic, only a small subset of locations in the genome will encode it. 
+
+Hotelling's $T^2$ statistic is designed for dense signal. 
+The following is a simple statistic designed for sparse signal.
+
+
 ### Simes' Test
-A different approach to signal detection is justified by our fear of covariances. 
-Indeed, estimating covariances is very difficult. That is why $T^2$ only works in low-dimensional problems. 
-It would be nice if we could compute a vector of $p$ variable-wise p-values, ignoring covariances, and still be capable of valid signal detection.
-One such algorithm, that allows statistically valid detection under a wide range of covariances (even if we don't know the covariance) is known as _Simes' Test_.
+Hotelling's $T^2$ statistic has currently two limitations: It is designed for dense signals, and it requires estimating the covariance, which is a very difficult problem.
+
+An algorithm, that is sensitive to sparse signal and allows statistically valid detection under a wide range of covariances (even if we don't know the covariance) is known as _Simes' Test_.
 The statistic is defined vie the following algorithm:
 
 1. Compute $p$ variable-wise p-values: $p_1,\dots,p_j$.
@@ -231,6 +243,7 @@ Let's do the same with Simes':
 ```{r}
 Simes <- function(x){
   p.vals <- apply(x, 2, function(z) t.test(z)$p.value) # Compute variable-wise pvalues
+  p <- ncol(x)
   p.Simes <- p * min(sort(p.vals)/seq_along(p.vals)) # Compute the Simes statistic
   return(c(pvalue=p.Simes))
 }
@@ -245,11 +258,15 @@ hotellingOneSample(x)
 Simes(x)
 ```
 
+... yes. All p-values are very small, so that all statistics can detect the non-null distribution.
 
 ## Signal Counting 
 There are many ways to approach the _signal counting_ problem. 
 For the purposes of this book, however, we will not discuss them directly, and solve the signal counting problem as a signal identification problem: if we know __where__ $\mu$ departs from $\mu_0$, we only need to count coordinates to solve the signal counting problem. 
 
+```{remark}
+In the sparsity or multiple-testing literature, what we call "signal counting" is known as "adapting to sparsit", or "adaptivity".
+```
 
 ## Signal Identification {#identification}
 The problem of _signal identification_ is also known as _selective testing_, or more commonly as _multiple testing_.
@@ -263,6 +280,12 @@ The first question when approaching a multiple testing problem is "what is an er
 Is an error declaring a coordinate in $\mu$ to be different than $\mu_0$ when it is actually not?
 Is an error an overly high proportion of falsely identified coordinates?
 The former is known as the _family wise error rate_ (FWER), and the latter as the _false discovery rate_ (FDR).
+
+```{remark}
+These types of errors have many names in many communities.
+See the Wikipedia entry on [ROC](https://en.wikipedia.org/wiki/Receiver_operating_characteristic) for a table of the (endless) possible error measures. 
+```
+
 
 
 ### Signal Identification in R

@@ -100,16 +100,6 @@ The best predictor, is the risk minimizer:
   (\#eq:risk)  
 \end{align}
 
-To make things more explicit:
-
-- $f$ may be a linear function of the attributes, so that it may be indexed simply with its coefficient vector $\beta$.
-- $l$ may be a squared error loss: $l(f(x),y):=(f(x)-y)^2$.
-
-Under these conditions, the best predictor $f^* \in \mathcal{F}$ from problem \@ref(eq:risk) is to 
-\begin{align}
-  f^* := argmin_\beta \{ \mathbb{E}_{P(x,y)}[(x'\beta-y)^2] \}.
-\end{align}
-
 Another fundamental problem is that we do not know the distribution of all possible inputs and outputs, $P$.
 We typically only have a sample of $(x_i,y_i), i=1,\dots,n$.
 We thus state the _empirical_ counterpart of \@ref(eq:risk), which consists of minimizing the average loss.
@@ -128,9 +118,20 @@ A good candidate proxy for $f^*$ is its empirical counterpart, $\hat f$, known a
   (\#eq:erm)  
 \end{align}
 
-Making things more explicit again by using a linear hypothesis with squared loss, we see that the empirical risk minimization problem collapses to an ordinary least-squares problem:
+
+To make things more explicit:
+
+- $f$ may be a linear function of the attributes, so that it may be indexed simply with its coefficient vector $\beta$.
+- $l$ may be a squared error loss: $l(f(x),y):=(f(x)-y)^2$.
+
+Under these conditions, the best predictor $f^* \in \mathcal{F}$ from problem \@ref(eq:risk) is to 
 \begin{align}
-  \hat f := argmin_\beta \{ \sum_i (x_i'\beta - y_i)^2 \}.
+  f^* := argmin_\beta \{ \mathbb{E}_{P(x,y)}[(x'\beta-y)^2] \}.
+\end{align}
+
+When using a linear hypothesis with squared loss, we see that the empirical risk minimization problem collapses to an ordinary least-squares problem:
+\begin{align}
+  \hat f := argmin_\beta \{1/n \sum_i (x_i'\beta - y_i)^2 \}.
 \end{align}
 
 When data samples are assumingly independent, then maximum likelihood estimation is also an instance of ERM, when using the (negative) log likelihood as the loss function.
@@ -149,14 +150,17 @@ Because $R_n(f)$ is downward biased, we may add some correction term, or compute
 
 Almost all ERM algorithms consist of some combination of all the three methods above. 
 
+
 ### Common Hypothesis Classes
 Some common hypothesis classes, $\mathcal{F}$, with restricted complexity, are:
 
 1. __Linear hypotheses__: such as linear models, GLMs, and (linear) support vector machines (SVM).
+
 1. __Neural networks__: a.k.a. _feed-forward_ neural nets, _artificial_ neural nets, and the celebrated class of _deep_ neural nets.
+
 1. __Tree__: a.k.a. _decision rules_, is a class of hypotheses which can be stated as "if-then" rules. 
 1. __Reproducing Kernel Hilbert Space__: a.k.a. RKHS, is a subset of "the space of all functions^[It is even a subset of the Hilbert space, itself a subset of the space of all functions.]" that is both large enough to capture very complicated relations, but small enough so that it is less prone to overfitting, and also surprisingly simple to compute with. 
-1. __Ensembles__: a "meta" hypothesis class, which consists of taking multiple hypotheses, possibly from different classes, and combining them. 
+
 
 
 ### Common Complexity Penalties
@@ -166,17 +170,16 @@ In such classes we may penalize for the norm of the parameters.
 Common penalties include:
 
 1. __Ridge penalty__: penalizing the $l_2$ norm of the parameter. I.e. $\Vert f \Vert=\Vert \beta \Vert_2^2=\sum_j \beta_j^2$. 
-1. __Lasso penalty__: penalizing the $l_1$ norm of the parameter. I.e., $\Vert f \Vert=\Vert \beta \Vert_1=\sum_j |\beta_j|$
+1. __LASSO penalty__: penalizing the $l_1$ norm of the parameter. I.e., $\Vert f \Vert=\Vert \beta \Vert_1=\sum_j |\beta_j|$
 1. __Elastic net__: a combination of the lasso and ridge penalty. I.e. ,$\Vert f \Vert= \alpha \Vert \beta \Vert_2^2 + (1-\alpha) \Vert \beta \Vert_1$.
-1. __Function Norms__: If the hypothesis class $\mathcal{F}$ does not admit a finite dimensional index to penalize representation, we may penalize it with some functional norm such as $\Vert f \Vert=\sqrt{\int f(t)^2 dt}$. 
+1. __Function Norms__: If the hypothesis class $\mathcal{F}$ does not admit a finite dimensional  representation, the penalty is no longer a function of the parameters of the function. We may, however, penalize not the parametric representation of the function, but rather the function itself $\Vert f \Vert=\sqrt{\int f(t)^2 dt}$. 
 
 
 ### Unbiased Risk Estimation
-The fundamental problem of overfitting, is that the empirical risk, $R_n(\hat f)$, is downward biased to the population risk,  $R(\hat f)$.
-Why is that? 
-Unbiased estimation of $R(f)$ broadly fall under: 
-(a) purely algorithmic _resampling_ based approaches, and 
-(b) theory driven estimators.
+
+The fundamental problem of overfitting, is that the empirical risk, $R_n(\hat f)$, is downward biased to the population risk, $R(\hat f)$.
+We can remove this bias in two ways: 
+(a) purely algorithmic _resampling_ approaches, and (b) theory driven estimators.
 
 1. __Train-Validate-Test__: 
 The simplest form of algorithmic validation is to split the data. 
@@ -220,12 +223,12 @@ Examples of such combos include:
 1. Linear regression, no penalty, train-validate test.
 1. Linear regression, no penalty, AIC.
 1. Linear regression, $l_2$ penalty, V-fold CV. This combo is typically known as _ridge regression_.
-1. Linear regression, $l_1$ penalty, V-fold CV. This combo is typically known as _lasso regression_.
+1. Linear regression, $l_1$ penalty, V-fold CV. This combo is typically known as _LASSO regression_.
 1. Linear regression, $l_1$ and $l_2$ penalty, V-fold CV. This combo is typically known as _elastic net regression_.
 1. Logistic regression, $l_2$ penalty, V-fold CV.
 1. SVM classification, $l_2$ penalty, V-fold CV.
 1. Deep network, no penalty, V-fold CV.
-1. Unrestricted, $\Vert \partial^2 f \Vert_2 $, V-fold CV. This combo is typically known as a _smoothing spline_.
+1. Unrestricted, $\Vert \partial^2 f \Vert_2$, V-fold CV. This combo is typically known as a _smoothing spline_.
 
 
 For fans of statistical hypothesis testing we will also emphasize: 
@@ -309,6 +312,7 @@ MSE( predict(ols.1, newdata=prostate.test)- prostate.test$lcavol)
 Things to note: 
 
 - I use the `newdata` argument of the `predict` function to make the out-of-sample predictions required to compute the test-error.
+- The test error is larger than the train error. That is overfitting in action.
 
 
 We now implement a V-fold CV, instead of our train-test approach.
@@ -424,7 +428,7 @@ Things to note:
 - The train error is smaller than the test error. This is overfitting in action.
 
 
-The `glmnet` package is an excellent package that provides ridge, lasso, and elastic net regularization, for all GLMs, so for linear models in particular.
+The `glmnet` package is an excellent package that provides ridge, LASSO, and elastic net regularization, for all GLMs, so for linear models in particular.
 
 ```{r Ridge-II, cache=TRUE, dependson='preprocessing'}
 suppressMessages(library(glmnet))
@@ -440,12 +444,12 @@ MSE( predict(ridge.2, newx = scale(X.test))- y.test)
 Things to note:
 
 - We use the `scale` function to z-score the predictors. This is recommended when regularizing, because we do not want the penalization to depend on the scale of the predictor. Do not `scale` on the whole data and then split to train and test. Rather, split and then `scale`.
-- The `alpha=0` parameters tells R to do ridge regression. Setting $alpha=1$ will do lasso, and any other value, with return an elastic net with appropriate weights. 
+- The `alpha=0` parameters tells R to do ridge regression. Setting $alpha=1$ will do LASSO, and any other value, with return an elastic net with appropriate weights. 
 - The `family='gaussian'` argument tells R to fit a linear model, with least squares loss.
 - The test error is __smaller__ than the train error. This may happen because risk estimators are random. Their variance may mask the overfitting.
 
 
-We now use the lasso penalty.
+We now use the LASSO penalty.
 ```{r, cache=TRUE}
 lasso.1 <- glmnet(x=scale(X.train), y=y.train, , family='gaussian', alpha = 1)
 
@@ -693,7 +697,7 @@ If you want to know about Deep-Nets in R see [here](https://www.datacamp.com/com
 1. In \@ref(practice-glm) we fit a GLM for the `MASS::epil` data (Poisson family). We assume that the number of seizures ($y$) depending on the age of the patient (`age`) and the treatment (`trt`). 
     1. What was the MSE of the model?
     1. Now, try the same with a ridge penalty using `glmnet` (`alpha=0`). 
-    1. Do the same with a lasso penalty (`alpha=1`). 
+    1. Do the same with a LASSO penalty (`alpha=1`). 
     1. Compare the test MSE of the three models. Which is the best  ? 
     
 1. Read about the `Glass` dataset using `library(e1071)` and `?Glass`. 

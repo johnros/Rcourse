@@ -6,6 +6,7 @@ file.remove('Rcourse.Rmd')
 bookdown::render_book("index.Rmd","bookdown::gitbook", clean_envir = TRUE, output_dir = 'docs')
 bookdown::render_book("index.Rmd","bookdown::word_document2", clean_envir = TRUE, output_dir = 'docs')
 bookdown::render_book("index.Rmd","bookdown::pdf_book", clean_envir = TRUE, output_dir = 'docs') # render to HTML
+bookdown::clean_book()
 
 bookdown::render_book("index.Rmd","bookdown::gitbook", clean_envir = TRUE) # render to HTML
 bookdown::render_book("index.Rmd","bookdown::word_document2", clean_envir = TRUE) # rendoer to DOCX
