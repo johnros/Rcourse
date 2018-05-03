@@ -396,9 +396,10 @@ step(ols.0, scope=model.scope, direction='forward', trace = TRUE)
 ```
 
 Things to note:
+
 - By default `step` add variables according to the [AIC](https://en.wikipedia.org/wiki/Akaike_information_criterion) criterion, which is a theory-driven unbiased risk estimator.
 - We need to tell `step` which is the smallest and largest models to consider using the `scope` argument. 
-- `direction=forward` is used to "grow" from a small model. For "shrinking" a large model, use `direction=backward`, or the default `direction=stepwise`. 
+- `direction='forward'` is used to "grow" from a small model. For "shrinking" a large model, use `direction='backward'`, or the default `direction='stepwise'`. 
 
 
 We now learn a linear predictor on the `spam` data using, a least squares loss, and train-test risk estimator. 
@@ -423,6 +424,7 @@ missclassification(confusion.test)
 ```
 
 Things to note:
+
 - I can use `lm` for categorical outcomes. `lm` will simply dummy-code the outcome. 
 - A linear predictor trained on 0's and 1's will predict numbers. Think of these numbers as the probability of 1, and my prediction is the most probable class: `predicts()>0.5`.
 - The train error is smaller than the test error. This is overfitting in action.
@@ -432,56 +434,72 @@ The `glmnet` package is an excellent package that provides ridge, LASSO, and ela
 
 ```{r Ridge-II, cache=TRUE, dependson='preprocessing'}
 suppressMessages(library(glmnet))
-ridge.2 <- glmnet(x=scale(X.train), y=y.train, family = 'gaussian', alpha = 0)
+
+means <- apply(X.train, 2, mean)
+sds <- apply(X.train, 2, sd)
+X.train.scaled <- X.train %>% sweep(MARGIN = 2, STATS = means, FUN = `-`) %>% 
+  sweep(MARGIN = 2, STATS = sds, FUN = `/`)
+ridge.2 <- glmnet(x=X.train.scaled, y=y.train, family = 'gaussian', alpha = 0)
 
 # Train error:
-MSE( predict(ridge.2, newx =scale(X.train))- y.train)
+MSE( predict(ridge.2, newx =X.train.scaled)- y.train)
 
 # Test error:
-MSE( predict(ridge.2, newx = scale(X.test))- y.test)
+X.test.scaled <- X.test %>% sweep(MARGIN = 2, STATS = means, FUN = `-`) %>% 
+  sweep(MARGIN = 2, STATS = sds, FUN = `/`)
+MSE(predict(ridge.2, newx = X.test.scaled)- y.test)
 ```
 
 Things to note:
 
-- We use the `scale` function to z-score the predictors. This is recommended when regularizing, because we do not want the penalization to depend on the scale of the predictor. Do not `scale` on the whole data and then split to train and test. Rather, split and then `scale`.
 - The `alpha=0` parameters tells R to do ridge regression. Setting $alpha=1$ will do LASSO, and any other value, with return an elastic net with appropriate weights. 
 - The `family='gaussian'` argument tells R to fit a linear model, with least squares loss.
+- Features for regularized predictors should be z-scored before learning. 
+- We use the `sweep` function to z-score the predictors: we learn the z-scoring from the train set, and apply it to both the train and the test.
 - The test error is __smaller__ than the train error. This may happen because risk estimators are random. Their variance may mask the overfitting.
 
 
 We now use the LASSO penalty.
 ```{r, cache=TRUE}
-lasso.1 <- glmnet(x=scale(X.train), y=y.train, , family='gaussian', alpha = 1)
+lasso.1 <- glmnet(x=X.train.scaled, y=y.train, , family='gaussian', alpha = 1)
 
 # Train error:
-MSE( predict(lasso.1, newx =scale(X.train))- y.train)
+MSE( predict(lasso.1, newx =X.train.scaled)- y.train)
 
 # Test error:
-MSE( predict(lasso.1, newx = scale(X.test))- y.test)
+MSE( predict(lasso.1, newx = X.test.scaled)- y.test)
 ```
 
 We now use `glmnet` for classification.
 
 ```{r, cache=TRUE, dependson='preprocessing'}
-logistic.2 <- cv.glmnet(x=scale(X.train.spam), y=y.train.spam, family = "binomial", alpha = 0)
+means.spam <- apply(X.train.spam, 2, mean)
+sds.spam <- apply(X.train.spam, 2, sd)
+X.train.spam.scaled <- X.train.spam %>% sweep(MARGIN = 2, STATS = means.spam, FUN = `-`) %>% 
+  sweep(MARGIN = 2, STATS = sds.spam, FUN = `/`) %>% as.matrix
+
+logistic.2 <- cv.glmnet(x=X.train.spam.scaled, y=y.train.spam, family = "binomial", alpha = 0)
 ```
 
 Things to note:
 
 - We used `cv.glmnet` to do an automatic search for the optimal level of regularization (the `lambda` argument in `glmnet`) using V-fold CV.
 - Just like the `glm` function,  `family='binomial'` is used for logistic regression.
-- We use `scale` to z-score predictors so that they are all in the same scale.
+- We z-scored features so that they all have the same scale.
 - We set `alpha=0` for an $l_2$ penalization of the coefficients of the logistic regression.
 
 ```{r predict-glmnet}
 # Train confusion matrix:
-.predictions.train <- predict(logistic.2, newx = scale(X.train.spam), type = 'class') 
+.predictions.train <- predict(logistic.2, newx = X.train.spam.scaled, type = 'class') 
 (confusion.train <- table(prediction=.predictions.train, truth=spam.train$spam))
 # Train misclassification error
 missclassification(confusion.train)
 
 # Test confusion matrix:
-.predictions.test <- predict(logistic.2, newx = scale(X.test.spam), type='class') 
+X.test.spam.scaled <- X.test.spam %>% sweep(MARGIN = 2, STATS = means.spam, FUN = `-`) %>% 
+  sweep(MARGIN = 2, STATS = sds.spam, FUN = `/`) %>% as.matrix
+
+.predictions.test <- predict(logistic.2, newx = X.test.spam.scaled, type='class') 
 (confusion.test <- table(prediction=.predictions.test, truth=y.test.spam))
 # Test misclassification error:
 missclassification(confusion.test)
@@ -494,7 +512,7 @@ We learn an SVM with the `svm` function from the __e1071__ package, which is mer
 
 ```{r svm-classification, cache=TRUE}
 library(e1071)
-svm.1 <- svm(spam~., data = spam.train)
+svm.1 <- svm(spam~., data = spam.train, kernel='linear')
 
 # Train confusion matrix:
 .predictions.train <- predict(svm.1) 
@@ -510,13 +528,19 @@ missclassification(confusion.test)
 We can also use SVM for regression.
 
 ```{r svm-regression, cache=TRUE}
-svm.2 <- svm(lcavol~., data = prostate.train)
+svm.2 <- svm(lcavol~., data = prostate.train, kernel='linear')
 
 # Train error:
 MSE( predict(svm.2)- prostate.train$lcavol)
 # Test error:
 MSE( predict(svm.2, newdata = prostate.test)- prostate.test$lcavol)
 ```
+
+Things to note:
+
+- The use of `kernel='linear'` forces the predictor to be linear. Various hypothesis classes may be used by changing the `kernel` argument. 
+
+
 
 ### Neural Nets
 
@@ -549,6 +573,9 @@ missclassification(confusion.train)
 missclassification(confusion.test)
 ```
 
+#### Deep Nets
+TODO
+
 ### Classification and Regression Trees (CART)
 
 A CART, is not a linear hypothesis class.
@@ -572,15 +599,13 @@ MSE( predict(tree.1)- prostate.train$lcavol)
 MSE( predict(tree.1, newdata = prostate.test)- prostate.test$lcavol)
 ```
 
-
 We can use the __rpart.plot__ package to visualize and interpret the predictor.
 
 ```{r}
 rpart.plot::rpart.plot(tree.1)
 ```
 
-
-Tree are very prone to overfitting.
+Trees are very prone to overfitting.
 To avoid this, we reduce a tree's complexity by _pruning_ it. 
 This is done with the `prune` function (not demonstrated herein).
 
@@ -608,18 +633,26 @@ TODO
 ### K-nearest neighbour (KNN)
 
 KNN is not an ERM problem.
-It is so fundamental, however, that we still show how to fit such a hypothesis class. 
-Is it good? I have never seen a learning problem where KNN beats other methods. Others claim differently.
+In the KNN algorithm, a prediction at some $x$ is made based on the $y$ is it neighbours.
+This means that: 
+
+- KNN is an [Instance Based](https://en.wikipedia.org/wiki/Instance-based_learning) learning algorith where we do not learn the values of some parametric fnuction, but rather, need the original sample to make predictions. This has many implications when dealing with "BigData".
+- It may only be applied in spaces with known/defined matric. It is thus harder to apply in the presence of missing values, or in "string-spaces", "genome-spaces", etc. where no canonical metric exists. 
+
+KNN is so fundamental that we show how to fit such a hypothesis class, even if it not an ERM algorith. 
+Is KNN any good? 
+I have never seen a learning problem where KNN beats other methods. Others claim differently.
 
 ```{r knn-classification, cache=TRUE}
 library(class)
-knn.1 <- knn(train = scale(X.train.spam), test = scale(X.test.spam), cl =y.train.spam, k = 1)
+knn.1 <- knn(train = X.train.spam.scaled, test = X.test.spam.scaled, cl =y.train.spam, k = 1)
 
 # Test confusion matrix:
 .predictions.test <- knn.1 
 (confusion.test <- table(prediction=.predictions.test, truth=spam.test$spam))
 missclassification(confusion.test)
 ```
+
 
 ### Linear Discriminant Analysis (LDA)
 
@@ -642,12 +675,12 @@ missclassification(confusion.train)
 missclassification(confusion.test)
 ```
 
+
+
 ### Naive Bayes
 
-A Naive-Bayes classifier is also not part of the ERM framework. 
-It is very popular, so we present it.
-It can be thought of LDA, i.e. linear regression, where predictors are assume to be uncorrelated. 
-This may not be true, and take its toll on accuracy, but it makes computations extremely fast. 
+Naive-Bayes can be thought of LDA, i.e. linear regression, where predictors are assume to be uncorrelated. 
+Predictions may be very good and certianly very fast, even if this assumption is not true. 
 
 
 ```{r Naive Bayes, cache=TRUE}
@@ -673,8 +706,9 @@ TODO
 
 #### The ranger Package
 
+
 ### Gradient Boosting
- 
+TODO 
 #### The gbm Package
 
 #### The xgboost Package

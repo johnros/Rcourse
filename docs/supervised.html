@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2018-04-27">
+<meta name="date" content="2018-05-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -396,7 +396,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="23.1" data-path="psychometrics.html"><a href="psychometrics.html#bibliographic-notes-19"><i class="fa fa-check"></i><b>23.1</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="23.2" data-path="psychometrics.html"><a href="psychometrics.html#practice-yourself-20"><i class="fa fa-check"></i><b>23.2</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="24" data-path="bib.html"><a href="bib.html"><i class="fa fa-check"></i><b>24</b> Bibliography</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -472,15 +471,6 @@ The best predictor, is the risk minimizer:
   f^* := argmin_f \{R(f)\}.
   \tag{9.1}  
 \end{align}\]</span>
-<p>To make things more explicit:</p>
-<ul>
-<li><span class="math inline">\(f\)</span> may be a linear function of the attributes, so that it may be indexed simply with its coefficient vector <span class="math inline">\(\beta\)</span>.</li>
-<li><span class="math inline">\(l\)</span> may be a squared error loss: <span class="math inline">\(l(f(x),y):=(f(x)-y)^2\)</span>.</li>
-</ul>
-Under these conditions, the best predictor <span class="math inline">\(f^* \in \mathcal{F}\)</span> from problem <a href="supervised.html#eq:risk">(9.1)</a> is to
-<span class="math display">\[\begin{align}
-  f^* := argmin_\beta \{ \mathbb{E}_{P(x,y)}[(x&#39;\beta-y)^2] \}.
-\end{align}\]</span>
 <p>Another fundamental problem is that we do not know the distribution of all possible inputs and outputs, <span class="math inline">\(P\)</span>. We typically only have a sample of <span class="math inline">\((x_i,y_i), i=1,\dots,n\)</span>. We thus state the <em>empirical</em> counterpart of <a href="supervised.html#eq:risk">(9.1)</a>, which consists of minimizing the average loss. This is known as the <em>empirical risk miminization</em> problem (ERM).</p>
 
 <div class="definition">
@@ -495,9 +485,18 @@ A good candidate proxy for <span class="math inline">\(f^*\)</span> is its empir
   \hat f := argmin_f \{ R_n(f) \}.
   \tag{9.2}  
 \end{align}\]</span>
-Making things more explicit again by using a linear hypothesis with squared loss, we see that the empirical risk minimization problem collapses to an ordinary least-squares problem:
+<p>To make things more explicit:</p>
+<ul>
+<li><span class="math inline">\(f\)</span> may be a linear function of the attributes, so that it may be indexed simply with its coefficient vector <span class="math inline">\(\beta\)</span>.</li>
+<li><span class="math inline">\(l\)</span> may be a squared error loss: <span class="math inline">\(l(f(x),y):=(f(x)-y)^2\)</span>.</li>
+</ul>
+Under these conditions, the best predictor <span class="math inline">\(f^* \in \mathcal{F}\)</span> from problem <a href="supervised.html#eq:risk">(9.1)</a> is to
 <span class="math display">\[\begin{align}
-  \hat f := argmin_\beta \{ \sum_i (x_i&#39;\beta - y_i)^2 \}.
+  f^* := argmin_\beta \{ \mathbb{E}_{P(x,y)}[(x&#39;\beta-y)^2] \}.
+\end{align}\]</span>
+When using a linear hypothesis with squared loss, we see that the empirical risk minimization problem collapses to an ordinary least-squares problem:
+<span class="math display">\[\begin{align}
+  \hat f := argmin_\beta \{1/n \sum_i (x_i&#39;\beta - y_i)^2 \}.
 \end{align}\]</span>
 <p>When data samples are assumingly independent, then maximum likelihood estimation is also an instance of ERM, when using the (negative) log likelihood as the loss function.</p>
 <p>If we don’t assume any structure on the hypothesis, <span class="math inline">\(f\)</span>, then <span class="math inline">\(\hat f\)</span> from <a href="supervised.html#eq:erm">(9.2)</a> will interpolate the data, and <span class="math inline">\(\hat f\)</span> will be a very bad predictor. We say, it will <em>overfit</em> the observed data, and will have bad performance on new data.</p>
@@ -512,11 +511,10 @@ Making things more explicit again by using a linear hypothesis with squared loss
 <h3><span class="header-section-number">9.1.1</span> Common Hypothesis Classes</h3>
 <p>Some common hypothesis classes, <span class="math inline">\(\mathcal{F}\)</span>, with restricted complexity, are:</p>
 <ol style="list-style-type: decimal">
-<li><strong>Linear hypotheses</strong>: such as linear models, GLMs, and (linear) support vector machines (SVM).</li>
-<li><strong>Neural networks</strong>: a.k.a. <em>feed-forward</em> neural nets, <em>artificial</em> neural nets, and the celebrated class of <em>deep</em> neural nets.</li>
+<li><p><strong>Linear hypotheses</strong>: such as linear models, GLMs, and (linear) support vector machines (SVM).</p></li>
+<li><p><strong>Neural networks</strong>: a.k.a. <em>feed-forward</em> neural nets, <em>artificial</em> neural nets, and the celebrated class of <em>deep</em> neural nets.</p></li>
 <li><strong>Tree</strong>: a.k.a. <em>decision rules</em>, is a class of hypotheses which can be stated as “if-then” rules.</li>
-<li><strong>Reproducing Kernel Hilbert Space</strong>: a.k.a. RKHS, is a subset of “the space of all functions<a href="#fn19" class="footnoteRef" id="fnref19"><sup>19</sup></a>” that is both large enough to capture very complicated relations, but small enough so that it is less prone to overfitting, and also surprisingly simple to compute with.</li>
-<li><strong>Ensembles</strong>: a “meta” hypothesis class, which consists of taking multiple hypotheses, possibly from different classes, and combining them.</li>
+<li><p><strong>Reproducing Kernel Hilbert Space</strong>: a.k.a. RKHS, is a subset of “the space of all functions<a href="#fn19" class="footnoteRef" id="fnref19"><sup>19</sup></a>” that is both large enough to capture very complicated relations, but small enough so that it is less prone to overfitting, and also surprisingly simple to compute with.</p></li>
 </ol>
 </div>
 <div id="common-complexity-penalties" class="section level3">
@@ -524,14 +522,14 @@ Making things more explicit again by using a linear hypothesis with squared loss
 <p>The most common complexity penalty applies to classes that have a finite dimensional parametric representation, such as the class of linear predictors, parametrized via its coefficients <span class="math inline">\(\beta\)</span>. In such classes we may penalize for the norm of the parameters. Common penalties include:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Ridge penalty</strong>: penalizing the <span class="math inline">\(l_2\)</span> norm of the parameter. I.e. <span class="math inline">\(\Vert f \Vert=\Vert \beta \Vert_2^2=\sum_j \beta_j^2\)</span>.</li>
-<li><strong>Lasso penalty</strong>: penalizing the <span class="math inline">\(l_1\)</span> norm of the parameter. I.e., <span class="math inline">\(\Vert f \Vert=\Vert \beta \Vert_1=\sum_j |\beta_j|\)</span></li>
+<li><strong>LASSO penalty</strong>: penalizing the <span class="math inline">\(l_1\)</span> norm of the parameter. I.e., <span class="math inline">\(\Vert f \Vert=\Vert \beta \Vert_1=\sum_j |\beta_j|\)</span></li>
 <li><strong>Elastic net</strong>: a combination of the lasso and ridge penalty. I.e. ,<span class="math inline">\(\Vert f \Vert= \alpha \Vert \beta \Vert_2^2 + (1-\alpha) \Vert \beta \Vert_1\)</span>.</li>
-<li><strong>Function Norms</strong>: If the hypothesis class <span class="math inline">\(\mathcal{F}\)</span> does not admit a finite dimensional index to penalize representation, we may penalize it with some functional norm such as <span class="math inline">\(\Vert f \Vert=\sqrt{\int f(t)^2 dt}\)</span>.</li>
+<li><strong>Function Norms</strong>: If the hypothesis class <span class="math inline">\(\mathcal{F}\)</span> does not admit a finite dimensional representation, the penalty is no longer a function of the parameters of the function. We may, however, penalize not the parametric representation of the function, but rather the function itself <span class="math inline">\(\Vert f \Vert=\sqrt{\int f(t)^2 dt}\)</span>.</li>
 </ol>
 </div>
 <div id="unbiased-risk-estimation" class="section level3">
 <h3><span class="header-section-number">9.1.3</span> Unbiased Risk Estimation</h3>
-<p>The fundamental problem of overfitting, is that the empirical risk, <span class="math inline">\(R_n(\hat f)\)</span>, is downward biased to the population risk, <span class="math inline">\(R(\hat f)\)</span>. Why is that? Unbiased estimation of <span class="math inline">\(R(f)\)</span> broadly fall under: (a) purely algorithmic <em>resampling</em> based approaches, and (b) theory driven estimators.</p>
+<p>The fundamental problem of overfitting, is that the empirical risk, <span class="math inline">\(R_n(\hat f)\)</span>, is downward biased to the population risk, <span class="math inline">\(R(\hat f)\)</span>. We can remove this bias in two ways: (a) purely algorithmic <em>resampling</em> approaches, and (b) theory driven estimators.</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>Train-Validate-Test</strong>: The simplest form of algorithmic validation is to split the data. A <em>train</em> set to train/estimate/learn <span class="math inline">\(\hat f\)</span>. A <em>validation</em> set to compute the out-of-sample expected loss, <span class="math inline">\(R(\hat f)\)</span>, and pick the best performing predictor. A <em>test</em> sample to compute the out-of-sample performance of the selected hypothesis. This is a very simple approach, but it is very “data inefficient”, thus motivating the next method.</p></li>
 <li><p><strong>V-Fold Cross Validation</strong>: By far the most popular algorithmic unbiased risk estimator; in <em>V-fold CV</em> we “fold” the data into <span class="math inline">\(V\)</span> non-overlapping sets. For each of the <span class="math inline">\(V\)</span> sets, we learn <span class="math inline">\(\hat f\)</span> with the non-selected fold, and assess <span class="math inline">\(R(\hat f)\)</span>) on the selected fold. We then aggregate results over the <span class="math inline">\(V\)</span> folds, typically by averaging.</p></li>
@@ -554,12 +552,12 @@ An ERM problem with regularization will look like
 <li>Linear regression, no penalty, train-validate test.</li>
 <li>Linear regression, no penalty, AIC.</li>
 <li>Linear regression, <span class="math inline">\(l_2\)</span> penalty, V-fold CV. This combo is typically known as <em>ridge regression</em>.</li>
-<li>Linear regression, <span class="math inline">\(l_1\)</span> penalty, V-fold CV. This combo is typically known as <em>lasso regression</em>.</li>
+<li>Linear regression, <span class="math inline">\(l_1\)</span> penalty, V-fold CV. This combo is typically known as <em>LASSO regression</em>.</li>
 <li>Linear regression, <span class="math inline">\(l_1\)</span> and <span class="math inline">\(l_2\)</span> penalty, V-fold CV. This combo is typically known as <em>elastic net regression</em>.</li>
 <li>Logistic regression, <span class="math inline">\(l_2\)</span> penalty, V-fold CV.</li>
 <li>SVM classification, <span class="math inline">\(l_2\)</span> penalty, V-fold CV.</li>
 <li>Deep network, no penalty, V-fold CV.</li>
-<li>Unrestricted, $^2 f _2 $, V-fold CV. This combo is typically known as a <em>smoothing spline</em>.</li>
+<li>Unrestricted, <span class="math inline">\(\Vert \partial^2 f \Vert_2\)</span>, V-fold CV. This combo is typically known as a <em>smoothing spline</em>.</li>
 </ol>
 <p>For fans of statistical hypothesis testing we will also emphasize: Testing and prediction are related, but are not the same:</p>
 <ul>
@@ -623,6 +621,7 @@ missclassification &lt;-<span class="st"> </span><span class="cf">function</span
 <p>Things to note:</p>
 <ul>
 <li>I use the <code>newdata</code> argument of the <code>predict</code> function to make the out-of-sample predictions required to compute the test-error.</li>
+<li>The test error is larger than the train error. That is overfitting in action.</li>
 </ul>
 <p>We now implement a V-fold CV, instead of our train-test approach. The assignment of each observation to each fold is encoded in <code>fold.assignment</code>. The following code is extremely inefficient, but easy to read.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">folds &lt;-<span class="st"> </span><span class="dv">10</span>
@@ -724,7 +723,12 @@ model.scope &lt;-<span class="st"> </span><span class="kw">list</span>(<span cla
 ## Coefficients:
 ## (Intercept)         lpsa          lcp  
 ##     0.08798      0.53369      0.38879</code></pre>
-<p>Things to note: - By default <code>step</code> add variables according to the <a href="https://en.wikipedia.org/wiki/Akaike_information_criterion">AIC</a> criterion, which is a theory-driven unbiased risk estimator. - We need to tell <code>step</code> which is the smallest and largest models to consider using the <code>scope</code> argument. - <code>direction=forward</code> is used to “grow” from a small model. For “shrinking” a large model, use <code>direction=backward</code>, or the default <code>direction=stepwise</code>.</p>
+<p>Things to note:</p>
+<ul>
+<li>By default <code>step</code> add variables according to the <a href="https://en.wikipedia.org/wiki/Akaike_information_criterion">AIC</a> criterion, which is a theory-driven unbiased risk estimator.</li>
+<li>We need to tell <code>step</code> which is the smallest and largest models to consider using the <code>scope</code> argument.</li>
+<li><code>direction='forward'</code> is used to “grow” from a small model. For “shrinking” a large model, use <code>direction='backward'</code>, or the default <code>direction='stepwise'</code>.</li>
+</ul>
 <p>We now learn a linear predictor on the <code>spam</code> data using, a least squares loss, and train-test risk estimator.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Train the predictor</span>
 ols.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(spam<span class="op">~</span>., <span class="dt">data =</span> spam.train.dummy) 
@@ -751,59 +755,80 @@ ols.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">lm<
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># compute the train (in sample) misclassification</span>
 <span class="kw">missclassification</span>(confusion.test)</code></pre></div>
 <pre><code>## [1] 0.1173149</code></pre>
-<p>Things to note: - I can use <code>lm</code> for categorical outcomes. <code>lm</code> will simply dummy-code the outcome. - A linear predictor trained on 0’s and 1’s will predict numbers. Think of these numbers as the probability of 1, and my prediction is the most probable class: <code>predicts()&gt;0.5</code>. - The train error is smaller than the test error. This is overfitting in action.</p>
-<p>The <code>glmnet</code> package is an excellent package that provides ridge, lasso, and elastic net regularization, for all GLMs, so for linear models in particular.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressMessages</span>(<span class="kw">library</span>(glmnet))
-ridge.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">glmnet</span>(<span class="dt">x=</span><span class="kw">scale</span>(X.train), <span class="dt">y=</span>y.train, <span class="dt">family =</span> <span class="st">&#39;gaussian&#39;</span>, <span class="dt">alpha =</span> <span class="dv">0</span>)
-
-<span class="co"># Train error:</span>
-<span class="kw">MSE</span>( <span class="kw">predict</span>(ridge.<span class="dv">2</span>, <span class="dt">newx =</span><span class="kw">scale</span>(X.train))<span class="op">-</span><span class="st"> </span>y.train)</code></pre></div>
-<pre><code>## [1] 1.006028</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test error:</span>
-<span class="kw">MSE</span>( <span class="kw">predict</span>(ridge.<span class="dv">2</span>, <span class="dt">newx =</span> <span class="kw">scale</span>(X.test))<span class="op">-</span><span class="st"> </span>y.test)</code></pre></div>
-<pre><code>## [1] 0.7662527</code></pre>
 <p>Things to note:</p>
 <ul>
-<li>We use the <code>scale</code> function to z-score the predictors. This is recommended when regularizing, because we do not want the penalization to depend on the scale of the predictor. Do not <code>scale</code> on the whole data and then split to train and test. Rather, split and then <code>scale</code>.</li>
-<li>The <code>alpha=0</code> parameters tells R to do ridge regression. Setting <span class="math inline">\(alpha=1\)</span> will do lasso, and any other value, with return an elastic net with appropriate weights.</li>
-<li>The <code>family='gaussian'</code> argument tells R to fit a linear model, with least squares loss.</li>
-<li>The test error is <strong>smaller</strong> than the train error. This may happen because risk estimators are random. Their variance may mask the overfitting.</li>
+<li>I can use <code>lm</code> for categorical outcomes. <code>lm</code> will simply dummy-code the outcome.</li>
+<li>A linear predictor trained on 0’s and 1’s will predict numbers. Think of these numbers as the probability of 1, and my prediction is the most probable class: <code>predicts()&gt;0.5</code>.</li>
+<li>The train error is smaller than the test error. This is overfitting in action.</li>
 </ul>
-<p>We now use the lasso penalty.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lasso.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">glmnet</span>(<span class="dt">x=</span><span class="kw">scale</span>(X.train), <span class="dt">y=</span>y.train, , <span class="dt">family=</span><span class="st">&#39;gaussian&#39;</span>, <span class="dt">alpha =</span> <span class="dv">1</span>)
+<p>The <code>glmnet</code> package is an excellent package that provides ridge, LASSO, and elastic net regularization, for all GLMs, so for linear models in particular.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressMessages</span>(<span class="kw">library</span>(glmnet))
+
+means &lt;-<span class="st"> </span><span class="kw">apply</span>(X.train, <span class="dv">2</span>, mean)
+sds &lt;-<span class="st"> </span><span class="kw">apply</span>(X.train, <span class="dv">2</span>, sd)
+X.train.scaled &lt;-<span class="st"> </span>X.train <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sweep</span>(<span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">STATS =</span> means, <span class="dt">FUN =</span> <span class="st">`</span><span class="dt">-</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">sweep</span>(<span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">STATS =</span> sds, <span class="dt">FUN =</span> <span class="st">`</span><span class="dt">/</span><span class="st">`</span>)
+ridge.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">glmnet</span>(<span class="dt">x=</span>X.train.scaled, <span class="dt">y=</span>y.train, <span class="dt">family =</span> <span class="st">&#39;gaussian&#39;</span>, <span class="dt">alpha =</span> <span class="dv">0</span>)
 
 <span class="co"># Train error:</span>
-<span class="kw">MSE</span>( <span class="kw">predict</span>(lasso.<span class="dv">1</span>, <span class="dt">newx =</span><span class="kw">scale</span>(X.train))<span class="op">-</span><span class="st"> </span>y.train)</code></pre></div>
+<span class="kw">MSE</span>( <span class="kw">predict</span>(ridge.<span class="dv">2</span>, <span class="dt">newx =</span>X.train.scaled)<span class="op">-</span><span class="st"> </span>y.train)</code></pre></div>
+<pre><code>## [1] 1.006028</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test error:</span>
+X.test.scaled &lt;-<span class="st"> </span>X.test <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sweep</span>(<span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">STATS =</span> means, <span class="dt">FUN =</span> <span class="st">`</span><span class="dt">-</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">sweep</span>(<span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">STATS =</span> sds, <span class="dt">FUN =</span> <span class="st">`</span><span class="dt">/</span><span class="st">`</span>)
+<span class="kw">MSE</span>(<span class="kw">predict</span>(ridge.<span class="dv">2</span>, <span class="dt">newx =</span> X.test.scaled)<span class="op">-</span><span class="st"> </span>y.test)</code></pre></div>
+<pre><code>## [1] 0.7678264</code></pre>
+<p>Things to note:</p>
+<ul>
+<li>The <code>alpha=0</code> parameters tells R to do ridge regression. Setting <span class="math inline">\(alpha=1\)</span> will do LASSO, and any other value, with return an elastic net with appropriate weights.</li>
+<li>The <code>family='gaussian'</code> argument tells R to fit a linear model, with least squares loss.</li>
+<li>Features for regularized predictors should be z-scored before learning.</li>
+<li>We use the <code>sweep</code> function to z-score the predictors: we learn the z-scoring from the train set, and apply it to both the train and the test.</li>
+<li>The test error is <strong>smaller</strong> than the train error. This may happen because risk estimators are random. Their variance may mask the overfitting.</li>
+</ul>
+<p>We now use the LASSO penalty.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lasso.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">glmnet</span>(<span class="dt">x=</span>X.train.scaled, <span class="dt">y=</span>y.train, , <span class="dt">family=</span><span class="st">&#39;gaussian&#39;</span>, <span class="dt">alpha =</span> <span class="dv">1</span>)
+
+<span class="co"># Train error:</span>
+<span class="kw">MSE</span>( <span class="kw">predict</span>(lasso.<span class="dv">1</span>, <span class="dt">newx =</span>X.train.scaled)<span class="op">-</span><span class="st"> </span>y.train)</code></pre></div>
 <pre><code>## [1] 0.5525279</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test error:</span>
-<span class="kw">MSE</span>( <span class="kw">predict</span>(lasso.<span class="dv">1</span>, <span class="dt">newx =</span> <span class="kw">scale</span>(X.test))<span class="op">-</span><span class="st"> </span>y.test)</code></pre></div>
-<pre><code>## [1] 0.547752</code></pre>
+<span class="kw">MSE</span>( <span class="kw">predict</span>(lasso.<span class="dv">1</span>, <span class="dt">newx =</span> X.test.scaled)<span class="op">-</span><span class="st"> </span>y.test)</code></pre></div>
+<pre><code>## [1] 0.5211263</code></pre>
 <p>We now use <code>glmnet</code> for classification.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logistic.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(<span class="dt">x=</span><span class="kw">scale</span>(X.train.spam), <span class="dt">y=</span>y.train.spam, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="dt">alpha =</span> <span class="dv">0</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">means.spam &lt;-<span class="st"> </span><span class="kw">apply</span>(X.train.spam, <span class="dv">2</span>, mean)
+sds.spam &lt;-<span class="st"> </span><span class="kw">apply</span>(X.train.spam, <span class="dv">2</span>, sd)
+X.train.spam.scaled &lt;-<span class="st"> </span>X.train.spam <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sweep</span>(<span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">STATS =</span> means.spam, <span class="dt">FUN =</span> <span class="st">`</span><span class="dt">-</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">sweep</span>(<span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">STATS =</span> sds.spam, <span class="dt">FUN =</span> <span class="st">`</span><span class="dt">/</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span>as.matrix
+
+logistic.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(<span class="dt">x=</span>X.train.spam.scaled, <span class="dt">y=</span>y.train.spam, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="dt">alpha =</span> <span class="dv">0</span>)</code></pre></div>
 <p>Things to note:</p>
 <ul>
 <li>We used <code>cv.glmnet</code> to do an automatic search for the optimal level of regularization (the <code>lambda</code> argument in <code>glmnet</code>) using V-fold CV.</li>
 <li>Just like the <code>glm</code> function, <code>family='binomial'</code> is used for logistic regression.</li>
-<li>We use <code>scale</code> to z-score predictors so that they are all in the same scale.</li>
+<li>We z-scored features so that they all have the same scale.</li>
 <li>We set <code>alpha=0</code> for an <span class="math inline">\(l_2\)</span> penalization of the coefficients of the logistic regression.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Train confusion matrix:</span>
-.predictions.train &lt;-<span class="st"> </span><span class="kw">predict</span>(logistic.<span class="dv">2</span>, <span class="dt">newx =</span> <span class="kw">scale</span>(X.train.spam), <span class="dt">type =</span> <span class="st">&#39;class&#39;</span>) 
+.predictions.train &lt;-<span class="st"> </span><span class="kw">predict</span>(logistic.<span class="dv">2</span>, <span class="dt">newx =</span> X.train.spam.scaled, <span class="dt">type =</span> <span class="st">&#39;class&#39;</span>) 
 (confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train<span class="op">$</span>spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email  1763  184
-##      spam     79  981</code></pre>
+##      email  1766  188
+##      spam     76  977</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Train misclassification error</span>
 <span class="kw">missclassification</span>(confusion.train)</code></pre></div>
-<pre><code>## [1] 0.08746259</code></pre>
+<pre><code>## [1] 0.08779514</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test confusion matrix:</span>
-.predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(logistic.<span class="dv">2</span>, <span class="dt">newx =</span> <span class="kw">scale</span>(X.test.spam), <span class="dt">type=</span><span class="st">&#39;class&#39;</span>) 
+X.test.spam.scaled &lt;-<span class="st"> </span>X.test.spam <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sweep</span>(<span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">STATS =</span> means.spam, <span class="dt">FUN =</span> <span class="st">`</span><span class="dt">-</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">sweep</span>(<span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">STATS =</span> sds.spam, <span class="dt">FUN =</span> <span class="st">`</span><span class="dt">/</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span>as.matrix
+
+.predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(logistic.<span class="dv">2</span>, <span class="dt">newx =</span> X.test.spam.scaled, <span class="dt">type=</span><span class="st">&#39;class&#39;</span>) 
 (confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>y.test.spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email   906  109
-##      spam     40  539</code></pre>
+##      email   907  110
+##      spam     39  538</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test misclassification error:</span>
 <span class="kw">missclassification</span>(confusion.test)</code></pre></div>
 <pre><code>## [1] 0.09347553</code></pre>
@@ -812,35 +837,39 @@ ridge.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">g
 <h3><span class="header-section-number">9.2.2</span> SVM</h3>
 <p>A support vector machine (SVM) is a linear hypothesis class with a particular loss function known as a <a href="https://en.wikipedia.org/wiki/Hinge_loss">hinge loss</a>. We learn an SVM with the <code>svm</code> function from the <strong>e1071</strong> package, which is merely a wrapper for the <a href="https://www.csie.ntu.edu.tw/~cjlin/libsvm/">libsvm</a> C library; the most popular implementation of SVM today.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(e1071)
-svm.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">svm</span>(spam<span class="op">~</span>., <span class="dt">data =</span> spam.train)
+svm.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">svm</span>(spam<span class="op">~</span>., <span class="dt">data =</span> spam.train, <span class="dt">kernel=</span><span class="st">&#39;linear&#39;</span>)
 
 <span class="co"># Train confusion matrix:</span>
 .predictions.train &lt;-<span class="st"> </span><span class="kw">predict</span>(svm.<span class="dv">1</span>) 
 (confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train<span class="op">$</span>spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email  1780   94
-##      spam     62 1071</code></pre>
+##      email  1764  108
+##      spam     78 1057</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.train)</code></pre></div>
-<pre><code>## [1] 0.05187895</code></pre>
+<pre><code>## [1] 0.06185567</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test confusion matrix:</span>
 .predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(svm.<span class="dv">1</span>, <span class="dt">newdata =</span> spam.test) 
 (confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test<span class="op">$</span>spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email   912   75
-##      spam     34  573</code></pre>
+##      email   903   75
+##      spam     43  573</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.test)</code></pre></div>
-<pre><code>## [1] 0.06838143</code></pre>
+<pre><code>## [1] 0.0740276</code></pre>
 <p>We can also use SVM for regression.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">svm.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">svm</span>(lcavol<span class="op">~</span>., <span class="dt">data =</span> prostate.train)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">svm.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">svm</span>(lcavol<span class="op">~</span>., <span class="dt">data =</span> prostate.train, <span class="dt">kernel=</span><span class="st">&#39;linear&#39;</span>)
 
 <span class="co"># Train error:</span>
 <span class="kw">MSE</span>( <span class="kw">predict</span>(svm.<span class="dv">2</span>)<span class="op">-</span><span class="st"> </span>prostate.train<span class="op">$</span>lcavol)</code></pre></div>
-<pre><code>## [1] 0.3336868</code></pre>
+<pre><code>## [1] 0.4488577</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test error:</span>
 <span class="kw">MSE</span>( <span class="kw">predict</span>(svm.<span class="dv">2</span>, <span class="dt">newdata =</span> prostate.test)<span class="op">-</span><span class="st"> </span>prostate.test<span class="op">$</span>lcavol)</code></pre></div>
-<pre><code>## [1] 0.5633183</code></pre>
+<pre><code>## [1] 0.5547759</code></pre>
+<p>Things to note:</p>
+<ul>
+<li>The use of <code>kernel='linear'</code> forces the predictor to be linear. Various hypothesis classes may be used by changing the <code>kernel</code> argument.</li>
+</ul>
 </div>
 <div id="neural-nets" class="section level3">
 <h3><span class="header-section-number">9.2.3</span> Neural Nets</h3>
@@ -875,6 +904,10 @@ nnet.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">nn
 ##      spam     36  594</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.test)</code></pre></div>
 <pre><code>## [1] 0.05646173</code></pre>
+<div id="deep-nets" class="section level4">
+<h4><span class="header-section-number">9.2.3.1</span> Deep Nets</h4>
+<p>TODO</p>
+</div>
 </div>
 <div id="classification-and-regression-trees-cart" class="section level3">
 <h3><span class="header-section-number">9.2.4</span> Classification and Regression Trees (CART)</h3>
@@ -895,7 +928,7 @@ tree.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">rp
 <p>We can use the <strong>rpart.plot</strong> package to visualize and interpret the predictor.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rpart.plot<span class="op">::</span><span class="kw">rpart.plot</span>(tree.<span class="dv">1</span>)</code></pre></div>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-192-1.png" width="50%" /></p>
-<p>Tree are very prone to overfitting. To avoid this, we reduce a tree’s complexity by <em>pruning</em> it. This is done with the <code>prune</code> function (not demonstrated herein).</p>
+<p>Trees are very prone to overfitting. To avoid this, we reduce a tree’s complexity by <em>pruning</em> it. This is done with the <code>prune</code> function (not demonstrated herein).</p>
 <p>We now fit a classification tree.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tree.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">rpart</span>(spam<span class="op">~</span>., <span class="dt">data=</span>spam.train)
 
@@ -925,19 +958,24 @@ tree.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">rp
 </div>
 <div id="k-nearest-neighbour-knn" class="section level3">
 <h3><span class="header-section-number">9.2.5</span> K-nearest neighbour (KNN)</h3>
-<p>KNN is not an ERM problem. It is so fundamental, however, that we still show how to fit such a hypothesis class. Is it good? I have never seen a learning problem where KNN beats other methods. Others claim differently.</p>
+<p>KNN is not an ERM problem. In the KNN algorithm, a prediction at some <span class="math inline">\(x\)</span> is made based on the <span class="math inline">\(y\)</span> is it neighbours. This means that:</p>
+<ul>
+<li>KNN is an <a href="https://en.wikipedia.org/wiki/Instance-based_learning">Instance Based</a> learning algorith where we do not learn the values of some parametric fnuction, but rather, need the original sample to make predictions. This has many implications when dealing with “BigData”.</li>
+<li>It may only be applied in spaces with known/defined matric. It is thus harder to apply in the presence of missing values, or in “string-spaces”, “genome-spaces”, etc. where no canonical metric exists.</li>
+</ul>
+<p>KNN is so fundamental that we show how to fit such a hypothesis class, even if it not an ERM algorith. Is KNN any good? I have never seen a learning problem where KNN beats other methods. Others claim differently.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(class)
-knn.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">knn</span>(<span class="dt">train =</span> <span class="kw">scale</span>(X.train.spam), <span class="dt">test =</span> <span class="kw">scale</span>(X.test.spam), <span class="dt">cl =</span>y.train.spam, <span class="dt">k =</span> <span class="dv">1</span>)
+knn.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">knn</span>(<span class="dt">train =</span> X.train.spam.scaled, <span class="dt">test =</span> X.test.spam.scaled, <span class="dt">cl =</span>y.train.spam, <span class="dt">k =</span> <span class="dv">1</span>)
 
 <span class="co"># Test confusion matrix:</span>
 .predictions.test &lt;-<span class="st"> </span>knn.<span class="dv">1</span> 
 (confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test<span class="op">$</span>spam))</code></pre></div>
 <pre><code>##           truth
 ## prediction email spam
-##      email   832   78
-##      spam    114  570</code></pre>
+##      email   863   76
+##      spam     83  572</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.test)</code></pre></div>
-<pre><code>## [1] 0.1204517</code></pre>
+<pre><code>## [1] 0.09974906</code></pre>
 </div>
 <div id="linear-discriminant-analysis-lda" class="section level3">
 <h3><span class="header-section-number">9.2.6</span> Linear Discriminant Analysis (LDA)</h3>
@@ -966,7 +1004,7 @@ lda.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lda
 </div>
 <div id="naive-bayes" class="section level3">
 <h3><span class="header-section-number">9.2.7</span> Naive Bayes</h3>
-<p>A Naive-Bayes classifier is also not part of the ERM framework. It is very popular, so we present it. It can be thought of LDA, i.e. linear regression, where predictors are assume to be uncorrelated. This may not be true, and take its toll on accuracy, but it makes computations extremely fast.</p>
+<p>Naive-Bayes can be thought of LDA, i.e. linear regression, where predictors are assume to be uncorrelated. Predictions may be very good and certianly very fast, even if this assumption is not true.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(e1071)
 nb.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">naiveBayes</span>(spam<span class="op">~</span>., <span class="dt">data =</span> spam.train)
 
@@ -1001,11 +1039,9 @@ nb.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">naiv
 </div>
 <div id="gradient-boosting" class="section level3">
 <h3><span class="header-section-number">9.2.9</span> Gradient Boosting</h3>
-<div id="the-gbm-package" class="section level4">
-<h4><span class="header-section-number">9.2.9.1</span> The gbm Package</h4>
-</div>
+<p>TODO #### The gbm Package</p>
 <div id="the-xgboost-package" class="section level4">
-<h4><span class="header-section-number">9.2.9.2</span> The xgboost Package</h4>
+<h4><span class="header-section-number">9.2.9.1</span> The xgboost Package</h4>
 </div>
 </div>
 </div>
@@ -1020,7 +1056,7 @@ nb.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">naiv
 <ol style="list-style-type: decimal">
 <li>What was the MSE of the model?</li>
 <li>Now, try the same with a ridge penalty using <code>glmnet</code> (<code>alpha=0</code>).</li>
-<li>Do the same with a lasso penalty (<code>alpha=1</code>).</li>
+<li>Do the same with a LASSO penalty (<code>alpha=1</code>).</li>
 <li>Compare the test MSE of the three models. Which is the best ?</li>
 </ol></li>
 <li>Read about the <code>Glass</code> dataset using <code>library(e1071)</code> and <code>?Glass</code>.
@@ -1032,7 +1068,7 @@ nb.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">naiv
 
 </div>
 </div>
-<h3> Bibliography</h3>
+<h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-sammut2011encyclopedia">
 <p>Sammut, Claude, and Geoffrey I Webb. 2011. <em>Encyclopedia of Machine Learning</em>. Springer Science &amp; Business Media.</p>
