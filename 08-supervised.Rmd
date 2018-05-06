@@ -484,7 +484,7 @@ logistic.2 <- cv.glmnet(x=X.train.spam.scaled, y=y.train.spam, family = "binomia
 Things to note:
 
 - We used `cv.glmnet` to do an automatic search for the optimal level of regularization (the `lambda` argument in `glmnet`) using V-fold CV.
-- Just like the `glm` function,  `family='binomial'` is used for logistic regression.
+- Just like the `glm` function,  `'family='binomial'` is used for logistic regression.
 - We z-scored features so that they all have the same scale.
 - We set `alpha=0` for an $l_2$ penalization of the coefficients of the logistic regression.
 
