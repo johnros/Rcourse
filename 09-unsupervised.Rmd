@@ -1,12 +1,17 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Unsupervised Learning {#unsupervised}
 
 This chapter deals with machine learning problems which are unsupervised.
 This means the machine has access to a set of inputs, $x$, but the desired outcome, $y$ is not available. 
-Clearly, learning a relation between inputs and outcomes is impossible, but there are still a lot of problems of interest. 
+Clearly, learning a relation between inputs and outcomes makes no sense, but there are still a lot of problems of interest. 
 In particular, we may want to find a compact representation of the inputs, be it for visualization of further processing. This is the problem of _dimensionality reduction_.
 For the same reasons we may want to group similar inputs. This is the problem of _clustering_.
 
-In the statistical terminology, and with some exceptions, this chapter can be thought of as multivariate __exploratory__ statistics.
+In the statistical terminology, with some exceptions, this chapter can be thought of as multivariate __exploratory__ statistics.
 For multivariate __inference__, see Chapter \@ref(multivariate).
 
 
@@ -72,7 +77,7 @@ pca.1 <- prcomp(USArrests.1, scale = TRUE)
 pca.1
 ```
 
-Things to note:
+Things to note and terminology:
 
 - Distinguishing between states, i.e., finding the variance maximizing scores, should be indifferent to the __average__ of each variable. 
 We also don't want the score to be sensitive to the measurement __scale__. 
@@ -94,6 +99,30 @@ Because all the $3$ crime variables have a similar loading on PC1.
 
 __If we now represent each state, not with its original $4$ variables, but only with the first $2$ PCs (for example), we have reduced the dimensionality of the data.__
 
+#### Mathematics of PCA
+
+What is the mathematical problem that is actually solved with PCA?
+Finding a linear combination, $v$, so that of $v'x$ best separates individuals.
+Best separation implies that the variance of $v'x$ is maximal.
+Clearly, $Var[v'x]$ may explode if any $v$ is allowed, so we need to pick $v$ from some fair set. 
+It is most convenient, mathematically, to constrain the $l_2$ norm to some constant: $\Vert v \Vert^2_2=\sum v_j^2=1$.
+The first "best separating score", known as the first _principal component_ (PC), is thus 
+$$v_1'x \quad s.t. \quad v_1=argmax_{v}\{Var[v'x], \text{ and } \Vert v \Vert_2=1  \} .$$
+The second PC, is the same, only that it is required to be orthogonal to the first PC:
+$$v_2'x \quad s.t. \quad v_2=argmax_{v}\{Var[v'x], \text{ and } \Vert v \Vert_2=1, \text{ and } v'v_1=0 \} .$$
+One can recover $min\{n,p\}$ PCs.
+The construction of the next PCs follows the same lines: find a linear transformation of the data that best separates observations and is orthogonal to the previous PCs. 
+
+
+
+
+#### How Hard is the PCA Problem?
+
+Estimating all the PCs in the data is well defined algebraically if $n>p$ so viewing PCA as an exploratory tool, it is not a hard problem.
+On the other hand, if viewing it as an inference tool, for inference on some population, then this is quite a hard problem. 
+This is because recovering all the PCs is equivalent to estimating a covariance matrix. 
+As we already saw in the Multivaraite Statistics Chapter (\@ref(multivariate)), estimating covariances is a hard task, we thus recommend: don't trust your PCs if $n$ is not much larger than $p$, and see the bibliographic notes for futher details. 
+
 
 
 
@@ -103,33 +132,41 @@ Before presenting methods other than PCA, we need some terminology.
 
 - __Variable__: 
 A.k.a. _dimension_, or _feature_, or _column_.
+
 - __Data__: 
 A.k.a. _sample_, _observations_. 
 Will typically consist of $n$, vectors of dimension $p$.
 We typically denote the data as a $n\times p$ matrix $X$. 
+
 - __Manifold__: 
 A generalization of a linear space, which is regular enough so that, __locally__, it has all the properties of a linear space. 
 We will denote an arbitrary manifold by $\mathcal{M}$, and by $\mathcal{M}_q$ a $q$ dimensional^[You are probably used to thinking of the __dimension__ of linear spaces. We will not rigorously define what is the dimension of a manifold, but you may think of it as the number of free coordinates needed to navigate along the manifold.] manifold.
+
 - __Embedding__: 
 Informally speaking: a "shape preserving" mapping of a space into another (see figure below).
+
 - __Linear Embedding__: 
 An embedding done via a linear operation. 
+
 - __Generative Model__: 
 Known to statisticians as the __sampling distribution__. 
 The assumed stochastic process that generated the observed $X$. 
 
-![Various embedding algorithms. Source: http://scikit-learn.org/stable/auto_examples/manifold/plot_manifold_sphere.html#sphx-glr-auto-examples-manifold-plot-manifold-sphere-py](art/sphx_glr_plot_manifold_sphere_001.png)
+![Various embedding algorithms. No embedding of the sphere to the plane is perfect. This is obviously not new. [Maps makers](https://en.wikipedia.org/wiki/Map_projection) have known this for centuries!Source: http://scikit-learn.org/stable/auto_examples/manifold/plot_manifold_sphere.html#sphx-glr-auto-examples-manifold-plot-manifold-sphere-py](art/sphx_glr_plot_manifold_sphere_001.png)
 
 
 There are many motivations for dimensionality reduction:
 
 1. __Scoring__: 
 Give each observation an interpretable, simple score (Hotelling's motivation).
+
 1. __Latent structure__: 
 Recover unobservable information from indirect measurements. 
 E.g: Blind signal reconstruction, CT scan, cryo-electron microscopy, etc. 
+
 1. __Signal to Noise__: 
 Denoise measurements before further processing like clustering, supervised learning, etc. 
+
 1. __Compression__: 
 Save on RAM ,CPU, and communication when operating on a lower dimensional representation of the data. 
 	
@@ -140,6 +177,9 @@ All generative approaches to dimensionality reduction will include a set of late
 The unobservable variables will typically have a lower dimension than the observables, thus, dimension is reduced. 
 We start with the simplest case of linear Factor Analysis. 
 
+
+
+
 #### Factor Analysis (FA)
 
 FA originates from the psychometric literature. 
@@ -148,10 +188,10 @@ We thus revisit the IQ (actually g-factor^[https://en.wikipedia.org/wiki/G_facto
 ```{example}
 Assume $n$ respondents answer $p$ quantitative questions: $x_i \in \mathbb{R}^p, i=1,\dots,n$. 
 Also assume, their responses are some linear function of a single personality attribute, $s_i$. 
-We can think of $s_i$ as the subject's ``intelligence''.
+We can think of $s_i$ as the subject's "intelligence".
 We thus have 
 \begin{align}
-	x_i = A s_i + \varepsilon_i
+	x_i = s_i A  + \varepsilon_i
 \end{align}
 And in matrix notation:
 \begin{align}
@@ -167,10 +207,7 @@ In our particular example where $q=1$, the problem is to recover the unobservabl
 We may try to estimate $S A$ by assuming some distribution on $S$ and $\varepsilon$ and apply maximum likelihood.
 Under standard assumptions on the distribution of $S$ and $\varepsilon$, recovering  $S$ from $\widehat{S A }$ is still impossible as there are infinitely many such solutions.
 In the statistical parlance we say the problem is _non identifiable_, and in the applied mathematics parlance we say the problem is _ill posed_.
-To see this, consider an orthogonal _rotation_ matrix $R$ ($R' R=I$). 
-For each such $R$: $S A = S R' R A = S^* A^*$.
-While both solve Eq.\@ref(eq:factor), $A$ and $A^*$ may have very different interpretations. 
-This is why many researchers find FA an unsatisfactory inference tool.
+
 
 ```{remark}
 The non-uniqueness (non-identifiability) of the FA solution under variable rotation is never mentioned in the PCA context. 
@@ -179,20 +216,16 @@ This is because the methods solve different problems.
 The reason the solution to PCA is well defined is that PCA does not seek a single $S$ but rather a __sequence__ of $S_q$ with dimensions growing from $q=1$ to $q=p$. 
 ```
 
-```{remark}
-In classical FA in Eq.\@ref(eq:factor) is clearly an embedding to a linear space:
-the one spanned by $S$. 
-Under the classical probabilistic assumptions on $S$ and $\varepsilon$ the embedding itself is also linear, and is sometimes solved with PCA. 
-Being a generative model, there is no restriction for the embedding to be linear, and there certainly exists sets of assumptions for which the FA returns a non linear embedding into a linear space. 
-```
 
 The FA terminology is slightly different than PCA:
 
 - __Factors__: 
 The unobserved attributes $S$. 
 Akin to the _principal components_ in PCA.
+
 - __Loading__:
 The $A$ matrix; the contribution of each factor to the observed $X$.
+
 - __Rotation__:	
 An arbitrary orthogonal re-combination of the factors, $S$, and loadings, $A$, which changes the interpretation of the result.
 
@@ -208,6 +241,7 @@ In many cases this function is assumed to be linear in $S$ so that ICA is compar
 
 The fundamental idea of ICA is that $S$ has a joint distribution of __non-Gaussian__, __independent__ variables. 
 This independence assumption, solves the the non-uniqueness of $S$ in FA.
+As such, it can be thought of as a type of rotation in FA.
 
 Being a generative model, estimation of $S$ can then be done using maximum likelihood, or other estimation principles. 
 
@@ -225,12 +259,13 @@ This does not mean that they cannot be cast via their generative model, but rath
 
 
 #### Multidimensional Scaling (MDS)
-MDS can be thought of as a variation on PCA, that begins with the $n \times n$ graph^[The term Graph is typically used in this context instead of Network. 
-But a graph allows only yes/no relations, while a network, which is a weighted graph, allows a continuous measure of similarity (or dissimilarity). _Network_ is thus more appropriate than _graph_.] of distances between data points, and not the original $n \times p$ data. 
+MDS can be thought of as a variation on PCA, that begins with the $n \times n$ graph^ of distances between data points, and not the original $n \times p$ data.
+The term _graph_ is typically used in this context, but saying _network_ instead of _graph_ is more appropriate. 
+This is because a graph encodes connections (topology) and networks encode distances (geometry).
 
-MDS aims at embedding a graph of distances, while preserving the original distances.
+MDS aims at embedding a graph of distances into the plane, typically for visualization, while preserving the original distances.
 Basic results in graph/network theory [@graham1988isometric] suggest that the geometry of a graph cannot be preserved when embedding it into lower dimensions. 
-The different types of MDSs, such as _Classical MDS_, and _Sammon Mappings_, differ in the _stress function_ penalizing for geometric distortion.
+The different types of MDSs, such as _Classical MDS_, and _Sammon Mappings_, differ in the _stress function_ that penalizes for the geometric distortion caused by the embedding.
 
 
 #### Local Multidimensional Scaling (Local MDS)
@@ -244,10 +279,10 @@ Being a highly folded surface, the Euclidean distance between points is far from
 ```
 
 Local MDS is aimed at solving the case where we don't know how to properly measure distances. 
-It is an algorithm that compounds both the construction of the dissimilarity graph, and the embedding. 
+It is an algorithm that compounds both the construction of the dissimilarity/distance graph, and the embedding. 
 The solution of local MDS, as the name suggests, rests on the computation of _local_ distances, where the Euclidean assumption may still be plausible, and then aggregate many such local distances, before calling upon regular MDS for the embedding.
 
-Because local MDS ends with a regular MDS, it can be seen as a non-linear embedding into a linear $\mathcal{M}$. 
+Because local MDS ends with a regular MDS, it can be seen as a non-linear embedding into a linear manifold $\mathcal{M}$. 
 
 Local MDS is not popular.
 Why is this? 
@@ -264,17 +299,21 @@ Like localMDS, only that the embedding, and not only the computation of the dist
 Very similar to IsoMap \@ref(isomap).
 
 
-#### Kernel PCA
-TODO
+#### Kernel PCA (kPCA)
+Returning to the BMI example (\@ref(exm:bmi)); what if we want to learn scores that best separate between individuals, but inlike PCA, are non-linear in the original features. 
+Kernel PCA does just that, only that it restricts the possible scores to simple functions of the original variables. 
+The allowed functions resides in a function space called Reproducing Kernel Hilbert Space (RKHS), this giving kPCA it's name.
 
-#### Simplified Component Technique LASSO (SCoTLASS)
-TODO
 
-#### Sparse Principal Component Analysis (sPCA)
-TODO
+#### Sparse PCA (sPCA)
+sPCA is a type of PCA where the loadings are sparse. 
+This means that PCs are linear combinations of a small number of variables. 
+This makes sPCA easier to interpret. 
+Note that the _varimax_ rotation of factor-analysis has a similar goal: create factors with minimialy contributing variables, so that they are easy to explain. 
 
-#### Sparse kernel principal component analysis (skPCA)
-TODO
+
+#### Sparse kernel PCA (skPCA)
+A marriage between sPCA and kPCA: generate scores that are non linear transformations of a minimal number of variables, each. 
 
 
 
@@ -288,7 +327,7 @@ The fitting is done with the `prcomp` function.
 The _bi-plot_ is a useful way to visualize the output of PCA.
 
 ```{r}
-library(devtools)
+# library(devtools)
 # install_github("vqv/ggbiplot")
 ggbiplot::ggbiplot(pca.1) 
 ```
@@ -302,9 +341,10 @@ For example, the x-value of each arrow is the loadings on the first PC (on the x
 Since the weights of Murder, Assault, and Rape are almost the same, we conclude that PC1 captures the average crime rate in each state.
 - The bi-plot plots each data point along its PCs.
 
-The _scree plot_ depicts the quality of the approximation of $X$ as $q$ grows. 
+The _scree plot_ depicts the quality of the approximation of $X$ as $q$ grows, i.e., as we add more and more PCs to explain the data. 
 This is depicted using the proportion of variability in $X$ that is removed by each added PC.
 It is customary to choose $q$ as the first PC that has a relative low contribution to the approximation of $X$.
+This is known as the "knee heuristic". 
 
 ```{r}
 ggbiplot::ggscreeplot(pca.1)
@@ -469,12 +509,34 @@ spca1 <- elasticnet::spca(state.similarity, K=2, type="Gram", sparse="penalty", 
 spca1$loadings
 ```
 
+Things to note: 
+
+- I used the `spca` function in the __elasticnet__ package.
+- Is the solutions sparse? Yes! PC2 depends on a single variable only: `Murder`.
 
 
 #### Kernel PCA
 ```{r kPCA, eval=FALSE}
-kernlab::kpca()
+```{r}
+library(kernlab)
+kpc <- kpca(~.,data=as.data.frame(USArrests.1), kernel="rbfdot", kpar=list(sigma=0.2), features=2)
+
+plot(rotated(kpc),
+     xlab="1st Principal Component",
+     ylab="2nd Principal Component")
+
+abline(h=0, v=0, lty=2)
+text(rotated(kpc), pos = 4, labels = rownames(USArrests.2))
 ```
+
+Things to note:
+
+- kPCA is implemented in `kernlab::kpca`. `kernel=` governs the class of variable mappings allowed for the scoring. 
+- See `?'kpca-class'` or `?rotated` for help on available utility functions.
+- `rotated` projects the data on its principal components (the above "scores").
+- `kpar=list(sigma=0.2)` provides parameters specific to each type of kernel. See `?kpca`.
+- `features=2` is the number of principal components (scores) to learn. 
+
 
 
 
@@ -734,9 +796,11 @@ head(cut.2.2)
 For more on PCA see my [Dimensionality Reduction Class Notes](https://github.com/johnros/dim_reduce/blob/master/dim_reduce.pdf) and references therein.
 For more on everything, see @friedman2001elements.
 For a softer introduction, see @james2013introduction.
+For an excellent book on kernel methods (RKHS) see @shawe2004kernel.
 
 ## Practice Yourself
 Read about the “Iris” dataset using `? iris`. Since we want to practice some unsupervised techniques, remove the `Species` column.
+
 1. Make pairs scatter plot. Can you identify some clusters in the data? 
 1. Perform K-means with `centers=3`. Perform Kmeans++. To extract the clustering results (cluster of each instance) use `kmeans$clusters`. Compare the accuracy of the two algorithms (use the species column from the original dataset). 
 1. Perform hierarchal clustering with `hclust`, `method=”single”` and `method=”average”`.Extract the clustering results with `cutree`.  Compare the accuracy of the two linkage methods.

@@ -126,9 +126,6 @@ In our bottle-caps example (\@ref(exm:fixed-effects)) the time (before vs. after
 In our diet example (\@ref(exm:random-effects)) the diet is the fixed effect and the family is a random effect.
 
 Notice that we state $y|x,z$ merely as a convenient way to do inference on $y|x$, instead of directly specifying $Var[y|x]$. 
-Using only the [law of total variance](https://en.wikipedia.org/wiki/Law_of_total_variance) we have $$Var[y|x]=E_z[Var_\varepsilon[y|x,z]]+Var_z[E_\varepsilon[y|x,z]]=\\
-Var[\varepsilon]+Var_z[x'\beta+z'u]=\\
-Var[\varepsilon]+u'Var[z]u.$$
 This is exactly the power of mixed-effect models: we specify the covariance not via the matrix $Var[y,z]$, but rather via the sampling hierarchy.
 
 Given a sample of $n$ observations $(y_i,x_i,z_i)$ from model \@ref(eq:mixed-model), we will want to estimate $(\beta,u)$.

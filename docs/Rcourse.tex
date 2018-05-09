@@ -125,7 +125,7 @@
 
 \title{R (BGU course)}
 \author{Jonathan D. Rosenblatt}
-\date{2018-04-28}
+\date{2018-05-09}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -4696,14 +4696,9 @@ the purpose of inference). In our diet example
 is a random effect.
 
 Notice that we state \(y|x,z\) merely as a convenient way to do
-inference on \(y|x\), instead of directly specifying \(Var[y|x]\). Using
-only the \href{https://en.wikipedia.org/wiki/Law_of_total_variance}{law
-of total variance} we have
-\[Var[y|x]=E_z[Var_\varepsilon[y|x,z]]+Var_z[E_\varepsilon[y|x,z]]=\\
-Var[\varepsilon]+Var_z[x'\beta+z'u]=\\
-Var[\varepsilon]+u'Var[z]u.\] This is exactly the power of mixed-effect
-models: we specify the covariance not via the matrix \(Var[y,z]\), but
-rather via the sampling hierarchy.
+inference on \(y|x\), instead of directly specifying \(Var[y|x]\). This
+is exactly the power of mixed-effect models: we specify the covariance
+not via the matrix \(Var[y,z]\), but rather via the sampling hierarchy.
 
 Given a sample of \(n\) observations \((y_i,x_i,z_i)\) from model
 \eqref{eq:mixed-model}, we will want to estimate \((\beta,u)\). Under some
@@ -6292,24 +6287,6 @@ The best predictor, is the risk minimizer:
   \label{eq:risk}  
 \end{align}
 
-To make things more explicit:
-
-\begin{itemize}
-\tightlist
-\item
-  \(f\) may be a linear function of the attributes, so that it may be
-  indexed simply with its coefficient vector \(\beta\).
-\item
-  \(l\) may be a squared error loss: \(l(f(x),y):=(f(x)-y)^2\).
-\end{itemize}
-
-Under these conditions, the best predictor \(f^* \in \mathcal{F}\) from
-problem \eqref{eq:risk} is to
-
-\begin{align}
-  f^* := argmin_\beta \{ \mathbb{E}_{P(x,y)}[(x'\beta-y)^2] \}.
-\end{align}
-
 Another fundamental problem is that we do not know the distribution of
 all possible inputs and outputs, \(P\). We typically only have a sample
 of \((x_i,y_i), i=1,\dots,n\). We thus state the \emph{empirical}
@@ -6336,12 +6313,30 @@ A good candidate proxy for \(f^*\) is its empirical counterpart,
   \label{eq:erm}  
 \end{align}
 
-Making things more explicit again by using a linear hypothesis with
-squared loss, we see that the empirical risk minimization problem
-collapses to an ordinary least-squares problem:
+To make things more explicit:
+
+\begin{itemize}
+\tightlist
+\item
+  \(f\) may be a linear function of the attributes, so that it may be
+  indexed simply with its coefficient vector \(\beta\).
+\item
+  \(l\) may be a squared error loss: \(l(f(x),y):=(f(x)-y)^2\).
+\end{itemize}
+
+Under these conditions, the best predictor \(f^* \in \mathcal{F}\) from
+problem \eqref{eq:risk} is to
 
 \begin{align}
-  \hat f := argmin_\beta \{ \sum_i (x_i'\beta - y_i)^2 \}.
+  f^* := argmin_\beta \{ \mathbb{E}_{P(x,y)}[(x'\beta-y)^2] \}.
+\end{align}
+
+When using a linear hypothesis with squared loss, we see that the
+empirical risk minimization problem collapses to an ordinary
+least-squares problem:
+
+\begin{align}
+  \hat f := argmin_\beta \{1/n \sum_i (x_i'\beta - y_i)^2 \}.
 \end{align}
 
 When data samples are assumingly independent, then maximum likelihood
@@ -6382,7 +6377,6 @@ complexity, are:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
   \textbf{Linear hypotheses}: such as linear models, GLMs, and (linear)
   support vector machines (SVM).
@@ -6400,10 +6394,6 @@ complexity, are:
   that is both large enough to capture very complicated relations, but
   small enough so that it is less prone to overfitting, and also
   surprisingly simple to compute with.
-\item
-  \textbf{Ensembles}: a ``meta'' hypothesis class, which consists of
-  taking multiple hypotheses, possibly from different classes, and
-  combining them.
 \end{enumerate}
 
 \subsection{Common Complexity
@@ -6422,7 +6412,7 @@ include:
   \textbf{Ridge penalty}: penalizing the \(l_2\) norm of the parameter.
   I.e. \(\Vert f \Vert=\Vert \beta \Vert_2^2=\sum_j \beta_j^2\).
 \item
-  \textbf{Lasso penalty}: penalizing the \(l_1\) norm of the parameter.
+  \textbf{LASSO penalty}: penalizing the \(l_1\) norm of the parameter.
   I.e., \(\Vert f \Vert=\Vert \beta \Vert_1=\sum_j |\beta_j|\)
 \item
   \textbf{Elastic net}: a combination of the lasso and ridge penalty.
@@ -6430,17 +6420,19 @@ include:
   ,\(\Vert f \Vert= \alpha \Vert \beta \Vert_2^2 + (1-\alpha) \Vert \beta \Vert_1\).
 \item
   \textbf{Function Norms}: If the hypothesis class \(\mathcal{F}\) does
-  not admit a finite dimensional representation, we may penalize it with
-  some functional norm such as \(\Vert f \Vert=\sqrt{\int f(t)^2 dt}\).
+  not admit a finite dimensional representation, the penalty is no
+  longer a function of the parameters of the function. We may, however,
+  penalize not the parametric representation of the function, but rather
+  the function itself \(\Vert f \Vert=\sqrt{\int f(t)^2 dt}\).
 \end{enumerate}
 
 \subsection{Unbiased Risk Estimation}\label{unbiased-risk-estimation}
 
 The fundamental problem of overfitting, is that the empirical risk,
 \(R_n(\hat f)\), is downward biased to the population risk,
-\(R(\hat f)\). Why is that? Unbiased estimation of \(R(f)\) broadly fall
-under: (a) purely algorithmic \emph{resampling} based approaches, and
-(b) theory driven estimators.
+\(R(\hat f)\). We can remove this bias in two ways: (a) purely
+algorithmic \emph{resampling} approaches, and (b) theory driven
+estimators.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6511,7 +6503,7 @@ Examples of such combos include:
   known as \emph{ridge regression}.
 \item
   Linear regression, \(l_1\) penalty, V-fold CV. This combo is typically
-  known as \emph{lasso regression}.
+  known as \emph{LASSO regression}.
 \item
   Linear regression, \(l_1\) and \(l_2\) penalty, V-fold CV. This combo
   is typically known as \emph{elastic net regression}.
@@ -6647,6 +6639,9 @@ Things to note:
   I use the \texttt{newdata} argument of the \texttt{predict} function
   to make the out-of-sample predictions required to compute the
   test-error.
+\item
+  The test error is larger than the train error. That is overfitting in
+  action.
 \end{itemize}
 
 We now implement a V-fold CV, instead of our train-test approach. The
@@ -6807,15 +6802,24 @@ selection} is a greedy approach that adds one variable at a time.
 ##     0.08798      0.53369      0.38879
 \end{verbatim}
 
-Things to note: - By default \texttt{step} add variables according to
-the
-\href{https://en.wikipedia.org/wiki/Akaike_information_criterion}{AIC}
-criterion, which is a theory-driven unbiased risk estimator. - We need
-to tell \texttt{step} which is the smallest and largest models to
-consider using the \texttt{scope} argument. - \texttt{direction=forward}
-is used to ``grow'' from a small model. For ``shrinking'' a large model,
-use \texttt{direction=backward}, or the default
-\texttt{direction=stepwise}.
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  By default \texttt{step} add variables according to the
+  \href{https://en.wikipedia.org/wiki/Akaike_information_criterion}{AIC}
+  criterion, which is a theory-driven unbiased risk estimator.
+\item
+  We need to tell \texttt{step} which is the smallest and largest models
+  to consider using the \texttt{scope} argument.
+\item
+  \texttt{direction=\textquotesingle{}forward\textquotesingle{}} is used
+  to ``grow'' from a small model. For ``shrinking'' a large model, use
+  \texttt{direction=\textquotesingle{}backward\textquotesingle{}}, or
+  the default
+  \texttt{direction=\textquotesingle{}stepwise\textquotesingle{}}.
+\end{itemize}
 
 We now learn a linear predictor on the \texttt{spam} data using, a least
 squares loss, and train-test risk estimator.
@@ -6877,24 +6881,38 @@ squares loss, and train-test risk estimator.
 ## [1] 0.1283871
 \end{verbatim}
 
-Things to note: - I can use \texttt{lm} for categorical outcomes.
-\texttt{lm} will simply dummy-code the outcome. - A linear predictor
-trained on 0's and 1's will predict numbers. Think of these numbers as
-the probability of 1, and my prediction is the most probable class:
-\texttt{predicts()\textgreater{}0.5}. - The train error is smaller than
-the test error. This is overfitting in action.
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  I can use \texttt{lm} for categorical outcomes. \texttt{lm} will
+  simply dummy-code the outcome.
+\item
+  A linear predictor trained on 0's and 1's will predict numbers. Think
+  of these numbers as the probability of 1, and my prediction is the
+  most probable class: \texttt{predicts()\textgreater{}0.5}.
+\item
+  The train error is smaller than the test error. This is overfitting in
+  action.
+\end{itemize}
 
 The \texttt{glmnet} package is an excellent package that provides ridge,
-lasso, and elastic net regularization, for all GLMs, so for linear
+LASSO, and elastic net regularization, for all GLMs, so for linear
 models in particular.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{suppressMessages}\NormalTok{(}\KeywordTok{library}\NormalTok{(glmnet))}
-\NormalTok{ridge.}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\KeywordTok{glmnet}\NormalTok{(}\DataTypeTok{x=}\KeywordTok{scale}\NormalTok{(X.train), }\DataTypeTok{y=}\NormalTok{y.train, }\DataTypeTok{family =} \StringTok{'gaussian'}\NormalTok{, }\DataTypeTok{alpha =} \DecValTok{0}\NormalTok{)}
+
+\NormalTok{means <-}\StringTok{ }\KeywordTok{apply}\NormalTok{(X.train, }\DecValTok{2}\NormalTok{, mean)}
+\NormalTok{sds <-}\StringTok{ }\KeywordTok{apply}\NormalTok{(X.train, }\DecValTok{2}\NormalTok{, sd)}
+\NormalTok{X.train.scaled <-}\StringTok{ }\NormalTok{X.train }\OperatorTok{%>%}\StringTok{ }\KeywordTok{sweep}\NormalTok{(}\DataTypeTok{MARGIN =} \DecValTok{2}\NormalTok{, }\DataTypeTok{STATS =}\NormalTok{ means, }\DataTypeTok{FUN =} \StringTok{`}\DataTypeTok{-}\StringTok{`}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{sweep}\NormalTok{(}\DataTypeTok{MARGIN =} \DecValTok{2}\NormalTok{, }\DataTypeTok{STATS =}\NormalTok{ sds, }\DataTypeTok{FUN =} \StringTok{`}\DataTypeTok{/}\StringTok{`}\NormalTok{)}
+\NormalTok{ridge.}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\KeywordTok{glmnet}\NormalTok{(}\DataTypeTok{x=}\NormalTok{X.train.scaled, }\DataTypeTok{y=}\NormalTok{y.train, }\DataTypeTok{family =} \StringTok{'gaussian'}\NormalTok{, }\DataTypeTok{alpha =} \DecValTok{0}\NormalTok{)}
 
 \CommentTok{# Train error:}
-\KeywordTok{MSE}\NormalTok{( }\KeywordTok{predict}\NormalTok{(ridge.}\DecValTok{2}\NormalTok{, }\DataTypeTok{newx =}\KeywordTok{scale}\NormalTok{(X.train))}\OperatorTok{-}\StringTok{ }\NormalTok{y.train)}
+\KeywordTok{MSE}\NormalTok{( }\KeywordTok{predict}\NormalTok{(ridge.}\DecValTok{2}\NormalTok{, }\DataTypeTok{newx =}\NormalTok{X.train.scaled)}\OperatorTok{-}\StringTok{ }\NormalTok{y.train)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6905,12 +6923,14 @@ models in particular.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# Test error:}
-\KeywordTok{MSE}\NormalTok{( }\KeywordTok{predict}\NormalTok{(ridge.}\DecValTok{2}\NormalTok{, }\DataTypeTok{newx =} \KeywordTok{scale}\NormalTok{(X.test))}\OperatorTok{-}\StringTok{ }\NormalTok{y.test)}
+\NormalTok{X.test.scaled <-}\StringTok{ }\NormalTok{X.test }\OperatorTok{%>%}\StringTok{ }\KeywordTok{sweep}\NormalTok{(}\DataTypeTok{MARGIN =} \DecValTok{2}\NormalTok{, }\DataTypeTok{STATS =}\NormalTok{ means, }\DataTypeTok{FUN =} \StringTok{`}\DataTypeTok{-}\StringTok{`}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{sweep}\NormalTok{(}\DataTypeTok{MARGIN =} \DecValTok{2}\NormalTok{, }\DataTypeTok{STATS =}\NormalTok{ sds, }\DataTypeTok{FUN =} \StringTok{`}\DataTypeTok{/}\StringTok{`}\NormalTok{)}
+\KeywordTok{MSE}\NormalTok{(}\KeywordTok{predict}\NormalTok{(ridge.}\DecValTok{2}\NormalTok{, }\DataTypeTok{newx =}\NormalTok{ X.test.scaled)}\OperatorTok{-}\StringTok{ }\NormalTok{y.test)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.7662527
+## [1] 0.7678264
 \end{verbatim}
 
 Things to note:
@@ -6918,32 +6938,33 @@ Things to note:
 \begin{itemize}
 \tightlist
 \item
-  We use the \texttt{scale} function to z-score the predictors. This is
-  recommended when regularizing, because we do not want the penalization
-  to depend on the scale of the predictor. Do not \texttt{scale} on the
-  whole data and then split to train and test. Rather, split and then
-  \texttt{scale}.
-\item
   The \texttt{alpha=0} parameters tells R to do ridge regression.
-  Setting \(alpha=1\) will do lasso, and any other value, with return an
+  Setting \(alpha=1\) will do LASSO, and any other value, with return an
   elastic net with appropriate weights.
 \item
   The \texttt{family=\textquotesingle{}gaussian\textquotesingle{}}
   argument tells R to fit a linear model, with least squares loss.
+\item
+  Features for regularized predictors should be z-scored before
+  learning.
+\item
+  We use the \texttt{sweep} function to z-score the predictors: we learn
+  the z-scoring from the train set, and apply it to both the train and
+  the test.
 \item
   The test error is \textbf{smaller} than the train error. This may
   happen because risk estimators are random. Their variance may mask the
   overfitting.
 \end{itemize}
 
-We now use the lasso penalty.
+We now use the LASSO penalty.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lasso.}\DecValTok{1}\NormalTok{ <-}\StringTok{ }\KeywordTok{glmnet}\NormalTok{(}\DataTypeTok{x=}\KeywordTok{scale}\NormalTok{(X.train), }\DataTypeTok{y=}\NormalTok{y.train, , }\DataTypeTok{family=}\StringTok{'gaussian'}\NormalTok{, }\DataTypeTok{alpha =} \DecValTok{1}\NormalTok{)}
+\NormalTok{lasso.}\DecValTok{1}\NormalTok{ <-}\StringTok{ }\KeywordTok{glmnet}\NormalTok{(}\DataTypeTok{x=}\NormalTok{X.train.scaled, }\DataTypeTok{y=}\NormalTok{y.train, , }\DataTypeTok{family=}\StringTok{'gaussian'}\NormalTok{, }\DataTypeTok{alpha =} \DecValTok{1}\NormalTok{)}
 
 \CommentTok{# Train error:}
-\KeywordTok{MSE}\NormalTok{( }\KeywordTok{predict}\NormalTok{(lasso.}\DecValTok{1}\NormalTok{, }\DataTypeTok{newx =}\KeywordTok{scale}\NormalTok{(X.train))}\OperatorTok{-}\StringTok{ }\NormalTok{y.train)}
+\KeywordTok{MSE}\NormalTok{( }\KeywordTok{predict}\NormalTok{(lasso.}\DecValTok{1}\NormalTok{, }\DataTypeTok{newx =}\NormalTok{X.train.scaled)}\OperatorTok{-}\StringTok{ }\NormalTok{y.train)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6954,19 +6975,24 @@ We now use the lasso penalty.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# Test error:}
-\KeywordTok{MSE}\NormalTok{( }\KeywordTok{predict}\NormalTok{(lasso.}\DecValTok{1}\NormalTok{, }\DataTypeTok{newx =} \KeywordTok{scale}\NormalTok{(X.test))}\OperatorTok{-}\StringTok{ }\NormalTok{y.test)}
+\KeywordTok{MSE}\NormalTok{( }\KeywordTok{predict}\NormalTok{(lasso.}\DecValTok{1}\NormalTok{, }\DataTypeTok{newx =}\NormalTok{ X.test.scaled)}\OperatorTok{-}\StringTok{ }\NormalTok{y.test)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.547752
+## [1] 0.5211263
 \end{verbatim}
 
 We now use \texttt{glmnet} for classification.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{logistic.}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\KeywordTok{cv.glmnet}\NormalTok{(}\DataTypeTok{x=}\KeywordTok{scale}\NormalTok{(X.train.spam), }\DataTypeTok{y=}\NormalTok{y.train.spam, }\DataTypeTok{family =} \StringTok{"binomial"}\NormalTok{, }\DataTypeTok{alpha =} \DecValTok{0}\NormalTok{)}
+\NormalTok{means.spam <-}\StringTok{ }\KeywordTok{apply}\NormalTok{(X.train.spam, }\DecValTok{2}\NormalTok{, mean)}
+\NormalTok{sds.spam <-}\StringTok{ }\KeywordTok{apply}\NormalTok{(X.train.spam, }\DecValTok{2}\NormalTok{, sd)}
+\NormalTok{X.train.spam.scaled <-}\StringTok{ }\NormalTok{X.train.spam }\OperatorTok{%>%}\StringTok{ }\KeywordTok{sweep}\NormalTok{(}\DataTypeTok{MARGIN =} \DecValTok{2}\NormalTok{, }\DataTypeTok{STATS =}\NormalTok{ means.spam, }\DataTypeTok{FUN =} \StringTok{`}\DataTypeTok{-}\StringTok{`}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{sweep}\NormalTok{(}\DataTypeTok{MARGIN =} \DecValTok{2}\NormalTok{, }\DataTypeTok{STATS =}\NormalTok{ sds.spam, }\DataTypeTok{FUN =} \StringTok{`}\DataTypeTok{/}\StringTok{`}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\NormalTok{as.matrix}
+
+\NormalTok{logistic.}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\KeywordTok{cv.glmnet}\NormalTok{(}\DataTypeTok{x=}\NormalTok{X.train.spam.scaled, }\DataTypeTok{y=}\NormalTok{y.train.spam, }\DataTypeTok{family =} \StringTok{"binomial"}\NormalTok{, }\DataTypeTok{alpha =} \DecValTok{0}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6980,11 +7006,10 @@ Things to note:
   \texttt{glmnet}) using V-fold CV.
 \item
   Just like the \texttt{glm} function,
-  \texttt{family=\textquotesingle{}binomial\textquotesingle{}} is used
-  for logistic regression.
+  \texttt{\textquotesingle{}family=\textquotesingle{}binomial\textquotesingle{}}
+  is used for logistic regression.
 \item
-  We use \texttt{scale} to z-score predictors so that they are all in
-  the same scale.
+  We z-scored features so that they all have the same scale.
 \item
   We set \texttt{alpha=0} for an \(l_2\) penalization of the
   coefficients of the logistic regression.
@@ -6993,7 +7018,7 @@ Things to note:
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# Train confusion matrix:}
-\NormalTok{.predictions.train <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(logistic.}\DecValTok{2}\NormalTok{, }\DataTypeTok{newx =} \KeywordTok{scale}\NormalTok{(X.train.spam), }\DataTypeTok{type =} \StringTok{'class'}\NormalTok{) }
+\NormalTok{.predictions.train <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(logistic.}\DecValTok{2}\NormalTok{, }\DataTypeTok{newx =}\NormalTok{ X.train.spam.scaled, }\DataTypeTok{type =} \StringTok{'class'}\NormalTok{) }
 \NormalTok{(confusion.train <-}\StringTok{ }\KeywordTok{table}\NormalTok{(}\DataTypeTok{prediction=}\NormalTok{.predictions.train, }\DataTypeTok{truth=}\NormalTok{spam.train}\OperatorTok{$}\NormalTok{spam))}
 \end{Highlighting}
 \end{Shaded}
@@ -7019,7 +7044,10 @@ Things to note:
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# Test confusion matrix:}
-\NormalTok{.predictions.test <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(logistic.}\DecValTok{2}\NormalTok{, }\DataTypeTok{newx =} \KeywordTok{scale}\NormalTok{(X.test.spam), }\DataTypeTok{type=}\StringTok{'class'}\NormalTok{) }
+\NormalTok{X.test.spam.scaled <-}\StringTok{ }\NormalTok{X.test.spam }\OperatorTok{%>%}\StringTok{ }\KeywordTok{sweep}\NormalTok{(}\DataTypeTok{MARGIN =} \DecValTok{2}\NormalTok{, }\DataTypeTok{STATS =}\NormalTok{ means.spam, }\DataTypeTok{FUN =} \StringTok{`}\DataTypeTok{-}\StringTok{`}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{sweep}\NormalTok{(}\DataTypeTok{MARGIN =} \DecValTok{2}\NormalTok{, }\DataTypeTok{STATS =}\NormalTok{ sds.spam, }\DataTypeTok{FUN =} \StringTok{`}\DataTypeTok{/}\StringTok{`}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\NormalTok{as.matrix}
+
+\NormalTok{.predictions.test <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(logistic.}\DecValTok{2}\NormalTok{, }\DataTypeTok{newx =}\NormalTok{ X.test.spam.scaled, }\DataTypeTok{type=}\StringTok{'class'}\NormalTok{) }
 \NormalTok{(confusion.test <-}\StringTok{ }\KeywordTok{table}\NormalTok{(}\DataTypeTok{prediction=}\NormalTok{.predictions.test, }\DataTypeTok{truth=}\NormalTok{y.test.spam))}
 \end{Highlighting}
 \end{Shaded}
@@ -7027,8 +7055,8 @@ Things to note:
 \begin{verbatim}
 ##           truth
 ## prediction email spam
-##      email   878  110
-##      spam     66  496
+##      email   885  110
+##      spam     59  496
 \end{verbatim}
 
 \begin{Shaded}
@@ -7039,7 +7067,7 @@ Things to note:
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1135484
+## [1] 0.1090323
 \end{verbatim}
 
 \subsection{SVM}\label{svm}
@@ -7055,7 +7083,7 @@ most popular implementation of SVM today.
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(e1071)}
-\NormalTok{svm.}\DecValTok{1}\NormalTok{ <-}\StringTok{ }\KeywordTok{svm}\NormalTok{(spam}\OperatorTok{~}\NormalTok{., }\DataTypeTok{data =}\NormalTok{ spam.train)}
+\NormalTok{svm.}\DecValTok{1}\NormalTok{ <-}\StringTok{ }\KeywordTok{svm}\NormalTok{(spam}\OperatorTok{~}\NormalTok{., }\DataTypeTok{data =}\NormalTok{ spam.train, }\DataTypeTok{kernel=}\StringTok{'linear'}\NormalTok{)}
 
 \CommentTok{# Train confusion matrix:}
 \NormalTok{.predictions.train <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(svm.}\DecValTok{1}\NormalTok{) }
@@ -7066,8 +7094,8 @@ most popular implementation of SVM today.
 \begin{verbatim}
 ##           truth
 ## prediction email spam
-##      email  1776  101
-##      spam     55 1064
+##      email  1774  106
+##      spam     70 1101
 \end{verbatim}
 
 \begin{Shaded}
@@ -7077,7 +7105,7 @@ most popular implementation of SVM today.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.05206943
+## [1] 0.057686
 \end{verbatim}
 
 \begin{Shaded}
@@ -7091,8 +7119,8 @@ most popular implementation of SVM today.
 \begin{verbatim}
 ##           truth
 ## prediction email spam
-##      email   919   66
-##      spam     38  582
+##      email   876   75
+##      spam     68  531
 \end{verbatim}
 
 \begin{Shaded}
@@ -7102,14 +7130,14 @@ most popular implementation of SVM today.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.06479751
+## [1] 0.09225806
 \end{verbatim}
 
 We can also use SVM for regression.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{svm.}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\KeywordTok{svm}\NormalTok{(lcavol}\OperatorTok{~}\NormalTok{., }\DataTypeTok{data =}\NormalTok{ prostate.train)}
+\NormalTok{svm.}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\KeywordTok{svm}\NormalTok{(lcavol}\OperatorTok{~}\NormalTok{., }\DataTypeTok{data =}\NormalTok{ prostate.train, }\DataTypeTok{kernel=}\StringTok{'linear'}\NormalTok{)}
 
 \CommentTok{# Train error:}
 \KeywordTok{MSE}\NormalTok{( }\KeywordTok{predict}\NormalTok{(svm.}\DecValTok{2}\NormalTok{)}\OperatorTok{-}\StringTok{ }\NormalTok{prostate.train}\OperatorTok{$}\NormalTok{lcavol)}
@@ -7117,7 +7145,7 @@ We can also use SVM for regression.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.3336868
+## [1] 0.4488577
 \end{verbatim}
 
 \begin{Shaded}
@@ -7128,8 +7156,18 @@ We can also use SVM for regression.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.5633183
+## [1] 0.5547759
 \end{verbatim}
+
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  The use of \texttt{kernel=\textquotesingle{}linear\textquotesingle{}}
+  forces the predictor to be linear. Various hypothesis classes may be
+  used by changing the \texttt{kernel} argument.
+\end{itemize}
 
 \subsection{Neural Nets}\label{neural-nets}
 
@@ -7216,6 +7254,10 @@ And nnet classification.
 ## [1] 0.07032258
 \end{verbatim}
 
+\subsubsection{Deep Nets}\label{deep-nets}
+
+TODO
+
 \subsection{Classification and Regression Trees
 (CART)}\label{classification-and-regression-trees-cart}
 
@@ -7268,7 +7310,7 @@ the predictor.
 
 \includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-192-1}
 
-Tree are very prone to overfitting. To avoid this, we reduce a tree's
+Trees are very prone to overfitting. To avoid this, we reduce a tree's
 complexity by \emph{pruning} it. This is done with the \texttt{prune}
 function (not demonstrated herein).
 
@@ -7332,15 +7374,33 @@ TODO
 
 \subsection{K-nearest neighbour (KNN)}\label{k-nearest-neighbour-knn}
 
-KNN is not an ERM problem. It is so fundamental, however, that we still
-show how to fit such a hypothesis class. Is it good? I have never seen a
+KNN is not an ERM problem. In the KNN algorithm, a prediction at some
+\(x\) is made based on the \(y\) is it neighbours. This means that:
+
+\begin{itemize}
+\tightlist
+\item
+  KNN is an
+  \href{https://en.wikipedia.org/wiki/Instance-based_learning}{Instance
+  Based} learning algorith where we do not learn the values of some
+  parametric fnuction, but rather, need the original sample to make
+  predictions. This has many implications when dealing with ``BigData''.
+\item
+  It may only be applied in spaces with known/defined matric. It is thus
+  harder to apply in the presence of missing values, or in
+  ``string-spaces'', ``genome-spaces'', etc. where no canonical metric
+  exists.
+\end{itemize}
+
+KNN is so fundamental that we show how to fit such a hypothesis class,
+even if it not an ERM algorith. Is KNN any good? I have never seen a
 learning problem where KNN beats other methods. Others claim
 differently.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(class)}
-\NormalTok{knn.}\DecValTok{1}\NormalTok{ <-}\StringTok{ }\KeywordTok{knn}\NormalTok{(}\DataTypeTok{train =} \KeywordTok{scale}\NormalTok{(X.train.spam), }\DataTypeTok{test =} \KeywordTok{scale}\NormalTok{(X.test.spam), }\DataTypeTok{cl =}\NormalTok{y.train.spam, }\DataTypeTok{k =} \DecValTok{1}\NormalTok{)}
+\NormalTok{knn.}\DecValTok{1}\NormalTok{ <-}\StringTok{ }\KeywordTok{knn}\NormalTok{(}\DataTypeTok{train =}\NormalTok{ X.train.spam.scaled, }\DataTypeTok{test =}\NormalTok{ X.test.spam.scaled, }\DataTypeTok{cl =}\NormalTok{y.train.spam, }\DataTypeTok{k =} \DecValTok{1}\NormalTok{)}
 
 \CommentTok{# Test confusion matrix:}
 \NormalTok{.predictions.test <-}\StringTok{ }\NormalTok{knn.}\DecValTok{1} 
@@ -7351,8 +7411,8 @@ differently.
 \begin{verbatim}
 ##           truth
 ## prediction email spam
-##      email   858   84
-##      spam     86  522
+##      email   856   86
+##      spam     88  520
 \end{verbatim}
 
 \begin{Shaded}
@@ -7362,7 +7422,7 @@ differently.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1096774
+## [1] 0.1122581
 \end{verbatim}
 
 \subsection{Linear Discriminant Analysis
@@ -7428,11 +7488,9 @@ however, some dedicated functions to fit it which we now introduce.
 
 \subsection{Naive Bayes}\label{naive-bayes}
 
-A Naive-Bayes classifier is also not part of the ERM framework. It is
-very popular, so we present it. It can be thought of LDA, i.e.~linear
-regression, where predictors are assume to be uncorrelated. This may not
-be true, and take its toll on accuracy, but it makes computations
-extremely fast.
+Naive-Bayes can be thought of LDA, i.e.~linear regression, where
+predictors are assume to be uncorrelated. Predictions may be very good
+and certianly very fast, even if this assumption is not true.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7497,7 +7555,7 @@ TODO
 
 \subsection{Gradient Boosting}\label{gradient-boosting}
 
-\subsubsection{The gbm Package}\label{the-gbm-package}
+TODO \#\#\#\# The gbm Package
 
 \subsubsection{The xgboost Package}\label{the-xgboost-package}
 
@@ -7537,7 +7595,7 @@ Deep-Nets in R see
     Now, try the same with a ridge penalty using \texttt{glmnet}
     (\texttt{alpha=0}).
   \item
-    Do the same with a lasso penalty (\texttt{alpha=1}).
+    Do the same with a LASSO penalty (\texttt{alpha=1}).
   \item
     Compare the test MSE of the three models. Which is the best ?
   \end{enumerate}
@@ -7561,15 +7619,15 @@ Deep-Nets in R see
 This chapter deals with machine learning problems which are
 unsupervised. This means the machine has access to a set of inputs,
 \(x\), but the desired outcome, \(y\) is not available. Clearly,
-learning a relation between inputs and outcomes is impossible, but there
-are still a lot of problems of interest. In particular, we may want to
-find a compact representation of the inputs, be it for visualization of
-further processing. This is the problem of \emph{dimensionality
-reduction}. For the same reasons we may want to group similar inputs.
-This is the problem of \emph{clustering}.
+learning a relation between inputs and outcomes makes no sense, but
+there are still a lot of problems of interest. In particular, we may
+want to find a compact representation of the inputs, be it for
+visualization of further processing. This is the problem of
+\emph{dimensionality reduction}. For the same reasons we may want to
+group similar inputs. This is the problem of \emph{clustering}.
 
-In the statistical terminology, and with some exceptions, this chapter
-can be thought of as multivariate \textbf{exploratory} statistics. For
+In the statistical terminology, with some exceptions, this chapter can
+be thought of as multivariate \textbf{exploratory} statistics. For
 multivariate \textbf{inference}, see Chapter \ref{multivariate}.
 
 \section{Dimensionality Reduction}\label{dim-reduce}
@@ -7679,7 +7737,7 @@ scores that best separate between states.
 ## Rape    -0.5393836 -0.8179779 -0.1999436
 \end{verbatim}
 
-Things to note:
+Things to note and terminology:
 
 \begin{itemize}
 \item
@@ -7714,13 +7772,43 @@ Things to note:
 variables, but only with the first \(2\) PCs (for example), we have
 reduced the dimensionality of the data.}
 
+\subsubsection{Mathematics of PCA}\label{mathematics-of-pca}
+
+What is the mathematical problem that is actually solved with PCA?
+Finding a linear combination, \(v\), so that of \(v'x\) best separates
+individuals. Best separation implies that the variance of \(v'x\) is
+maximal. Clearly, \(Var[v'x]\) may explode if any \(v\) is allowed, so
+we need to pick \(v\) from some fair set. It is most convenient,
+mathematically, to constrain the \(l_2\) norm to some constant:
+\(\Vert v \Vert^2_2=\sum v_j^2=1\). The first ``best separating score'',
+known as the first \emph{principal component} (PC), is thus
+\[v_1'x \quad s.t. \quad v_1=argmax_{v}\{Var[v'x], \text{ and } \Vert v \Vert_2=1  \} .\]
+The second PC, is the same, only that it is required to be orthogonal to
+the first PC:
+\[v_2'x \quad s.t. \quad v_2=argmax_{v}\{Var[v'x], \text{ and } \Vert v \Vert_2=1, \text{ and } v'v_1=0 \} .\]
+One can recover \(min\{n,p\}\) PCs. The construction of the next PCs
+follows the same lines: find a linear transformation of the data that
+best separates observations and is orthogonal to the previous PCs.
+
+\subsubsection{How Hard is the PCA
+Problem?}\label{how-hard-is-the-pca-problem}
+
+Estimating all the PCs in the data is well defined algebraically if
+\(n>p\) so viewing PCA as an exploratory tool, it is not a hard problem.
+On the other hand, if viewing it as an inference tool, for inference on
+some population, then this is quite a hard problem. This is because
+recovering all the PCs is equivalent to estimating a covariance matrix.
+As we already saw in the Multivaraite Statistics Chapter
+(\ref{multivariate}), estimating covariances is a hard task, we thus
+recommend: don't trust your PCs if \(n\) is not much larger than \(p\),
+and see the bibliographic notes for futher details.
+
 \subsection{Dimensionality Reduction
 Preliminaries}\label{dimensionality-reduction-preliminaries}
 
 Before presenting methods other than PCA, we need some terminology.
 
 \begin{itemize}
-\tightlist
 \item
   \textbf{Variable}: A.k.a. \emph{dimension}, or \emph{feature}, or
   \emph{column}.
@@ -7752,7 +7840,10 @@ Before presenting methods other than PCA, we need some terminology.
 \begin{figure}
 \centering
 \includegraphics{art/sphx_glr_plot_manifold_sphere_001.png}
-\caption{Various embedding algorithms. Source:
+\caption{Various embedding algorithms. No embedding of the sphere to the
+plane is perfect. This is obviously not new.
+\href{https://en.wikipedia.org/wiki/Map_projection}{Maps makers} have
+known this for centuries!Source:
 \url{http://scikit-learn.org/stable/auto_examples/manifold/plot_manifold_sphere.html\#sphx-glr-auto-examples-manifold-plot-manifold-sphere-py}}
 \end{figure}
 
@@ -7760,7 +7851,6 @@ There are many motivations for dimensionality reduction:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
   \textbf{Scoring}: Give each observation an interpretable, simple score
   (Hotelling's motivation).
@@ -7799,7 +7889,7 @@ some linear function of a single personality attribute, \(s_i\). We can
 think of \(s_i\) as the subject's ``intelligence''. We thus have
 
 \begin{align}
-    x_i = A s_i + \varepsilon_i
+    x_i = s_i A  + \varepsilon_i
 \end{align}
 
 And in matrix notation:
@@ -7822,12 +7912,7 @@ assumptions on the distribution of \(S\) and \(\varepsilon\), recovering
 \(S\) from \(\widehat{S A }\) is still impossible as there are
 infinitely many such solutions. In the statistical parlance we say the
 problem is \emph{non identifiable}, and in the applied mathematics
-parlance we say the problem is \emph{ill posed}. To see this, consider
-an orthogonal \emph{rotation} matrix \(R\) (\(R' R=I\)). For each such
-\(R\): \(S A = S R' R A = S^* A^*\). While both solve
-Eq.\eqref{eq:factor}, \(A\) and \(A^*\) may have very different
-interpretations. This is why many researchers find FA an unsatisfactory
-inference tool.
+parlance we say the problem is \emph{ill posed}.
 
 \BeginKnitrBlock{remark}
 \iffalse{} {Remark. } \fi{}The non-uniqueness (non-identifiability) of
@@ -7838,20 +7923,9 @@ does not seek a single \(S\) but rather a \textbf{sequence} of \(S_q\)
 with dimensions growing from \(q=1\) to \(q=p\).
 \EndKnitrBlock{remark}
 
-\BeginKnitrBlock{remark}
-\iffalse{} {Remark. } \fi{}In classical FA in Eq.\eqref{eq:factor} is
-clearly an embedding to a linear space: the one spanned by \(S\). Under
-the classical probabilistic assumptions on \(S\) and \(\varepsilon\) the
-embedding itself is also linear, and is sometimes solved with PCA. Being
-a generative model, there is no restriction for the embedding to be
-linear, and there certainly exists sets of assumptions for which the FA
-returns a non linear embedding into a linear space.
-\EndKnitrBlock{remark}
-
 The FA terminology is slightly different than PCA:
 
 \begin{itemize}
-\tightlist
 \item
   \textbf{Factors}: The unobserved attributes \(S\). Akin to the
   \emph{principal components} in PCA.
@@ -7880,7 +7954,8 @@ if not confused, with PCA and even more so with FA.
 
 The fundamental idea of ICA is that \(S\) has a joint distribution of
 \textbf{non-Gaussian}, \textbf{independent} variables. This independence
-assumption, solves the the non-uniqueness of \(S\) in FA.
+assumption, solves the the non-uniqueness of \(S\) in FA. As such, it
+can be thought of as a type of rotation in FA.
 
 Being a generative model, estimation of \(S\) can then be done using
 maximum likelihood, or other estimation principles.
@@ -7902,20 +7977,19 @@ rather they were not motivated as such.
 (MDS)}\label{multidimensional-scaling-mds}
 
 MDS can be thought of as a variation on PCA, that begins with the
-\(n \times n\) graph\footnote{The term Graph is typically used in this
-  context instead of Network. But a graph allows only yes/no relations,
-  while a network, which is a weighted graph, allows a continuous
-  measure of similarity (or dissimilarity). \emph{Network} is thus more
-  appropriate than \emph{graph}.} of distances between data points, and
-not the original \(n \times p\) data.
+\(n \times n\) graph\^{} of distances between data points, and not the
+original \(n \times p\) data. The term \emph{graph} is typically used in
+this context, but saying \emph{network} instead of \emph{graph} is more
+appropriate. This is because a graph encodes connections (topology) and
+networks encode distances (geometry).
 
-MDS aims at embedding a graph of distances, while preserving the
-original distances. Basic results in graph/network theory
-\citep{graham1988isometric} suggest that the geometry of a graph cannot
-be preserved when embedding it into lower dimensions. The different
-types of MDSs, such as \emph{Classical MDS}, and \emph{Sammon Mappings},
-differ in the \emph{stress function} penalizing for geometric
-distortion.
+MDS aims at embedding a graph of distances into the plane, typically for
+visualization, while preserving the original distances. Basic results in
+graph/network theory \citep{graham1988isometric} suggest that the
+geometry of a graph cannot be preserved when embedding it into lower
+dimensions. The different types of MDSs, such as \emph{Classical MDS},
+and \emph{Sammon Mappings}, differ in the \emph{stress function} that
+penalizes for the geometric distortion caused by the embedding.
 
 \subsubsection{Local Multidimensional Scaling (Local
 MDS)}\label{local-multidimensional-scaling-local-mds}
@@ -7937,14 +8011,14 @@ geodesic distances along the cortex's surface\footnote{Then again, it is
 
 Local MDS is aimed at solving the case where we don't know how to
 properly measure distances. It is an algorithm that compounds both the
-construction of the dissimilarity graph, and the embedding. The solution
-of local MDS, as the name suggests, rests on the computation of
+construction of the dissimilarity/distance graph, and the embedding. The
+solution of local MDS, as the name suggests, rests on the computation of
 \emph{local} distances, where the Euclidean assumption may still be
 plausible, and then aggregate many such local distances, before calling
 upon regular MDS for the embedding.
 
 Because local MDS ends with a regular MDS, it can be seen as a
-non-linear embedding into a linear \(\mathcal{M}\).
+non-linear embedding into a linear manifold \(\mathcal{M}\).
 
 Local MDS is not popular. Why is this? Because it makes no sense: If we
 believe the points reside in a non-Euclidean space, thus motivating the
@@ -7962,24 +8036,28 @@ the distances, is local.
 
 Very similar to IsoMap \ref{isomap}.
 
-\subsubsection{Kernel PCA}\label{kernel-pca}
+\subsubsection{Kernel PCA (kPCA)}\label{kernel-pca-kpca}
 
-TODO
+Returning to the BMI example (\ref{exm:bmi}); what if we want to learn
+scores that best separate between individuals, but inlike PCA, are
+non-linear in the original features. Kernel PCA does just that, only
+that it restricts the possible scores to simple functions of the
+original variables. The allowed functions resides in a function space
+called Reproducing Kernel Hilbert Space (RKHS), this giving kPCA it's
+name.
 
-\subsubsection{Simplified Component Technique LASSO
-(SCoTLASS)}\label{simplified-component-technique-lasso-scotlass}
+\subsubsection{Sparse PCA (sPCA)}\label{sparse-pca-spca}
 
-TODO
+sPCA is a type of PCA where the loadings are sparse. This means that PCs
+are linear combinations of a small number of variables. This makes sPCA
+easier to interpret. Note that the \emph{varimax} rotation of
+factor-analysis has a similar goal: create factors with minimialy
+contributing variables, so that they are easy to explain.
 
-\subsubsection{Sparse Principal Component Analysis
-(sPCA)}\label{sparse-principal-component-analysis-spca}
+\subsubsection{Sparse kernel PCA (skPCA)}\label{sparse-kernel-pca-skpca}
 
-TODO
-
-\subsubsection{Sparse kernel principal component analysis
-(skPCA)}\label{sparse-kernel-principal-component-analysis-skpca}
-
-TODO
+A marriage between sPCA and kPCA: generate scores that are non linear
+transformations of a minimal number of variables, each.
 
 \subsection{Dimensionality Reduction in
 R}\label{dimensionality-reduction-in-r}
@@ -7992,13 +8070,13 @@ visualize the output of PCA.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(devtools)}
+\CommentTok{# library(devtools)}
 \CommentTok{# install_github("vqv/ggbiplot")}
 \NormalTok{ggbiplot}\OperatorTok{::}\KeywordTok{ggbiplot}\NormalTok{(pca.}\DecValTok{1}\NormalTok{) }
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-198-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-197-1}
 
 Things to note:
 
@@ -8020,10 +8098,11 @@ Things to note:
 \end{itemize}
 
 The \emph{scree plot} depicts the quality of the approximation of \(X\)
-as \(q\) grows. This is depicted using the proportion of variability in
-\(X\) that is removed by each added PC. It is customary to choose \(q\)
-as the first PC that has a relative low contribution to the
-approximation of \(X\).
+as \(q\) grows, i.e., as we add more and more PCs to explain the data.
+This is depicted using the proportion of variability in \(X\) that is
+removed by each added PC. It is customary to choose \(q\) as the first
+PC that has a relative low contribution to the approximation of \(X\).
+This is known as the ``knee heuristic''.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8031,12 +8110,12 @@ approximation of \(X\).
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-199-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-198-1}
 
 See how the first PC captures the variability in the Assault levels and
 Murder levels, with a single score.
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-200-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-199-1}
 
 More implementations of PCA:
 
@@ -8157,7 +8236,7 @@ the arrow.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-201-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-200-1}
 
 Let's add a rotation (Varimax), and note that the rotation has indeed
 changed the loadings of the variables, thus the interpretation of the
@@ -8310,13 +8389,55 @@ Things to note:
 ## Rape    -0.07364392  -1
 \end{verbatim}
 
-\subsubsection{Kernel PCA}\label{kernel-pca-1}
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  I used the \texttt{spca} function in the \textbf{elasticnet} package.
+\item
+  Is the solutions sparse? Yes! PC2 depends on a single variable only:
+  \texttt{Murder}.
+\end{itemize}
+
+\subsubsection{Kernel PCA}\label{kernel-pca}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{kernlab}\OperatorTok{::}\KeywordTok{kpca}\NormalTok{()}
+\KeywordTok{library}\NormalTok{(kernlab)}
+\NormalTok{kpc <-}\StringTok{ }\KeywordTok{kpca}\NormalTok{(}\OperatorTok{~}\NormalTok{.,}\DataTypeTok{data=}\KeywordTok{as.data.frame}\NormalTok{(USArrests.}\DecValTok{1}\NormalTok{), }\DataTypeTok{kernel=}\StringTok{"rbfdot"}\NormalTok{, }\DataTypeTok{kpar=}\KeywordTok{list}\NormalTok{(}\DataTypeTok{sigma=}\FloatTok{0.2}\NormalTok{), }\DataTypeTok{features=}\DecValTok{2}\NormalTok{)}
+
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{rotated}\NormalTok{(kpc),}
+     \DataTypeTok{xlab=}\StringTok{"1st Principal Component"}\NormalTok{,}
+     \DataTypeTok{ylab=}\StringTok{"2nd Principal Component"}\NormalTok{)}
+
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h=}\DecValTok{0}\NormalTok{, }\DataTypeTok{v=}\DecValTok{0}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{text}\NormalTok{(}\KeywordTok{rotated}\NormalTok{(kpc), }\DataTypeTok{pos =} \DecValTok{4}\NormalTok{, }\DataTypeTok{labels =} \KeywordTok{rownames}\NormalTok{(USArrests.}\DecValTok{2}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
+
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-201-1}
+
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  kPCA is implemented in \texttt{kernlab::kpca}. \texttt{kernel=}
+  governs the class of variable mappings allowed for the scoring.
+\item
+  See \texttt{?\textquotesingle{}kpca-class\textquotesingle{}} or
+  \texttt{?rotated} for help on available utility functions.
+\item
+  \texttt{rotated} projects the data on its principal components (the
+  above ``scores'').
+\item
+  \texttt{kpar=list(sigma=0.2)} provides parameters specific to each
+  type of kernel. See \texttt{?kpca}.
+\item
+  \texttt{features=2} is the number of principal components (scores) to
+  learn.
+\end{itemize}
 
 \section{Clustering}\label{cluster}
 
@@ -8730,28 +8851,51 @@ For more on PCA see my
 \href{https://github.com/johnros/dim_reduce/blob/master/dim_reduce.pdf}{Dimensionality
 Reduction Class Notes} and references therein. For more on everything,
 see \citet{friedman2001elements}. For a softer introduction, see
-\citet{james2013introduction}.
+\citet{james2013introduction}. For an excellent book on kernel methods
+(RKHS) see \citet{shawe2004kernel}.
 
 \section{Practice Yourself}\label{practice-yourself-7}
 
 Read about the ``Iris'' dataset using \texttt{?\ iris}. Since we want to
 practice some unsupervised techniques, remove the \texttt{Species}
-column. 1. Make pairs scatter plot. Can you identify some clusters in
-the data? 1. Perform K-means with \texttt{centers=3}. Perform Kmeans++.
-To extract the clustering results (cluster of each instance) use
-\texttt{kmeans\$clusters}. Compare the accuracy of the two algorithms
-(use the species column from the original dataset). 1. Perform
-hierarchal clustering with \texttt{hclust}, \texttt{method=”single”} and
-\texttt{method=”average”}.Extract the clustering results with
-\texttt{cutree}. Compare the accuracy of the two linkage methods. 1.
-Perform PCA on the data with \texttt{prcomp} function. 1. Print the
-Rotation matrix. 1. Print the PCA's vectors with \texttt{pca\$x}. These
-vectors are the new values for each instance in the dataset after the
-rotation. 1. Let's look at the first component (PC1) with
-\texttt{plot(pca\$x{[},1{]})} (i.e reduce the dimensionality from 4 to 1
-features). Can you identify visually the three clusters (species)?\\
-1. Determine the color of the points to be the truth species with
-\texttt{col=iris\$Species}.
+column.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Make pairs scatter plot. Can you identify some clusters in the data?
+\item
+  Perform K-means with \texttt{centers=3}. Perform Kmeans++. To extract
+  the clustering results (cluster of each instance) use
+  \texttt{kmeans\$clusters}. Compare the accuracy of the two algorithms
+  (use the species column from the original dataset).
+\item
+  Perform hierarchal clustering with \texttt{hclust},
+  \texttt{method=”single”} and \texttt{method=”average”}.Extract the
+  clustering results with \texttt{cutree}. Compare the accuracy of the
+  two linkage methods.
+\item
+  Perform PCA on the data with \texttt{prcomp} function.
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \tightlist
+  \item
+    Print the Rotation matrix.
+  \item
+    Print the PCA's vectors with \texttt{pca\$x}. These vectors are the
+    new values for each instance in the dataset after the rotation.
+  \item
+    Let's look at the first component (PC1) with
+    \texttt{plot(pca\$x{[},1{]})} (i.e reduce the dimensionality from 4
+    to 1 features). Can you identify visually the three clusters
+    (species)?\\
+  \item
+    Determine the color of the points to be the truth species with
+    \texttt{col=iris\$Species}.
+  \end{enumerate}
+\end{enumerate}
 
 \chapter{Plotting}\label{plotting}
 
@@ -13800,8 +13944,6 @@ TODO
 \section{Bibliographic Notes}\label{bibliographic-notes-19}
 
 \section{Practice Yourself}\label{practice-yourself-20}
-
-\chapter{Bibliography}\label{bib}
 
 \bibliography{bib.bib}
 
