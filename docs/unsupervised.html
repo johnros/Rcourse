@@ -991,8 +991,20 @@ kmed.<span class="dv">1</span> &lt;-<span class="st"> </span>cluster<span class=
 </div>
 <div id="practice-yourself-7" class="section level2">
 <h2><span class="header-section-number">10.4</span> Practice Yourself</h2>
-<p>Read about the “Iris” dataset using <code>? iris</code>. Since we want to practice some unsupervised techniques, remove the <code>Species</code> column. 1. Make pairs scatter plot. Can you identify some clusters in the data? 1. Perform K-means with <code>centers=3</code>. Perform Kmeans++. To extract the clustering results (cluster of each instance) use <code>kmeans$clusters</code>. Compare the accuracy of the two algorithms (use the species column from the original dataset). 1. Perform hierarchal clustering with <code>hclust</code>, <code>method=”single”</code> and <code>method=”average”</code>.Extract the clustering results with <code>cutree</code>. Compare the accuracy of the two linkage methods. 1. Perform PCA on the data with <code>prcomp</code> function. 1. Print the Rotation matrix. 1. Print the PCA’s vectors with <code>pca$x</code>. These vectors are the new values for each instance in the dataset after the rotation. 1. Let’s look at the first component (PC1) with <code>plot(pca$x[,1])</code> (i.e reduce the dimensionality from 4 to 1 features). Can you identify visually the three clusters (species)?<br />
-1. Determine the color of the points to be the truth species with <code>col=iris$Species</code>.</p>
+<p>Read about the “Iris” dataset using <code>? iris</code>. Since we want to practice some unsupervised techniques, remove the <code>Species</code> column.</p>
+<ol style="list-style-type: decimal">
+<li>Make pairs scatter plot. Can you identify some clusters in the data?</li>
+<li>Perform K-means with <code>centers=3</code>. Perform Kmeans++. To extract the clustering results (cluster of each instance) use <code>kmeans$clusters</code>. Compare the accuracy of the two algorithms (use the species column from the original dataset).</li>
+<li>Perform hierarchal clustering with <code>hclust</code>, <code>method=”single”</code> and <code>method=”average”</code>.Extract the clustering results with <code>cutree</code>. Compare the accuracy of the two linkage methods.</li>
+<li>Perform PCA on the data with <code>prcomp</code> function.
+<ol style="list-style-type: decimal">
+<li>Print the Rotation matrix.</li>
+<li>Print the PCA’s vectors with <code>pca$x</code>. These vectors are the new values for each instance in the dataset after the rotation.</li>
+<li>Let’s look at the first component (PC1) with <code>plot(pca$x[,1])</code> (i.e reduce the dimensionality from 4 to 1 features). Can you identify visually the three clusters (species)?<br />
+</li>
+<li>Determine the color of the points to be the truth species with <code>col=iris$Species</code>.</li>
+</ol></li>
+</ol>
 
 </div>
 </div>
