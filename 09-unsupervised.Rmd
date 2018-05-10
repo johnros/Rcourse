@@ -71,6 +71,11 @@ Following Hotelling's motivation, we may want to give each state a "crimilality 
 We first remove the `UrbanPop` variable, which does not encode crime levels. 
 We then z-score each variable with `scale`, and call PCA for a sequence of $1,\dots,3$ criminality scores that best separate between states. 
 
+```{r, echo=FALSE}
+library(magrittr)
+```
+
+
 ```{r, cache=TRUE}
 USArrests.1 <- USArrests[,-3] %>% scale 
 pca.1 <- prcomp(USArrests.1, scale = TRUE)
@@ -117,7 +122,7 @@ The construction of the next PCs follows the same lines: find a linear transform
 #### How Hard is the PCA Problem?
 
 Estimating all the PCs in the data is well defined algebraically if $n>p$, in which case $p$ PCs are computable. 
-This is the algebraic part of the problem, which is rather easy.
+This is the algebraic part of the problem, which is rather easy, and solved with [SVD](https://en.wikipedia.org/wiki/Singular-value_decomposition).
 
 If viewing PCA as inference tool, we may ask about its statistical performance. 
 It turns out that PCA has the same statistical difficulty as estimating a covariance matrix. 
@@ -131,30 +136,19 @@ As we already saw in the Multivariate Statistics Chapter (\@ref(multivariate)), 
 Before presenting methods other than PCA, we need some terminology.
 
 - __Variable__: 
-A.k.a. _dimension_, or _feature_, or _column_. A measurement in its raw scale.
-
-- __Feature Mapping__:
-A.k.a. _variable transformation_, _data augmentation_. Measurements in some transformed scale.
+A.k.a. _dimension_, or _feature_, or _column_.
 
 - __Data__: 
 A.k.a. _sample_, _observations_. 
 Will typically consist of $n$, vectors of dimension $p$.
-We typically denote the data as a $n\times p$ matrix $X$ from the space $\mathcal{X}$.
-
-- __Network__: 
-A mathematical representation of distances between points. We denote by $\mathcal{G}$.
+We typically denote the data as a $n\times p$ matrix $X$. 
 
 - __Manifold__: 
 A generalization of a linear space, which is regular enough so that, __locally__, it has all the properties of a linear space. 
 We will denote an arbitrary manifold by $\mathcal{M}$, and by $\mathcal{M}_q$ a $q$ dimensional^[You are probably used to thinking of the __dimension__ of linear spaces. We will not rigorously define what is the dimension of a manifold, but you may think of it as the number of free coordinates needed to navigate along the manifold.] manifold.
 
 - __Embedding__: 
-Informally speaking: a "shape preserving" mapping of a space into another (see figure below). We denote an embedding of data $X$ into a manifold $\mathcal{M}$ by: $X \mapsto \mathcal{M}$.
-
-- __Space Embedding Function__: 
-An embedding may apply only to the observed data, $X$.
-A _space embedding function_, $f$, allows to embed also unseen instances of $x$.
-Formally: $f: \mathcal{X} \mapsto \mathcal{M}$.
+Informally speaking: a "shape preserving" mapping of a space into another (see figure below).
 
 - __Linear Embedding__: 
 An embedding done via a linear operation. 
@@ -273,8 +267,7 @@ This does not mean that they cannot be cast via their generative model, but rath
 
 
 #### Multidimensional Scaling (MDS)
-It turns out that the PCA solution does not depend on the data itself, but only on the graph of Euclidean distances between data points ($\mathcal{G}=X'X$).
-MDS can be thought of as a variation on PCA, that begins with this $n \times n$ graph of distances, and not the original $n \times p$ data matrix.
+MDS can be thought of as a variation on PCA, that begins with the $n \times n$ graph^ of distances between data points, and not the original $n \times p$ data.
 The term _graph_ is typically used in this context, but saying _network_ instead of _graph_ is more appropriate. 
 This is because a graph encodes connections (topology) and networks encode distances (geometry).
 
@@ -283,7 +276,8 @@ Basic results in graph/network theory [@graham1988isometric] suggest that the ge
 The different types of MDSs, such as _Classical MDS_, and _Sammon Mappings_, differ in the _stress function_ that penalizes for the geometric distortion caused by the embedding.
 
 
-#### Local MDS  
+#### Local Multidimensional Scaling (Local MDS)
+
 ```{example, label='non-euclidean'}
 Consider data of coordinates on the globe. 
 At short distances, constructing a dissimilarity graph with Euclidean distances will capture the true distance between points. 
@@ -293,12 +287,8 @@ Being a highly folded surface, the Euclidean distance between points is far from
 ```
 
 Local MDS is aimed at solving the case where we don't know how to properly measure distances. 
-In particular, when the Euclidean distances implied by PCA are not inappropriate. 
-
-Like PCA, and unlike MDS, local MDS includes both the construction of the dissimilarity/distance graph ($\mathcal{G}$), and the embedding ($X \mapsto \mathcal{M}$).  
-Local MDS, as the name suggests, rests on the computation of $\mathcal{G}$ from _local_ distances.
-The fundamental idea is the distance between two data points is the sum of the distances of closest points along the way. Put differently: distances are computed only between pairs of closest points, never in long ranges. 
-Given the distances $\mathcal{G}$, local MDS ends with "regular MDS" for the embedding. 
+It is an algorithm that compounds both the construction of the dissimilarity/distance graph, and the embedding. 
+The solution of local MDS, as the name suggests, rests on the computation of _local_ distances, where the Euclidean assumption may still be plausible, and then aggregate many such local distances, before calling upon regular MDS for the embedding.
 
 Because local MDS ends with a regular MDS, it can be seen as a non-linear embedding into a linear manifold $\mathcal{M}$. 
 
@@ -334,6 +324,12 @@ Note that the _varimax_ rotation of factor-analysis has a similar goal: create f
 A marriage between sPCA and kPCA: generate scores that are non linear transformations of a minimal number of variables, each. 
 
 
+#### Multiple Correspondence Analysis (MCA)
+What if $x$ is not continuous, i.e., $\mathcal{X}\neq \mathbb{R}^p$?
+We could dummy-code $x$, and then use plain PCA. 
+A more principled view, when $x$ is categorical, is that of [Multiple Correspondence Analysis](https://en.wikipedia.org/wiki/Multiple_correspondence_analysis).
+
+
 
 
 ### Dimensionality Reduction in R
@@ -364,7 +360,7 @@ This is depicted using the proportion of variability in $X$ that is removed by e
 It is customary to choose $q$ as the first PC that has a relative low contribution to the approximation of $X$.
 This is known as the "knee heuristic". 
 
-```{r}
+```{r scree}
 ggbiplot::ggscreeplot(pca.1)
 ```
 
@@ -535,7 +531,6 @@ Things to note:
 
 #### Kernel PCA
 ```{r kPCA, eval=FALSE}
-```{r}
 library(kernlab)
 kpc <- kpca(~.,data=as.data.frame(USArrests.1), kernel="rbfdot", kpar=list(sigma=0.2), features=2)
 
@@ -554,7 +549,12 @@ Things to note:
 - `rotated` projects the data on its principal components (the above "scores").
 - `kpar=list(sigma=0.2)` provides parameters specific to each type of kernel. See `?kpca`.
 - `features=2` is the number of principal components (scores) to learn. 
+- You may notice the "Horseshoe" pattern of the kPCA embedding, a.k.a. "Croissants", or the _Guttman Effect_. The horseshoe is a recurring and old phenomenon. This phenomenon implies that the data has "structure". Alas, it is possible that this structure is merely due to the sampling scheme that introduced correlations. See [J. De Leeuw's online paper](https://rpubs.com/deleeuw/133786) for a review.
 
+
+
+#### MCA
+TODO
 
 
 
@@ -697,6 +697,8 @@ _Divisive clustering_ algorithms are __top-down__ algorithm which build clusters
 
 
 
+
+
 #### Fuzzy Clustering
 Can be thought of as a purely algorithmic view of the finite-mixture in Section \@ref(finite-mixture).
 
@@ -785,7 +787,8 @@ Things to note:
 - We did not need to a-priori specify the number of clusters, $K$, since all the possible $K$'s are included in the output tree. 
 - The `plot` function has a particular method for `hclust` class objects, and plots them as dendograms.
 
-AH TODO: Something went wrong here with the plots:
+
+
 We try other types of linkages, to verify that the indeed affect the clustering.
 Starting with complete linkage.
 ```{r complete linkage}
@@ -807,6 +810,28 @@ cut.2.2 <- cutree(hirar.2, k=2)
 head(cut.2.2)
 ```
 
+How to choose the number of clusters?
+Just like the Scree Plot above, we can use a "knee heuristic". 
+Because the length of a tree's branch is proportional to distances, long branches imply inhomogenous groups, while short branches imply homogenous groups.
+Here is a little simulation to deminstrate this:
+
+```{r}
+n.groups <- 3
+data.p <- 10
+data.n <- 100
+
+# data with no separation between groups
+the.data.10 <- mvtnorm::rmvnorm(n = data.n, mean = rep(0,data.p))  
+data.disimilarity.10 <- dist(the.data.10)
+hirar.10 <- hclust(data.disimilarity.10, method = "complete")
+plot(hirar.10, ylab="Distance", main='All from the same group')
+
+# data with strong separation between groups
+the.data.11 <-the.data.10 +sample(c(0,10,20), data.n, replace=TRUE) # Shift each group 
+data.disimilarity.11 <- dist(the.data.11)
+hirar.11 <- hclust(data.disimilarity.11, method = "complete")
+plot(hirar.11, ylab="Distance", main=paste('Strong Separation Between',n.groups, 'Groups'))
+```
 
 
 
@@ -817,14 +842,20 @@ For a softer introduction, see @james2013introduction.
 For an excellent book on kernel methods (RKHS) see @shawe2004kernel.
 
 ## Practice Yourself
-Read about the “Iris” dataset using `? iris`. Since we want to practice some unsupervised techniques, remove the `Species` column.
 
-1. Make pairs scatter plot. Can you identify some clusters in the data? 
-1. Perform K-means with `centers=3`. Perform Kmeans++. To extract the clustering results (cluster of each instance) use `kmeans$clusters`. Compare the accuracy of the two algorithms (use the species column from the original dataset). 
-1. Perform hierarchical clustering with `hclust`, `method=”single”` and `method=”average”`.Extract the clustering results with `cutree`.  Compare the accuracy of the two linkage methods.
-1. Perform PCA on the data with `prcomp` function. 
+1. Generate data from multivariate Gaussian data with `mvtnorm::rmvnorm()`. Clearly this data has no structure at all: it is a $p$-dimensional shapeless cloud of $n$ points. 
+    1. Now try various dimensionality reduction algorithms such as PCA, MDS, kPCA, sPCA. How does the sphere map to the plane? How does the mapping depend on $n$? And on $p$? 
+    1. Map the data to a $p$-dimensional unit sphere by dividing each observation with its $l_2$ norm: `map2sphere <- function(x) x/sqrt(sum(x^2))`. Repeat the previous embeddings. Does this structureless data embeds itself with structure?
+    1. Introduce artificial "structure" in the data and repeat the previous exercise. Use the Factor Analysis generative model in Eq.(\@ref(eq:factor)) to generate $p$ dimensional data along a one-dimensional line. Can you see that observations arrange themselves along a single line in after your plane embedding?
+
+1. Read about the Iris dataset using `?iris`. "Forget" the `Species` column to make the problem unsupervised.
+    1. Make pairs of scatter plots. Can you identify the clusters in the data? 
+    1. Perform K-means with `centers=3`. To extract the clustering results (cluster of each instance) use `kmeans$clusters`. Now recall the `Species` column to verify your clustering. 
+    1. Perform hierarchical clustering with `hclust`, `method=”single”` and `method=”average”`.Extract the clustering results with `cutree`.  Compare the accuracy of the two linkage methods.
+    1. Perform PCA on the data with `prcomp` function. 
     1. Print the Rotation matrix.
     1. Print the PCA’s vectors with `pca$x`. These vectors are the new values for each instance in the dataset after the rotation. 
     1. Let’s look at the first component (PC1) with `plot(pca$x[,1])`  (i.e reduce the dimensionality from 4 to 1 features). Can you identify visually the three clusters (species)?    
     1. Determine the color of the points to be the truth species with `col=iris$Species`.
+
 

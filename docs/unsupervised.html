@@ -479,7 +479,7 @@ pca.<span class="dv">1</span></code></pre></div>
 </div>
 <div id="how-hard-is-the-pca-problem" class="section level4">
 <h4><span class="header-section-number">10.1.1.2</span> How Hard is the PCA Problem?</h4>
-<p>Estimating all the PCs in the data is well defined algebraically if <span class="math inline">\(n&gt;p\)</span>, in which case <span class="math inline">\(p\)</span> PCs are computable. This is the algebraic part of the problem, which is rather easy.</p>
+<p>Estimating all the PCs in the data is well defined algebraically if <span class="math inline">\(n&gt;p\)</span>, in which case <span class="math inline">\(p\)</span> PCs are computable. This is the algebraic part of the problem, which is rather easy, and solved with <a href="https://en.wikipedia.org/wiki/Singular-value_decomposition">SVD</a>.</p>
 <p>If viewing PCA as inference tool, we may ask about its statistical performance. It turns out that PCA has the same statistical difficulty as estimating a covariance matrix. As we already saw in the Multivariate Statistics Chapter (<a href="multivariate.html#multivariate">8</a>), estimating covariances is a hard task, we thus recommend: don’t trust your PCs if <span class="math inline">\(n\)</span> is not much larger than <span class="math inline">\(p\)</span>, and see the bibliographic notes for further details.</p>
 </div>
 </div>
@@ -487,13 +487,10 @@ pca.<span class="dv">1</span></code></pre></div>
 <h3><span class="header-section-number">10.1.2</span> Dimensionality Reduction Preliminaries</h3>
 <p>Before presenting methods other than PCA, we need some terminology.</p>
 <ul>
-<li><p><strong>Variable</strong>: A.k.a. <em>dimension</em>, or <em>feature</em>, or <em>column</em>. A measurement in its raw scale.</p></li>
-<li><p><strong>Feature Mapping</strong>: A.k.a. <em>variable transformation</em>, <em>data augmentation</em>. Measurements in some transformed scale.</p></li>
-<li><p><strong>Data</strong>: A.k.a. <em>sample</em>, <em>observations</em>. Will typically consist of <span class="math inline">\(n\)</span>, vectors of dimension <span class="math inline">\(p\)</span>. We typically denote the data as a <span class="math inline">\(n\times p\)</span> matrix <span class="math inline">\(X\)</span> from the space <span class="math inline">\(\mathcal{X}\)</span>.</p></li>
-<li><p><strong>Network</strong>: A mathematical representation of distances between points. We denote by <span class="math inline">\(\mathcal{G}\)</span>.</p></li>
+<li><p><strong>Variable</strong>: A.k.a. <em>dimension</em>, or <em>feature</em>, or <em>column</em>.</p></li>
+<li><p><strong>Data</strong>: A.k.a. <em>sample</em>, <em>observations</em>. Will typically consist of <span class="math inline">\(n\)</span>, vectors of dimension <span class="math inline">\(p\)</span>. We typically denote the data as a <span class="math inline">\(n\times p\)</span> matrix <span class="math inline">\(X\)</span>.</p></li>
 <li><p><strong>Manifold</strong>: A generalization of a linear space, which is regular enough so that, <strong>locally</strong>, it has all the properties of a linear space. We will denote an arbitrary manifold by <span class="math inline">\(\mathcal{M}\)</span>, and by <span class="math inline">\(\mathcal{M}_q\)</span> a <span class="math inline">\(q\)</span> dimensional<a href="#fn22" class="footnoteRef" id="fnref22"><sup>22</sup></a> manifold.</p></li>
-<li><p><strong>Embedding</strong>: Informally speaking: a “shape preserving” mapping of a space into another (see figure below). We denote an embedding of data <span class="math inline">\(X\)</span> into a manifold <span class="math inline">\(\mathcal{M}\)</span> by: <span class="math inline">\(X \mapsto \mathcal{M}\)</span>.</p></li>
-<li><p><strong>Space Embedding Function</strong>: An embedding may apply only to the observed data, <span class="math inline">\(X\)</span>. A <em>space embedding function</em>, <span class="math inline">\(f\)</span>, allows to embed also unseen instances of <span class="math inline">\(x\)</span>. Formally: <span class="math inline">\(f: \mathcal{X} \mapsto \mathcal{M}\)</span>.</p></li>
+<li><p><strong>Embedding</strong>: Informally speaking: a “shape preserving” mapping of a space into another (see figure below).</p></li>
 <li><p><strong>Linear Embedding</strong>: An embedding done via a linear operation.</p></li>
 <li><p><strong>Generative Model</strong>: Known to statisticians as the <strong>sampling distribution</strong>. The assumed stochastic process that generated the observed <span class="math inline">\(X\)</span>.</p></li>
 </ul>
@@ -517,7 +514,7 @@ pca.<span class="dv">1</span></code></pre></div>
 <p>FA originates from the psychometric literature. We thus revisit the IQ (actually g-factor<a href="#fn23" class="footnoteRef" id="fnref23"><sup>23</sup></a>) Example <a href="unsupervised.html#exm:iq">10.2</a>:</p>
 
 <div class="example">
-<span id="exm:unnamed-chunk-195" class="example"><strong>Example 10.4  </strong></span>Assume <span class="math inline">\(n\)</span> respondents answer <span class="math inline">\(p\)</span> quantitative questions: <span class="math inline">\(x_i \in \mathbb{R}^p, i=1,\dots,n\)</span>. Also assume, their responses are some linear function of a single personality attribute, <span class="math inline">\(s_i\)</span>. We can think of <span class="math inline">\(s_i\)</span> as the subject’s “intelligence”. We thus have
+<span id="exm:unnamed-chunk-196" class="example"><strong>Example 10.4  </strong></span>Assume <span class="math inline">\(n\)</span> respondents answer <span class="math inline">\(p\)</span> quantitative questions: <span class="math inline">\(x_i \in \mathbb{R}^p, i=1,\dots,n\)</span>. Also assume, their responses are some linear function of a single personality attribute, <span class="math inline">\(s_i\)</span>. We can think of <span class="math inline">\(s_i\)</span> as the subject’s “intelligence”. We thus have
 <span class="math display">\[\begin{align}
     x_i = s_i A  + \varepsilon_i
 \end{align}\]</span>
@@ -557,19 +554,17 @@ where <span class="math inline">\(A\)</span> is the <span class="math inline">\(
 <p>We now discuss dimensionality reduction approaches that are not stated via their generative model, but rather, directly as an algorithm. This does not mean that they cannot be cast via their generative model, but rather they were not motivated as such.</p>
 <div id="multidimensional-scaling-mds" class="section level4">
 <h4><span class="header-section-number">10.1.4.1</span> Multidimensional Scaling (MDS)</h4>
-<p>It turns out that the PCA solution does not depend on the data itself, but only on the graph of Euclidean distances between data points (<span class="math inline">\(\mathcal{G}=X&#39;X\)</span>). MDS can be thought of as a variation on PCA, that begins with this <span class="math inline">\(n \times n\)</span> graph of distances, and not the original <span class="math inline">\(n \times p\)</span> data matrix. The term <em>graph</em> is typically used in this context, but saying <em>network</em> instead of <em>graph</em> is more appropriate. This is because a graph encodes connections (topology) and networks encode distances (geometry).</p>
+<p>MDS can be thought of as a variation on PCA, that begins with the <span class="math inline">\(n \times n\)</span> graph^ of distances between data points, and not the original <span class="math inline">\(n \times p\)</span> data. The term <em>graph</em> is typically used in this context, but saying <em>network</em> instead of <em>graph</em> is more appropriate. This is because a graph encodes connections (topology) and networks encode distances (geometry).</p>
 <p>MDS aims at embedding a graph of distances into the plane, typically for visualization, while preserving the original distances. Basic results in graph/network theory <span class="citation">(Graham <a href="#ref-graham1988isometric">1988</a>)</span> suggest that the geometry of a graph cannot be preserved when embedding it into lower dimensions. The different types of MDSs, such as <em>Classical MDS</em>, and <em>Sammon Mappings</em>, differ in the <em>stress function</em> that penalizes for the geometric distortion caused by the embedding.</p>
 </div>
-<div id="local-mds" class="section level4">
-<h4><span class="header-section-number">10.1.4.2</span> Local MDS</h4>
+<div id="local-multidimensional-scaling-local-mds" class="section level4">
+<h4><span class="header-section-number">10.1.4.2</span> Local Multidimensional Scaling (Local MDS)</h4>
 
 <div class="example">
 <span id="exm:non-euclidean" class="example"><strong>Example 10.5  </strong></span>Consider data of coordinates on the globe. At short distances, constructing a dissimilarity graph with Euclidean distances will capture the true distance between points. At long distances, however, the Euclidean distances as grossly inappropriate. A more extreme example is coordinates on the brain’s cerebral cortex. Being a highly folded surface, the Euclidean distance between points is far from the true geodesic distances along the cortex’s surface<a href="#fn24" class="footnoteRef" id="fnref24"><sup>24</sup></a>.
 </div>
 
-<p>Local MDS is aimed at solving the case where we don’t know how to properly measure distances. In particular, when the Euclidean distances implied by PCA are not inappropriate.</p>
-<p>Like PCA, and unlike MDS, local MDS includes both the construction of the dissimilarity/distance graph (<span class="math inline">\(\mathcal{G}\)</span>), and the embedding (<span class="math inline">\(X \mapsto \mathcal{M}\)</span>).<br />
-Local MDS, as the name suggests, rests on the computation of <span class="math inline">\(\mathcal{G}\)</span> from <em>local</em> distances. The fundamental idea is the distance between two data points is the sum of the distances of closest points along the way. Put differently: distances are computed only between pairs of closest points, never in long ranges. Given the distances <span class="math inline">\(\mathcal{G}\)</span>, local MDS ends with “regular MDS” for the embedding.</p>
+<p>Local MDS is aimed at solving the case where we don’t know how to properly measure distances. It is an algorithm that compounds both the construction of the dissimilarity/distance graph, and the embedding. The solution of local MDS, as the name suggests, rests on the computation of <em>local</em> distances, where the Euclidean assumption may still be plausible, and then aggregate many such local distances, before calling upon regular MDS for the embedding.</p>
 <p>Because local MDS ends with a regular MDS, it can be seen as a non-linear embedding into a linear manifold <span class="math inline">\(\mathcal{M}\)</span>.</p>
 <p>Local MDS is not popular. Why is this? Because it makes no sense: If we believe the points reside in a non-Euclidean space, thus motivating the use of geodesic distances, why would we want to wrap up with regular MDS, which embeds in a linear space?! It does offer, however, some intuition to the following, more popular, algorithms.</p>
 </div>
@@ -593,6 +588,10 @@ Local MDS, as the name suggests, rests on the computation of <span class="math i
 <h4><span class="header-section-number">10.1.4.7</span> Sparse kernel PCA (skPCA)</h4>
 <p>A marriage between sPCA and kPCA: generate scores that are non linear transformations of a minimal number of variables, each.</p>
 </div>
+<div id="multiple-correspondence-analysis-mca" class="section level4">
+<h4><span class="header-section-number">10.1.4.8</span> Multiple Correspondence Analysis (MCA)</h4>
+<p>What if <span class="math inline">\(x\)</span> is not continuous, i.e., <span class="math inline">\(\mathcal{X}\neq \mathbb{R}^p\)</span>? We could dummy-code <span class="math inline">\(x\)</span>, and then use plain PCA. A more principled view, when <span class="math inline">\(x\)</span> is categorical, is that of <a href="https://en.wikipedia.org/wiki/Multiple_correspondence_analysis">Multiple Correspondence Analysis</a>.</p>
+</div>
 </div>
 <div id="dimensionality-reduction-in-r" class="section level3">
 <h3><span class="header-section-number">10.1.5</span> Dimensionality Reduction in R</h3>
@@ -602,7 +601,7 @@ Local MDS, as the name suggests, rests on the computation of <span class="math i
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># library(devtools)</span>
 <span class="co"># install_github(&quot;vqv/ggbiplot&quot;)</span>
 ggbiplot<span class="op">::</span><span class="kw">ggbiplot</span>(pca.<span class="dv">1</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-197-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-198-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>We used the <code>ggbiplot</code> function from the <strong>ggbiplot</strong> (available from github, but not from CRAN), because it has a nicer output than <code>stats::biplot</code>.</li>
@@ -611,7 +610,7 @@ ggbiplot<span class="op">::</span><span class="kw">ggbiplot</span>(pca.<span cla
 </ul>
 <p>The <em>scree plot</em> depicts the quality of the approximation of <span class="math inline">\(X\)</span> as <span class="math inline">\(q\)</span> grows, i.e., as we add more and more PCs to explain the data. This is depicted using the proportion of variability in <span class="math inline">\(X\)</span> that is removed by each added PC. It is customary to choose <span class="math inline">\(q\)</span> as the first PC that has a relative low contribution to the approximation of <span class="math inline">\(X\)</span>. This is known as the “knee heuristic”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ggbiplot<span class="op">::</span><span class="kw">ggscreeplot</span>(pca.<span class="dv">1</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-198-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/scree-1.png" width="50%" /></p>
 <p>See how the first PC captures the variability in the Assault levels and Murder levels, with a single score.</p>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-199-1.png" width="50%" /></p>
 <p>More implementations of PCA:</p>
@@ -787,7 +786,6 @@ kpc &lt;-<span class="st"> </span><span class="kw">kpca</span>(<span class="op">
 
 <span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span>, <span class="dt">v=</span><span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)
 <span class="kw">text</span>(<span class="kw">rotated</span>(kpc), <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">labels =</span> <span class="kw">rownames</span>(USArrests.<span class="dv">2</span>))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-201-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>kPCA is implemented in <code>kernlab::kpca</code>. <code>kernel=</code> governs the class of variable mappings allowed for the scoring.</li>
@@ -795,7 +793,12 @@ kpc &lt;-<span class="st"> </span><span class="kw">kpca</span>(<span class="op">
 <li><code>rotated</code> projects the data on its principal components (the above “scores”).</li>
 <li><code>kpar=list(sigma=0.2)</code> provides parameters specific to each type of kernel. See <code>?kpca</code>.</li>
 <li><code>features=2</code> is the number of principal components (scores) to learn.</li>
+<li>You may notice the “Horseshoe” pattern of the kPCA embedding, a.k.a. “Croissants”, or the <em>Guttman Effect</em>. The horseshoe is a recurring and old phenomenon. This phenomenon implies that the data has “structure”. Alas, it is possible that this structure is merely due to the sampling scheme that introduced correlations. See <a href="https://rpubs.com/deleeuw/133786">J. De Leeuw’s online paper</a> for a review.</li>
 </ul>
+</div>
+<div id="mca" class="section level4">
+<h4><span class="header-section-number">10.1.5.7</span> MCA</h4>
+<p>TODO</p>
 </div>
 </div>
 </div>
@@ -975,7 +978,7 @@ kmed.<span class="dv">1</span> &lt;-<span class="st"> </span>cluster<span class=
 <li>We did not need to a-priori specify the number of clusters, <span class="math inline">\(K\)</span>, since all the possible <span class="math inline">\(K\)</span>’s are included in the output tree.</li>
 <li>The <code>plot</code> function has a particular method for <code>hclust</code> class objects, and plots them as dendograms.</li>
 </ul>
-<p>AH TODO: Something went wrong here with the plots: We try other types of linkages, to verify that the indeed affect the clustering. Starting with complete linkage.</p>
+<p>We try other types of linkages, to verify that the indeed affect the clustering. Starting with complete linkage.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hirar.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(state.disimilarity, <span class="dt">method=</span><span class="st">&#39;complete&#39;</span>)
 <span class="kw">plot</span>(hirar.<span class="dv">2</span>, <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests.<span class="dv">1</span>), <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>)</code></pre></div>
 <p><img src="Rcourse_files/figure-html/complete%20linkage-1.png" width="50%" /></p>
@@ -988,6 +991,23 @@ kmed.<span class="dv">1</span> &lt;-<span class="st"> </span>cluster<span class=
 <span class="kw">head</span>(cut.<span class="fl">2.2</span>)</code></pre></div>
 <pre><code>##    Alabama     Alaska    Arizona   Arkansas California   Colorado 
 ##          1          1          1          2          1          1</code></pre>
+<p>How to choose the number of clusters? Just like the Scree Plot above, we can use a “knee heuristic”. Because the length of a tree’s branch is proportional to distances, long branches imply inhomogenous groups, while short branches imply homogenous groups. Here is a little simulation to deminstrate this:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n.groups &lt;-<span class="st"> </span><span class="dv">3</span>
+data.p &lt;-<span class="st"> </span><span class="dv">10</span>
+data.n &lt;-<span class="st"> </span><span class="dv">100</span>
+
+<span class="co"># data with no separation between groups</span>
+the.data.<span class="dv">10</span> &lt;-<span class="st"> </span>mvtnorm<span class="op">::</span><span class="kw">rmvnorm</span>(<span class="dt">n =</span> data.n, <span class="dt">mean =</span> <span class="kw">rep</span>(<span class="dv">0</span>,data.p))  
+data.disimilarity.<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">dist</span>(the.data.<span class="dv">10</span>)
+hirar.<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(data.disimilarity.<span class="dv">10</span>, <span class="dt">method =</span> <span class="st">&quot;complete&quot;</span>)
+<span class="kw">plot</span>(hirar.<span class="dv">10</span>, <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>, <span class="dt">main=</span><span class="st">&#39;All from the same group&#39;</span>)</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-204-1.png" width="50%" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># data with strong separation between groups</span>
+the.data.<span class="dv">11</span> &lt;-the.data.<span class="dv">10</span> <span class="op">+</span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">10</span>,<span class="dv">20</span>), data.n, <span class="dt">replace=</span><span class="ot">TRUE</span>) <span class="co"># Shift each group </span>
+data.disimilarity.<span class="dv">11</span> &lt;-<span class="st"> </span><span class="kw">dist</span>(the.data.<span class="dv">11</span>)
+hirar.<span class="dv">11</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(data.disimilarity.<span class="dv">11</span>, <span class="dt">method =</span> <span class="st">&quot;complete&quot;</span>)
+<span class="kw">plot</span>(hirar.<span class="dv">11</span>, <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>, <span class="dt">main=</span><span class="kw">paste</span>(<span class="st">&#39;Strong Separation Between&#39;</span>,n.groups, <span class="st">&#39;Groups&#39;</span>))</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-204-2.png" width="50%" /></p>
 </div>
 </div>
 </div>
@@ -997,13 +1017,19 @@ kmed.<span class="dv">1</span> &lt;-<span class="st"> </span>cluster<span class=
 </div>
 <div id="practice-yourself-7" class="section level2">
 <h2><span class="header-section-number">10.4</span> Practice Yourself</h2>
-<p>Read about the “Iris” dataset using <code>? iris</code>. Since we want to practice some unsupervised techniques, remove the <code>Species</code> column.</p>
 <ol style="list-style-type: decimal">
-<li>Make pairs scatter plot. Can you identify some clusters in the data?</li>
-<li>Perform K-means with <code>centers=3</code>. Perform Kmeans++. To extract the clustering results (cluster of each instance) use <code>kmeans$clusters</code>. Compare the accuracy of the two algorithms (use the species column from the original dataset).</li>
+<li>Generate data from multivariate Gaussian data with <code>mvtnorm::rmvnorm()</code>. Clearly this data has no structure at all: it is a <span class="math inline">\(p\)</span>-dimensional shapeless cloud of <span class="math inline">\(n\)</span> points.
+<ol style="list-style-type: decimal">
+<li>Now try various dimensionality reduction algorithms such as PCA, MDS, kPCA, sPCA. How does the sphere map to the plane? How does the mapping depend on <span class="math inline">\(n\)</span>? And on <span class="math inline">\(p\)</span>?</li>
+<li>Map the data to a <span class="math inline">\(p\)</span>-dimensional unit sphere by dividing each observation with its <span class="math inline">\(l_2\)</span> norm: <code>map2sphere &lt;- function(x) x/sqrt(sum(x^2))</code>. Repeat the previous embeddings. Does this structureless data embeds itself with structure?</li>
+<li>Introduce artificial “structure” in the data and repeat the previous exercise. Use the Factor Analysis generative model in Eq.(<a href="unsupervised.html#eq:factor">(10.1)</a>) to generate <span class="math inline">\(p\)</span> dimensional data along a one-dimensional line. Can you see that observations arrange themselves along a single line in after your plane embedding?</li>
+</ol></li>
+<li>Read about the Iris dataset using <code>?iris</code>. “Forget” the <code>Species</code> column to make the problem unsupervised.
+<ol style="list-style-type: decimal">
+<li>Make pairs of scatter plots. Can you identify the clusters in the data?</li>
+<li>Perform K-means with <code>centers=3</code>. To extract the clustering results (cluster of each instance) use <code>kmeans$clusters</code>. Now recall the <code>Species</code> column to verify your clustering.</li>
 <li>Perform hierarchical clustering with <code>hclust</code>, <code>method=”single”</code> and <code>method=”average”</code>.Extract the clustering results with <code>cutree</code>. Compare the accuracy of the two linkage methods.</li>
-<li>Perform PCA on the data with <code>prcomp</code> function.
-<ol style="list-style-type: decimal">
+<li>Perform PCA on the data with <code>prcomp</code> function.</li>
 <li>Print the Rotation matrix.</li>
 <li>Print the PCA’s vectors with <code>pca$x</code>. These vectors are the new values for each instance in the dataset after the rotation.</li>
 <li>Let’s look at the first component (PC1) with <code>plot(pca$x[,1])</code> (i.e reduce the dimensionality from 4 to 1 features). Can you identify visually the three clusters (species)?<br />
@@ -1085,7 +1111,7 @@ gitbook.start({
 "link": "https://github.com/rstudio/bookdown-demo/edit/master/09-unsupervised.Rmd",
 "text": "Edit"
 },
-"download": ["Rcourse.pdf"],
+"download": null,
 "toc": {
 "collapse": "subsection"
 }

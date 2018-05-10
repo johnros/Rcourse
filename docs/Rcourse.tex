@@ -125,7 +125,7 @@
 
 \title{R (BGU course)}
 \author{Jonathan D. Rosenblatt}
-\date{2018-05-09}
+\date{2018-05-10}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -7749,20 +7749,23 @@ Things to note and terminology:
 \item
   PCA is performed with the \texttt{prcomp} function. It returns the
   contribution (weight) of the original variables, to the new crimeness
-  score.\\
-  These weights are called the \emph{loadings} (or \texttt{Rotations} in
-  the \texttt{prcomp} output, which is rather confusing as we will later
-  see).
+  score. These weights are called the \emph{loadings} . Z-scored
+  loadings are known as \emph{Rotations}, which is also the term in the
+  \texttt{prcomp} output. If you are confused between loadings and
+  rotations, see this
+  \href{https://stats.stackexchange.com/questions/143905/loadings-vs-eigenvectors-in-pca-when-to-use-one-or-another}{Cross
+  Validated} entry.
 \item
   The number of possible scores, is the same as the number of original
   variables in the data.
 \item
   The new scores are called the \emph{principal components}, labeled
-  \texttt{PC1},\ldots{},\texttt{PC3} in our output.
+  \texttt{PC1},\ldots{},\texttt{PC3} in our output. They are computed by
+  summing the original variables weighted by their loadings.
 \item
-  The loadings on PC1 tell us that the best separation between states is
-  along the average crime rate. Why is this? Because all the \(3\) crime
-  variables have a similar loading on PC1.
+  The loadings/rotation on PC1 tell us that the best separation between
+  states is along the average crime rate. Why is this? Because all the
+  \(3\) crime variables have a similar loading on PC1.
 \item
   The other PCs are slightly harder to interpret, but it is an
   interesting exercise.
@@ -7775,33 +7778,36 @@ reduced the dimensionality of the data.}
 \subsubsection{Mathematics of PCA}\label{mathematics-of-pca}
 
 What is the mathematical problem that is actually solved with PCA?
-Finding a linear combination, \(v\), so that of \(v'x\) best separates
-individuals. Best separation implies that the variance of \(v'x\) is
-maximal. Clearly, \(Var[v'x]\) may explode if any \(v\) is allowed, so
-we need to pick \(v\) from some fair set. It is most convenient,
-mathematically, to constrain the \(l_2\) norm to some constant:
+Finding a linear combination (\(v\)) of the original variables (\(x\)),
+so that the new score/index (\(v'x\)) best separates individuals. Best
+separation implies that the variance of \(v'x\) is maximal. Clearly,
+\(Var[v'x]\) may explode if any \(v\) is allowed, so we need to pick
+\(v\) from some ``fair'' set. It is most convenient, mathematically, to
+constrain the \(l_2\) norm to some constant:
 \(\Vert v \Vert^2_2=\sum v_j^2=1\). The first ``best separating score'',
 known as the first \emph{principal component} (PC), is thus
 \[v_1'x \quad s.t. \quad v_1=argmax_{v}\{Var[v'x], \text{ and } \Vert v \Vert_2=1  \} .\]
 The second PC, is the same, only that it is required to be orthogonal to
 the first PC:
 \[v_2'x \quad s.t. \quad v_2=argmax_{v}\{Var[v'x], \text{ and } \Vert v \Vert_2=1, \text{ and } v'v_1=0 \} .\]
-One can recover \(min\{n,p\}\) PCs. The construction of the next PCs
-follows the same lines: find a linear transformation of the data that
-best separates observations and is orthogonal to the previous PCs.
+The construction of the next PCs follows the same lines: find a linear
+transformation of the data that best separates observations and is
+orthogonal to the previous PCs.
 
 \subsubsection{How Hard is the PCA
 Problem?}\label{how-hard-is-the-pca-problem}
 
 Estimating all the PCs in the data is well defined algebraically if
-\(n>p\) so viewing PCA as an exploratory tool, it is not a hard problem.
-On the other hand, if viewing it as an inference tool, for inference on
-some population, then this is quite a hard problem. This is because
-recovering all the PCs is equivalent to estimating a covariance matrix.
-As we already saw in the Multivaraite Statistics Chapter
-(\ref{multivariate}), estimating covariances is a hard task, we thus
-recommend: don't trust your PCs if \(n\) is not much larger than \(p\),
-and see the bibliographic notes for futher details.
+\(n>p\), in which case \(p\) PCs are computable. This is the algebraic
+part of the problem, which is rather easy, and solved with
+\href{https://en.wikipedia.org/wiki/Singular-value_decomposition}{SVD}.
+
+If viewing PCA as inference tool, we may ask about its statistical
+performance. It turns out that PCA has the same statistical difficulty
+as estimating a covariance matrix. As we already saw in the Multivariate
+Statistics Chapter (\ref{multivariate}), estimating covariances is a
+hard task, we thus recommend: don't trust your PCs if \(n\) is not much
+larger than \(p\), and see the bibliographic notes for further details.
 
 \subsection{Dimensionality Reduction
 Preliminaries}\label{dimensionality-reduction-preliminaries}
@@ -7843,8 +7849,8 @@ Before presenting methods other than PCA, we need some terminology.
 \caption{Various embedding algorithms. No embedding of the sphere to the
 plane is perfect. This is obviously not new.
 \href{https://en.wikipedia.org/wiki/Map_projection}{Maps makers} have
-known this for centuries!Source:
-\url{http://scikit-learn.org/stable/auto_examples/manifold/plot_manifold_sphere.html\#sphx-glr-auto-examples-manifold-plot-manifold-sphere-py}}
+known this for centuries!Source: \url{http://sci}
+kit-learn.org/stable/auto\_examples/manifold/plot\_manifold\_sphere.html\#sphx-glr-auto-examples-manifold-plot-manifold-sphere-py}
 \end{figure}
 
 There are many motivations for dimensionality reduction:
@@ -7882,7 +7888,7 @@ FA originates from the psychometric literature. We thus revisit the IQ
 Example \ref{exm:iq}:
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{exm:unnamed-chunk-195}{}{\label{exm:unnamed-chunk-195}
+\protect\hypertarget{exm:unnamed-chunk-196}{}{\label{exm:unnamed-chunk-196}
 }Assume \(n\) respondents answer \(p\) quantitative questions:
 \(x_i \in \mathbb{R}^p, i=1,\dots,n\). Also assume, their responses are
 some linear function of a single personality attribute, \(s_i\). We can
@@ -7942,6 +7948,11 @@ The FA literature offers several heuristics to ``fix'' the
 identifiability problem of FA. These are known as \emph{rotations}, and
 go under the names of \emph{Varimax}, \emph{Quartimax}, \emph{Equimax},
 \emph{Oblimin}, \emph{Promax}, and possibly others.
+
+Because of their great similarity, FA is often confused with PCA. For a
+discussion of the similarities and dissimilarities, see this excellent
+\href{https://stats.stackexchange.com/questions/123063/is-there-any-good-reason-to-use-pca-instead-of-efa-also-can-pca-be-a-substitut}{StackExchange
+Q}.
 
 \subsubsection{Independent Component Analysis
 (ICA)}\label{independent-component-analysis-ica}
@@ -8039,7 +8050,7 @@ Very similar to IsoMap \ref{isomap}.
 \subsubsection{Kernel PCA (kPCA)}\label{kernel-pca-kpca}
 
 Returning to the BMI example (\ref{exm:bmi}); what if we want to learn
-scores that best separate between individuals, but inlike PCA, are
+scores that best separate between individuals, but unlike PCA, are
 non-linear in the original features. Kernel PCA does just that, only
 that it restricts the possible scores to simple functions of the
 original variables. The allowed functions resides in a function space
@@ -8051,13 +8062,22 @@ name.
 sPCA is a type of PCA where the loadings are sparse. This means that PCs
 are linear combinations of a small number of variables. This makes sPCA
 easier to interpret. Note that the \emph{varimax} rotation of
-factor-analysis has a similar goal: create factors with minimialy
+factor-analysis has a similar goal: create factors with minimally
 contributing variables, so that they are easy to explain.
 
 \subsubsection{Sparse kernel PCA (skPCA)}\label{sparse-kernel-pca-skpca}
 
 A marriage between sPCA and kPCA: generate scores that are non linear
 transformations of a minimal number of variables, each.
+
+\subsubsection{Multiple Correspondence Analysis
+(MCA)}\label{multiple-correspondence-analysis-mca}
+
+What if \(x\) is not continuous, i.e., \(\mathcal{X}\neq \mathbb{R}^p\)?
+We could dummy-code \(x\), and then use plain PCA. A more principled
+view, when \(x\) is categorical, is that of
+\href{https://en.wikipedia.org/wiki/Multiple_correspondence_analysis}{Multiple
+Correspondence Analysis}.
 
 \subsection{Dimensionality Reduction in
 R}\label{dimensionality-reduction-in-r}
@@ -8076,7 +8096,7 @@ visualize the output of PCA.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-197-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-198-1}
 
 Things to note:
 
@@ -8110,7 +8130,7 @@ This is known as the ``knee heuristic''.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-198-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/scree-1}
 
 See how the first PC captures the variability in the Assault levels and
 Murder levels, with a single score.
@@ -8416,8 +8436,6 @@ Things to note:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-201-1}
-
 Things to note:
 
 \begin{itemize}
@@ -8437,7 +8455,19 @@ Things to note:
 \item
   \texttt{features=2} is the number of principal components (scores) to
   learn.
+\item
+  You may notice the ``Horseshoe'' pattern of the kPCA embedding, a.k.a.
+  ``Croissants'', or the \emph{Guttman Effect}. The horseshoe is a
+  recurring and old phenomenon. This phenomenon implies that the data
+  has ``structure''. Alas, it is possible that this structure is merely
+  due to the sampling scheme that introduced correlations. See
+  \href{https://rpubs.com/deleeuw/133786}{J. De Leeuw's online paper}
+  for a review.
 \end{itemize}
+
+\subsubsection{MCA}\label{mca}
+
+TODO
 
 \section{Clustering}\label{cluster}
 
@@ -8806,9 +8836,8 @@ Things to note:
   class objects, and plots them as dendograms.
 \end{itemize}
 
-AH TODO: Something went wrong here with the plots: We try other types of
-linkages, to verify that the indeed affect the clustering. Starting with
-complete linkage.
+We try other types of linkages, to verify that the indeed affect the
+clustering. Starting with complete linkage.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8845,6 +8874,40 @@ the class assignments.
 ##          1          1          1          2          1          1
 \end{verbatim}
 
+How to choose the number of clusters? Just like the Scree Plot above, we
+can use a ``knee heuristic''. Because the length of a tree's branch is
+proportional to distances, long branches imply inhomogenous groups,
+while short branches imply homogenous groups. Here is a little
+simulation to deminstrate this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n.groups <-}\StringTok{ }\DecValTok{3}
+\NormalTok{data.p <-}\StringTok{ }\DecValTok{10}
+\NormalTok{data.n <-}\StringTok{ }\DecValTok{100}
+
+\CommentTok{# data with no separation between groups}
+\NormalTok{the.data.}\DecValTok{10}\NormalTok{ <-}\StringTok{ }\NormalTok{mvtnorm}\OperatorTok{::}\KeywordTok{rmvnorm}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ data.n, }\DataTypeTok{mean =} \KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,data.p))  }
+\NormalTok{data.disimilarity.}\DecValTok{10}\NormalTok{ <-}\StringTok{ }\KeywordTok{dist}\NormalTok{(the.data.}\DecValTok{10}\NormalTok{)}
+\NormalTok{hirar.}\DecValTok{10}\NormalTok{ <-}\StringTok{ }\KeywordTok{hclust}\NormalTok{(data.disimilarity.}\DecValTok{10}\NormalTok{, }\DataTypeTok{method =} \StringTok{"complete"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(hirar.}\DecValTok{10}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"Distance"}\NormalTok{, }\DataTypeTok{main=}\StringTok{'All from the same group'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-204-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# data with strong separation between groups}
+\NormalTok{the.data.}\DecValTok{11}\NormalTok{ <-the.data.}\DecValTok{10} \OperatorTok{+}\KeywordTok{sample}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{), data.n, }\DataTypeTok{replace=}\OtherTok{TRUE}\NormalTok{) }\CommentTok{# Shift each group }
+\NormalTok{data.disimilarity.}\DecValTok{11}\NormalTok{ <-}\StringTok{ }\KeywordTok{dist}\NormalTok{(the.data.}\DecValTok{11}\NormalTok{)}
+\NormalTok{hirar.}\DecValTok{11}\NormalTok{ <-}\StringTok{ }\KeywordTok{hclust}\NormalTok{(data.disimilarity.}\DecValTok{11}\NormalTok{, }\DataTypeTok{method =} \StringTok{"complete"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(hirar.}\DecValTok{11}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"Distance"}\NormalTok{, }\DataTypeTok{main=}\KeywordTok{paste}\NormalTok{(}\StringTok{'Strong Separation Between'}\NormalTok{,n.groups, }\StringTok{'Groups'}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-204-2}
+
 \section{Bibliographic Notes}\label{bibliographic-notes-7}
 
 For more on PCA see my
@@ -8856,31 +8919,55 @@ see \citet{friedman2001elements}. For a softer introduction, see
 
 \section{Practice Yourself}\label{practice-yourself-7}
 
-Read about the ``Iris'' dataset using \texttt{?\ iris}. Since we want to
-practice some unsupervised techniques, remove the \texttt{Species}
-column.
-
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Make pairs scatter plot. Can you identify some clusters in the data?
-\item
-  Perform K-means with \texttt{centers=3}. Perform Kmeans++. To extract
-  the clustering results (cluster of each instance) use
-  \texttt{kmeans\$clusters}. Compare the accuracy of the two algorithms
-  (use the species column from the original dataset).
-\item
-  Perform hierarchal clustering with \texttt{hclust},
-  \texttt{method=”single”} and \texttt{method=”average”}.Extract the
-  clustering results with \texttt{cutree}. Compare the accuracy of the
-  two linkage methods.
-\item
-  Perform PCA on the data with \texttt{prcomp} function.
+  Generate data from multivariate Gaussian data with
+  \texttt{mvtnorm::rmvnorm()}. Clearly this data has no structure at
+  all: it is a \(p\)-dimensional shapeless cloud of \(n\) points.
 
   \begin{enumerate}
   \def\labelenumii{\arabic{enumii}.}
   \tightlist
+  \item
+    Now try various dimensionality reduction algorithms such as PCA,
+    MDS, kPCA, sPCA. How does the sphere map to the plane? How does the
+    mapping depend on \(n\)? And on \(p\)?
+  \item
+    Map the data to a \(p\)-dimensional unit sphere by dividing each
+    observation with its \(l_2\) norm:
+    \texttt{map2sphere\ \textless{}-\ function(x)\ x/sqrt(sum(x\^{}2))}.
+    Repeat the previous embeddings. Does this structureless data embeds
+    itself with structure?
+  \item
+    Introduce artificial ``structure'' in the data and repeat the
+    previous exercise. Use the Factor Analysis generative model in
+    Eq.(\eqref{eq:factor}) to generate \(p\) dimensional data along a
+    one-dimensional line. Can you see that observations arrange
+    themselves along a single line in after your plane embedding?
+  \end{enumerate}
+\item
+  Read about the Iris dataset using \texttt{?iris}. ``Forget'' the
+  \texttt{Species} column to make the problem unsupervised.
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \tightlist
+  \item
+    Make pairs of scatter plots. Can you identify the clusters in the
+    data?
+  \item
+    Perform K-means with \texttt{centers=3}. To extract the clustering
+    results (cluster of each instance) use \texttt{kmeans\$clusters}.
+    Now recall the \texttt{Species} column to verify your clustering.
+  \item
+    Perform hierarchical clustering with \texttt{hclust},
+    \texttt{method=”single”} and \texttt{method=”average”}.Extract the
+    clustering results with \texttt{cutree}. Compare the accuracy of the
+    two linkage methods.
+  \item
+    Perform PCA on the data with \texttt{prcomp} function.
   \item
     Print the Rotation matrix.
   \item

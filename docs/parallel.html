@@ -491,7 +491,7 @@ ptime &lt;-<span class="st"> </span><span class="kw">system.time</span>({
  })[<span class="dv">3</span>]
 ptime</code></pre></div>
 <pre><code>## elapsed 
-##  22.062</code></pre>
+##  18.696</code></pre>
 <p>Things to note:</p>
 <ul>
 <li>As usual, we use the <code>foreach</code> function with the <code>%dopar%</code> operator to loop in parallel.</li>
@@ -508,7 +508,7 @@ ptime</code></pre></div>
  })[<span class="dv">3</span>]
 stime</code></pre></div>
 <pre><code>## elapsed 
-##  38.413</code></pre>
+##  39.123</code></pre>
 <p>Yes. Parallelising is clearly faster.</p>
 <p>Let’s see how we can combine the power of <strong>bigmemory</strong> and <strong>foreach</strong> by creating a file mapped <code>big.matrix</code> object, which is shared by all machines. The following example is taken from <span class="citation">Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span>, and uses the <code>big.matrix</code> object we created in Chapter <a href="memory.html#memory">15</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bigmemory)
@@ -608,7 +608,7 @@ gitbook.start({
 "link": "https://github.com/rstudio/bookdown-demo/edit/master/15-parallel.Rmd",
 "text": "Edit"
 },
-"download": ["Rcourse.pdf"],
+"download": null,
 "toc": {
 "collapse": "subsection"
 }
