@@ -139,7 +139,7 @@ A.k.a. _variable transformation_, _data augmentation_. Measurements in some tran
 - __Data__: 
 A.k.a. _sample_, _observations_. 
 Will typically consist of $n$, vectors of dimension $p$.
-We typically denote the data as a $n\times p$ matrix $X$. 
+We typically denote the data as a $n\times p$ matrix $X$ from the space $\mathcal{X}$.
 
 - __Network__: 
 A mathematical representation of distances between points. We denote by $\mathcal{G}$.
@@ -150,6 +150,11 @@ We will denote an arbitrary manifold by $\mathcal{M}$, and by $\mathcal{M}_q$ a 
 
 - __Embedding__: 
 Informally speaking: a "shape preserving" mapping of a space into another (see figure below). We denote an embedding of data $X$ into a manifold $\mathcal{M}$ by: $X \mapsto \mathcal{M}$.
+
+- __Space Embedding Function__: 
+An embedding may apply only to the observed data, $X$.
+A _space embedding function_, $f$, allows to embed also unseen instances of $x$.
+Formally: $f: \mathcal{X} \mapsto \mathcal{M}$.
 
 - __Linear Embedding__: 
 An embedding done via a linear operation. 
@@ -293,7 +298,7 @@ In particular, when the Euclidean distances implied by PCA are not inappropriate
 Like PCA, and unlike MDS, local MDS includes both the construction of the dissimilarity/distance graph ($\mathcal{G}$), and the embedding ($X \mapsto \mathcal{M}$).  
 Local MDS, as the name suggests, rests on the computation of $\mathcal{G}$ from _local_ distances.
 The fundamental idea is the distance between two data points is the sum of the distances of closest points along the way. Put differently: distances are computed only between pairs of closest points, never in long ranges. 
-Given the distances $\mathcal{G}$, regular MDS can be summoned for the embedding. 
+Given the distances $\mathcal{G}$, local MDS ends with "regular MDS" for the embedding. 
 
 Because local MDS ends with a regular MDS, it can be seen as a non-linear embedding into a linear manifold $\mathcal{M}$. 
 
