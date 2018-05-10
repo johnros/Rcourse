@@ -7744,8 +7744,9 @@ Things to note and terminology:
   Distinguishing between states, i.e., finding the variance maximizing
   scores, should be indifferent to the \textbf{average} of each
   variable. We also don't want the score to be sensitive to the
-  measurement \textbf{scale}. We thus perform PCA in the z-score scale
-  of each variable, obtained with the \texttt{scale} function.
+  measurement \textbf{scale}. Formally, we say we want the scores to be
+  \emph{affine invariant}. We thus perform PCA in the z-score scale of
+  each variable, obtained with the \texttt{scale} function.
 \item
   PCA is performed with the \texttt{prcomp} function. It returns the
   contribution (weight) of the original variables, to the new crimeness

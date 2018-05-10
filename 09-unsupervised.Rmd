@@ -86,6 +86,7 @@ Things to note and terminology:
 
 - Distinguishing between states, i.e., finding the variance maximizing scores, should be indifferent to the __average__ of each variable. 
 We also don't want the score to be sensitive to the measurement __scale__. 
+Formally, we say we want the scores to be _affine invariant_. 
 We thus perform PCA in the z-score scale of each variable, obtained with the `scale` function.
 
 - PCA is performed with the `prcomp` function. 
