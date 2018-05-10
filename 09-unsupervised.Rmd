@@ -84,14 +84,13 @@ We also don't want the score to be sensitive to the measurement __scale__.
 We thus perform PCA in the z-score scale of each variable, obtained with the `scale` function.
 
 - PCA is performed with the `prcomp` function. 
-It returns the contribution (weight) of the original variables, to the new crimeness score.  
-These weights are called the _loadings_ (or `Rotations` in the `prcomp` output, which is rather confusing as we will later see).
+It returns the contribution (weight) of the original variables, to the new crimeness score. These weights are called the _loadings_ . Z-scored loadings are known as _Rotations_, which is also the term  in the `prcomp` output. If you are confused between loadings and rotations, see this [Cross Validated](https://stats.stackexchange.com/questions/143905/loadings-vs-eigenvectors-in-pca-when-to-use-one-or-another) entry.
 
 - The number of possible scores, is the same as the number of original variables in the data. 
 
-- The new scores are called the _principal components_, labeled `PC1`,...,`PC3` in our output.
+- The new scores are called the _principal components_, labeled `PC1`,...,`PC3` in our output. They are computed by summing the original variables weighted by their loadings. 
 
-- The loadings on PC1 tell us that the best separation between states is along the average crime rate. 
+- The loadings/rotation on PC1 tell us that the best separation between states is along the average crime rate. 
 Why is this? 
 Because all the $3$ crime variables have a similar loading on PC1.
 
@@ -102,15 +101,14 @@ __If we now represent each state, not with its original $4$ variables, but only 
 #### Mathematics of PCA
 
 What is the mathematical problem that is actually solved with PCA?
-Finding a linear combination, $v$, so that of $v'x$ best separates individuals.
+Finding a linear combination ($v$) of the original variables ($x$), so that the new score/index ($v'x$) best separates individuals.
 Best separation implies that the variance of $v'x$ is maximal.
-Clearly, $Var[v'x]$ may explode if any $v$ is allowed, so we need to pick $v$ from some fair set. 
+Clearly, $Var[v'x]$ may explode if any $v$ is allowed, so we need to pick $v$ from some "fair" set. 
 It is most convenient, mathematically, to constrain the $l_2$ norm to some constant: $\Vert v \Vert^2_2=\sum v_j^2=1$.
 The first "best separating score", known as the first _principal component_ (PC), is thus 
 $$v_1'x \quad s.t. \quad v_1=argmax_{v}\{Var[v'x], \text{ and } \Vert v \Vert_2=1  \} .$$
 The second PC, is the same, only that it is required to be orthogonal to the first PC:
 $$v_2'x \quad s.t. \quad v_2=argmax_{v}\{Var[v'x], \text{ and } \Vert v \Vert_2=1, \text{ and } v'v_1=0 \} .$$
-One can recover $min\{n,p\}$ PCs.
 The construction of the next PCs follows the same lines: find a linear transformation of the data that best separates observations and is orthogonal to the previous PCs. 
 
 
@@ -118,10 +116,12 @@ The construction of the next PCs follows the same lines: find a linear transform
 
 #### How Hard is the PCA Problem?
 
-Estimating all the PCs in the data is well defined algebraically if $n>p$ so viewing PCA as an exploratory tool, it is not a hard problem.
-On the other hand, if viewing it as an inference tool, for inference on some population, then this is quite a hard problem. 
-This is because recovering all the PCs is equivalent to estimating a covariance matrix. 
-As we already saw in the Multivaraite Statistics Chapter (\@ref(multivariate)), estimating covariances is a hard task, we thus recommend: don't trust your PCs if $n$ is not much larger than $p$, and see the bibliographic notes for futher details. 
+Estimating all the PCs in the data is well defined algebraically if $n>p$, in which case $p$ PCs are computable. 
+This is the algebraic part of the problem, which is rather easy.
+
+If viewing PCA as inference tool, we may ask about its statistical performance. 
+It turns out that PCA has the same statistical difficulty as estimating a covariance matrix. 
+As we already saw in the Multivariate Statistics Chapter (\@ref(multivariate)), estimating covariances is a hard task, we thus recommend: don't trust your PCs if $n$ is not much larger than $p$, and see the bibliographic notes for further details. 
 
 
 
@@ -131,19 +131,25 @@ As we already saw in the Multivaraite Statistics Chapter (\@ref(multivariate)), 
 Before presenting methods other than PCA, we need some terminology.
 
 - __Variable__: 
-A.k.a. _dimension_, or _feature_, or _column_.
+A.k.a. _dimension_, or _feature_, or _column_. A measurement in its raw scale.
+
+- __Feature Mapping__:
+A.k.a. _variable transformation_, _data augmentation_. Measurements in some transformed scale.
 
 - __Data__: 
 A.k.a. _sample_, _observations_. 
 Will typically consist of $n$, vectors of dimension $p$.
 We typically denote the data as a $n\times p$ matrix $X$. 
 
+- __Network__: 
+A mathematical representation of distances between points. We denote by $\mathcal{G}$.
+
 - __Manifold__: 
 A generalization of a linear space, which is regular enough so that, __locally__, it has all the properties of a linear space. 
 We will denote an arbitrary manifold by $\mathcal{M}$, and by $\mathcal{M}_q$ a $q$ dimensional^[You are probably used to thinking of the __dimension__ of linear spaces. We will not rigorously define what is the dimension of a manifold, but you may think of it as the number of free coordinates needed to navigate along the manifold.] manifold.
 
 - __Embedding__: 
-Informally speaking: a "shape preserving" mapping of a space into another (see figure below).
+Informally speaking: a "shape preserving" mapping of a space into another (see figure below). We denote an embedding of data $X$ into a manifold $\mathcal{M}$ by: $X \mapsto \mathcal{M}$.
 
 - __Linear Embedding__: 
 An embedding done via a linear operation. 
@@ -152,7 +158,7 @@ An embedding done via a linear operation.
 Known to statisticians as the __sampling distribution__. 
 The assumed stochastic process that generated the observed $X$. 
 
-![Various embedding algorithms. No embedding of the sphere to the plane is perfect. This is obviously not new. [Maps makers](https://en.wikipedia.org/wiki/Map_projection) have known this for centuries!Source: http://scikit-learn.org/stable/auto_examples/manifold/plot_manifold_sphere.html#sphx-glr-auto-examples-manifold-plot-manifold-sphere-py](art/sphx_glr_plot_manifold_sphere_001.png)
+![Various embedding algorithms. No embedding of the sphere to the plane is perfect. This is obviously not new. [Maps makers](https://en.wikipedia.org/wiki/Map_projection) have known this for centuries!Source: http://sci kit-learn.org/stable/auto_examples/manifold/plot_manifold_sphere.html#sphx-glr-auto-examples-manifold-plot-manifold-sphere-py](art/sphx_glr_plot_manifold_sphere_001.png)
 
 
 There are many motivations for dimensionality reduction:
@@ -233,6 +239,9 @@ An arbitrary orthogonal re-combination of the factors, $S$, and loadings, $A$, w
 The FA literature offers several heuristics to "fix" the identifiability problem of FA. 
 These are known as _rotations_, and go under the names of _Varimax_, _Quartimax_, _Equimax_, _Oblimin_, _Promax_, and possibly others. 
 
+Because of their great similarity, FA is often confused with PCA. 
+For a discussion of the similarities and dissimilarities, see this excellent [StackExchange Q](https://stats.stackexchange.com/questions/123063/is-there-any-good-reason-to-use-pca-instead-of-efa-also-can-pca-be-a-substitut).
+
 
 #### Independent Component Analysis (ICA)
 Like FA, _independent compoent analysis_ (ICA) is a family of latent space models, thus, a _meta-method_.
@@ -259,7 +268,8 @@ This does not mean that they cannot be cast via their generative model, but rath
 
 
 #### Multidimensional Scaling (MDS)
-MDS can be thought of as a variation on PCA, that begins with the $n \times n$ graph^ of distances between data points, and not the original $n \times p$ data.
+It turns out that the PCA solution does not depend on the data itself, but only on the graph of Euclidean distances between data points ($\mathcal{G}=X'X$).
+MDS can be thought of as a variation on PCA, that begins with this $n \times n$ graph of distances, and not the original $n \times p$ data matrix.
 The term _graph_ is typically used in this context, but saying _network_ instead of _graph_ is more appropriate. 
 This is because a graph encodes connections (topology) and networks encode distances (geometry).
 
@@ -268,8 +278,7 @@ Basic results in graph/network theory [@graham1988isometric] suggest that the ge
 The different types of MDSs, such as _Classical MDS_, and _Sammon Mappings_, differ in the _stress function_ that penalizes for the geometric distortion caused by the embedding.
 
 
-#### Local Multidimensional Scaling (Local MDS)
-
+#### Local MDS  
 ```{example, label='non-euclidean'}
 Consider data of coordinates on the globe. 
 At short distances, constructing a dissimilarity graph with Euclidean distances will capture the true distance between points. 
@@ -279,8 +288,12 @@ Being a highly folded surface, the Euclidean distance between points is far from
 ```
 
 Local MDS is aimed at solving the case where we don't know how to properly measure distances. 
-It is an algorithm that compounds both the construction of the dissimilarity/distance graph, and the embedding. 
-The solution of local MDS, as the name suggests, rests on the computation of _local_ distances, where the Euclidean assumption may still be plausible, and then aggregate many such local distances, before calling upon regular MDS for the embedding.
+In particular, when the Euclidean distances implied by PCA are not inappropriate. 
+
+Like PCA, and unlike MDS, local MDS includes both the construction of the dissimilarity/distance graph ($\mathcal{G}$), and the embedding ($X \mapsto \mathcal{M}$).  
+Local MDS, as the name suggests, rests on the computation of $\mathcal{G}$ from _local_ distances.
+The fundamental idea is the distance between two data points is the sum of the distances of closest points along the way. Put differently: distances are computed only between pairs of closest points, never in long ranges. 
+Given the distances $\mathcal{G}$, regular MDS can be summoned for the embedding. 
 
 Because local MDS ends with a regular MDS, it can be seen as a non-linear embedding into a linear manifold $\mathcal{M}$. 
 
@@ -300,7 +313,7 @@ Very similar to IsoMap \@ref(isomap).
 
 
 #### Kernel PCA (kPCA)
-Returning to the BMI example (\@ref(exm:bmi)); what if we want to learn scores that best separate between individuals, but inlike PCA, are non-linear in the original features. 
+Returning to the BMI example (\@ref(exm:bmi)); what if we want to learn scores that best separate between individuals, but unlike PCA, are non-linear in the original features. 
 Kernel PCA does just that, only that it restricts the possible scores to simple functions of the original variables. 
 The allowed functions resides in a function space called Reproducing Kernel Hilbert Space (RKHS), this giving kPCA it's name.
 
@@ -309,7 +322,7 @@ The allowed functions resides in a function space called Reproducing Kernel Hilb
 sPCA is a type of PCA where the loadings are sparse. 
 This means that PCs are linear combinations of a small number of variables. 
 This makes sPCA easier to interpret. 
-Note that the _varimax_ rotation of factor-analysis has a similar goal: create factors with minimialy contributing variables, so that they are easy to explain. 
+Note that the _varimax_ rotation of factor-analysis has a similar goal: create factors with minimally contributing variables, so that they are easy to explain. 
 
 
 #### Sparse kernel PCA (skPCA)
@@ -803,7 +816,7 @@ Read about the “Iris” dataset using `? iris`. Since we want to practice some
 
 1. Make pairs scatter plot. Can you identify some clusters in the data? 
 1. Perform K-means with `centers=3`. Perform Kmeans++. To extract the clustering results (cluster of each instance) use `kmeans$clusters`. Compare the accuracy of the two algorithms (use the species column from the original dataset). 
-1. Perform hierarchal clustering with `hclust`, `method=”single”` and `method=”average”`.Extract the clustering results with `cutree`.  Compare the accuracy of the two linkage methods.
+1. Perform hierarchical clustering with `hclust`, `method=”single”` and `method=”average”`.Extract the clustering results with `cutree`.  Compare the accuracy of the two linkage methods.
 1. Perform PCA on the data with `prcomp` function. 
     1. Print the Rotation matrix.
     1. Print the PCA’s vectors with `pca$x`. These vectors are the new values for each instance in the dataset after the rotation. 
