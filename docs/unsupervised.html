@@ -590,9 +590,9 @@ where <span class="math inline">\(A\)</span> is the <span class="math inline">\(
 <h4><span class="header-section-number">10.1.4.7</span> Sparse kernel PCA (skPCA)</h4>
 <p>A marriage between sPCA and kPCA: generate scores that are non linear transformations of a minimal number of variables, each.</p>
 </div>
-<div id="multiple-correspondence-analysis-mca" class="section level4">
-<h4><span class="header-section-number">10.1.4.8</span> Multiple Correspondence Analysis (MCA)</h4>
-<p>What if <span class="math inline">\(x\)</span> is not continuous, i.e., <span class="math inline">\(\mathcal{X}\neq \mathbb{R}^p\)</span>? We could dummy-code <span class="math inline">\(x\)</span>, and then use plain PCA. A more principled view, when <span class="math inline">\(x\)</span> is categorical, is that of <a href="https://en.wikipedia.org/wiki/Multiple_correspondence_analysis">Multiple Correspondence Analysis</a>.</p>
+<div id="correspondence-analysis-ca" class="section level4">
+<h4><span class="header-section-number">10.1.4.8</span> Correspondence Analysis (CA)</h4>
+<p>What if <span class="math inline">\(x\)</span> is not continuous, i.e., <span class="math inline">\(\mathcal{X}\neq \mathbb{R}^p\)</span>? We could dummy-code <span class="math inline">\(x\)</span>, and then use plain PCA. A more principled view, when <span class="math inline">\(x\)</span> is categorical, is that of <a href="https://en.wikipedia.org/wiki/Correspondence_analysis">Correspondence Analysis</a>.</p>
 </div>
 </div>
 <div id="dimensionality-reduction-in-r" class="section level3">
@@ -800,7 +800,7 @@ kpc &lt;-<span class="st"> </span><span class="kw">kpca</span>(<span class="op">
 </div>
 <div id="mca" class="section level4">
 <h4><span class="header-section-number">10.1.5.7</span> MCA</h4>
-<p>TODO</p>
+<p>See <span class="citation">Izenman (<a href="#ref-izenman2008modern">2008</a>)</span>.</p>
 </div>
 </div>
 </div>
@@ -1015,7 +1015,7 @@ hirar.<span class="dv">11</span> &lt;-<span class="st"> </span><span class="kw">
 </div>
 <div id="bibliographic-notes-7" class="section level2">
 <h2><span class="header-section-number">10.3</span> Bibliographic Notes</h2>
-<p>For more on PCA see my <a href="https://github.com/johnros/dim_reduce/blob/master/dim_reduce.pdf">Dimensionality Reduction Class Notes</a> and references therein. For more on everything, see <span class="citation">Friedman, Hastie, and Tibshirani (<a href="#ref-friedman2001elements">2001</a>)</span>. For a softer introduction, see <span class="citation">James et al. (<a href="#ref-james2013introduction">2013</a>)</span>. For an excellent book on kernel methods (RKHS) see <span class="citation">Shawe-Taylor and Cristianini (<a href="#ref-shawe2004kernel">2004</a>)</span>.</p>
+<p>For more on PCA see my <a href="https://github.com/johnros/dim_reduce/blob/master/dim_reduce.pdf">Dimensionality Reduction Class Notes</a> and references therein. Another excellent reference on multivariate analysis (exploratory and inference) is <span class="citation">Izenman (<a href="#ref-izenman2008modern">2008</a>)</span>. For an excellent book on kernel methods (RKHS) see <span class="citation">Shawe-Taylor and Cristianini (<a href="#ref-shawe2004kernel">2004</a>)</span>. For more on everything, see <span class="citation">Friedman, Hastie, and Tibshirani (<a href="#ref-friedman2001elements">2001</a>)</span>. For a softer introduction (to everything), see <span class="citation">James et al. (<a href="#ref-james2013introduction">2013</a>)</span>.</p>
 </div>
 <div id="practice-yourself-7" class="section level2">
 <h2><span class="header-section-number">10.4</span> Practice Yourself</h2>
@@ -1053,17 +1053,20 @@ hirar.<span class="dv">11</span> &lt;-<span class="st"> </span><span class="kw">
 <div id="ref-graham1988isometric">
 <p>Graham, RL. 1988. “Isometric Embeddings of Graphs.” <em>Selected Topics in Graph Theory</em> 3. Academic Press San Diego, CA: 133–50.</p>
 </div>
+<div id="ref-izenman2008modern">
+<p>Izenman, Alan Julian. 2008. “Modern Multivariate Statistical Techniques.” <em>Regression, Classification and Manifold Learning</em>. Springer.</p>
+</div>
 <div id="ref-small1990survey">
 <p>Small, Christopher G. 1990. “A Survey of Multidimensional Medians.” <em>International Statistical Review/Revue Internationale de Statistique</em>. JSTOR, 263–77.</p>
+</div>
+<div id="ref-shawe2004kernel">
+<p>Shawe-Taylor, John, and Nello Cristianini. 2004. <em>Kernel Methods for Pattern Analysis</em>. Cambridge university press.</p>
 </div>
 <div id="ref-friedman2001elements">
 <p>Friedman, Jerome, Trevor Hastie, and Robert Tibshirani. 2001. <em>The Elements of Statistical Learning</em>. Vol. 1. Springer series in statistics Springer, Berlin.</p>
 </div>
 <div id="ref-james2013introduction">
 <p>James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning</em>. Vol. 6. Springer.</p>
-</div>
-<div id="ref-shawe2004kernel">
-<p>Shawe-Taylor, John, and Nello Cristianini. 2004. <em>Kernel Methods for Pattern Analysis</em>. Cambridge university press.</p>
 </div>
 </div>
 <div class="footnotes">
