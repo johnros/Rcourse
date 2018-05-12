@@ -125,7 +125,7 @@
 
 \title{R (BGU course)}
 \author{Jonathan D. Rosenblatt}
-\date{2018-05-10}
+\date{2018-05-12}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -7818,11 +7818,21 @@ Before presenting methods other than PCA, we need some terminology.
 \begin{itemize}
 \item
   \textbf{Variable}: A.k.a. \emph{dimension}, or \emph{feature}, or
-  \emph{column}.
+  \emph{column}. A vector of \(p\) measurements in their raw scale.
+\item
+  \textbf{Feature Mapping}: A.k.a. \emph{variable transformation}, or
+  \emph{data augmentation}. A measurement in a new, transformed, scale.
 \item
   \textbf{Data}: A.k.a. \emph{sample}, \emph{observations}. Will
   typically consist of \(n\), vectors of dimension \(p\). We typically
   denote the data as a \(n\times p\) matrix \(X\).
+\item
+  \textbf{Data space}: A.k.a. \emph{feature space}. The space of all
+  possible values of \(X\). We denote with \(\mathcal{X}\).
+\item
+  \textbf{Network}: A representation of the similarities (or
+  dissimilarities) between the \(n\) units in the data. We denote with
+  \(\mathcal{G}\), and may be encoded in an \(n \times n\) matrix.
 \item
   \textbf{Manifold}: A generalization of a linear space, which is
   regular enough so that, \textbf{locally}, it has all the properties of
@@ -7835,9 +7845,15 @@ Before presenting methods other than PCA, we need some terminology.
   manifold.
 \item
   \textbf{Embedding}: Informally speaking: a ``shape preserving''
-  mapping of a space into another (see figure below).
+  mapping (see figure below). We denote an embedding of the data \(X\),
+  into a manifold \(\mathcal{M}\) by \(X\mapsto \mathcal{M}\).
 \item
-  \textbf{Linear Embedding}: An embedding done via a linear operation.
+  \textbf{Embedding Function}: If the embedding is not only an
+  algorithm, but rather, has a functional form representation, we call
+  it an \emph{embedding function} \(f\). Given such a function, we are
+  not restricted to embeddings of the original data, \(X\), but may also
+  embed new data points from \(\mathcal{X}\):
+  \(f:\mathcal{X}\mapsto\mathcal{M}\).
 \item
   \textbf{Generative Model}: Known to statisticians as the
   \textbf{sampling distribution}. The assumed stochastic process that
@@ -7989,19 +8005,22 @@ rather they were not motivated as such.
 (MDS)}\label{multidimensional-scaling-mds}
 
 MDS can be thought of as a variation on PCA, that begins with the
-\(n \times n\) graph\^{} of distances between data points, and not the
-original \(n \times p\) data. The term \emph{graph} is typically used in
-this context, but saying \emph{network} instead of \emph{graph} is more
-appropriate. This is because a graph encodes connections (topology) and
-networks encode distances (geometry).
+\(n \times n\) graph of distances between data points \(\mathcal{G}\);
+In contrast to PCA which operates on the original \(n \times p\) data
+\(X\). The term \emph{graph} is typically used in this context, but
+saying \emph{network} instead of \emph{graph} is more appropriate. This
+is because a graph encodes connections (topology) and networks encode
+distances (geometry). Put differently, a graph can be encoded in a
+matrix of zeroes and ones, and a network with real numbers.
 
-MDS aims at embedding a graph of distances into the plane, typically for
+MDS aims at embedding \(\mathcal{G}\) into the plane, typically for
 visualization, while preserving the original distances. Basic results in
-graph/network theory \citep{graham1988isometric} suggest that the
-geometry of a graph cannot be preserved when embedding it into lower
-dimensions. The different types of MDSs, such as \emph{Classical MDS},
-and \emph{Sammon Mappings}, differ in the \emph{stress function} that
-penalizes for the geometric distortion caused by the embedding.
+graph/network theory suggest that the geometry of a graph cannot be
+preserved when embedding it into lower dimensions
+\citep{graham1988isometric}. The different types of MDSs, such as
+\emph{Classical MDS}, and \emph{Sammon Mappings}, differ in the
+\emph{stress function} that penalizes for the geometric distortion
+caused by the embedding.
 
 \subsubsection{Local Multidimensional Scaling (Local
 MDS)}\label{local-multidimensional-scaling-local-mds}
@@ -8021,22 +8040,24 @@ geodesic distances along the cortex's surface\footnote{Then again, it is
   now.}.
 \EndKnitrBlock{example}
 
-Local MDS is aimed at solving the case where we don't know how to
-properly measure distances. It is an algorithm that compounds both the
-construction of the dissimilarity/distance graph, and the embedding. The
-solution of local MDS, as the name suggests, rests on the computation of
-\emph{local} distances, where the Euclidean assumption may still be
-plausible, and then aggregate many such local distances, before calling
-upon regular MDS for the embedding.
+Local MDS is aimed at solving the case where Euclidean distances are
+inappropriate. Instead of using the graph of Euclidean distances between
+any two points, \(\mathcal{G}=X'X\), local MDS computes \(\mathcal{G}\)
+starting with the Euclidean distance between pairs of nearest points.
+Longer distances are solved as a
+\href{https://en.wikipedia.org/wiki/Shortest_path_problem}{shortest path
+problem}. This is akin to computing the distance between Jerusalem to
+Beijing by computing Euclidean distances between Jerusalem-Bagdad,
+Bagdad-Teheran, Teheran-Ashgabat, Ashgabat-Tashkent,and so on. Because
+the
+\href{https://en.wikipedia.org/wiki/Geographical_distance}{geographical-distance}
+between these cities is well approximated with the Euclidean distance,
+summing local distanes is better than operating with the Euclidean
+distance between Jerusalem and Beijing.
 
-Because local MDS ends with a regular MDS, it can be seen as a
-non-linear embedding into a linear manifold \(\mathcal{M}\).
-
-Local MDS is not popular. Why is this? Because it makes no sense: If we
-believe the points reside in a non-Euclidean space, thus motivating the
-use of geodesic distances, why would we want to wrap up with regular
-MDS, which embeds in a linear space?! It does offer, however, some
-intuition to the following, more popular, algorithms.
+After computing \(\mathcal{G}\), local MDS ends with the usual MDS for
+the embedding. Because local MDS ends with a regular MDS, it can be seen
+as a non-linear embedding into a linear manifold \(\mathcal{M}\).
 
 \subsubsection{Isometric Feature Mapping (IsoMap)}\label{isomap}
 
@@ -8878,8 +8899,8 @@ the class assignments.
 How to choose the number of clusters? Just like the Scree Plot above, we
 can use a ``knee heuristic''. Because the length of a tree's branch is
 proportional to distances, long branches imply inhomogenous groups,
-while short branches imply homogenous groups. Here is a little
-simulation to deminstrate this:
+while short branches imply homogeneous groups. Here is a little
+simulation to demonstrate this:
 
 \begin{Shaded}
 \begin{Highlighting}[]

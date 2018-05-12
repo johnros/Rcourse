@@ -137,22 +137,32 @@ As we already saw in the Multivariate Statistics Chapter (\@ref(multivariate)), 
 Before presenting methods other than PCA, we need some terminology.
 
 - __Variable__: 
-A.k.a. _dimension_, or _feature_, or _column_.
+A.k.a. _dimension_, or _feature_, or _column_. A vector of $p$ measurements in their raw scale.
+
+- __Feature Mapping__:
+A.k.a. _variable transformation_, or _data augmentation_. A measurement in a new, transformed, scale. 
 
 - __Data__: 
 A.k.a. _sample_, _observations_. 
 Will typically consist of $n$, vectors of dimension $p$.
 We typically denote the data as a $n\times p$ matrix $X$. 
 
+- __Data space__:
+A.k.a. _feature space_. The space of all possible values of $X$. We denote with $\mathcal{X}$.
+
+- __Network__:
+A representation of the similarities (or dissimilarities) between the $n$ units in the data. We denote with $\mathcal{G}$, and may be encoded in an $n \times n$ matrix. 
+
 - __Manifold__: 
 A generalization of a linear space, which is regular enough so that, __locally__, it has all the properties of a linear space. 
 We will denote an arbitrary manifold by $\mathcal{M}$, and by $\mathcal{M}_q$ a $q$ dimensional^[You are probably used to thinking of the __dimension__ of linear spaces. We will not rigorously define what is the dimension of a manifold, but you may think of it as the number of free coordinates needed to navigate along the manifold.] manifold.
 
 - __Embedding__: 
-Informally speaking: a "shape preserving" mapping of a space into another (see figure below).
+Informally speaking: a "shape preserving" mapping (see figure below). We denote an embedding of the data $X$, into a manifold $\mathcal{M}$ by $X\mapsto \mathcal{M}$.
 
-- __Linear Embedding__: 
-An embedding done via a linear operation. 
+- __Embedding Function__:
+If the embedding is not only an algorithm, but rather, has a functional form representation, we call it an _embedding function_ $f$. Given such a function, we are not restricted to embeddings of the original data, $X$, but may also embed new data points from $\mathcal{X}$: $f:\mathcal{X}\mapsto\mathcal{M}$.
+
 
 - __Generative Model__: 
 Known to statisticians as the __sampling distribution__. 
@@ -251,6 +261,7 @@ In many cases this function is assumed to be linear in $S$ so that ICA is compar
 The fundamental idea of ICA is that $S$ has a joint distribution of __non-Gaussian__, __independent__ variables. 
 This independence assumption, solves the the non-uniqueness of $S$ in FA.
 As such, it can be thought of as a type of rotation in FA.
+Then again, if the assumed distribution of $S$ is both non-Gaussian, and well justified, then ICA is well defined, and more than just an arbitrary rotation of FA.
 
 Being a generative model, estimation of $S$ can then be done using maximum likelihood, or other estimation principles. 
 
@@ -268,12 +279,11 @@ This does not mean that they cannot be cast via their generative model, but rath
 
 
 #### Multidimensional Scaling (MDS)
-MDS can be thought of as a variation on PCA, that begins with the $n \times n$ graph^ of distances between data points, and not the original $n \times p$ data.
-The term _graph_ is typically used in this context, but saying _network_ instead of _graph_ is more appropriate. 
-This is because a graph encodes connections (topology) and networks encode distances (geometry).
+MDS can be thought of as a variation on PCA, that begins with the $n \times n$ graph of distances between data points $\mathcal{G}$; In contrast to PCA which operates on the original $n \times p$ data $X$.
+The term _graph_ is typically used in this context, but saying _network_ instead of _graph_ is more appropriate. This is because a graph encodes connections (topology) and networks encode distances (geometry). Put differently, a graph can be encoded in a matrix of zeroes and ones, and a network with real numbers. 
 
-MDS aims at embedding a graph of distances into the plane, typically for visualization, while preserving the original distances.
-Basic results in graph/network theory [@graham1988isometric] suggest that the geometry of a graph cannot be preserved when embedding it into lower dimensions. 
+MDS aims at embedding $\mathcal{G}$ into the plane, typically for visualization, while preserving the original distances.
+Basic results in graph/network theory suggest that the geometry of a graph cannot be preserved when embedding it into lower dimensions [@graham1988isometric]. 
 The different types of MDSs, such as _Classical MDS_, and _Sammon Mappings_, differ in the _stress function_ that penalizes for the geometric distortion caused by the embedding.
 
 
@@ -287,17 +297,12 @@ A more extreme example is coordinates on the brain's cerebral cortex.
 Being a highly folded surface, the Euclidean distance between points is far from the true geodesic distances along the cortex's surface^[Then again, it is possible that the true distances are the white matter fibers connecting going within the cortex, in which case, Euclidean distances are more appropriate than geodesic distances. We put that aside for now.].
 ```
 
-Local MDS is aimed at solving the case where we don't know how to properly measure distances. 
-It is an algorithm that compounds both the construction of the dissimilarity/distance graph, and the embedding. 
-The solution of local MDS, as the name suggests, rests on the computation of _local_ distances, where the Euclidean assumption may still be plausible, and then aggregate many such local distances, before calling upon regular MDS for the embedding.
+Local MDS is aimed at solving the case where Euclidean distances are inappropriate. 
+Instead of using the graph of Euclidean distances between any two points, $\mathcal{G}=X'X$, local MDS computes $\mathcal{G}$ starting with the Euclidean distance between pairs of nearest points. Longer distances are solved as a [shortest path problem](https://en.wikipedia.org/wiki/Shortest_path_problem). 
+This is akin to computing the distance between Jerusalem to Beijing by computing Euclidean distances between Jerusalem-Bagdad, Bagdad-Teheran, Teheran-Ashgabat, Ashgabat-Tashkent,and so on. Because the [geographical-distance](https://en.wikipedia.org/wiki/Geographical_distance) between these cities is well approximated with the Euclidean distance, summing local distanes is better than operating with the Euclidean distance between Jerusalem and Beijing. 
 
+After computing $\mathcal{G}$, local MDS ends with the usual MDS for the embedding.
 Because local MDS ends with a regular MDS, it can be seen as a non-linear embedding into a linear manifold $\mathcal{M}$. 
-
-Local MDS is not popular.
-Why is this? 
-Because it makes no sense: 
-If we believe the points reside in a non-Euclidean space, thus motivating the use of geodesic distances, why would we want to wrap up with regular MDS, which embeds in a linear space?!
-It does offer, however, some intuition to the following, more popular, algorithms.
 
 
 #### Isometric Feature Mapping (IsoMap) {#isomap}
@@ -813,8 +818,8 @@ head(cut.2.2)
 
 How to choose the number of clusters?
 Just like the Scree Plot above, we can use a "knee heuristic". 
-Because the length of a tree's branch is proportional to distances, long branches imply inhomogenous groups, while short branches imply homogenous groups.
-Here is a little simulation to deminstrate this:
+Because the length of a tree's branch is proportional to distances, long branches imply inhomogenous groups, while short branches imply homogeneous groups.
+Here is a little simulation to demonstrate this:
 
 ```{r}
 n.groups <- 3
