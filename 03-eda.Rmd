@@ -261,6 +261,7 @@ plot(table2.1, main='Trivaraite mosaic plot')
 ```
 
 
+
 ### Continuous Data
 
 #### Visualizing Univariate Continuous Data
@@ -347,6 +348,44 @@ covariance <- cov(longley) # The covariance of the longley dataset
 correlations <- cor(longley) # The correlations of the longley dataset
 lattice::levelplot(correlations)
 ```
+
+
+#### Parallel Coordinate Plots {#parcoord}
+TODO
+
+
+
+## Mixed Type Data
+Most real data sets will be of mixed type: both categorical and continous. 
+One approach to view such data, is to visualize the continous variables separatly, for each level of the categorical variables. 
+There are, however, interesting dedicated visualization for such data. 
+
+
+
+### Alluvian Diagram
+An Alluvian plot is a type of [Parallel Coordinate Plot](#parcoord) for multivariate categorical data. 
+It is particularly interesting when the $x$ axis is a discretized time variable, and it is used to visualize flow. 
+
+The following example, from the __ggalluvial__ package Vignette by [Jason Cory Brunson](https://cran.r-project.org/web/packages/ggalluvial/vignettes/ggalluvial.html), demonstrates the flow of students between different majors, as semesters evolve. 
+```{r}
+library(ggalluvial)
+data(majors)
+majors$curriculum <- as.factor(majors$curriculum)
+ggplot(majors,
+       aes(x = semester, stratum = curriculum, alluvium = student,
+           fill = curriculum, label = curriculum)) +
+  scale_fill_brewer(type = "qual", palette = "Set2") +
+  geom_flow(stat = "alluvium", lode.guidance = "rightleft",
+            color = "darkgray") +
+  geom_stratum() +
+  theme(legend.position = "bottom") +
+  ggtitle("student curricula across several semesters")
+```
+
+Things to note:
+
+- We used the __galluvian__ package of the __ggplot2__ ecosystem. More on __ggplot2__ in the [Plotting Chapter](#plotting).
+- Time is on the $x$ axis. Categories are color coded.
 
 
 

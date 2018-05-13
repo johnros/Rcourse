@@ -166,6 +166,14 @@ will output
 > `r rnorm(1)` is a random Gaussian. 
 
 
+### BibTex
+
+BibTex is both a file format and a compiler. The bibtex compiler links documents to a reference database stored in the `.bib` file format. 
+
+Bibtex is typically associated with Tex and LaTex typesetting, but it also operates within the markdown pipeline. 
+
+Just store your references in a `.bib` file, add a `bibliography: yourFile.bib`  in the YML preamble of your Rmarkdown file, and call your references from the Rmarkdown text using `@referencekey`. 
+Rmarkdow will take care of creating the bibliography, and linking to it from the text.
 
 
 

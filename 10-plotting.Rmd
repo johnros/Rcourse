@@ -3,6 +3,7 @@ output: html_document
 editor_options: 
   chunk_output_type: console
 ---
+
 # Plotting {#plotting}
 
 Whether you are doing EDA, or preparing your results for publication, you need plots.
@@ -12,7 +13,7 @@ To be concrete, many of the plots in R are simply impossible to produce with Exc
 In this text, we will focus on two plotting packages. 
 The basic __graphics__ package, distributed with the base R distribution, and the __ggplot2__ package. 
 
-Before going into the details of the plotting packages, we start with some high-level philosophy.
+Before going into the details of the plotting packages, we start with some philosophy.
 The __graphics__ package originates from the mainframe days. 
 Computers had no graphical interface, and the output of the plot was immediately sent to a printer. 
 Once a plot has been produced with the __graphics__ package, just like a printed output, it cannot be queried nor changed, except for further additions.
@@ -28,7 +29,7 @@ The grammar in __ggplot2__ are is the one stated by @wilkinson2006grammar.
 The objects and grammar of __ggplot2__ have later evolved to allow more complicated plotting and in particular, interactive plotting. 
 
 Interactive plotting is a very important feature for EDA, and reporting. 
-The major leap in interactive plotting was made possible by the advancement of web technologies, such as JavaScript.
+The major leap in interactive plotting was made possible by the advancement of web technologies, such as JavaScript and [D3.JS](https://en.wikipedia.org/wiki/D3.js).
 Why is this? 
 Because an interactive plot, or report, can be seen as a web-site. 
 Building upon the capabilities of JavaScript and your web browser to provide the interactivity, greatly facilitates the development of such plots, as the programmer can rely on the web-browsers capabilities for interactivity. 
@@ -37,7 +38,7 @@ Building upon the capabilities of JavaScript and your web browser to provide the
 
 ## The graphics System
 
-The R code from the Basics Chapter \@ref(basics) is a demonstration of the __graphics__ package and system. 
+The R code from the Basics Chapter \@ref(basics) is a demonstration of the __graphics__ package and plotting system. 
 We make a quick review of the basics.
 
 ### Using Existing Plotting Functions
@@ -200,7 +201,7 @@ Things to note:
 
 If you want to produce several plots, you can use a counter in the file's name. The counter uses the [printf](https://en.wikipedia.org/wiki/Printf_format_string) format string.
 
-```{r, evel=FALSE}
+```{r, eval=FALSE}
 tiff(filename='graphicExample%d.tiff') #Creates a sequence of files
 plot(rnorm(100))
 boxplot(rnorm(100))
@@ -222,7 +223,7 @@ See `?pdf` and `?jpeg` for more info.
 
 ### Fancy graphics Examples {#fancy}
 
-Building a line graph from scratch.
+#### Line Graph
 
 ```{r}
 x = 1995:2005
@@ -246,7 +247,7 @@ Things to note:
 - `axis` adds the axes, and `box` the framing box. 
 - The rest of the elements, you already know.
 
-Rosette.
+#### Rosette
 
 ```{r}
 n = 17
@@ -263,7 +264,7 @@ box()
 
 
 
-Arrows.
+#### Arrows
 
 ```{r}
 plot.new()
@@ -276,7 +277,7 @@ text(0, 0, "B", cex = 1.5)
 text(1, 0, "C", cex = 1.5)
 ```
 
-Arrows as error bars.
+#### Arrows as error bars
 
 ```{r}
 x = 1:10
@@ -292,6 +293,7 @@ axis(2, las = 1)
 box()
 ```
 
+#### Histogram
 
 A histogram is nothing but a bunch of rectangle elements.
 
@@ -304,7 +306,7 @@ axis(2, las = 1)
 ```
 
 
-Spiral Squares.
+##### Spiral Squares
 
 ```{r}
 plot.new()
@@ -320,6 +322,8 @@ for(i in 1:50) {
 	polygon(x, y, col = "cornsilk")
 }
 ```
+
+#### Circles
 
 Circles are just dense polygons.
 
@@ -337,8 +341,7 @@ polygon(x, y, col = "lightblue", border = "navyblue")
 ```
 
 
-
-Spiral- just a bunch of lines. 
+#### Spiral
 
 ```{r}
 k = 5
@@ -424,8 +427,8 @@ p <- ggplot(data = Milk, aes(x=Time, y=protein)) +
   geom_point()
 ```
 
-We can add _layers_ of new _geoms_ using the `+` operator. 
-Here, we add a smoothing line.
+We can change^{In the Object-Oriented Programming lingo, this is known as [mutating](https://en.wikipedia.org/wiki/Immutable_object)} existing plots using the `+` operator.
+Here, we add a smoothing line to the plot `p`.
 
 ```{r}
 p + geom_smooth(method = 'gam')
@@ -434,7 +437,7 @@ p + geom_smooth(method = 'gam')
 Things to note:
 
 - The smoothing line is a layer added with the `geom_smooth()` function.
-- Lacking any arguments, the new layer will inherit the `aes` of the original object, x and y variables in particular. 
+- Lacking arguments of its own, the new layer will inherit the `aes` of the original object, x and y variables in particular. 
 
 
 To split the plot along some variable, we use faceting, done with the `facet_wrap` function.
@@ -452,7 +455,7 @@ p + stat_summary(aes(color=Diet), fun.y="mean", geom="line")
 Things to note:
 
 - `stat_summary` adds a statistical summary.
-- The summary is applied along `Diet` subgroups, because of the `color=Diet` aesthetic.
+- The summary is applied along `Diet` subgroups, because of the `color=Diet` aesthetic, which has already split the data.
 - The summary to be applied is the mean, because of `fun.y="mean"`.
 - The group means are connected by lines, because of the `geom="line"` argument.
 
@@ -647,6 +650,7 @@ For more on __plotly__ see https://plot.ly/r/.
 ## Bibliographic Notes
 For the __graphics__ package, see @Rlanguage.
 For __ggplot2__ see @ggplot2.
+For the theory underlying __ggplot2__, i.e. the Grammer of Graphics, see @wilkinson2006grammar.
 A [video](https://www.youtube.com/watch?v=9Objw9Tvhb4&feature=youtu.be) by one of my heroes,  [Brian Caffo](http://www.bcaffo.com/), discussing __graphics__ vs. __ggplot2__.
 
 

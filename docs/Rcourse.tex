@@ -26,6 +26,7 @@
 \hypersetup{
             pdftitle={R (BGU course)},
             pdfauthor={Jonathan D. Rosenblatt},
+            pdfkeywords={Rstats, Statistics},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
@@ -125,7 +126,7 @@
 
 \title{R (BGU course)}
 \author{Jonathan D. Rosenblatt}
-\date{2018-05-12}
+\date{2018-05-13}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -2561,6 +2562,61 @@ the package of origin of a function.
 
 \includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-95-1}
 
+\hypertarget{parcoord}{\subsubsection{Parallel Coordinate
+Plots}\label{parcoord}}
+
+TODO
+
+\section{Mixed Type Data}\label{mixed-type-data}
+
+Most real data sets will be of mixed type: both categorical and
+continous. One approach to view such data, is to visualize the continous
+variables separatly, for each level of the categorical variables. There
+are, however, interesting dedicated visualization for such data.
+
+\subsection{Alluvian Diagram}\label{alluvian-diagram}
+
+An Alluvian plot is a type of \protect\hyperlink{parcoord}{Parallel
+Coordinate} for multivariate categorical data. It is particularly
+interesting when the \(x\) axis is a discretized time variable, and it
+is used to visualize flow.
+
+The following example, from the \textbf{ggalluvial} package Vignette by
+\href{https://cran.r-project.org/web/packages/ggalluvial/vignettes/ggalluvial.html}{Jason
+Cory Brunson}, demonstrates the flow of students between different
+majors, as semesters evolve.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggalluvial)}
+\KeywordTok{data}\NormalTok{(majors)}
+\NormalTok{majors}\OperatorTok{$}\NormalTok{curriculum <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(majors}\OperatorTok{$}\NormalTok{curriculum)}
+\KeywordTok{ggplot}\NormalTok{(majors,}
+       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ semester, }\DataTypeTok{stratum =}\NormalTok{ curriculum, }\DataTypeTok{alluvium =}\NormalTok{ student,}
+           \DataTypeTok{fill =}\NormalTok{ curriculum, }\DataTypeTok{label =}\NormalTok{ curriculum)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_fill_brewer}\NormalTok{(}\DataTypeTok{type =} \StringTok{"qual"}\NormalTok{, }\DataTypeTok{palette =} \StringTok{"Set2"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_flow}\NormalTok{(}\DataTypeTok{stat =} \StringTok{"alluvium"}\NormalTok{, }\DataTypeTok{lode.guidance =} \StringTok{"rightleft"}\NormalTok{,}
+            \DataTypeTok{color =} \StringTok{"darkgray"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_stratum}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"bottom"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"student curricula across several semesters"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-96-1}
+
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  We used the \textbf{galluvian} package of the \textbf{ggplot2}
+  ecosystem. More on \textbf{ggplot2} in the {[}Plotting
+  Chapter{]}{[}\#plotting{]}.
+\item
+  Time is on the \(x\) axis. Categories are color coded.
+\end{itemize}
+
 \section{Bibliographic Notes}\label{bibliographic-notes-2}
 
 Like any other topic in this book, you can consult
@@ -2645,20 +2701,20 @@ problems is discussed in the Supervised Learning Chapter
 Here are some more examples of the types of problems we are discussing.
 
 \BeginKnitrBlock{example}[Plant Growth]
-\protect\hypertarget{exm:unnamed-chunk-96}{}{\label{exm:unnamed-chunk-96}
+\protect\hypertarget{exm:unnamed-chunk-97}{}{\label{exm:unnamed-chunk-97}
 \iffalse (Plant Growth) \fi{} }Consider the treatment of various plants
 with various fertilizers to study the fertilizer's effect on growth.
 \EndKnitrBlock{example}
 
 \BeginKnitrBlock{example}[Return to Education]
-\protect\hypertarget{exm:unnamed-chunk-97}{}{\label{exm:unnamed-chunk-97}
+\protect\hypertarget{exm:unnamed-chunk-98}{}{\label{exm:unnamed-chunk-98}
 \iffalse (Return to Education) \fi{} }Consider the study of return to
 education by analyzing the incomes of individuals with different
 education years.
 \EndKnitrBlock{example}
 
 \BeginKnitrBlock{example}[Drug Effect]
-\protect\hypertarget{exm:unnamed-chunk-98}{}{\label{exm:unnamed-chunk-98}
+\protect\hypertarget{exm:unnamed-chunk-99}{}{\label{exm:unnamed-chunk-99}
 \iffalse (Drug Effect) \fi{} }Consider the study of the effect of a new
 drug for hemophilia, by analyzing the level of blood coagulation after
 the administration of various amounts of the new drug.
@@ -3014,7 +3070,7 @@ Chapter \ref{supervised}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-107-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-108-1}
 
 The model seems to fit the data nicely. A common measure of the goodness
 of fit is the \emph{coefficient of determination}, more commonly known
@@ -3023,7 +3079,7 @@ as the \(R^2\).
 
 
 \BeginKnitrBlock{definition}[R2]
-\protect\hypertarget{def:unnamed-chunk-108}{}{\label{def:unnamed-chunk-108}
+\protect\hypertarget{def:unnamed-chunk-109}{}{\label{def:unnamed-chunk-109}
 \iffalse (R2) \fi{} }The coefficient of determination, denoted \(R^2\),
 is defined as
 
@@ -3143,7 +3199,7 @@ shape.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-111-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-112-1}
 
 I can't say I see any shape. Let's fit a \textbf{wrong} model, just to
 see what ``shape'' means.
@@ -3155,7 +3211,7 @@ see what ``shape'' means.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-112-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-113-1}
 
 Things to note:
 
@@ -3192,7 +3248,7 @@ line, then the assumed distribution does not fit the sample.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-113-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-114-1}
 
 Things to note:
 
@@ -3216,7 +3272,7 @@ distributed sample, to see how that would look.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-114-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-115-1}
 
 \subsection{Testing a Hypothesis on a Single
 Coefficient}\label{testing-a-hypothesis-on-a-single-coefficient}
@@ -3483,7 +3539,7 @@ Things to note:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-123-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-124-1}
 If you don't want the default dummy coding, look at \texttt{?contrasts}.
 
 If you are more familiar with the ANOVA literature, or that you don't
@@ -3936,7 +3992,7 @@ indexed by \(x\): \(x=0\) for the first, and \(x=1\) for the second. We
 start with some definitions.
 
 \BeginKnitrBlock{definition}[Odds]
-\protect\hypertarget{def:unnamed-chunk-132}{}{\label{def:unnamed-chunk-132}
+\protect\hypertarget{def:unnamed-chunk-133}{}{\label{def:unnamed-chunk-133}
 \iffalse (Odds) \fi{} }The \emph{odds}, of a binary random variable,
 \(y\), is defined as \[\frac{P(y=1)}{P(y=0)}.\]
 \EndKnitrBlock{definition}
@@ -3947,7 +4003,7 @@ you ever placed a bet, the language of ``odds'' should not be unfamiliar
 to you.
 
 \BeginKnitrBlock{definition}[Odds Ratio]
-\protect\hypertarget{def:unnamed-chunk-133}{}{\label{def:unnamed-chunk-133}
+\protect\hypertarget{def:unnamed-chunk-134}{}{\label{def:unnamed-chunk-134}
 \iffalse (Odds Ratio) \fi{} }The \emph{odds ratio} between two binary
 random variables, \(y_1\) and \(y_2\), is defined as the ratio between
 their odds. Formally:
@@ -4022,7 +4078,7 @@ do we expect? What should be the sign of each effect?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-136-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-137-1}
 
 Let's fit a logistic regression, and inspect the output.
 
@@ -4392,7 +4448,7 @@ Look at the following plot and think:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-143-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-144-1}
 
 We now fit a model to check for the change in the rate of events as a
 function of the days since the outbreak.
@@ -4902,7 +4958,7 @@ And visually
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-149-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-150-1}
 
 If we want to do inference on the (global) mean yield, we need to
 account for the two sources of variability: the within-batch
@@ -5025,7 +5081,7 @@ One sample per combination:
 
 And visually:
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-153-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-154-1}
 
 Let's fit a mixed-effects model with a random plate effect, and a random
 sample effect:
@@ -5124,7 +5180,7 @@ Variability in response for each plate, over various sample types:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-156-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-157-1}
 
 Variability in response for each sample type, over the various plates:
 
@@ -5134,7 +5190,7 @@ Variability in response for each sample type, over the various plates:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-157-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-158-1}
 
 Things to note:
 
@@ -5210,7 +5266,7 @@ series of tests (\texttt{Reaction}), after various subject
 (\texttt{Subject}) underwent various amounts of sleep deprivation
 (\texttt{Day}).
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-161-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-162-1}
 
 We now want to estimate the (fixed) effect of the days of sleep
 deprivation on response time, while allowing each subject to have
@@ -5298,12 +5354,12 @@ To demonstrate the ``strength borrowing'', here is a comparison of the
 lme, versus the effects of fitting a linear model to each subject
 separately.
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-164-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-165-1}
 
 Here is a comparison of the random-day effect from \texttt{lme} versus a
 subject-wise linear model. They are not the same.
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-165-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-166-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5521,7 +5577,7 @@ demonstrate the difference between Euclidean Distance and Mahalanobis
 Distance.
 \EndKnitrBlock{remark}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-169-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-170-1}
 
 \section{Signal Detection}\label{signal-detection}
 
@@ -5687,7 +5743,7 @@ Let's generate some data with no signal.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-170-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-171-1}
 
 Now make our own Hotelling function.
 
@@ -5909,7 +5965,7 @@ computing the coordinate-wise (i.e.~hypothesis-wise) p-value.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-177-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-178-1}
 
 We now compute the pvalues of each coordinate. We use a coordinate-wise
 t-test. Why a t-test? Because for the purpose of demonstration we want a
@@ -5924,7 +5980,7 @@ p-values.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-178-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-179-1}
 
 Things to note:
 
@@ -6270,7 +6326,7 @@ a hypothesis that minimizes the average loss in the sample, and not in
 the population. This is know as the \emph{risk minimization problem}.
 
 \BeginKnitrBlock{definition}[Risk Function]
-\protect\hypertarget{def:unnamed-chunk-184}{}{\label{def:unnamed-chunk-184}
+\protect\hypertarget{def:unnamed-chunk-185}{}{\label{def:unnamed-chunk-185}
 \iffalse (Risk Function) \fi{} }The \emph{risk function}, a.k.a.
 \emph{generalization error}, or \emph{test error}, is the population
 average loss of a predictor \(f\):
@@ -6295,7 +6351,7 @@ loss. This is known as the \emph{empirical risk miminization} problem
 (ERM).
 
 \BeginKnitrBlock{definition}[Empirical Risk]
-\protect\hypertarget{def:unnamed-chunk-185}{}{\label{def:unnamed-chunk-185}
+\protect\hypertarget{def:unnamed-chunk-186}{}{\label{def:unnamed-chunk-186}
 \iffalse (Empirical Risk) \fi{} }The \emph{empirical risk function},
 a.k.a. \emph{in-sample error}, or \emph{train error}, is the sample
 average loss of a predictor \(f\):
@@ -6738,7 +6794,7 @@ Plotting results.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-187-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-188-1}
 
 Checking all possible models is computationally very hard. \emph{Forward
 selection} is a greedy approach that adds one variable at a time.
@@ -7308,7 +7364,7 @@ the predictor.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-192-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-193-1}
 
 Trees are very prone to overfitting. To avoid this, we reduce a tree's
 complexity by \emph{pruning} it. This is done with the \texttt{prune}
@@ -7905,7 +7961,7 @@ FA originates from the psychometric literature. We thus revisit the IQ
 Example \ref{exm:iq}:
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{exm:unnamed-chunk-196}{}{\label{exm:unnamed-chunk-196}
+\protect\hypertarget{exm:unnamed-chunk-197}{}{\label{exm:unnamed-chunk-197}
 }Assume \(n\) respondents answer \(p\) quantitative questions:
 \(x_i \in \mathbb{R}^p, i=1,\dots,n\). Also assume, their responses are
 some linear function of a single personality attribute, \(s_i\). We can
@@ -7983,7 +8039,10 @@ if not confused, with PCA and even more so with FA.
 The fundamental idea of ICA is that \(S\) has a joint distribution of
 \textbf{non-Gaussian}, \textbf{independent} variables. This independence
 assumption, solves the the non-uniqueness of \(S\) in FA. As such, it
-can be thought of as a type of rotation in FA.
+can be thought of as a type of rotation in FA. Then again, if the
+assumed distribution of \(S\) is both non-Gaussian, and well justified,
+then ICA is well defined, and more than just an arbitrary rotation of
+FA.
 
 Being a generative model, estimation of \(S\) can then be done using
 maximum likelihood, or other estimation principles.
@@ -8092,14 +8151,14 @@ contributing variables, so that they are easy to explain.
 A marriage between sPCA and kPCA: generate scores that are non linear
 transformations of a minimal number of variables, each.
 
-\subsubsection{Multiple Correspondence Analysis
-(MCA)}\label{multiple-correspondence-analysis-mca}
+\subsubsection{Correspondence Analysis
+(CA)}\label{correspondence-analysis-ca}
 
 What if \(x\) is not continuous, i.e., \(\mathcal{X}\neq \mathbb{R}^p\)?
 We could dummy-code \(x\), and then use plain PCA. A more principled
 view, when \(x\) is categorical, is that of
-\href{https://en.wikipedia.org/wiki/Multiple_correspondence_analysis}{Multiple
-Correspondence Analysis}.
+\href{https://en.wikipedia.org/wiki/Correspondence_analysis}{Correspondence
+Analysis}.
 
 \subsection{Dimensionality Reduction in
 R}\label{dimensionality-reduction-in-r}
@@ -8118,7 +8177,7 @@ visualize the output of PCA.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-198-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-199-1}
 
 Things to note:
 
@@ -8157,7 +8216,7 @@ This is known as the ``knee heuristic''.
 See how the first PC captures the variability in the Assault levels and
 Murder levels, with a single score.
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-199-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-200-1}
 
 More implementations of PCA:
 
@@ -8278,7 +8337,7 @@ the arrow.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-200-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-201-1}
 
 Let's add a rotation (Varimax), and note that the rotation has indeed
 changed the loadings of the variables, thus the interpretation of the
@@ -8489,7 +8548,7 @@ Things to note:
 
 \subsubsection{MCA}\label{mca}
 
-TODO
+See \citet{izenman2008modern}.
 
 \section{Clustering}\label{cluster}
 
@@ -8916,7 +8975,7 @@ simulation to demonstrate this:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-204-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-205-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8928,16 +8987,18 @@ simulation to demonstrate this:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-204-2}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-205-2}
 
 \section{Bibliographic Notes}\label{bibliographic-notes-7}
 
 For more on PCA see my
 \href{https://github.com/johnros/dim_reduce/blob/master/dim_reduce.pdf}{Dimensionality
-Reduction Class Notes} and references therein. For more on everything,
-see \citet{friedman2001elements}. For a softer introduction, see
-\citet{james2013introduction}. For an excellent book on kernel methods
-(RKHS) see \citet{shawe2004kernel}.
+Reduction Class Notes} and references therein. Another excellent
+reference on multivariate analysis (exploratory and inference) is
+\citet{izenman2008modern}. For an excellent book on kernel methods
+(RKHS) see \citet{shawe2004kernel}. For more on everything, see
+\citet{friedman2001elements}. For a softer introduction (to everything),
+see \citet{james2013introduction}.
 
 \section{Practice Yourself}\label{practice-yourself-7}
 
@@ -9021,11 +9082,11 @@ In this text, we will focus on two plotting packages. The basic
 the \textbf{ggplot2} package.
 
 Before going into the details of the plotting packages, we start with
-some high-level philosophy. The \textbf{graphics} package originates
-from the mainframe days. Computers had no graphical interface, and the
-output of the plot was immediately sent to a printer. Once a plot has
-been produced with the \textbf{graphics} package, just like a printed
-output, it cannot be queried nor changed, except for further additions.
+some philosophy. The \textbf{graphics} package originates from the
+mainframe days. Computers had no graphical interface, and the output of
+the plot was immediately sent to a printer. Once a plot has been
+produced with the \textbf{graphics} package, just like a printed output,
+it cannot be queried nor changed, except for further additions.
 
 The philosophy of R is that \textbf{everyting is an object}. The
 \textbf{graphics} package does not adhere to this philosophy, and indeed
@@ -9047,18 +9108,18 @@ and in particular, interactive plotting.
 
 Interactive plotting is a very important feature for EDA, and reporting.
 The major leap in interactive plotting was made possible by the
-advancement of web technologies, such as JavaScript. Why is this?
-Because an interactive plot, or report, can be seen as a web-site.
-Building upon the capabilities of JavaScript and your web browser to
-provide the interactivity, greatly facilitates the development of such
-plots, as the programmer can rely on the web-browsers capabilities for
-interactivity.
+advancement of web technologies, such as JavaScript and
+\href{https://en.wikipedia.org/wiki/D3.js}{D3.JS}. Why is this? Because
+an interactive plot, or report, can be seen as a web-site. Building upon
+the capabilities of JavaScript and your web browser to provide the
+interactivity, greatly facilitates the development of such plots, as the
+programmer can rely on the web-browsers capabilities for interactivity.
 
 \section{The graphics System}\label{the-graphics-system}
 
 The R code from the Basics Chapter \ref{basics} is a demonstration of
-the \textbf{graphics} package and system. We make a quick review of the
-basics.
+the \textbf{graphics} package and plotting system. We make a quick
+review of the basics.
 
 \subsection{Using Existing Plotting
 Functions}\label{using-existing-plotting-functions}
@@ -9074,7 +9135,7 @@ A simple scatter plot.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-205-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-206-1}
 
 Various types of plots.
 
@@ -9091,7 +9152,7 @@ Various types of plots.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-206-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-207-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9127,7 +9188,7 @@ with the \texttt{cex} argument.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-207-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-208-1}
 
 Control the line's type with \texttt{lty} argument, and width with
 \texttt{lwd}.
@@ -9144,7 +9205,7 @@ Control the line's type with \texttt{lty} argument, and width with
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-208-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-209-1}
 
 Add line by slope and intercept with \texttt{abline}.
 
@@ -9157,7 +9218,7 @@ Add line by slope and intercept with \texttt{abline}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-209-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-210-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9170,7 +9231,7 @@ Add line by slope and intercept with \texttt{abline}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-210-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-211-1}
 
 Things to note:
 
@@ -9203,7 +9264,7 @@ Add other elements.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-211-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-212-1}
 
 Things to note:
 
@@ -9229,7 +9290,7 @@ Add a legend.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-212-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-213-1}
 
 Adjusting Axes with \texttt{xlim} and \texttt{ylim}.
 
@@ -9239,7 +9300,7 @@ Adjusting Axes with \texttt{xlim} and \texttt{ylim}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-213-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-214-1}
 
 Use \texttt{layout} for complicated plot layouts.
 
@@ -9260,7 +9321,7 @@ Use \texttt{layout} for complicated plot layouts.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-214-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-215-1}
 
 Always detach.
 
@@ -9325,11 +9386,6 @@ string.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## pdf 
-##   2
-\end{verbatim}
-
 To see the list of all open devices use \texttt{dev.list()}. To close
 \textbf{all} device, (not only the last one), use
 \texttt{graphics.off()}.
@@ -9338,7 +9394,7 @@ See \texttt{?pdf} and \texttt{?jpeg} for more info.
 
 \subsection{Fancy graphics Examples}\label{fancy}
 
-Building a line graph from scratch.
+\subsubsection{Line Graph}\label{line-graph}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9357,7 +9413,7 @@ Building a line graph from scratch.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-219-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-220-1}
 
 Things to note:
 
@@ -9373,7 +9429,7 @@ Things to note:
   The rest of the elements, you already know.
 \end{itemize}
 
-Rosette.
+\subsubsection{Rosette}\label{rosette}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9390,9 +9446,9 @@ Rosette.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-220-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-221-1}
 
-Arrows.
+\subsubsection{Arrows}\label{arrows}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9407,9 +9463,9 @@ Arrows.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-221-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-222-1}
 
-Arrows as error bars.
+\subsubsection{Arrows as error bars}\label{arrows-as-error-bars}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9427,7 +9483,9 @@ Arrows as error bars.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-222-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-223-1}
+
+\subsubsection{Histogram}\label{histogram}
 
 A histogram is nothing but a bunch of rectangle elements.
 
@@ -9441,9 +9499,9 @@ A histogram is nothing but a bunch of rectangle elements.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-223-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-224-1}
 
-Spiral Squares.
+\paragraph{Spiral Squares}\label{spiral-squares}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9462,7 +9520,9 @@ Spiral Squares.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-224-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-225-1}
+
+\subsubsection{Circles}\label{circles}
 
 Circles are just dense polygons.
 
@@ -9481,9 +9541,9 @@ Circles are just dense polygons.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-225-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-226-1}
 
-Spiral- just a bunch of lines.
+\subsubsection{Spiral}\label{spiral}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9499,7 +9559,7 @@ Spiral- just a bunch of lines.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-226-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-227-1}
 
 \section{The ggplot2 System}\label{the-ggplot2-system}
 
@@ -9567,7 +9627,7 @@ at various times, with various diets.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-228-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-229-1}
 
 Things to note:
 
@@ -9601,7 +9661,7 @@ Let's add some color.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-229-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-230-1}
 
 The \texttt{color} argument tells R to use the variable \texttt{Diet} as
 the coloring. A legend is added by default. If we wanted a fixed color,
@@ -9615,7 +9675,7 @@ outside the \texttt{aes} function.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-230-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-231-1}
 
 Let's save the \textbf{ggplot2} object so we can reuse it. Notice it is
 not plotted.
@@ -9627,8 +9687,11 @@ not plotted.
 \end{Highlighting}
 \end{Shaded}
 
-We can add \emph{layers} of new \emph{geoms} using the \texttt{+}
-operator. Here, we add a smoothing line.
+We can change\^{}\{In the Object-Oriented Programming lingo, this is
+known as
+\href{https://en.wikipedia.org/wiki/Immutable_object}{mutating}\}
+existing plots using the \texttt{+} operator. Here, we add a smoothing
+line to the plot \texttt{p}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9636,7 +9699,7 @@ operator. Here, we add a smoothing line.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-232-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-233-1}
 
 Things to note:
 
@@ -9646,8 +9709,8 @@ Things to note:
   The smoothing line is a layer added with the \texttt{geom\_smooth()}
   function.
 \item
-  Lacking any arguments, the new layer will inherit the \texttt{aes} of
-  the original object, x and y variables in particular.
+  Lacking arguments of its own, the new layer will inherit the
+  \texttt{aes} of the original object, x and y variables in particular.
 \end{itemize}
 
 To split the plot along some variable, we use faceting, done with the
@@ -9659,7 +9722,7 @@ To split the plot along some variable, we use faceting, done with the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-233-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-234-1}
 
 Instead of faceting, we can add a layer of the mean of each
 \texttt{Diet} subgroup, connected by lines.
@@ -9670,7 +9733,7 @@ Instead of faceting, we can add a layer of the mean of each
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-234-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-235-1}
 
 Things to note:
 
@@ -9680,7 +9743,7 @@ Things to note:
   \texttt{stat\_summary} adds a statistical summary.
 \item
   The summary is applied along \texttt{Diet} subgroups, because of the
-  \texttt{color=Diet} aesthetic.
+  \texttt{color=Diet} aesthetic, which has already split the data.
 \item
   The summary to be applied is the mean, because of
   \texttt{fun.y="mean"}.
@@ -9722,7 +9785,7 @@ start with a histogram.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-235-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-236-1}
 
 A bar plot.
 
@@ -9733,7 +9796,7 @@ A bar plot.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-236-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-237-1}
 
 A scatter plot.
 
@@ -9744,7 +9807,7 @@ A scatter plot.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-237-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-238-1}
 
 A smooth regression plot, reusing the \texttt{tp} object.
 
@@ -9754,7 +9817,7 @@ A smooth regression plot, reusing the \texttt{tp} object.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-238-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-239-1}
 
 And now, a simple line plot, reusing the \texttt{tp} object, and
 connecting lines along \texttt{Cow}.
@@ -9765,7 +9828,7 @@ connecting lines along \texttt{Cow}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-239-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-240-1}
 
 The line plot is completely incomprehensible. Better look at boxplots
 along time (even if omitting the \texttt{Cow} information).
@@ -9776,7 +9839,7 @@ along time (even if omitting the \texttt{Cow} information).
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-240-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-241-1}
 
 We can do some statistics for each subgroup. The following will compute
 the mean and standard errors of \texttt{protein} at each time point.
@@ -9788,7 +9851,7 @@ the mean and standard errors of \texttt{protein} at each time point.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-241-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-242-1}
 
 Some popular statistical summaries, have gained their own functions:
 
@@ -9818,7 +9881,7 @@ function in \texttt{stat\_summary}. The median is a first example.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-242-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-243-1}
 
 We can also define our own statistical summaries.
 
@@ -9830,7 +9893,7 @@ We can also define our own statistical summaries.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-243-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-244-1}
 
 \textbf{Faceting} allows to split the plotting along some variable.
 \texttt{face\_wrap} tells R to compute the number of columns and rows of
@@ -9844,7 +9907,7 @@ plots automatically.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-244-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-245-1}
 
 \texttt{facet\_grid} forces the plot to appear allow rows or columns,
 using the \texttt{\textasciitilde{}} syntax.
@@ -9857,7 +9920,7 @@ using the \texttt{\textasciitilde{}} syntax.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-245-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-246-1}
 
 To control the looks of the plot, \textbf{ggplot2} uses \textbf{themes}.
 
@@ -9869,7 +9932,7 @@ To control the looks of the plot, \textbf{ggplot2} uses \textbf{themes}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-246-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-247-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9880,7 +9943,7 @@ To control the looks of the plot, \textbf{ggplot2} uses \textbf{themes}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-247-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-248-1}
 
 Saving plots can be done using \texttt{ggplot2::ggsave}, or with
 \texttt{pdf} like the \textbf{graphics} plots:
@@ -9958,7 +10021,7 @@ using \texttt{plotly::ggplotly}:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-251-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-252-1}
 
 How about exporting \textbf{plotly} objects? Well, a \textbf{plotly}
 object is nothing more than a little web site: an HTML file. When
@@ -9973,7 +10036,9 @@ For more on \textbf{plotly} see \url{https://plot.ly/r/}.
 \section{Bibliographic Notes}\label{bibliographic-notes-8}
 
 For the \textbf{graphics} package, see \citet{Rlanguage}. For
-\textbf{ggplot2} see \citet{ggplot2}. A
+\textbf{ggplot2} see \citet{ggplot2}. For the theory underlying
+\textbf{ggplot2}, i.e.~the Grammer of Graphics, see
+\citet{wilkinson2006grammar}. A
 \href{https://www.youtube.com/watch?v=9Objw9Tvhb4\&feature=youtu.be}{video}
 by one of my heroes, \href{http://www.bcaffo.com/}{Brian Caffo},
 discussing \textbf{graphics} vs. \textbf{ggplot2}.
@@ -9998,7 +10063,7 @@ discussing \textbf{graphics} vs. \textbf{ggplot2}.
 \end{Highlighting}
 \end{Shaded}
 
-  \includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-252-1}
+  \includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-253-1}
   ```
 \item
   Write a function that creates a boxplot from scratch. See how I built
@@ -10267,7 +10332,7 @@ which compiles into
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-257-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-258-1}
 
 TODO: more code chunk options.
 
@@ -10284,6 +10349,21 @@ will output
 \begin{quote}
 0.3378953 is a random Gaussian.
 \end{quote}
+
+\subsection{BibTex}\label{bibtex}
+
+BibTex is both a file format and a compiler. The bibtex compiler links
+documents to a reference database stored in the \texttt{.bib} file
+format.
+
+Bibtex is typically associated with Tex and LaTex typesetting, but it
+also operates within the markdown pipeline.
+
+Just store your references in a \texttt{.bib} file, add a
+\texttt{bibliography:\ yourFile.bib} in the YML preamble of your
+Rmarkdown file, and call your references from the Rmarkdown text using
+\texttt{@referencekey}. Rmarkdow will take care of creating the
+bibliography, and linking to it from the text.
 
 \subsection{Compiling}\label{compiling}
 
@@ -10483,7 +10563,7 @@ This is the output.
 \end{Highlighting}
 \end{Shaded}
 
-\href{http://shiny.rstudio.com/gallery/example-01-hello.html}{\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-263-1} }
+\href{http://shiny.rstudio.com/gallery/example-01-hello.html}{\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-264-1} }
 
 Here is another example, taken from the RStudio
 \href{https://github.com/rstudio/shiny-examples/tree/master/006-tabsets}{Shiny
@@ -10606,7 +10686,7 @@ This is the output:
 \end{Highlighting}
 \end{Shaded}
 
-\href{https://shiny.rstudio.com/gallery/tabsets.html}{\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-266-1} }
+\href{https://shiny.rstudio.com/gallery/tabsets.html}{\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-267-1} }
 
 \subsection{Beyond the Basics}\label{beyond-the-basics}
 
@@ -10655,7 +10735,7 @@ See examples
 \end{Highlighting}
 \end{Shaded}
 
-\href{https://shiny.rstudio.com/gallery/widget-gallery.html}{\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-267-1} }
+\href{https://shiny.rstudio.com/gallery/widget-gallery.html}{\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-268-1} }
 
 \subsubsection{Output Elements}\label{output-elements}
 
@@ -11528,7 +11608,7 @@ structure.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-281-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-282-1}
 
 \section{Sparse Matrix
 Representations}\label{sparse-matrix-representations}
@@ -11743,7 +11823,7 @@ discover that sparse representations make a BIG difference.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-282-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-283-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -11754,7 +11834,7 @@ discover that sparse representations make a BIG difference.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-283-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-284-1}
 
 How do we perform other types of regression with the \textbf{glmnet}? We
 just need to use the \texttt{family} and \texttt{alpha} arguments of
@@ -11974,7 +12054,7 @@ And now the timing for \textbf{data.table}.
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.456   0.264   0.723
+##   0.980   0.328   1.354
 \end{verbatim}
 
 The winner is obvious. Let's compare filtering (i.e.~row subsets,
@@ -11990,7 +12070,7 @@ i.e.~SQL's SELECT).
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.124   0.232   0.359
+##   0.636   0.244   0.915
 \end{verbatim}
 
 \begin{Shaded}
@@ -12003,7 +12083,7 @@ i.e.~SQL's SELECT).
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.160   0.216   0.378
+##    0.02    0.00    0.02
 \end{verbatim}
 
 \section{Computing from a Database}\label{computing-from-a-database}
@@ -12716,7 +12796,7 @@ means that in each iteration, we resample the data, and refit the model.
 
 \begin{verbatim}
 ## elapsed 
-##  19.139
+##  29.223
 \end{verbatim}
 
 Things to note:
@@ -12752,7 +12832,7 @@ to replace \texttt{\%dopar\%} with \texttt{\%do\%} to test.
 
 \begin{verbatim}
 ## elapsed 
-##  37.481
+##   42.35
 \end{verbatim}
 
 Yes. Parallelising is clearly faster.
@@ -13106,7 +13186,7 @@ Let's start with importing some freely available car sales data from
 ##                    size isdir mode               mtime               ctime
 ## data/autos.csv 68439217 FALSE  664 2016-11-28 15:47:00 2017-10-30 22:48:56
 ##                              atime  uid  gid   uname  grname
-## data/autos.csv 2018-04-27 18:25:32 1000 1000 johnros johnros
+## data/autos.csv 2018-05-13 12:28:00 1000 1000 johnros johnros
 \end{verbatim}
 
 \begin{Shaded}

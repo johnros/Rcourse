@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2018-05-12">
+<meta name="date" content="2018-05-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -163,8 +163,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.2.1" data-path="eda.html"><a href="eda.html#categorical-data-1"><i class="fa fa-check"></i><b>4.2.1</b> Categorical Data</a></li>
 <li class="chapter" data-level="4.2.2" data-path="eda.html"><a href="eda.html#continuous-data"><i class="fa fa-check"></i><b>4.2.2</b> Continuous Data</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="eda.html"><a href="eda.html#bibliographic-notes-2"><i class="fa fa-check"></i><b>4.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="4.4" data-path="eda.html"><a href="eda.html#practice-yourself-2"><i class="fa fa-check"></i><b>4.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="4.3" data-path="eda.html"><a href="eda.html#mixed-type-data"><i class="fa fa-check"></i><b>4.3</b> Mixed Type Data</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="eda.html"><a href="eda.html#alluvian-diagram"><i class="fa fa-check"></i><b>4.3.1</b> Alluvian Diagram</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="eda.html"><a href="eda.html#bibliographic-notes-2"><i class="fa fa-check"></i><b>4.4</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="4.5" data-path="eda.html"><a href="eda.html#practice-yourself-2"><i class="fa fa-check"></i><b>4.5</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="lm.html"><a href="lm.html"><i class="fa fa-check"></i><b>5</b> Linear Models</a><ul>
 <li class="chapter" data-level="5.1" data-path="lm.html"><a href="lm.html#problem-setup"><i class="fa fa-check"></i><b>5.1</b> Problem Setup</a></li>
@@ -283,7 +286,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="12.1.1" data-path="report.html"><a href="report.html#installation"><i class="fa fa-check"></i><b>12.1.1</b> Installation</a></li>
 <li class="chapter" data-level="12.1.2" data-path="report.html"><a href="report.html#pandoc-markdown"><i class="fa fa-check"></i><b>12.1.2</b> Pandoc Markdown</a></li>
 <li class="chapter" data-level="12.1.3" data-path="report.html"><a href="report.html#rmarkdown"><i class="fa fa-check"></i><b>12.1.3</b> Rmarkdown</a></li>
-<li class="chapter" data-level="12.1.4" data-path="report.html"><a href="report.html#compiling"><i class="fa fa-check"></i><b>12.1.4</b> Compiling</a></li>
+<li class="chapter" data-level="12.1.4" data-path="report.html"><a href="report.html#bibtex"><i class="fa fa-check"></i><b>12.1.4</b> BibTex</a></li>
+<li class="chapter" data-level="12.1.5" data-path="report.html"><a href="report.html#compiling"><i class="fa fa-check"></i><b>12.1.5</b> Compiling</a></li>
 </ul></li>
 <li class="chapter" data-level="12.2" data-path="report.html"><a href="report.html#bookdown"><i class="fa fa-check"></i><b>12.2</b> bookdown</a></li>
 <li class="chapter" data-level="12.3" data-path="report.html"><a href="report.html#shiny"><i class="fa fa-check"></i><b>12.3</b> Shiny</a><ul>
@@ -724,14 +728,45 @@ correlations &lt;-<span class="st"> </span><span class="kw">cor</span>(longley) 
 lattice<span class="op">::</span><span class="kw">levelplot</span>(correlations)</code></pre></div>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-95-1.png" width="50%" /></p>
 </div>
+<div id="parcoord" class="section level4">
+<h4><span class="header-section-number">4.2.2.4</span> Parallel Coordinate Plots</h4>
+<p>TODO</p>
+</div>
+</div>
+</div>
+<div id="mixed-type-data" class="section level2">
+<h2><span class="header-section-number">4.3</span> Mixed Type Data</h2>
+<p>Most real data sets will be of mixed type: both categorical and continous. One approach to view such data, is to visualize the continous variables separatly, for each level of the categorical variables. There are, however, interesting dedicated visualization for such data.</p>
+<div id="alluvian-diagram" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> Alluvian Diagram</h3>
+<p>An Alluvian plot is a type of <a href="eda.html#parcoord">Parallel Coordinate</a> for multivariate categorical data. It is particularly interesting when the <span class="math inline">\(x\)</span> axis is a discretized time variable, and it is used to visualize flow.</p>
+<p>The following example, from the <strong>ggalluvial</strong> package Vignette by <a href="https://cran.r-project.org/web/packages/ggalluvial/vignettes/ggalluvial.html">Jason Cory Brunson</a>, demonstrates the flow of students between different majors, as semesters evolve.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggalluvial)
+<span class="kw">data</span>(majors)
+majors<span class="op">$</span>curriculum &lt;-<span class="st"> </span><span class="kw">as.factor</span>(majors<span class="op">$</span>curriculum)
+<span class="kw">ggplot</span>(majors,
+       <span class="kw">aes</span>(<span class="dt">x =</span> semester, <span class="dt">stratum =</span> curriculum, <span class="dt">alluvium =</span> student,
+           <span class="dt">fill =</span> curriculum, <span class="dt">label =</span> curriculum)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">type =</span> <span class="st">&quot;qual&quot;</span>, <span class="dt">palette =</span> <span class="st">&quot;Set2&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_flow</span>(<span class="dt">stat =</span> <span class="st">&quot;alluvium&quot;</span>, <span class="dt">lode.guidance =</span> <span class="st">&quot;rightleft&quot;</span>,
+            <span class="dt">color =</span> <span class="st">&quot;darkgray&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_stratum</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;student curricula across several semesters&quot;</span>)</code></pre></div>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-96-1.png" width="50%" /></p>
+<p>Things to note:</p>
+<ul>
+<li>We used the <strong>galluvian</strong> package of the <strong>ggplot2</strong> ecosystem. More on <strong>ggplot2</strong> in the <a href="plotting.html#plotting">Plotting Chapter</a>.</li>
+<li>Time is on the <span class="math inline">\(x\)</span> axis. Categories are color coded.</li>
+</ul>
 </div>
 </div>
 <div id="bibliographic-notes-2" class="section level2">
-<h2><span class="header-section-number">4.3</span> Bibliographic Notes</h2>
+<h2><span class="header-section-number">4.4</span> Bibliographic Notes</h2>
 <p>Like any other topic in this book, you can consult <span class="citation">Venables and Ripley (<a href="#ref-venables2013modern">2013</a>)</span>. The seminal book on EDA, written long before R was around, is <span class="citation">Tukey (<a href="#ref-tukey1977exploratory">1977</a>)</span>. For an excellent text on robust statistics see <span class="citation">Wilcox (<a href="#ref-wilcox2011introduction">2011</a>)</span>.</p>
 </div>
 <div id="practice-yourself-2" class="section level2">
-<h2><span class="header-section-number">4.4</span> Practice Yourself</h2>
+<h2><span class="header-section-number">4.5</span> Practice Yourself</h2>
 <ol style="list-style-type: decimal">
 <li><p>Read about the Titanic data set using <code>?Titanic</code>. Inspect it with the <code>table</code> and with the <code>ftable</code> commands. Which do you prefer?</p></li>
 <li><p>Inspect the Titanic data with a plot. Start with <code>plot(Titanic)</code> Try also <code>lattice::dotplot</code>. Which is the passenger category with most survivors? Which plot do you prefer? Which scales better to more categories?</p></li>
