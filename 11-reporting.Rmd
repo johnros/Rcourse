@@ -228,10 +228,10 @@ Every Shiny app has two main building blocks.
 You can run the app via the __RunApp__ button in the RStudio interface, of by calling the app's directory with the `shinyApp` or `runApp` functions-- the former designed for single-app projects, and the latter, for multiple app projects. 
 
 ```{r, eval=FALSE}
-shiny::runApp("my_app")
+shiny::runApp("my_app") # my_app is the app's directory.
 ```
 
-The site's layout, is specified via _layout functions_ in the `iu.R` file. 
+The site's layout, is specified in the `ui.R` file using one of the _layout functions_.
 For instance, the function `sidebarLayout`, as the name suggest, will create a sidebar. 
 More layouts are detailed in the [layout guide](http://shiny.rstudio.com/articles/layout-guide.html).
 
@@ -256,7 +256,7 @@ It is defined on the server side, and reside within an `observe` function.
 
 
 We now analyze the `1_Hello` app using these ideas.
-Here is the `io.R` file.
+Here is the `ui.R` file.
 ```{r, eval=FALSE}
 library(shiny)
 
@@ -307,7 +307,7 @@ Things to note:
 - The server runs a function with an `input` and an `output`. The elements of `input` are the `inputId`s from the UI. The elements of the `output` will be called by the UI using their `outputId`. 
 
 This is the output.
-```{r}
+```{r, echo=FALSE}
 knitr::include_url('http://shiny.rstudio.com/gallery/example-01-hello.html')
 ```
 
@@ -332,7 +332,7 @@ fluidPage(
                      "Uniform" = "unif",
                      "Log-normal" = "lnorm",
                      "Exponential" = "exp")),
-      br(),
+      br(), # add a break in the HTML page.
       
       sliderInput(inputId = "n", 
                   label = "Number of observations:", 
@@ -393,7 +393,7 @@ Things to note:
 - We reused the `sidebarLayout`. 
 - As the name suggests, `radioButtons` is a widget that produces radio buttons, above the `sliderInput` widget. Note the different `inputId`s.
 - Different widgets are separated in `sidebarPanel` by commas. 
-- `br()` produces extra vertical spacing. 
+- `br()` produces extra vertical spacing (break). 
 - `tabsetPanel` produces tabs in the main output panel. `tabPanel` governs the content of each panel. Notice the use of various output functions (`plotOutput`,`verbatimTextOutput`, `tableOutput`)  with corresponding `outputId`s. 
 - In `server.R` we see the usual `function(input,output)`.
 - The `reactive` function tells the server the trigger the function whenever `input` changes.
@@ -401,7 +401,7 @@ Things to note:
 
 
 This is the output:
-```{r, cache=TRUE}
+```{r, echo=FALSE, cache=TRUE}
 knitr::include_url('https://shiny.rstudio.com/gallery/tabsets.html')
 ```
 
@@ -428,7 +428,7 @@ Now that we have seen the basics, we may consider extensions to the basic report
 
 See examples [here](https://shiny.rstudio.com/gallery/widget-gallery.html).
 
-```{r, cache=TRUE}
+```{r, echo=FALSE, cache=TRUE}
 knitr::include_url('https://shiny.rstudio.com/gallery/widget-gallery.html')
 ```
 
@@ -447,12 +447,12 @@ The `ui.R` output types.
 
 The corresponding `server.R` renderers.
 
-- `renderImage`	images (saved as a link to a source file)
-- `renderPlot`	plots
-- `renderPrint`	any printed output
-- `renderTable`	data frame, matrix, other table like structures
-- `renderText`	character strings
-- `renderUI`	a Shiny tag object or HTML
+- `renderImage`	images (saved as a link to a source file).
+- `renderPlot`	plots.
+- `renderPrint`	any printed output.
+- `renderTable`	data frame, matrix, other table like structures.
+- `renderText`	character strings.
+- `renderUI`	a Shiny tag object or HTML.
 
 
 Your Shiny app can use any R object. 
@@ -466,11 +466,17 @@ The things to remember:
 To keep learning, see the RStudio's [tutorial](http://shiny.rstudio.com/tutorial/), and the Biblipgraphic notes herein.
 
 
+### shinydashboard
+A template for Shiny to give it s modern look.
 
-## Flexdashboard
-http://rmarkdown.rstudio.com/flexdashboard/
 
-TODO: write section
+
+## flexdashboard
+If you want to quickly write an interactive dashboard, which is simple enough to be a static HTML file and does not need an HTML server, then Shiney may be an overkill. 
+With __flexdashboard__ you can write your dashboard a single .Rmd file, which will generate an interactive dashboard as a static HTML file. 
+
+See [http://rmarkdown.rstudio.com/flexdashboard/] for more info.
+
 
 ## Bibliographic Notes
 
@@ -479,6 +485,9 @@ For everything on __knitr__ see [Yihui's blog](https://yihui.name/knitr/), or th
 For a __bookdown__ manual, see @xie2016bookdown.
 For a Shiny manual, see @shiny, the [RStudio tutorial](http://shiny.rstudio.com/tutorial/), or [Zev Ross's](http://zevross.com/blog/2016/04/19/r-powered-web-applications-with-shiny-a-tutorial-and-cheat-sheet-with-40-example-apps/) excellent guide.
 Video tutorials are available [here](https://www.rstudio.com/resources/webinars/shiny-developer-conference/).
+
+
+
 
 ## Practice Yourself
 

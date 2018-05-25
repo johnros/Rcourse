@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Sparse Representations {#sparse}
 
 Analyzing "bigdata" in R is a challenge because the workspace is memory resident, i.e., all your objects are stored in RAM.
@@ -152,9 +157,10 @@ CSR is much less popular than CSC.
 We will go into the details of some algorithms in the Numerical Linear Algebra Chapter \@ref(algebra).
 For our current purposes two things need to be emphasized:
 
-1. A mathematician may write $Ax=b \Rightarrow x=A^{-1}b$. A computer, however, would __never__ compute $A^{-1}$ in order to find $x$, but rather use one of many endlessly many numerical algorithms. 
-
 1. Working with sparse representations requires using a function that is aware of the representation you are using. 
+
+1. A mathematician may write $Ax=b \Rightarrow x=A^{-1}b$. This is a [predicate](https://en.wikipedia.org/wiki/Predicate_(mathematical_logic)) of $x$,i.e., a property that $x$ satisfies, which helps with its analysis. A computer, however, would __never__ compute $A^{-1}$ in order to find $x$, but rather use one of many endlessly many numerical algorithms. A computer will  typically "search" various  $x$'s until it finds the one that fulfils the predicate. 
+
 
 
 
