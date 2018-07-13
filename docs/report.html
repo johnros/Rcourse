@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2018-05-17">
+<meta name="date" content="2018-06-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -294,8 +294,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="12.3.1" data-path="report.html"><a href="report.html#installation-1"><i class="fa fa-check"></i><b>12.3.1</b> Installation</a></li>
 <li class="chapter" data-level="12.3.2" data-path="report.html"><a href="report.html#the-basics-of-shiny"><i class="fa fa-check"></i><b>12.3.2</b> The Basics of Shiny</a></li>
 <li class="chapter" data-level="12.3.3" data-path="report.html"><a href="report.html#beyond-the-basics"><i class="fa fa-check"></i><b>12.3.3</b> Beyond the Basics</a></li>
+<li class="chapter" data-level="12.3.4" data-path="report.html"><a href="report.html#shinydashboard"><i class="fa fa-check"></i><b>12.3.4</b> shinydashboard</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="report.html"><a href="report.html#flexdashboard"><i class="fa fa-check"></i><b>12.4</b> Flexdashboard</a></li>
+<li class="chapter" data-level="12.4" data-path="report.html"><a href="report.html#flexdashboard"><i class="fa fa-check"></i><b>12.4</b> flexdashboard</a></li>
 <li class="chapter" data-level="12.5" data-path="report.html"><a href="report.html#bibliographic-notes-9"><i class="fa fa-check"></i><b>12.5</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="12.6" data-path="report.html"><a href="report.html#practice-yourself-9"><i class="fa fa-check"></i><b>12.6</b> Practice Yourself</a></li>
 </ul></li>
@@ -542,13 +543,13 @@ plot(rnorm(10))
 <li>A server side, specified via the <code>server.R</code> file, in the app’s directory.</li>
 </ol>
 <p>You can run the app via the <strong>RunApp</strong> button in the RStudio interface, of by calling the app’s directory with the <code>shinyApp</code> or <code>runApp</code> functions– the former designed for single-app projects, and the latter, for multiple app projects.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shiny<span class="op">::</span><span class="kw">runApp</span>(<span class="st">&quot;my_app&quot;</span>)</code></pre></div>
-<p>The site’s layout, is specified via <em>layout functions</em> in the <code>iu.R</code> file. For instance, the function <code>sidebarLayout</code>, as the name suggest, will create a sidebar. More layouts are detailed in the <a href="http://shiny.rstudio.com/articles/layout-guide.html">layout guide</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">shiny<span class="op">::</span><span class="kw">runApp</span>(<span class="st">&quot;my_app&quot;</span>) <span class="co"># my_app is the app&#39;s directory.</span></code></pre></div>
+<p>The site’s layout, is specified in the <code>ui.R</code> file using one of the <em>layout functions</em>. For instance, the function <code>sidebarLayout</code>, as the name suggest, will create a sidebar. More layouts are detailed in the <a href="http://shiny.rstudio.com/articles/layout-guide.html">layout guide</a>.</p>
 <p>The active elements in the UI, that control your report, are known as <em>widgets</em>. Each widget will have a unique <code>inputId</code> so that it’s values can be sent from the UI to the server. More about widgets, in the <a href="http://shiny.rstudio.com/gallery/widget-gallery.html">widget gallery</a>.</p>
 <p>The <code>inputId</code> on the UI are mapped to <code>input</code> arguments on the server side. The value of the <code>mytext</code> <code>inputId</code> can be queried by the server using <code>input$mytext</code>. These are called <em>reactive values</em>. The way the server “listens” to the UI, is governed by a set of functions that must wrap the <code>input</code> object. These are the <code>observe</code>, <code>reactive</code>, and <code>reactive*</code> class of functions.</p>
 <p>With <code>observe</code> the server will get triggered when any of the reactive values change. With <code>observeEvent</code> the server will only be triggered by specified reactive values. Using <code>observe</code> is easier, and <code>observeEvent</code> is more prudent programming.</p>
 <p>A <code>reactive</code> function is a function that gets triggered when a reactive element changes. It is defined on the server side, and reside within an <code>observe</code> function.</p>
-<p>We now analyze the <code>1_Hello</code> app using these ideas. Here is the <code>io.R</code> file.</p>
+<p>We now analyze the <code>1_Hello</code> app using these ideas. Here is the <code>ui.R</code> file.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(shiny)
 
 <span class="kw">shinyUI</span>(<span class="kw">fluidPage</span>(
@@ -591,10 +592,7 @@ plot(rnorm(10))
 <li><code>shinyServer</code> is a (deprecated) wrapper function for the server.</li>
 <li>The server runs a function with an <code>input</code> and an <code>output</code>. The elements of <code>input</code> are the <code>inputId</code>s from the UI. The elements of the <code>output</code> will be called by the UI using their <code>outputId</code>.</li>
 </ul>
-<p>This is the output.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_url</span>(<span class="st">&#39;http://shiny.rstudio.com/gallery/example-01-hello.html&#39;</span>)</code></pre></div>
-<iframe src="http://shiny.rstudio.com/gallery/example-01-hello.html" width="50%" height="400px">
-</iframe>
+<p>This is the output. <iframe src="http://shiny.rstudio.com/gallery/example-01-hello.html" width="50%" height="400px"></iframe></p>
 <p>Here is another example, taken from the RStudio <a href="https://github.com/rstudio/shiny-examples/tree/master/006-tabsets">Shiny examples</a>.</p>
 <p><code>ui.R</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(shiny)
@@ -611,7 +609,7 @@ plot(rnorm(10))
                      <span class="st">&quot;Uniform&quot;</span> =<span class="st"> &quot;unif&quot;</span>,
                      <span class="st">&quot;Log-normal&quot;</span> =<span class="st"> &quot;lnorm&quot;</span>,
                      <span class="st">&quot;Exponential&quot;</span> =<span class="st"> &quot;exp&quot;</span>)),
-      <span class="kw">br</span>(),
+      <span class="kw">br</span>(), <span class="co"># add a break in the HTML page.</span>
       
       <span class="kw">sliderInput</span>(<span class="dt">inputId =</span> <span class="st">&quot;n&quot;</span>, 
                   <span class="dt">label =</span> <span class="st">&quot;Number of observations:&quot;</span>, 
@@ -667,16 +665,13 @@ plot(rnorm(10))
 <li>We reused the <code>sidebarLayout</code>.</li>
 <li>As the name suggests, <code>radioButtons</code> is a widget that produces radio buttons, above the <code>sliderInput</code> widget. Note the different <code>inputId</code>s.</li>
 <li>Different widgets are separated in <code>sidebarPanel</code> by commas.</li>
-<li><code>br()</code> produces extra vertical spacing.</li>
+<li><code>br()</code> produces extra vertical spacing (break).</li>
 <li><code>tabsetPanel</code> produces tabs in the main output panel. <code>tabPanel</code> governs the content of each panel. Notice the use of various output functions (<code>plotOutput</code>,<code>verbatimTextOutput</code>, <code>tableOutput</code>) with corresponding <code>outputId</code>s.</li>
 <li>In <code>server.R</code> we see the usual <code>function(input,output)</code>.</li>
 <li>The <code>reactive</code> function tells the server the trigger the function whenever <code>input</code> changes.</li>
 <li>The <code>output</code> object is constructed outside the <code>reactive</code> function. See how the elements of <code>output</code> correspond to the <code>outputId</code>s in the UI.</li>
 </ul>
-<p>This is the output:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_url</span>(<span class="st">&#39;https://shiny.rstudio.com/gallery/tabsets.html&#39;</span>)</code></pre></div>
-<iframe src="https://shiny.rstudio.com/gallery/tabsets.html" width="50%" height="400px">
-</iframe>
+<p>This is the output: <iframe src="https://shiny.rstudio.com/gallery/tabsets.html" width="50%" height="400px"></iframe></p>
 </div>
 <div id="beyond-the-basics" class="section level3">
 <h3><span class="header-section-number">12.3.3</span> Beyond the Basics</h3>
@@ -699,7 +694,6 @@ plot(rnorm(10))
 <li><code>textInput</code> A field to enter text.</li>
 </ul>
 <p>See examples <a href="https://shiny.rstudio.com/gallery/widget-gallery.html">here</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span><span class="kw">include_url</span>(<span class="st">&#39;https://shiny.rstudio.com/gallery/widget-gallery.html&#39;</span>)</code></pre></div>
 <iframe src="https://shiny.rstudio.com/gallery/widget-gallery.html" width="50%" height="400px">
 </iframe>
 </div>
@@ -717,12 +711,12 @@ plot(rnorm(10))
 </ul>
 <p>The corresponding <code>server.R</code> renderers.</p>
 <ul>
-<li><code>renderImage</code> images (saved as a link to a source file)</li>
-<li><code>renderPlot</code> plots</li>
-<li><code>renderPrint</code> any printed output</li>
-<li><code>renderTable</code> data frame, matrix, other table like structures</li>
-<li><code>renderText</code> character strings</li>
-<li><code>renderUI</code> a Shiny tag object or HTML</li>
+<li><code>renderImage</code> images (saved as a link to a source file).</li>
+<li><code>renderPlot</code> plots.</li>
+<li><code>renderPrint</code> any printed output.</li>
+<li><code>renderTable</code> data frame, matrix, other table like structures.</li>
+<li><code>renderText</code> character strings.</li>
+<li><code>renderUI</code> a Shiny tag object or HTML.</li>
 </ul>
 <p>Your Shiny app can use any R object. The things to remember:</p>
 <ul>
@@ -733,11 +727,15 @@ plot(rnorm(10))
 <p>To keep learning, see the RStudio’s <a href="http://shiny.rstudio.com/tutorial/">tutorial</a>, and the Biblipgraphic notes herein.</p>
 </div>
 </div>
+<div id="shinydashboard" class="section level3">
+<h3><span class="header-section-number">12.3.4</span> shinydashboard</h3>
+<p>A template for Shiny to give it s modern look.</p>
+</div>
 </div>
 <div id="flexdashboard" class="section level2">
-<h2><span class="header-section-number">12.4</span> Flexdashboard</h2>
-<p><a href="http://rmarkdown.rstudio.com/flexdashboard/" class="uri">http://rmarkdown.rstudio.com/flexdashboard/</a></p>
-<p>TODO: write section</p>
+<h2><span class="header-section-number">12.4</span> flexdashboard</h2>
+<p>If you want to quickly write an interactive dashboard, which is simple enough to be a static HTML file and does not need an HTML server, then Shiney may be an overkill. With <strong>flexdashboard</strong> you can write your dashboard a single .Rmd file, which will generate an interactive dashboard as a static HTML file.</p>
+<p>See [<a href="http://rmarkdown.rstudio.com/flexdashboard/" class="uri">http://rmarkdown.rstudio.com/flexdashboard/</a>] for more info.</p>
 </div>
 <div id="bibliographic-notes-9" class="section level2">
 <h2><span class="header-section-number">12.5</span> Bibliographic Notes</h2>

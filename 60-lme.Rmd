@@ -28,6 +28,7 @@ The variability in our data is rarely the object of interest.
 It is merely the source of uncertainty in our measurements. 
 The effects we want to infer on are assumingly non-random, thus known as "fixed-effects". 
 A model which has several sources of variability, i.e. random-effects, and several deterministic effects to study, i.e. fixed-effects, is known as a "mixed effects" model. 
+If the model is also linear, it is known as a _linear mixed model_ (LMM).
 Here are some examples of such models. 
 
 
@@ -59,7 +60,7 @@ As a rule of thumb, we will suggest the following view:
 __If information of an effect will be available at the time of prediction, treat it as a fixed effect. If it is not, treat it as a random-effect.__
 
 
-Mixed models are so fundamental, that they have earned many names:
+LMMs are so fundamental, that they have earned many names:
 
 - __Mixed Effects__: 
 Because we may have both _fixed effects_ we want to estimate and remove, and _random effects_ which contribute to the variability to infer against.
@@ -83,11 +84,11 @@ Because we follow units over time, like in Example \@ref(exm:random-effects).
 Is the term typically used in econometric for such longitudinal data. 
 
 - __MANOVA__:
-Many of the problems that may be solved with a multivariate analysis of variance (MANOVA), may be solved with a mixed model for reasons we detail in \@ref(multivariate).
+Many of the problems that may be solved with a multivariate analysis of variance (MANOVA), may be solved with an LMM for reasons we detail in \@ref(multivariate).
 
 - __Structured Prediction__:
 In the machine learning literature, predicting outcomes with structure, such as correlated vectors, is known as Structured Learning. 
-Because mixed-models merely specify correlations, using a mixed-model for making predictions may be thought of as an instance of structured prediction.
+Because LMMs merely specify correlations, using a LMM for making predictions may be thought of as an instance of structured prediction.
 
 
 Whether we are aiming to infer on a generative model's parameters, or to make predictions, there is no "right" nor "wrong" approach. Instead, there is always some implied measure of error, and an algorithm may be good, or bad, with respect to this measure (think of false and true positives, for instance).
@@ -99,18 +100,18 @@ We now emphasize:
 
 1. Like in previous chapters, by "model" we refer to the assumed generative distribution, i.e., the sampling distribution. 
 
-1. Mixed effect models are a way to infer against the right level of variability.
+1. LMMs are a way to infer against the right level of variability.
 Using a naive linear model (which assumes a single source of variability) instead of a mixed effects model, probably means your inference is overly anti-conservative. 
 Put differently, the uncertainty in your estimates is higher than the linear model from Chapter \@ref(lm) may suggest.
 
-1. In a mixed effect model we will specify the dependence structure via the hierarchy in the sampling scheme (e.g. caps within machine, students within class, etc.). 
+1. In a LMM we will specify the dependence structure via the hierarchy in the sampling scheme (e.g. caps within machine, students within class, etc.). 
 Not all dependency models can be specified in this way. 
 Dependency structures that are not hierarchical include temporal dependencies ([AR](https://en.wikipedia.org/wiki/Autoregressive_model), [ARIMA](https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average), [ARCH](https://en.wikipedia.org/wiki/Autoregressive_conditional_heteroskedasticity) and GARCH), [spatial](https://en.wikipedia.org/wiki/Spatial_dependence), [Markov Chains](https://en.wikipedia.org/wiki/Markov_chain), and more. 
 To specify dependency structures that are no hierarchical, see Chapter 8 in (the excellent) @weiss2005modeling.
 
 1. If you are using the model merely for predictions, and not for inference on the fixed effects or variance components, then stating the generative distribution may be be useful, but not necessarily. 
 See the Supervised Learning Chapter \@ref(supervised) for more on prediction problems.
-Also recall that machine learning from non-independent observations (such as mixed models) is a delicate matter that is rarely treated in the literature. 
+Also recall that machine learning from non-independent observations (such as LMMs) is a delicate matter that is rarely treated in the literature. 
 
 
 ## Problem Setup
@@ -126,11 +127,11 @@ In our bottle-caps example (\@ref(exm:fixed-effects)) the time (before vs. after
 In our diet example (\@ref(exm:random-effects)) the diet is the fixed effect and the family is a random effect.
 
 Notice that we state $y|x,z$ merely as a convenient way to do inference on $y|x$, instead of directly specifying $Var[y|x]$. 
-This is exactly the power of mixed-effect models: we specify the covariance not via the matrix $Var[y,z]$, but rather via the sampling hierarchy.
+This is exactly the power of LMMs: we specify the covariance not via the matrix $Var[y,z]$, but rather via the sampling hierarchy.
 
 Given a sample of $n$ observations $(y_i,x_i,z_i)$ from model \@ref(eq:mixed-model), we will want to estimate $(\beta,u)$.
 Under some assumption on the distribution of $\varepsilon$ and $z$, we can use _maximum likelihood_ (ML). 
-In the context of mixed-models, however, ML is typically replaced with _restricted maximum likelihood_ (ReML), because it returns unbiased estimates of $Var[y|x]$ and ML does not.
+In the context of LMMs, however, ML is typically replaced with _restricted maximum likelihood_ (ReML), because it returns unbiased estimates of $Var[y|x]$ and ML does not.
 
 
 
@@ -170,7 +171,7 @@ y <- beta0 + z + epsilon # generate synthetic sample
 
 We can now fit the linear and mixed models.
 ```{r, lme vs lm}
-lm.5 <- lm(y~z)  # fit a linear model assuming independence
+lm.5 <- lm(y~1)  # fit a linear model assuming independence
 library(lme4)
 lme.5 <- lmer(y~1|groups) # fit a mixed-model that deals with the group dependence
 ```
@@ -321,7 +322,7 @@ Things to note:
 - The `dotplot` function, from the __lattice__ package, is only there for the fancy plotting.
 
 
-We used the penicillin exampe to demonstrate the incoporation of two random-effects. We could have, however, compared between penicillin types. For this matter, penicillin types are fixed effects to infer on, and not part of the uncertainty in the mean diameter. The appropriate model is the following:
+We used the penicillin example to demonstrate the incorporation of two random-effects. We could have, however, compared between penicillin types. For this matter, penicillin types are fixed effects to infer on, and not part of the uncertainty in the mean diameter. The appropriate model is the following:
 
 ```{r}
 lme.2.2 <- lmer( diameter ~  1  + sample + (1|plate) , Penicillin )
@@ -333,13 +334,13 @@ I may now ask myself: does the `sample`, i.e. penicillin, have any effect? This 
 anova(lme.2.2)
 ```
 
-Uhh! No p-values. Why is this? Because Doug Bates, the author of __lme4__ makes a [strong argument](https://stat.ethz.ch/pipermail/r-help/2006-May/094765.html) against current methods of computing p-values in mixed models. If you insist on an p-value, you may recur to other packages that provide that, at your own caution:
+Ugh! No p-values. Why is this? Because Doug Bates, the author of __lme4__ makes a [strong argument](https://stat.ethz.ch/pipermail/r-help/2006-May/094765.html) against current methods of computing p-values in mixed models. If you insist on an p-value, you may recur to other packages that provide that, at your own caution:
 
 ```{r}
 car::Anova(lme.2.2) 
 ```
 
-... and yes; the penicillin type has a significant effect on the diamter.
+... and yes; the penicillin type has a significant effect on the diameter.
 
 
 
@@ -465,14 +466,144 @@ detach(Penicillin)
 
 
 
-## Serial Correlations 
-TODO: __nlme__ package.
+## Serial Correlations {#serial}
+
+As previously stated, a hierarchical model is a very convenient way to state correlations. 
+The hierarchical sampling scheme will always yield correlations in blocks. 
+What is the correlation does not have a block structure? 
+Like a smooth temporal decay for time-series, or a smooth spatial decay for geospatial data?
+
+One way to go about, is to find a dedicated package. 
+For instance, in the [Spatio-Temporal Data](https://cran.r-project.org/web/views/SpatioTemporal.html) task view, or the [Ecological and Environmental](https://cran.r-project.org/web/views/Environmetrics.html) task view. 
+Fans of vector-auto-regression should have a look at the [vars](https://cran.r-project.org/package=vars) package. 
+
+Instead, we will show how to solve this matter using the __nlme__ package. 
+This is because __nlme__ allows to specify both a block-covariance structure using the mixed-models framework, and the smooth parametric covariances we find in temporal and spatial data.
+
+The `nlme::Ovary` data is panel data of number of ovarian follicles in different mares (female horse), at various times.  
+
+with an AR(1) temporal correlation, alongside random-effects, we take an example from the help of `nlme::corAR1`.
+
+```{r}
+library(nlme)
+head(nlme::Ovary)
+fm1Ovar.lme <- nlme::lme(fixed=follicles ~ sin(2*pi*Time) + cos(2*pi*Time), 
+                   data = Ovary, 
+                   random = pdDiag(~sin(2*pi*Time)), 
+                   correlation=corAR1() )
+summary(fm1Ovar.lme)
+```
+
+Things to note:
+
+- The fitting is done with the `nlme::lme` function, and not `lme4::lmer` (which does not allow for non blocked covariance models).
+- `sin(2*pi*Time) + cos(2*pi*Time)` is a fixed effect that captures seasonality. 
+- The temporal covariance, is specified using the `correlations=` argument. 
+- AR(1) was assumed by calling `correlation=corAR1()`. See `nlme::corClasses` for a list of supported correlation structures.
+- From the summary, we see that a `Mare` random effect has also been added. Where is it specified? It is implied by the `random=` argument. Read `?lme` for further details.
+
+We can now inspect the contrivance implied by our model's specification:
+```{r}
+the.cov <- mgcv::extract.lme.cov(fm1Ovar.lme, data = Ovary) 
+lattice::levelplot(the.cov)
+```
 
 
 
 
 
-## Relation to MANOVA {#manova}
+## Extensions 
+
+
+### Cluster Robust Standard Errors
+
+As previously stated, random effects are nothing more than a convenient way to specify dependencies within a level of a random effect, i.e., within a group/cluster.
+This is also the motivation underlying _cluster robust_ inference, which is immensely popular with econometricians, but less so elsewhere. 
+What is the difference between the two?
+
+Mixed models framework is a bona-fide generalization of cluster robust inference.
+This author thus recommends using the __lme4__ and __nlme__ packages for mixed models to deal with correlations within cluster.
+
+For a longer comparison between the two approaches, see [Michael Clarck's guide](https://m-clark.github.io/docs/clustered/).
+
+
+
+### Linear Models for Panel Data
+
+__nlme__ and __lme4__ will probably provide you with all the functionality you need for panel data.
+If, however, you are trained as an econometrist, prefer the econometric parlance, and are not using non-linead models, then the [plm](https://cran.r-project.org/package=plm) package is just for you. 
+In particular, it allows for cluster-robust covariance estimates, and [Durbin–Wu–Hausman test](https://en.wikipedia.org/wiki/Durbin%E2%80%93Wu%E2%80%93Hausman_test) for random effects. 
+The __plm__ [package vignette](https://cran.r-project.org/web/packages/plm/vignettes/plm.pdf) also has a comparison to the __nlme__ package.
+
+
+
+
+### Testing Hypotheses on Correlations
+
+After working so hard to model the correlations in observation, we may want to test if it was all required. 
+Douglas Bates, the author of __nlme__ and __lme4__ wrote a famous cautionary note, [found here](https://stat.ethz.ch/pipermail/r-help/2006-May/094765.html), on hypothesis testing in mixed models. 
+Many practitioners, however, do not adopt Doug's view. 
+Many of the popular tests, particularly the ones in the econometric literature, can be found in the __plm__ package (see Section 6 in the [package vignette](https://cran.r-project.org/web/packages/plm/vignettes/plm.pdf)).
+These include tests for poolability, Hausman test, tests for serial correlations, tests for cross-sectional dependence, and unit root tests. 
+
+
+
+
+
+
+
+
+
+## Relation to Other Estimators
+
+### Fixed Effects in the Econometric Literature
+
+Fixed effects in the statistical literature, as discussed herein, are different than those in the econometric literature. 
+See Section 7 of the __plm__ [package vignette](https://cran.r-project.org/web/packages/plm/vignettes/plm.pdf) for a comparison. 
+
+
+### Relation to Generalized Least Squares (GLS)
+
+GLS is the solution to a decorrelated least squares problem:
+$$\hat{\beta}_{GLS}:=argmin_\beta\{(X'\beta-y)'\Sigma^{-1}(X'\beta-y)'\}.$$
+This estimator can be viewed as a least squares estimator that accounts for correlations in the data.
+It is also a maximum likelihood estimator under a Gaussian error assumption.
+Viewed as the latter, then linear mixed models under a Gaussian error assumption, collapses to a GLS estimator. 
+
+
+### Relation to Conditional Gaussian Fields
+
+In the geo-spatial literature, geo-located measurements are typically assumed to be sampled from a _Gaussian Random Field_.
+All the models discussed in this chapter can be stated in terms of these random fields.
+In the random field nomenclature, the fixed effects are known as the _drift_, or the _mean field_, and the covariance in errors is known as the _correlation function_.
+In other fields of literature the correlation function is known as a _charachteristic function_, _radial basis functions_, or _kernel_. 
+Assuming stationarity, these simplify to the _power spectrum_ via the _Wiener–Khinchin theorem_.
+The predictions of such models may be found under the names of _linear projection operators_, _best linear unbiased prediction_, _Kriging_, _radial basis function interpolators_. 
+
+
+### Relation to Empirical Risk Minimization (ERM)
+ERM is more general than mixed-models estimation since it allows loss functions that are not the (log) likelihood.
+ERM is less general than LMM, in that ERM (typically) does not account for correlations in the data. 
+
+
+### Relation to M-Estimation
+M-estimation is term in the statistical literature for ERM. 
+
+
+### Relation to Generalize Estimating Equations (GEE)
+The first order condition of the LMM problem returns a set of (non-linear) estimating equations. 
+In this sense, GEE can be seen as more general than LMM in that the GEE need not be the derivative of the (log) likelihood. 
+
+
+### Relation to Generalized Method of Moments (GMM)
+Moment matching estimators are more general than likelihood based estimators in that assuming the likelihood implies all moments are assumed, where as in GMMs, not all moments are assumed. 
+For GMM estimators in R, see the __gmm__ package. 
+
+
+
+
+
+### Relation to MANOVA {#manova}
 
 Multivariate analysis of variance (MANOVA) deals with the estimation of effect on __vector valued__ outcomes. 
 Put differently: in ANOVA the response, $y$, is univariate. In MANOVA, the outcome is multivariate.
@@ -491,13 +622,6 @@ It is also possible to consider mixed-models with multivariate outcomes, i.e., a
 The R functions we present herein permit this.
 
 
-#### MANOVA in R
-[TODO: nlme:::lme()]
-
-
-
-
-
 ## The Variance-Components View
 TODO
 
@@ -513,7 +637,8 @@ As usual, a hands on view can be found in @venables2013modern, and also in an ex
 For a more theoretical view see @weiss2005modeling or @searle2009variance.
 Sometimes it is unclear if an effect is random or fixed; on the difference between the two types of inference see @rosset2018fixed and references therein.
 For more on predictions in linear mixed models see @robinson1991blup, @rabinowicz2018assessing, and references therein.
-
+See [Michael Clarck's](https://m-clark.github.io/docs/clustered/) guide for various ways of dealing with correlations within groups.
+For the geo-spatial view and terminology of correlated data, see @christakos2000modern, @diggle1998model, @allard2013j, and @cressie2015statistics.
 
 ## Practice Yourself
 
@@ -524,9 +649,9 @@ For more on predictions in linear mixed models see @robinson1991blup, @rabinowic
     a. Compare the standard errors. 
     a. Compare the predictions of the two models. 
 1. [Very Advanced!] Return to the `Penicillin` data and use the `gls` function to fit a generalized linear model, equivalent to the LME model in our text. 
-1. Read about the “oats” dataset using `? MASS::oats `.Inspect the dependency of the yield (Y) in the Varieties (V) and the Nitrogen treatment (N).
+1. Read about the "oats" dataset using `? MASS::oats `.Inspect the dependency of the yield (Y) in the Varieties (V) and the Nitrogen treatment (N).
     1. Fit a linear model, does the effect of the treatment significant? The interaction between the Varieties and Nitrogen is significant?
     1. An expert told you that could be a variance between the different blocks (B) which can bias the analysis. fit a LMM for the data.
-    1. Do you think the blocks should be taken into account as “random effect” or “fixed effect”?
+    1. Do you think the blocks should be taken into account as "random effect" or "fixed effect"?
 
-
+1. Return to the temporal correlation in Section \@ref(serial), and replace the AR(1) covariance, with an ARMA covariance. Visualize the data's covariance matrix, and compare the fitted values. 

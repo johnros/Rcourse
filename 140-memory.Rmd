@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Memory Efficiency {#memory}
 
 As put by @kane2013scalable, it was quite  puzzling when very few of the competitors, for the Million dollars prize in the [Netflix challenge](https://en.wikipedia.org/wiki/Netflix_Prize), were statisticians.
@@ -355,21 +360,53 @@ This is because EMAs never really construct the whole matrix, let alone, save it
 
 ## matter
 
+Memory-efficient reading, writing, and manipulation of structured binary data on disk as vectors, matrices, arrays, lists, and data frames.
+
 TODO
 
 ## iotools
+
+A low level facility for connecting to on-disk binary storage. 
+Unlike __ff__, and __bigmemory__, it behaves like native R objects, with their copy-on-write policy.
+Unlike __reader__, it allows chunking. 
+Unlike `read.csv`, it allows fast I/O.
+__iotools__ is thus a potentially very powerfull facility. 
+See @arnold2015iotools for details.
+
 
 TODO
 
 ## HDF5
 
+Like __ff__, HDF5 is an on-disk efficient file format. 
+The package __h5__ is interface to the "HDF5" library supporting fast storage and retrieval of R-objects like vectors, matrices and arrays. 
+
+TODO
+
 ## DelayedArray
+
+Delayed operations on array-like objects
+
+TODO
 
 ### DelayedMatrixStats
 
+Functions that Apply to Rows and Columns of __DelayedMatrix__ Objects.
+
+
 ### beachmat
 
+Provides a consistent C++ class interface for a variety of commonly used matrix types, including sparse and HDF5-backed matrices.
+
+TODO
+
+
 ### restfulSE
+
+Functions and classes to interface with remote data stores.
+
+TODO
+
 
 
 ## Computing from a Distributed File System
