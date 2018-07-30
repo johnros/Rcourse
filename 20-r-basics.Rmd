@@ -728,6 +728,16 @@ lapply(X = the.list, FUN = class) # apply the function `class` to each elements
 sapply(X = the.list, FUN = class) # lapply with cleaned output
 ```
 
+What is the function you are using requires some arguments?
+One useful trick is to create your own function that takes only one argument:
+
+```{r lapply-wrapper}
+quantile.25 <- function(x) quantile(x,0.25)
+sapply(USArrests, quantile.25)
+```
+
+
+
 R provides many variations on `lapply` to facilitate programming. 
 Here is a partial list:
 

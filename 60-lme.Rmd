@@ -562,6 +562,7 @@ Fixed effects in the statistical literature, as discussed herein, are different 
 See Section 7 of the __plm__ [package vignette](https://cran.r-project.org/web/packages/plm/vignettes/plm.pdf) for a comparison. 
 
 
+
 ### Relation to Generalized Least Squares (GLS)
 
 GLS is the solution to a decorrelated least squares problem:
@@ -582,6 +583,7 @@ The predictions of such models may be found under the names of _linear projectio
 
 
 ### Relation to Empirical Risk Minimization (ERM)
+
 ERM is more general than mixed-models estimation since it allows loss functions that are not the (log) likelihood.
 ERM is less general than LMM, in that ERM (typically) does not account for correlations in the data. 
 
@@ -591,13 +593,9 @@ M-estimation is term in the statistical literature for ERM.
 
 
 ### Relation to Generalize Estimating Equations (GEE)
+
 The first order condition of the LMM problem returns a set of (non-linear) estimating equations. 
 In this sense, GEE can be seen as more general than LMM in that the GEE need not be the derivative of the (log) likelihood. 
-
-
-### Relation to Generalized Method of Moments (GMM)
-Moment matching estimators are more general than likelihood based estimators in that assuming the likelihood implies all moments are assumed, where as in GMMs, not all moments are assumed. 
-For GMM estimators in R, see the __gmm__ package. 
 
 
 
@@ -606,7 +604,8 @@ For GMM estimators in R, see the __gmm__ package.
 ### Relation to MANOVA {#manova}
 
 Multivariate analysis of variance (MANOVA) deals with the estimation of effect on __vector valued__ outcomes. 
-Put differently: in ANOVA the response, $y$, is univariate. In MANOVA, the outcome is multivariate.
+Put differently: in ANOVA the response, $y$, is univariate. 
+In MANOVA, the outcome is multivariate.
 MANOVA is useful when there are correlations among the entries of $y$.
 Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.
 
@@ -617,9 +616,18 @@ We thus see that this seemingly MANOVA problem can be solved with the mixed mode
 
 What MANOVA problems cannot be solved with mixed models?
 There may be cases where the covariance of the multivariate outcome, $y$, is very complicated.
-If the covariance in $y$ may not be stated using a combination of random and fixed effects, then the covariance has to be stated explicitly in the MANOVA framework.
+If the covariance in $y$ may not be stated using a combination of random and fixed effects, then the covariance has to be stated explicitly.
 It is also possible to consider mixed-models with multivariate outcomes, i.e., a _mixed MANOVA_, or _hirarchial MANOVA_.
 The R functions we present herein permit this.
+
+
+
+
+### Relation to Seemingly Unrelated Equations (SUR)
+
+SUR is the econometric term for MANOVA. 
+
+
 
 
 ## The Variance-Components View
@@ -639,6 +647,9 @@ Sometimes it is unclear if an effect is random or fixed; on the difference betwe
 For more on predictions in linear mixed models see @robinson1991blup, @rabinowicz2018assessing, and references therein.
 See [Michael Clarck's](https://m-clark.github.io/docs/clustered/) guide for various ways of dealing with correlations within groups.
 For the geo-spatial view and terminology of correlated data, see @christakos2000modern, @diggle1998model, @allard2013j, and @cressie2015statistics.
+
+
+
 
 ## Practice Yourself
 
