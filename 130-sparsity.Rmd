@@ -145,10 +145,8 @@ $$ \begin{bmatrix}
 \end{bmatrix}.  $$
 
 ### Compressed Column Oriented Representation 
-A _compressed column oriented representation_, also known as _compressed sparse column_, or _CSC_, where the __column__ index is similar to COO, but instead of saving the row indexes, we save the locations in the column index vectors where the row index has to increase. 
+A _compressed column oriented representation_, also known as _compressed sparse column_, or _CSC_, where the __row__ index is similar to COO, but instead of saving the column indexes, we save the locations in the row index vectors where the column index has to increase. 
 The following figure may clarify this simple idea.
-
-![The CSC data structure. From @shah2004sparse. Remember that MATLAB is written in C, where the indexing starts at $0$, and not $1$.](art/crc.png)
 
 The nature of statistical applications is such, that CSC representation is typically the most economical, justifying its popularity.
 
@@ -156,6 +154,8 @@ The nature of statistical applications is such, that CSC representation is typic
 ### Compressed Row Oriented Representation 
 A _compressed row oriented representation_, also known as _compressed sparse row_, or _CSR_, is very similar to CSC, after switching the role of rows and columns.
 CSR is much less popular than CSC.
+
+![The CSR data structure. From @shah2004sparse. Remember that MATLAB is written in C, where the indexing starts at $0$, and not $1$.](art/crc.png)
 
 
 
@@ -298,7 +298,7 @@ The `alpha` argument controls the type of regularization. Set to `alpha=0` for r
 
 ## Bibliographic Notes
 
-The best place to start reading on sparse representations and algorithms is the [vignettes](http://svitsrv25.epfl.ch/R-doc/library/Matrix/doc/) of the __Matrix__ package. 
+The best place to start reading on sparse representations and algorithms is the [vignettes](https://cran.r-project.org/web/packages/Matrix/vignettes/Intro2Matrix.pdf) of the __Matrix__ package. 
 @gilbert1992sparse is also a great read for some general background.
 For the theory on solving sparse linear systems see @davis2006direct.
 For general numerical linear algebra see @gentle2012numerical.
