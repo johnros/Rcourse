@@ -563,16 +563,16 @@ X<span class="fl">.2</span>&lt;-<span class="st"> </span><span class="kw">as</sp
 Here is the timing of a non sparse representation:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(lm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>X<span class="fl">.1</span>)) </code></pre>
 <pre><code>##    user  system elapsed 
-##   4.148   0.464   4.619</code></pre>
+##   3.648   0.572   4.226</code></pre>
 <p>Well actually, <code>lm</code> is a wrapper for the <code>lm.fit</code> function.
 If we override all the overhead of <code>lm</code>, and call <code>lm.fit</code> directly, we gain some time:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(lm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm.fit</span>(<span class="dt">y=</span>y, <span class="dt">x=</span>X<span class="fl">.1</span>))</code></pre>
 <pre><code>##    user  system elapsed 
-##   1.064   0.072   1.140</code></pre>
+##   1.076   0.056   1.132</code></pre>
 <p>We now do the same with the sparse representation:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(lm<span class="fl">.2</span> &lt;-<span class="st"> </span>MatrixModels<span class="op">:::</span><span class="kw">lm.fit.sparse</span>(X<span class="fl">.2</span>,y))</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.276   0.004   0.279</code></pre>
+##   0.260   0.016   0.275</code></pre>
 <p>It is only left to verify that the returned coefficients are the same:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(lm<span class="fl">.2</span>, <span class="kw">unname</span>(lm<span class="fl">.1</span><span class="op">$</span>coefficients), <span class="dt">tolerance =</span> <span class="fl">1e-12</span>)</code></pre>
 <pre><code>## [1] TRUE</code></pre>

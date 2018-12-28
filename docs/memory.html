@@ -580,25 +580,25 @@ Here is the timing for <strong>dplyr</strong>.</p>
                  )
              )</code></pre>
 <pre><code>##    user  system elapsed 
-##   8.836   0.036   8.870</code></pre>
+##   9.684   0.044   9.733</code></pre>
 <p>And now the timing for <strong>data.table</strong>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_dt[ ,  .( <span class="dt">x1 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x1)), <span class="dt">x2 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x2)), <span class="dt">x3 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x3)) ), .(v1,v2)]
   )</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.356   0.104   0.466</code></pre>
+##   0.320   0.112   0.433</code></pre>
 <p>The winner is obvious.
 Let’s compare filtering (i.e. row subsets, i.e. SQL’s SELECT).</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(v1 <span class="op">==</span><span class="st"> &quot;1&quot;</span>) 
   )</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.024   0.052   0.079</code></pre>
+##   0.028   0.072   0.099</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_dt[v1 <span class="op">==</span><span class="st"> &quot;1&quot;</span>] 
   )</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.024   0.048   0.080</code></pre>
+##   0.008   0.012   0.019</code></pre>
 </div>
 </div>
 <div id="computing-from-a-database" class="section level2">
@@ -653,19 +653,22 @@ flights_sqlite &lt;-<span class="st"> </span><span class="kw">copy_to</span>(
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(flights_sqlite, dep_delay <span class="op">&gt;</span><span class="st"> </span><span class="dv">240</span>)</code></pre>
 <pre><code>## # Source:   lazy query [?? x 19]
 ## # Database: sqlite 3.22.0 [my_db.sqlite3]
-##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time arr_delay carrier flight tailnum origin dest  air_time distance
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-##  1  2013     1     1      848           1835       853     1001           1950       851 MQ        3944 N942MQ  JFK    BWI         41      184
-##  2  2013     1     1     1815           1325       290     2120           1542       338 EV        4417 N17185  EWR    OMA        213     1134
-##  3  2013     1     1     1842           1422       260     1958           1535       263 EV        4633 N18120  EWR    BTV         46      266
-##  4  2013     1     1     2115           1700       255     2330           1920       250 9E        3347 N924XJ  JFK    CVG        115      589
-##  5  2013     1     1     2205           1720       285       46           2040       246 AA        1999 N5DNAA  EWR    MIA        146     1085
-##  6  2013     1     1     2343           1724       379      314           1938       456 EV        4321 N21197  EWR    MCI        222     1092
-##  7  2013     1     2     1332            904       268     1616           1128       288 EV        4364 N41104  EWR    MCI        203     1092
-##  8  2013     1     2     1412            838       334     1710           1147       323 UA         468 N474UA  EWR    MCO        150      937
-##  9  2013     1     2     1607           1030       337     2003           1355       368 AA         179 N324AA  JFK    SFO        346     2586
-## 10  2013     1     2     2131           1512       379     2340           1741       359 UA         488 N593UA  LGA    DEN        228     1620
-## # ... with more rows, and 3 more variables: hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dbl&gt;</code></pre>
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     1      848           1835       853     1001
+##  2  2013     1     1     1815           1325       290     2120
+##  3  2013     1     1     1842           1422       260     1958
+##  4  2013     1     1     2115           1700       255     2330
+##  5  2013     1     1     2205           1720       285       46
+##  6  2013     1     1     2343           1724       379      314
+##  7  2013     1     2     1332            904       268     1616
+##  8  2013     1     2     1412            838       334     1710
+##  9  2013     1     2     1607           1030       337     2003
+## 10  2013     1     2     2131           1512       379     2340
+## # ... with more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dbl&gt;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarise</span>(flights_sqlite, <span class="dt">delay =</span> <span class="kw">mean</span>(dep_time))</code></pre>
 <pre><code>## Warning: Missing values are always removed in SQL.
 ## Use `AVG(x, na.rm = TRUE)` to silence this warning</code></pre>
@@ -770,39 +773,64 @@ First open a connection to the file, without actually importing it using the <co
 <span class="kw">head</span>(data.ffdf)</code></pre>
 <pre><code>## ffdf (all open) dim=c(2801660,6), dimorder=c(1,2) row.names=NULL
 ## ffdf virtual mapping
-##                              PhysicalName VirtualVmode PhysicalVmode  AsIs VirtualIsMatrix PhysicalIsMatrix PhysicalElementNo PhysicalFirstCol
-## sex                                   sex      integer       integer FALSE           FALSE            FALSE                 1                1
-## age                                   age      integer       integer FALSE           FALSE            FALSE                 2                1
-## diagnose                         diagnose      integer       integer FALSE           FALSE            FALSE                 3                1
-## healthcare.procedure healthcare.procedure      integer       integer FALSE           FALSE            FALSE                 4                1
-## typeofservice               typeofservice      integer       integer FALSE           FALSE            FALSE                 5                1
-## service.count               service.count      integer       integer FALSE           FALSE            FALSE                 6                1
-##                      PhysicalLastCol PhysicalIsOpen
-## sex                                1           TRUE
-## age                                1           TRUE
-## diagnose                           1           TRUE
-## healthcare.procedure               1           TRUE
-## typeofservice                      1           TRUE
-## service.count                      1           TRUE
+##                              PhysicalName VirtualVmode PhysicalVmode  AsIs
+## sex                                   sex      integer       integer FALSE
+## age                                   age      integer       integer FALSE
+## diagnose                         diagnose      integer       integer FALSE
+## healthcare.procedure healthcare.procedure      integer       integer FALSE
+## typeofservice               typeofservice      integer       integer FALSE
+## service.count               service.count      integer       integer FALSE
+##                      VirtualIsMatrix PhysicalIsMatrix PhysicalElementNo
+## sex                            FALSE            FALSE                 1
+## age                            FALSE            FALSE                 2
+## diagnose                       FALSE            FALSE                 3
+## healthcare.procedure           FALSE            FALSE                 4
+## typeofservice                  FALSE            FALSE                 5
+## service.count                  FALSE            FALSE                 6
+##                      PhysicalFirstCol PhysicalLastCol PhysicalIsOpen
+## sex                                 1               1           TRUE
+## age                                 1               1           TRUE
+## diagnose                            1               1           TRUE
+## healthcare.procedure                1               1           TRUE
+## typeofservice                       1               1           TRUE
+## service.count                       1               1           TRUE
 ## ffdf data
-##           sex   age diagnose healthcare.procedure typeofservice service.count
-## 1       1     1        NA                   99213         M1B           1    
-## 2       1     1        NA                   A0425         O1A           1    
-## 3       1     1        NA                   A0425         O1A           1    
-## 4       1     1        NA                   A0425         O1A           2    
-## 5       1     1        NA                   A0425         O1A           2    
-## 6       1     1        NA                   A0425         O1A           3    
-## 7       1     1        NA                   A0425         O1A           3    
-## 8       1     1        NA                   A0425         O1A           4    
-## :           :     :        :                    :             :             :
-## 2801653 2     6        V82                  85025         T1D           1    
-## 2801654 2     6        V82                  87186         T1H           1    
-## 2801655 2     6        V82                  99213         M1B           1    
-## 2801656 2     6        V82                  99213         M1B           1    
-## 2801657 2     6        V82                  A0429         O1A           1    
-## 2801658 2     6        V82                  G0328         T1H           1    
-## 2801659 2     6        V86                  80053         T1B           1    
-## 2801660 2     6        V88                  76856         I3B           1</code></pre>
+##           sex   age diagnose healthcare.procedure typeofservice
+## 1       1     1        NA                   99213         M1B  
+## 2       1     1        NA                   A0425         O1A  
+## 3       1     1        NA                   A0425         O1A  
+## 4       1     1        NA                   A0425         O1A  
+## 5       1     1        NA                   A0425         O1A  
+## 6       1     1        NA                   A0425         O1A  
+## 7       1     1        NA                   A0425         O1A  
+## 8       1     1        NA                   A0425         O1A  
+## :           :     :        :                    :             :
+## 2801653 2     6        V82                  85025         T1D  
+## 2801654 2     6        V82                  87186         T1H  
+## 2801655 2     6        V82                  99213         M1B  
+## 2801656 2     6        V82                  99213         M1B  
+## 2801657 2     6        V82                  A0429         O1A  
+## 2801658 2     6        V82                  G0328         T1H  
+## 2801659 2     6        V86                  80053         T1B  
+## 2801660 2     6        V88                  76856         I3B  
+##         service.count
+## 1               1    
+## 2               1    
+## 3               1    
+## 4               2    
+## 5               2    
+## 6               3    
+## 7               3    
+## 8               4    
+## :                   :
+## 2801653         1    
+## 2801654         1    
+## 2801655         1    
+## 2801656         1    
+## 2801657         1    
+## 2801658         1    
+## 2801659         1    
+## 2801660         1</code></pre>
 <p>We can verify that the <code>ffdf</code> data frame has a small RAM footprint.</p>
 <pre class="sourceCode r"><code class="sourceCode r">pryr<span class="op">::</span><span class="kw">object_size</span>(data.ffdf)</code></pre>
 <pre><code>## 343 kB</code></pre>

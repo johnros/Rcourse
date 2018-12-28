@@ -574,7 +574,7 @@ ptime &lt;-<span class="st"> </span><span class="kw">system.time</span>({
  })[<span class="dv">3</span>]
 ptime</code></pre>
 <pre><code>## elapsed 
-##  21.022</code></pre>
+##  19.579</code></pre>
 <p>Things to note:</p>
 <ul>
 <li>As usual, we use the <code>foreach</code> function with the <code>%dopar%</code> operator to loop in parallel.</li>
@@ -592,7 +592,7 @@ We only need to replace <code>%dopar%</code> with <code>%do%</code> to test.</p>
  })[<span class="dv">3</span>]
 stime</code></pre>
 <pre><code>## elapsed 
-##   39.42</code></pre>
+##   39.33</code></pre>
 <p>Yes. Parallelising is clearly faster.</p>
 <p>Let’s see how we can combine the power of <strong>bigmemory</strong> and <strong>foreach</strong> by creating a file mapped <code>big.matrix</code> object, which is shared by all machines.
 The following example is taken from <span class="citation">Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span>, and uses the <code>big.matrix</code> object we created in Chapter <a href="memory.html#memory">15</a>.</p>
