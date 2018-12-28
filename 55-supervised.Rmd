@@ -259,13 +259,9 @@ You can now call `?prostate` and `?spam` to learn more about these data sets.
 Some boring pre-processing. 
 
 ```{r preprocessing, cache=TRUE}
-library(ElemStatLearn) 
-data("prostate")
-data("spam")
-library(magrittr) # for piping
-
 # Preparing prostate data
-prostate <- as.data.table(prostate)
+data("prostate", package = 'ElemStatLearn')
+prostate <- data.table::data.table(prostate)
 prostate.train <- prostate[train==TRUE, -"train"]
 prostate.test <- prostate[train!=TRUE, -"train"]
 y.train <- prostate.train$lcavol
@@ -274,10 +270,13 @@ y.test <- prostate.test$lcavol
 X.test <- as.matrix(prostate.test[, -'lcavol'] )
 
 # Preparing spam data:
+data("spam", package = 'ElemStatLearn')
 n <- nrow(spam)
 train.prop <- 0.66
-train.ind <- c(TRUE,FALSE) %>%  
-  sample(size = n, prob = c(train.prop,1-train.prop), replace=TRUE)
+train.ind <- sample(x = c(TRUE,FALSE), 
+                    size = n, 
+                    prob = c(train.prop,1-train.prop), 
+                    replace=TRUE)
 spam.train <- spam[train.ind,]
 spam.test <- spam[!train.ind,]
 

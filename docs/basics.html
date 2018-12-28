@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>R (BGU course)</title>
+  <title>Chapter 4 R Basics | R (BGU course)</title>
   <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="R (BGU course)" />
+  <meta property="og:title" content="Chapter 4 R Basics | R (BGU course)" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R (BGU course)" />
+  <meta name="twitter:title" content="Chapter 4 R Basics | R (BGU course)" />
   
   <meta name="twitter:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
   
@@ -25,17 +25,18 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2018-06-07">
+<meta name="date" content="2018-12-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="intro.html">
+<link rel="prev" href="datatable.html">
 <link rel="next" href="eda.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -57,41 +58,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -120,268 +147,283 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#bibliographic-notes"><i class="fa fa-check"></i><b>2.3</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#practice-yourself"><i class="fa fa-check"></i><b>2.4</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
-<li class="chapter" data-level="3.0.1" data-path="basics.html"><a href="basics.html#other-ides"><i class="fa fa-check"></i><b>3.0.1</b> Other IDEs</a></li>
-<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>3.1</b> File types</a></li>
-<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.2</b> Simple calculator</a></li>
-<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.3</b> Probability calculator</a></li>
-<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.4</b> Getting Help</a></li>
-<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.5</b> Variable Asignment</a></li>
-<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#missing"><i class="fa fa-check"></i><b>3.6</b> Missing</a></li>
-<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.7</b> Piping</a></li>
-<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.8</b> Vector Creation and Manipulation</a></li>
-<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.9</b> Search Paths and Packages</a></li>
-<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.10</b> Simple Plotting</a></li>
-<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.11</b> Object Types</a></li>
-<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.12</b> Data Frames</a></li>
-<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.13</b> Exctraction</a></li>
-<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#non-data.frame-object-classes"><i class="fa fa-check"></i><b>3.14</b> Non data.frame object classes</a></li>
-<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.15</b> Data Import and Export</a><ul>
-<li class="chapter" data-level="3.15.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.15.1</b> Import from WEB</a></li>
-<li class="chapter" data-level="3.15.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.15.2</b> Export as CSV</a></li>
-<li class="chapter" data-level="3.15.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>3.15.3</b> Export non-CSV files</a></li>
-<li class="chapter" data-level="3.15.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.15.4</b> Reading From Text Files</a></li>
-<li class="chapter" data-level="3.15.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.15.5</b> Writing Data to Text Files</a></li>
-<li class="chapter" data-level="3.15.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.15.6</b> .XLS(X) files</a></li>
-<li class="chapter" data-level="3.15.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.15.7</b> Massive files</a></li>
-<li class="chapter" data-level="3.15.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.15.8</b> Databases</a></li>
+<li class="chapter" data-level="3" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>3</b> data.table</a><ul>
+<li class="chapter" data-level="3.1" data-path="datatable.html"><a href="datatable.html#make-your-own-variables"><i class="fa fa-check"></i><b>3.1</b> Make your own variables</a></li>
+<li class="chapter" data-level="3.2" data-path="datatable.html"><a href="datatable.html#join"><i class="fa fa-check"></i><b>3.2</b> Join</a></li>
+<li class="chapter" data-level="3.3" data-path="datatable.html"><a href="datatable.html#reshaping-data"><i class="fa fa-check"></i><b>3.3</b> Reshaping data</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="datatable.html"><a href="datatable.html#wide-to-long"><i class="fa fa-check"></i><b>3.3.1</b> Wide to long</a></li>
+<li class="chapter" data-level="3.3.2" data-path="datatable.html"><a href="datatable.html#long-to-wide"><i class="fa fa-check"></i><b>3.3.2</b> Long to wide</a></li>
 </ul></li>
-<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.16</b> Functions</a></li>
-<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.17</b> Looping</a></li>
-<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.18</b> Apply</a></li>
-<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.19</b> Recursion</a></li>
-<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.20</b> Dates and Times</a></li>
-<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.21</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.22</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.4" data-path="datatable.html"><a href="datatable.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.4</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.5" data-path="datatable.html"><a href="datatable.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.5</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
-<li class="chapter" data-level="4.1" data-path="eda.html"><a href="eda.html#summary-statistics"><i class="fa fa-check"></i><b>4.1</b> Summary Statistics</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="eda.html"><a href="eda.html#categorical-data"><i class="fa fa-check"></i><b>4.1.1</b> Categorical Data</a></li>
-<li class="chapter" data-level="4.1.2" data-path="eda.html"><a href="eda.html#continous-data"><i class="fa fa-check"></i><b>4.1.2</b> Continous Data</a></li>
+<li class="chapter" data-level="4" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>4</b> R Basics</a><ul>
+<li class="chapter" data-level="4.0.1" data-path="basics.html"><a href="basics.html#other-ides"><i class="fa fa-check"></i><b>4.0.1</b> Other IDEs</a></li>
+<li class="chapter" data-level="4.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>4.1</b> File types</a></li>
+<li class="chapter" data-level="4.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>4.2</b> Simple calculator</a></li>
+<li class="chapter" data-level="4.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>4.3</b> Probability calculator</a></li>
+<li class="chapter" data-level="4.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>4.4</b> Getting Help</a></li>
+<li class="chapter" data-level="4.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>4.5</b> Variable Asignment</a></li>
+<li class="chapter" data-level="4.6" data-path="basics.html"><a href="basics.html#missing"><i class="fa fa-check"></i><b>4.6</b> Missing</a></li>
+<li class="chapter" data-level="4.7" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>4.7</b> Piping</a></li>
+<li class="chapter" data-level="4.8" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>4.8</b> Vector Creation and Manipulation</a></li>
+<li class="chapter" data-level="4.9" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>4.9</b> Search Paths and Packages</a></li>
+<li class="chapter" data-level="4.10" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>4.10</b> Simple Plotting</a></li>
+<li class="chapter" data-level="4.11" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>4.11</b> Object Types</a></li>
+<li class="chapter" data-level="4.12" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>4.12</b> Data Frames</a></li>
+<li class="chapter" data-level="4.13" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>4.13</b> Exctraction</a></li>
+<li class="chapter" data-level="4.14" data-path="basics.html"><a href="basics.html#augmentations-of-the-data.frame-class"><i class="fa fa-check"></i><b>4.14</b> Augmentations of the data.frame class</a></li>
+<li class="chapter" data-level="4.15" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>4.15</b> Data Import and Export</a><ul>
+<li class="chapter" data-level="4.15.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>4.15.1</b> Import from WEB</a></li>
+<li class="chapter" data-level="4.15.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>4.15.2</b> Export as CSV</a></li>
+<li class="chapter" data-level="4.15.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>4.15.3</b> Export non-CSV files</a></li>
+<li class="chapter" data-level="4.15.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>4.15.4</b> Reading From Text Files</a></li>
+<li class="chapter" data-level="4.15.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>4.15.5</b> Writing Data to Text Files</a></li>
+<li class="chapter" data-level="4.15.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>4.15.6</b> .XLS(X) files</a></li>
+<li class="chapter" data-level="4.15.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>4.15.7</b> Massive files</a></li>
+<li class="chapter" data-level="4.15.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>4.15.8</b> Databases</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="eda.html"><a href="eda.html#visualization"><i class="fa fa-check"></i><b>4.2</b> Visualization</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="eda.html"><a href="eda.html#categorical-data-1"><i class="fa fa-check"></i><b>4.2.1</b> Categorical Data</a></li>
-<li class="chapter" data-level="4.2.2" data-path="eda.html"><a href="eda.html#continuous-data"><i class="fa fa-check"></i><b>4.2.2</b> Continuous Data</a></li>
+<li class="chapter" data-level="4.16" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>4.16</b> Functions</a></li>
+<li class="chapter" data-level="4.17" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>4.17</b> Looping</a></li>
+<li class="chapter" data-level="4.18" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>4.18</b> Apply</a></li>
+<li class="chapter" data-level="4.19" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>4.19</b> Recursion</a></li>
+<li class="chapter" data-level="4.20" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>4.20</b> Dates and Times</a></li>
+<li class="chapter" data-level="4.21" data-path="basics.html"><a href="basics.html#bibliographic-notes-2"><i class="fa fa-check"></i><b>4.21</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="4.22" data-path="basics.html"><a href="basics.html#practice-yourself-2"><i class="fa fa-check"></i><b>4.22</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="eda.html"><a href="eda.html#mixed-type-data"><i class="fa fa-check"></i><b>4.3</b> Mixed Type Data</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="eda.html"><a href="eda.html#alluvian-diagram"><i class="fa fa-check"></i><b>4.3.1</b> Alluvian Diagram</a></li>
+<li class="chapter" data-level="5" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>5</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="5.1" data-path="eda.html"><a href="eda.html#summary-statistics"><i class="fa fa-check"></i><b>5.1</b> Summary Statistics</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="eda.html"><a href="eda.html#categorical-data"><i class="fa fa-check"></i><b>5.1.1</b> Categorical Data</a></li>
+<li class="chapter" data-level="5.1.2" data-path="eda.html"><a href="eda.html#continous-data"><i class="fa fa-check"></i><b>5.1.2</b> Continous Data</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="eda.html"><a href="eda.html#bibliographic-notes-2"><i class="fa fa-check"></i><b>4.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="4.5" data-path="eda.html"><a href="eda.html#practice-yourself-2"><i class="fa fa-check"></i><b>4.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="5.2" data-path="eda.html"><a href="eda.html#visualization"><i class="fa fa-check"></i><b>5.2</b> Visualization</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="eda.html"><a href="eda.html#categorical-data-1"><i class="fa fa-check"></i><b>5.2.1</b> Categorical Data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="eda.html"><a href="eda.html#continuous-data"><i class="fa fa-check"></i><b>5.2.2</b> Continuous Data</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="lm.html"><a href="lm.html"><i class="fa fa-check"></i><b>5</b> Linear Models</a><ul>
-<li class="chapter" data-level="5.1" data-path="lm.html"><a href="lm.html#problem-setup"><i class="fa fa-check"></i><b>5.1</b> Problem Setup</a></li>
-<li class="chapter" data-level="5.2" data-path="lm.html"><a href="lm.html#ols-estimation-in-r"><i class="fa fa-check"></i><b>5.2</b> OLS Estimation in R</a></li>
-<li class="chapter" data-level="5.3" data-path="lm.html"><a href="lm.html#inference"><i class="fa fa-check"></i><b>5.3</b> Inference</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.1</b> Testing a Hypothesis on a Single Coefficient</a></li>
-<li class="chapter" data-level="5.3.2" data-path="lm.html"><a href="lm.html#constructing-a-confidence-interval-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.2</b> Constructing a Confidence Interval on a Single Coefficient</a></li>
-<li class="chapter" data-level="5.3.3" data-path="lm.html"><a href="lm.html#multiple-regression"><i class="fa fa-check"></i><b>5.3.3</b> Multiple Regression</a></li>
-<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#anova"><i class="fa fa-check"></i><b>5.3.4</b> ANOVA (*)</a></li>
-<li class="chapter" data-level="5.3.5" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>5.3.5</b> Testing a Hypothesis on a Single Contrast (*)</a></li>
+<li class="chapter" data-level="5.3" data-path="eda.html"><a href="eda.html#mixed-type-data"><i class="fa fa-check"></i><b>5.3</b> Mixed Type Data</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="eda.html"><a href="eda.html#alluvian-diagram"><i class="fa fa-check"></i><b>5.3.1</b> Alluvian Diagram</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="5.5" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="5.4" data-path="eda.html"><a href="eda.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="5.5" data-path="eda.html"><a href="eda.html#practice-yourself-3"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Models</a><ul>
-<li class="chapter" data-level="6.1" data-path="glm.html"><a href="glm.html#problem-setup-1"><i class="fa fa-check"></i><b>6.1</b> Problem Setup</a></li>
-<li class="chapter" data-level="6.2" data-path="glm.html"><a href="glm.html#logistic-regression"><i class="fa fa-check"></i><b>6.2</b> Logistic Regression</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="glm.html"><a href="glm.html#logistic-regression-with-r"><i class="fa fa-check"></i><b>6.2.1</b> Logistic Regression with R</a></li>
+<li class="chapter" data-level="6" data-path="lm.html"><a href="lm.html"><i class="fa fa-check"></i><b>6</b> Linear Models</a><ul>
+<li class="chapter" data-level="6.1" data-path="lm.html"><a href="lm.html#problem-setup"><i class="fa fa-check"></i><b>6.1</b> Problem Setup</a></li>
+<li class="chapter" data-level="6.2" data-path="lm.html"><a href="lm.html#ols-estimation-in-r"><i class="fa fa-check"></i><b>6.2</b> OLS Estimation in R</a></li>
+<li class="chapter" data-level="6.3" data-path="lm.html"><a href="lm.html#inference"><i class="fa fa-check"></i><b>6.3</b> Inference</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-coefficient"><i class="fa fa-check"></i><b>6.3.1</b> Testing a Hypothesis on a Single Coefficient</a></li>
+<li class="chapter" data-level="6.3.2" data-path="lm.html"><a href="lm.html#constructing-a-confidence-interval-on-a-single-coefficient"><i class="fa fa-check"></i><b>6.3.2</b> Constructing a Confidence Interval on a Single Coefficient</a></li>
+<li class="chapter" data-level="6.3.3" data-path="lm.html"><a href="lm.html#multiple-regression"><i class="fa fa-check"></i><b>6.3.3</b> Multiple Regression</a></li>
+<li class="chapter" data-level="6.3.4" data-path="lm.html"><a href="lm.html#anova"><i class="fa fa-check"></i><b>6.3.4</b> ANOVA (*)</a></li>
+<li class="chapter" data-level="6.3.5" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>6.3.5</b> Testing a Hypothesis on a Single Contrast (*)</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="glm.html"><a href="glm.html#poisson-regression"><i class="fa fa-check"></i><b>6.3</b> Poisson Regression</a></li>
-<li class="chapter" data-level="6.4" data-path="glm.html"><a href="glm.html#extensions"><i class="fa fa-check"></i><b>6.4</b> Extensions</a></li>
-<li class="chapter" data-level="6.5" data-path="glm.html"><a href="glm.html#bibliographic-notes-4"><i class="fa fa-check"></i><b>6.5</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="6.6" data-path="glm.html"><a href="glm.html#practice-glm"><i class="fa fa-check"></i><b>6.6</b> Practice Yourself</a></li>
+<li class="chapter" data-level="6.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-4"><i class="fa fa-check"></i><b>6.4</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="6.5" data-path="lm.html"><a href="lm.html#practice-yourself-4"><i class="fa fa-check"></i><b>6.5</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
-<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#non-linear-mixed-models"><i class="fa fa-check"></i><b>7.1.1</b> Non-Linear Mixed Models</a></li>
-<li class="chapter" data-level="7.1.2" data-path="lme.html"><a href="lme.html#generalized-linear-mixed-models-glmm"><i class="fa fa-check"></i><b>7.1.2</b> Generalized Linear Mixed Models (GLMM)</a></li>
+<li class="chapter" data-level="7" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>7</b> Generalized Linear Models</a><ul>
+<li class="chapter" data-level="7.1" data-path="glm.html"><a href="glm.html#problem-setup-1"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
+<li class="chapter" data-level="7.2" data-path="glm.html"><a href="glm.html#logistic-regression"><i class="fa fa-check"></i><b>7.2</b> Logistic Regression</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="glm.html"><a href="glm.html#logistic-regression-with-r"><i class="fa fa-check"></i><b>7.2.1</b> Logistic Regression with R</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
-<li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
-<li class="chapter" data-level="7.2.2" data-path="lme.html"><a href="lme.html#multiple-random-effects"><i class="fa fa-check"></i><b>7.2.2</b> Multiple Random Effects</a></li>
-<li class="chapter" data-level="7.2.3" data-path="lme.html"><a href="lme.html#a-full-mixed-model"><i class="fa fa-check"></i><b>7.2.3</b> A Full Mixed-Model</a></li>
+<li class="chapter" data-level="7.3" data-path="glm.html"><a href="glm.html#poisson-regression"><i class="fa fa-check"></i><b>7.3</b> Poisson Regression</a></li>
+<li class="chapter" data-level="7.4" data-path="glm.html"><a href="glm.html#extensions"><i class="fa fa-check"></i><b>7.4</b> Extensions</a></li>
+<li class="chapter" data-level="7.5" data-path="glm.html"><a href="glm.html#bibliographic-notes-5"><i class="fa fa-check"></i><b>7.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="7.6" data-path="glm.html"><a href="glm.html#practice-glm"><i class="fa fa-check"></i><b>7.6</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="lme.html"><a href="lme.html#serial-correlations"><i class="fa fa-check"></i><b>7.3</b> Serial Correlations</a></li>
-<li class="chapter" data-level="7.4" data-path="lme.html"><a href="lme.html#manova"><i class="fa fa-check"></i><b>7.4</b> Relation to MANOVA</a></li>
-<li class="chapter" data-level="7.5" data-path="lme.html"><a href="lme.html#the-variance-components-view"><i class="fa fa-check"></i><b>7.5</b> The Variance-Components View</a></li>
-<li class="chapter" data-level="7.6" data-path="lme.html"><a href="lme.html#bibliographic-notes-5"><i class="fa fa-check"></i><b>7.6</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="7.7" data-path="lme.html"><a href="lme.html#practice-yourself-4"><i class="fa fa-check"></i><b>7.7</b> Practice Yourself</a></li>
+<li class="chapter" data-level="8" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>8</b> Linear Mixed Models</a><ul>
+<li class="chapter" data-level="8.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>8.1</b> Problem Setup</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="lme.html"><a href="lme.html#non-linear-mixed-models"><i class="fa fa-check"></i><b>8.1.1</b> Non-Linear Mixed Models</a></li>
+<li class="chapter" data-level="8.1.2" data-path="lme.html"><a href="lme.html#generalized-linear-mixed-models-glmm"><i class="fa fa-check"></i><b>8.1.2</b> Generalized Linear Mixed Models (GLMM)</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="multivariate.html"><a href="multivariate.html"><i class="fa fa-check"></i><b>8</b> Multivariate Data Analysis</a><ul>
-<li class="chapter" data-level="8.1" data-path="multivariate.html"><a href="multivariate.html#signal-detection"><i class="fa fa-check"></i><b>8.1</b> Signal Detection</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="multivariate.html"><a href="multivariate.html#hotellings-t2-test"><i class="fa fa-check"></i><b>8.1.1</b> Hotelling’s T2 Test</a></li>
-<li class="chapter" data-level="8.1.2" data-path="multivariate.html"><a href="multivariate.html#various-types-of-signal-to-detect"><i class="fa fa-check"></i><b>8.1.2</b> Various Types of Signal to Detect</a></li>
-<li class="chapter" data-level="8.1.3" data-path="multivariate.html"><a href="multivariate.html#simes-test"><i class="fa fa-check"></i><b>8.1.3</b> Simes’ Test</a></li>
-<li class="chapter" data-level="8.1.4" data-path="multivariate.html"><a href="multivariate.html#signal-detection-with-r"><i class="fa fa-check"></i><b>8.1.4</b> Signal Detection with R</a></li>
+<li class="chapter" data-level="8.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>8.2</b> Mixed Models with R</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>8.2.1</b> A Single Random Effect</a></li>
+<li class="chapter" data-level="8.2.2" data-path="lme.html"><a href="lme.html#multiple-random-effects"><i class="fa fa-check"></i><b>8.2.2</b> Multiple Random Effects</a></li>
+<li class="chapter" data-level="8.2.3" data-path="lme.html"><a href="lme.html#a-full-mixed-model"><i class="fa fa-check"></i><b>8.2.3</b> A Full Mixed-Model</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="multivariate.html"><a href="multivariate.html#signal-counting"><i class="fa fa-check"></i><b>8.2</b> Signal Counting</a></li>
-<li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>8.3.1</b> Signal Identification in R</a></li>
+<li class="chapter" data-level="8.3" data-path="lme.html"><a href="lme.html#serial"><i class="fa fa-check"></i><b>8.3</b> Serial Correlations</a></li>
+<li class="chapter" data-level="8.4" data-path="lme.html"><a href="lme.html#extensions-1"><i class="fa fa-check"></i><b>8.4</b> Extensions</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="lme.html"><a href="lme.html#cluster-robust-standard-errors"><i class="fa fa-check"></i><b>8.4.1</b> Cluster Robust Standard Errors</a></li>
+<li class="chapter" data-level="8.4.2" data-path="lme.html"><a href="lme.html#linear-models-for-panel-data"><i class="fa fa-check"></i><b>8.4.2</b> Linear Models for Panel Data</a></li>
+<li class="chapter" data-level="8.4.3" data-path="lme.html"><a href="lme.html#testing-hypotheses-on-correlations"><i class="fa fa-check"></i><b>8.4.3</b> Testing Hypotheses on Correlations</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation (*)</a></li>
-<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression (*)</a><ul>
-<li class="chapter" data-level="8.5.1" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression-with-r"><i class="fa fa-check"></i><b>8.5.1</b> Multivariate Regression with R</a></li>
+<li class="chapter" data-level="8.5" data-path="lme.html"><a href="lme.html#relation-to-other-estimators"><i class="fa fa-check"></i><b>8.5</b> Relation to Other Estimators</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="lme.html"><a href="lme.html#fixed-effects-in-the-econometric-literature"><i class="fa fa-check"></i><b>8.5.1</b> Fixed Effects in the Econometric Literature</a></li>
+<li class="chapter" data-level="8.5.2" data-path="lme.html"><a href="lme.html#relation-to-generalized-least-squares-gls"><i class="fa fa-check"></i><b>8.5.2</b> Relation to Generalized Least Squares (GLS)</a></li>
+<li class="chapter" data-level="8.5.3" data-path="lme.html"><a href="lme.html#relation-to-conditional-gaussian-fields"><i class="fa fa-check"></i><b>8.5.3</b> Relation to Conditional Gaussian Fields</a></li>
+<li class="chapter" data-level="8.5.4" data-path="lme.html"><a href="lme.html#relation-to-empirical-risk-minimization-erm"><i class="fa fa-check"></i><b>8.5.4</b> Relation to Empirical Risk Minimization (ERM)</a></li>
+<li class="chapter" data-level="8.5.5" data-path="lme.html"><a href="lme.html#relation-to-m-estimation"><i class="fa fa-check"></i><b>8.5.5</b> Relation to M-Estimation</a></li>
+<li class="chapter" data-level="8.5.6" data-path="lme.html"><a href="lme.html#relation-to-generalize-estimating-equations-gee"><i class="fa fa-check"></i><b>8.5.6</b> Relation to Generalize Estimating Equations (GEE)</a></li>
+<li class="chapter" data-level="8.5.7" data-path="lme.html"><a href="lme.html#manova"><i class="fa fa-check"></i><b>8.5.7</b> Relation to MANOVA</a></li>
+<li class="chapter" data-level="8.5.8" data-path="lme.html"><a href="lme.html#relation-to-seemingly-unrelated-equations-sur"><i class="fa fa-check"></i><b>8.5.8</b> Relation to Seemingly Unrelated Equations (SUR)</a></li>
 </ul></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models (*)</a><ul>
-<li class="chapter" data-level="8.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>8.6.1</b> Graphical Models in R</a></li>
+<li class="chapter" data-level="8.6" data-path="lme.html"><a href="lme.html#the-variance-components-view"><i class="fa fa-check"></i><b>8.6</b> The Variance-Components View</a></li>
+<li class="chapter" data-level="8.7" data-path="lme.html"><a href="lme.html#bibliographic-notes-6"><i class="fa fa-check"></i><b>8.7</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="8.8" data-path="lme.html"><a href="lme.html#practice-yourself-5"><i class="fa fa-check"></i><b>8.8</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
-<li class="chapter" data-level="8.8" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-5"><i class="fa fa-check"></i><b>8.8</b> Practice Yourself</a></li>
+<li class="chapter" data-level="9" data-path="multivariate.html"><a href="multivariate.html"><i class="fa fa-check"></i><b>9</b> Multivariate Data Analysis</a><ul>
+<li class="chapter" data-level="9.1" data-path="multivariate.html"><a href="multivariate.html#signal-detection"><i class="fa fa-check"></i><b>9.1</b> Signal Detection</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="multivariate.html"><a href="multivariate.html#hotellings-t2-test"><i class="fa fa-check"></i><b>9.1.1</b> Hotelling’s T2 Test</a></li>
+<li class="chapter" data-level="9.1.2" data-path="multivariate.html"><a href="multivariate.html#various-types-of-signal-to-detect"><i class="fa fa-check"></i><b>9.1.2</b> Various Types of Signal to Detect</a></li>
+<li class="chapter" data-level="9.1.3" data-path="multivariate.html"><a href="multivariate.html#simes-test"><i class="fa fa-check"></i><b>9.1.3</b> Simes’ Test</a></li>
+<li class="chapter" data-level="9.1.4" data-path="multivariate.html"><a href="multivariate.html#signal-detection-with-r"><i class="fa fa-check"></i><b>9.1.4</b> Signal Detection with R</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>9</b> Supervised Learning</a><ul>
-<li class="chapter" data-level="9.1" data-path="supervised.html"><a href="supervised.html#problem-setup-3"><i class="fa fa-check"></i><b>9.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="9.1.1" data-path="supervised.html"><a href="supervised.html#common-hypothesis-classes"><i class="fa fa-check"></i><b>9.1.1</b> Common Hypothesis Classes</a></li>
-<li class="chapter" data-level="9.1.2" data-path="supervised.html"><a href="supervised.html#common-complexity-penalties"><i class="fa fa-check"></i><b>9.1.2</b> Common Complexity Penalties</a></li>
-<li class="chapter" data-level="9.1.3" data-path="supervised.html"><a href="supervised.html#unbiased-risk-estimation"><i class="fa fa-check"></i><b>9.1.3</b> Unbiased Risk Estimation</a></li>
-<li class="chapter" data-level="9.1.4" data-path="supervised.html"><a href="supervised.html#collecting-the-pieces"><i class="fa fa-check"></i><b>9.1.4</b> Collecting the Pieces</a></li>
+<li class="chapter" data-level="9.2" data-path="multivariate.html"><a href="multivariate.html#signal-counting"><i class="fa fa-check"></i><b>9.2</b> Signal Counting</a></li>
+<li class="chapter" data-level="9.3" data-path="multivariate.html"><a href="multivariate.html#identification"><i class="fa fa-check"></i><b>9.3</b> Signal Identification</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>9.3.1</b> Signal Identification in R</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="supervised.html"><a href="supervised.html#supervised-learning-in-r"><i class="fa fa-check"></i><b>9.2</b> Supervised Learning in R</a><ul>
-<li class="chapter" data-level="9.2.1" data-path="supervised.html"><a href="supervised.html#least-squares"><i class="fa fa-check"></i><b>9.2.1</b> Linear Models with Least Squares Loss</a></li>
-<li class="chapter" data-level="9.2.2" data-path="supervised.html"><a href="supervised.html#svm"><i class="fa fa-check"></i><b>9.2.2</b> SVM</a></li>
-<li class="chapter" data-level="9.2.3" data-path="supervised.html"><a href="supervised.html#neural-nets"><i class="fa fa-check"></i><b>9.2.3</b> Neural Nets</a></li>
-<li class="chapter" data-level="9.2.4" data-path="supervised.html"><a href="supervised.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>9.2.4</b> Classification and Regression Trees (CART)</a></li>
-<li class="chapter" data-level="9.2.5" data-path="supervised.html"><a href="supervised.html#k-nearest-neighbour-knn"><i class="fa fa-check"></i><b>9.2.5</b> K-nearest neighbour (KNN)</a></li>
-<li class="chapter" data-level="9.2.6" data-path="supervised.html"><a href="supervised.html#linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>9.2.6</b> Linear Discriminant Analysis (LDA)</a></li>
-<li class="chapter" data-level="9.2.7" data-path="supervised.html"><a href="supervised.html#naive-bayes"><i class="fa fa-check"></i><b>9.2.7</b> Naive Bayes</a></li>
-<li class="chapter" data-level="9.2.8" data-path="supervised.html"><a href="supervised.html#random-forrest"><i class="fa fa-check"></i><b>9.2.8</b> Random Forrest</a></li>
-<li class="chapter" data-level="9.2.9" data-path="supervised.html"><a href="supervised.html#gradient-boosting"><i class="fa fa-check"></i><b>9.2.9</b> Gradient Boosting</a></li>
+<li class="chapter" data-level="9.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>9.4</b> Signal Estimation (*)</a></li>
+<li class="chapter" data-level="9.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>9.5</b> Multivariate Regression (*)</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression-with-r"><i class="fa fa-check"></i><b>9.5.1</b> Multivariate Regression with R</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="supervised.html"><a href="supervised.html#bibliographic-notes-6"><i class="fa fa-check"></i><b>9.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="9.4" data-path="supervised.html"><a href="supervised.html#practice-yourself-6"><i class="fa fa-check"></i><b>9.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="9.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>9.6</b> Graphical Models (*)</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>9.6.1</b> Graphical Models in R</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="unsupervised.html"><a href="unsupervised.html"><i class="fa fa-check"></i><b>10</b> Unsupervised Learning</a><ul>
-<li class="chapter" data-level="10.1" data-path="unsupervised.html"><a href="unsupervised.html#dim-reduce"><i class="fa fa-check"></i><b>10.1</b> Dimensionality Reduction</a><ul>
-<li class="chapter" data-level="10.1.1" data-path="unsupervised.html"><a href="unsupervised.html#pca"><i class="fa fa-check"></i><b>10.1.1</b> Principal Component Analysis</a></li>
-<li class="chapter" data-level="10.1.2" data-path="unsupervised.html"><a href="unsupervised.html#dimensionality-reduction-preliminaries"><i class="fa fa-check"></i><b>10.1.2</b> Dimensionality Reduction Preliminaries</a></li>
-<li class="chapter" data-level="10.1.3" data-path="unsupervised.html"><a href="unsupervised.html#latent-variable-generative-approaches"><i class="fa fa-check"></i><b>10.1.3</b> Latent Variable Generative Approaches</a></li>
-<li class="chapter" data-level="10.1.4" data-path="unsupervised.html"><a href="unsupervised.html#purely-algorithmic-approaches"><i class="fa fa-check"></i><b>10.1.4</b> Purely Algorithmic Approaches</a></li>
-<li class="chapter" data-level="10.1.5" data-path="unsupervised.html"><a href="unsupervised.html#dimensionality-reduction-in-r"><i class="fa fa-check"></i><b>10.1.5</b> Dimensionality Reduction in R</a></li>
+<li class="chapter" data-level="9.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>9.7</b> Biblipgraphic Notes</a></li>
+<li class="chapter" data-level="9.8" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-6"><i class="fa fa-check"></i><b>9.8</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="10.2" data-path="unsupervised.html"><a href="unsupervised.html#cluster"><i class="fa fa-check"></i><b>10.2</b> Clustering</a><ul>
-<li class="chapter" data-level="10.2.1" data-path="unsupervised.html"><a href="unsupervised.html#latent-variable-generative-approaches-1"><i class="fa fa-check"></i><b>10.2.1</b> Latent Variable Generative Approaches</a></li>
-<li class="chapter" data-level="10.2.2" data-path="unsupervised.html"><a href="unsupervised.html#purely-algorithmic-approaches-1"><i class="fa fa-check"></i><b>10.2.2</b> Purely Algorithmic Approaches</a></li>
-<li class="chapter" data-level="10.2.3" data-path="unsupervised.html"><a href="unsupervised.html#clustering-in-r"><i class="fa fa-check"></i><b>10.2.3</b> Clustering in R</a></li>
+<li class="chapter" data-level="10" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>10</b> Supervised Learning</a><ul>
+<li class="chapter" data-level="10.1" data-path="supervised.html"><a href="supervised.html#problem-setup-3"><i class="fa fa-check"></i><b>10.1</b> Problem Setup</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="supervised.html"><a href="supervised.html#common-hypothesis-classes"><i class="fa fa-check"></i><b>10.1.1</b> Common Hypothesis Classes</a></li>
+<li class="chapter" data-level="10.1.2" data-path="supervised.html"><a href="supervised.html#common-complexity-penalties"><i class="fa fa-check"></i><b>10.1.2</b> Common Complexity Penalties</a></li>
+<li class="chapter" data-level="10.1.3" data-path="supervised.html"><a href="supervised.html#unbiased-risk-estimation"><i class="fa fa-check"></i><b>10.1.3</b> Unbiased Risk Estimation</a></li>
+<li class="chapter" data-level="10.1.4" data-path="supervised.html"><a href="supervised.html#collecting-the-pieces"><i class="fa fa-check"></i><b>10.1.4</b> Collecting the Pieces</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="unsupervised.html"><a href="unsupervised.html#bibliographic-notes-7"><i class="fa fa-check"></i><b>10.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="10.4" data-path="unsupervised.html"><a href="unsupervised.html#practice-yourself-7"><i class="fa fa-check"></i><b>10.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="10.2" data-path="supervised.html"><a href="supervised.html#supervised-learning-in-r"><i class="fa fa-check"></i><b>10.2</b> Supervised Learning in R</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="supervised.html"><a href="supervised.html#least-squares"><i class="fa fa-check"></i><b>10.2.1</b> Linear Models with Least Squares Loss</a></li>
+<li class="chapter" data-level="10.2.2" data-path="supervised.html"><a href="supervised.html#svm"><i class="fa fa-check"></i><b>10.2.2</b> SVM</a></li>
+<li class="chapter" data-level="10.2.3" data-path="supervised.html"><a href="supervised.html#neural-nets"><i class="fa fa-check"></i><b>10.2.3</b> Neural Nets</a></li>
+<li class="chapter" data-level="10.2.4" data-path="supervised.html"><a href="supervised.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>10.2.4</b> Classification and Regression Trees (CART)</a></li>
+<li class="chapter" data-level="10.2.5" data-path="supervised.html"><a href="supervised.html#k-nearest-neighbour-knn"><i class="fa fa-check"></i><b>10.2.5</b> K-nearest neighbour (KNN)</a></li>
+<li class="chapter" data-level="10.2.6" data-path="supervised.html"><a href="supervised.html#linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>10.2.6</b> Linear Discriminant Analysis (LDA)</a></li>
+<li class="chapter" data-level="10.2.7" data-path="supervised.html"><a href="supervised.html#naive-bayes"><i class="fa fa-check"></i><b>10.2.7</b> Naive Bayes</a></li>
+<li class="chapter" data-level="10.2.8" data-path="supervised.html"><a href="supervised.html#random-forrest"><i class="fa fa-check"></i><b>10.2.8</b> Random Forrest</a></li>
+<li class="chapter" data-level="10.2.9" data-path="supervised.html"><a href="supervised.html#gradient-boosting"><i class="fa fa-check"></i><b>10.2.9</b> Gradient Boosting</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>11</b> Plotting</a><ul>
-<li class="chapter" data-level="11.1" data-path="plotting.html"><a href="plotting.html#the-graphics-system"><i class="fa fa-check"></i><b>11.1</b> The graphics System</a><ul>
-<li class="chapter" data-level="11.1.1" data-path="plotting.html"><a href="plotting.html#using-existing-plotting-functions"><i class="fa fa-check"></i><b>11.1.1</b> Using Existing Plotting Functions</a></li>
-<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.2</b> Exporting a Plot</a></li>
-<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#fancy"><i class="fa fa-check"></i><b>11.1.3</b> Fancy graphics Examples</a></li>
+<li class="chapter" data-level="10.3" data-path="supervised.html"><a href="supervised.html#bibliographic-notes-7"><i class="fa fa-check"></i><b>10.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="10.4" data-path="supervised.html"><a href="supervised.html#practice-yourself-7"><i class="fa fa-check"></i><b>10.4</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="plotting.html"><a href="plotting.html#the-ggplot2-system"><i class="fa fa-check"></i><b>11.2</b> The ggplot2 System</a><ul>
-<li class="chapter" data-level="11.2.1" data-path="plotting.html"><a href="plotting.html#extensions-of-the-ggplot2-system"><i class="fa fa-check"></i><b>11.2.1</b> Extensions of the ggplot2 System</a></li>
+<li class="chapter" data-level="11" data-path="unsupervised.html"><a href="unsupervised.html"><i class="fa fa-check"></i><b>11</b> Unsupervised Learning</a><ul>
+<li class="chapter" data-level="11.1" data-path="unsupervised.html"><a href="unsupervised.html#dim-reduce"><i class="fa fa-check"></i><b>11.1</b> Dimensionality Reduction</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="unsupervised.html"><a href="unsupervised.html#pca"><i class="fa fa-check"></i><b>11.1.1</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="11.1.2" data-path="unsupervised.html"><a href="unsupervised.html#dimensionality-reduction-preliminaries"><i class="fa fa-check"></i><b>11.1.2</b> Dimensionality Reduction Preliminaries</a></li>
+<li class="chapter" data-level="11.1.3" data-path="unsupervised.html"><a href="unsupervised.html#latent-variable-generative-approaches"><i class="fa fa-check"></i><b>11.1.3</b> Latent Variable Generative Approaches</a></li>
+<li class="chapter" data-level="11.1.4" data-path="unsupervised.html"><a href="unsupervised.html#purely-algorithmic-approaches"><i class="fa fa-check"></i><b>11.1.4</b> Purely Algorithmic Approaches</a></li>
+<li class="chapter" data-level="11.1.5" data-path="unsupervised.html"><a href="unsupervised.html#dimensionality-reduction-in-r"><i class="fa fa-check"></i><b>11.1.5</b> Dimensionality Reduction in R</a></li>
 </ul></li>
-<li class="chapter" data-level="11.3" data-path="plotting.html"><a href="plotting.html#interactive-graphics"><i class="fa fa-check"></i><b>11.3</b> Interactive Graphics</a><ul>
-<li class="chapter" data-level="11.3.1" data-path="plotting.html"><a href="plotting.html#plotly"><i class="fa fa-check"></i><b>11.3.1</b> Plotly</a></li>
+<li class="chapter" data-level="11.2" data-path="unsupervised.html"><a href="unsupervised.html#cluster"><i class="fa fa-check"></i><b>11.2</b> Clustering</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="unsupervised.html"><a href="unsupervised.html#latent-variable-generative-approaches-1"><i class="fa fa-check"></i><b>11.2.1</b> Latent Variable Generative Approaches</a></li>
+<li class="chapter" data-level="11.2.2" data-path="unsupervised.html"><a href="unsupervised.html#purely-algorithmic-approaches-1"><i class="fa fa-check"></i><b>11.2.2</b> Purely Algorithmic Approaches</a></li>
+<li class="chapter" data-level="11.2.3" data-path="unsupervised.html"><a href="unsupervised.html#clustering-in-r"><i class="fa fa-check"></i><b>11.2.3</b> Clustering in R</a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="plotting.html"><a href="plotting.html#bibliographic-notes-8"><i class="fa fa-check"></i><b>11.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="11.5" data-path="plotting.html"><a href="plotting.html#practice-yourself-8"><i class="fa fa-check"></i><b>11.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="11.3" data-path="unsupervised.html"><a href="unsupervised.html#bibliographic-notes-8"><i class="fa fa-check"></i><b>11.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="11.4" data-path="unsupervised.html"><a href="unsupervised.html#practice-yourself-8"><i class="fa fa-check"></i><b>11.4</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="report.html"><a href="report.html"><i class="fa fa-check"></i><b>12</b> Reports</a><ul>
-<li class="chapter" data-level="12.1" data-path="report.html"><a href="report.html#knitr"><i class="fa fa-check"></i><b>12.1</b> knitr</a><ul>
-<li class="chapter" data-level="12.1.1" data-path="report.html"><a href="report.html#installation"><i class="fa fa-check"></i><b>12.1.1</b> Installation</a></li>
-<li class="chapter" data-level="12.1.2" data-path="report.html"><a href="report.html#pandoc-markdown"><i class="fa fa-check"></i><b>12.1.2</b> Pandoc Markdown</a></li>
-<li class="chapter" data-level="12.1.3" data-path="report.html"><a href="report.html#rmarkdown"><i class="fa fa-check"></i><b>12.1.3</b> Rmarkdown</a></li>
-<li class="chapter" data-level="12.1.4" data-path="report.html"><a href="report.html#bibtex"><i class="fa fa-check"></i><b>12.1.4</b> BibTex</a></li>
-<li class="chapter" data-level="12.1.5" data-path="report.html"><a href="report.html#compiling"><i class="fa fa-check"></i><b>12.1.5</b> Compiling</a></li>
+<li class="chapter" data-level="12" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>12</b> Plotting</a><ul>
+<li class="chapter" data-level="12.1" data-path="plotting.html"><a href="plotting.html#the-graphics-system"><i class="fa fa-check"></i><b>12.1</b> The graphics System</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="plotting.html"><a href="plotting.html#using-existing-plotting-functions"><i class="fa fa-check"></i><b>12.1.1</b> Using Existing Plotting Functions</a></li>
+<li class="chapter" data-level="12.1.2" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>12.1.2</b> Exporting a Plot</a></li>
+<li class="chapter" data-level="12.1.3" data-path="plotting.html"><a href="plotting.html#fancy"><i class="fa fa-check"></i><b>12.1.3</b> Fancy graphics Examples</a></li>
 </ul></li>
-<li class="chapter" data-level="12.2" data-path="report.html"><a href="report.html#bookdown"><i class="fa fa-check"></i><b>12.2</b> bookdown</a></li>
-<li class="chapter" data-level="12.3" data-path="report.html"><a href="report.html#shiny"><i class="fa fa-check"></i><b>12.3</b> Shiny</a><ul>
-<li class="chapter" data-level="12.3.1" data-path="report.html"><a href="report.html#installation-1"><i class="fa fa-check"></i><b>12.3.1</b> Installation</a></li>
-<li class="chapter" data-level="12.3.2" data-path="report.html"><a href="report.html#the-basics-of-shiny"><i class="fa fa-check"></i><b>12.3.2</b> The Basics of Shiny</a></li>
-<li class="chapter" data-level="12.3.3" data-path="report.html"><a href="report.html#beyond-the-basics"><i class="fa fa-check"></i><b>12.3.3</b> Beyond the Basics</a></li>
-<li class="chapter" data-level="12.3.4" data-path="report.html"><a href="report.html#shinydashboard"><i class="fa fa-check"></i><b>12.3.4</b> shinydashboard</a></li>
+<li class="chapter" data-level="12.2" data-path="plotting.html"><a href="plotting.html#the-ggplot2-system"><i class="fa fa-check"></i><b>12.2</b> The ggplot2 System</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="plotting.html"><a href="plotting.html#extensions-of-the-ggplot2-system"><i class="fa fa-check"></i><b>12.2.1</b> Extensions of the ggplot2 System</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="report.html"><a href="report.html#flexdashboard"><i class="fa fa-check"></i><b>12.4</b> flexdashboard</a></li>
-<li class="chapter" data-level="12.5" data-path="report.html"><a href="report.html#bibliographic-notes-9"><i class="fa fa-check"></i><b>12.5</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="12.6" data-path="report.html"><a href="report.html#practice-yourself-9"><i class="fa fa-check"></i><b>12.6</b> Practice Yourself</a></li>
+<li class="chapter" data-level="12.3" data-path="plotting.html"><a href="plotting.html#interactive-graphics"><i class="fa fa-check"></i><b>12.3</b> Interactive Graphics</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="plotting.html"><a href="plotting.html#plotly"><i class="fa fa-check"></i><b>12.3.1</b> Plotly</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>13</b> Sparse Representations</a><ul>
-<li class="chapter" data-level="13.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>13.1</b> Sparse Matrix Representations</a><ul>
-<li class="chapter" data-level="13.1.1" data-path="sparse.html"><a href="sparse.html#coo"><i class="fa fa-check"></i><b>13.1.1</b> Coordinate List Representation</a></li>
-<li class="chapter" data-level="13.1.2" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>13.1.2</b> Compressed Column Oriented Representation</a></li>
-<li class="chapter" data-level="13.1.3" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>13.1.3</b> Compressed Row Oriented Representation</a></li>
-<li class="chapter" data-level="13.1.4" data-path="sparse.html"><a href="sparse.html#sparse-algorithms"><i class="fa fa-check"></i><b>13.1.4</b> Sparse Algorithms</a></li>
+<li class="chapter" data-level="12.4" data-path="plotting.html"><a href="plotting.html#r2d3"><i class="fa fa-check"></i><b>12.4</b> r2d3</a></li>
+<li class="chapter" data-level="12.5" data-path="plotting.html"><a href="plotting.html#bibliographic-notes-9"><i class="fa fa-check"></i><b>12.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="12.6" data-path="plotting.html"><a href="plotting.html#practice-yourself-9"><i class="fa fa-check"></i><b>12.6</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="13.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>13.2</b> Sparse Matrices and Sparse Models in R</a><ul>
-<li class="chapter" data-level="13.2.1" data-path="sparse.html"><a href="sparse.html#the-matrix-package"><i class="fa fa-check"></i><b>13.2.1</b> The Matrix Package</a></li>
-<li class="chapter" data-level="13.2.2" data-path="sparse.html"><a href="sparse.html#the-matrixmodels-package"><i class="fa fa-check"></i><b>13.2.2</b> The MatrixModels Package</a></li>
-<li class="chapter" data-level="13.2.3" data-path="sparse.html"><a href="sparse.html#the-glmnet-package"><i class="fa fa-check"></i><b>13.2.3</b> The glmnet Package</a></li>
-<li class="chapter" data-level="13.2.4" data-path="sparse.html"><a href="sparse.html#the-sparsem-package"><i class="fa fa-check"></i><b>13.2.4</b> The SparseM Package</a></li>
+<li class="chapter" data-level="13" data-path="report.html"><a href="report.html"><i class="fa fa-check"></i><b>13</b> Reports</a><ul>
+<li class="chapter" data-level="13.1" data-path="report.html"><a href="report.html#knitr"><i class="fa fa-check"></i><b>13.1</b> knitr</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="report.html"><a href="report.html#installation"><i class="fa fa-check"></i><b>13.1.1</b> Installation</a></li>
+<li class="chapter" data-level="13.1.2" data-path="report.html"><a href="report.html#pandoc-markdown"><i class="fa fa-check"></i><b>13.1.2</b> Pandoc Markdown</a></li>
+<li class="chapter" data-level="13.1.3" data-path="report.html"><a href="report.html#rmarkdown"><i class="fa fa-check"></i><b>13.1.3</b> Rmarkdown</a></li>
+<li class="chapter" data-level="13.1.4" data-path="report.html"><a href="report.html#bibtex"><i class="fa fa-check"></i><b>13.1.4</b> BibTex</a></li>
+<li class="chapter" data-level="13.1.5" data-path="report.html"><a href="report.html#compiling"><i class="fa fa-check"></i><b>13.1.5</b> Compiling</a></li>
 </ul></li>
-<li class="chapter" data-level="13.3" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-10"><i class="fa fa-check"></i><b>13.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="13.4" data-path="sparse.html"><a href="sparse.html#practice-yourself-10"><i class="fa fa-check"></i><b>13.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="13.2" data-path="report.html"><a href="report.html#bookdown"><i class="fa fa-check"></i><b>13.2</b> bookdown</a></li>
+<li class="chapter" data-level="13.3" data-path="report.html"><a href="report.html#shiny"><i class="fa fa-check"></i><b>13.3</b> Shiny</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="report.html"><a href="report.html#installation-1"><i class="fa fa-check"></i><b>13.3.1</b> Installation</a></li>
+<li class="chapter" data-level="13.3.2" data-path="report.html"><a href="report.html#the-basics-of-shiny"><i class="fa fa-check"></i><b>13.3.2</b> The Basics of Shiny</a></li>
+<li class="chapter" data-level="13.3.3" data-path="report.html"><a href="report.html#beyond-the-basics"><i class="fa fa-check"></i><b>13.3.3</b> Beyond the Basics</a></li>
+<li class="chapter" data-level="13.3.4" data-path="report.html"><a href="report.html#shinydashboard"><i class="fa fa-check"></i><b>13.3.4</b> shinydashboard</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>14</b> Memory Efficiency</a><ul>
-<li class="chapter" data-level="14.1" data-path="memory.html"><a href="memory.html#efficient-computing-from-ram"><i class="fa fa-check"></i><b>14.1</b> Efficient Computing from RAM</a><ul>
-<li class="chapter" data-level="14.1.1" data-path="memory.html"><a href="memory.html#summary-statistics-from-ram"><i class="fa fa-check"></i><b>14.1.1</b> Summary Statistics from RAM</a></li>
+<li class="chapter" data-level="13.4" data-path="report.html"><a href="report.html#flexdashboard"><i class="fa fa-check"></i><b>13.4</b> flexdashboard</a></li>
+<li class="chapter" data-level="13.5" data-path="report.html"><a href="report.html#bibliographic-notes-10"><i class="fa fa-check"></i><b>13.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="13.6" data-path="report.html"><a href="report.html#practice-yourself-10"><i class="fa fa-check"></i><b>13.6</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="14.2" data-path="memory.html"><a href="memory.html#computing-from-a-database"><i class="fa fa-check"></i><b>14.2</b> Computing from a Database</a></li>
-<li class="chapter" data-level="14.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>14.3</b> Computing From Efficient File Structrures</a><ul>
-<li class="chapter" data-level="14.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>14.3.1</b> bigmemory</a></li>
+<li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a><ul>
+<li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="sparse.html"><a href="sparse.html#coo"><i class="fa fa-check"></i><b>14.1.1</b> Coordinate List Representation</a></li>
+<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Column Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.4" data-path="sparse.html"><a href="sparse.html#sparse-algorithms"><i class="fa fa-check"></i><b>14.1.4</b> Sparse Algorithms</a></li>
 </ul></li>
-<li class="chapter" data-level="14.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>14.4</b> ff</a></li>
-<li class="chapter" data-level="14.5" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>14.5</b> matter</a></li>
-<li class="chapter" data-level="14.6" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>14.6</b> iotools</a></li>
-<li class="chapter" data-level="14.7" data-path="memory.html"><a href="memory.html#hdf5"><i class="fa fa-check"></i><b>14.7</b> HDF5</a></li>
-<li class="chapter" data-level="14.8" data-path="memory.html"><a href="memory.html#delayedarray"><i class="fa fa-check"></i><b>14.8</b> DelayedArray</a><ul>
-<li class="chapter" data-level="14.8.1" data-path="memory.html"><a href="memory.html#delayedmatrixstats"><i class="fa fa-check"></i><b>14.8.1</b> DelayedMatrixStats</a></li>
-<li class="chapter" data-level="14.8.2" data-path="memory.html"><a href="memory.html#beachmat"><i class="fa fa-check"></i><b>14.8.2</b> beachmat</a></li>
-<li class="chapter" data-level="14.8.3" data-path="memory.html"><a href="memory.html#restfulse"><i class="fa fa-check"></i><b>14.8.3</b> restfulSE</a></li>
+<li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="sparse.html"><a href="sparse.html#the-matrix-package"><i class="fa fa-check"></i><b>14.2.1</b> The Matrix Package</a></li>
+<li class="chapter" data-level="14.2.2" data-path="sparse.html"><a href="sparse.html#the-matrixmodels-package"><i class="fa fa-check"></i><b>14.2.2</b> The MatrixModels Package</a></li>
+<li class="chapter" data-level="14.2.3" data-path="sparse.html"><a href="sparse.html#the-glmnet-package"><i class="fa fa-check"></i><b>14.2.3</b> The glmnet Package</a></li>
+<li class="chapter" data-level="14.2.4" data-path="sparse.html"><a href="sparse.html#the-sparsem-package"><i class="fa fa-check"></i><b>14.2.4</b> The SparseM Package</a></li>
 </ul></li>
-<li class="chapter" data-level="14.9" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>14.9</b> Computing from a Distributed File System</a></li>
-<li class="chapter" data-level="14.10" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>14.10</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="14.11" data-path="memory.html"><a href="memory.html#practice-yourself-11"><i class="fa fa-check"></i><b>14.11</b> Practice Yourself</a></li>
+<li class="chapter" data-level="14.3" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>14.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="14.4" data-path="sparse.html"><a href="sparse.html#practice-yourself-11"><i class="fa fa-check"></i><b>14.4</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>15</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="15.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>15.1</b> Implicit Parallelism</a></li>
-<li class="chapter" data-level="15.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>15.2</b> Explicit Parallelism</a><ul>
-<li class="chapter" data-level="15.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>15.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
+<li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a><ul>
+<li class="chapter" data-level="15.1" data-path="memory.html"><a href="memory.html#efficient-computing-from-ram"><i class="fa fa-check"></i><b>15.1</b> Efficient Computing from RAM</a><ul>
+<li class="chapter" data-level="15.1.1" data-path="memory.html"><a href="memory.html#summary-statistics-from-ram"><i class="fa fa-check"></i><b>15.1.1</b> Summary Statistics from RAM</a></li>
 </ul></li>
-<li class="chapter" data-level="15.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>15.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="15.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-12"><i class="fa fa-check"></i><b>15.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="15.2" data-path="memory.html"><a href="memory.html#computing-from-a-database"><i class="fa fa-check"></i><b>15.2</b> Computing from a Database</a></li>
+<li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>16</b> Numerical Linear Algebra</a><ul>
-<li class="chapter" data-level="16.1" data-path="algebra.html"><a href="algebra.html#lu-factorization"><i class="fa fa-check"></i><b>16.1</b> LU Factorization</a></li>
-<li class="chapter" data-level="16.2" data-path="algebra.html"><a href="algebra.html#cholesky-factorization"><i class="fa fa-check"></i><b>16.2</b> Cholesky Factorization</a></li>
-<li class="chapter" data-level="16.3" data-path="algebra.html"><a href="algebra.html#qr-factorization"><i class="fa fa-check"></i><b>16.3</b> QR Factorization</a></li>
-<li class="chapter" data-level="16.4" data-path="algebra.html"><a href="algebra.html#singular-value-factorization"><i class="fa fa-check"></i><b>16.4</b> Singular Value Factorization</a></li>
-<li class="chapter" data-level="16.5" data-path="algebra.html"><a href="algebra.html#iterative-methods"><i class="fa fa-check"></i><b>16.5</b> Iterative Methods</a></li>
-<li class="chapter" data-level="16.6" data-path="algebra.html"><a href="algebra.html#solving-ols"><i class="fa fa-check"></i><b>16.6</b> Solving the OLS Problem</a></li>
-<li class="chapter" data-level="16.7" data-path="algebra.html"><a href="algebra.html#bibliographic-notes-13"><i class="fa fa-check"></i><b>16.7</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="16.8" data-path="algebra.html"><a href="algebra.html#practice-yourself-13"><i class="fa fa-check"></i><b>16.8</b> Practice Yourself</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
+<li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.5</b> matter</a></li>
+<li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.6</b> iotools</a></li>
+<li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#hdf5"><i class="fa fa-check"></i><b>15.7</b> HDF5</a></li>
+<li class="chapter" data-level="15.8" data-path="memory.html"><a href="memory.html#delayedarray"><i class="fa fa-check"></i><b>15.8</b> DelayedArray</a><ul>
+<li class="chapter" data-level="15.8.1" data-path="memory.html"><a href="memory.html#delayedmatrixstats"><i class="fa fa-check"></i><b>15.8.1</b> DelayedMatrixStats</a></li>
+<li class="chapter" data-level="15.8.2" data-path="memory.html"><a href="memory.html#beachmat"><i class="fa fa-check"></i><b>15.8.2</b> beachmat</a></li>
+<li class="chapter" data-level="15.8.3" data-path="memory.html"><a href="memory.html#restfulse"><i class="fa fa-check"></i><b>15.8.3</b> restfulSE</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>17</b> Convex Optimization</a><ul>
-<li class="chapter" data-level="17.1" data-path="convex.html"><a href="convex.html#theoretical-backround"><i class="fa fa-check"></i><b>17.1</b> Theoretical Backround</a></li>
-<li class="chapter" data-level="17.2" data-path="convex.html"><a href="convex.html#optimizing-with-r"><i class="fa fa-check"></i><b>17.2</b> Optimizing with R</a><ul>
-<li class="chapter" data-level="17.2.1" data-path="convex.html"><a href="convex.html#the-optim-function"><i class="fa fa-check"></i><b>17.2.1</b> The optim Function</a></li>
-<li class="chapter" data-level="17.2.2" data-path="convex.html"><a href="convex.html#the-nloptr-package"><i class="fa fa-check"></i><b>17.2.2</b> The nloptr Package</a></li>
-<li class="chapter" data-level="17.2.3" data-path="convex.html"><a href="convex.html#minqa-package"><i class="fa fa-check"></i><b>17.2.3</b> minqa Package</a></li>
+<li class="chapter" data-level="15.9" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.9</b> Computing from a Distributed File System</a></li>
+<li class="chapter" data-level="15.10" data-path="memory.html"><a href="memory.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>15.10</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="15.11" data-path="memory.html"><a href="memory.html#practice-yourself-12"><i class="fa fa-check"></i><b>15.11</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="17.3" data-path="convex.html"><a href="convex.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>17.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="17.4" data-path="convex.html"><a href="convex.html#practice-yourself-14"><i class="fa fa-check"></i><b>17.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Explicit Parallelism</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="rcpp.html"><a href="rcpp.html"><i class="fa fa-check"></i><b>18</b> RCpp</a><ul>
-<li class="chapter" data-level="18.1" data-path="rcpp.html"><a href="rcpp.html#bibliographic-notes-15"><i class="fa fa-check"></i><b>18.1</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="18.2" data-path="rcpp.html"><a href="rcpp.html#practice-yourself-15"><i class="fa fa-check"></i><b>18.2</b> Practice Yourself</a></li>
+<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-13"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-13"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>19</b> Debugging Tools</a><ul>
-<li class="chapter" data-level="19.1" data-path="debugging.html"><a href="debugging.html#bibliographic-notes-16"><i class="fa fa-check"></i><b>19.1</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="19.2" data-path="debugging.html"><a href="debugging.html#practice-yourself-16"><i class="fa fa-check"></i><b>19.2</b> Practice Yourself</a></li>
+<li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a><ul>
+<li class="chapter" data-level="17.1" data-path="algebra.html"><a href="algebra.html#lu-factorization"><i class="fa fa-check"></i><b>17.1</b> LU Factorization</a></li>
+<li class="chapter" data-level="17.2" data-path="algebra.html"><a href="algebra.html#cholesky-factorization"><i class="fa fa-check"></i><b>17.2</b> Cholesky Factorization</a></li>
+<li class="chapter" data-level="17.3" data-path="algebra.html"><a href="algebra.html#qr-factorization"><i class="fa fa-check"></i><b>17.3</b> QR Factorization</a></li>
+<li class="chapter" data-level="17.4" data-path="algebra.html"><a href="algebra.html#singular-value-factorization"><i class="fa fa-check"></i><b>17.4</b> Singular Value Factorization</a></li>
+<li class="chapter" data-level="17.5" data-path="algebra.html"><a href="algebra.html#iterative-methods"><i class="fa fa-check"></i><b>17.5</b> Iterative Methods</a></li>
+<li class="chapter" data-level="17.6" data-path="algebra.html"><a href="algebra.html#solving-ols"><i class="fa fa-check"></i><b>17.6</b> Solving the OLS Problem</a></li>
+<li class="chapter" data-level="17.7" data-path="algebra.html"><a href="algebra.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>17.7</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="17.8" data-path="algebra.html"><a href="algebra.html#practice-yourself-14"><i class="fa fa-check"></i><b>17.8</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="20" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>20</b> data.table</a><ul>
-<li class="chapter" data-level="20.1" data-path="datatable.html"><a href="datatable.html#make-your-own-variables"><i class="fa fa-check"></i><b>20.1</b> Make your own variables</a></li>
-<li class="chapter" data-level="20.2" data-path="datatable.html"><a href="datatable.html#join"><i class="fa fa-check"></i><b>20.2</b> Join</a></li>
-<li class="chapter" data-level="20.3" data-path="datatable.html"><a href="datatable.html#reshaping-data"><i class="fa fa-check"></i><b>20.3</b> Reshaping data</a><ul>
-<li class="chapter" data-level="20.3.1" data-path="datatable.html"><a href="datatable.html#wide-to-long"><i class="fa fa-check"></i><b>20.3.1</b> Wide to long</a></li>
-<li class="chapter" data-level="20.3.2" data-path="datatable.html"><a href="datatable.html#long-to-wide"><i class="fa fa-check"></i><b>20.3.2</b> Long to wide</a></li>
+<li class="chapter" data-level="18" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>18</b> Convex Optimization</a><ul>
+<li class="chapter" data-level="18.1" data-path="convex.html"><a href="convex.html#theoretical-backround"><i class="fa fa-check"></i><b>18.1</b> Theoretical Backround</a></li>
+<li class="chapter" data-level="18.2" data-path="convex.html"><a href="convex.html#optimizing-with-r"><i class="fa fa-check"></i><b>18.2</b> Optimizing with R</a><ul>
+<li class="chapter" data-level="18.2.1" data-path="convex.html"><a href="convex.html#the-optim-function"><i class="fa fa-check"></i><b>18.2.1</b> The optim Function</a></li>
+<li class="chapter" data-level="18.2.2" data-path="convex.html"><a href="convex.html#the-nloptr-package"><i class="fa fa-check"></i><b>18.2.2</b> The nloptr Package</a></li>
+<li class="chapter" data-level="18.2.3" data-path="convex.html"><a href="convex.html#minqa-package"><i class="fa fa-check"></i><b>18.2.3</b> minqa Package</a></li>
 </ul></li>
-<li class="chapter" data-level="20.4" data-path="datatable.html"><a href="datatable.html#bibliographic-notes-17"><i class="fa fa-check"></i><b>20.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="20.5" data-path="datatable.html"><a href="datatable.html#practice-yourself-17"><i class="fa fa-check"></i><b>20.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="18.3" data-path="convex.html"><a href="convex.html#bibliographic-notes-15"><i class="fa fa-check"></i><b>18.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="18.4" data-path="convex.html"><a href="convex.html#practice-yourself-15"><i class="fa fa-check"></i><b>18.4</b> Practice Yourself</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="rcpp.html"><a href="rcpp.html"><i class="fa fa-check"></i><b>19</b> RCpp</a><ul>
+<li class="chapter" data-level="19.1" data-path="rcpp.html"><a href="rcpp.html#bibliographic-notes-16"><i class="fa fa-check"></i><b>19.1</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="19.2" data-path="rcpp.html"><a href="rcpp.html#practice-yourself-16"><i class="fa fa-check"></i><b>19.2</b> Practice Yourself</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>20</b> Debugging Tools</a><ul>
+<li class="chapter" data-level="20.1" data-path="debugging.html"><a href="debugging.html#bibliographic-notes-17"><i class="fa fa-check"></i><b>20.1</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="20.2" data-path="debugging.html"><a href="debugging.html#practice-yourself-17"><i class="fa fa-check"></i><b>20.2</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="21" data-path="econometrics.html"><a href="econometrics.html"><i class="fa fa-check"></i><b>21</b> Econometrics</a><ul>
 <li class="chapter" data-level="21.1" data-path="econometrics.html"><a href="econometrics.html#bibliographic-notes-18"><i class="fa fa-check"></i><b>21.1</b> Bibliographic Notes</a></li>
@@ -400,6 +442,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="23.6" data-path="hadley.html"><a href="hadley.html#anytime"><i class="fa fa-check"></i><b>23.6</b> anytime</a></li>
 <li class="chapter" data-level="23.7" data-path="hadley.html"><a href="hadley.html#biblipgraphic-notes-1"><i class="fa fa-check"></i><b>23.7</b> Biblipgraphic Notes</a></li>
 <li class="chapter" data-level="23.8" data-path="hadley.html"><a href="hadley.html#practice-yourself-20"><i class="fa fa-check"></i><b>23.8</b> Practice Yourself</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="causality.html"><a href="causality.html"><i class="fa fa-check"></i><b>24</b> Causal Inferense</a><ul>
+<li class="chapter" data-level="24.1" data-path="causality.html"><a href="causality.html#causal-inference-from-designed-experiments"><i class="fa fa-check"></i><b>24.1</b> Causal Inference From Designed Experiments</a><ul>
+<li class="chapter" data-level="24.1.1" data-path="causality.html"><a href="causality.html#design-of-experiments"><i class="fa fa-check"></i><b>24.1.1</b> Design of Experiments</a></li>
+<li class="chapter" data-level="24.1.2" data-path="causality.html"><a href="causality.html#randomized-inference"><i class="fa fa-check"></i><b>24.1.2</b> Randomized Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="24.2" data-path="causality.html"><a href="causality.html#causal-inference-from-observational-data"><i class="fa fa-check"></i><b>24.2</b> Causal Inference from Observational Data</a><ul>
+<li class="chapter" data-level="24.2.1" data-path="causality.html"><a href="causality.html#principal-stratification"><i class="fa fa-check"></i><b>24.2.1</b> Principal Stratification</a></li>
+<li class="chapter" data-level="24.2.2" data-path="causality.html"><a href="causality.html#instrumental-variables"><i class="fa fa-check"></i><b>24.2.2</b> Instrumental Variables</a></li>
+<li class="chapter" data-level="24.2.3" data-path="causality.html"><a href="causality.html#propensity-scores"><i class="fa fa-check"></i><b>24.2.3</b> Propensity Scores</a></li>
+<li class="chapter" data-level="24.2.4" data-path="causality.html"><a href="causality.html#direct-lieklihood"><i class="fa fa-check"></i><b>24.2.4</b> Direct Lieklihood</a></li>
+<li class="chapter" data-level="24.2.5" data-path="causality.html"><a href="causality.html#regression-discontinuity"><i class="fa fa-check"></i><b>24.2.5</b> Regression Discontinuity</a></li>
+</ul></li>
+<li class="chapter" data-level="24.3" data-path="causality.html"><a href="causality.html#bibliographic-notes-20"><i class="fa fa-check"></i><b>24.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="24.4" data-path="causality.html"><a href="causality.html#practice-yourself-21"><i class="fa fa-check"></i><b>24.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -422,9 +479,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="basics" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> R Basics</h1>
-<p>We now start with the basics of R. If you have any experience at all with R, you can probably skip this section.</p>
-<p>First, make sure you work with the RStudio IDE. Some useful pointers for this IDE include:</p>
+<h1><span class="header-section-number">Chapter 4</span> R Basics</h1>
+<p>We now start with the basics of R.
+If you have any experience at all with R, you can probably skip this section.</p>
+<p>First, make sure you work with the RStudio IDE.
+Some useful pointers for this IDE include:</p>
 <ul>
 <li>Ctrl+Return(Enter) to run lines from editor.</li>
 <li>Alt+Shift+k for RStudio keyboard shortcuts.</li>
@@ -444,18 +503,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Alt+“-” for the assignment operator <code>&lt;-</code>.</li>
 </ul>
 <div id="other-ides" class="section level3">
-<h3><span class="header-section-number">3.0.1</span> Other IDEs</h3>
+<h3><span class="header-section-number">4.0.1</span> Other IDEs</h3>
 <p>Currently, I recommend RStudio, but here are some other IDEs:</p>
 <ol style="list-style-type: decimal">
-<li><p>Jupyter Lab: a very promising IDE, originally designed for Python, that also supports R. At the time of writing, it seems that RStudio is more convenient for R, but it is definetly an IDE to follow closely. See <a href="http://minimaxir.com/2017/06/r-notebooks/">Max Woolf’s</a> review.</p></li>
+<li><p>Jupyter Lab: a very promising IDE, originally designed for Python, that also supports R.
+At the time of writing, it seems that RStudio is more convenient for R, but it is definetly an IDE to follow closely.
+See <a href="http://minimaxir.com/2017/06/r-notebooks/">Max Woolf’s</a> review.</p></li>
 <li><p>Eclipse: If you are a Java programmer, you are probably familiar with Eclipse, which does have an R plugin: <a href="http://www.walware.de/goto/statet">StatEt</a>.</p></li>
 <li><p>Emacs: If you are an Emacs fan, you can find an R plugin: <a href="http://ess.r-project.org/">ESS</a>.</p></li>
 <li><p>Vim: <a href="https://github.com/vim-scripts/Vim-R-plugin">Vim-R</a>.</p></li>
-<li><p>Visual Studio also <a href="https://www.visualstudio.com/vs/features/rtvs/">supports R</a>. If you need R for commercial purposes, it may be worthwhile trying Microsoft’s R, instead of the usual R. See <a href="https://mran.microsoft.com/documents/rro/installation">here</a> for installation instructions.</p></li>
+<li><p>Visual Studio also <a href="https://www.visualstudio.com/vs/features/rtvs/">supports R</a>.
+If you need R for commercial purposes, it may be worthwhile trying Microsoft’s R, instead of the usual R. See <a href="https://mran.microsoft.com/documents/rro/installation">here</a> for installation instructions.</p></li>
 </ol>
 </div>
 <div id="file-types" class="section level2">
-<h2><span class="header-section-number">3.1</span> File types</h2>
+<h2><span class="header-section-number">4.1</span> File types</h2>
 <p>The file types you need to know when using R are the following:</p>
 <ul>
 <li><strong>.R</strong>: An ASCII text file containing R scripts only.</li>
@@ -463,42 +525,45 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 </div>
 <div id="simple-calculator" class="section level2">
-<h2><span class="header-section-number">3.2</span> Simple calculator</h2>
-<p>R can be used as a simple calculator. Create a new R Notebook (.Rmd file) within RStudio using File-&gt; New -&gt; R Notebook, and run the following commands.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">10</span><span class="op">+</span><span class="dv">5</span> </code></pre></div>
+<h2><span class="header-section-number">4.2</span> Simple calculator</h2>
+<p>R can be used as a simple calculator.
+Create a new R Notebook (.Rmd file) within RStudio using File-&gt; New -&gt; R Notebook, and run the following commands.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">10</span><span class="op">+</span><span class="dv">5</span> </code></pre>
 <pre><code>## [1] 15</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">70</span><span class="op">*</span><span class="dv">81</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">70</span><span class="op">*</span><span class="dv">81</span></code></pre>
 <pre><code>## [1] 5670</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span><span class="op">**</span><span class="dv">4</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span><span class="op">**</span><span class="dv">4</span></code></pre>
 <pre><code>## [1] 16</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span><span class="op">^</span><span class="dv">4</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span><span class="op">^</span><span class="dv">4</span></code></pre>
 <pre><code>## [1] 16</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(<span class="dv">10</span>)                         </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(<span class="dv">10</span>)                         </code></pre>
 <pre><code>## [1] 2.302585</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(<span class="dv">16</span>, <span class="dv">2</span>)                      </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(<span class="dv">16</span>, <span class="dv">2</span>)                      </code></pre>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(<span class="dv">1000</span>, <span class="dv">10</span>)                   </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(<span class="dv">1000</span>, <span class="dv">10</span>)                   </code></pre>
 <pre><code>## [1] 3</code></pre>
 </div>
 <div id="probability-calculator" class="section level2">
-<h2><span class="header-section-number">3.3</span> Probability calculator</h2>
-<p>R can be used as a probability calculator. You probably wish you knew this when you did your Intro To Probability classes.</p>
+<h2><span class="header-section-number">4.3</span> Probability calculator</h2>
+<p>R can be used as a probability calculator.
+You probably wish you knew this when you did your Intro To Probability classes.</p>
 <p>The Binomial distribution function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbinom</span>(<span class="dt">x=</span><span class="dv">3</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>)  <span class="co"># Compute P(X=3) for X~B(n=10, p=0.5) </span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbinom</span>(<span class="dt">x=</span><span class="dv">3</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>)  <span class="co"># Compute P(X=3) for X~B(n=10, p=0.5) </span></code></pre>
 <pre><code>## [1] 0.1171875</code></pre>
 <p>Notice that arguments do not need to be named explicitly</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbinom</span>(<span class="dv">3</span>, <span class="dv">10</span>, <span class="fl">0.5</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbinom</span>(<span class="dv">3</span>, <span class="dv">10</span>, <span class="fl">0.5</span>)</code></pre>
 <pre><code>## [1] 0.1171875</code></pre>
 <p>The Binomial cumulative distribution function (CDF):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pbinom</span>(<span class="dt">q=</span><span class="dv">3</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>) <span class="co"># Compute P(X&lt;=3) for X~B(n=10, p=0.5)   </span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pbinom</span>(<span class="dt">q=</span><span class="dv">3</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>) <span class="co"># Compute P(X&lt;=3) for X~B(n=10, p=0.5)   </span></code></pre>
 <pre><code>## [1] 0.171875</code></pre>
 <p>The Binomial quantile function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qbinom</span>(<span class="dt">p=</span><span class="fl">0.1718</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>) <span class="co"># For X~B(n=10, p=0.5) returns k such that P(X&lt;=k)=0.1718</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qbinom</span>(<span class="dt">p=</span><span class="fl">0.1718</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>) <span class="co"># For X~B(n=10, p=0.5) returns k such that P(X&lt;=k)=0.1718</span></code></pre>
 <pre><code>## [1] 3</code></pre>
 <p>Generate random variables:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>)</code></pre></div>
-<pre><code>##  [1] 4 4 5 7 4 7 7 6 6 3</code></pre>
-<p>R has many built-in distributions. Their names may change, but the prefixes do not:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>)</code></pre>
+<pre><code>##  [1] 5 7 4 7 7 6 6 3 4 4</code></pre>
+<p>R has many built-in distributions.
+Their names may change, but the prefixes do not:</p>
 <ul>
 <li><strong>d</strong> prefix for the <em>distribution</em> function.</li>
 <li><strong>p</strong> prefix for the <em>cummulative distribution</em> function (CDF).</li>
@@ -515,200 +580,243 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>For more information see <code>?distributions</code>.</p>
 </div>
 <div id="getting-help" class="section level2">
-<h2><span class="header-section-number">3.4</span> Getting Help</h2>
-<p>One of the most important parts of working with a language, is to know where to find help. R has several in-line facilities, besides the various help resources in the R <a href="intro.html#ecosystem">ecosystem</a>.</p>
+<h2><span class="header-section-number">4.4</span> Getting Help</h2>
+<p>One of the most important parts of working with a language, is to know where to find help.
+R has several in-line facilities, besides the various help resources in the R <a href="intro.html#ecosystem">ecosystem</a>.</p>
 <p>Get help for a particular function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?dbinom 
-<span class="kw">help</span>(dbinom)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">?dbinom 
+<span class="kw">help</span>(dbinom)</code></pre>
 <p>If you don’t know the name of the function you are looking for, search local help files for a particular string:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">??binomial
-<span class="kw">help.search</span>(<span class="st">&#39;dbinom&#39;</span>) </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">??binomial
+<span class="kw">help.search</span>(<span class="st">&#39;dbinom&#39;</span>) </code></pre>
 <p>Or load a menu where you can navigate local help in a web-based fashion:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help.start</span>() </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help.start</span>() </code></pre>
 </div>
 <div id="variable-asignment" class="section level2">
-<h2><span class="header-section-number">3.5</span> Variable Asignment</h2>
+<h2><span class="header-section-number">4.5</span> Variable Asignment</h2>
 <p>Assignment of some output into an object named “x”:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x =<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>) <span class="co"># Works. Bad style.</span>
-x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>) </code></pre></div>
-<p>If you are familiar with other programming languages you may prefer the <code>=</code> assignment rather than the <code>&lt;-</code> assignment. We recommend you make the effort to change your preferences. This is because thinking with <code>&lt;-</code> helps to read your code, distinguishes between assignments and function arguments: think of <code>function(argument=value)</code> versus <code>function(argument&lt;-value)</code>. It also helps understand special assignment operators such as <code>&lt;&lt;-</code> and <code>-&gt;</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">x =<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>) <span class="co"># Works. Bad style.</span>
+x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>) </code></pre>
+<p>If you are familiar with other programming languages you may prefer the <code>=</code> assignment rather than the <code>&lt;-</code> assignment.
+We recommend you make the effort to change your preferences.
+This is because thinking with <code>&lt;-</code> helps to read your code, distinguishes between assignments and function arguments: think of <code>function(argument=value)</code> versus <code>function(argument&lt;-value)</code>.
+It also helps understand special assignment operators such as <code>&lt;&lt;-</code> and <code>-&gt;</code>.</p>
 
 <div class="remark">
- <span class="remark"><em>Remark. </em></span> <strong>Style</strong>: We do not discuss style guidelines in this text, but merely remind the reader that good style is extremely important. When you write code, think of other readers, but also think of future self. See <a href="http://adv-r.had.co.nz/Style.html">Hadley’s style guide</a> for more.
+ <span class="remark"><em>Remark. </em></span> <strong>Style</strong>:
+We do not discuss style guidelines in this text, but merely remind the reader that good style is extremely important. When you write code, think of other readers, but also think of future self.
+See <a href="http://adv-r.had.co.nz/Style.html">Hadley’s style guide</a> for more.
 </div>
 
 <p>To print the contents of an object just type its name</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x</code></pre></div>
-<pre><code>##  [1] 7 4 6 3 4 5 2 5 7 4</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">x</code></pre>
+<pre><code>##  [1] 6 3 4 5 2 5 7 4 5 5</code></pre>
 <p>which is an implicit call to</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(x)  </code></pre></div>
-<pre><code>##  [1] 7 4 6 3 4 5 2 5 7 4</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(x)  </code></pre>
+<pre><code>##  [1] 6 3 4 5 2 5 7 4 5 5</code></pre>
 <p>Alternatively, you can assign and print simultaneously using parenthesis.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>))  <span class="co"># Assign and print.</span></code></pre></div>
-<pre><code>##  [1] 5 5 5 4 6 6 6 3 6 5</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">(x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>))  <span class="co"># Assign and print.</span></code></pre>
+<pre><code>##  [1] 5 4 6 6 6 3 6 5 6 6</code></pre>
 <p>Operate on the object</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(x)  <span class="co"># compute mean</span></code></pre></div>
-<pre><code>## [1] 5.1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(x)  <span class="co"># compute variance</span></code></pre></div>
-<pre><code>## [1] 0.9888889</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(x) <span class="co"># plot histogram</span></code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-15-1.png" width="50%" /></p>
-<p>R saves every object you create in RAM<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. The collection of all such objects is the <strong>workspace</strong> which you can inspect with</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()</code></pre></div>
-<pre><code>## [1] &quot;x&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(x)  <span class="co"># compute mean</span></code></pre>
+<pre><code>## [1] 5.3</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var</span>(x)  <span class="co"># compute variance</span></code></pre>
+<pre><code>## [1] 1.122222</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(x) <span class="co"># plot histogram</span></code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-42-1.png" width="50%" /></p>
+<p>R saves every object you create in RAM<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.
+The collection of all such objects is the <strong>workspace</strong> which you can inspect with</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()</code></pre>
+<pre><code>## [1] &quot;auto&quot;          &quot;count.uniques&quot; &quot;DT1&quot;           &quot;DT2&quot;          
+## [5] &quot;mtcars&quot;        &quot;x&quot;</code></pre>
 <p>or with Ctrl+8 in RStudio.</p>
 <p>If you lost your object, you can use <code>ls</code> with a text pattern to search for it</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>(<span class="dt">pattern=</span><span class="st">&#39;x&#39;</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>(<span class="dt">pattern=</span><span class="st">&#39;x&#39;</span>)</code></pre>
 <pre><code>## [1] &quot;x&quot;</code></pre>
 <p>To remove objects from the workspace:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(x) <span class="co"># remove variable</span>
-<span class="kw">ls</span>() <span class="co"># verify</span></code></pre></div>
-<pre><code>## character(0)</code></pre>
-<p>You may think that if an object is removed then its memory is freed. This is almost true, and depends on a negotiation mechanism between R and the operating system. R’s memory management is discussed in Chapter <a href="memory.html#memory">14</a>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(x) <span class="co"># remove variable</span>
+<span class="kw">ls</span>() <span class="co"># verify</span></code></pre>
+<pre><code>## [1] &quot;auto&quot;          &quot;count.uniques&quot; &quot;DT1&quot;           &quot;DT2&quot;          
+## [5] &quot;mtcars&quot;</code></pre>
+<p>You may think that if an object is removed then its memory is freed.
+This is almost true, and depends on a negotiation mechanism between R and the operating system.
+R’s memory management is discussed in Chapter <a href="memory.html#memory">15</a>.</p>
 </div>
 <div id="missing" class="section level2">
-<h2><span class="header-section-number">3.6</span> Missing</h2>
-<p>Unlike typically programming, when working with real life data, you may have <strong>missing</strong> values: measurements that were simply not recorded/stored/etc. <em>R</em> has rather sophisticated mechanisms to deal with missing values. It distinguishes between the following types:</p>
+<h2><span class="header-section-number">4.6</span> Missing</h2>
+<p>Unlike typically programming, when working with real life data, you may have <strong>missing</strong> values: measurements that were simply not recorded/stored/etc.
+<em>R</em> has rather sophisticated mechanisms to deal with missing values.
+It distinguishes between the following types:</p>
 <ol style="list-style-type: decimal">
 <li><code>NA</code>: Not Available entries.</li>
 <li><code>NaN</code>: Not a number.</li>
 </ol>
 <p><em>R</em> tries to defend the analyst, and return an error, or <code>NA</code> when the presence of missing values invalidates the calculation:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">missing.example &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="ot">NA</span>)
-<span class="kw">mean</span>(missing.example)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">missing.example &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="ot">NA</span>)
+<span class="kw">mean</span>(missing.example)</code></pre>
 <pre><code>## [1] NA</code></pre>
 <p>Most functions will typically have an inner mechanism to deal with these. In the <code>mean</code> function, there is an <code>na.rm</code> argument, telling <em>R</em> how to Remove <code>NA</code>s.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(missing.example, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(missing.example, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre>
 <pre><code>## [1] 11</code></pre>
 <p>A more general mechanism is removing these manually:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">clean.example &lt;-<span class="st"> </span><span class="kw">na.omit</span>(missing.example)
-<span class="kw">mean</span>(clean.example)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">clean.example &lt;-<span class="st"> </span><span class="kw">na.omit</span>(missing.example)
+<span class="kw">mean</span>(clean.example)</code></pre>
 <pre><code>## [1] 11</code></pre>
 </div>
 <div id="piping" class="section level2">
-<h2><span class="header-section-number">3.7</span> Piping</h2>
-<p>Because R originates in Unix and Linux environments, it inherits much of its flavor. <a href="http://ryanstutorials.net/linuxtutorial/piping.php">Piping</a> is an idea taken from the Linux shell which allows to use the output of one expression as the input to another. Piping thus makes code easier to read and write.</p>
+<h2><span class="header-section-number">4.7</span> Piping</h2>
+<p>Because R originates in Unix and Linux environments, it inherits much of its flavor.
+<a href="http://ryanstutorials.net/linuxtutorial/piping.php">Piping</a> is an idea taken from the Linux shell which allows to use the output of one expression as the input to another.
+Piping thus makes code easier to read and write.</p>
 
 <div class="remark">
- <span class="remark"><em>Remark. </em></span> Volleyball fans may be confused with the idea of spiking a ball from the 3-meter line, also called <a href="https://www.youtube.com/watch?v=GWW15Nr1lQM">piping</a>. So: (a) These are very different things. (b) If you can pipe, <a href="http://in.bgu.ac.il/sport/Pages/asa.aspx">ASA-BGU</a> is looking for you!
+ <span class="remark"><em>Remark. </em></span> Volleyball fans may be confused with the idea of spiking a ball from the 3-meter line, also called <a href="https://www.youtube.com/watch?v=GWW15Nr1lQM">piping</a>.
+So:
+(a) These are very different things.
+(b) If you can pipe, <a href="http://in.bgu.ac.il/sport/Pages/asa.aspx">ASA-BGU</a> is looking for you!
 </div>
 
 <p>Prerequisites:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr) <span class="co"># load the piping functions</span>
-x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">1000</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>) <span class="co"># generate some toy data</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr) <span class="co"># load the piping functions</span>
+x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">1000</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>) <span class="co"># generate some toy data</span></code></pre>
 <p>Examples</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">var</span>() <span class="co"># Instead of var(x)</span>
+<pre class="sourceCode r"><code class="sourceCode r">x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">var</span>() <span class="co"># Instead of var(x)</span>
 x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">hist</span>()  <span class="co"># Instead of hist(x)</span>
-x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add</span>(<span class="dv">10</span>) </code></pre></div>
-<p>The next example<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> demonstrates the benefits of piping. The next two chunks of code do the same thing. Try parsing them in your mind:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Functional (onion) style</span>
+x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add</span>(<span class="dv">10</span>) </code></pre>
+<p>The next example<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> demonstrates the benefits of piping.
+The next two chunks of code do the same thing.
+Try parsing them in your mind:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Functional (onion) style</span>
 car_data &lt;-<span class="st"> </span>
 <span class="st">  </span><span class="kw">transform</span>(<span class="kw">aggregate</span>(. <span class="op">~</span><span class="st"> </span>cyl, 
                       <span class="dt">data =</span> <span class="kw">subset</span>(mtcars, hp <span class="op">&gt;</span><span class="st"> </span><span class="dv">100</span>), 
                       <span class="dt">FUN =</span> <span class="cf">function</span>(x) <span class="kw">round</span>(<span class="kw">mean</span>(x, <span class="dv">2</span>))), 
-            <span class="dt">kpl =</span> mpg<span class="op">*</span><span class="fl">0.4251</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Piping (magrittr) style</span>
+            <span class="dt">kpl =</span> mpg<span class="op">*</span><span class="fl">0.4251</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Piping (magrittr) style</span>
 car_data &lt;-<span class="st"> </span>
 <span class="st">  </span>mtcars <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">subset</span>(hp <span class="op">&gt;</span><span class="st"> </span><span class="dv">100</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">aggregate</span>(. <span class="op">~</span><span class="st"> </span>cyl, <span class="dt">data =</span> ., <span class="dt">FUN =</span> . <span class="op">%&gt;%</span><span class="st"> </span>mean <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">2</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">transform</span>(<span class="dt">kpl =</span> mpg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">multiply_by</span>(<span class="fl">0.4251</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span>print</code></pre></div>
+<span class="st">  </span>print</code></pre>
 <p>Tip: RStudio has a keyboard shortcut for the <code>%&gt;%</code> operator. Try Ctrl+Shift+m.</p>
 </div>
 <div id="vector-creation-and-manipulation" class="section level2">
-<h2><span class="header-section-number">3.8</span> Vector Creation and Manipulation</h2>
-<p>The most basic building block in R is the <strong>vector</strong>. We will now see how to create them, and access their elements (i.e. subsetting). Here are three ways to create the same arbitrary vector:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>, <span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">21</span>) <span class="co"># manually</span>
+<h2><span class="header-section-number">4.8</span> Vector Creation and Manipulation</h2>
+<p>The most basic building block in R is the <strong>vector</strong>.
+We will now see how to create them, and access their elements (i.e. subsetting).
+Here are three ways to create the same arbitrary vector:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>, <span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">21</span>) <span class="co"># manually</span>
 <span class="dv">10</span><span class="op">:</span><span class="dv">21</span> <span class="co"># the `:` operator                            </span>
-<span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">10</span>, <span class="dt">to=</span><span class="dv">21</span>, <span class="dt">by=</span><span class="dv">1</span>) <span class="co"># the seq() function</span></code></pre></div>
+<span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">10</span>, <span class="dt">to=</span><span class="dv">21</span>, <span class="dt">by=</span><span class="dv">1</span>) <span class="co"># the seq() function</span></code></pre>
 <p>Let’s assign it to the object named “x”:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>, <span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">21</span>)  </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">17</span>, <span class="dv">18</span>, <span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">21</span>)  </code></pre>
 <p>Operations usually work element-wise:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x<span class="op">+</span><span class="dv">2</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">x<span class="op">+</span><span class="dv">2</span></code></pre>
 <pre><code>##  [1] 12 13 14 15 16 17 18 19 20 21 22 23</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x<span class="op">*</span><span class="dv">2</span>    </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">x<span class="op">*</span><span class="dv">2</span>    </code></pre>
 <pre><code>##  [1] 20 22 24 26 28 30 32 34 36 38 40 42</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x<span class="op">^</span><span class="dv">2</span>    </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">x<span class="op">^</span><span class="dv">2</span>    </code></pre>
 <pre><code>##  [1] 100 121 144 169 196 225 256 289 324 361 400 441</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(x)  </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(x)  </code></pre>
 <pre><code>##  [1] 3.162278 3.316625 3.464102 3.605551 3.741657 3.872983 4.000000
 ##  [8] 4.123106 4.242641 4.358899 4.472136 4.582576</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(x)   </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(x)   </code></pre>
 <pre><code>##  [1] 2.302585 2.397895 2.484907 2.564949 2.639057 2.708050 2.772589
 ##  [8] 2.833213 2.890372 2.944439 2.995732 3.044522</code></pre>
 </div>
 <div id="search-paths-and-packages" class="section level2">
-<h2><span class="header-section-number">3.9</span> Search Paths and Packages</h2>
-<p>R can be easily extended with packages, which are merely a set of documented functions, which can be loaded or unloaded conveniently. Let’s look at the function <code>read.csv</code>. We can see its contents by calling it without arguments:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read.csv</code></pre></div>
+<h2><span class="header-section-number">4.9</span> Search Paths and Packages</h2>
+<p>R can be easily extended with packages, which are merely a set of documented functions, which can be loaded or unloaded conveniently.
+Let’s look at the function <code>read.csv</code>.
+We can see its contents by calling it without arguments:</p>
+<pre class="sourceCode r"><code class="sourceCode r">read.csv</code></pre>
 <pre><code>## function (file, header = TRUE, sep = &quot;,&quot;, quote = &quot;\&quot;&quot;, dec = &quot;.&quot;, 
 ##     fill = TRUE, comment.char = &quot;&quot;, ...) 
 ## read.table(file = file, header = header, sep = sep, quote = quote, 
 ##     dec = dec, fill = fill, comment.char = comment.char, ...)
-## &lt;bytecode: 0x55c9d68&gt;
+## &lt;bytecode: 0x56151e258210&gt;
 ## &lt;environment: namespace:utils&gt;</code></pre>
-<p>Never mind what the function does. Note the <code>environment: namespace:utils</code> line at the end. It tells us that this function is part of the <strong>utils</strong> package. We did not need to know this because it is loaded by default. Here are some packages that I have currently loaded:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">search</span>())</code></pre></div>
-<pre><code>## [1] &quot;.GlobalEnv&quot;         &quot;package:doSNOW&quot;     &quot;package:snow&quot;      
-## [4] &quot;package:doParallel&quot; &quot;package:parallel&quot;   &quot;package:iterators&quot;</code></pre>
-<p>Other packages can be loaded via the <code>library</code> function, or downloaded from the internet using the <code>install.packages</code> function before loading with <code>library</code>. R’s package import mechanism is quite powerful, and is one of the reasons for R’s success.</p>
+<p>Never mind what the function does.
+Note the <code>environment: namespace:utils</code> line at the end.
+It tells us that this function is part of the <strong>utils</strong> package.
+We did not need to know this because it is loaded by default.
+Here are some packages that I have currently loaded:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">search</span>())</code></pre>
+<pre><code>## [1] &quot;.GlobalEnv&quot;         &quot;package:ggalluvial&quot; &quot;package:kernlab&quot;   
+## [4] &quot;package:doSNOW&quot;     &quot;package:snow&quot;       &quot;package:doParallel&quot;</code></pre>
+<p>Other packages can be loaded via the <code>library</code> function, or downloaded from the internet using the <code>install.packages</code> function before loading with <code>library</code>.
+R’s package import mechanism is quite powerful, and is one of the reasons for R’s success.</p>
 </div>
 <div id="simple-plotting" class="section level2">
-<h2><span class="header-section-number">3.10</span> Simple Plotting</h2>
-<p>R has many plotting facilities as we will further detail in the Plotting Chapter <a href="plotting.html#plotting">11</a>. We start with the simplest facilities, namely, the <code>plot</code> function from the <strong>graphics</strong> package, which is loaded by default.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x&lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span>
+<h2><span class="header-section-number">4.10</span> Simple Plotting</h2>
+<p>R has many plotting facilities as we will further detail in the Plotting Chapter <a href="plotting.html#plotting">12</a>.
+We start with the simplest facilities, namely, the <code>plot</code> function from the <strong>graphics</strong> package, which is loaded by default.</p>
+<pre class="sourceCode r"><code class="sourceCode r">x&lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span>
 y&lt;-<span class="st"> </span><span class="dv">3</span><span class="op">+</span><span class="kw">sin</span>(x) 
-<span class="kw">plot</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y) <span class="co"># x,y syntax                         </span></code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-32-1.png" width="50%" /></p>
-<p>Given an <code>x</code> argument and a <code>y</code> argument, <code>plot</code> tries to present a scatter plot. We call this the <code>x,y</code> syntax. R has another unique syntax to state functional relations. We call <code>y~x</code> the “tilde” syntax, which originates in works of <span class="citation">G. Wilkinson and Rogers (<a href="#ref-wilkinson1973symbolic">1973</a>)</span> and was adopted in the early days of S.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x) <span class="co"># y~x syntax </span></code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-33-1.png" width="50%" /></p>
-<p>The syntax <code>y~x</code> is read as “y is a function of x”. We will prefer the <code>y~x</code> syntax over the <code>x,y</code> syntax since it is easier to read, and will be very useful when we discuss more complicated models.</p>
-<p>Here are some arguments that control the plot’s appearance. We use <code>type</code> to control the plot type, <code>main</code> to control the main title.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y<span class="op">~</span>x, <span class="dt">type=</span><span class="st">&#39;l&#39;</span>, <span class="dt">main=</span><span class="st">&#39;Plotting a connected line&#39;</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-34-1.png" width="50%" /></p>
+<span class="kw">plot</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y) <span class="co"># x,y syntax                         </span></code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-59-1.png" width="50%" /></p>
+<p>Given an <code>x</code> argument and a <code>y</code> argument, <code>plot</code> tries to present a scatter plot.
+We call this the <code>x,y</code> syntax.
+R has another unique syntax to state functional relations.
+We call <code>y~x</code> the “tilde” syntax, which originates in works of <span class="citation">Wilkinson and Rogers (<a href="#ref-wilkinson1973symbolic">1973</a>)</span> and was adopted in the early days of S.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x) <span class="co"># y~x syntax </span></code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-60-1.png" width="50%" /></p>
+<p>The syntax <code>y~x</code> is read as “y is a function of x”.
+We will prefer the <code>y~x</code> syntax over the <code>x,y</code> syntax since it is easier to read, and will be very useful when we discuss more complicated models.</p>
+<p>Here are some arguments that control the plot’s appearance.
+We use <code>type</code> to control the plot type, <code>main</code> to control the main title.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y<span class="op">~</span>x, <span class="dt">type=</span><span class="st">&#39;l&#39;</span>, <span class="dt">main=</span><span class="st">&#39;Plotting a connected line&#39;</span>) </code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-61-1.png" width="50%" /></p>
 <p>We use <code>xlab</code> for the x-axis label, <code>ylab</code> for the y-axis.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y<span class="op">~</span>x, <span class="dt">type=</span><span class="st">&#39;h&#39;</span>, <span class="dt">main=</span><span class="st">&#39;Sticks plot&#39;</span>, <span class="dt">xlab=</span><span class="st">&#39;Insert x axis label&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;Insert y axis label&#39;</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-35-1.png" width="50%" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y<span class="op">~</span>x, <span class="dt">type=</span><span class="st">&#39;h&#39;</span>, <span class="dt">main=</span><span class="st">&#39;Sticks plot&#39;</span>, <span class="dt">xlab=</span><span class="st">&#39;Insert x axis label&#39;</span>, <span class="dt">ylab=</span><span class="st">&#39;Insert y axis label&#39;</span>) </code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-62-1.png" width="50%" /></p>
 <p>We use <code>pch</code> to control the point type.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y<span class="op">~</span>x, <span class="dt">pch=</span><span class="dv">5</span>) <span class="co"># Point type with pcf</span></code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-36-1.png" width="50%" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y<span class="op">~</span>x, <span class="dt">pch=</span><span class="dv">5</span>) <span class="co"># Point type with pcf</span></code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-63-1.png" width="50%" /></p>
 <p>We use <code>col</code> to control the color, <code>cex</code> for the point size, and <code>abline</code> to add a straight line.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y<span class="op">~</span>x, <span class="dt">pch=</span><span class="dv">10</span>, <span class="dt">type=</span><span class="st">&#39;p&#39;</span>, <span class="dt">col=</span><span class="st">&#39;blue&#39;</span>, <span class="dt">cex=</span><span class="dv">4</span>) 
-<span class="kw">abline</span>(<span class="dv">3</span>, <span class="fl">0.002</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-37-1.png" width="50%" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y<span class="op">~</span>x, <span class="dt">pch=</span><span class="dv">10</span>, <span class="dt">type=</span><span class="st">&#39;p&#39;</span>, <span class="dt">col=</span><span class="st">&#39;blue&#39;</span>, <span class="dt">cex=</span><span class="dv">4</span>) 
+<span class="kw">abline</span>(<span class="dv">3</span>, <span class="fl">0.002</span>) </code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-64-1.png" width="50%" /></p>
 <p>For more plotting options run these</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">example</span>(plot)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">example</span>(plot)
 <span class="kw">example</span>(points)
 ?plot
-<span class="kw">help</span>(<span class="dt">package=</span><span class="st">&#39;graphics&#39;</span>)</code></pre></div>
-<p>When your plotting gets serious, go to Chapter <a href="plotting.html#plotting">11</a>.</p>
+<span class="kw">help</span>(<span class="dt">package=</span><span class="st">&#39;graphics&#39;</span>)</code></pre>
+<p>When your plotting gets serious, go to Chapter <a href="plotting.html#plotting">12</a>.</p>
 </div>
 <div id="object-types" class="section level2">
-<h2><span class="header-section-number">3.11</span> Object Types</h2>
-<p>We already saw that the basic building block of R objects is the vector. Vectors can be of the following types:</p>
+<h2><span class="header-section-number">4.11</span> Object Types</h2>
+<p>We already saw that the basic building block of R objects is the vector.
+Vectors can be of the following types:</p>
 <ul>
 <li><strong>character</strong> Where each element is a string, i.e., a sequence of alphanumeric symbols.</li>
 <li><strong>numeric</strong> Where each element is a <a href="https://en.wikipedia.org/wiki/Real_number">real number</a> in <a href="https://en.wikipedia.org/wiki/Double-precision_floating-point_format">double precision</a> floating point format.</li>
 <li><strong>integer</strong> Where each element is an <a href="https://en.wikipedia.org/wiki/Integer">integer</a>.</li>
-<li><strong>logical</strong> Where each element is either TRUE, FALSE, or NA<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></li>
+<li><strong>logical</strong> Where each element is either TRUE, FALSE, or NA<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></li>
 <li><strong>complex</strong> Where each element is a complex number.</li>
 <li><strong>list</strong> Where each element is an arbitrary R object.</li>
-<li><strong>factor</strong> Factors are not actually vector objects, but they feel like such. They are used to encode any finite set of values. This will be very useful when fitting linear model because they include information on contrasts, i.e., on the encoding of the factors levels. You should always be alert and recall when you are dealing with a factor or with a character vector. They have different behaviors.</li>
+<li><strong>factor</strong> Factors are not actually vector objects, but they feel like such.
+They are used to encode any finite set of values.
+This will be very useful when fitting linear model because they include information on contrasts, i.e., on the encoding of the factors levels.
+You should always be alert and recall when you are dealing with a factor or with a character vector. They have different behaviors.</li>
 </ul>
-<p>Vectors can be combined into larger objects. A <code>matrix</code> can be thought of as the binding of several vectors of the same type. In reality, a matrix is merely a vector with a dimension attribute, that tells R to read it as a matrix and not a vector.</p>
-<p>If vectors of different types (but same length) are binded, we get a <code>data.frame</code> which is the most fundamental object in R for data analysis. Data frames are brilliant, but a lot has been learned since their invention. They have thus been extended in recent years with the <code>tbl</code> class, pronounced [Tibble] (<a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html" class="uri">https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html</a>), and the <code>data.table</code> class.<br />
-The latter is discussed in Chapter <a href="datatable.html#datatable">20</a>, and is strongly recommended.</p>
+<p>Vectors can be combined into larger objects.
+A <code>matrix</code> can be thought of as the binding of several vectors of the same type.
+In reality, a matrix is merely a vector with a dimension attribute, that tells R to read it as a matrix and not a vector.</p>
+<p>If vectors of different types (but same length) are binded, we get a <code>data.frame</code> which is the most fundamental object in R for data analysis.
+Data frames are brilliant, but a lot has been learned since their invention.
+They have thus been extended in recent years with the <code>tbl</code> class, pronounced [Tibble] (<a href="https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html" class="uri">https://cran.r-project.org/web/packages/tibble/vignettes/tibble.html</a>), and the <code>data.table</code> class.<br />
+The latter is discussed in Chapter <a href="datatable.html#datatable">3</a>, and is strongly recommended.</p>
 </div>
 <div id="data-frames" class="section level2">
-<h2><span class="header-section-number">3.12</span> Data Frames</h2>
+<h2><span class="header-section-number">4.12</span> Data Frames</h2>
 <p>Creating a simple data frame:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x&lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>
+<pre class="sourceCode r"><code class="sourceCode r">x&lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>
 y&lt;-<span class="st"> </span><span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="kw">sin</span>(x) 
-frame1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>x, <span class="dt">sin=</span>y)    </code></pre></div>
+frame1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span>x, <span class="dt">sin=</span>y)    </code></pre>
 <p>Let’s inspect our data frame:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(frame1)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(frame1)</code></pre>
 <pre><code>##   x      sin
 ## 1 1 3.841471
 ## 2 2 3.909297
@@ -717,58 +825,63 @@ frame1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span cl
 ## 5 5 2.041076
 ## 6 6 2.720585</code></pre>
 <p>Now using the RStudio Excel-like viewer:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">frame1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">View</span>() </code></pre></div>
-<p>We highly advise against editing the data this way since there will be no documentation of the changes you made. Always transform your data using scripts, so that everything is documented.</p>
+<pre class="sourceCode r"><code class="sourceCode r">frame1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">View</span>() </code></pre>
+<p>We highly advise against editing the data this way since there will be no documentation of the changes you made.
+Always transform your data using scripts, so that everything is documented.</p>
 <p>Verifying this is a data frame:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1) <span class="co"># the object is of type data.frame</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1) <span class="co"># the object is of type data.frame</span></code></pre>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
 <p>Check the dimension of the data</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(frame1)                             </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(frame1)                             </code></pre>
 <pre><code>## [1] 10  2</code></pre>
 <p>Note that checking the dimension of a vector is different than checking the dimension of a data frame.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(x)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(x)</code></pre>
 <pre><code>## [1] 10</code></pre>
 <p>The length of a <code>data.frame</code> is merely the number of columns.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(frame1) </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(frame1) </code></pre>
 <pre><code>## [1] 2</code></pre>
 </div>
 <div id="exctraction" class="section level2">
-<h2><span class="header-section-number">3.13</span> Exctraction</h2>
-<p>R provides many ways to subset and extract elements from vectors and other objects. The basics are fairly simple, but not paying attention to the “personality” of each extraction mechanism may cause you a lot of headache.</p>
-<p>For starters, extraction is done with the <code>[</code> operator. The operator can take vectors of many types.</p>
+<h2><span class="header-section-number">4.13</span> Exctraction</h2>
+<p>R provides many ways to subset and extract elements from vectors and other objects.
+The basics are fairly simple, but not paying attention to the “personality” of each extraction mechanism may cause you a lot of headache.</p>
+<p>For starters, extraction is done with the <code>[</code> operator.
+The operator can take vectors of many types.</p>
 <p>Extracting element with by integer index:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">frame1[<span class="dv">1</span>, <span class="dv">2</span>]  <span class="co"># exctract the element in the 1st row and 2nd column.</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">frame1[<span class="dv">1</span>, <span class="dv">2</span>]  <span class="co"># exctract the element in the 1st row and 2nd column.</span></code></pre>
 <pre><code>## [1] 3.841471</code></pre>
 <p>Extract <strong>column</strong> by index:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">frame1[,<span class="dv">1</span>]                              </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">frame1[,<span class="dv">1</span>]                              </code></pre>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 <p>Extract column by name:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">frame1[, <span class="st">&#39;sin&#39;</span>]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">frame1[, <span class="st">&#39;sin&#39;</span>]</code></pre>
 <pre><code>##  [1] 3.841471 3.909297 3.141120 2.243198 2.041076 2.720585 3.656987
 ##  [8] 3.989358 3.412118 2.455979</code></pre>
-<p>As a general rule, extraction with <code>[</code> will conserve the class of the parent object. There are, however, exceptions. Notice the extraction mechanism and the class of the output in the following examples.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1[, <span class="st">&#39;sin&#39;</span>])  <span class="co"># extracts a column vector</span></code></pre></div>
+<p>As a general rule, extraction with <code>[</code> will conserve the class of the parent object.
+There are, however, exceptions.
+Notice the extraction mechanism and the class of the output in the following examples.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1[, <span class="st">&#39;sin&#39;</span>])  <span class="co"># extracts a column vector</span></code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1[<span class="st">&#39;sin&#39;</span>])  <span class="co"># extracts a data frame</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1[<span class="st">&#39;sin&#39;</span>])  <span class="co"># extracts a data frame</span></code></pre>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])  <span class="co"># extracts a data frame</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1[,<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])  <span class="co"># extracts a data frame</span></code></pre>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1[<span class="dv">2</span>])  <span class="co"># extracts a data frame</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1[<span class="dv">2</span>])  <span class="co"># extracts a data frame</span></code></pre>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1[<span class="dv">2</span>, ])  <span class="co"># extract a data frame</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1[<span class="dv">2</span>, ])  <span class="co"># extract a data frame</span></code></pre>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1<span class="op">$</span>sin)  <span class="co"># extracts a column vector</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1<span class="op">$</span>sin)  <span class="co"># extracts a column vector</span></code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <p>The <code>subset()</code> function does the same</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">subset</span>(frame1, <span class="dt">select=</span>sin) 
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">subset</span>(frame1, <span class="dt">select=</span>sin) 
 <span class="kw">subset</span>(frame1, <span class="dt">select=</span><span class="dv">2</span>)
-<span class="kw">subset</span>(frame1, <span class="dt">select=</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">0</span>))</code></pre></div>
+<span class="kw">subset</span>(frame1, <span class="dt">select=</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">0</span>))</code></pre>
 <p>If you want to force the stripping of the class attribute when extracting, try the <code>[[</code> mechanism instead of <code>[</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span>frame1[<span class="dv">1</span>] <span class="co"># [ extraction</span>
+<pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span>frame1[<span class="dv">1</span>] <span class="co"># [ extraction</span>
 b &lt;-<span class="st"> </span>frame1[[<span class="dv">1</span>]] <span class="co"># [[ extraction</span>
-<span class="kw">class</span>(a)<span class="op">==</span><span class="kw">class</span>(b) <span class="co"># objects have differing classes</span></code></pre></div>
+<span class="kw">class</span>(a)<span class="op">==</span><span class="kw">class</span>(b) <span class="co"># objects have differing classes</span></code></pre>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a<span class="op">==</span>b <span class="co"># objects are element-wise identical </span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">a<span class="op">==</span>b <span class="co"># objects are element-wise identical </span></code></pre>
 <pre><code>##          x
 ##  [1,] TRUE
 ##  [2,] TRUE
@@ -781,7 +894,7 @@ b &lt;-<span class="st"> </span>frame1[[<span class="dv">1</span>]] <span class=
 ##  [9,] TRUE
 ## [10,] TRUE</code></pre>
 <p>The different types of output classes cause different behaviors. Compare the behavior of <code>[</code> on seemingly identical objects.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">frame1[<span class="dv">1</span>][<span class="dv">1</span>]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">frame1[<span class="dv">1</span>][<span class="dv">1</span>]</code></pre>
 <pre><code>##     x
 ## 1   1
 ## 2   2
@@ -793,24 +906,31 @@ b &lt;-<span class="st"> </span>frame1[[<span class="dv">1</span>]] <span class=
 ## 8   8
 ## 9   9
 ## 10 10</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">frame1[[<span class="dv">1</span>]][<span class="dv">1</span>]</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">frame1[[<span class="dv">1</span>]][<span class="dv">1</span>]</code></pre>
 <pre><code>## [1] 1</code></pre>
 <p>If you want to learn more about subsetting see <a href="http://adv-r.had.co.nz/Subsetting.html">Hadley’s guide</a>.</p>
 </div>
-<div id="non-data.frame-object-classes" class="section level2">
-<h2><span class="header-section-number">3.14</span> Non data.frame object classes</h2>
-<p>As previously mentioned, the <code>data.frame</code> class has been extended in recent years. The best known extensions are the <code>data.table</code> and the <code>tbl</code>. For beginners, it is important to know R’s basics, so we keep focusing on data frames. For more advanced users, I recommend learning the (amazing) <code>data.table</code> syntax.</p>
+<div id="augmentations-of-the-data.frame-class" class="section level2">
+<h2><span class="header-section-number">4.14</span> Augmentations of the data.frame class</h2>
+<p>As previously mentioned, the <code>data.frame</code> class has been extended in recent years.
+The best known extensions are the <code>data.table</code> and the <code>tbl</code>.
+For beginners, it is important to know R’s basics, so we keep focusing on data frames.
+For more advanced users, I recommend learning the (amazing) <code>data.table</code> syntax.</p>
 </div>
 <div id="data-import-and-export" class="section level2">
-<h2><span class="header-section-number">3.15</span> Data Import and Export</h2>
-<p>For any practical purpose, you will not be generating your data manually. R comes with many importing and exporting mechanisms which we now present. If, however, you do a lot of data “munging”, make sure to see Hadley-verse Chapter <a href="hadley.html#hadley">23</a>. If you work with MASSIVE data sets, read the Memory Efficiency Chapter <a href="memory.html#memory">14</a>.</p>
+<h2><span class="header-section-number">4.15</span> Data Import and Export</h2>
+<p>For any practical purpose, you will not be generating your data manually.
+R comes with many importing and exporting mechanisms which we now present.
+If, however, you do a lot of data “munging”, make sure to see Hadley-verse Chapter <a href="hadley.html#hadley">23</a>.
+If you work with MASSIVE data sets, read the Memory Efficiency Chapter <a href="memory.html#memory">15</a>.</p>
 <div id="import-from-web" class="section level3">
-<h3><span class="header-section-number">3.15.1</span> Import from WEB</h3>
-<p>The <code>read.table</code> function is the main importing workhorse. It can import directly from the web.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">URL &lt;-<span class="st"> &#39;http://statweb.stanford.edu/~tibs/ElemStatLearn/datasets/bone.data&#39;</span>
-tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(URL)</code></pre></div>
+<h3><span class="header-section-number">4.15.1</span> Import from WEB</h3>
+<p>The <code>read.table</code> function is the main importing workhorse.
+It can import directly from the web.</p>
+<pre class="sourceCode r"><code class="sourceCode r">URL &lt;-<span class="st"> &#39;http://statweb.stanford.edu/~tibs/ElemStatLearn/datasets/bone.data&#39;</span>
+tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(URL)</code></pre>
 <p>Always look at the imported result!</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(tirgul1)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(tirgul1)</code></pre>
 <pre><code>##      V1    V2     V3          V4
 ## 1 idnum   age gender      spnbmd
 ## 2     1  11.7   male  0.01808067
@@ -818,14 +938,15 @@ tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(URL)</c
 ## 4     1 13.75   male 0.005857545
 ## 5     2 13.25   male  0.01026393
 ## 6     2  14.3   male   0.2105263</code></pre>
-<p>Ohh dear. <code>read.,table</code> tried to guess the structure of the input, but failed to recognize the header row. Set it manually with <code>header=TRUE</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&#39;data/bone.data&#39;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>) 
-<span class="kw">head</span>(tirgul1)</code></pre></div>
+<p>Ohh dear.
+<code>read.,table</code> tried to guess the structure of the input, but failed to recognize the header row. Set it manually with <code>header=TRUE</code>:</p>
+<pre class="sourceCode r"><code class="sourceCode r">tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&#39;data/bone.data&#39;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>) 
+<span class="kw">head</span>(tirgul1)</code></pre>
 </div>
 <div id="export-as-csv" class="section level3">
-<h3><span class="header-section-number">3.15.2</span> Export as CSV</h3>
+<h3><span class="header-section-number">4.15.2</span> Export as CSV</h3>
 <p>Let’s write a simple file so that we have something to import</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(airquality) <span class="co">#  examine the data to export</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(airquality) <span class="co">#  examine the data to export</span></code></pre>
 <pre><code>##   Ozone Solar.R Wind Temp Month Day
 ## 1    41     190  7.4   67     5   1
 ## 2    36     118  8.0   72     5   2
@@ -833,11 +954,11 @@ tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(URL)</c
 ## 4    18     313 11.5   62     5   4
 ## 5    NA      NA 14.3   56     5   5
 ## 6    28      NA 14.9   66     5   6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">temp.file.name &lt;-<span class="st"> </span><span class="kw">tempfile</span>() <span class="co"># get some arbitrary file name</span>
-<span class="kw">write.csv</span>(<span class="dt">x =</span> airquality, <span class="dt">file =</span> temp.file.name) <span class="co"># export</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">temp.file.name &lt;-<span class="st"> </span><span class="kw">tempfile</span>() <span class="co"># get some arbitrary file name</span>
+<span class="kw">write.csv</span>(<span class="dt">x =</span> airquality, <span class="dt">file =</span> temp.file.name) <span class="co"># export</span></code></pre>
 <p>Now let’s import the exported file. Being a .csv file, I can use <code>read.csv</code> instead of <code>read.table</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my.data&lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file=</span>temp.file.name) <span class="co"># import</span>
-<span class="kw">head</span>(my.data) <span class="co"># verify import</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">my.data&lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file=</span>temp.file.name) <span class="co"># import</span>
+<span class="kw">head</span>(my.data) <span class="co"># verify import</span></code></pre>
 <pre><code>##   X Ozone Solar.R Wind Temp Month Day
 ## 1 1    41     190  7.4   67     5   1
 ## 2 2    36     118  8.0   72     5   2
@@ -852,15 +973,22 @@ tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(URL)</c
 
 </div>
 <div id="export-non-csv-files" class="section level3">
-<h3><span class="header-section-number">3.15.3</span> Export non-CSV files</h3>
-<p>You can export your R objects in endlessly many ways: If instead of the comma delimiter in .csv you want other column delimiters, look into <code>?write.table</code>. If you are exporting only for R users, you can consider exporting as binary objects with <code>saveRDS</code>, <code>feather::write_feather</code>, or <code>fst::write.fst</code>. See (<a href="http://www.fstpackage.org/" class="uri">http://www.fstpackage.org/</a>) for a comparison.</p>
+<h3><span class="header-section-number">4.15.3</span> Export non-CSV files</h3>
+<p>You can export your R objects in endlessly many ways:
+If instead of the comma delimiter in .csv you want other column delimiters, look into <code>?write.table</code>.
+If you are exporting only for R users, you can consider exporting as binary objects with <code>saveRDS</code>, <code>feather::write_feather</code>, or <code>fst::write.fst</code>.
+See (<a href="http://www.fstpackage.org/" class="uri">http://www.fstpackage.org/</a>) for a comparison.</p>
 </div>
 <div id="reading-from-text-files" class="section level3">
-<h3><span class="header-section-number">3.15.4</span> Reading From Text Files</h3>
-<p>Some general notes on importing text files via the <code>read.table</code> function. But first, we need to know what is the active directory. Here is how to get and set R’s active directory:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>() <span class="co">#What is the working directory?</span>
-<span class="kw">setwd</span>() <span class="co">#Setting the working directory in Linux</span></code></pre></div>
-<p>We can now call the <code>read.table</code> function to import text files. If you care about your sanity, see <code>?read.table</code> before starting imports. Some notable properties of the function:</p>
+<h3><span class="header-section-number">4.15.4</span> Reading From Text Files</h3>
+<p>Some general notes on importing text files via the <code>read.table</code> function.
+But first, we need to know what is the active directory.
+Here is how to get and set R’s active directory:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>() <span class="co">#What is the working directory?</span>
+<span class="kw">setwd</span>() <span class="co">#Setting the working directory in Linux</span></code></pre>
+<p>We can now call the <code>read.table</code> function to import text files.
+If you care about your sanity, see <code>?read.table</code> before starting imports.
+Some notable properties of the function:</p>
 <ul>
 <li><code>read.table</code> will try to guess column separators (tab, comma, etc.)</li>
 <li><code>read.table</code> will try to guess if a header row is present.</li>
@@ -869,39 +997,47 @@ tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(URL)</c
 </ul>
 </div>
 <div id="writing-data-to-text-files" class="section level3">
-<h3><span class="header-section-number">3.15.5</span> Writing Data to Text Files</h3>
+<h3><span class="header-section-number">4.15.5</span> Writing Data to Text Files</h3>
 <p>The function <code>write.table</code> is the exporting counterpart of <code>read.table</code>.</p>
 </div>
 <div id="xlsx-files" class="section level3">
-<h3><span class="header-section-number">3.15.6</span> .XLS(X) files</h3>
-<p>Strongly recommended to convert to .csv in Excel, and then import as csv. If you still insist see the <strong>xlsx</strong> package.</p>
+<h3><span class="header-section-number">4.15.6</span> .XLS(X) files</h3>
+<p>Strongly recommended to convert to .csv in Excel, and then import as csv.
+If you still insist see the <strong>xlsx</strong> package.</p>
 </div>
 <div id="massive-files" class="section level3">
-<h3><span class="header-section-number">3.15.7</span> Massive files</h3>
-<p>The above importing and exporting mechanisms were not designed for massive files. See the section on the <strong>data.table</strong> package (<a href="datatable.html#datatable">20</a>), Sparse Representation (<a href="sparse.html#sparse">13</a>), and Out-of-Ram Algorithms (<a href="memory.html#memory">14</a>) for more on working with massive data files.</p>
+<h3><span class="header-section-number">4.15.7</span> Massive files</h3>
+<p>The above importing and exporting mechanisms were not designed for massive files.
+See the section on the <strong>data.table</strong> package (<a href="datatable.html#datatable">3</a>), Sparse Representation (<a href="sparse.html#sparse">14</a>), and Out-of-Ram Algorithms (<a href="memory.html#memory">15</a>) for more on working with massive data files.</p>
 </div>
 <div id="databases" class="section level3">
-<h3><span class="header-section-number">3.15.8</span> Databases</h3>
-<p>R does not need to read from text files; it can read directly from a database. This is very useful since it allows the filtering, selecting and joining operations to rely on the database’s optimized algorithms. Then again, if you will only be analyzing your data with R, you are probably better of by working from a file, without the databases’ overhead. See Chapter <a href="memory.html#memory">14</a> for more on this matter.</p>
+<h3><span class="header-section-number">4.15.8</span> Databases</h3>
+<p>R does not need to read from text files; it can read directly from a database.
+This is very useful since it allows the filtering, selecting and joining operations to rely on the database’s optimized algorithms.
+Then again, if you will only be analyzing your data with R, you are probably better of by working from a file, without the databases’ overhead.
+See Chapter <a href="memory.html#memory">15</a> for more on this matter.</p>
 </div>
 </div>
 <div id="functions" class="section level2">
-<h2><span class="header-section-number">3.16</span> Functions</h2>
-<p>One of the most basic building blocks of programming is the ability of writing your own functions. A function in R, like everything else, is an object accessible using its name. We first define a simple function that sums its two arguments</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my.sum &lt;-<span class="st"> </span><span class="cf">function</span>(x,y) {
+<h2><span class="header-section-number">4.16</span> Functions</h2>
+<p>One of the most basic building blocks of programming is the ability of writing your own functions.
+A function in R, like everything else, is an object accessible using its name.
+We first define a simple function that sums its two arguments</p>
+<pre class="sourceCode r"><code class="sourceCode r">my.sum &lt;-<span class="st"> </span><span class="cf">function</span>(x,y) {
   <span class="kw">return</span>(x<span class="op">+</span>y)
 }
-<span class="kw">my.sum</span>(<span class="dv">10</span>,<span class="dv">2</span>)</code></pre></div>
+<span class="kw">my.sum</span>(<span class="dv">10</span>,<span class="dv">2</span>)</code></pre>
 <pre><code>## [1] 12</code></pre>
 <p>From this example you may notice that:</p>
 <ul>
 <li><p>The function <code>function</code> tells R to construct a function object.</p></li>
 <li><p>Unlike some programming languages, a period (<code>.</code>) is allowed as part of an object’s name.</p></li>
-<li><p>The arguments of the <code>function</code>, i.e. <code>(x,y)</code>, need to be named but we are not required to specify their class. This makes writing functions very easy, but it is also the source of many bugs, and slowness of R compared to type declaring languages (C, Fortran,Java,…).</p></li>
-<li><p>A typical R function does not change objects<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> but rather creates new ones. To save the output of <code>my.sum</code> we will need to assign it using the <code>&lt;-</code> operator.</p></li>
+<li><p>The arguments of the <code>function</code>, i.e. <code>(x,y)</code>, need to be named but we are not required to specify their class. This makes writing functions very easy, but it is also the source of many bugs, and slowness of R compared to type declaring languages (C, Fortran,Java,…).</p></li>
+<li><p>A typical R function does not change objects<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> but rather creates new ones.
+To save the output of <code>my.sum</code> we will need to assign it using the <code>&lt;-</code> operator.</p></li>
 </ul>
 <p>Here is a (slightly) more advanced function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my.sum.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="cf">function</span>(x, y , <span class="dt">absolute=</span><span class="ot">FALSE</span>) {
+<pre class="sourceCode r"><code class="sourceCode r">my.sum<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="cf">function</span>(x, y , <span class="dt">absolute=</span><span class="ot">FALSE</span>) {
   <span class="cf">if</span>(absolute<span class="op">==</span><span class="ot">TRUE</span>) {
     result &lt;-<span class="st"> </span><span class="kw">abs</span>(x<span class="op">+</span>y)
   }
@@ -910,7 +1046,7 @@ tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(URL)</c
   } 
   result
 }
-<span class="kw">my.sum.2</span>(<span class="op">-</span><span class="dv">10</span>,<span class="dv">2</span>,<span class="ot">TRUE</span>)</code></pre></div>
+<span class="kw">my.sum.2</span>(<span class="op">-</span><span class="dv">10</span>,<span class="dv">2</span>,<span class="ot">TRUE</span>)</code></pre>
 <pre><code>## [1] 8</code></pre>
 <p>Things to note:</p>
 <ul>
@@ -918,51 +1054,61 @@ tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(URL)</c
 <li><p>The function will output its last evaluated expression. You don’t need to use the <code>return</code> function explicitly.</p></li>
 <li><p>Using <code>absolute=FALSE</code> sets the default value of <code>absolute</code> to <code>FALSE</code>. This is overridden if <code>absolute</code> is stated explicitly in the function call.</p></li>
 </ul>
-<p>An important behavior of R is the <em>scoping rules</em>. This refers to the way R seeks for variables used in functions. As a rule of thumb, R will first look for variables inside the function and if not found, will search for the variable values in outer environments<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>. Think of the next example.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span>
+<p>An important behavior of R is the <em>scoping rules</em>.
+This refers to the way R seeks for variables used in functions.
+As a rule of thumb, R will first look for variables inside the function and if not found, will search for the variable values in outer environments<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>.
+Think of the next example.</p>
+<pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span>
 b &lt;-<span class="st"> </span><span class="dv">2</span>
 x &lt;-<span class="st"> </span><span class="dv">3</span>
 scoping &lt;-<span class="st"> </span><span class="cf">function</span>(a,b){
   a<span class="op">+</span>b<span class="op">+</span>x
 }
-<span class="kw">scoping</span>(<span class="dv">10</span>,<span class="dv">11</span>)</code></pre></div>
+<span class="kw">scoping</span>(<span class="dv">10</span>,<span class="dv">11</span>)</code></pre>
 <pre><code>## [1] 24</code></pre>
 </div>
 <div id="looping" class="section level2">
-<h2><span class="header-section-number">3.17</span> Looping</h2>
-<p>The real power of scripting is when repeated operations are done by iteration. R supports the usual <code>for</code>, <code>while</code>, and <code>repated</code> loops. Here is an embarrassingly simple example</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>){
+<h2><span class="header-section-number">4.17</span> Looping</h2>
+<p>The real power of scripting is when repeated operations are done by iteration.
+R supports the usual <code>for</code>, <code>while</code>, and <code>repated</code> loops.
+Here is an embarrassingly simple example</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>){
     <span class="kw">print</span>(i)
-    }</code></pre></div>
+    }</code></pre>
 <pre><code>## [1] 1
 ## [1] 2
 ## [1] 3
 ## [1] 4
 ## [1] 5</code></pre>
 <p>A slightly more advanced example, is vector multiplication</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result &lt;-<span class="st"> </span><span class="dv">0</span>
+<pre class="sourceCode r"><code class="sourceCode r">result &lt;-<span class="st"> </span><span class="dv">0</span>
 n &lt;-<span class="st"> </span><span class="fl">1e3</span>
 x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span>n
 y &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</span>n)<span class="op">/</span>n
 <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){
   result &lt;-<span class="st"> </span>result<span class="op">+</span><span class="st"> </span>x[i]<span class="op">*</span>y[i]
-}</code></pre></div>
+}</code></pre>
 
 <div class="remark">
- <span class="remark"><em>Remark. </em></span> <strong>Vector Operations</strong>: You should NEVER write your own vector and matrix products like in the previous example. Only use existing facilities such as <code>%*%</code>, <code>sum()</code>, etc.
+ <span class="remark"><em>Remark. </em></span> <strong>Vector Operations</strong>:
+You should NEVER write your own vector and matrix products like in the previous example. Only use existing facilities such as <code>%*%</code>, <code>sum()</code>, etc.
 </div>
 
 
 <div class="remark">
- <span class="remark"><em>Remark. </em></span> <strong>Parallel Operations</strong>: If you already know that you will be needing to parallelize your work, get used to working with <code>foreach</code> loops in the <strong>foreach</strong> package, rather then regular <code>for</code> loops.
+ <span class="remark"><em>Remark. </em></span> <strong>Parallel Operations</strong>:
+If you already know that you will be needing to parallelize your work, get used to working with <code>foreach</code> loops in the <strong>foreach</strong> package, rather then regular <code>for</code> loops.
 </div>
 
 </div>
 <div id="apply" class="section level2">
-<h2><span class="header-section-number">3.18</span> Apply</h2>
-<p>For applying the same function to a set of elements, there is no need to write an explicit loop. This is such en elementary operation that every programming language will provide some facility to <strong>apply</strong>, or <strong>map</strong> the function to all elements of a set. R provides several facilities to perform this. The most basic of which is <code>lapply</code> which applies a function over all elements of a list, and return a list of outputs:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">the.list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span>,<span class="st">&#39;a&#39;</span>,mean) <span class="co"># a list of 3 elements from different calsses</span>
-<span class="kw">lapply</span>(<span class="dt">X =</span> the.list, <span class="dt">FUN =</span> class) <span class="co"># apply the function `class` to each elements</span></code></pre></div>
+<h2><span class="header-section-number">4.18</span> Apply</h2>
+<p>For applying the same function to a set of elements, there is no need to write an explicit loop.
+This is such en elementary operation that every programming language will provide some facility to <strong>apply</strong>, or <strong>map</strong> the function to all elements of a set.
+R provides several facilities to perform this.
+The most basic of which is <code>lapply</code> which applies a function over all elements of a list, and return a list of outputs:</p>
+<pre class="sourceCode r"><code class="sourceCode r">the.list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dv">1</span>,<span class="st">&#39;a&#39;</span>,mean) <span class="co"># a list of 3 elements from different calsses</span>
+<span class="kw">lapply</span>(<span class="dt">X =</span> the.list, <span class="dt">FUN =</span> class) <span class="co"># apply the function `class` to each elements</span></code></pre>
 <pre><code>## [[1]]
 ## [1] &quot;numeric&quot;
 ## 
@@ -973,9 +1119,16 @@ y &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</sp
 ## [1] &quot;standardGeneric&quot;
 ## attr(,&quot;package&quot;)
 ## [1] &quot;methods&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(<span class="dt">X =</span> the.list, <span class="dt">FUN =</span> class) <span class="co"># lapply with cleaned output</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sapply</span>(<span class="dt">X =</span> the.list, <span class="dt">FUN =</span> class) <span class="co"># lapply with cleaned output</span></code></pre>
 <pre><code>## [1] &quot;numeric&quot;         &quot;character&quot;       &quot;standardGeneric&quot;</code></pre>
-<p>R provides many variations on <code>lapply</code> to facilitate programming. Here is a partial list:</p>
+<p>What is the function you are using requires some arguments?
+One useful trick is to create your own function that takes only one argument:</p>
+<pre class="sourceCode r"><code class="sourceCode r">quantile<span class="fl">.25</span> &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">quantile</span>(x,<span class="fl">0.25</span>)
+<span class="kw">sapply</span>(USArrests, quantile<span class="fl">.25</span>)</code></pre>
+<pre><code>##   Murder.25%  Assault.25% UrbanPop.25%     Rape.25% 
+##        4.075      109.000       54.500       15.075</code></pre>
+<p>R provides many variations on <code>lapply</code> to facilitate programming.
+Here is a partial list:</p>
 <ul>
 <li><code>sapply</code>: The same as <code>lapply</code> but tries to arrange output in a vector or matrix, and not an unstructured list.</li>
 <li><code>vapply</code>: A safer version of <code>sapply</code>, where the output class is pre-specified.</li>
@@ -990,39 +1143,54 @@ y &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">:</sp
 </ul>
 </div>
 <div id="recursion" class="section level2">
-<h2><span class="header-section-number">3.19</span> Recursion</h2>
+<h2><span class="header-section-number">4.19</span> Recursion</h2>
 <p>The R compiler is really not designed for recursion, and you will rarely need to do so.<br />
-See the RCpp Chapter <a href="rcpp.html#rcpp">18</a> for linking C code, which is better suited for recursion. If you really insist to write recursions in R, make sure to use the <code>Recall</code> function, which, as the name suggests, recalls the function in which it is place. Here is a demonstration with the Fibonacci series.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fib&lt;-<span class="cf">function</span>(n) {
+See the RCpp Chapter <a href="rcpp.html#rcpp">19</a> for linking C code, which is better suited for recursion.
+If you really insist to write recursions in R, make sure to use the <code>Recall</code> function, which, as the name suggests, recalls the function in which it is place.
+Here is a demonstration with the Fibonacci series.</p>
+<pre class="sourceCode r"><code class="sourceCode r">fib&lt;-<span class="cf">function</span>(n) {
     <span class="cf">if</span> (n <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>) fn&lt;-<span class="dv">1</span> 
     <span class="cf">else</span> fn &lt;-<span class="st"> </span><span class="kw">Recall</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">+</span><span class="st"> </span><span class="kw">Recall</span>(n <span class="op">-</span><span class="st"> </span><span class="dv">2</span>) 
     <span class="kw">return</span>(fn)
 } 
-<span class="kw">fib</span>(<span class="dv">5</span>)</code></pre></div>
+<span class="kw">fib</span>(<span class="dv">5</span>)</code></pre>
 <pre><code>## [1] 8</code></pre>
 </div>
 <div id="dates-and-times" class="section level2">
-<h2><span class="header-section-number">3.20</span> Dates and Times</h2>
+<h2><span class="header-section-number">4.20</span> Dates and Times</h2>
 <p>[TODO. In the meanwhile, see the <strong>lubridate</strong> pacakge].</p>
 </div>
-<div id="bibliographic-notes-1" class="section level2">
-<h2><span class="header-section-number">3.21</span> Bibliographic Notes</h2>
-<p>There are endlessly many introductory texts on R. For a list of free resources see <a href="http://stats.stackexchange.com/questions/138/free-resources-for-learning-r">CrossValidated</a>. I personally recommend the official introduction <span class="citation">Venables et al. (<a href="#ref-venables2004introduction">2004</a>)</span>, <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf">available online</a>, or anything else Bill Venables writes.</p>
-<p>For Importing and Exporting see (<a href="https://cran.r-project.org/doc/manuals/r-release/R-data.html" class="uri">https://cran.r-project.org/doc/manuals/r-release/R-data.html</a>). For working with databases see (<a href="https://rforanalytics.wordpress.com/useful-links-for-r/odbc-databases-for-r/" class="uri">https://rforanalytics.wordpress.com/useful-links-for-r/odbc-databases-for-r/</a>).</p>
+<div id="bibliographic-notes-2" class="section level2">
+<h2><span class="header-section-number">4.21</span> Bibliographic Notes</h2>
+<p>There are endlessly many introductory texts on R.
+For a list of free resources see <a href="http://stats.stackexchange.com/questions/138/free-resources-for-learning-r">CrossValidated</a>.
+I personally recommend the official introduction <span class="citation">Venables et al. (<a href="#ref-venables2004introduction">2004</a>)</span>, <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf">available online</a>, or anything else Bill Venables writes.</p>
+<p>For Importing and Exporting see (<a href="https://cran.r-project.org/doc/manuals/r-release/R-data.html" class="uri">https://cran.r-project.org/doc/manuals/r-release/R-data.html</a>).
+For working with databases see (<a href="https://rforanalytics.wordpress.com/useful-links-for-r/odbc-databases-for-r/" class="uri">https://rforanalytics.wordpress.com/useful-links-for-r/odbc-databases-for-r/</a>).</p>
 <p>For advanced R programming see <span class="citation">Wickham (<a href="#ref-wickham2014advanced">2014</a>)</span>, <a href="http://adv-r.had.co.nz/">available online</a>, or anything else Hadley Wickham writes.</p>
 <p>For a curated list of recommended packages see <a href="https://github.com/rstudio/RStartHere/blob/master/README.md">here</a>.</p>
 </div>
-<div id="practice-yourself-1" class="section level2">
-<h2><span class="header-section-number">3.22</span> Practice Yourself</h2>
+<div id="practice-yourself-2" class="section level2">
+<h2><span class="header-section-number">4.22</span> Practice Yourself</h2>
 <ol style="list-style-type: decimal">
 <li><p>Load the package <strong>MASS</strong>. That was easy. Now load <strong>ggplot2</strong>, after looking into <code>install.pacakges()</code>.</p></li>
 <li><p>Save the numbers 1 to 1,000,000 (<code>1e6</code>) into an object named <code>object</code>.</p></li>
-<li><p>Write a function that computes the mean of its input. Write a version that uses <code>sum()</code>, and another that uses a <code>for</code> loop and the summation <code>+</code>. Try checking which is faster using <code>system.time</code>. Is the difference considerable? Ask me about it in class.</p></li>
+<li><p>Write a function that computes the mean of its input.
+Write a version that uses <code>sum()</code>, and another that uses a <code>for</code> loop and the summation <code>+</code>.
+Try checking which is faster using <code>system.time</code>.
+Is the difference considerable? Ask me about it in class.</p></li>
 <li><p>Write a function that returns <code>TRUE</code> if a number is divisible by 13, <code>FALSE</code> if not, and a nice warning to the user if the input is not an integer number.</p></li>
 <li><p>Apply the previous function to all the numbers in <code>object</code>. Try using a <code>for</code> loop, but also a mapping/apply function.</p></li>
-<li><p>Make a matrix of random numbers using <code>A &lt;- matrix(rnorm(40), ncol=10, nrow=4)</code>. Compute the mean of each columns. Do it using your own loop and then do the same with <code>lapply</code> or <code>apply</code>.</p></li>
-<li><p>Make a data frame (<code>dataA</code>) with three columns, and 100 rows. The first column with 100 numbers generated from the <span class="math inline">\(\mathcal{N}(10,1)\)</span> distribution, second column with samples from <span class="math inline">\(Poiss(\lambda=4)\)</span>. The third column contains only <code>1</code>.<br />
-Make another data frame (<code>dataB</code>) with three columns and 100 rows. Now with <span class="math inline">\(\mathcal{N}(10,0.5^2)\)</span>, <span class="math inline">\(Poiss(\lambda=4)\)</span> and <code>2</code>. Combine the two data frames into an object named <code>dataAB</code> with <code>rbind</code>. Make a scatter plot of <code>dataAB</code> where the x-axes is the first column, the y-axes is the second and define the shape of the points to be the third column.</p></li>
+<li><p>Make a matrix of random numbers using <code>A &lt;- matrix(rnorm(40), ncol=10, nrow=4)</code>.
+Compute the mean of each columns.
+Do it using your own loop and then do the same with <code>lapply</code> or <code>apply</code>.</p></li>
+<li><p>Make a data frame (<code>dataA</code>) with three columns, and 100 rows.
+The first column with 100 numbers generated from the <span class="math inline">\(\mathcal{N}(10,1)\)</span> distribution, second column with samples from <span class="math inline">\(Poiss(\lambda=4)\)</span>.
+The third column contains only <code>1</code>.<br />
+Make another data frame (<code>dataB</code>) with three columns and 100 rows.
+Now with <span class="math inline">\(\mathcal{N}(10,0.5^2)\)</span>, <span class="math inline">\(Poiss(\lambda=4)\)</span> and <code>2</code>.
+Combine the two data frames into an object named <code>dataAB</code> with <code>rbind</code>.
+Make a scatter plot of <code>dataAB</code> where the x-axes is the first column, the y-axes is the second and define the shape of the points to be the third column.</p></li>
 <li>In a sample generated of 1,000 observations from the <span class="math inline">\(\mathcal{N}(10,1)\)</span> distribution:
 <ol style="list-style-type: decimal">
 <li>What is the proportion of samples smaller than <span class="math inline">\(12.4\)</span> ?</li>
@@ -1036,7 +1204,7 @@ Make another data frame (<code>dataB</code>) with three columns and 100 rows. No
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-wilkinson1973symbolic">
-<p>Wilkinson, GN, and CE Rogers. 1973. “Symbolic Description of Factorial Models for Analysis of Variance.” <em>Applied Statistics</em>. JSTOR, 392–99.</p>
+<p>Wilkinson, GN, and CE Rogers. 1973. “Symbolic Description of Factorial Models for Analysis of Variance.” <em>Applied Statistics</em>, 392–99.</p>
 </div>
 <div id="ref-venables2004introduction">
 <p>Venables, William N, David M Smith, R Development Core Team, and others. 2004. “An Introduction to R.” Network Theory Limited.</p>
@@ -1048,11 +1216,11 @@ Make another data frame (<code>dataB</code>) with three columns and 100 rows. No
 <div class="footnotes">
 <hr />
 <ol start="1">
-<li id="fn1"><p>S and S-Plus used to save objects on disk. Working from RAM has advantages and disadvantages. More on this in Chapter <a href="memory.html#memory">14</a>.<a href="basics.html#fnref1">↩</a></p></li>
-<li id="fn2"><p>Taken from <a href="http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html" class="uri">http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html</a><a href="basics.html#fnref2">↩</a></p></li>
-<li id="fn3"><p>R uses a <a href="https://en.wikipedia.org/wiki/Three-valued_logic"><strong>three</strong> valued logic</a> where a missing value (NA) is neither TRUE, nor FALSE.<a href="basics.html#fnref3">↩</a></p></li>
-<li id="fn4"><p>This is a classical <em>functional programming</em> paradigm. If you want an object oriented flavor of R programming, see Hadley’s <a href="http://adv-r.had.co.nz/OO-essentials.html">Advanced R book</a>.<a href="basics.html#fnref4">↩</a></p></li>
-<li id="fn5"><p>More formally, this is called <a href="https://darrenjw.wordpress.com/2011/11/23/lexical-scope-and-function-closures-in-r/">Lexical Scoping</a>.<a href="basics.html#fnref5">↩</a></p></li>
+<li id="fn1"><p>S and S-Plus used to save objects on disk. Working from RAM has advantages and disadvantages. More on this in Chapter <a href="memory.html#memory">15</a>.<a href="basics.html#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Taken from <a href="http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html" class="uri">http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html</a><a href="basics.html#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>R uses a <a href="https://en.wikipedia.org/wiki/Three-valued_logic"><strong>three</strong> valued logic</a> where a missing value (NA) is neither TRUE, nor FALSE.<a href="basics.html#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>This is a classical <em>functional programming</em> paradigm. If you want an object oriented flavor of R programming, see Hadley’s <a href="http://adv-r.had.co.nz/OO-essentials.html">Advanced R book</a>.<a href="basics.html#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>More formally, this is called <a href="https://darrenjw.wordpress.com/2011/11/23/lexical-scope-and-function-closures-in-r/">Lexical Scoping</a>.<a href="basics.html#fnref5" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -1060,7 +1228,7 @@ Make another data frame (<code>dataB</code>) with three columns and 100 rows. No
           </div>
         </div>
       </div>
-<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="datatable.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="eda.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -1079,10 +1247,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1090,8 +1259,12 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-r-basics.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/25-r-basics.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["Rcourse.pdf"],
 "toc": {
@@ -1106,9 +1279,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

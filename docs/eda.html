@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>R (BGU course)</title>
+  <title>Chapter 5 Exploratory Data Analysis | R (BGU course)</title>
   <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="R (BGU course)" />
+  <meta property="og:title" content="Chapter 5 Exploratory Data Analysis | R (BGU course)" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R (BGU course)" />
+  <meta name="twitter:title" content="Chapter 5 Exploratory Data Analysis | R (BGU course)" />
   
   <meta name="twitter:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2018-06-07">
+<meta name="date" content="2018-12-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="lm.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -57,41 +58,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -120,268 +147,283 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#bibliographic-notes"><i class="fa fa-check"></i><b>2.3</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#practice-yourself"><i class="fa fa-check"></i><b>2.4</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
-<li class="chapter" data-level="3.0.1" data-path="basics.html"><a href="basics.html#other-ides"><i class="fa fa-check"></i><b>3.0.1</b> Other IDEs</a></li>
-<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>3.1</b> File types</a></li>
-<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.2</b> Simple calculator</a></li>
-<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.3</b> Probability calculator</a></li>
-<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.4</b> Getting Help</a></li>
-<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.5</b> Variable Asignment</a></li>
-<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#missing"><i class="fa fa-check"></i><b>3.6</b> Missing</a></li>
-<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.7</b> Piping</a></li>
-<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.8</b> Vector Creation and Manipulation</a></li>
-<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.9</b> Search Paths and Packages</a></li>
-<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.10</b> Simple Plotting</a></li>
-<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.11</b> Object Types</a></li>
-<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.12</b> Data Frames</a></li>
-<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.13</b> Exctraction</a></li>
-<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#non-data.frame-object-classes"><i class="fa fa-check"></i><b>3.14</b> Non data.frame object classes</a></li>
-<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.15</b> Data Import and Export</a><ul>
-<li class="chapter" data-level="3.15.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.15.1</b> Import from WEB</a></li>
-<li class="chapter" data-level="3.15.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.15.2</b> Export as CSV</a></li>
-<li class="chapter" data-level="3.15.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>3.15.3</b> Export non-CSV files</a></li>
-<li class="chapter" data-level="3.15.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.15.4</b> Reading From Text Files</a></li>
-<li class="chapter" data-level="3.15.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.15.5</b> Writing Data to Text Files</a></li>
-<li class="chapter" data-level="3.15.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.15.6</b> .XLS(X) files</a></li>
-<li class="chapter" data-level="3.15.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.15.7</b> Massive files</a></li>
-<li class="chapter" data-level="3.15.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.15.8</b> Databases</a></li>
+<li class="chapter" data-level="3" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>3</b> data.table</a><ul>
+<li class="chapter" data-level="3.1" data-path="datatable.html"><a href="datatable.html#make-your-own-variables"><i class="fa fa-check"></i><b>3.1</b> Make your own variables</a></li>
+<li class="chapter" data-level="3.2" data-path="datatable.html"><a href="datatable.html#join"><i class="fa fa-check"></i><b>3.2</b> Join</a></li>
+<li class="chapter" data-level="3.3" data-path="datatable.html"><a href="datatable.html#reshaping-data"><i class="fa fa-check"></i><b>3.3</b> Reshaping data</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="datatable.html"><a href="datatable.html#wide-to-long"><i class="fa fa-check"></i><b>3.3.1</b> Wide to long</a></li>
+<li class="chapter" data-level="3.3.2" data-path="datatable.html"><a href="datatable.html#long-to-wide"><i class="fa fa-check"></i><b>3.3.2</b> Long to wide</a></li>
 </ul></li>
-<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.16</b> Functions</a></li>
-<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.17</b> Looping</a></li>
-<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.18</b> Apply</a></li>
-<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.19</b> Recursion</a></li>
-<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.20</b> Dates and Times</a></li>
-<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.21</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.22</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.4" data-path="datatable.html"><a href="datatable.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.4</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.5" data-path="datatable.html"><a href="datatable.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.5</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
-<li class="chapter" data-level="4.1" data-path="eda.html"><a href="eda.html#summary-statistics"><i class="fa fa-check"></i><b>4.1</b> Summary Statistics</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="eda.html"><a href="eda.html#categorical-data"><i class="fa fa-check"></i><b>4.1.1</b> Categorical Data</a></li>
-<li class="chapter" data-level="4.1.2" data-path="eda.html"><a href="eda.html#continous-data"><i class="fa fa-check"></i><b>4.1.2</b> Continous Data</a></li>
+<li class="chapter" data-level="4" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>4</b> R Basics</a><ul>
+<li class="chapter" data-level="4.0.1" data-path="basics.html"><a href="basics.html#other-ides"><i class="fa fa-check"></i><b>4.0.1</b> Other IDEs</a></li>
+<li class="chapter" data-level="4.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>4.1</b> File types</a></li>
+<li class="chapter" data-level="4.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>4.2</b> Simple calculator</a></li>
+<li class="chapter" data-level="4.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>4.3</b> Probability calculator</a></li>
+<li class="chapter" data-level="4.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>4.4</b> Getting Help</a></li>
+<li class="chapter" data-level="4.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>4.5</b> Variable Asignment</a></li>
+<li class="chapter" data-level="4.6" data-path="basics.html"><a href="basics.html#missing"><i class="fa fa-check"></i><b>4.6</b> Missing</a></li>
+<li class="chapter" data-level="4.7" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>4.7</b> Piping</a></li>
+<li class="chapter" data-level="4.8" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>4.8</b> Vector Creation and Manipulation</a></li>
+<li class="chapter" data-level="4.9" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>4.9</b> Search Paths and Packages</a></li>
+<li class="chapter" data-level="4.10" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>4.10</b> Simple Plotting</a></li>
+<li class="chapter" data-level="4.11" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>4.11</b> Object Types</a></li>
+<li class="chapter" data-level="4.12" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>4.12</b> Data Frames</a></li>
+<li class="chapter" data-level="4.13" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>4.13</b> Exctraction</a></li>
+<li class="chapter" data-level="4.14" data-path="basics.html"><a href="basics.html#augmentations-of-the-data.frame-class"><i class="fa fa-check"></i><b>4.14</b> Augmentations of the data.frame class</a></li>
+<li class="chapter" data-level="4.15" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>4.15</b> Data Import and Export</a><ul>
+<li class="chapter" data-level="4.15.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>4.15.1</b> Import from WEB</a></li>
+<li class="chapter" data-level="4.15.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>4.15.2</b> Export as CSV</a></li>
+<li class="chapter" data-level="4.15.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>4.15.3</b> Export non-CSV files</a></li>
+<li class="chapter" data-level="4.15.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>4.15.4</b> Reading From Text Files</a></li>
+<li class="chapter" data-level="4.15.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>4.15.5</b> Writing Data to Text Files</a></li>
+<li class="chapter" data-level="4.15.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>4.15.6</b> .XLS(X) files</a></li>
+<li class="chapter" data-level="4.15.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>4.15.7</b> Massive files</a></li>
+<li class="chapter" data-level="4.15.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>4.15.8</b> Databases</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="eda.html"><a href="eda.html#visualization"><i class="fa fa-check"></i><b>4.2</b> Visualization</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="eda.html"><a href="eda.html#categorical-data-1"><i class="fa fa-check"></i><b>4.2.1</b> Categorical Data</a></li>
-<li class="chapter" data-level="4.2.2" data-path="eda.html"><a href="eda.html#continuous-data"><i class="fa fa-check"></i><b>4.2.2</b> Continuous Data</a></li>
+<li class="chapter" data-level="4.16" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>4.16</b> Functions</a></li>
+<li class="chapter" data-level="4.17" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>4.17</b> Looping</a></li>
+<li class="chapter" data-level="4.18" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>4.18</b> Apply</a></li>
+<li class="chapter" data-level="4.19" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>4.19</b> Recursion</a></li>
+<li class="chapter" data-level="4.20" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>4.20</b> Dates and Times</a></li>
+<li class="chapter" data-level="4.21" data-path="basics.html"><a href="basics.html#bibliographic-notes-2"><i class="fa fa-check"></i><b>4.21</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="4.22" data-path="basics.html"><a href="basics.html#practice-yourself-2"><i class="fa fa-check"></i><b>4.22</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="eda.html"><a href="eda.html#mixed-type-data"><i class="fa fa-check"></i><b>4.3</b> Mixed Type Data</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="eda.html"><a href="eda.html#alluvian-diagram"><i class="fa fa-check"></i><b>4.3.1</b> Alluvian Diagram</a></li>
+<li class="chapter" data-level="5" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>5</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="5.1" data-path="eda.html"><a href="eda.html#summary-statistics"><i class="fa fa-check"></i><b>5.1</b> Summary Statistics</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="eda.html"><a href="eda.html#categorical-data"><i class="fa fa-check"></i><b>5.1.1</b> Categorical Data</a></li>
+<li class="chapter" data-level="5.1.2" data-path="eda.html"><a href="eda.html#continous-data"><i class="fa fa-check"></i><b>5.1.2</b> Continous Data</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="eda.html"><a href="eda.html#bibliographic-notes-2"><i class="fa fa-check"></i><b>4.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="4.5" data-path="eda.html"><a href="eda.html#practice-yourself-2"><i class="fa fa-check"></i><b>4.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="5.2" data-path="eda.html"><a href="eda.html#visualization"><i class="fa fa-check"></i><b>5.2</b> Visualization</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="eda.html"><a href="eda.html#categorical-data-1"><i class="fa fa-check"></i><b>5.2.1</b> Categorical Data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="eda.html"><a href="eda.html#continuous-data"><i class="fa fa-check"></i><b>5.2.2</b> Continuous Data</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="lm.html"><a href="lm.html"><i class="fa fa-check"></i><b>5</b> Linear Models</a><ul>
-<li class="chapter" data-level="5.1" data-path="lm.html"><a href="lm.html#problem-setup"><i class="fa fa-check"></i><b>5.1</b> Problem Setup</a></li>
-<li class="chapter" data-level="5.2" data-path="lm.html"><a href="lm.html#ols-estimation-in-r"><i class="fa fa-check"></i><b>5.2</b> OLS Estimation in R</a></li>
-<li class="chapter" data-level="5.3" data-path="lm.html"><a href="lm.html#inference"><i class="fa fa-check"></i><b>5.3</b> Inference</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.1</b> Testing a Hypothesis on a Single Coefficient</a></li>
-<li class="chapter" data-level="5.3.2" data-path="lm.html"><a href="lm.html#constructing-a-confidence-interval-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.2</b> Constructing a Confidence Interval on a Single Coefficient</a></li>
-<li class="chapter" data-level="5.3.3" data-path="lm.html"><a href="lm.html#multiple-regression"><i class="fa fa-check"></i><b>5.3.3</b> Multiple Regression</a></li>
-<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#anova"><i class="fa fa-check"></i><b>5.3.4</b> ANOVA (*)</a></li>
-<li class="chapter" data-level="5.3.5" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>5.3.5</b> Testing a Hypothesis on a Single Contrast (*)</a></li>
+<li class="chapter" data-level="5.3" data-path="eda.html"><a href="eda.html#mixed-type-data"><i class="fa fa-check"></i><b>5.3</b> Mixed Type Data</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="eda.html"><a href="eda.html#alluvian-diagram"><i class="fa fa-check"></i><b>5.3.1</b> Alluvian Diagram</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="5.5" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="5.4" data-path="eda.html"><a href="eda.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="5.5" data-path="eda.html"><a href="eda.html#practice-yourself-3"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Models</a><ul>
-<li class="chapter" data-level="6.1" data-path="glm.html"><a href="glm.html#problem-setup-1"><i class="fa fa-check"></i><b>6.1</b> Problem Setup</a></li>
-<li class="chapter" data-level="6.2" data-path="glm.html"><a href="glm.html#logistic-regression"><i class="fa fa-check"></i><b>6.2</b> Logistic Regression</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="glm.html"><a href="glm.html#logistic-regression-with-r"><i class="fa fa-check"></i><b>6.2.1</b> Logistic Regression with R</a></li>
+<li class="chapter" data-level="6" data-path="lm.html"><a href="lm.html"><i class="fa fa-check"></i><b>6</b> Linear Models</a><ul>
+<li class="chapter" data-level="6.1" data-path="lm.html"><a href="lm.html#problem-setup"><i class="fa fa-check"></i><b>6.1</b> Problem Setup</a></li>
+<li class="chapter" data-level="6.2" data-path="lm.html"><a href="lm.html#ols-estimation-in-r"><i class="fa fa-check"></i><b>6.2</b> OLS Estimation in R</a></li>
+<li class="chapter" data-level="6.3" data-path="lm.html"><a href="lm.html#inference"><i class="fa fa-check"></i><b>6.3</b> Inference</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-coefficient"><i class="fa fa-check"></i><b>6.3.1</b> Testing a Hypothesis on a Single Coefficient</a></li>
+<li class="chapter" data-level="6.3.2" data-path="lm.html"><a href="lm.html#constructing-a-confidence-interval-on-a-single-coefficient"><i class="fa fa-check"></i><b>6.3.2</b> Constructing a Confidence Interval on a Single Coefficient</a></li>
+<li class="chapter" data-level="6.3.3" data-path="lm.html"><a href="lm.html#multiple-regression"><i class="fa fa-check"></i><b>6.3.3</b> Multiple Regression</a></li>
+<li class="chapter" data-level="6.3.4" data-path="lm.html"><a href="lm.html#anova"><i class="fa fa-check"></i><b>6.3.4</b> ANOVA (*)</a></li>
+<li class="chapter" data-level="6.3.5" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>6.3.5</b> Testing a Hypothesis on a Single Contrast (*)</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="glm.html"><a href="glm.html#poisson-regression"><i class="fa fa-check"></i><b>6.3</b> Poisson Regression</a></li>
-<li class="chapter" data-level="6.4" data-path="glm.html"><a href="glm.html#extensions"><i class="fa fa-check"></i><b>6.4</b> Extensions</a></li>
-<li class="chapter" data-level="6.5" data-path="glm.html"><a href="glm.html#bibliographic-notes-4"><i class="fa fa-check"></i><b>6.5</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="6.6" data-path="glm.html"><a href="glm.html#practice-glm"><i class="fa fa-check"></i><b>6.6</b> Practice Yourself</a></li>
+<li class="chapter" data-level="6.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-4"><i class="fa fa-check"></i><b>6.4</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="6.5" data-path="lm.html"><a href="lm.html#practice-yourself-4"><i class="fa fa-check"></i><b>6.5</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
-<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#non-linear-mixed-models"><i class="fa fa-check"></i><b>7.1.1</b> Non-Linear Mixed Models</a></li>
-<li class="chapter" data-level="7.1.2" data-path="lme.html"><a href="lme.html#generalized-linear-mixed-models-glmm"><i class="fa fa-check"></i><b>7.1.2</b> Generalized Linear Mixed Models (GLMM)</a></li>
+<li class="chapter" data-level="7" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>7</b> Generalized Linear Models</a><ul>
+<li class="chapter" data-level="7.1" data-path="glm.html"><a href="glm.html#problem-setup-1"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
+<li class="chapter" data-level="7.2" data-path="glm.html"><a href="glm.html#logistic-regression"><i class="fa fa-check"></i><b>7.2</b> Logistic Regression</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="glm.html"><a href="glm.html#logistic-regression-with-r"><i class="fa fa-check"></i><b>7.2.1</b> Logistic Regression with R</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
-<li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
-<li class="chapter" data-level="7.2.2" data-path="lme.html"><a href="lme.html#multiple-random-effects"><i class="fa fa-check"></i><b>7.2.2</b> Multiple Random Effects</a></li>
-<li class="chapter" data-level="7.2.3" data-path="lme.html"><a href="lme.html#a-full-mixed-model"><i class="fa fa-check"></i><b>7.2.3</b> A Full Mixed-Model</a></li>
+<li class="chapter" data-level="7.3" data-path="glm.html"><a href="glm.html#poisson-regression"><i class="fa fa-check"></i><b>7.3</b> Poisson Regression</a></li>
+<li class="chapter" data-level="7.4" data-path="glm.html"><a href="glm.html#extensions"><i class="fa fa-check"></i><b>7.4</b> Extensions</a></li>
+<li class="chapter" data-level="7.5" data-path="glm.html"><a href="glm.html#bibliographic-notes-5"><i class="fa fa-check"></i><b>7.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="7.6" data-path="glm.html"><a href="glm.html#practice-glm"><i class="fa fa-check"></i><b>7.6</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="lme.html"><a href="lme.html#serial-correlations"><i class="fa fa-check"></i><b>7.3</b> Serial Correlations</a></li>
-<li class="chapter" data-level="7.4" data-path="lme.html"><a href="lme.html#manova"><i class="fa fa-check"></i><b>7.4</b> Relation to MANOVA</a></li>
-<li class="chapter" data-level="7.5" data-path="lme.html"><a href="lme.html#the-variance-components-view"><i class="fa fa-check"></i><b>7.5</b> The Variance-Components View</a></li>
-<li class="chapter" data-level="7.6" data-path="lme.html"><a href="lme.html#bibliographic-notes-5"><i class="fa fa-check"></i><b>7.6</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="7.7" data-path="lme.html"><a href="lme.html#practice-yourself-4"><i class="fa fa-check"></i><b>7.7</b> Practice Yourself</a></li>
+<li class="chapter" data-level="8" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>8</b> Linear Mixed Models</a><ul>
+<li class="chapter" data-level="8.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>8.1</b> Problem Setup</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="lme.html"><a href="lme.html#non-linear-mixed-models"><i class="fa fa-check"></i><b>8.1.1</b> Non-Linear Mixed Models</a></li>
+<li class="chapter" data-level="8.1.2" data-path="lme.html"><a href="lme.html#generalized-linear-mixed-models-glmm"><i class="fa fa-check"></i><b>8.1.2</b> Generalized Linear Mixed Models (GLMM)</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="multivariate.html"><a href="multivariate.html"><i class="fa fa-check"></i><b>8</b> Multivariate Data Analysis</a><ul>
-<li class="chapter" data-level="8.1" data-path="multivariate.html"><a href="multivariate.html#signal-detection"><i class="fa fa-check"></i><b>8.1</b> Signal Detection</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="multivariate.html"><a href="multivariate.html#hotellings-t2-test"><i class="fa fa-check"></i><b>8.1.1</b> Hotelling’s T2 Test</a></li>
-<li class="chapter" data-level="8.1.2" data-path="multivariate.html"><a href="multivariate.html#various-types-of-signal-to-detect"><i class="fa fa-check"></i><b>8.1.2</b> Various Types of Signal to Detect</a></li>
-<li class="chapter" data-level="8.1.3" data-path="multivariate.html"><a href="multivariate.html#simes-test"><i class="fa fa-check"></i><b>8.1.3</b> Simes’ Test</a></li>
-<li class="chapter" data-level="8.1.4" data-path="multivariate.html"><a href="multivariate.html#signal-detection-with-r"><i class="fa fa-check"></i><b>8.1.4</b> Signal Detection with R</a></li>
+<li class="chapter" data-level="8.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>8.2</b> Mixed Models with R</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>8.2.1</b> A Single Random Effect</a></li>
+<li class="chapter" data-level="8.2.2" data-path="lme.html"><a href="lme.html#multiple-random-effects"><i class="fa fa-check"></i><b>8.2.2</b> Multiple Random Effects</a></li>
+<li class="chapter" data-level="8.2.3" data-path="lme.html"><a href="lme.html#a-full-mixed-model"><i class="fa fa-check"></i><b>8.2.3</b> A Full Mixed-Model</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="multivariate.html"><a href="multivariate.html#signal-counting"><i class="fa fa-check"></i><b>8.2</b> Signal Counting</a></li>
-<li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>8.3.1</b> Signal Identification in R</a></li>
+<li class="chapter" data-level="8.3" data-path="lme.html"><a href="lme.html#serial"><i class="fa fa-check"></i><b>8.3</b> Serial Correlations</a></li>
+<li class="chapter" data-level="8.4" data-path="lme.html"><a href="lme.html#extensions-1"><i class="fa fa-check"></i><b>8.4</b> Extensions</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="lme.html"><a href="lme.html#cluster-robust-standard-errors"><i class="fa fa-check"></i><b>8.4.1</b> Cluster Robust Standard Errors</a></li>
+<li class="chapter" data-level="8.4.2" data-path="lme.html"><a href="lme.html#linear-models-for-panel-data"><i class="fa fa-check"></i><b>8.4.2</b> Linear Models for Panel Data</a></li>
+<li class="chapter" data-level="8.4.3" data-path="lme.html"><a href="lme.html#testing-hypotheses-on-correlations"><i class="fa fa-check"></i><b>8.4.3</b> Testing Hypotheses on Correlations</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation (*)</a></li>
-<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression (*)</a><ul>
-<li class="chapter" data-level="8.5.1" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression-with-r"><i class="fa fa-check"></i><b>8.5.1</b> Multivariate Regression with R</a></li>
+<li class="chapter" data-level="8.5" data-path="lme.html"><a href="lme.html#relation-to-other-estimators"><i class="fa fa-check"></i><b>8.5</b> Relation to Other Estimators</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="lme.html"><a href="lme.html#fixed-effects-in-the-econometric-literature"><i class="fa fa-check"></i><b>8.5.1</b> Fixed Effects in the Econometric Literature</a></li>
+<li class="chapter" data-level="8.5.2" data-path="lme.html"><a href="lme.html#relation-to-generalized-least-squares-gls"><i class="fa fa-check"></i><b>8.5.2</b> Relation to Generalized Least Squares (GLS)</a></li>
+<li class="chapter" data-level="8.5.3" data-path="lme.html"><a href="lme.html#relation-to-conditional-gaussian-fields"><i class="fa fa-check"></i><b>8.5.3</b> Relation to Conditional Gaussian Fields</a></li>
+<li class="chapter" data-level="8.5.4" data-path="lme.html"><a href="lme.html#relation-to-empirical-risk-minimization-erm"><i class="fa fa-check"></i><b>8.5.4</b> Relation to Empirical Risk Minimization (ERM)</a></li>
+<li class="chapter" data-level="8.5.5" data-path="lme.html"><a href="lme.html#relation-to-m-estimation"><i class="fa fa-check"></i><b>8.5.5</b> Relation to M-Estimation</a></li>
+<li class="chapter" data-level="8.5.6" data-path="lme.html"><a href="lme.html#relation-to-generalize-estimating-equations-gee"><i class="fa fa-check"></i><b>8.5.6</b> Relation to Generalize Estimating Equations (GEE)</a></li>
+<li class="chapter" data-level="8.5.7" data-path="lme.html"><a href="lme.html#manova"><i class="fa fa-check"></i><b>8.5.7</b> Relation to MANOVA</a></li>
+<li class="chapter" data-level="8.5.8" data-path="lme.html"><a href="lme.html#relation-to-seemingly-unrelated-equations-sur"><i class="fa fa-check"></i><b>8.5.8</b> Relation to Seemingly Unrelated Equations (SUR)</a></li>
 </ul></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models (*)</a><ul>
-<li class="chapter" data-level="8.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>8.6.1</b> Graphical Models in R</a></li>
+<li class="chapter" data-level="8.6" data-path="lme.html"><a href="lme.html#the-variance-components-view"><i class="fa fa-check"></i><b>8.6</b> The Variance-Components View</a></li>
+<li class="chapter" data-level="8.7" data-path="lme.html"><a href="lme.html#bibliographic-notes-6"><i class="fa fa-check"></i><b>8.7</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="8.8" data-path="lme.html"><a href="lme.html#practice-yourself-5"><i class="fa fa-check"></i><b>8.8</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
-<li class="chapter" data-level="8.8" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-5"><i class="fa fa-check"></i><b>8.8</b> Practice Yourself</a></li>
+<li class="chapter" data-level="9" data-path="multivariate.html"><a href="multivariate.html"><i class="fa fa-check"></i><b>9</b> Multivariate Data Analysis</a><ul>
+<li class="chapter" data-level="9.1" data-path="multivariate.html"><a href="multivariate.html#signal-detection"><i class="fa fa-check"></i><b>9.1</b> Signal Detection</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="multivariate.html"><a href="multivariate.html#hotellings-t2-test"><i class="fa fa-check"></i><b>9.1.1</b> Hotelling’s T2 Test</a></li>
+<li class="chapter" data-level="9.1.2" data-path="multivariate.html"><a href="multivariate.html#various-types-of-signal-to-detect"><i class="fa fa-check"></i><b>9.1.2</b> Various Types of Signal to Detect</a></li>
+<li class="chapter" data-level="9.1.3" data-path="multivariate.html"><a href="multivariate.html#simes-test"><i class="fa fa-check"></i><b>9.1.3</b> Simes’ Test</a></li>
+<li class="chapter" data-level="9.1.4" data-path="multivariate.html"><a href="multivariate.html#signal-detection-with-r"><i class="fa fa-check"></i><b>9.1.4</b> Signal Detection with R</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>9</b> Supervised Learning</a><ul>
-<li class="chapter" data-level="9.1" data-path="supervised.html"><a href="supervised.html#problem-setup-3"><i class="fa fa-check"></i><b>9.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="9.1.1" data-path="supervised.html"><a href="supervised.html#common-hypothesis-classes"><i class="fa fa-check"></i><b>9.1.1</b> Common Hypothesis Classes</a></li>
-<li class="chapter" data-level="9.1.2" data-path="supervised.html"><a href="supervised.html#common-complexity-penalties"><i class="fa fa-check"></i><b>9.1.2</b> Common Complexity Penalties</a></li>
-<li class="chapter" data-level="9.1.3" data-path="supervised.html"><a href="supervised.html#unbiased-risk-estimation"><i class="fa fa-check"></i><b>9.1.3</b> Unbiased Risk Estimation</a></li>
-<li class="chapter" data-level="9.1.4" data-path="supervised.html"><a href="supervised.html#collecting-the-pieces"><i class="fa fa-check"></i><b>9.1.4</b> Collecting the Pieces</a></li>
+<li class="chapter" data-level="9.2" data-path="multivariate.html"><a href="multivariate.html#signal-counting"><i class="fa fa-check"></i><b>9.2</b> Signal Counting</a></li>
+<li class="chapter" data-level="9.3" data-path="multivariate.html"><a href="multivariate.html#identification"><i class="fa fa-check"></i><b>9.3</b> Signal Identification</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>9.3.1</b> Signal Identification in R</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="supervised.html"><a href="supervised.html#supervised-learning-in-r"><i class="fa fa-check"></i><b>9.2</b> Supervised Learning in R</a><ul>
-<li class="chapter" data-level="9.2.1" data-path="supervised.html"><a href="supervised.html#least-squares"><i class="fa fa-check"></i><b>9.2.1</b> Linear Models with Least Squares Loss</a></li>
-<li class="chapter" data-level="9.2.2" data-path="supervised.html"><a href="supervised.html#svm"><i class="fa fa-check"></i><b>9.2.2</b> SVM</a></li>
-<li class="chapter" data-level="9.2.3" data-path="supervised.html"><a href="supervised.html#neural-nets"><i class="fa fa-check"></i><b>9.2.3</b> Neural Nets</a></li>
-<li class="chapter" data-level="9.2.4" data-path="supervised.html"><a href="supervised.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>9.2.4</b> Classification and Regression Trees (CART)</a></li>
-<li class="chapter" data-level="9.2.5" data-path="supervised.html"><a href="supervised.html#k-nearest-neighbour-knn"><i class="fa fa-check"></i><b>9.2.5</b> K-nearest neighbour (KNN)</a></li>
-<li class="chapter" data-level="9.2.6" data-path="supervised.html"><a href="supervised.html#linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>9.2.6</b> Linear Discriminant Analysis (LDA)</a></li>
-<li class="chapter" data-level="9.2.7" data-path="supervised.html"><a href="supervised.html#naive-bayes"><i class="fa fa-check"></i><b>9.2.7</b> Naive Bayes</a></li>
-<li class="chapter" data-level="9.2.8" data-path="supervised.html"><a href="supervised.html#random-forrest"><i class="fa fa-check"></i><b>9.2.8</b> Random Forrest</a></li>
-<li class="chapter" data-level="9.2.9" data-path="supervised.html"><a href="supervised.html#gradient-boosting"><i class="fa fa-check"></i><b>9.2.9</b> Gradient Boosting</a></li>
+<li class="chapter" data-level="9.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>9.4</b> Signal Estimation (*)</a></li>
+<li class="chapter" data-level="9.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>9.5</b> Multivariate Regression (*)</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression-with-r"><i class="fa fa-check"></i><b>9.5.1</b> Multivariate Regression with R</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="supervised.html"><a href="supervised.html#bibliographic-notes-6"><i class="fa fa-check"></i><b>9.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="9.4" data-path="supervised.html"><a href="supervised.html#practice-yourself-6"><i class="fa fa-check"></i><b>9.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="9.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>9.6</b> Graphical Models (*)</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>9.6.1</b> Graphical Models in R</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="unsupervised.html"><a href="unsupervised.html"><i class="fa fa-check"></i><b>10</b> Unsupervised Learning</a><ul>
-<li class="chapter" data-level="10.1" data-path="unsupervised.html"><a href="unsupervised.html#dim-reduce"><i class="fa fa-check"></i><b>10.1</b> Dimensionality Reduction</a><ul>
-<li class="chapter" data-level="10.1.1" data-path="unsupervised.html"><a href="unsupervised.html#pca"><i class="fa fa-check"></i><b>10.1.1</b> Principal Component Analysis</a></li>
-<li class="chapter" data-level="10.1.2" data-path="unsupervised.html"><a href="unsupervised.html#dimensionality-reduction-preliminaries"><i class="fa fa-check"></i><b>10.1.2</b> Dimensionality Reduction Preliminaries</a></li>
-<li class="chapter" data-level="10.1.3" data-path="unsupervised.html"><a href="unsupervised.html#latent-variable-generative-approaches"><i class="fa fa-check"></i><b>10.1.3</b> Latent Variable Generative Approaches</a></li>
-<li class="chapter" data-level="10.1.4" data-path="unsupervised.html"><a href="unsupervised.html#purely-algorithmic-approaches"><i class="fa fa-check"></i><b>10.1.4</b> Purely Algorithmic Approaches</a></li>
-<li class="chapter" data-level="10.1.5" data-path="unsupervised.html"><a href="unsupervised.html#dimensionality-reduction-in-r"><i class="fa fa-check"></i><b>10.1.5</b> Dimensionality Reduction in R</a></li>
+<li class="chapter" data-level="9.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>9.7</b> Biblipgraphic Notes</a></li>
+<li class="chapter" data-level="9.8" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-6"><i class="fa fa-check"></i><b>9.8</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="10.2" data-path="unsupervised.html"><a href="unsupervised.html#cluster"><i class="fa fa-check"></i><b>10.2</b> Clustering</a><ul>
-<li class="chapter" data-level="10.2.1" data-path="unsupervised.html"><a href="unsupervised.html#latent-variable-generative-approaches-1"><i class="fa fa-check"></i><b>10.2.1</b> Latent Variable Generative Approaches</a></li>
-<li class="chapter" data-level="10.2.2" data-path="unsupervised.html"><a href="unsupervised.html#purely-algorithmic-approaches-1"><i class="fa fa-check"></i><b>10.2.2</b> Purely Algorithmic Approaches</a></li>
-<li class="chapter" data-level="10.2.3" data-path="unsupervised.html"><a href="unsupervised.html#clustering-in-r"><i class="fa fa-check"></i><b>10.2.3</b> Clustering in R</a></li>
+<li class="chapter" data-level="10" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>10</b> Supervised Learning</a><ul>
+<li class="chapter" data-level="10.1" data-path="supervised.html"><a href="supervised.html#problem-setup-3"><i class="fa fa-check"></i><b>10.1</b> Problem Setup</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="supervised.html"><a href="supervised.html#common-hypothesis-classes"><i class="fa fa-check"></i><b>10.1.1</b> Common Hypothesis Classes</a></li>
+<li class="chapter" data-level="10.1.2" data-path="supervised.html"><a href="supervised.html#common-complexity-penalties"><i class="fa fa-check"></i><b>10.1.2</b> Common Complexity Penalties</a></li>
+<li class="chapter" data-level="10.1.3" data-path="supervised.html"><a href="supervised.html#unbiased-risk-estimation"><i class="fa fa-check"></i><b>10.1.3</b> Unbiased Risk Estimation</a></li>
+<li class="chapter" data-level="10.1.4" data-path="supervised.html"><a href="supervised.html#collecting-the-pieces"><i class="fa fa-check"></i><b>10.1.4</b> Collecting the Pieces</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="unsupervised.html"><a href="unsupervised.html#bibliographic-notes-7"><i class="fa fa-check"></i><b>10.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="10.4" data-path="unsupervised.html"><a href="unsupervised.html#practice-yourself-7"><i class="fa fa-check"></i><b>10.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="10.2" data-path="supervised.html"><a href="supervised.html#supervised-learning-in-r"><i class="fa fa-check"></i><b>10.2</b> Supervised Learning in R</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="supervised.html"><a href="supervised.html#least-squares"><i class="fa fa-check"></i><b>10.2.1</b> Linear Models with Least Squares Loss</a></li>
+<li class="chapter" data-level="10.2.2" data-path="supervised.html"><a href="supervised.html#svm"><i class="fa fa-check"></i><b>10.2.2</b> SVM</a></li>
+<li class="chapter" data-level="10.2.3" data-path="supervised.html"><a href="supervised.html#neural-nets"><i class="fa fa-check"></i><b>10.2.3</b> Neural Nets</a></li>
+<li class="chapter" data-level="10.2.4" data-path="supervised.html"><a href="supervised.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>10.2.4</b> Classification and Regression Trees (CART)</a></li>
+<li class="chapter" data-level="10.2.5" data-path="supervised.html"><a href="supervised.html#k-nearest-neighbour-knn"><i class="fa fa-check"></i><b>10.2.5</b> K-nearest neighbour (KNN)</a></li>
+<li class="chapter" data-level="10.2.6" data-path="supervised.html"><a href="supervised.html#linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>10.2.6</b> Linear Discriminant Analysis (LDA)</a></li>
+<li class="chapter" data-level="10.2.7" data-path="supervised.html"><a href="supervised.html#naive-bayes"><i class="fa fa-check"></i><b>10.2.7</b> Naive Bayes</a></li>
+<li class="chapter" data-level="10.2.8" data-path="supervised.html"><a href="supervised.html#random-forrest"><i class="fa fa-check"></i><b>10.2.8</b> Random Forrest</a></li>
+<li class="chapter" data-level="10.2.9" data-path="supervised.html"><a href="supervised.html#gradient-boosting"><i class="fa fa-check"></i><b>10.2.9</b> Gradient Boosting</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>11</b> Plotting</a><ul>
-<li class="chapter" data-level="11.1" data-path="plotting.html"><a href="plotting.html#the-graphics-system"><i class="fa fa-check"></i><b>11.1</b> The graphics System</a><ul>
-<li class="chapter" data-level="11.1.1" data-path="plotting.html"><a href="plotting.html#using-existing-plotting-functions"><i class="fa fa-check"></i><b>11.1.1</b> Using Existing Plotting Functions</a></li>
-<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.2</b> Exporting a Plot</a></li>
-<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#fancy"><i class="fa fa-check"></i><b>11.1.3</b> Fancy graphics Examples</a></li>
+<li class="chapter" data-level="10.3" data-path="supervised.html"><a href="supervised.html#bibliographic-notes-7"><i class="fa fa-check"></i><b>10.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="10.4" data-path="supervised.html"><a href="supervised.html#practice-yourself-7"><i class="fa fa-check"></i><b>10.4</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="plotting.html"><a href="plotting.html#the-ggplot2-system"><i class="fa fa-check"></i><b>11.2</b> The ggplot2 System</a><ul>
-<li class="chapter" data-level="11.2.1" data-path="plotting.html"><a href="plotting.html#extensions-of-the-ggplot2-system"><i class="fa fa-check"></i><b>11.2.1</b> Extensions of the ggplot2 System</a></li>
+<li class="chapter" data-level="11" data-path="unsupervised.html"><a href="unsupervised.html"><i class="fa fa-check"></i><b>11</b> Unsupervised Learning</a><ul>
+<li class="chapter" data-level="11.1" data-path="unsupervised.html"><a href="unsupervised.html#dim-reduce"><i class="fa fa-check"></i><b>11.1</b> Dimensionality Reduction</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="unsupervised.html"><a href="unsupervised.html#pca"><i class="fa fa-check"></i><b>11.1.1</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="11.1.2" data-path="unsupervised.html"><a href="unsupervised.html#dimensionality-reduction-preliminaries"><i class="fa fa-check"></i><b>11.1.2</b> Dimensionality Reduction Preliminaries</a></li>
+<li class="chapter" data-level="11.1.3" data-path="unsupervised.html"><a href="unsupervised.html#latent-variable-generative-approaches"><i class="fa fa-check"></i><b>11.1.3</b> Latent Variable Generative Approaches</a></li>
+<li class="chapter" data-level="11.1.4" data-path="unsupervised.html"><a href="unsupervised.html#purely-algorithmic-approaches"><i class="fa fa-check"></i><b>11.1.4</b> Purely Algorithmic Approaches</a></li>
+<li class="chapter" data-level="11.1.5" data-path="unsupervised.html"><a href="unsupervised.html#dimensionality-reduction-in-r"><i class="fa fa-check"></i><b>11.1.5</b> Dimensionality Reduction in R</a></li>
 </ul></li>
-<li class="chapter" data-level="11.3" data-path="plotting.html"><a href="plotting.html#interactive-graphics"><i class="fa fa-check"></i><b>11.3</b> Interactive Graphics</a><ul>
-<li class="chapter" data-level="11.3.1" data-path="plotting.html"><a href="plotting.html#plotly"><i class="fa fa-check"></i><b>11.3.1</b> Plotly</a></li>
+<li class="chapter" data-level="11.2" data-path="unsupervised.html"><a href="unsupervised.html#cluster"><i class="fa fa-check"></i><b>11.2</b> Clustering</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="unsupervised.html"><a href="unsupervised.html#latent-variable-generative-approaches-1"><i class="fa fa-check"></i><b>11.2.1</b> Latent Variable Generative Approaches</a></li>
+<li class="chapter" data-level="11.2.2" data-path="unsupervised.html"><a href="unsupervised.html#purely-algorithmic-approaches-1"><i class="fa fa-check"></i><b>11.2.2</b> Purely Algorithmic Approaches</a></li>
+<li class="chapter" data-level="11.2.3" data-path="unsupervised.html"><a href="unsupervised.html#clustering-in-r"><i class="fa fa-check"></i><b>11.2.3</b> Clustering in R</a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="plotting.html"><a href="plotting.html#bibliographic-notes-8"><i class="fa fa-check"></i><b>11.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="11.5" data-path="plotting.html"><a href="plotting.html#practice-yourself-8"><i class="fa fa-check"></i><b>11.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="11.3" data-path="unsupervised.html"><a href="unsupervised.html#bibliographic-notes-8"><i class="fa fa-check"></i><b>11.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="11.4" data-path="unsupervised.html"><a href="unsupervised.html#practice-yourself-8"><i class="fa fa-check"></i><b>11.4</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="report.html"><a href="report.html"><i class="fa fa-check"></i><b>12</b> Reports</a><ul>
-<li class="chapter" data-level="12.1" data-path="report.html"><a href="report.html#knitr"><i class="fa fa-check"></i><b>12.1</b> knitr</a><ul>
-<li class="chapter" data-level="12.1.1" data-path="report.html"><a href="report.html#installation"><i class="fa fa-check"></i><b>12.1.1</b> Installation</a></li>
-<li class="chapter" data-level="12.1.2" data-path="report.html"><a href="report.html#pandoc-markdown"><i class="fa fa-check"></i><b>12.1.2</b> Pandoc Markdown</a></li>
-<li class="chapter" data-level="12.1.3" data-path="report.html"><a href="report.html#rmarkdown"><i class="fa fa-check"></i><b>12.1.3</b> Rmarkdown</a></li>
-<li class="chapter" data-level="12.1.4" data-path="report.html"><a href="report.html#bibtex"><i class="fa fa-check"></i><b>12.1.4</b> BibTex</a></li>
-<li class="chapter" data-level="12.1.5" data-path="report.html"><a href="report.html#compiling"><i class="fa fa-check"></i><b>12.1.5</b> Compiling</a></li>
+<li class="chapter" data-level="12" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>12</b> Plotting</a><ul>
+<li class="chapter" data-level="12.1" data-path="plotting.html"><a href="plotting.html#the-graphics-system"><i class="fa fa-check"></i><b>12.1</b> The graphics System</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="plotting.html"><a href="plotting.html#using-existing-plotting-functions"><i class="fa fa-check"></i><b>12.1.1</b> Using Existing Plotting Functions</a></li>
+<li class="chapter" data-level="12.1.2" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>12.1.2</b> Exporting a Plot</a></li>
+<li class="chapter" data-level="12.1.3" data-path="plotting.html"><a href="plotting.html#fancy"><i class="fa fa-check"></i><b>12.1.3</b> Fancy graphics Examples</a></li>
 </ul></li>
-<li class="chapter" data-level="12.2" data-path="report.html"><a href="report.html#bookdown"><i class="fa fa-check"></i><b>12.2</b> bookdown</a></li>
-<li class="chapter" data-level="12.3" data-path="report.html"><a href="report.html#shiny"><i class="fa fa-check"></i><b>12.3</b> Shiny</a><ul>
-<li class="chapter" data-level="12.3.1" data-path="report.html"><a href="report.html#installation-1"><i class="fa fa-check"></i><b>12.3.1</b> Installation</a></li>
-<li class="chapter" data-level="12.3.2" data-path="report.html"><a href="report.html#the-basics-of-shiny"><i class="fa fa-check"></i><b>12.3.2</b> The Basics of Shiny</a></li>
-<li class="chapter" data-level="12.3.3" data-path="report.html"><a href="report.html#beyond-the-basics"><i class="fa fa-check"></i><b>12.3.3</b> Beyond the Basics</a></li>
-<li class="chapter" data-level="12.3.4" data-path="report.html"><a href="report.html#shinydashboard"><i class="fa fa-check"></i><b>12.3.4</b> shinydashboard</a></li>
+<li class="chapter" data-level="12.2" data-path="plotting.html"><a href="plotting.html#the-ggplot2-system"><i class="fa fa-check"></i><b>12.2</b> The ggplot2 System</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="plotting.html"><a href="plotting.html#extensions-of-the-ggplot2-system"><i class="fa fa-check"></i><b>12.2.1</b> Extensions of the ggplot2 System</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="report.html"><a href="report.html#flexdashboard"><i class="fa fa-check"></i><b>12.4</b> flexdashboard</a></li>
-<li class="chapter" data-level="12.5" data-path="report.html"><a href="report.html#bibliographic-notes-9"><i class="fa fa-check"></i><b>12.5</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="12.6" data-path="report.html"><a href="report.html#practice-yourself-9"><i class="fa fa-check"></i><b>12.6</b> Practice Yourself</a></li>
+<li class="chapter" data-level="12.3" data-path="plotting.html"><a href="plotting.html#interactive-graphics"><i class="fa fa-check"></i><b>12.3</b> Interactive Graphics</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="plotting.html"><a href="plotting.html#plotly"><i class="fa fa-check"></i><b>12.3.1</b> Plotly</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>13</b> Sparse Representations</a><ul>
-<li class="chapter" data-level="13.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>13.1</b> Sparse Matrix Representations</a><ul>
-<li class="chapter" data-level="13.1.1" data-path="sparse.html"><a href="sparse.html#coo"><i class="fa fa-check"></i><b>13.1.1</b> Coordinate List Representation</a></li>
-<li class="chapter" data-level="13.1.2" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>13.1.2</b> Compressed Column Oriented Representation</a></li>
-<li class="chapter" data-level="13.1.3" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>13.1.3</b> Compressed Row Oriented Representation</a></li>
-<li class="chapter" data-level="13.1.4" data-path="sparse.html"><a href="sparse.html#sparse-algorithms"><i class="fa fa-check"></i><b>13.1.4</b> Sparse Algorithms</a></li>
+<li class="chapter" data-level="12.4" data-path="plotting.html"><a href="plotting.html#r2d3"><i class="fa fa-check"></i><b>12.4</b> r2d3</a></li>
+<li class="chapter" data-level="12.5" data-path="plotting.html"><a href="plotting.html#bibliographic-notes-9"><i class="fa fa-check"></i><b>12.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="12.6" data-path="plotting.html"><a href="plotting.html#practice-yourself-9"><i class="fa fa-check"></i><b>12.6</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="13.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>13.2</b> Sparse Matrices and Sparse Models in R</a><ul>
-<li class="chapter" data-level="13.2.1" data-path="sparse.html"><a href="sparse.html#the-matrix-package"><i class="fa fa-check"></i><b>13.2.1</b> The Matrix Package</a></li>
-<li class="chapter" data-level="13.2.2" data-path="sparse.html"><a href="sparse.html#the-matrixmodels-package"><i class="fa fa-check"></i><b>13.2.2</b> The MatrixModels Package</a></li>
-<li class="chapter" data-level="13.2.3" data-path="sparse.html"><a href="sparse.html#the-glmnet-package"><i class="fa fa-check"></i><b>13.2.3</b> The glmnet Package</a></li>
-<li class="chapter" data-level="13.2.4" data-path="sparse.html"><a href="sparse.html#the-sparsem-package"><i class="fa fa-check"></i><b>13.2.4</b> The SparseM Package</a></li>
+<li class="chapter" data-level="13" data-path="report.html"><a href="report.html"><i class="fa fa-check"></i><b>13</b> Reports</a><ul>
+<li class="chapter" data-level="13.1" data-path="report.html"><a href="report.html#knitr"><i class="fa fa-check"></i><b>13.1</b> knitr</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="report.html"><a href="report.html#installation"><i class="fa fa-check"></i><b>13.1.1</b> Installation</a></li>
+<li class="chapter" data-level="13.1.2" data-path="report.html"><a href="report.html#pandoc-markdown"><i class="fa fa-check"></i><b>13.1.2</b> Pandoc Markdown</a></li>
+<li class="chapter" data-level="13.1.3" data-path="report.html"><a href="report.html#rmarkdown"><i class="fa fa-check"></i><b>13.1.3</b> Rmarkdown</a></li>
+<li class="chapter" data-level="13.1.4" data-path="report.html"><a href="report.html#bibtex"><i class="fa fa-check"></i><b>13.1.4</b> BibTex</a></li>
+<li class="chapter" data-level="13.1.5" data-path="report.html"><a href="report.html#compiling"><i class="fa fa-check"></i><b>13.1.5</b> Compiling</a></li>
 </ul></li>
-<li class="chapter" data-level="13.3" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-10"><i class="fa fa-check"></i><b>13.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="13.4" data-path="sparse.html"><a href="sparse.html#practice-yourself-10"><i class="fa fa-check"></i><b>13.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="13.2" data-path="report.html"><a href="report.html#bookdown"><i class="fa fa-check"></i><b>13.2</b> bookdown</a></li>
+<li class="chapter" data-level="13.3" data-path="report.html"><a href="report.html#shiny"><i class="fa fa-check"></i><b>13.3</b> Shiny</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="report.html"><a href="report.html#installation-1"><i class="fa fa-check"></i><b>13.3.1</b> Installation</a></li>
+<li class="chapter" data-level="13.3.2" data-path="report.html"><a href="report.html#the-basics-of-shiny"><i class="fa fa-check"></i><b>13.3.2</b> The Basics of Shiny</a></li>
+<li class="chapter" data-level="13.3.3" data-path="report.html"><a href="report.html#beyond-the-basics"><i class="fa fa-check"></i><b>13.3.3</b> Beyond the Basics</a></li>
+<li class="chapter" data-level="13.3.4" data-path="report.html"><a href="report.html#shinydashboard"><i class="fa fa-check"></i><b>13.3.4</b> shinydashboard</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>14</b> Memory Efficiency</a><ul>
-<li class="chapter" data-level="14.1" data-path="memory.html"><a href="memory.html#efficient-computing-from-ram"><i class="fa fa-check"></i><b>14.1</b> Efficient Computing from RAM</a><ul>
-<li class="chapter" data-level="14.1.1" data-path="memory.html"><a href="memory.html#summary-statistics-from-ram"><i class="fa fa-check"></i><b>14.1.1</b> Summary Statistics from RAM</a></li>
+<li class="chapter" data-level="13.4" data-path="report.html"><a href="report.html#flexdashboard"><i class="fa fa-check"></i><b>13.4</b> flexdashboard</a></li>
+<li class="chapter" data-level="13.5" data-path="report.html"><a href="report.html#bibliographic-notes-10"><i class="fa fa-check"></i><b>13.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="13.6" data-path="report.html"><a href="report.html#practice-yourself-10"><i class="fa fa-check"></i><b>13.6</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="14.2" data-path="memory.html"><a href="memory.html#computing-from-a-database"><i class="fa fa-check"></i><b>14.2</b> Computing from a Database</a></li>
-<li class="chapter" data-level="14.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>14.3</b> Computing From Efficient File Structrures</a><ul>
-<li class="chapter" data-level="14.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>14.3.1</b> bigmemory</a></li>
+<li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a><ul>
+<li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="sparse.html"><a href="sparse.html#coo"><i class="fa fa-check"></i><b>14.1.1</b> Coordinate List Representation</a></li>
+<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Column Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.4" data-path="sparse.html"><a href="sparse.html#sparse-algorithms"><i class="fa fa-check"></i><b>14.1.4</b> Sparse Algorithms</a></li>
 </ul></li>
-<li class="chapter" data-level="14.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>14.4</b> ff</a></li>
-<li class="chapter" data-level="14.5" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>14.5</b> matter</a></li>
-<li class="chapter" data-level="14.6" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>14.6</b> iotools</a></li>
-<li class="chapter" data-level="14.7" data-path="memory.html"><a href="memory.html#hdf5"><i class="fa fa-check"></i><b>14.7</b> HDF5</a></li>
-<li class="chapter" data-level="14.8" data-path="memory.html"><a href="memory.html#delayedarray"><i class="fa fa-check"></i><b>14.8</b> DelayedArray</a><ul>
-<li class="chapter" data-level="14.8.1" data-path="memory.html"><a href="memory.html#delayedmatrixstats"><i class="fa fa-check"></i><b>14.8.1</b> DelayedMatrixStats</a></li>
-<li class="chapter" data-level="14.8.2" data-path="memory.html"><a href="memory.html#beachmat"><i class="fa fa-check"></i><b>14.8.2</b> beachmat</a></li>
-<li class="chapter" data-level="14.8.3" data-path="memory.html"><a href="memory.html#restfulse"><i class="fa fa-check"></i><b>14.8.3</b> restfulSE</a></li>
+<li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="sparse.html"><a href="sparse.html#the-matrix-package"><i class="fa fa-check"></i><b>14.2.1</b> The Matrix Package</a></li>
+<li class="chapter" data-level="14.2.2" data-path="sparse.html"><a href="sparse.html#the-matrixmodels-package"><i class="fa fa-check"></i><b>14.2.2</b> The MatrixModels Package</a></li>
+<li class="chapter" data-level="14.2.3" data-path="sparse.html"><a href="sparse.html#the-glmnet-package"><i class="fa fa-check"></i><b>14.2.3</b> The glmnet Package</a></li>
+<li class="chapter" data-level="14.2.4" data-path="sparse.html"><a href="sparse.html#the-sparsem-package"><i class="fa fa-check"></i><b>14.2.4</b> The SparseM Package</a></li>
 </ul></li>
-<li class="chapter" data-level="14.9" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>14.9</b> Computing from a Distributed File System</a></li>
-<li class="chapter" data-level="14.10" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>14.10</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="14.11" data-path="memory.html"><a href="memory.html#practice-yourself-11"><i class="fa fa-check"></i><b>14.11</b> Practice Yourself</a></li>
+<li class="chapter" data-level="14.3" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>14.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="14.4" data-path="sparse.html"><a href="sparse.html#practice-yourself-11"><i class="fa fa-check"></i><b>14.4</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>15</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="15.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>15.1</b> Implicit Parallelism</a></li>
-<li class="chapter" data-level="15.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>15.2</b> Explicit Parallelism</a><ul>
-<li class="chapter" data-level="15.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>15.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
+<li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a><ul>
+<li class="chapter" data-level="15.1" data-path="memory.html"><a href="memory.html#efficient-computing-from-ram"><i class="fa fa-check"></i><b>15.1</b> Efficient Computing from RAM</a><ul>
+<li class="chapter" data-level="15.1.1" data-path="memory.html"><a href="memory.html#summary-statistics-from-ram"><i class="fa fa-check"></i><b>15.1.1</b> Summary Statistics from RAM</a></li>
 </ul></li>
-<li class="chapter" data-level="15.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>15.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="15.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-12"><i class="fa fa-check"></i><b>15.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="15.2" data-path="memory.html"><a href="memory.html#computing-from-a-database"><i class="fa fa-check"></i><b>15.2</b> Computing from a Database</a></li>
+<li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>16</b> Numerical Linear Algebra</a><ul>
-<li class="chapter" data-level="16.1" data-path="algebra.html"><a href="algebra.html#lu-factorization"><i class="fa fa-check"></i><b>16.1</b> LU Factorization</a></li>
-<li class="chapter" data-level="16.2" data-path="algebra.html"><a href="algebra.html#cholesky-factorization"><i class="fa fa-check"></i><b>16.2</b> Cholesky Factorization</a></li>
-<li class="chapter" data-level="16.3" data-path="algebra.html"><a href="algebra.html#qr-factorization"><i class="fa fa-check"></i><b>16.3</b> QR Factorization</a></li>
-<li class="chapter" data-level="16.4" data-path="algebra.html"><a href="algebra.html#singular-value-factorization"><i class="fa fa-check"></i><b>16.4</b> Singular Value Factorization</a></li>
-<li class="chapter" data-level="16.5" data-path="algebra.html"><a href="algebra.html#iterative-methods"><i class="fa fa-check"></i><b>16.5</b> Iterative Methods</a></li>
-<li class="chapter" data-level="16.6" data-path="algebra.html"><a href="algebra.html#solving-ols"><i class="fa fa-check"></i><b>16.6</b> Solving the OLS Problem</a></li>
-<li class="chapter" data-level="16.7" data-path="algebra.html"><a href="algebra.html#bibliographic-notes-13"><i class="fa fa-check"></i><b>16.7</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="16.8" data-path="algebra.html"><a href="algebra.html#practice-yourself-13"><i class="fa fa-check"></i><b>16.8</b> Practice Yourself</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
+<li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.5</b> matter</a></li>
+<li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.6</b> iotools</a></li>
+<li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#hdf5"><i class="fa fa-check"></i><b>15.7</b> HDF5</a></li>
+<li class="chapter" data-level="15.8" data-path="memory.html"><a href="memory.html#delayedarray"><i class="fa fa-check"></i><b>15.8</b> DelayedArray</a><ul>
+<li class="chapter" data-level="15.8.1" data-path="memory.html"><a href="memory.html#delayedmatrixstats"><i class="fa fa-check"></i><b>15.8.1</b> DelayedMatrixStats</a></li>
+<li class="chapter" data-level="15.8.2" data-path="memory.html"><a href="memory.html#beachmat"><i class="fa fa-check"></i><b>15.8.2</b> beachmat</a></li>
+<li class="chapter" data-level="15.8.3" data-path="memory.html"><a href="memory.html#restfulse"><i class="fa fa-check"></i><b>15.8.3</b> restfulSE</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>17</b> Convex Optimization</a><ul>
-<li class="chapter" data-level="17.1" data-path="convex.html"><a href="convex.html#theoretical-backround"><i class="fa fa-check"></i><b>17.1</b> Theoretical Backround</a></li>
-<li class="chapter" data-level="17.2" data-path="convex.html"><a href="convex.html#optimizing-with-r"><i class="fa fa-check"></i><b>17.2</b> Optimizing with R</a><ul>
-<li class="chapter" data-level="17.2.1" data-path="convex.html"><a href="convex.html#the-optim-function"><i class="fa fa-check"></i><b>17.2.1</b> The optim Function</a></li>
-<li class="chapter" data-level="17.2.2" data-path="convex.html"><a href="convex.html#the-nloptr-package"><i class="fa fa-check"></i><b>17.2.2</b> The nloptr Package</a></li>
-<li class="chapter" data-level="17.2.3" data-path="convex.html"><a href="convex.html#minqa-package"><i class="fa fa-check"></i><b>17.2.3</b> minqa Package</a></li>
+<li class="chapter" data-level="15.9" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.9</b> Computing from a Distributed File System</a></li>
+<li class="chapter" data-level="15.10" data-path="memory.html"><a href="memory.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>15.10</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="15.11" data-path="memory.html"><a href="memory.html#practice-yourself-12"><i class="fa fa-check"></i><b>15.11</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="17.3" data-path="convex.html"><a href="convex.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>17.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="17.4" data-path="convex.html"><a href="convex.html#practice-yourself-14"><i class="fa fa-check"></i><b>17.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Explicit Parallelism</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="rcpp.html"><a href="rcpp.html"><i class="fa fa-check"></i><b>18</b> RCpp</a><ul>
-<li class="chapter" data-level="18.1" data-path="rcpp.html"><a href="rcpp.html#bibliographic-notes-15"><i class="fa fa-check"></i><b>18.1</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="18.2" data-path="rcpp.html"><a href="rcpp.html#practice-yourself-15"><i class="fa fa-check"></i><b>18.2</b> Practice Yourself</a></li>
+<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-13"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-13"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>19</b> Debugging Tools</a><ul>
-<li class="chapter" data-level="19.1" data-path="debugging.html"><a href="debugging.html#bibliographic-notes-16"><i class="fa fa-check"></i><b>19.1</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="19.2" data-path="debugging.html"><a href="debugging.html#practice-yourself-16"><i class="fa fa-check"></i><b>19.2</b> Practice Yourself</a></li>
+<li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a><ul>
+<li class="chapter" data-level="17.1" data-path="algebra.html"><a href="algebra.html#lu-factorization"><i class="fa fa-check"></i><b>17.1</b> LU Factorization</a></li>
+<li class="chapter" data-level="17.2" data-path="algebra.html"><a href="algebra.html#cholesky-factorization"><i class="fa fa-check"></i><b>17.2</b> Cholesky Factorization</a></li>
+<li class="chapter" data-level="17.3" data-path="algebra.html"><a href="algebra.html#qr-factorization"><i class="fa fa-check"></i><b>17.3</b> QR Factorization</a></li>
+<li class="chapter" data-level="17.4" data-path="algebra.html"><a href="algebra.html#singular-value-factorization"><i class="fa fa-check"></i><b>17.4</b> Singular Value Factorization</a></li>
+<li class="chapter" data-level="17.5" data-path="algebra.html"><a href="algebra.html#iterative-methods"><i class="fa fa-check"></i><b>17.5</b> Iterative Methods</a></li>
+<li class="chapter" data-level="17.6" data-path="algebra.html"><a href="algebra.html#solving-ols"><i class="fa fa-check"></i><b>17.6</b> Solving the OLS Problem</a></li>
+<li class="chapter" data-level="17.7" data-path="algebra.html"><a href="algebra.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>17.7</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="17.8" data-path="algebra.html"><a href="algebra.html#practice-yourself-14"><i class="fa fa-check"></i><b>17.8</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="20" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>20</b> data.table</a><ul>
-<li class="chapter" data-level="20.1" data-path="datatable.html"><a href="datatable.html#make-your-own-variables"><i class="fa fa-check"></i><b>20.1</b> Make your own variables</a></li>
-<li class="chapter" data-level="20.2" data-path="datatable.html"><a href="datatable.html#join"><i class="fa fa-check"></i><b>20.2</b> Join</a></li>
-<li class="chapter" data-level="20.3" data-path="datatable.html"><a href="datatable.html#reshaping-data"><i class="fa fa-check"></i><b>20.3</b> Reshaping data</a><ul>
-<li class="chapter" data-level="20.3.1" data-path="datatable.html"><a href="datatable.html#wide-to-long"><i class="fa fa-check"></i><b>20.3.1</b> Wide to long</a></li>
-<li class="chapter" data-level="20.3.2" data-path="datatable.html"><a href="datatable.html#long-to-wide"><i class="fa fa-check"></i><b>20.3.2</b> Long to wide</a></li>
+<li class="chapter" data-level="18" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>18</b> Convex Optimization</a><ul>
+<li class="chapter" data-level="18.1" data-path="convex.html"><a href="convex.html#theoretical-backround"><i class="fa fa-check"></i><b>18.1</b> Theoretical Backround</a></li>
+<li class="chapter" data-level="18.2" data-path="convex.html"><a href="convex.html#optimizing-with-r"><i class="fa fa-check"></i><b>18.2</b> Optimizing with R</a><ul>
+<li class="chapter" data-level="18.2.1" data-path="convex.html"><a href="convex.html#the-optim-function"><i class="fa fa-check"></i><b>18.2.1</b> The optim Function</a></li>
+<li class="chapter" data-level="18.2.2" data-path="convex.html"><a href="convex.html#the-nloptr-package"><i class="fa fa-check"></i><b>18.2.2</b> The nloptr Package</a></li>
+<li class="chapter" data-level="18.2.3" data-path="convex.html"><a href="convex.html#minqa-package"><i class="fa fa-check"></i><b>18.2.3</b> minqa Package</a></li>
 </ul></li>
-<li class="chapter" data-level="20.4" data-path="datatable.html"><a href="datatable.html#bibliographic-notes-17"><i class="fa fa-check"></i><b>20.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="20.5" data-path="datatable.html"><a href="datatable.html#practice-yourself-17"><i class="fa fa-check"></i><b>20.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="18.3" data-path="convex.html"><a href="convex.html#bibliographic-notes-15"><i class="fa fa-check"></i><b>18.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="18.4" data-path="convex.html"><a href="convex.html#practice-yourself-15"><i class="fa fa-check"></i><b>18.4</b> Practice Yourself</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="rcpp.html"><a href="rcpp.html"><i class="fa fa-check"></i><b>19</b> RCpp</a><ul>
+<li class="chapter" data-level="19.1" data-path="rcpp.html"><a href="rcpp.html#bibliographic-notes-16"><i class="fa fa-check"></i><b>19.1</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="19.2" data-path="rcpp.html"><a href="rcpp.html#practice-yourself-16"><i class="fa fa-check"></i><b>19.2</b> Practice Yourself</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>20</b> Debugging Tools</a><ul>
+<li class="chapter" data-level="20.1" data-path="debugging.html"><a href="debugging.html#bibliographic-notes-17"><i class="fa fa-check"></i><b>20.1</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="20.2" data-path="debugging.html"><a href="debugging.html#practice-yourself-17"><i class="fa fa-check"></i><b>20.2</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="21" data-path="econometrics.html"><a href="econometrics.html"><i class="fa fa-check"></i><b>21</b> Econometrics</a><ul>
 <li class="chapter" data-level="21.1" data-path="econometrics.html"><a href="econometrics.html#bibliographic-notes-18"><i class="fa fa-check"></i><b>21.1</b> Bibliographic Notes</a></li>
@@ -400,6 +442,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="23.6" data-path="hadley.html"><a href="hadley.html#anytime"><i class="fa fa-check"></i><b>23.6</b> anytime</a></li>
 <li class="chapter" data-level="23.7" data-path="hadley.html"><a href="hadley.html#biblipgraphic-notes-1"><i class="fa fa-check"></i><b>23.7</b> Biblipgraphic Notes</a></li>
 <li class="chapter" data-level="23.8" data-path="hadley.html"><a href="hadley.html#practice-yourself-20"><i class="fa fa-check"></i><b>23.8</b> Practice Yourself</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="causality.html"><a href="causality.html"><i class="fa fa-check"></i><b>24</b> Causal Inferense</a><ul>
+<li class="chapter" data-level="24.1" data-path="causality.html"><a href="causality.html#causal-inference-from-designed-experiments"><i class="fa fa-check"></i><b>24.1</b> Causal Inference From Designed Experiments</a><ul>
+<li class="chapter" data-level="24.1.1" data-path="causality.html"><a href="causality.html#design-of-experiments"><i class="fa fa-check"></i><b>24.1.1</b> Design of Experiments</a></li>
+<li class="chapter" data-level="24.1.2" data-path="causality.html"><a href="causality.html#randomized-inference"><i class="fa fa-check"></i><b>24.1.2</b> Randomized Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="24.2" data-path="causality.html"><a href="causality.html#causal-inference-from-observational-data"><i class="fa fa-check"></i><b>24.2</b> Causal Inference from Observational Data</a><ul>
+<li class="chapter" data-level="24.2.1" data-path="causality.html"><a href="causality.html#principal-stratification"><i class="fa fa-check"></i><b>24.2.1</b> Principal Stratification</a></li>
+<li class="chapter" data-level="24.2.2" data-path="causality.html"><a href="causality.html#instrumental-variables"><i class="fa fa-check"></i><b>24.2.2</b> Instrumental Variables</a></li>
+<li class="chapter" data-level="24.2.3" data-path="causality.html"><a href="causality.html#propensity-scores"><i class="fa fa-check"></i><b>24.2.3</b> Propensity Scores</a></li>
+<li class="chapter" data-level="24.2.4" data-path="causality.html"><a href="causality.html#direct-lieklihood"><i class="fa fa-check"></i><b>24.2.4</b> Direct Lieklihood</a></li>
+<li class="chapter" data-level="24.2.5" data-path="causality.html"><a href="causality.html#regression-discontinuity"><i class="fa fa-check"></i><b>24.2.5</b> Regression Discontinuity</a></li>
+</ul></li>
+<li class="chapter" data-level="24.3" data-path="causality.html"><a href="causality.html#bibliographic-notes-20"><i class="fa fa-check"></i><b>24.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="24.4" data-path="causality.html"><a href="causality.html#practice-yourself-21"><i class="fa fa-check"></i><b>24.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -422,8 +479,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="eda" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Exploratory Data Analysis</h1>
-<p>Exploratory Data Analysis (EDA) is a term coined by <a href="https://en.wikipedia.org/wiki/John_Tukey">John W. Tukey</a> in his seminal book <span class="citation">(Tukey <a href="#ref-tukey1977exploratory">1977</a>)</span>. It is also (arguably) known as <em>Visual Analytics</em>, or <em>Descriptive Statistics</em>. It is the practice of inspecting, and exploring your data, before stating hypotheses, fitting predictors, and other more ambitious inferential goals. It typically includes the computation of simple <em>summary statistics</em> which capture some property of interest in the data, and <em>visualization</em>. EDA can be thought of as an assumption free, purely algorithmic practice.</p>
+<h1><span class="header-section-number">Chapter 5</span> Exploratory Data Analysis</h1>
+<p>Exploratory Data Analysis (EDA) is a term coined by <a href="https://en.wikipedia.org/wiki/John_Tukey">John W. Tukey</a> in his seminal book <span class="citation">(Tukey <a href="#ref-tukey1977exploratory">1977</a>)</span>.
+It is also (arguably) known as <em>Visual Analytics</em>, or <em>Descriptive Statistics</em>.
+It is the practice of inspecting, and exploring your data, before stating hypotheses, fitting predictors, and other more ambitious inferential goals.
+It typically includes the computation of simple <em>summary statistics</em> which capture some property of interest in the data, and <em>visualization</em>.
+EDA can be thought of as an assumption free, purely algorithmic practice.</p>
 <p>In this text we present EDA techniques along the following lines:</p>
 <ul>
 <li>How we explore: with summary-statistics, or visually?</li>
@@ -431,39 +492,42 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>What type of variable: categorical or continuous?</li>
 </ul>
 <div id="summary-statistics" class="section level2">
-<h2><span class="header-section-number">4.1</span> Summary Statistics</h2>
+<h2><span class="header-section-number">5.1</span> Summary Statistics</h2>
 <div id="categorical-data" class="section level3">
-<h3><span class="header-section-number">4.1.1</span> Categorical Data</h3>
-<p>Categorical variables do not admit any mathematical operations on them. We cannot sum them, or even sort them. We can only <strong>count</strong> them. As such, summaries of categorical variables will always start with the counting of the frequency of each category.</p>
+<h3><span class="header-section-number">5.1.1</span> Categorical Data</h3>
+<p>Categorical variables do not admit any mathematical operations on them.
+We cannot sum them, or even sort them.
+We can only <strong>count</strong> them.
+As such, summaries of categorical variables will always start with the counting of the frequency of each category.</p>
 <div id="summary-of-univariate-categorical-data" class="section level4">
-<h4><span class="header-section-number">4.1.1.1</span> Summary of Univariate Categorical Data</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make some data</span>
+<h4><span class="header-section-number">5.1.1.1</span> Summary of Univariate Categorical Data</h4>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make some data</span>
 gender &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&#39;Boy&#39;</span>, <span class="dv">10</span>), <span class="kw">rep</span>(<span class="st">&#39;Girl&#39;</span>, <span class="dv">12</span>))
 drink &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&#39;Coke&#39;</span>, <span class="dv">5</span>), <span class="kw">rep</span>(<span class="st">&#39;Sprite&#39;</span>, <span class="dv">3</span>), <span class="kw">rep</span>(<span class="st">&#39;Coffee&#39;</span>, <span class="dv">6</span>), <span class="kw">rep</span>(<span class="st">&#39;Tea&#39;</span>, <span class="dv">7</span>), <span class="kw">rep</span>(<span class="st">&#39;Water&#39;</span>, <span class="dv">1</span>))  
 age &lt;-<span class="st">  </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="st">&#39;Young&#39;</span>, <span class="st">&#39;Old&#39;</span>), <span class="dt">size =</span> <span class="kw">length</span>(gender), <span class="dt">replace =</span> <span class="ot">TRUE</span>)
 <span class="co"># Count frequencies</span>
-<span class="kw">table</span>(gender)</code></pre></div>
+<span class="kw">table</span>(gender)</code></pre>
 <pre><code>## gender
 ##  Boy Girl 
 ##   10   12</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(drink)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(drink)</code></pre>
 <pre><code>## drink
 ## Coffee   Coke Sprite    Tea  Water 
 ##      6      5      3      7      1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(age)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(age)</code></pre>
 <pre><code>## age
 ##   Old Young 
 ##    11    11</code></pre>
 <p>If instead of the level counts you want the proportions, you can use <code>prop.table</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prop.table</span>(<span class="kw">table</span>(gender))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prop.table</span>(<span class="kw">table</span>(gender))</code></pre>
 <pre><code>## gender
 ##       Boy      Girl 
 ## 0.4545455 0.5454545</code></pre>
 </div>
 <div id="summary-of-bivariate-categorical-data" class="section level4">
-<h4><span class="header-section-number">4.1.1.2</span> Summary of Bivariate Categorical Data</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
-<span class="kw">cbind</span>(gender, drink) <span class="op">%&gt;%</span><span class="st"> </span>head <span class="co"># bind vectors into matrix and inspect</span></code></pre></div>
+<h4><span class="header-section-number">5.1.1.2</span> Summary of Bivariate Categorical Data</h4>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
+<span class="kw">cbind</span>(gender, drink) <span class="op">%&gt;%</span><span class="st"> </span>head <span class="co"># bind vectors into matrix and inspect</span></code></pre>
 <pre><code>##      gender drink   
 ## [1,] &quot;Boy&quot;  &quot;Coke&quot;  
 ## [2,] &quot;Boy&quot;  &quot;Coke&quot;  
@@ -471,18 +535,20 @@ age &lt;-<span class="st">  </span><span class="kw">sample</span>(<span class="k
 ## [4,] &quot;Boy&quot;  &quot;Coke&quot;  
 ## [5,] &quot;Boy&quot;  &quot;Coke&quot;  
 ## [6,] &quot;Boy&quot;  &quot;Sprite&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table1 &lt;-<span class="st"> </span><span class="kw">table</span>(gender, drink) <span class="co"># count frequencies of bivariate combinations</span>
-table1                                      </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">table1 &lt;-<span class="st"> </span><span class="kw">table</span>(gender, drink) <span class="co"># count frequencies of bivariate combinations</span>
+table1                                      </code></pre>
 <pre><code>##       drink
 ## gender Coffee Coke Sprite Tea Water
 ##   Boy       2    5      3   0     0
 ##   Girl      4    0      0   7     1</code></pre>
 </div>
 <div id="summary-of-multivariate-categorical-data" class="section level4">
-<h4><span class="header-section-number">4.1.1.3</span> Summary of Multivariate Categorical Data</h4>
-<p>You may be wondering how does R handle tables with more than two dimensions. It is indeed not trivial to report this in a human-readable way. R offers several solutions: <code>table</code> is easier to compute with, and <code>ftable</code> is human readable.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table2.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">table</span>(gender, drink, age) <span class="co"># A machine readable table. </span>
-table2.<span class="dv">1</span></code></pre></div>
+<h4><span class="header-section-number">5.1.1.3</span> Summary of Multivariate Categorical Data</h4>
+<p>You may be wondering how does R handle tables with more than two dimensions.
+It is indeed not trivial to report this in a human-readable way.
+R offers several solutions: <code>table</code> is easier to compute with, and <code>ftable</code> is human readable.</p>
+<pre class="sourceCode r"><code class="sourceCode r">table2<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">table</span>(gender, drink, age) <span class="co"># A machine readable table. </span>
+table2<span class="fl">.1</span></code></pre>
 <pre><code>## , , age = Old
 ## 
 ##       drink
@@ -496,8 +562,8 @@ table2.<span class="dv">1</span></code></pre></div>
 ## gender Coffee Coke Sprite Tea Water
 ##   Boy       1    3      2   0     0
 ##   Girl      1    0      0   4     0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">table.<span class="fl">2.2</span> &lt;-<span class="st"> </span><span class="kw">ftable</span>(gender, drink, age) <span class="co"># A human readable table.</span>
-table.<span class="fl">2.2</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">table.<span class="fl">2.2</span> &lt;-<span class="st"> </span><span class="kw">ftable</span>(gender, drink, age) <span class="co"># A human readable table.</span>
+table.<span class="fl">2.2</span></code></pre>
 <pre><code>##               age Old Young
 ## gender drink               
 ## Boy    Coffee       1     1
@@ -510,13 +576,14 @@ table.<span class="fl">2.2</span></code></pre></div>
 ##        Sprite       0     0
 ##        Tea          3     4
 ##        Water        1     0</code></pre>
-<p>If you want proportions instead of counts, you need to specify the denominator, i.e., the margins. Think: what is the margin in each of the following outputs?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prop.table</span>(table1, <span class="dt">margin =</span> <span class="dv">1</span>)</code></pre></div>
+<p>If you want proportions instead of counts, you need to specify the denominator, i.e., the margins.
+Think: what is the margin in each of the following outputs?</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prop.table</span>(table1, <span class="dt">margin =</span> <span class="dv">1</span>)</code></pre>
 <pre><code>##       drink
 ## gender     Coffee       Coke     Sprite        Tea      Water
 ##   Boy  0.20000000 0.50000000 0.30000000 0.00000000 0.00000000
 ##   Girl 0.33333333 0.00000000 0.00000000 0.58333333 0.08333333</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prop.table</span>(table1, <span class="dt">margin =</span> <span class="dv">2</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prop.table</span>(table1, <span class="dt">margin =</span> <span class="dv">2</span>)</code></pre>
 <pre><code>##       drink
 ## gender    Coffee      Coke    Sprite       Tea     Water
 ##   Boy  0.3333333 1.0000000 1.0000000 0.0000000 0.0000000
@@ -524,225 +591,274 @@ table.<span class="fl">2.2</span></code></pre></div>
 </div>
 </div>
 <div id="continous-data" class="section level3">
-<h3><span class="header-section-number">4.1.2</span> Continous Data</h3>
-<p>Continuous variables admit many more operations than categorical. We can compute sums, means, quantiles, and more.</p>
+<h3><span class="header-section-number">5.1.2</span> Continous Data</h3>
+<p>Continuous variables admit many more operations than categorical.
+We can compute sums, means, quantiles, and more.</p>
 <div id="summary-of-univariate-continuous-data" class="section level4">
-<h4><span class="header-section-number">4.1.2.1</span> Summary of Univariate Continuous Data</h4>
+<h4><span class="header-section-number">5.1.2.1</span> Summary of Univariate Continuous Data</h4>
 <p>We distinguish between several types of summaries, each capturing a different property of the data.</p>
 </div>
 <div id="summary-of-location" class="section level4">
-<h4><span class="header-section-number">4.1.2.2</span> Summary of Location</h4>
+<h4><span class="header-section-number">5.1.2.2</span> Summary of Location</h4>
 <p>Capture the “location” of the data. These include:</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-70" class="definition"><strong>Definition 4.1  (Average)  </strong></span>The mean, or average, of a sample <span class="math inline">\(x:=(x_1,\dots,x_n)\)</span>, denoted <span class="math inline">\(\bar x\)</span> is defined as <span class="math display">\[ \bar x := n^{-1} \sum x_i. \]</span>
+<span id="def:unnamed-chunk-97" class="definition"><strong>Definition 5.1  (Average)  </strong></span>The mean, or average, of a sample <span class="math inline">\(x:=(x_1,\dots,x_n)\)</span>, denoted <span class="math inline">\(\bar x\)</span> is defined as
+<span class="math display">\[ \bar x := n^{-1} \sum x_i. \]</span>
 </div>
 
-<p>The sample mean is <strong>non robust</strong>. A single large observation may inflate the mean indefinitely. For this reason, we define several other summaries of location, which are more robust, i.e., less affected by “contaminations” of the data.</p>
+<p>The sample mean is <strong>non robust</strong>.
+A single large observation may inflate the mean indefinitely.
+For this reason, we define several other summaries of location, which are more robust, i.e., less affected by “contaminations” of the data.</p>
 <p>We start by defining the sample quantiles, themselves <strong>not</strong> a summary of location.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-71" class="definition"><strong>Definition 4.2  (Quantiles)  </strong></span>The <span class="math inline">\(\alpha\)</span> quantile of a sample <span class="math inline">\(x\)</span>, denoted <span class="math inline">\(x_\alpha\)</span>, is (non uniquely) defined as a value above <span class="math inline">\(100 \alpha \%\)</span> of the sample, and below <span class="math inline">\(100 (1-\alpha) \%\)</span>.
+<span id="def:unnamed-chunk-98" class="definition"><strong>Definition 5.2  (Quantiles)  </strong></span>The <span class="math inline">\(\alpha\)</span> quantile of a sample <span class="math inline">\(x\)</span>, denoted <span class="math inline">\(x_\alpha\)</span>, is (non uniquely) defined as a value above <span class="math inline">\(100 \alpha \%\)</span> of the sample, and below <span class="math inline">\(100 (1-\alpha) \%\)</span>.
 </div>
 
 <p>We emphasize that sample quantiles are non-uniquely defined. See <code>?quantile</code> for the 9(!) different definitions that R provides.</p>
 <p>Using the sample quantiles, we can now define another summary of location, the <strong>median</strong>.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-72" class="definition"><strong>Definition 4.3  (Median)  </strong></span>The median of a sample <span class="math inline">\(x\)</span>, denoted <span class="math inline">\(x_{0.5}\)</span> is the <span class="math inline">\(\alpha=0.5\)</span> quantile of the sample.
+<span id="def:unnamed-chunk-99" class="definition"><strong>Definition 5.3  (Median)  </strong></span>The median of a sample <span class="math inline">\(x\)</span>, denoted <span class="math inline">\(x_{0.5}\)</span> is the <span class="math inline">\(\alpha=0.5\)</span> quantile of the sample.
 </div>
 
 <p>A whole family of summaries of locations is the <strong>alpha trimmed mean</strong>.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-73" class="definition"><strong>Definition 4.4  (Alpha Trimmed Mean)  </strong></span>The <span class="math inline">\(\alpha\)</span> trimmed mean of a sample <span class="math inline">\(x\)</span>, denoted <span class="math inline">\(\bar x_\alpha\)</span> is the average of the sample after removing the <span class="math inline">\(\alpha\)</span> proportion of largest and <span class="math inline">\(\alpha\)</span> proportion of smallest observations.
+<span id="def:unnamed-chunk-100" class="definition"><strong>Definition 5.4  (Alpha Trimmed Mean)  </strong></span>The <span class="math inline">\(\alpha\)</span> trimmed mean of a sample <span class="math inline">\(x\)</span>, denoted <span class="math inline">\(\bar x_\alpha\)</span> is the average of the sample after removing the <span class="math inline">\(\alpha\)</span> proportion of largest and <span class="math inline">\(\alpha\)</span> proportion of smallest observations.
 </div>
 
 <p>The simple mean and median are instances of the alpha trimmed mean: <span class="math inline">\(\bar x_0\)</span> and <span class="math inline">\(\bar x_{0.5}\)</span> respectively.</p>
 <p>Here are the R implementations:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">100</span>) <span class="co"># generate some random data</span>
-<span class="kw">mean</span>(x) <span class="co"># simple mean</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">100</span>) <span class="co"># generate some random data</span>
+<span class="kw">mean</span>(x) <span class="co"># simple mean</span></code></pre>
 <pre><code>## [1] 1.088972</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">median</span>(x) <span class="co"># median</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">median</span>(x) <span class="co"># median</span></code></pre>
 <pre><code>## [1] 0.7839536</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(x, <span class="dt">trim =</span> <span class="fl">0.2</span>) <span class="co"># alpha trimmed mean with alpha=0.2</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(x, <span class="dt">trim =</span> <span class="fl">0.2</span>) <span class="co"># alpha trimmed mean with alpha=0.2</span></code></pre>
 <pre><code>## [1] 0.8199521</code></pre>
 </div>
 <div id="summary-of-scale" class="section level4">
-<h4><span class="header-section-number">4.1.2.3</span> Summary of Scale</h4>
+<h4><span class="header-section-number">5.1.2.3</span> Summary of Scale</h4>
 <p>The <em>scale</em> of the data, sometimes known as <em>spread</em>, can be thought of its variability.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-75" class="definition"><strong>Definition 4.5  (Standard Deviation)  </strong></span>The standard deviation of a sample <span class="math inline">\(x\)</span>, denoted <span class="math inline">\(S(x)\)</span>, is defined as <span class="math display">\[ S(x):=\sqrt{(n-1)^{-1} \sum (x_i-\bar x)^2} . \]</span>
+<span id="def:unnamed-chunk-102" class="definition"><strong>Definition 5.5  (Standard Deviation)  </strong></span>The standard deviation of a sample <span class="math inline">\(x\)</span>, denoted <span class="math inline">\(S(x)\)</span>, is defined as
+<span class="math display">\[ S(x):=\sqrt{(n-1)^{-1} \sum (x_i-\bar x)^2} . \]</span>
 </div>
 
 <p>For reasons of robustness, we define other, more robust, measures of scale.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-76" class="definition"><strong>Definition 4.6  (MAD)  </strong></span>The Median Absolute Deviation from the median, denoted as <span class="math inline">\(MAD(x)\)</span>, is defined as <span class="math display">\[MAD(x):= c \: |x-x_{0.5}|_{0.5} . \]</span>
+<span id="def:unnamed-chunk-103" class="definition"><strong>Definition 5.6  (MAD)  </strong></span>The Median Absolute Deviation from the median, denoted as <span class="math inline">\(MAD(x)\)</span>, is defined as
+<span class="math display">\[MAD(x):= c \: |x-x_{0.5}|_{0.5} . \]</span>
 </div>
 
 <p>where <span class="math inline">\(c\)</span> is some constant, typically set to <span class="math inline">\(c=1.4826\)</span> so that MAD and <span class="math inline">\(S(x)\)</span> have the same large sample limit.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-77" class="definition"><strong>Definition 4.7  (IQR)  </strong></span>The Inter Quantile Range of a sample <span class="math inline">\(x\)</span>, denoted as <span class="math inline">\(IQR(x)\)</span>, is defined as <span class="math display">\[ IQR(x):= x_{0.75}-x_{0.25} .\]</span>
+<span id="def:unnamed-chunk-104" class="definition"><strong>Definition 5.7  (IQR)  </strong></span>The Inter Quantile Range of a sample <span class="math inline">\(x\)</span>, denoted as <span class="math inline">\(IQR(x)\)</span>, is defined as
+<span class="math display">\[ IQR(x):= x_{0.75}-x_{0.25} .\]</span>
 </div>
 
 <p>Here are the R implementations</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(x) <span class="co"># standard deviation</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(x) <span class="co"># standard deviation</span></code></pre>
 <pre><code>## [1] 1.068415</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mad</span>(x) <span class="co"># MAD</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mad</span>(x) <span class="co"># MAD</span></code></pre>
 <pre><code>## [1] 0.7083485</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">IQR</span>(x) <span class="co"># IQR</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">IQR</span>(x) <span class="co"># IQR</span></code></pre>
 <pre><code>## [1] 0.9869843</code></pre>
 </div>
 <div id="summary-of-asymmetry" class="section level4">
-<h4><span class="header-section-number">4.1.2.4</span> Summary of Asymmetry</h4>
+<h4><span class="header-section-number">5.1.2.4</span> Summary of Asymmetry</h4>
 <p>Summaries of asymmetry, also known as <em>skewness</em>, quantify the departure of the <span class="math inline">\(x\)</span> from a symmetric sample.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-79" class="definition"><strong>Definition 4.8  (Yule)  </strong></span>The Yule measure of assymetry, denoted <span class="math inline">\(Yule(x)\)</span> is defined as <span class="math display">\[Yule(x) := \frac{1/2 \: (x_{0.75}+x_{0.25}) - x_{0.5} }{1/2 \: IQR(x)} .\]</span>
+<span id="def:unnamed-chunk-106" class="definition"><strong>Definition 5.8  (Yule)  </strong></span>The Yule measure of assymetry, denoted <span class="math inline">\(Yule(x)\)</span> is defined as
+<span class="math display">\[Yule(x) := \frac{1/2 \: (x_{0.75}+x_{0.25}) - x_{0.5} }{1/2 \: IQR(x)} .\]</span>
 </div>
 
 <p>Here is an R implementation</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yule &lt;-<span class="st"> </span><span class="cf">function</span>(x){
+<pre class="sourceCode r"><code class="sourceCode r">yule &lt;-<span class="st"> </span><span class="cf">function</span>(x){
   numerator &lt;-<span class="st"> </span><span class="fl">0.5</span> <span class="op">*</span><span class="st"> </span>(<span class="kw">quantile</span>(x,<span class="fl">0.75</span>) <span class="op">+</span><span class="st"> </span><span class="kw">quantile</span>(x,<span class="fl">0.25</span>))<span class="op">-</span><span class="kw">median</span>(x) 
   denominator &lt;-<span class="st"> </span><span class="fl">0.5</span><span class="op">*</span><span class="st"> </span><span class="kw">IQR</span>(x)
   <span class="kw">c</span>(numerator<span class="op">/</span>denominator, <span class="dt">use.names=</span><span class="ot">FALSE</span>)
 }
-<span class="kw">yule</span>(x)</code></pre></div>
+<span class="kw">yule</span>(x)</code></pre>
 <pre><code>## [1] 0.2317222</code></pre>
 </div>
 <div id="summary-of-bivariate-continuous-data" class="section level4">
-<h4><span class="header-section-number">4.1.2.5</span> Summary of Bivariate Continuous Data</h4>
-<p>When dealing with bivariate, or multivariate data, we can obviously compute univariate summaries for each variable separately. This is not the topic of this section, in which we want to summarize the association <strong>between</strong> the variables, and not within them.</p>
+<h4><span class="header-section-number">5.1.2.5</span> Summary of Bivariate Continuous Data</h4>
+<p>When dealing with bivariate, or multivariate data, we can obviously compute univariate summaries for each variable separately.
+This is not the topic of this section, in which we want to summarize the association <strong>between</strong> the variables, and not within them.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-80" class="definition"><strong>Definition 4.9  (Covariance)  </strong></span>The covariance between two samples, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, of same length <span class="math inline">\(n\)</span>, is defined as <span class="math display">\[Cov(x,y):= (n-1)^{-1} \sum (x_i-\bar x)(y_i-\bar y)  \]</span>
+<span id="def:unnamed-chunk-107" class="definition"><strong>Definition 5.9  (Covariance)  </strong></span>The covariance between two samples, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, of same length <span class="math inline">\(n\)</span>, is defined as
+<span class="math display">\[Cov(x,y):= (n-1)^{-1} \sum (x_i-\bar x)(y_i-\bar y)  \]</span>
 </div>
 
-<p>We emphasize this is not the covariance you learned about in probability classes, since it is not the covariance between two <em>random variables</em> but rather, between two <em>samples</em>. For this reasons, some authors call it the <em>empirical covariance</em>, or <em>sample covariance</em>.</p>
+<p>We emphasize this is not the covariance you learned about in probability classes, since it is not the covariance between two <em>random variables</em> but rather, between two <em>samples</em>.
+For this reasons, some authors call it the <em>empirical covariance</em>, or <em>sample covariance</em>.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-81" class="definition"><strong>Definition 4.10  (Pearson’s Correlation Coefficient)  </strong></span>Peasrson’s correlation coefficient, a.k.a. Pearson’s moment product correlation, or simply, the correlation, denoted <code>r(x,y)</code>, is defined as <span class="math display">\[r(x,y):=\frac{Cov(x,y)}{S(x)S(y)}. \]</span>
+<span id="def:unnamed-chunk-108" class="definition"><strong>Definition 5.10  (Pearson’s Correlation Coefficient)  </strong></span>Peasrson’s correlation coefficient, a.k.a. Pearson’s moment product correlation, or simply, the correlation, denoted <code>r(x,y)</code>, is defined as
+<span class="math display">\[r(x,y):=\frac{Cov(x,y)}{S(x)S(y)}. \]</span>
 </div>
 
 <p>If you find this definition enigmatic, just think of the correlation as the covariance between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> after transforming each to the unitless scale of z-scores.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-82" class="definition"><strong>Definition 4.11  (Z-Score)  </strong></span>The z-scores of a sample <span class="math inline">\(x\)</span> are defined as the mean-centered, scale normalized observations: <span class="math display">\[z_i(x):= \frac{x_i-\bar x}{S(x)}.\]</span>
+<span id="def:unnamed-chunk-109" class="definition"><strong>Definition 5.11  (Z-Score)  </strong></span>The z-scores of a sample <span class="math inline">\(x\)</span> are defined as the mean-centered, scale normalized observations:
+<span class="math display">\[z_i(x):= \frac{x_i-\bar x}{S(x)}.\]</span>
 </div>
 
 <p>We thus have that <span class="math inline">\(r(x,y)=Cov(z(x),z(y))\)</span>.</p>
 </div>
 <div id="summary-of-multivariate-continuous-data" class="section level4">
-<h4><span class="header-section-number">4.1.2.6</span> Summary of Multivariate Continuous Data</h4>
-<p>The covariance is a simple summary of association between two variables, but it certainly may not capture the whole “story” when dealing with more than two variables. The most common summary of multivariate relation, is the <strong>covariance matrix</strong>, but we warn that only the simplest multivariate relations are fully summarized by this matrix.</p>
+<h4><span class="header-section-number">5.1.2.6</span> Summary of Multivariate Continuous Data</h4>
+<p>The covariance is a simple summary of association between two variables, but it certainly may not capture the whole “story” when dealing with more than two variables.
+The most common summary of multivariate relation, is the <strong>covariance matrix</strong>, but we warn that only the simplest multivariate relations are fully summarized by this matrix.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-83" class="definition"><strong>Definition 4.12  (Sample Covariance Matrix)  </strong></span>Given <span class="math inline">\(n\)</span> observations on <span class="math inline">\(p\)</span> variables, denote <span class="math inline">\(x_{i,j}\)</span> the <span class="math inline">\(i\)</span>’th observation of the <span class="math inline">\(j\)</span>’th variable. The <em>sample covariance matrix</em>, denoted <span class="math inline">\(\hat \Sigma\)</span> is defined as <span class="math display">\[\hat \Sigma_{k,l}=(n-1)^{-1} \sum_i [(x_{i,k}-\bar x_k)(x_{i,l}-\bar x_l)],\]</span> where <span class="math inline">\(\bar x_k:=n^{-1} \sum_i x_{i,k}\)</span>. Put differently, the <span class="math inline">\(k,l\)</span>’th entry in <span class="math inline">\(\hat \Sigma\)</span> is the sample covariance between variables <span class="math inline">\(k\)</span> and <span class="math inline">\(l\)</span>.
+<span id="def:unnamed-chunk-110" class="definition"><strong>Definition 5.12  (Sample Covariance Matrix)  </strong></span>Given <span class="math inline">\(n\)</span> observations on <span class="math inline">\(p\)</span> variables, denote <span class="math inline">\(x_{i,j}\)</span> the <span class="math inline">\(i\)</span>’th observation of the <span class="math inline">\(j\)</span>’th variable.
+The <em>sample covariance matrix</em>, denoted <span class="math inline">\(\hat \Sigma\)</span> is defined as
+<span class="math display">\[\hat \Sigma_{k,l}=(n-1)^{-1} \sum_i [(x_{i,k}-\bar x_k)(x_{i,l}-\bar x_l)],\]</span>
+where <span class="math inline">\(\bar x_k:=n^{-1} \sum_i x_{i,k}\)</span>.
+Put differently, the <span class="math inline">\(k,l\)</span>’th entry in <span class="math inline">\(\hat \Sigma\)</span> is the sample covariance between variables <span class="math inline">\(k\)</span> and <span class="math inline">\(l\)</span>.
 </div>
 
 
 <div class="remark">
- <span class="remark"><em>Remark. </em></span> <span class="math inline">\(\hat \Sigma\)</span> is clearly non robust. How would you define a robust covariance matrix?
+ <span class="remark"><em>Remark. </em></span> <span class="math inline">\(\hat \Sigma\)</span> is clearly non robust.
+How would you define a robust covariance matrix?
 </div>
 
 </div>
 </div>
 </div>
 <div id="visualization" class="section level2">
-<h2><span class="header-section-number">4.2</span> Visualization</h2>
-<p>Summarizing the information in a variable to a single number clearly conceals much of the story in the sample. This is akin to inspecting a person using a caricature, instead of a picture. Visualizing the data, when possible, is more informative.</p>
+<h2><span class="header-section-number">5.2</span> Visualization</h2>
+<p>Summarizing the information in a variable to a single number clearly conceals much of the story in the sample.
+This is akin to inspecting a person using a caricature, instead of a picture.
+Visualizing the data, when possible, is more informative.</p>
 <div id="categorical-data-1" class="section level3">
-<h3><span class="header-section-number">4.2.1</span> Categorical Data</h3>
+<h3><span class="header-section-number">5.2.1</span> Categorical Data</h3>
 <p>Recalling that with categorical variables we can only count the frequency of each level, the plotting of such variables are typically variations on the <em>bar plot</em>.</p>
 <div id="visualizing-univariate-categorical-data" class="section level4">
-<h4><span class="header-section-number">4.2.1.1</span> Visualizing Univariate Categorical Data</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">barplot</span>(<span class="kw">table</span>(age))</code></pre></div>
+<h4><span class="header-section-number">5.2.1.1</span> Visualizing Univariate Categorical Data</h4>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">barplot</span>(<span class="kw">table</span>(age))</code></pre>
 <p><img src="Rcourse_files/figure-html/barplot-1.png" width="50%" /></p>
 </div>
 <div id="visualizing-bivariate-categorical-data" class="section level4">
-<h4><span class="header-section-number">4.2.1.2</span> Visualizing Bivariate Categorical Data</h4>
-<p>There are several generalizations of the barplot, aimed to deal with the visualization of bivariate categorical data. They are sometimes known as the <em>clustered bar plot</em> and the <em>stacked bar plot</em>. In this text, we advocate the use of the <em>mosaic plot</em> which is also the default in R.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(table1, <span class="dt">main=</span><span class="st">&#39;Bivariate mosaic plot&#39;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-85-1.png" width="50%" /></p>
+<h4><span class="header-section-number">5.2.1.2</span> Visualizing Bivariate Categorical Data</h4>
+<p>There are several generalizations of the barplot, aimed to deal with the visualization of bivariate categorical data.
+They are sometimes known as the <em>clustered bar plot</em> and the <em>stacked bar plot</em>.
+In this text, we advocate the use of the <em>mosaic plot</em> which is also the default in R.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(table1, <span class="dt">main=</span><span class="st">&#39;Bivariate mosaic plot&#39;</span>)</code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-112-1.png" width="50%" /></p>
 </div>
 <div id="visualizing-multivariate-categorical-data" class="section level4">
-<h4><span class="header-section-number">4.2.1.3</span> Visualizing Multivariate Categorical Data</h4>
+<h4><span class="header-section-number">5.2.1.3</span> Visualizing Multivariate Categorical Data</h4>
 <p>The <em>mosaic plot</em> is not easy to generalize to more than two variables, but it is still possible (at the cost of interpretability).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(table2.<span class="dv">1</span>, <span class="dt">main=</span><span class="st">&#39;Trivaraite mosaic plot&#39;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-86-1.png" width="50%" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(table2<span class="fl">.1</span>, <span class="dt">main=</span><span class="st">&#39;Trivaraite mosaic plot&#39;</span>)</code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-113-1.png" width="50%" /></p>
 </div>
 </div>
 <div id="continuous-data" class="section level3">
-<h3><span class="header-section-number">4.2.2</span> Continuous Data</h3>
+<h3><span class="header-section-number">5.2.2</span> Continuous Data</h3>
 <div id="visualizing-univariate-continuous-data" class="section level4">
-<h4><span class="header-section-number">4.2.2.1</span> Visualizing Univariate Continuous Data</h4>
-<p>Unlike categorical variables, there are endlessly many way to visualize continuous variables. The simplest way is to look at the raw data via the <code>stripchart</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample1 &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">10</span>)                             
-<span class="kw">stripchart</span>(sample1)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-87-1.png" width="50%" /></p>
-<p>Clearly, if there are many observations, the <code>stripchart</code> will be a useless line of black dots. We thus bin them together, and look at the frequency of each bin; this is the <em>histogram</em>. R’s <code>histogram</code> function has very good defaults to choose the number of bins. Here is a histogram showing the counts of each bin.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sample1 &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">100</span>)                            
-<span class="kw">hist</span>(sample1, <span class="dt">freq=</span>T, <span class="dt">main=</span><span class="st">&#39;Counts&#39;</span>)        </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-88-1.png" width="50%" /></p>
+<h4><span class="header-section-number">5.2.2.1</span> Visualizing Univariate Continuous Data</h4>
+<p>Unlike categorical variables, there are endlessly many way to visualize continuous variables.
+The simplest way is to look at the raw data via the <code>stripchart</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">sample1 &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">10</span>)                             
+<span class="kw">stripchart</span>(sample1)</code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-114-1.png" width="50%" /></p>
+<p>Clearly, if there are many observations, the <code>stripchart</code> will be a useless line of black dots.
+We thus bin them together, and look at the frequency of each bin; this is the <em>histogram</em>.
+R’s <code>histogram</code> function has very good defaults to choose the number of bins.
+Here is a histogram showing the counts of each bin.</p>
+<pre class="sourceCode r"><code class="sourceCode r">sample1 &lt;-<span class="st"> </span><span class="kw">rexp</span>(<span class="dv">100</span>)                            
+<span class="kw">hist</span>(sample1, <span class="dt">freq=</span>T, <span class="dt">main=</span><span class="st">&#39;Counts&#39;</span>)        </code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-115-1.png" width="50%" /></p>
 <p>The bin counts can be replaced with the proportion of each bin using the <code>freq</code> argument.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(sample1, <span class="dt">freq=</span>F, <span class="dt">main=</span><span class="st">&#39;Proportion&#39;</span>)    </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-89-1.png" width="50%" /></p>
-<p>The bins of a histogram are non overlapping. We can adopt a sliding window approach, instead of binning. This is the <em>density plot</em> which is produced with the <code>density</code> function, and added to an existing plot with the <code>lines</code> function. The <code>rug</code> function adds the original data points as ticks on the axes, and is strongly recommended to detect artifacts introduced by the binning of the histogram, or the smoothing of the density plot.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(sample1, <span class="dt">freq=</span>F, <span class="dt">main=</span><span class="st">&#39;Frequencies&#39;</span>)   
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(sample1, <span class="dt">freq=</span>F, <span class="dt">main=</span><span class="st">&#39;Proportion&#39;</span>)    </code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-116-1.png" width="50%" /></p>
+<p>The bins of a histogram are non overlapping.
+We can adopt a sliding window approach, instead of binning.
+This is the <em>density plot</em> which is produced with the <code>density</code> function, and added to an existing plot with the <code>lines</code> function.
+The <code>rug</code> function adds the original data points as ticks on the axes, and is strongly recommended to detect artifacts introduced by the binning of the histogram, or the smoothing of the density plot.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(sample1, <span class="dt">freq=</span>F, <span class="dt">main=</span><span class="st">&#39;Frequencies&#39;</span>)   
 <span class="kw">lines</span>(<span class="kw">density</span>(sample1))                     
-<span class="kw">rug</span>(sample1)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-90-1.png" width="50%" /></p>
+<span class="kw">rug</span>(sample1)</code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-117-1.png" width="50%" /></p>
 
 <div class="remark">
  <span class="remark"><em>Remark. </em></span> Why would it make no sense to make a table, or a barplot, of continuous data?
 </div>
 
-<p>One particularly useful visualization, due to John W. Tukey, is the <em>boxplot</em>. The boxplot is designed to capture the main phenomena in the data, and simultaneously point to outlines.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">boxplot</span>(sample1)    </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-92-1.png" width="50%" /></p>
+<p>One particularly useful visualization, due to John W. Tukey, is the <em>boxplot</em>.
+The boxplot is designed to capture the main phenomena in the data, and simultaneously point to outlines.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">boxplot</span>(sample1)    </code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-119-1.png" width="50%" /></p>
 </div>
 <div id="visualizing-bivariate-continuous-data" class="section level4">
-<h4><span class="header-section-number">4.2.2.2</span> Visualizing Bivariate Continuous Data</h4>
+<h4><span class="header-section-number">5.2.2.2</span> Visualizing Bivariate Continuous Data</h4>
 <p>The bivariate counterpart of the <code>stipchart</code> is the celebrated scatter plot.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">20</span>
+<pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">20</span>
 x1 &lt;-<span class="st"> </span><span class="kw">rexp</span>(n)
 x2 &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span><span class="dv">4</span> <span class="op">+</span><span class="st"> </span><span class="kw">rexp</span>(n)
-<span class="kw">plot</span>(x2<span class="op">~</span>x1)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-93-1.png" width="50%" /></p>
-<p>Like the univariate <code>stripchart</code>, the scatter plot will be an uninformative mess in the presence of a lot of data. A nice bivariate counterpart of the univariate histogram is the <em>hexbin plot</em>, which tessellates the plane with hexagons, and reports their frequencies.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(hexbin) <span class="co"># load required library</span>
+<span class="kw">plot</span>(x2<span class="op">~</span>x1)</code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-120-1.png" width="50%" /></p>
+<p>Like the univariate <code>stripchart</code>, the scatter plot will be an uninformative mess in the presence of a lot of data.
+A nice bivariate counterpart of the univariate histogram is the <em>hexbin plot</em>, which tessellates the plane with hexagons, and reports their frequencies.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(hexbin) <span class="co"># load required library</span>
 n &lt;-<span class="st"> </span><span class="fl">2e5</span>
 x1 &lt;-<span class="st"> </span><span class="kw">rexp</span>(n)
 x2 &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span><span class="dv">4</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n)
-<span class="kw">plot</span>(<span class="kw">hexbin</span>(<span class="dt">x =</span> x1, <span class="dt">y =</span> x2))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-94-1.png" width="50%" /></p>
+<span class="kw">plot</span>(<span class="kw">hexbin</span>(<span class="dt">x =</span> x1, <span class="dt">y =</span> x2))</code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-121-1.png" width="50%" /></p>
 </div>
 <div id="visualizing-multivariate-continuous-data" class="section level4">
-<h4><span class="header-section-number">4.2.2.3</span> Visualizing Multivariate Continuous Data</h4>
-<p>Visualizing multivariate data is a tremendous challenge given that we cannot grasp <span class="math inline">\(4\)</span> dimensional spaces, nor can the computer screen present more than <span class="math inline">\(2\)</span> dimensional spaces. We thus have several options: (i) To project the data to 2D. This is discussed in the Dimensionality Reduction Section <a href="unsupervised.html#dim-reduce">10.1</a>. (ii) To visualize not the raw data, but rather its summaries, like the covariance matrix.</p>
-<p>Since the covariance matrix, <span class="math inline">\(\hat \Sigma\)</span> is a matrix, it can be visualized as an image. Note the use of the <code>::</code> operator, which is used to call a function from some package, without loading the whole package. We will use the <code>::</code> operator when we want to emphasize the package of origin of a function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">covariance &lt;-<span class="st"> </span><span class="kw">cov</span>(longley) <span class="co"># The covariance of the longley dataset</span>
+<h4><span class="header-section-number">5.2.2.3</span> Visualizing Multivariate Continuous Data</h4>
+<p>Visualizing multivariate data is a tremendous challenge given that we cannot grasp <span class="math inline">\(4\)</span> dimensional spaces, nor can the computer screen present more than <span class="math inline">\(2\)</span> dimensional spaces.
+We thus have several options:
+(i) To project the data to 2D. This is discussed in the Dimensionality Reduction Section <a href="unsupervised.html#dim-reduce">11.1</a>.
+(ii) To visualize not the raw data, but rather its summaries, like the covariance matrix.</p>
+<p>Since the covariance matrix, <span class="math inline">\(\hat \Sigma\)</span> is a matrix, it can be visualized as an image.
+Note the use of the <code>::</code> operator, which is used to call a function from some package, without loading the whole package.
+We will use the <code>::</code> operator when we want to emphasize the package of origin of a function.</p>
+<pre class="sourceCode r"><code class="sourceCode r">covariance &lt;-<span class="st"> </span><span class="kw">cov</span>(longley) <span class="co"># The covariance of the longley dataset</span>
 correlations &lt;-<span class="st"> </span><span class="kw">cor</span>(longley) <span class="co"># The correlations of the longley dataset</span>
-lattice<span class="op">::</span><span class="kw">levelplot</span>(correlations)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-95-1.png" width="50%" /></p>
+lattice<span class="op">::</span><span class="kw">levelplot</span>(correlations)</code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-122-1.png" width="50%" /></p>
+<p>If we believe the covariance has some structure, we can do better then viewing the raw correlations.
+In temporal, and spatial data, we belive correlations decay as some function of distances.
+We can thus view correlations as a function of the distnace between observations. This is known as a <em>variogram</em>.
+Note that for a variogram to be informative, is it implied that correlations are merely a function of distances (and not locations themselves).
+This is formally known as <em>stationary</em> and <em>isotropic</em> correlations.</p>
+<div class="figure">
+<img src="art/variogram.png" alt="Variogram: plotting correlation as a function of spatial distance. Courtesy of Ron Sarafian." />
+<p class="caption">Variogram: plotting correlation as a function of spatial distance. Courtesy of Ron Sarafian.</p>
+</div>
 </div>
 <div id="parcoord" class="section level4">
-<h4><span class="header-section-number">4.2.2.4</span> Parallel Coordinate Plots</h4>
+<h4><span class="header-section-number">5.2.2.4</span> Parallel Coordinate Plots</h4>
 <p>TODO</p>
 </div>
 </div>
 </div>
 <div id="mixed-type-data" class="section level2">
-<h2><span class="header-section-number">4.3</span> Mixed Type Data</h2>
-<p>Most real data sets will be of mixed type: both categorical and continous. One approach to view such data, is to visualize the continous variables separatly, for each level of the categorical variables. There are, however, interesting dedicated visualization for such data.</p>
+<h2><span class="header-section-number">5.3</span> Mixed Type Data</h2>
+<p>Most real data sets will be of mixed type: both categorical and continous.
+One approach to view such data, is to visualize the continous variables separatly, for each level of the categorical variables.
+There are, however, interesting dedicated visualization for such data.</p>
 <div id="alluvian-diagram" class="section level3">
-<h3><span class="header-section-number">4.3.1</span> Alluvian Diagram</h3>
-<p>An Alluvian plot is a type of <a href="eda.html#parcoord">Parallel Coordinate Plot</a> for multivariate categorical data. It is particularly interesting when the <span class="math inline">\(x\)</span> axis is a discretized time variable, and it is used to visualize flow.</p>
+<h3><span class="header-section-number">5.3.1</span> Alluvian Diagram</h3>
+<p>An Alluvian plot is a type of <a href="eda.html#parcoord">Parallel Coordinate Plot</a> for multivariate categorical data.
+It is particularly interesting when the <span class="math inline">\(x\)</span> axis is a discretized time variable, and it is used to visualize flow.</p>
 <p>The following example, from the <strong>ggalluvial</strong> package Vignette by <a href="https://cran.r-project.org/web/packages/ggalluvial/vignettes/ggalluvial.html">Jason Cory Brunson</a>, demonstrates the flow of students between different majors, as semesters evolve.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggalluvial)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggalluvial)
 <span class="kw">data</span>(majors)
 majors<span class="op">$</span>curriculum &lt;-<span class="st"> </span><span class="kw">as.factor</span>(majors<span class="op">$</span>curriculum)
 <span class="kw">ggplot</span>(majors,
@@ -753,8 +869,24 @@ majors<span class="op">$</span>curriculum &lt;-<span class="st"> </span><span cl
             <span class="dt">color =</span> <span class="st">&quot;darkgray&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_stratum</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;student curricula across several semesters&quot;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-96-1.png" width="50%" /></p>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;student curricula across several semesters&quot;</span>)</code></pre>
+<pre><code>## Warning: Prefixing `UQ()` with the rlang namespace is deprecated as of rlang 0.3.0.
+## Please use the non-prefixed form or `!!` instead.
+## 
+##   # Bad:
+##   rlang::expr(mean(rlang::UQ(var) * 100))
+## 
+##   # Ok:
+##   rlang::expr(mean(UQ(var) * 100))
+## 
+##   # Good:
+##   rlang::expr(mean(!!var * 100))
+## 
+## This warning is displayed once per session.</code></pre>
+<pre><code>## Warning: Computation failed in `stat_alluvium()`:
+## Evaluation error: `as_dictionary()` is defunct as of rlang 0.3.0.
+## Please use `as_data_pronoun()` instead.</code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-123-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>We used the <strong>galluvian</strong> package of the <strong>ggplot2</strong> ecosystem. More on <strong>ggplot2</strong> in the <a href="plotting.html#plotting">Plotting Chapter</a>.</li>
@@ -762,12 +894,14 @@ majors<span class="op">$</span>curriculum &lt;-<span class="st"> </span><span cl
 </ul>
 </div>
 </div>
-<div id="bibliographic-notes-2" class="section level2">
-<h2><span class="header-section-number">4.4</span> Bibliographic Notes</h2>
-<p>Like any other topic in this book, you can consult <span class="citation">Venables and Ripley (<a href="#ref-venables2013modern">2013</a>)</span>. The seminal book on EDA, written long before R was around, is <span class="citation">Tukey (<a href="#ref-tukey1977exploratory">1977</a>)</span>. For an excellent text on robust statistics see <span class="citation">Wilcox (<a href="#ref-wilcox2011introduction">2011</a>)</span>.</p>
+<div id="bibliographic-notes-3" class="section level2">
+<h2><span class="header-section-number">5.4</span> Bibliographic Notes</h2>
+<p>Like any other topic in this book, you can consult <span class="citation">Venables and Ripley (<a href="#ref-venables2013modern">2013</a>)</span>.
+The seminal book on EDA, written long before R was around, is <span class="citation">Tukey (<a href="#ref-tukey1977exploratory">1977</a>)</span>.
+For an excellent text on robust statistics see <span class="citation">Wilcox (<a href="#ref-wilcox2011introduction">2011</a>)</span>.</p>
 </div>
-<div id="practice-yourself-2" class="section level2">
-<h2><span class="header-section-number">4.5</span> Practice Yourself</h2>
+<div id="practice-yourself-3" class="section level2">
+<h2><span class="header-section-number">5.5</span> Practice Yourself</h2>
 <ol style="list-style-type: decimal">
 <li><p>Read about the Titanic data set using <code>?Titanic</code>. Inspect it with the <code>table</code> and with the <code>ftable</code> commands. Which do you prefer?</p></li>
 <li><p>Inspect the Titanic data with a plot. Start with <code>plot(Titanic)</code> Try also <code>lattice::dotplot</code>. Which is the passenger category with most survivors? Which plot do you prefer? Which scales better to more categories?</p></li>
@@ -778,7 +912,8 @@ majors<span class="op">$</span>curriculum &lt;-<span class="st"> </span><span cl
 <li>Plot a boxplot of the weights.</li>
 <li>Plot the heights and weights using a scatter plot. Add ticks using <code>rug</code>.</li>
 </ol></li>
-<li><p>Choose <span class="math inline">\(\alpha\)</span> to define a new symmetry measure: <span class="math inline">\(1/2(x_\alpha+x_{1-\alpha})-x_{0.5}\)</span>. Write a function that computes it, and apply it on women’s heights data.</p></li>
+<li><p>Choose <span class="math inline">\(\alpha\)</span> to define a new symmetry measure: <span class="math inline">\(1/2(x_\alpha+x_{1-\alpha})-x_{0.5}\)</span>.
+Write a function that computes it, and apply it on women’s heights data.</p></li>
 <li><p>Compute the covariance matrix of women’s heights and weights. Compute the correlation matrix. View the correlation matrix as an image using <code>lattice::levelplot</code>.</p></li>
 <li><p>Pick a dataset with two LONG continous variables from <code>?datasets</code>. Plot it using <code>hexbin::hexbin</code>.</p></li>
 </ol>
@@ -821,10 +956,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -832,8 +968,12 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-eda.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/30-eda.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["Rcourse.pdf"],
 "toc": {
@@ -848,9 +988,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

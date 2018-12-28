@@ -51,6 +51,11 @@ Another way is to use _external memory algorithms_ (EMA).
 The `biglm::biglm` function provides an EMA for linear regression.
 The following if taken from the function's example.
 
+```{r, echo=FALSE}
+library(magrittr)
+```
+
+
 ```{r biglm}
 data(trees)
 ff<-log(Volume)~log(Girth)+log(Height)
@@ -114,6 +119,7 @@ We compare the aggregation speeds.
 Here is the timing for __dplyr__.
 
 ```{r datatable aggregation}
+library(dplyr)
 system.time( tbl_df %>% 
                group_by(v1,v2) %>% 
                summarize(
@@ -122,7 +128,6 @@ system.time( tbl_df %>%
                  x3 = sum(abs(x3)) 
                  )
              )
-
 ```
 
 And now the timing for __data.table__.

@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>R (BGU course)</title>
+  <title>Chapter 23 The Hadleyverse | R (BGU course)</title>
   <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="R (BGU course)" />
+  <meta property="og:title" content="Chapter 23 The Hadleyverse | R (BGU course)" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R (BGU course)" />
+  <meta name="twitter:title" content="Chapter 23 The Hadleyverse | R (BGU course)" />
   
   <meta name="twitter:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2018-06-07">
+<meta name="date" content="2018-12-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,9 +33,10 @@
   
   
 <link rel="prev" href="psychometrics.html">
-
+<link rel="next" href="causality.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -57,41 +58,67 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -120,268 +147,283 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#bibliographic-notes"><i class="fa fa-check"></i><b>2.3</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#practice-yourself"><i class="fa fa-check"></i><b>2.4</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
-<li class="chapter" data-level="3.0.1" data-path="basics.html"><a href="basics.html#other-ides"><i class="fa fa-check"></i><b>3.0.1</b> Other IDEs</a></li>
-<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>3.1</b> File types</a></li>
-<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.2</b> Simple calculator</a></li>
-<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.3</b> Probability calculator</a></li>
-<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.4</b> Getting Help</a></li>
-<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.5</b> Variable Asignment</a></li>
-<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#missing"><i class="fa fa-check"></i><b>3.6</b> Missing</a></li>
-<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.7</b> Piping</a></li>
-<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.8</b> Vector Creation and Manipulation</a></li>
-<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.9</b> Search Paths and Packages</a></li>
-<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.10</b> Simple Plotting</a></li>
-<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.11</b> Object Types</a></li>
-<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.12</b> Data Frames</a></li>
-<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.13</b> Exctraction</a></li>
-<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#non-data.frame-object-classes"><i class="fa fa-check"></i><b>3.14</b> Non data.frame object classes</a></li>
-<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.15</b> Data Import and Export</a><ul>
-<li class="chapter" data-level="3.15.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.15.1</b> Import from WEB</a></li>
-<li class="chapter" data-level="3.15.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.15.2</b> Export as CSV</a></li>
-<li class="chapter" data-level="3.15.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>3.15.3</b> Export non-CSV files</a></li>
-<li class="chapter" data-level="3.15.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.15.4</b> Reading From Text Files</a></li>
-<li class="chapter" data-level="3.15.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.15.5</b> Writing Data to Text Files</a></li>
-<li class="chapter" data-level="3.15.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.15.6</b> .XLS(X) files</a></li>
-<li class="chapter" data-level="3.15.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.15.7</b> Massive files</a></li>
-<li class="chapter" data-level="3.15.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.15.8</b> Databases</a></li>
+<li class="chapter" data-level="3" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>3</b> data.table</a><ul>
+<li class="chapter" data-level="3.1" data-path="datatable.html"><a href="datatable.html#make-your-own-variables"><i class="fa fa-check"></i><b>3.1</b> Make your own variables</a></li>
+<li class="chapter" data-level="3.2" data-path="datatable.html"><a href="datatable.html#join"><i class="fa fa-check"></i><b>3.2</b> Join</a></li>
+<li class="chapter" data-level="3.3" data-path="datatable.html"><a href="datatable.html#reshaping-data"><i class="fa fa-check"></i><b>3.3</b> Reshaping data</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="datatable.html"><a href="datatable.html#wide-to-long"><i class="fa fa-check"></i><b>3.3.1</b> Wide to long</a></li>
+<li class="chapter" data-level="3.3.2" data-path="datatable.html"><a href="datatable.html#long-to-wide"><i class="fa fa-check"></i><b>3.3.2</b> Long to wide</a></li>
 </ul></li>
-<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.16</b> Functions</a></li>
-<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.17</b> Looping</a></li>
-<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.18</b> Apply</a></li>
-<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.19</b> Recursion</a></li>
-<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.20</b> Dates and Times</a></li>
-<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.21</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.22</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.4" data-path="datatable.html"><a href="datatable.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.4</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.5" data-path="datatable.html"><a href="datatable.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.5</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>4</b> Exploratory Data Analysis</a><ul>
-<li class="chapter" data-level="4.1" data-path="eda.html"><a href="eda.html#summary-statistics"><i class="fa fa-check"></i><b>4.1</b> Summary Statistics</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="eda.html"><a href="eda.html#categorical-data"><i class="fa fa-check"></i><b>4.1.1</b> Categorical Data</a></li>
-<li class="chapter" data-level="4.1.2" data-path="eda.html"><a href="eda.html#continous-data"><i class="fa fa-check"></i><b>4.1.2</b> Continous Data</a></li>
+<li class="chapter" data-level="4" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>4</b> R Basics</a><ul>
+<li class="chapter" data-level="4.0.1" data-path="basics.html"><a href="basics.html#other-ides"><i class="fa fa-check"></i><b>4.0.1</b> Other IDEs</a></li>
+<li class="chapter" data-level="4.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>4.1</b> File types</a></li>
+<li class="chapter" data-level="4.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>4.2</b> Simple calculator</a></li>
+<li class="chapter" data-level="4.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>4.3</b> Probability calculator</a></li>
+<li class="chapter" data-level="4.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>4.4</b> Getting Help</a></li>
+<li class="chapter" data-level="4.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>4.5</b> Variable Asignment</a></li>
+<li class="chapter" data-level="4.6" data-path="basics.html"><a href="basics.html#missing"><i class="fa fa-check"></i><b>4.6</b> Missing</a></li>
+<li class="chapter" data-level="4.7" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>4.7</b> Piping</a></li>
+<li class="chapter" data-level="4.8" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>4.8</b> Vector Creation and Manipulation</a></li>
+<li class="chapter" data-level="4.9" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>4.9</b> Search Paths and Packages</a></li>
+<li class="chapter" data-level="4.10" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>4.10</b> Simple Plotting</a></li>
+<li class="chapter" data-level="4.11" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>4.11</b> Object Types</a></li>
+<li class="chapter" data-level="4.12" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>4.12</b> Data Frames</a></li>
+<li class="chapter" data-level="4.13" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>4.13</b> Exctraction</a></li>
+<li class="chapter" data-level="4.14" data-path="basics.html"><a href="basics.html#augmentations-of-the-data.frame-class"><i class="fa fa-check"></i><b>4.14</b> Augmentations of the data.frame class</a></li>
+<li class="chapter" data-level="4.15" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>4.15</b> Data Import and Export</a><ul>
+<li class="chapter" data-level="4.15.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>4.15.1</b> Import from WEB</a></li>
+<li class="chapter" data-level="4.15.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>4.15.2</b> Export as CSV</a></li>
+<li class="chapter" data-level="4.15.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>4.15.3</b> Export non-CSV files</a></li>
+<li class="chapter" data-level="4.15.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>4.15.4</b> Reading From Text Files</a></li>
+<li class="chapter" data-level="4.15.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>4.15.5</b> Writing Data to Text Files</a></li>
+<li class="chapter" data-level="4.15.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>4.15.6</b> .XLS(X) files</a></li>
+<li class="chapter" data-level="4.15.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>4.15.7</b> Massive files</a></li>
+<li class="chapter" data-level="4.15.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>4.15.8</b> Databases</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="eda.html"><a href="eda.html#visualization"><i class="fa fa-check"></i><b>4.2</b> Visualization</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="eda.html"><a href="eda.html#categorical-data-1"><i class="fa fa-check"></i><b>4.2.1</b> Categorical Data</a></li>
-<li class="chapter" data-level="4.2.2" data-path="eda.html"><a href="eda.html#continuous-data"><i class="fa fa-check"></i><b>4.2.2</b> Continuous Data</a></li>
+<li class="chapter" data-level="4.16" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>4.16</b> Functions</a></li>
+<li class="chapter" data-level="4.17" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>4.17</b> Looping</a></li>
+<li class="chapter" data-level="4.18" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>4.18</b> Apply</a></li>
+<li class="chapter" data-level="4.19" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>4.19</b> Recursion</a></li>
+<li class="chapter" data-level="4.20" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>4.20</b> Dates and Times</a></li>
+<li class="chapter" data-level="4.21" data-path="basics.html"><a href="basics.html#bibliographic-notes-2"><i class="fa fa-check"></i><b>4.21</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="4.22" data-path="basics.html"><a href="basics.html#practice-yourself-2"><i class="fa fa-check"></i><b>4.22</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="eda.html"><a href="eda.html#mixed-type-data"><i class="fa fa-check"></i><b>4.3</b> Mixed Type Data</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="eda.html"><a href="eda.html#alluvian-diagram"><i class="fa fa-check"></i><b>4.3.1</b> Alluvian Diagram</a></li>
+<li class="chapter" data-level="5" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>5</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="5.1" data-path="eda.html"><a href="eda.html#summary-statistics"><i class="fa fa-check"></i><b>5.1</b> Summary Statistics</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="eda.html"><a href="eda.html#categorical-data"><i class="fa fa-check"></i><b>5.1.1</b> Categorical Data</a></li>
+<li class="chapter" data-level="5.1.2" data-path="eda.html"><a href="eda.html#continous-data"><i class="fa fa-check"></i><b>5.1.2</b> Continous Data</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="eda.html"><a href="eda.html#bibliographic-notes-2"><i class="fa fa-check"></i><b>4.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="4.5" data-path="eda.html"><a href="eda.html#practice-yourself-2"><i class="fa fa-check"></i><b>4.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="5.2" data-path="eda.html"><a href="eda.html#visualization"><i class="fa fa-check"></i><b>5.2</b> Visualization</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="eda.html"><a href="eda.html#categorical-data-1"><i class="fa fa-check"></i><b>5.2.1</b> Categorical Data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="eda.html"><a href="eda.html#continuous-data"><i class="fa fa-check"></i><b>5.2.2</b> Continuous Data</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="lm.html"><a href="lm.html"><i class="fa fa-check"></i><b>5</b> Linear Models</a><ul>
-<li class="chapter" data-level="5.1" data-path="lm.html"><a href="lm.html#problem-setup"><i class="fa fa-check"></i><b>5.1</b> Problem Setup</a></li>
-<li class="chapter" data-level="5.2" data-path="lm.html"><a href="lm.html#ols-estimation-in-r"><i class="fa fa-check"></i><b>5.2</b> OLS Estimation in R</a></li>
-<li class="chapter" data-level="5.3" data-path="lm.html"><a href="lm.html#inference"><i class="fa fa-check"></i><b>5.3</b> Inference</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.1</b> Testing a Hypothesis on a Single Coefficient</a></li>
-<li class="chapter" data-level="5.3.2" data-path="lm.html"><a href="lm.html#constructing-a-confidence-interval-on-a-single-coefficient"><i class="fa fa-check"></i><b>5.3.2</b> Constructing a Confidence Interval on a Single Coefficient</a></li>
-<li class="chapter" data-level="5.3.3" data-path="lm.html"><a href="lm.html#multiple-regression"><i class="fa fa-check"></i><b>5.3.3</b> Multiple Regression</a></li>
-<li class="chapter" data-level="5.3.4" data-path="lm.html"><a href="lm.html#anova"><i class="fa fa-check"></i><b>5.3.4</b> ANOVA (*)</a></li>
-<li class="chapter" data-level="5.3.5" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>5.3.5</b> Testing a Hypothesis on a Single Contrast (*)</a></li>
+<li class="chapter" data-level="5.3" data-path="eda.html"><a href="eda.html#mixed-type-data"><i class="fa fa-check"></i><b>5.3</b> Mixed Type Data</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="eda.html"><a href="eda.html#alluvian-diagram"><i class="fa fa-check"></i><b>5.3.1</b> Alluvian Diagram</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="5.5" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="5.4" data-path="eda.html"><a href="eda.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="5.5" data-path="eda.html"><a href="eda.html#practice-yourself-3"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>6</b> Generalized Linear Models</a><ul>
-<li class="chapter" data-level="6.1" data-path="glm.html"><a href="glm.html#problem-setup-1"><i class="fa fa-check"></i><b>6.1</b> Problem Setup</a></li>
-<li class="chapter" data-level="6.2" data-path="glm.html"><a href="glm.html#logistic-regression"><i class="fa fa-check"></i><b>6.2</b> Logistic Regression</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="glm.html"><a href="glm.html#logistic-regression-with-r"><i class="fa fa-check"></i><b>6.2.1</b> Logistic Regression with R</a></li>
+<li class="chapter" data-level="6" data-path="lm.html"><a href="lm.html"><i class="fa fa-check"></i><b>6</b> Linear Models</a><ul>
+<li class="chapter" data-level="6.1" data-path="lm.html"><a href="lm.html#problem-setup"><i class="fa fa-check"></i><b>6.1</b> Problem Setup</a></li>
+<li class="chapter" data-level="6.2" data-path="lm.html"><a href="lm.html#ols-estimation-in-r"><i class="fa fa-check"></i><b>6.2</b> OLS Estimation in R</a></li>
+<li class="chapter" data-level="6.3" data-path="lm.html"><a href="lm.html#inference"><i class="fa fa-check"></i><b>6.3</b> Inference</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-coefficient"><i class="fa fa-check"></i><b>6.3.1</b> Testing a Hypothesis on a Single Coefficient</a></li>
+<li class="chapter" data-level="6.3.2" data-path="lm.html"><a href="lm.html#constructing-a-confidence-interval-on-a-single-coefficient"><i class="fa fa-check"></i><b>6.3.2</b> Constructing a Confidence Interval on a Single Coefficient</a></li>
+<li class="chapter" data-level="6.3.3" data-path="lm.html"><a href="lm.html#multiple-regression"><i class="fa fa-check"></i><b>6.3.3</b> Multiple Regression</a></li>
+<li class="chapter" data-level="6.3.4" data-path="lm.html"><a href="lm.html#anova"><i class="fa fa-check"></i><b>6.3.4</b> ANOVA (*)</a></li>
+<li class="chapter" data-level="6.3.5" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>6.3.5</b> Testing a Hypothesis on a Single Contrast (*)</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="glm.html"><a href="glm.html#poisson-regression"><i class="fa fa-check"></i><b>6.3</b> Poisson Regression</a></li>
-<li class="chapter" data-level="6.4" data-path="glm.html"><a href="glm.html#extensions"><i class="fa fa-check"></i><b>6.4</b> Extensions</a></li>
-<li class="chapter" data-level="6.5" data-path="glm.html"><a href="glm.html#bibliographic-notes-4"><i class="fa fa-check"></i><b>6.5</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="6.6" data-path="glm.html"><a href="glm.html#practice-glm"><i class="fa fa-check"></i><b>6.6</b> Practice Yourself</a></li>
+<li class="chapter" data-level="6.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-4"><i class="fa fa-check"></i><b>6.4</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="6.5" data-path="lm.html"><a href="lm.html#practice-yourself-4"><i class="fa fa-check"></i><b>6.5</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>7</b> Linear Mixed Models</a><ul>
-<li class="chapter" data-level="7.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="lme.html"><a href="lme.html#non-linear-mixed-models"><i class="fa fa-check"></i><b>7.1.1</b> Non-Linear Mixed Models</a></li>
-<li class="chapter" data-level="7.1.2" data-path="lme.html"><a href="lme.html#generalized-linear-mixed-models-glmm"><i class="fa fa-check"></i><b>7.1.2</b> Generalized Linear Mixed Models (GLMM)</a></li>
+<li class="chapter" data-level="7" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>7</b> Generalized Linear Models</a><ul>
+<li class="chapter" data-level="7.1" data-path="glm.html"><a href="glm.html#problem-setup-1"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
+<li class="chapter" data-level="7.2" data-path="glm.html"><a href="glm.html#logistic-regression"><i class="fa fa-check"></i><b>7.2</b> Logistic Regression</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="glm.html"><a href="glm.html#logistic-regression-with-r"><i class="fa fa-check"></i><b>7.2.1</b> Logistic Regression with R</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>7.2</b> Mixed Models with R</a><ul>
-<li class="chapter" data-level="7.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>7.2.1</b> A Single Random Effect</a></li>
-<li class="chapter" data-level="7.2.2" data-path="lme.html"><a href="lme.html#multiple-random-effects"><i class="fa fa-check"></i><b>7.2.2</b> Multiple Random Effects</a></li>
-<li class="chapter" data-level="7.2.3" data-path="lme.html"><a href="lme.html#a-full-mixed-model"><i class="fa fa-check"></i><b>7.2.3</b> A Full Mixed-Model</a></li>
+<li class="chapter" data-level="7.3" data-path="glm.html"><a href="glm.html#poisson-regression"><i class="fa fa-check"></i><b>7.3</b> Poisson Regression</a></li>
+<li class="chapter" data-level="7.4" data-path="glm.html"><a href="glm.html#extensions"><i class="fa fa-check"></i><b>7.4</b> Extensions</a></li>
+<li class="chapter" data-level="7.5" data-path="glm.html"><a href="glm.html#bibliographic-notes-5"><i class="fa fa-check"></i><b>7.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="7.6" data-path="glm.html"><a href="glm.html#practice-glm"><i class="fa fa-check"></i><b>7.6</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="lme.html"><a href="lme.html#serial-correlations"><i class="fa fa-check"></i><b>7.3</b> Serial Correlations</a></li>
-<li class="chapter" data-level="7.4" data-path="lme.html"><a href="lme.html#manova"><i class="fa fa-check"></i><b>7.4</b> Relation to MANOVA</a></li>
-<li class="chapter" data-level="7.5" data-path="lme.html"><a href="lme.html#the-variance-components-view"><i class="fa fa-check"></i><b>7.5</b> The Variance-Components View</a></li>
-<li class="chapter" data-level="7.6" data-path="lme.html"><a href="lme.html#bibliographic-notes-5"><i class="fa fa-check"></i><b>7.6</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="7.7" data-path="lme.html"><a href="lme.html#practice-yourself-4"><i class="fa fa-check"></i><b>7.7</b> Practice Yourself</a></li>
+<li class="chapter" data-level="8" data-path="lme.html"><a href="lme.html"><i class="fa fa-check"></i><b>8</b> Linear Mixed Models</a><ul>
+<li class="chapter" data-level="8.1" data-path="lme.html"><a href="lme.html#problem-setup-2"><i class="fa fa-check"></i><b>8.1</b> Problem Setup</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="lme.html"><a href="lme.html#non-linear-mixed-models"><i class="fa fa-check"></i><b>8.1.1</b> Non-Linear Mixed Models</a></li>
+<li class="chapter" data-level="8.1.2" data-path="lme.html"><a href="lme.html#generalized-linear-mixed-models-glmm"><i class="fa fa-check"></i><b>8.1.2</b> Generalized Linear Mixed Models (GLMM)</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="multivariate.html"><a href="multivariate.html"><i class="fa fa-check"></i><b>8</b> Multivariate Data Analysis</a><ul>
-<li class="chapter" data-level="8.1" data-path="multivariate.html"><a href="multivariate.html#signal-detection"><i class="fa fa-check"></i><b>8.1</b> Signal Detection</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="multivariate.html"><a href="multivariate.html#hotellings-t2-test"><i class="fa fa-check"></i><b>8.1.1</b> Hotelling’s T2 Test</a></li>
-<li class="chapter" data-level="8.1.2" data-path="multivariate.html"><a href="multivariate.html#various-types-of-signal-to-detect"><i class="fa fa-check"></i><b>8.1.2</b> Various Types of Signal to Detect</a></li>
-<li class="chapter" data-level="8.1.3" data-path="multivariate.html"><a href="multivariate.html#simes-test"><i class="fa fa-check"></i><b>8.1.3</b> Simes’ Test</a></li>
-<li class="chapter" data-level="8.1.4" data-path="multivariate.html"><a href="multivariate.html#signal-detection-with-r"><i class="fa fa-check"></i><b>8.1.4</b> Signal Detection with R</a></li>
+<li class="chapter" data-level="8.2" data-path="lme.html"><a href="lme.html#mixed-models-with-r"><i class="fa fa-check"></i><b>8.2</b> Mixed Models with R</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="lme.html"><a href="lme.html#a-single-random-effect"><i class="fa fa-check"></i><b>8.2.1</b> A Single Random Effect</a></li>
+<li class="chapter" data-level="8.2.2" data-path="lme.html"><a href="lme.html#multiple-random-effects"><i class="fa fa-check"></i><b>8.2.2</b> Multiple Random Effects</a></li>
+<li class="chapter" data-level="8.2.3" data-path="lme.html"><a href="lme.html#a-full-mixed-model"><i class="fa fa-check"></i><b>8.2.3</b> A Full Mixed-Model</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="multivariate.html"><a href="multivariate.html#signal-counting"><i class="fa fa-check"></i><b>8.2</b> Signal Counting</a></li>
-<li class="chapter" data-level="8.3" data-path="multivariate.html"><a href="multivariate.html#identification"><i class="fa fa-check"></i><b>8.3</b> Signal Identification</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>8.3.1</b> Signal Identification in R</a></li>
+<li class="chapter" data-level="8.3" data-path="lme.html"><a href="lme.html#serial"><i class="fa fa-check"></i><b>8.3</b> Serial Correlations</a></li>
+<li class="chapter" data-level="8.4" data-path="lme.html"><a href="lme.html#extensions-1"><i class="fa fa-check"></i><b>8.4</b> Extensions</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="lme.html"><a href="lme.html#cluster-robust-standard-errors"><i class="fa fa-check"></i><b>8.4.1</b> Cluster Robust Standard Errors</a></li>
+<li class="chapter" data-level="8.4.2" data-path="lme.html"><a href="lme.html#linear-models-for-panel-data"><i class="fa fa-check"></i><b>8.4.2</b> Linear Models for Panel Data</a></li>
+<li class="chapter" data-level="8.4.3" data-path="lme.html"><a href="lme.html#testing-hypotheses-on-correlations"><i class="fa fa-check"></i><b>8.4.3</b> Testing Hypotheses on Correlations</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>8.4</b> Signal Estimation (*)</a></li>
-<li class="chapter" data-level="8.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>8.5</b> Multivariate Regression (*)</a><ul>
-<li class="chapter" data-level="8.5.1" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression-with-r"><i class="fa fa-check"></i><b>8.5.1</b> Multivariate Regression with R</a></li>
+<li class="chapter" data-level="8.5" data-path="lme.html"><a href="lme.html#relation-to-other-estimators"><i class="fa fa-check"></i><b>8.5</b> Relation to Other Estimators</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="lme.html"><a href="lme.html#fixed-effects-in-the-econometric-literature"><i class="fa fa-check"></i><b>8.5.1</b> Fixed Effects in the Econometric Literature</a></li>
+<li class="chapter" data-level="8.5.2" data-path="lme.html"><a href="lme.html#relation-to-generalized-least-squares-gls"><i class="fa fa-check"></i><b>8.5.2</b> Relation to Generalized Least Squares (GLS)</a></li>
+<li class="chapter" data-level="8.5.3" data-path="lme.html"><a href="lme.html#relation-to-conditional-gaussian-fields"><i class="fa fa-check"></i><b>8.5.3</b> Relation to Conditional Gaussian Fields</a></li>
+<li class="chapter" data-level="8.5.4" data-path="lme.html"><a href="lme.html#relation-to-empirical-risk-minimization-erm"><i class="fa fa-check"></i><b>8.5.4</b> Relation to Empirical Risk Minimization (ERM)</a></li>
+<li class="chapter" data-level="8.5.5" data-path="lme.html"><a href="lme.html#relation-to-m-estimation"><i class="fa fa-check"></i><b>8.5.5</b> Relation to M-Estimation</a></li>
+<li class="chapter" data-level="8.5.6" data-path="lme.html"><a href="lme.html#relation-to-generalize-estimating-equations-gee"><i class="fa fa-check"></i><b>8.5.6</b> Relation to Generalize Estimating Equations (GEE)</a></li>
+<li class="chapter" data-level="8.5.7" data-path="lme.html"><a href="lme.html#manova"><i class="fa fa-check"></i><b>8.5.7</b> Relation to MANOVA</a></li>
+<li class="chapter" data-level="8.5.8" data-path="lme.html"><a href="lme.html#relation-to-seemingly-unrelated-equations-sur"><i class="fa fa-check"></i><b>8.5.8</b> Relation to Seemingly Unrelated Equations (SUR)</a></li>
 </ul></li>
-<li class="chapter" data-level="8.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>8.6</b> Graphical Models (*)</a><ul>
-<li class="chapter" data-level="8.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>8.6.1</b> Graphical Models in R</a></li>
+<li class="chapter" data-level="8.6" data-path="lme.html"><a href="lme.html#the-variance-components-view"><i class="fa fa-check"></i><b>8.6</b> The Variance-Components View</a></li>
+<li class="chapter" data-level="8.7" data-path="lme.html"><a href="lme.html#bibliographic-notes-6"><i class="fa fa-check"></i><b>8.7</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="8.8" data-path="lme.html"><a href="lme.html#practice-yourself-5"><i class="fa fa-check"></i><b>8.8</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="8.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>8.7</b> Biblipgraphic Notes</a></li>
-<li class="chapter" data-level="8.8" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-5"><i class="fa fa-check"></i><b>8.8</b> Practice Yourself</a></li>
+<li class="chapter" data-level="9" data-path="multivariate.html"><a href="multivariate.html"><i class="fa fa-check"></i><b>9</b> Multivariate Data Analysis</a><ul>
+<li class="chapter" data-level="9.1" data-path="multivariate.html"><a href="multivariate.html#signal-detection"><i class="fa fa-check"></i><b>9.1</b> Signal Detection</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="multivariate.html"><a href="multivariate.html#hotellings-t2-test"><i class="fa fa-check"></i><b>9.1.1</b> Hotelling’s T2 Test</a></li>
+<li class="chapter" data-level="9.1.2" data-path="multivariate.html"><a href="multivariate.html#various-types-of-signal-to-detect"><i class="fa fa-check"></i><b>9.1.2</b> Various Types of Signal to Detect</a></li>
+<li class="chapter" data-level="9.1.3" data-path="multivariate.html"><a href="multivariate.html#simes-test"><i class="fa fa-check"></i><b>9.1.3</b> Simes’ Test</a></li>
+<li class="chapter" data-level="9.1.4" data-path="multivariate.html"><a href="multivariate.html#signal-detection-with-r"><i class="fa fa-check"></i><b>9.1.4</b> Signal Detection with R</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>9</b> Supervised Learning</a><ul>
-<li class="chapter" data-level="9.1" data-path="supervised.html"><a href="supervised.html#problem-setup-3"><i class="fa fa-check"></i><b>9.1</b> Problem Setup</a><ul>
-<li class="chapter" data-level="9.1.1" data-path="supervised.html"><a href="supervised.html#common-hypothesis-classes"><i class="fa fa-check"></i><b>9.1.1</b> Common Hypothesis Classes</a></li>
-<li class="chapter" data-level="9.1.2" data-path="supervised.html"><a href="supervised.html#common-complexity-penalties"><i class="fa fa-check"></i><b>9.1.2</b> Common Complexity Penalties</a></li>
-<li class="chapter" data-level="9.1.3" data-path="supervised.html"><a href="supervised.html#unbiased-risk-estimation"><i class="fa fa-check"></i><b>9.1.3</b> Unbiased Risk Estimation</a></li>
-<li class="chapter" data-level="9.1.4" data-path="supervised.html"><a href="supervised.html#collecting-the-pieces"><i class="fa fa-check"></i><b>9.1.4</b> Collecting the Pieces</a></li>
+<li class="chapter" data-level="9.2" data-path="multivariate.html"><a href="multivariate.html#signal-counting"><i class="fa fa-check"></i><b>9.2</b> Signal Counting</a></li>
+<li class="chapter" data-level="9.3" data-path="multivariate.html"><a href="multivariate.html#identification"><i class="fa fa-check"></i><b>9.3</b> Signal Identification</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>9.3.1</b> Signal Identification in R</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="supervised.html"><a href="supervised.html#supervised-learning-in-r"><i class="fa fa-check"></i><b>9.2</b> Supervised Learning in R</a><ul>
-<li class="chapter" data-level="9.2.1" data-path="supervised.html"><a href="supervised.html#least-squares"><i class="fa fa-check"></i><b>9.2.1</b> Linear Models with Least Squares Loss</a></li>
-<li class="chapter" data-level="9.2.2" data-path="supervised.html"><a href="supervised.html#svm"><i class="fa fa-check"></i><b>9.2.2</b> SVM</a></li>
-<li class="chapter" data-level="9.2.3" data-path="supervised.html"><a href="supervised.html#neural-nets"><i class="fa fa-check"></i><b>9.2.3</b> Neural Nets</a></li>
-<li class="chapter" data-level="9.2.4" data-path="supervised.html"><a href="supervised.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>9.2.4</b> Classification and Regression Trees (CART)</a></li>
-<li class="chapter" data-level="9.2.5" data-path="supervised.html"><a href="supervised.html#k-nearest-neighbour-knn"><i class="fa fa-check"></i><b>9.2.5</b> K-nearest neighbour (KNN)</a></li>
-<li class="chapter" data-level="9.2.6" data-path="supervised.html"><a href="supervised.html#linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>9.2.6</b> Linear Discriminant Analysis (LDA)</a></li>
-<li class="chapter" data-level="9.2.7" data-path="supervised.html"><a href="supervised.html#naive-bayes"><i class="fa fa-check"></i><b>9.2.7</b> Naive Bayes</a></li>
-<li class="chapter" data-level="9.2.8" data-path="supervised.html"><a href="supervised.html#random-forrest"><i class="fa fa-check"></i><b>9.2.8</b> Random Forrest</a></li>
-<li class="chapter" data-level="9.2.9" data-path="supervised.html"><a href="supervised.html#gradient-boosting"><i class="fa fa-check"></i><b>9.2.9</b> Gradient Boosting</a></li>
+<li class="chapter" data-level="9.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>9.4</b> Signal Estimation (*)</a></li>
+<li class="chapter" data-level="9.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>9.5</b> Multivariate Regression (*)</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression-with-r"><i class="fa fa-check"></i><b>9.5.1</b> Multivariate Regression with R</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="supervised.html"><a href="supervised.html#bibliographic-notes-6"><i class="fa fa-check"></i><b>9.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="9.4" data-path="supervised.html"><a href="supervised.html#practice-yourself-6"><i class="fa fa-check"></i><b>9.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="9.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>9.6</b> Graphical Models (*)</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>9.6.1</b> Graphical Models in R</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="unsupervised.html"><a href="unsupervised.html"><i class="fa fa-check"></i><b>10</b> Unsupervised Learning</a><ul>
-<li class="chapter" data-level="10.1" data-path="unsupervised.html"><a href="unsupervised.html#dim-reduce"><i class="fa fa-check"></i><b>10.1</b> Dimensionality Reduction</a><ul>
-<li class="chapter" data-level="10.1.1" data-path="unsupervised.html"><a href="unsupervised.html#pca"><i class="fa fa-check"></i><b>10.1.1</b> Principal Component Analysis</a></li>
-<li class="chapter" data-level="10.1.2" data-path="unsupervised.html"><a href="unsupervised.html#dimensionality-reduction-preliminaries"><i class="fa fa-check"></i><b>10.1.2</b> Dimensionality Reduction Preliminaries</a></li>
-<li class="chapter" data-level="10.1.3" data-path="unsupervised.html"><a href="unsupervised.html#latent-variable-generative-approaches"><i class="fa fa-check"></i><b>10.1.3</b> Latent Variable Generative Approaches</a></li>
-<li class="chapter" data-level="10.1.4" data-path="unsupervised.html"><a href="unsupervised.html#purely-algorithmic-approaches"><i class="fa fa-check"></i><b>10.1.4</b> Purely Algorithmic Approaches</a></li>
-<li class="chapter" data-level="10.1.5" data-path="unsupervised.html"><a href="unsupervised.html#dimensionality-reduction-in-r"><i class="fa fa-check"></i><b>10.1.5</b> Dimensionality Reduction in R</a></li>
+<li class="chapter" data-level="9.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>9.7</b> Biblipgraphic Notes</a></li>
+<li class="chapter" data-level="9.8" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-6"><i class="fa fa-check"></i><b>9.8</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="10.2" data-path="unsupervised.html"><a href="unsupervised.html#cluster"><i class="fa fa-check"></i><b>10.2</b> Clustering</a><ul>
-<li class="chapter" data-level="10.2.1" data-path="unsupervised.html"><a href="unsupervised.html#latent-variable-generative-approaches-1"><i class="fa fa-check"></i><b>10.2.1</b> Latent Variable Generative Approaches</a></li>
-<li class="chapter" data-level="10.2.2" data-path="unsupervised.html"><a href="unsupervised.html#purely-algorithmic-approaches-1"><i class="fa fa-check"></i><b>10.2.2</b> Purely Algorithmic Approaches</a></li>
-<li class="chapter" data-level="10.2.3" data-path="unsupervised.html"><a href="unsupervised.html#clustering-in-r"><i class="fa fa-check"></i><b>10.2.3</b> Clustering in R</a></li>
+<li class="chapter" data-level="10" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>10</b> Supervised Learning</a><ul>
+<li class="chapter" data-level="10.1" data-path="supervised.html"><a href="supervised.html#problem-setup-3"><i class="fa fa-check"></i><b>10.1</b> Problem Setup</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="supervised.html"><a href="supervised.html#common-hypothesis-classes"><i class="fa fa-check"></i><b>10.1.1</b> Common Hypothesis Classes</a></li>
+<li class="chapter" data-level="10.1.2" data-path="supervised.html"><a href="supervised.html#common-complexity-penalties"><i class="fa fa-check"></i><b>10.1.2</b> Common Complexity Penalties</a></li>
+<li class="chapter" data-level="10.1.3" data-path="supervised.html"><a href="supervised.html#unbiased-risk-estimation"><i class="fa fa-check"></i><b>10.1.3</b> Unbiased Risk Estimation</a></li>
+<li class="chapter" data-level="10.1.4" data-path="supervised.html"><a href="supervised.html#collecting-the-pieces"><i class="fa fa-check"></i><b>10.1.4</b> Collecting the Pieces</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="unsupervised.html"><a href="unsupervised.html#bibliographic-notes-7"><i class="fa fa-check"></i><b>10.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="10.4" data-path="unsupervised.html"><a href="unsupervised.html#practice-yourself-7"><i class="fa fa-check"></i><b>10.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="10.2" data-path="supervised.html"><a href="supervised.html#supervised-learning-in-r"><i class="fa fa-check"></i><b>10.2</b> Supervised Learning in R</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="supervised.html"><a href="supervised.html#least-squares"><i class="fa fa-check"></i><b>10.2.1</b> Linear Models with Least Squares Loss</a></li>
+<li class="chapter" data-level="10.2.2" data-path="supervised.html"><a href="supervised.html#svm"><i class="fa fa-check"></i><b>10.2.2</b> SVM</a></li>
+<li class="chapter" data-level="10.2.3" data-path="supervised.html"><a href="supervised.html#neural-nets"><i class="fa fa-check"></i><b>10.2.3</b> Neural Nets</a></li>
+<li class="chapter" data-level="10.2.4" data-path="supervised.html"><a href="supervised.html#classification-and-regression-trees-cart"><i class="fa fa-check"></i><b>10.2.4</b> Classification and Regression Trees (CART)</a></li>
+<li class="chapter" data-level="10.2.5" data-path="supervised.html"><a href="supervised.html#k-nearest-neighbour-knn"><i class="fa fa-check"></i><b>10.2.5</b> K-nearest neighbour (KNN)</a></li>
+<li class="chapter" data-level="10.2.6" data-path="supervised.html"><a href="supervised.html#linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>10.2.6</b> Linear Discriminant Analysis (LDA)</a></li>
+<li class="chapter" data-level="10.2.7" data-path="supervised.html"><a href="supervised.html#naive-bayes"><i class="fa fa-check"></i><b>10.2.7</b> Naive Bayes</a></li>
+<li class="chapter" data-level="10.2.8" data-path="supervised.html"><a href="supervised.html#random-forrest"><i class="fa fa-check"></i><b>10.2.8</b> Random Forrest</a></li>
+<li class="chapter" data-level="10.2.9" data-path="supervised.html"><a href="supervised.html#gradient-boosting"><i class="fa fa-check"></i><b>10.2.9</b> Gradient Boosting</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>11</b> Plotting</a><ul>
-<li class="chapter" data-level="11.1" data-path="plotting.html"><a href="plotting.html#the-graphics-system"><i class="fa fa-check"></i><b>11.1</b> The graphics System</a><ul>
-<li class="chapter" data-level="11.1.1" data-path="plotting.html"><a href="plotting.html#using-existing-plotting-functions"><i class="fa fa-check"></i><b>11.1.1</b> Using Existing Plotting Functions</a></li>
-<li class="chapter" data-level="11.1.2" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>11.1.2</b> Exporting a Plot</a></li>
-<li class="chapter" data-level="11.1.3" data-path="plotting.html"><a href="plotting.html#fancy"><i class="fa fa-check"></i><b>11.1.3</b> Fancy graphics Examples</a></li>
+<li class="chapter" data-level="10.3" data-path="supervised.html"><a href="supervised.html#bibliographic-notes-7"><i class="fa fa-check"></i><b>10.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="10.4" data-path="supervised.html"><a href="supervised.html#practice-yourself-7"><i class="fa fa-check"></i><b>10.4</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="plotting.html"><a href="plotting.html#the-ggplot2-system"><i class="fa fa-check"></i><b>11.2</b> The ggplot2 System</a><ul>
-<li class="chapter" data-level="11.2.1" data-path="plotting.html"><a href="plotting.html#extensions-of-the-ggplot2-system"><i class="fa fa-check"></i><b>11.2.1</b> Extensions of the ggplot2 System</a></li>
+<li class="chapter" data-level="11" data-path="unsupervised.html"><a href="unsupervised.html"><i class="fa fa-check"></i><b>11</b> Unsupervised Learning</a><ul>
+<li class="chapter" data-level="11.1" data-path="unsupervised.html"><a href="unsupervised.html#dim-reduce"><i class="fa fa-check"></i><b>11.1</b> Dimensionality Reduction</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="unsupervised.html"><a href="unsupervised.html#pca"><i class="fa fa-check"></i><b>11.1.1</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="11.1.2" data-path="unsupervised.html"><a href="unsupervised.html#dimensionality-reduction-preliminaries"><i class="fa fa-check"></i><b>11.1.2</b> Dimensionality Reduction Preliminaries</a></li>
+<li class="chapter" data-level="11.1.3" data-path="unsupervised.html"><a href="unsupervised.html#latent-variable-generative-approaches"><i class="fa fa-check"></i><b>11.1.3</b> Latent Variable Generative Approaches</a></li>
+<li class="chapter" data-level="11.1.4" data-path="unsupervised.html"><a href="unsupervised.html#purely-algorithmic-approaches"><i class="fa fa-check"></i><b>11.1.4</b> Purely Algorithmic Approaches</a></li>
+<li class="chapter" data-level="11.1.5" data-path="unsupervised.html"><a href="unsupervised.html#dimensionality-reduction-in-r"><i class="fa fa-check"></i><b>11.1.5</b> Dimensionality Reduction in R</a></li>
 </ul></li>
-<li class="chapter" data-level="11.3" data-path="plotting.html"><a href="plotting.html#interactive-graphics"><i class="fa fa-check"></i><b>11.3</b> Interactive Graphics</a><ul>
-<li class="chapter" data-level="11.3.1" data-path="plotting.html"><a href="plotting.html#plotly"><i class="fa fa-check"></i><b>11.3.1</b> Plotly</a></li>
+<li class="chapter" data-level="11.2" data-path="unsupervised.html"><a href="unsupervised.html#cluster"><i class="fa fa-check"></i><b>11.2</b> Clustering</a><ul>
+<li class="chapter" data-level="11.2.1" data-path="unsupervised.html"><a href="unsupervised.html#latent-variable-generative-approaches-1"><i class="fa fa-check"></i><b>11.2.1</b> Latent Variable Generative Approaches</a></li>
+<li class="chapter" data-level="11.2.2" data-path="unsupervised.html"><a href="unsupervised.html#purely-algorithmic-approaches-1"><i class="fa fa-check"></i><b>11.2.2</b> Purely Algorithmic Approaches</a></li>
+<li class="chapter" data-level="11.2.3" data-path="unsupervised.html"><a href="unsupervised.html#clustering-in-r"><i class="fa fa-check"></i><b>11.2.3</b> Clustering in R</a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="plotting.html"><a href="plotting.html#bibliographic-notes-8"><i class="fa fa-check"></i><b>11.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="11.5" data-path="plotting.html"><a href="plotting.html#practice-yourself-8"><i class="fa fa-check"></i><b>11.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="11.3" data-path="unsupervised.html"><a href="unsupervised.html#bibliographic-notes-8"><i class="fa fa-check"></i><b>11.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="11.4" data-path="unsupervised.html"><a href="unsupervised.html#practice-yourself-8"><i class="fa fa-check"></i><b>11.4</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="report.html"><a href="report.html"><i class="fa fa-check"></i><b>12</b> Reports</a><ul>
-<li class="chapter" data-level="12.1" data-path="report.html"><a href="report.html#knitr"><i class="fa fa-check"></i><b>12.1</b> knitr</a><ul>
-<li class="chapter" data-level="12.1.1" data-path="report.html"><a href="report.html#installation"><i class="fa fa-check"></i><b>12.1.1</b> Installation</a></li>
-<li class="chapter" data-level="12.1.2" data-path="report.html"><a href="report.html#pandoc-markdown"><i class="fa fa-check"></i><b>12.1.2</b> Pandoc Markdown</a></li>
-<li class="chapter" data-level="12.1.3" data-path="report.html"><a href="report.html#rmarkdown"><i class="fa fa-check"></i><b>12.1.3</b> Rmarkdown</a></li>
-<li class="chapter" data-level="12.1.4" data-path="report.html"><a href="report.html#bibtex"><i class="fa fa-check"></i><b>12.1.4</b> BibTex</a></li>
-<li class="chapter" data-level="12.1.5" data-path="report.html"><a href="report.html#compiling"><i class="fa fa-check"></i><b>12.1.5</b> Compiling</a></li>
+<li class="chapter" data-level="12" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>12</b> Plotting</a><ul>
+<li class="chapter" data-level="12.1" data-path="plotting.html"><a href="plotting.html#the-graphics-system"><i class="fa fa-check"></i><b>12.1</b> The graphics System</a><ul>
+<li class="chapter" data-level="12.1.1" data-path="plotting.html"><a href="plotting.html#using-existing-plotting-functions"><i class="fa fa-check"></i><b>12.1.1</b> Using Existing Plotting Functions</a></li>
+<li class="chapter" data-level="12.1.2" data-path="plotting.html"><a href="plotting.html#exporting-a-plot"><i class="fa fa-check"></i><b>12.1.2</b> Exporting a Plot</a></li>
+<li class="chapter" data-level="12.1.3" data-path="plotting.html"><a href="plotting.html#fancy"><i class="fa fa-check"></i><b>12.1.3</b> Fancy graphics Examples</a></li>
 </ul></li>
-<li class="chapter" data-level="12.2" data-path="report.html"><a href="report.html#bookdown"><i class="fa fa-check"></i><b>12.2</b> bookdown</a></li>
-<li class="chapter" data-level="12.3" data-path="report.html"><a href="report.html#shiny"><i class="fa fa-check"></i><b>12.3</b> Shiny</a><ul>
-<li class="chapter" data-level="12.3.1" data-path="report.html"><a href="report.html#installation-1"><i class="fa fa-check"></i><b>12.3.1</b> Installation</a></li>
-<li class="chapter" data-level="12.3.2" data-path="report.html"><a href="report.html#the-basics-of-shiny"><i class="fa fa-check"></i><b>12.3.2</b> The Basics of Shiny</a></li>
-<li class="chapter" data-level="12.3.3" data-path="report.html"><a href="report.html#beyond-the-basics"><i class="fa fa-check"></i><b>12.3.3</b> Beyond the Basics</a></li>
-<li class="chapter" data-level="12.3.4" data-path="report.html"><a href="report.html#shinydashboard"><i class="fa fa-check"></i><b>12.3.4</b> shinydashboard</a></li>
+<li class="chapter" data-level="12.2" data-path="plotting.html"><a href="plotting.html#the-ggplot2-system"><i class="fa fa-check"></i><b>12.2</b> The ggplot2 System</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="plotting.html"><a href="plotting.html#extensions-of-the-ggplot2-system"><i class="fa fa-check"></i><b>12.2.1</b> Extensions of the ggplot2 System</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="report.html"><a href="report.html#flexdashboard"><i class="fa fa-check"></i><b>12.4</b> flexdashboard</a></li>
-<li class="chapter" data-level="12.5" data-path="report.html"><a href="report.html#bibliographic-notes-9"><i class="fa fa-check"></i><b>12.5</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="12.6" data-path="report.html"><a href="report.html#practice-yourself-9"><i class="fa fa-check"></i><b>12.6</b> Practice Yourself</a></li>
+<li class="chapter" data-level="12.3" data-path="plotting.html"><a href="plotting.html#interactive-graphics"><i class="fa fa-check"></i><b>12.3</b> Interactive Graphics</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="plotting.html"><a href="plotting.html#plotly"><i class="fa fa-check"></i><b>12.3.1</b> Plotly</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>13</b> Sparse Representations</a><ul>
-<li class="chapter" data-level="13.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>13.1</b> Sparse Matrix Representations</a><ul>
-<li class="chapter" data-level="13.1.1" data-path="sparse.html"><a href="sparse.html#coo"><i class="fa fa-check"></i><b>13.1.1</b> Coordinate List Representation</a></li>
-<li class="chapter" data-level="13.1.2" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>13.1.2</b> Compressed Column Oriented Representation</a></li>
-<li class="chapter" data-level="13.1.3" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>13.1.3</b> Compressed Row Oriented Representation</a></li>
-<li class="chapter" data-level="13.1.4" data-path="sparse.html"><a href="sparse.html#sparse-algorithms"><i class="fa fa-check"></i><b>13.1.4</b> Sparse Algorithms</a></li>
+<li class="chapter" data-level="12.4" data-path="plotting.html"><a href="plotting.html#r2d3"><i class="fa fa-check"></i><b>12.4</b> r2d3</a></li>
+<li class="chapter" data-level="12.5" data-path="plotting.html"><a href="plotting.html#bibliographic-notes-9"><i class="fa fa-check"></i><b>12.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="12.6" data-path="plotting.html"><a href="plotting.html#practice-yourself-9"><i class="fa fa-check"></i><b>12.6</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="13.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>13.2</b> Sparse Matrices and Sparse Models in R</a><ul>
-<li class="chapter" data-level="13.2.1" data-path="sparse.html"><a href="sparse.html#the-matrix-package"><i class="fa fa-check"></i><b>13.2.1</b> The Matrix Package</a></li>
-<li class="chapter" data-level="13.2.2" data-path="sparse.html"><a href="sparse.html#the-matrixmodels-package"><i class="fa fa-check"></i><b>13.2.2</b> The MatrixModels Package</a></li>
-<li class="chapter" data-level="13.2.3" data-path="sparse.html"><a href="sparse.html#the-glmnet-package"><i class="fa fa-check"></i><b>13.2.3</b> The glmnet Package</a></li>
-<li class="chapter" data-level="13.2.4" data-path="sparse.html"><a href="sparse.html#the-sparsem-package"><i class="fa fa-check"></i><b>13.2.4</b> The SparseM Package</a></li>
+<li class="chapter" data-level="13" data-path="report.html"><a href="report.html"><i class="fa fa-check"></i><b>13</b> Reports</a><ul>
+<li class="chapter" data-level="13.1" data-path="report.html"><a href="report.html#knitr"><i class="fa fa-check"></i><b>13.1</b> knitr</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="report.html"><a href="report.html#installation"><i class="fa fa-check"></i><b>13.1.1</b> Installation</a></li>
+<li class="chapter" data-level="13.1.2" data-path="report.html"><a href="report.html#pandoc-markdown"><i class="fa fa-check"></i><b>13.1.2</b> Pandoc Markdown</a></li>
+<li class="chapter" data-level="13.1.3" data-path="report.html"><a href="report.html#rmarkdown"><i class="fa fa-check"></i><b>13.1.3</b> Rmarkdown</a></li>
+<li class="chapter" data-level="13.1.4" data-path="report.html"><a href="report.html#bibtex"><i class="fa fa-check"></i><b>13.1.4</b> BibTex</a></li>
+<li class="chapter" data-level="13.1.5" data-path="report.html"><a href="report.html#compiling"><i class="fa fa-check"></i><b>13.1.5</b> Compiling</a></li>
 </ul></li>
-<li class="chapter" data-level="13.3" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-10"><i class="fa fa-check"></i><b>13.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="13.4" data-path="sparse.html"><a href="sparse.html#practice-yourself-10"><i class="fa fa-check"></i><b>13.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="13.2" data-path="report.html"><a href="report.html#bookdown"><i class="fa fa-check"></i><b>13.2</b> bookdown</a></li>
+<li class="chapter" data-level="13.3" data-path="report.html"><a href="report.html#shiny"><i class="fa fa-check"></i><b>13.3</b> Shiny</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="report.html"><a href="report.html#installation-1"><i class="fa fa-check"></i><b>13.3.1</b> Installation</a></li>
+<li class="chapter" data-level="13.3.2" data-path="report.html"><a href="report.html#the-basics-of-shiny"><i class="fa fa-check"></i><b>13.3.2</b> The Basics of Shiny</a></li>
+<li class="chapter" data-level="13.3.3" data-path="report.html"><a href="report.html#beyond-the-basics"><i class="fa fa-check"></i><b>13.3.3</b> Beyond the Basics</a></li>
+<li class="chapter" data-level="13.3.4" data-path="report.html"><a href="report.html#shinydashboard"><i class="fa fa-check"></i><b>13.3.4</b> shinydashboard</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>14</b> Memory Efficiency</a><ul>
-<li class="chapter" data-level="14.1" data-path="memory.html"><a href="memory.html#efficient-computing-from-ram"><i class="fa fa-check"></i><b>14.1</b> Efficient Computing from RAM</a><ul>
-<li class="chapter" data-level="14.1.1" data-path="memory.html"><a href="memory.html#summary-statistics-from-ram"><i class="fa fa-check"></i><b>14.1.1</b> Summary Statistics from RAM</a></li>
+<li class="chapter" data-level="13.4" data-path="report.html"><a href="report.html#flexdashboard"><i class="fa fa-check"></i><b>13.4</b> flexdashboard</a></li>
+<li class="chapter" data-level="13.5" data-path="report.html"><a href="report.html#bibliographic-notes-10"><i class="fa fa-check"></i><b>13.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="13.6" data-path="report.html"><a href="report.html#practice-yourself-10"><i class="fa fa-check"></i><b>13.6</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="14.2" data-path="memory.html"><a href="memory.html#computing-from-a-database"><i class="fa fa-check"></i><b>14.2</b> Computing from a Database</a></li>
-<li class="chapter" data-level="14.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>14.3</b> Computing From Efficient File Structrures</a><ul>
-<li class="chapter" data-level="14.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>14.3.1</b> bigmemory</a></li>
+<li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a><ul>
+<li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="sparse.html"><a href="sparse.html#coo"><i class="fa fa-check"></i><b>14.1.1</b> Coordinate List Representation</a></li>
+<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Column Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.4" data-path="sparse.html"><a href="sparse.html#sparse-algorithms"><i class="fa fa-check"></i><b>14.1.4</b> Sparse Algorithms</a></li>
 </ul></li>
-<li class="chapter" data-level="14.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>14.4</b> ff</a></li>
-<li class="chapter" data-level="14.5" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>14.5</b> matter</a></li>
-<li class="chapter" data-level="14.6" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>14.6</b> iotools</a></li>
-<li class="chapter" data-level="14.7" data-path="memory.html"><a href="memory.html#hdf5"><i class="fa fa-check"></i><b>14.7</b> HDF5</a></li>
-<li class="chapter" data-level="14.8" data-path="memory.html"><a href="memory.html#delayedarray"><i class="fa fa-check"></i><b>14.8</b> DelayedArray</a><ul>
-<li class="chapter" data-level="14.8.1" data-path="memory.html"><a href="memory.html#delayedmatrixstats"><i class="fa fa-check"></i><b>14.8.1</b> DelayedMatrixStats</a></li>
-<li class="chapter" data-level="14.8.2" data-path="memory.html"><a href="memory.html#beachmat"><i class="fa fa-check"></i><b>14.8.2</b> beachmat</a></li>
-<li class="chapter" data-level="14.8.3" data-path="memory.html"><a href="memory.html#restfulse"><i class="fa fa-check"></i><b>14.8.3</b> restfulSE</a></li>
+<li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="sparse.html"><a href="sparse.html#the-matrix-package"><i class="fa fa-check"></i><b>14.2.1</b> The Matrix Package</a></li>
+<li class="chapter" data-level="14.2.2" data-path="sparse.html"><a href="sparse.html#the-matrixmodels-package"><i class="fa fa-check"></i><b>14.2.2</b> The MatrixModels Package</a></li>
+<li class="chapter" data-level="14.2.3" data-path="sparse.html"><a href="sparse.html#the-glmnet-package"><i class="fa fa-check"></i><b>14.2.3</b> The glmnet Package</a></li>
+<li class="chapter" data-level="14.2.4" data-path="sparse.html"><a href="sparse.html#the-sparsem-package"><i class="fa fa-check"></i><b>14.2.4</b> The SparseM Package</a></li>
 </ul></li>
-<li class="chapter" data-level="14.9" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>14.9</b> Computing from a Distributed File System</a></li>
-<li class="chapter" data-level="14.10" data-path="memory.html"><a href="memory.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>14.10</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="14.11" data-path="memory.html"><a href="memory.html#practice-yourself-11"><i class="fa fa-check"></i><b>14.11</b> Practice Yourself</a></li>
+<li class="chapter" data-level="14.3" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>14.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="14.4" data-path="sparse.html"><a href="sparse.html#practice-yourself-11"><i class="fa fa-check"></i><b>14.4</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>15</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="15.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>15.1</b> Implicit Parallelism</a></li>
-<li class="chapter" data-level="15.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>15.2</b> Explicit Parallelism</a><ul>
-<li class="chapter" data-level="15.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>15.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
+<li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a><ul>
+<li class="chapter" data-level="15.1" data-path="memory.html"><a href="memory.html#efficient-computing-from-ram"><i class="fa fa-check"></i><b>15.1</b> Efficient Computing from RAM</a><ul>
+<li class="chapter" data-level="15.1.1" data-path="memory.html"><a href="memory.html#summary-statistics-from-ram"><i class="fa fa-check"></i><b>15.1.1</b> Summary Statistics from RAM</a></li>
 </ul></li>
-<li class="chapter" data-level="15.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>15.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="15.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-12"><i class="fa fa-check"></i><b>15.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="15.2" data-path="memory.html"><a href="memory.html#computing-from-a-database"><i class="fa fa-check"></i><b>15.2</b> Computing from a Database</a></li>
+<li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
+<li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>16</b> Numerical Linear Algebra</a><ul>
-<li class="chapter" data-level="16.1" data-path="algebra.html"><a href="algebra.html#lu-factorization"><i class="fa fa-check"></i><b>16.1</b> LU Factorization</a></li>
-<li class="chapter" data-level="16.2" data-path="algebra.html"><a href="algebra.html#cholesky-factorization"><i class="fa fa-check"></i><b>16.2</b> Cholesky Factorization</a></li>
-<li class="chapter" data-level="16.3" data-path="algebra.html"><a href="algebra.html#qr-factorization"><i class="fa fa-check"></i><b>16.3</b> QR Factorization</a></li>
-<li class="chapter" data-level="16.4" data-path="algebra.html"><a href="algebra.html#singular-value-factorization"><i class="fa fa-check"></i><b>16.4</b> Singular Value Factorization</a></li>
-<li class="chapter" data-level="16.5" data-path="algebra.html"><a href="algebra.html#iterative-methods"><i class="fa fa-check"></i><b>16.5</b> Iterative Methods</a></li>
-<li class="chapter" data-level="16.6" data-path="algebra.html"><a href="algebra.html#solving-ols"><i class="fa fa-check"></i><b>16.6</b> Solving the OLS Problem</a></li>
-<li class="chapter" data-level="16.7" data-path="algebra.html"><a href="algebra.html#bibliographic-notes-13"><i class="fa fa-check"></i><b>16.7</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="16.8" data-path="algebra.html"><a href="algebra.html#practice-yourself-13"><i class="fa fa-check"></i><b>16.8</b> Practice Yourself</a></li>
+<li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
+<li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.5</b> matter</a></li>
+<li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.6</b> iotools</a></li>
+<li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#hdf5"><i class="fa fa-check"></i><b>15.7</b> HDF5</a></li>
+<li class="chapter" data-level="15.8" data-path="memory.html"><a href="memory.html#delayedarray"><i class="fa fa-check"></i><b>15.8</b> DelayedArray</a><ul>
+<li class="chapter" data-level="15.8.1" data-path="memory.html"><a href="memory.html#delayedmatrixstats"><i class="fa fa-check"></i><b>15.8.1</b> DelayedMatrixStats</a></li>
+<li class="chapter" data-level="15.8.2" data-path="memory.html"><a href="memory.html#beachmat"><i class="fa fa-check"></i><b>15.8.2</b> beachmat</a></li>
+<li class="chapter" data-level="15.8.3" data-path="memory.html"><a href="memory.html#restfulse"><i class="fa fa-check"></i><b>15.8.3</b> restfulSE</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>17</b> Convex Optimization</a><ul>
-<li class="chapter" data-level="17.1" data-path="convex.html"><a href="convex.html#theoretical-backround"><i class="fa fa-check"></i><b>17.1</b> Theoretical Backround</a></li>
-<li class="chapter" data-level="17.2" data-path="convex.html"><a href="convex.html#optimizing-with-r"><i class="fa fa-check"></i><b>17.2</b> Optimizing with R</a><ul>
-<li class="chapter" data-level="17.2.1" data-path="convex.html"><a href="convex.html#the-optim-function"><i class="fa fa-check"></i><b>17.2.1</b> The optim Function</a></li>
-<li class="chapter" data-level="17.2.2" data-path="convex.html"><a href="convex.html#the-nloptr-package"><i class="fa fa-check"></i><b>17.2.2</b> The nloptr Package</a></li>
-<li class="chapter" data-level="17.2.3" data-path="convex.html"><a href="convex.html#minqa-package"><i class="fa fa-check"></i><b>17.2.3</b> minqa Package</a></li>
+<li class="chapter" data-level="15.9" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.9</b> Computing from a Distributed File System</a></li>
+<li class="chapter" data-level="15.10" data-path="memory.html"><a href="memory.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>15.10</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="15.11" data-path="memory.html"><a href="memory.html#practice-yourself-12"><i class="fa fa-check"></i><b>15.11</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="17.3" data-path="convex.html"><a href="convex.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>17.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="17.4" data-path="convex.html"><a href="convex.html#practice-yourself-14"><i class="fa fa-check"></i><b>17.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Explicit Parallelism</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="rcpp.html"><a href="rcpp.html"><i class="fa fa-check"></i><b>18</b> RCpp</a><ul>
-<li class="chapter" data-level="18.1" data-path="rcpp.html"><a href="rcpp.html#bibliographic-notes-15"><i class="fa fa-check"></i><b>18.1</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="18.2" data-path="rcpp.html"><a href="rcpp.html#practice-yourself-15"><i class="fa fa-check"></i><b>18.2</b> Practice Yourself</a></li>
+<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-13"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-13"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>19</b> Debugging Tools</a><ul>
-<li class="chapter" data-level="19.1" data-path="debugging.html"><a href="debugging.html#bibliographic-notes-16"><i class="fa fa-check"></i><b>19.1</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="19.2" data-path="debugging.html"><a href="debugging.html#practice-yourself-16"><i class="fa fa-check"></i><b>19.2</b> Practice Yourself</a></li>
+<li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a><ul>
+<li class="chapter" data-level="17.1" data-path="algebra.html"><a href="algebra.html#lu-factorization"><i class="fa fa-check"></i><b>17.1</b> LU Factorization</a></li>
+<li class="chapter" data-level="17.2" data-path="algebra.html"><a href="algebra.html#cholesky-factorization"><i class="fa fa-check"></i><b>17.2</b> Cholesky Factorization</a></li>
+<li class="chapter" data-level="17.3" data-path="algebra.html"><a href="algebra.html#qr-factorization"><i class="fa fa-check"></i><b>17.3</b> QR Factorization</a></li>
+<li class="chapter" data-level="17.4" data-path="algebra.html"><a href="algebra.html#singular-value-factorization"><i class="fa fa-check"></i><b>17.4</b> Singular Value Factorization</a></li>
+<li class="chapter" data-level="17.5" data-path="algebra.html"><a href="algebra.html#iterative-methods"><i class="fa fa-check"></i><b>17.5</b> Iterative Methods</a></li>
+<li class="chapter" data-level="17.6" data-path="algebra.html"><a href="algebra.html#solving-ols"><i class="fa fa-check"></i><b>17.6</b> Solving the OLS Problem</a></li>
+<li class="chapter" data-level="17.7" data-path="algebra.html"><a href="algebra.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>17.7</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="17.8" data-path="algebra.html"><a href="algebra.html#practice-yourself-14"><i class="fa fa-check"></i><b>17.8</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="20" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>20</b> data.table</a><ul>
-<li class="chapter" data-level="20.1" data-path="datatable.html"><a href="datatable.html#make-your-own-variables"><i class="fa fa-check"></i><b>20.1</b> Make your own variables</a></li>
-<li class="chapter" data-level="20.2" data-path="datatable.html"><a href="datatable.html#join"><i class="fa fa-check"></i><b>20.2</b> Join</a></li>
-<li class="chapter" data-level="20.3" data-path="datatable.html"><a href="datatable.html#reshaping-data"><i class="fa fa-check"></i><b>20.3</b> Reshaping data</a><ul>
-<li class="chapter" data-level="20.3.1" data-path="datatable.html"><a href="datatable.html#wide-to-long"><i class="fa fa-check"></i><b>20.3.1</b> Wide to long</a></li>
-<li class="chapter" data-level="20.3.2" data-path="datatable.html"><a href="datatable.html#long-to-wide"><i class="fa fa-check"></i><b>20.3.2</b> Long to wide</a></li>
+<li class="chapter" data-level="18" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>18</b> Convex Optimization</a><ul>
+<li class="chapter" data-level="18.1" data-path="convex.html"><a href="convex.html#theoretical-backround"><i class="fa fa-check"></i><b>18.1</b> Theoretical Backround</a></li>
+<li class="chapter" data-level="18.2" data-path="convex.html"><a href="convex.html#optimizing-with-r"><i class="fa fa-check"></i><b>18.2</b> Optimizing with R</a><ul>
+<li class="chapter" data-level="18.2.1" data-path="convex.html"><a href="convex.html#the-optim-function"><i class="fa fa-check"></i><b>18.2.1</b> The optim Function</a></li>
+<li class="chapter" data-level="18.2.2" data-path="convex.html"><a href="convex.html#the-nloptr-package"><i class="fa fa-check"></i><b>18.2.2</b> The nloptr Package</a></li>
+<li class="chapter" data-level="18.2.3" data-path="convex.html"><a href="convex.html#minqa-package"><i class="fa fa-check"></i><b>18.2.3</b> minqa Package</a></li>
 </ul></li>
-<li class="chapter" data-level="20.4" data-path="datatable.html"><a href="datatable.html#bibliographic-notes-17"><i class="fa fa-check"></i><b>20.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="20.5" data-path="datatable.html"><a href="datatable.html#practice-yourself-17"><i class="fa fa-check"></i><b>20.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="18.3" data-path="convex.html"><a href="convex.html#bibliographic-notes-15"><i class="fa fa-check"></i><b>18.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="18.4" data-path="convex.html"><a href="convex.html#practice-yourself-15"><i class="fa fa-check"></i><b>18.4</b> Practice Yourself</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="rcpp.html"><a href="rcpp.html"><i class="fa fa-check"></i><b>19</b> RCpp</a><ul>
+<li class="chapter" data-level="19.1" data-path="rcpp.html"><a href="rcpp.html#bibliographic-notes-16"><i class="fa fa-check"></i><b>19.1</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="19.2" data-path="rcpp.html"><a href="rcpp.html#practice-yourself-16"><i class="fa fa-check"></i><b>19.2</b> Practice Yourself</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>20</b> Debugging Tools</a><ul>
+<li class="chapter" data-level="20.1" data-path="debugging.html"><a href="debugging.html#bibliographic-notes-17"><i class="fa fa-check"></i><b>20.1</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="20.2" data-path="debugging.html"><a href="debugging.html#practice-yourself-17"><i class="fa fa-check"></i><b>20.2</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="21" data-path="econometrics.html"><a href="econometrics.html"><i class="fa fa-check"></i><b>21</b> Econometrics</a><ul>
 <li class="chapter" data-level="21.1" data-path="econometrics.html"><a href="econometrics.html#bibliographic-notes-18"><i class="fa fa-check"></i><b>21.1</b> Bibliographic Notes</a></li>
@@ -400,6 +442,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="23.6" data-path="hadley.html"><a href="hadley.html#anytime"><i class="fa fa-check"></i><b>23.6</b> anytime</a></li>
 <li class="chapter" data-level="23.7" data-path="hadley.html"><a href="hadley.html#biblipgraphic-notes-1"><i class="fa fa-check"></i><b>23.7</b> Biblipgraphic Notes</a></li>
 <li class="chapter" data-level="23.8" data-path="hadley.html"><a href="hadley.html#practice-yourself-20"><i class="fa fa-check"></i><b>23.8</b> Practice Yourself</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="causality.html"><a href="causality.html"><i class="fa fa-check"></i><b>24</b> Causal Inferense</a><ul>
+<li class="chapter" data-level="24.1" data-path="causality.html"><a href="causality.html#causal-inference-from-designed-experiments"><i class="fa fa-check"></i><b>24.1</b> Causal Inference From Designed Experiments</a><ul>
+<li class="chapter" data-level="24.1.1" data-path="causality.html"><a href="causality.html#design-of-experiments"><i class="fa fa-check"></i><b>24.1.1</b> Design of Experiments</a></li>
+<li class="chapter" data-level="24.1.2" data-path="causality.html"><a href="causality.html#randomized-inference"><i class="fa fa-check"></i><b>24.1.2</b> Randomized Inference</a></li>
+</ul></li>
+<li class="chapter" data-level="24.2" data-path="causality.html"><a href="causality.html#causal-inference-from-observational-data"><i class="fa fa-check"></i><b>24.2</b> Causal Inference from Observational Data</a><ul>
+<li class="chapter" data-level="24.2.1" data-path="causality.html"><a href="causality.html#principal-stratification"><i class="fa fa-check"></i><b>24.2.1</b> Principal Stratification</a></li>
+<li class="chapter" data-level="24.2.2" data-path="causality.html"><a href="causality.html#instrumental-variables"><i class="fa fa-check"></i><b>24.2.2</b> Instrumental Variables</a></li>
+<li class="chapter" data-level="24.2.3" data-path="causality.html"><a href="causality.html#propensity-scores"><i class="fa fa-check"></i><b>24.2.3</b> Propensity Scores</a></li>
+<li class="chapter" data-level="24.2.4" data-path="causality.html"><a href="causality.html#direct-lieklihood"><i class="fa fa-check"></i><b>24.2.4</b> Direct Lieklihood</a></li>
+<li class="chapter" data-level="24.2.5" data-path="causality.html"><a href="causality.html#regression-discontinuity"><i class="fa fa-check"></i><b>24.2.5</b> Regression Discontinuity</a></li>
+</ul></li>
+<li class="chapter" data-level="24.3" data-path="causality.html"><a href="causality.html#bibliographic-notes-20"><i class="fa fa-check"></i><b>24.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="24.4" data-path="causality.html"><a href="causality.html#practice-yourself-21"><i class="fa fa-check"></i><b>24.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -423,9 +480,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="hadley" class="section level1">
 <h1><span class="header-section-number">Chapter 23</span> The Hadleyverse</h1>
-<p>The <em>Hadleyverse</em>, short for “Hadley Wickham’s universe”, is a set of packages that make it easier to handle data. If you are developing packages, you should be careful since using these packages may create many dependencies and compatibility issues. If you are analyzing data, and the portability of your functions to other users, machines, and operating systems is not of a concern, you will LOVE these packages. The term Hadleyverse refers to <strong>all</strong> of Hadley’s packages, but here, we mention only a useful subset, which can be collectively installed via the <strong>tidyverse</strong> package:</p>
+<p>The <em>Hadleyverse</em>, short for “Hadley Wickham’s universe”, is a set of packages that make it easier to handle data.
+If you are developing packages, you should be careful since using these packages may create many dependencies and compatibility issues.
+If you are analyzing data, and the portability of your functions to other users, machines, and operating systems is not of a concern, you will LOVE these packages.
+The term Hadleyverse refers to <strong>all</strong> of Hadley’s packages, but here, we mention only a useful subset, which can be collectively installed via the <strong>tidyverse</strong> package:</p>
 <ul>
-<li><strong>ggplot2</strong> for data visualization. See the Plotting Chapter <a href="plotting.html#plotting">11</a>.</li>
+<li><strong>ggplot2</strong> for data visualization. See the Plotting Chapter <a href="plotting.html#plotting">12</a>.</li>
 <li><strong>dplyr</strong> for data manipulation.</li>
 <li><strong>tidyr</strong> for data tidying.</li>
 <li><strong>readr</strong> for data import.</li>
@@ -434,12 +494,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <div id="readr" class="section level2">
 <h2><span class="header-section-number">23.1</span> readr</h2>
-<p>The <strong>readr</strong> package <span class="citation">(Wickham, Hester, and Francois <a href="#ref-readr">2016</a>)</span> replaces base functions for importing and exporting data such as <code>read.table</code>. It is faster, with a cleaner syntax.</p>
+<p>The <strong>readr</strong> package <span class="citation">(Wickham, Hester, and Francois <a href="#ref-readr">2016</a>)</span> replaces base functions for importing and exporting data such as <code>read.table</code>.
+It is faster, with a cleaner syntax.</p>
 <p>We will not go into the details and refer the reader to the official documentation <a href="http://readr.tidyverse.org/articles/readr.html">here</a> and the <a href="http://r4ds.had.co.nz/data-import.html">R for data sciecne</a> book.</p>
 </div>
 <div id="dplyr" class="section level2">
 <h2><span class="header-section-number">23.2</span> dplyr</h2>
-<p>When you think of data frame operations, think <strong>dplyr</strong> <span class="citation">(Wickham and Francois <a href="#ref-dplyr">2016</a>)</span>. Notable utilities in the package include:</p>
+<p>When you think of data frame operations, think <strong>dplyr</strong> <span class="citation">(Wickham and Francois <a href="#ref-dplyr">2016</a>)</span>.
+Notable utilities in the package include:</p>
 <ul>
 <li><code>select()</code> Select columns from a data frame.</li>
 <li><code>filter()</code> Filter rows according to some condition(s).</li>
@@ -447,44 +509,48 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>mutate()</code> Create new columns or transform existing ones.</li>
 <li><code>group_by()</code> Group a data frame by some factor(s) usually in conjunction to summary.</li>
 <li><code>summarize()</code> Summarize some values from the data frame or across groups.</li>
-<li><code>inner_join(x,y,by=&quot;col&quot;)</code>return all rows from ‘x’ where there are matching values in ‘x’, and all columns from ‘x’ and ‘y’. If there are multiple matches between ‘x’ and ‘y’, all combination of the matches are returned.</li>
-<li><code>left_join(x,y,by=&quot;col&quot;)</code> return all rows from ‘x’, and all columns from ‘x’ and ‘y’. Rows in ‘x’ with no match in ‘y’ will have ‘NA’ values in the new columns. If there are multiple matches between ‘x’ and ‘y’, all combinations of the matches are returned.</li>
-<li><code>right_join(x,y,by=&quot;col&quot;)</code> return all rows from ‘y’, and all columns from ‘x’ and y. Rows in ‘y’ with no match in ‘x’ will have ‘NA’ values in the new columns. If there are multiple matches between ‘x’ and ‘y’, all combinations of the matches are returned.</li>
-<li><code>anti_join(x,y,by=&quot;col&quot;)</code> return all rows from ‘x’ where there are not matching values in ‘y’, keeping just columns from ‘x’.</li>
+<li><code>inner_join(x,y,by="col")</code>return all rows from ‘x’ where there are matching values in ‘x’, and all columns from ‘x’ and ‘y’. If there are multiple matches between ‘x’ and ‘y’, all combination of the matches are returned.</li>
+<li><code>left_join(x,y,by="col")</code> return all rows from ‘x’, and all columns from ‘x’ and ‘y’. Rows in ‘x’ with no match in ‘y’ will have ‘NA’ values in the new columns. If there are multiple matches between ‘x’ and ‘y’, all combinations of the matches are returned.</li>
+<li><code>right_join(x,y,by="col")</code> return all rows from ‘y’, and all columns from ‘x’ and y. Rows in ‘y’ with no match in ‘x’ will have ‘NA’ values in the new columns. If there are multiple matches between ‘x’ and ‘y’, all combinations of the matches are returned.</li>
+<li><code>anti_join(x,y,by="col")</code> return all rows from ‘x’ where there are not matching values in ‘y’, keeping just columns from ‘x’.</li>
 </ul>
-<p>The following example involve <code>data.frame</code> objects, but <strong>dplyr</strong> can handle other classes. In particular <code>data.table</code>s from the <strong>data.table</strong> package <span class="citation">(Dowle and Srinivasan <a href="#ref-datatable">2017</a>)</span>, which is designed for very large data sets.</p>
-<p><strong>dplyr</strong> can work with data stored in a database. In which case, it will convert your command to the appropriate SQL syntax, and issue it to the database. This has the advantage that (a) you do not need to know the specific SQL implementation of your database, and (b), you can enjoy the optimized algorithms provided by the database supplier. For more on this, see the <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html">databses vignette</a>.</p>
-<p>The following examples are taken from <a href="https://github.com/justmarkham/dplyr-tutorial/blob/master/dplyr-tutorial.Rmd">Kevin Markham</a>. The <code>nycflights13::flights</code> has delay data for US flights.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nycflights13)
-flights</code></pre></div>
+<p>The following example involve <code>data.frame</code> objects, but <strong>dplyr</strong> can handle other classes.
+In particular <code>data.table</code>s from the <strong>data.table</strong> package <span class="citation">(Dowle and Srinivasan <a href="#ref-datatable">2017</a>)</span>, which is designed for very large data sets.</p>
+<p><strong>dplyr</strong> can work with data stored in a database.
+In which case, it will convert your command to the appropriate SQL syntax, and issue it to the database.
+This has the advantage that (a) you do not need to know the specific SQL implementation of your database, and (b), you can enjoy the optimized algorithms provided by the database supplier.
+For more on this, see the <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html">databses vignette</a>.</p>
+<p>The following examples are taken from <a href="https://github.com/justmarkham/dplyr-tutorial/blob/master/dplyr-tutorial.Rmd">Kevin Markham</a>.
+The <code>nycflights13::flights</code> has delay data for US flights.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nycflights13)
+flights</code></pre>
 <pre><code>## # A tibble: 336,776 x 19
-##     year month   day dep_time sched_dep_time dep_delay arr_time
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
-##  1  2013     1     1      517            515         2      830
-##  2  2013     1     1      533            529         4      850
-##  3  2013     1     1      542            540         2      923
-##  4  2013     1     1      544            545        -1     1004
-##  5  2013     1     1      554            600        -6      812
-##  6  2013     1     1      554            558        -4      740
-##  7  2013     1     1      555            600        -5      913
-##  8  2013     1     1      557            600        -3      709
-##  9  2013     1     1      557            600        -3      838
-## 10  2013     1     1      558            600        -2      753
-## # ... with 336,766 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
-## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
-## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
-## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
-<p>The data is of class <code>tbl_df</code> which is an extension of the <code>data.frame</code> class, designed for large data sets. Notice that the printing of <code>flights</code> is short, even without calling the <code>head</code> function. This is a feature of the <code>tbl_df</code> class ( <code>print(data.frame)</code> would try to load all the data, thus take a long time).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(flights) <span class="co"># a tbl_df is an extension of the data.frame class</span></code></pre></div>
+##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time arr_delay carrier flight tailnum origin dest  air_time distance
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1  2013     1     1      517            515         2      830            819        11 UA        1545 N14228  EWR    IAH        227     1400
+##  2  2013     1     1      533            529         4      850            830        20 UA        1714 N24211  LGA    IAH        227     1416
+##  3  2013     1     1      542            540         2      923            850        33 AA        1141 N619AA  JFK    MIA        160     1089
+##  4  2013     1     1      544            545        -1     1004           1022       -18 B6         725 N804JB  JFK    BQN        183     1576
+##  5  2013     1     1      554            600        -6      812            837       -25 DL         461 N668DN  LGA    ATL        116      762
+##  6  2013     1     1      554            558        -4      740            728        12 UA        1696 N39463  EWR    ORD        150      719
+##  7  2013     1     1      555            600        -5      913            854        19 B6         507 N516JB  EWR    FLL        158     1065
+##  8  2013     1     1      557            600        -3      709            723       -14 EV        5708 N829AS  LGA    IAD         53      229
+##  9  2013     1     1      557            600        -3      838            846        -8 B6          79 N593JB  JFK    MCO        140      944
+## 10  2013     1     1      558            600        -2      753            745         8 AA         301 N3ALAA  LGA    ORD        138      733
+## # ... with 336,766 more rows, and 3 more variables: hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
+<p>The data is of class <code>tbl_df</code> which is an extension of the <code>data.frame</code> class, designed for large data sets.
+Notice that the printing of <code>flights</code> is short, even without calling the <code>head</code> function. This is a feature of the <code>tbl_df</code> class ( <code>print(data.frame)</code> would try to load all the data, thus take a long time).</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(flights) <span class="co"># a tbl_df is an extension of the data.frame class</span></code></pre>
 <pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
-<p>Let’s filter the observations from the first day of the first month. Notice how much better (i.e. readable) is the <strong>dplyr</strong> syntax, with piping, compared to the basic syntax.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights[flights<span class="op">$</span>month <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>flights<span class="op">$</span>day <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, ] <span class="co"># old style</span>
+<p>Let’s filter the observations from the first day of the first month.
+Notice how much better (i.e. readable) is the <strong>dplyr</strong> syntax, with piping, compared to the basic syntax.</p>
+<pre class="sourceCode r"><code class="sourceCode r">flights[flights<span class="op">$</span>month <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>flights<span class="op">$</span>day <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, ] <span class="co"># old style</span>
 
 <span class="kw">library</span>(dplyr) 
 <span class="kw">filter</span>(flights, month <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, day <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="co">#dplyr style</span>
-flights <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, day <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="co"># dplyr with piping.</span></code></pre></div>
+flights <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, day <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="co"># dplyr with piping.</span></code></pre>
 <p>More filtering.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(flights, month <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>month <span class="op">==</span><span class="st"> </span><span class="dv">2</span>) <span class="co"># First OR second month.</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(flights, month <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>month <span class="op">==</span><span class="st"> </span><span class="dv">2</span>) <span class="co"># First OR second month.</span>
 <span class="kw">slice</span>(flights, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) <span class="co"># selects first ten rows.</span>
 
 <span class="kw">arrange</span>(flights, year, month, day) <span class="co"># sort</span>
@@ -518,182 +584,181 @@ flights <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">
   )
 <span class="co"># random subsample </span>
 <span class="kw">sample_n</span>(flights, <span class="dv">10</span>) 
-<span class="kw">sample_frac</span>(flights, <span class="fl">0.01</span>) </code></pre></div>
-<p>We now perform operations on subgroups. we group observations along the plane’s tail number (<code>tailnum</code>), and compute the count, average distance traveled, and average delay. We group with <code>group_by</code>, and compute subgroup statistics with <code>summarise</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">by_tailnum &lt;-<span class="st"> </span><span class="kw">group_by</span>(flights, tailnum)
+<span class="kw">sample_frac</span>(flights, <span class="fl">0.01</span>) </code></pre>
+<p>We now perform operations on subgroups.
+we group observations along the plane’s tail number (<code>tailnum</code>), and compute the count, average distance traveled, and average delay.
+We group with <code>group_by</code>, and compute subgroup statistics with <code>summarise</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">by_tailnum &lt;-<span class="st"> </span><span class="kw">group_by</span>(flights, tailnum)
 
 delay &lt;-<span class="st"> </span><span class="kw">summarise</span>(by_tailnum,
   <span class="dt">count =</span> <span class="kw">n</span>(),
   <span class="dt">avg.dist =</span> <span class="kw">mean</span>(distance, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
   <span class="dt">avg.delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
 
-delay</code></pre></div>
+delay</code></pre>
 <pre><code>## # A tibble: 4,044 x 4
-##    tailnum count avg.dist  avg.delay
-##      &lt;chr&gt; &lt;int&gt;    &lt;dbl&gt;      &lt;dbl&gt;
-##  1  D942DN     4 854.5000 31.5000000
-##  2  N0EGMQ   371 676.1887  9.9829545
-##  3  N10156   153 757.9477 12.7172414
-##  4  N102UW    48 535.8750  2.9375000
-##  5  N103US    46 535.1957 -6.9347826
-##  6  N104UW    47 535.2553  1.8043478
-##  7  N10575   289 519.7024 20.6914498
-##  8  N105UW    45 524.8444 -0.2666667
-##  9  N107US    41 528.7073 -5.7317073
-## 10  N108UW    60 534.5000 -1.2500000
+##    tailnum count avg.dist avg.delay
+##    &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+##  1 D942DN      4     854.    31.5  
+##  2 N0EGMQ    371     676.     9.98 
+##  3 N10156    153     758.    12.7  
+##  4 N102UW     48     536.     2.94 
+##  5 N103US     46     535.    -6.93 
+##  6 N104UW     47     535.     1.80 
+##  7 N10575    289     520.    20.7  
+##  8 N105UW     45     525.    -0.267
+##  9 N107US     41     529.    -5.73 
+## 10 N108UW     60     534.    -1.25 
 ## # ... with 4,034 more rows</code></pre>
-<p>We can group along several variables, with a hierarchy. We then collapse the hierarchy one by one.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily &lt;-<span class="st"> </span><span class="kw">group_by</span>(flights, year, month, day)
+<p>We can group along several variables, with a hierarchy.
+We then collapse the hierarchy one by one.</p>
+<pre class="sourceCode r"><code class="sourceCode r">daily &lt;-<span class="st"> </span><span class="kw">group_by</span>(flights, year, month, day)
 per_day   &lt;-<span class="st"> </span><span class="kw">summarise</span>(daily, <span class="dt">flights =</span> <span class="kw">n</span>())
 per_month &lt;-<span class="st"> </span><span class="kw">summarise</span>(per_day, <span class="dt">flights =</span> <span class="kw">sum</span>(flights))
-per_year  &lt;-<span class="st"> </span><span class="kw">summarise</span>(per_month, <span class="dt">flights =</span> <span class="kw">sum</span>(flights))</code></pre></div>
+per_year  &lt;-<span class="st"> </span><span class="kw">summarise</span>(per_month, <span class="dt">flights =</span> <span class="kw">sum</span>(flights))</code></pre>
 <p>Things to note:</p>
 <ul>
 <li>Every call to <code>summarise</code> collapses one level in the hierarchy of grouping. The output of <code>group_by</code> recalls the hierarchy of aggregation, and collapses along this hierarchy.</li>
 </ul>
-<p>We can use <strong>dplyr</strong> for two table operations, i.e., <em>joins</em>. For this, we join the flight data, with the airplane data in <code>airplanes</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr) 
-airlines  </code></pre></div>
+<p>We can use <strong>dplyr</strong> for two table operations, i.e., <em>joins</em>.
+For this, we join the flight data, with the airplane data in <code>airplanes</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr) 
+airlines  </code></pre>
 <pre><code>## # A tibble: 16 x 2
-##    carrier                        name
-##      &lt;chr&gt;                       &lt;chr&gt;
-##  1      9E           Endeavor Air Inc.
-##  2      AA      American Airlines Inc.
-##  3      AS        Alaska Airlines Inc.
-##  4      B6             JetBlue Airways
-##  5      DL        Delta Air Lines Inc.
-##  6      EV    ExpressJet Airlines Inc.
-##  7      F9      Frontier Airlines Inc.
-##  8      FL AirTran Airways Corporation
-##  9      HA      Hawaiian Airlines Inc.
-## 10      MQ                   Envoy Air
-## 11      OO       SkyWest Airlines Inc.
-## 12      UA       United Air Lines Inc.
-## 13      US             US Airways Inc.
-## 14      VX              Virgin America
-## 15      WN      Southwest Airlines Co.
-## 16      YV          Mesa Airlines Inc.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># select the subset of interesting flight data. </span>
+##    carrier name                       
+##    &lt;chr&gt;   &lt;chr&gt;                      
+##  1 9E      Endeavor Air Inc.          
+##  2 AA      American Airlines Inc.     
+##  3 AS      Alaska Airlines Inc.       
+##  4 B6      JetBlue Airways            
+##  5 DL      Delta Air Lines Inc.       
+##  6 EV      ExpressJet Airlines Inc.   
+##  7 F9      Frontier Airlines Inc.     
+##  8 FL      AirTran Airways Corporation
+##  9 HA      Hawaiian Airlines Inc.     
+## 10 MQ      Envoy Air                  
+## 11 OO      SkyWest Airlines Inc.      
+## 12 UA      United Air Lines Inc.      
+## 13 US      US Airways Inc.            
+## 14 VX      Virgin America             
+## 15 WN      Southwest Airlines Co.     
+## 16 YV      Mesa Airlines Inc.</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># select the subset of interesting flight data. </span>
 flights2 &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(year<span class="op">:</span>day, hour, origin, dest, tailnum, carrier) 
 
 <span class="co"># join on left table with automatic matching.</span>
-flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(airlines) </code></pre></div>
+flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(airlines) </code></pre>
 <pre><code>## Joining, by = &quot;carrier&quot;</code></pre>
 <pre><code>## # A tibble: 336,776 x 9
-##     year month   day  hour origin  dest tailnum carrier
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;
-##  1  2013     1     1     5    EWR   IAH  N14228      UA
-##  2  2013     1     1     5    LGA   IAH  N24211      UA
-##  3  2013     1     1     5    JFK   MIA  N619AA      AA
-##  4  2013     1     1     5    JFK   BQN  N804JB      B6
-##  5  2013     1     1     6    LGA   ATL  N668DN      DL
-##  6  2013     1     1     5    EWR   ORD  N39463      UA
-##  7  2013     1     1     6    EWR   FLL  N516JB      B6
-##  8  2013     1     1     6    LGA   IAD  N829AS      EV
-##  9  2013     1     1     6    JFK   MCO  N593JB      B6
-## 10  2013     1     1     6    LGA   ORD  N3ALAA      AA
-## # ... with 336,766 more rows, and 1 more variables: name &lt;chr&gt;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(weather) </code></pre></div>
+##     year month   day  hour origin dest  tailnum carrier name                    
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;                   
+##  1  2013     1     1     5 EWR    IAH   N14228  UA      United Air Lines Inc.   
+##  2  2013     1     1     5 LGA    IAH   N24211  UA      United Air Lines Inc.   
+##  3  2013     1     1     5 JFK    MIA   N619AA  AA      American Airlines Inc.  
+##  4  2013     1     1     5 JFK    BQN   N804JB  B6      JetBlue Airways         
+##  5  2013     1     1     6 LGA    ATL   N668DN  DL      Delta Air Lines Inc.    
+##  6  2013     1     1     5 EWR    ORD   N39463  UA      United Air Lines Inc.   
+##  7  2013     1     1     6 EWR    FLL   N516JB  B6      JetBlue Airways         
+##  8  2013     1     1     6 LGA    IAD   N829AS  EV      ExpressJet Airlines Inc.
+##  9  2013     1     1     6 JFK    MCO   N593JB  B6      JetBlue Airways         
+## 10  2013     1     1     6 LGA    ORD   N3ALAA  AA      American Airlines Inc.  
+## # ... with 336,766 more rows</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(weather) </code></pre>
 <pre><code>## Joining, by = c(&quot;year&quot;, &quot;month&quot;, &quot;day&quot;, &quot;hour&quot;, &quot;origin&quot;)</code></pre>
 <pre><code>## # A tibble: 336,776 x 18
-##     year month   day  hour origin  dest tailnum carrier  temp  dewp humid
-##    &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1  2013     1     1     5    EWR   IAH  N14228      UA    NA    NA    NA
-##  2  2013     1     1     5    LGA   IAH  N24211      UA    NA    NA    NA
-##  3  2013     1     1     5    JFK   MIA  N619AA      AA    NA    NA    NA
-##  4  2013     1     1     5    JFK   BQN  N804JB      B6    NA    NA    NA
-##  5  2013     1     1     6    LGA   ATL  N668DN      DL 39.92 26.06 57.33
-##  6  2013     1     1     5    EWR   ORD  N39463      UA    NA    NA    NA
-##  7  2013     1     1     6    EWR   FLL  N516JB      B6 39.02 26.06 59.37
-##  8  2013     1     1     6    LGA   IAD  N829AS      EV 39.92 26.06 57.33
-##  9  2013     1     1     6    JFK   MCO  N593JB      B6 39.02 26.06 59.37
-## 10  2013     1     1     6    LGA   ORD  N3ALAA      AA 39.92 26.06 57.33
-## # ... with 336,766 more rows, and 7 more variables: wind_dir &lt;dbl&gt;,
-## #   wind_speed &lt;dbl&gt;, wind_gust &lt;dbl&gt;, precip &lt;dbl&gt;, pressure &lt;dbl&gt;,
-## #   visib &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># join with named matching</span>
-flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(planes, <span class="dt">by =</span> <span class="st">&quot;tailnum&quot;</span>) </code></pre></div>
+##     year month   day  hour origin dest  tailnum carrier  temp  dewp humid wind_dir wind_speed wind_gust precip pressure visib time_hour          
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dttm&gt;             
+##  1  2013     1     1     5 EWR    IAH   N14228  UA       39.0  28.0  64.4      260       12.7      NA        0    1012.    10 2013-01-01 05:00:00
+##  2  2013     1     1     5 LGA    IAH   N24211  UA       39.9  25.0  54.8      250       15.0      21.9      0    1011.    10 2013-01-01 05:00:00
+##  3  2013     1     1     5 JFK    MIA   N619AA  AA       39.0  27.0  61.6      260       15.0      NA        0    1012.    10 2013-01-01 05:00:00
+##  4  2013     1     1     5 JFK    BQN   N804JB  B6       39.0  27.0  61.6      260       15.0      NA        0    1012.    10 2013-01-01 05:00:00
+##  5  2013     1     1     6 LGA    ATL   N668DN  DL       39.9  25.0  54.8      260       16.1      23.0      0    1012.    10 2013-01-01 06:00:00
+##  6  2013     1     1     5 EWR    ORD   N39463  UA       39.0  28.0  64.4      260       12.7      NA        0    1012.    10 2013-01-01 05:00:00
+##  7  2013     1     1     6 EWR    FLL   N516JB  B6       37.9  28.0  67.2      240       11.5      NA        0    1012.    10 2013-01-01 06:00:00
+##  8  2013     1     1     6 LGA    IAD   N829AS  EV       39.9  25.0  54.8      260       16.1      23.0      0    1012.    10 2013-01-01 06:00:00
+##  9  2013     1     1     6 JFK    MCO   N593JB  B6       37.9  27.0  64.3      260       13.8      NA        0    1013.    10 2013-01-01 06:00:00
+## 10  2013     1     1     6 LGA    ORD   N3ALAA  AA       39.9  25.0  54.8      260       16.1      23.0      0    1012.    10 2013-01-01 06:00:00
+## # ... with 336,766 more rows</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># join with named matching</span>
+flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(planes, <span class="dt">by =</span> <span class="st">&quot;tailnum&quot;</span>) </code></pre>
 <pre><code>## # A tibble: 336,776 x 16
-##    year.x month   day  hour origin  dest tailnum carrier year.y
-##     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  &lt;int&gt;
-##  1   2013     1     1     5    EWR   IAH  N14228      UA   1999
-##  2   2013     1     1     5    LGA   IAH  N24211      UA   1998
-##  3   2013     1     1     5    JFK   MIA  N619AA      AA   1990
-##  4   2013     1     1     5    JFK   BQN  N804JB      B6   2012
-##  5   2013     1     1     6    LGA   ATL  N668DN      DL   1991
-##  6   2013     1     1     5    EWR   ORD  N39463      UA   2012
-##  7   2013     1     1     6    EWR   FLL  N516JB      B6   2000
-##  8   2013     1     1     6    LGA   IAD  N829AS      EV   1998
-##  9   2013     1     1     6    JFK   MCO  N593JB      B6   2004
-## 10   2013     1     1     6    LGA   ORD  N3ALAA      AA     NA
-## # ... with 336,766 more rows, and 7 more variables: type &lt;chr&gt;,
-## #   manufacturer &lt;chr&gt;, model &lt;chr&gt;, engines &lt;int&gt;, seats &lt;int&gt;,
-## #   speed &lt;int&gt;, engine &lt;chr&gt;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># join with explicit column matching</span>
-flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(airports, <span class="dt">by=</span> <span class="kw">c</span>(<span class="st">&quot;dest&quot;</span> =<span class="st"> &quot;faa&quot;</span>)) </code></pre></div>
+##    year.x month   day  hour origin dest  tailnum carrier year.y type                    manufacturer     model       engines seats speed engine   
+##     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;                   &lt;chr&gt;            &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;    
+##  1   2013     1     1     5 EWR    IAH   N14228  UA        1999 Fixed wing multi engine BOEING           737-824           2   149    NA Turbo-fan
+##  2   2013     1     1     5 LGA    IAH   N24211  UA        1998 Fixed wing multi engine BOEING           737-824           2   149    NA Turbo-fan
+##  3   2013     1     1     5 JFK    MIA   N619AA  AA        1990 Fixed wing multi engine BOEING           757-223           2   178    NA Turbo-fan
+##  4   2013     1     1     5 JFK    BQN   N804JB  B6        2012 Fixed wing multi engine AIRBUS           A320-232          2   200    NA Turbo-fan
+##  5   2013     1     1     6 LGA    ATL   N668DN  DL        1991 Fixed wing multi engine BOEING           757-232           2   178    NA Turbo-fan
+##  6   2013     1     1     5 EWR    ORD   N39463  UA        2012 Fixed wing multi engine BOEING           737-924ER         2   191    NA Turbo-fan
+##  7   2013     1     1     6 EWR    FLL   N516JB  B6        2000 Fixed wing multi engine AIRBUS INDUSTRIE A320-232          2   200    NA Turbo-fan
+##  8   2013     1     1     6 LGA    IAD   N829AS  EV        1998 Fixed wing multi engine CANADAIR         CL-600-2B19       2    55    NA Turbo-fan
+##  9   2013     1     1     6 JFK    MCO   N593JB  B6        2004 Fixed wing multi engine AIRBUS           A320-232          2   200    NA Turbo-fan
+## 10   2013     1     1     6 LGA    ORD   N3ALAA  AA          NA &lt;NA&gt;                    &lt;NA&gt;             &lt;NA&gt;             NA    NA    NA &lt;NA&gt;     
+## # ... with 336,766 more rows</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># join with explicit column matching</span>
+flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(airports, <span class="dt">by=</span> <span class="kw">c</span>(<span class="st">&quot;dest&quot;</span> =<span class="st"> &quot;faa&quot;</span>)) </code></pre>
 <pre><code>## # A tibble: 336,776 x 15
-##     year month   day  hour origin  dest tailnum carrier
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;
-##  1  2013     1     1     5    EWR   IAH  N14228      UA
-##  2  2013     1     1     5    LGA   IAH  N24211      UA
-##  3  2013     1     1     5    JFK   MIA  N619AA      AA
-##  4  2013     1     1     5    JFK   BQN  N804JB      B6
-##  5  2013     1     1     6    LGA   ATL  N668DN      DL
-##  6  2013     1     1     5    EWR   ORD  N39463      UA
-##  7  2013     1     1     6    EWR   FLL  N516JB      B6
-##  8  2013     1     1     6    LGA   IAD  N829AS      EV
-##  9  2013     1     1     6    JFK   MCO  N593JB      B6
-## 10  2013     1     1     6    LGA   ORD  N3ALAA      AA
-## # ... with 336,766 more rows, and 7 more variables: name &lt;chr&gt;, lat &lt;dbl&gt;,
-## #   lon &lt;dbl&gt;, alt &lt;int&gt;, tz &lt;dbl&gt;, dst &lt;chr&gt;, tzone &lt;chr&gt;</code></pre>
+##     year month   day  hour origin dest  tailnum carrier name                              lat   lon   alt    tz dst   tzone           
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;                           &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;           
+##  1  2013     1     1     5 EWR    IAH   N14228  UA      George Bush Intercontinental     30.0 -95.3    97    -6 A     America/Chicago 
+##  2  2013     1     1     5 LGA    IAH   N24211  UA      George Bush Intercontinental     30.0 -95.3    97    -6 A     America/Chicago 
+##  3  2013     1     1     5 JFK    MIA   N619AA  AA      Miami Intl                       25.8 -80.3     8    -5 A     America/New_York
+##  4  2013     1     1     5 JFK    BQN   N804JB  B6      &lt;NA&gt;                             NA    NA      NA    NA &lt;NA&gt;  &lt;NA&gt;            
+##  5  2013     1     1     6 LGA    ATL   N668DN  DL      Hartsfield Jackson Atlanta Intl  33.6 -84.4  1026    -5 A     America/New_York
+##  6  2013     1     1     5 EWR    ORD   N39463  UA      Chicago Ohare Intl               42.0 -87.9   668    -6 A     America/Chicago 
+##  7  2013     1     1     6 EWR    FLL   N516JB  B6      Fort Lauderdale Hollywood Intl   26.1 -80.2     9    -5 A     America/New_York
+##  8  2013     1     1     6 LGA    IAD   N829AS  EV      Washington Dulles Intl           38.9 -77.5   313    -5 A     America/New_York
+##  9  2013     1     1     6 JFK    MCO   N593JB  B6      Orlando Intl                     28.4 -81.3    96    -5 A     America/New_York
+## 10  2013     1     1     6 LGA    ORD   N3ALAA  AA      Chicago Ohare Intl               42.0 -87.9   668    -6 A     America/Chicago 
+## # ... with 336,766 more rows</code></pre>
 <p>Types of join with SQL equivalent.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create simple data</span>
-(df1 &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">y =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">1</span>))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create simple data</span>
+(df1 &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">y =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">1</span>))</code></pre>
 <pre><code>## # A tibble: 2 x 2
 ##       x     y
 ##   &lt;dbl&gt; &lt;int&gt;
 ## 1     1     2
 ## 2     2     1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(df2 &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="dt">a =</span> <span class="dv">10</span>, <span class="dt">b =</span> <span class="st">&quot;a&quot;</span>))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">(df2 &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="dt">a =</span> <span class="dv">10</span>, <span class="dt">b =</span> <span class="st">&quot;a&quot;</span>))</code></pre>
 <pre><code>## # A tibble: 2 x 3
-##       x     a     b
+##       x     a b    
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1     1    10     a
-## 2     3    10     a</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return only matched rows</span>
-df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">inner_join</span>(df2) <span class="co"># SELECT * FROM x JOIN y ON x.a = y.a</span></code></pre></div>
+## 1     1    10 a    
+## 2     3    10 a</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return only matched rows</span>
+df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">inner_join</span>(df2) <span class="co"># SELECT * FROM x JOIN y ON x.a = y.a</span></code></pre>
 <pre><code>## Joining, by = &quot;x&quot;</code></pre>
 <pre><code>## # A tibble: 1 x 4
-##       x     y     a     b
+##       x     y     a b    
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1     1     2    10     a</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return all rows in df1.</span>
-df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(df2) <span class="co"># SELECT * FROM x LEFT JOIN y ON x.a = y.a</span></code></pre></div>
+## 1     1     2    10 a</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return all rows in df1.</span>
+df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(df2) <span class="co"># SELECT * FROM x LEFT JOIN y ON x.a = y.a</span></code></pre>
 <pre><code>## Joining, by = &quot;x&quot;</code></pre>
 <pre><code>## # A tibble: 2 x 4
-##       x     y     a     b
+##       x     y     a b    
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1     1     2    10     a
-## 2     2     1    NA  &lt;NA&gt;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return all rows in df2.</span>
-df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">right_join</span>(df2) <span class="co"># SELECT * FROM x RIGHT JOIN y ON x.a = y.a</span></code></pre></div>
+## 1     1     2    10 a    
+## 2     2     1    NA &lt;NA&gt;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return all rows in df2.</span>
+df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">right_join</span>(df2) <span class="co"># SELECT * FROM x RIGHT JOIN y ON x.a = y.a</span></code></pre>
 <pre><code>## Joining, by = &quot;x&quot;</code></pre>
 <pre><code>## # A tibble: 2 x 4
-##       x     y     a     b
+##       x     y     a b    
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1     1     2    10     a
-## 2     3    NA    10     a</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return all rows. </span>
-df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">full_join</span>(df2) <span class="co"># SELECT * FROM x FULL JOIN y ON x.a = y.a</span></code></pre></div>
+## 1     1     2    10 a    
+## 2     3    NA    10 a</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return all rows. </span>
+df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">full_join</span>(df2) <span class="co"># SELECT * FROM x FULL JOIN y ON x.a = y.a</span></code></pre>
 <pre><code>## Joining, by = &quot;x&quot;</code></pre>
 <pre><code>## # A tibble: 3 x 4
-##       x     y     a     b
+##       x     y     a b    
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1     1     2    10     a
-## 2     2     1    NA  &lt;NA&gt;
-## 3     3    NA    10     a</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Like left_join, but returning only columns in df1</span>
-df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">semi_join</span>(df2, <span class="dt">by =</span> <span class="st">&quot;x&quot;</span>)  <span class="co"># SELECT * FROM x WHERE EXISTS (SELECT 1 FROM y WHERE x.a = y.a)</span></code></pre></div>
+## 1     1     2    10 a    
+## 2     2     1    NA &lt;NA&gt; 
+## 3     3    NA    10 a</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Like left_join, but returning only columns in df1</span>
+df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">semi_join</span>(df2, <span class="dt">by =</span> <span class="st">&quot;x&quot;</span>)  <span class="co"># SELECT * FROM x WHERE EXISTS (SELECT 1 FROM y WHERE x.a = y.a)</span></code></pre>
 <pre><code>## # A tibble: 1 x 2
 ##       x     y
 ##   &lt;dbl&gt; &lt;int&gt;
@@ -717,256 +782,18 @@ df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">semi
 <div id="practice-yourself-20" class="section level2">
 <h2><span class="header-section-number">23.8</span> Practice Yourself</h2>
 
-<div id="refs" class="references">
-<div>
-<p>Analytics, Revolution, and Steve Weston. 2015. <em>Foreach: Provides Foreach Looping Construct for R</em>. <a href="https://CRAN.R-project.org/package=foreach" class="uri">https://CRAN.R-project.org/package=foreach</a>.</p>
 </div>
-<div>
-<p>Anderson-Cook, Christine M. 2004. “An Introduction to Multivariate Statistical Analysis.” <em>Journal of the American Statistical Association</em> 99 (467). American Statistical Association: 907–9.</p>
 </div>
-<div>
-<p>Arlot, Sylvain, Alain Celisse, and others. 2010. “A Survey of Cross-Validation Procedures for Model Selection.” <em>Statistics Surveys</em> 4. The author, under a Creative Commons Attribution License: 40–79.</p>
-</div>
-<div>
-<p>Bai, Zhidong, and Hewa Saranadasa. 1996. “Effect of High Dimension: By an Example of a Two Sample Problem.” <em>Statistica Sinica</em>. JSTOR, 311–29.</p>
-</div>
-<div>
-<p>Bates, Douglas, Martin Mächler, Ben Bolker, and Steve Walker. 2015. “Fitting Linear Mixed-Effects Models Using lme4.” <em>Journal of Statistical Software</em> 67 (1): 1–48. doi:<a href="https://doi.org/10.18637/jss.v067.i01">10.18637/jss.v067.i01</a>.</p>
-</div>
-<div>
-<p>Benjamini, Yoav, and Daniel Yekutieli. 2001. “The Control of the False Discovery Rate in Multiple Testing Under Dependency.” <em>Annals of Statistics</em>. JSTOR, 1165–88.</p>
-</div>
-<div>
-<p>Chang, Winston, Joe Cheng, JJ Allaire, Yihui Xie, and Jonathan McPherson. 2017. <em>Shiny: Web Application Framework for R</em>. <a href="https://CRAN.R-project.org/package=shiny" class="uri">https://CRAN.R-project.org/package=shiny</a>.</p>
-</div>
-<div>
-<p>Chapple, Simon R, Eilidh Troup, Thorsten Forster, and Terence Sloan. 2016. <em>Mastering Parallel Programming with R</em>. Packt Publishing Ltd.</p>
-</div>
-<div>
-<p>Conway, Drew, and John White. 2012. <em>Machine Learning for Hackers</em>. “ O’Reilly Media, Inc.”</p>
-</div>
-<div>
-<p>Davis, Timothy A. 2006. <em>Direct Methods for Sparse Linear Systems</em>. SIAM.</p>
-</div>
-<div>
-<p>Dowle, Matt, and Arun Srinivasan. 2017. <em>Data.table: Extension of ‘Data.frame‘</em>. <a href="https://CRAN.R-project.org/package=data.table" class="uri">https://CRAN.R-project.org/package=data.table</a>.</p>
-</div>
-<div>
-<p>Efron, Bradley. 2012. <em>Large-Scale Inference: Empirical Bayes Methods for Estimation, Testing, and Prediction</em>. Vol. 1. Cambridge University Press.</p>
-</div>
-<div>
-<p>Everitt, Brian, and Torsten Hothorn. 2011. <em>An Introduction to Applied Multivariate Analysis with R</em>. Springer Science &amp; Business Media.</p>
-</div>
-<div>
-<p>Fithian, William. 2015. “Topics in Adaptive Inference.” PhD thesis, STANFORD UNIVERSITY.</p>
-</div>
-<div>
-<p>Foster, Dean P, and Robert A Stine. 2004. “Variable Selection in Data Mining: Building a Predictive Model for Bankruptcy.” <em>Journal of the American Statistical Association</em> 99 (466). Taylor &amp; Francis: 303–13.</p>
-</div>
-<div>
-<p>Friedman, Jerome, Trevor Hastie, and Robert Tibshirani. 2001. <em>The Elements of Statistical Learning</em>. Vol. 1. Springer series in statistics Springer, Berlin.</p>
-</div>
-<div>
-<p>Gentle, James E. 2012. <em>Numerical Linear Algebra for Applications in Statistics</em>. Springer Science &amp; Business Media.</p>
-</div>
-<div>
-<p>Gilbert, John R, Cleve Moler, and Robert Schreiber. 1992. “Sparse Matrices in Matlab: Design and Implementation.” <em>SIAM Journal on Matrix Analysis and Applications</em> 13 (1). SIAM: 333–56.</p>
-</div>
-<div>
-<p>Golub, Gene H, and Charles F Van Loan. 2012. <em>Matrix Computations</em>. Vol. 3. JHU Press.</p>
-</div>
-<div>
-<p>Graham, RL. 1988. “Isometric Embeddings of Graphs.” <em>Selected Topics in Graph Theory</em> 3. Academic Press San Diego, CA: 133–50.</p>
-</div>
-<div>
-<p>Greene, William H. 2003. <em>Econometric Analysis</em>. Pearson Education India.</p>
-</div>
-<div>
-<p>Hotelling, Harold. 1933. “Analysis of a Complex of Statistical Variables into Principal Components.” <em>Journal of Educational Psychology</em> 24 (6). Warwick &amp; York: 417.</p>
-</div>
-<div>
-<p>Izenman, Alan Julian. 2008. “Modern Multivariate Statistical Techniques.” <em>Regression, Classification and Manifold Learning</em>. Springer.</p>
-</div>
-<div>
-<p>James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning</em>. Vol. 6. Springer.</p>
-</div>
-<div>
-<p>Javanmard, Adel, and Andrea Montanari. 2014. “Confidence Intervals and Hypothesis Testing for High-Dimensional Regression.” <em>Journal of Machine Learning Research</em> 15 (1): 2869–2909.</p>
-</div>
-<div>
-<p>Kalisch, Markus, and Peter Bühlmann. 2014. “Causal Structure Learning and Inference: A Selective Review.” <em>Quality Technology &amp; Quantitative Management</em> 11 (1). Taylor &amp; Francis: 3–21.</p>
-</div>
-<div>
-<p>Kane, Michael J, John Emerson, Stephen Weston, and others. 2013. “Scalable Strategies for Computing with Massive Data.” <em>Journal of Statistical Software</em> 55 (14): 1–19.</p>
-</div>
-<div>
-<p>Lantz, Brett. 2013. <em>Machine Learning with R</em>. Packt Publishing Ltd.</p>
-</div>
-<div>
-<p>Leisch, Friedrich. 2002. “Sweave: Dynamic Generation of Statistical Reports Using Literate Data Analysis.” In <em>Compstat</em>, 575–80. Springer.</p>
-</div>
-<div>
-<p>Leskovec, Jure, Anand Rajaraman, and Jeffrey David Ullman. 2014. <em>Mining of Massive Datasets</em>. Cambridge University Press.</p>
-</div>
-<div>
-<p>McCullagh, Peter. 1984. “Generalized Linear Models.” <em>European Journal of Operational Research</em> 16 (3). Elsevier: 285–92.</p>
-</div>
-<div>
-<p>Mohri, Mehryar, Afshin Rostamizadeh, and Ameet Talwalkar. 2012. <em>Foundations of Machine Learning</em>. MIT press.</p>
-</div>
-<div>
-<p>Nadler, Boaz. 2008. “Finite Sample Approximation Results for Principal Component Analysis: A Matrix Perturbation Approach.” <em>The Annals of Statistics</em>. JSTOR, 2791–2817.</p>
-</div>
-<div>
-<p>Pearson, Karl. 1901. “LIII. on Lines and Planes of Closest Fit to Systems of Points in Space.” <em>The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science</em> 2 (11). Taylor &amp; Francis: 559–72.</p>
-</div>
-<div>
-<p>Pinero, Jose, and Douglas Bates. 2000. “Mixed-Effects Models in S and S-Plus (Statistics and Computing).” Springer, New York.</p>
-</div>
-<div>
-<p>R Core Team. 2016. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
-</div>
-<div>
-<p>Rabinowicz, Assaf, and Saharon Rosset. 2018. “Assessing Prediction Error at Interpolation and Extrapolation Points.” <em>arXiv Preprint arXiv:1802.00996</em>.</p>
-</div>
-<div>
-<p>Ripley, Brian D. 2007. <em>Pattern Recognition and Neural Networks</em>. Cambridge university press.</p>
-</div>
-<div>
-<p>Robinson, George K. 1991. “That Blup Is a Good Thing: The Estimation of Random Effects.” <em>Statistical Science</em>. JSTOR, 15–32.</p>
-</div>
-<div>
-<p>Rosenblatt, Jonathan. 2013. “A Practitioner’s Guide to Multiple Testing Error Rates.” <em>arXiv Preprint arXiv:1304.4920</em>.</p>
-</div>
-<div>
-<p>Rosenblatt, Jonathan D, and Yoav Benjamini. 2014. “Selective Correlations; Not Voodoo.” <em>NeuroImage</em> 103. Elsevier: 401–10.</p>
-</div>
-<div>
-<p>Rosenblatt, Jonathan, Roee Gilron, and Roy Mukamel. 2016. “Better-Than-Chance Classification for Signal Detection.” <em>arXiv Preprint arXiv:1608.08873</em>.</p>
-</div>
-<div>
-<p>Rosset, Saharon, and Ryan J Tibshirani. 2018. “From Fixed-X to Random-X Regression: Bias-Variance Decompositions, Covariance Penalties, and Prediction Error Estimation.” <em>Journal of the American Statistical Association</em>, no. just-accepted. Taylor &amp; Francis.</p>
-</div>
-<div>
-<p>Sammut, Claude, and Geoffrey I Webb. 2011. <em>Encyclopedia of Machine Learning</em>. Springer Science &amp; Business Media.</p>
-</div>
-<div>
-<p>Sarkar, Deepayan. 2008. <em>Lattice: Multivariate Data Visualization with R</em>. New York: Springer. <a href="http://lmdvr.r-forge.r-project.org" class="uri">http://lmdvr.r-forge.r-project.org</a>.</p>
-</div>
-<div>
-<p>Schmidberger, Markus, Martin Morgan, Dirk Eddelbuettel, Hao Yu, Luke Tierney, and Ulrich Mansmann. 2009. “State of the Art in Parallel Computing with R.” <em>Journal of Statistical Software</em> 47 (1).</p>
-</div>
-<div>
-<p>Searle, Shayle R, George Casella, and Charles E McCulloch. 2009. <em>Variance Components</em>. Vol. 391. John Wiley &amp; Sons.</p>
-</div>
-<div>
-<p>Shah, Viral, and John R Gilbert. 2004. “Sparse Matrices in Matlab* P: Design and Implementation.” In <em>International Conference on High-Performance Computing</em>, 144–55. Springer.</p>
-</div>
-<div>
-<p>Shalev-Shwartz, Shai, and Shai Ben-David. 2014. <em>Understanding Machine Learning: From Theory to Algorithms</em>. Cambridge university press.</p>
-</div>
-<div>
-<p>Shawe-Taylor, John, and Nello Cristianini. 2004. <em>Kernel Methods for Pattern Analysis</em>. Cambridge university press.</p>
-</div>
-<div>
-<p>Simes, R John. 1986. “An Improved Bonferroni Procedure for Multiple Tests of Significance.” <em>Biometrika</em> 73 (3). Oxford University Press: 751–54.</p>
-</div>
-<div>
-<p>Small, Christopher G. 1990. “A Survey of Multidimensional Medians.” <em>International Statistical Review/Revue Internationale de Statistique</em>. JSTOR, 263–77.</p>
-</div>
-<div>
-<p>Tukey, John W. 1977. <em>Exploratory Data Analysis</em>. Reading, Mass.</p>
-</div>
-<div>
-<p>Vapnik, Vladimir. 2013. <em>The Nature of Statistical Learning Theory</em>. Springer science &amp; business media.</p>
-</div>
-<div>
-<p>Venables, William N, and Brian D Ripley. 2013. <em>Modern Applied Statistics with S-Plus</em>. Springer Science &amp; Business Media.</p>
-</div>
-<div>
-<p>Venables, William N, David M Smith, R Development Core Team, and others. 2004. “An Introduction to R.” Network Theory Limited.</p>
-</div>
-<div>
-<p>Wang, Chun, Ming-Hui Chen, Elizabeth Schifano, Jing Wu, and Jun Yan. 2015. “Statistical Methods and Computing for Big Data.” <em>arXiv Preprint arXiv:1502.07989</em>.</p>
-</div>
-<div>
-<p>Weihs, Claus, Olaf Mersmann, and Uwe Ligges. 2013. <em>Foundations of Statistical Algorithms: With References to R Packages</em>. CRC Press.</p>
-</div>
-<div>
-<p>Weiss, Robert E. 2005. <em>Modeling Longitudinal Data</em>. Springer Science &amp; Business Media.</p>
-</div>
-<div>
-<p>Wickham, Hadley. 2009. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="http://ggplot2.org" class="uri">http://ggplot2.org</a>.</p>
-</div>
-<div>
-<p>———. 2014. <em>Advanced R</em>. CRC Press.</p>
-</div>
-<div>
-<p>Wickham, Hadley, and Romain Francois. 2016. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr" class="uri">https://CRAN.R-project.org/package=dplyr</a>.</p>
-</div>
-<div>
-<p>Wickham, Hadley, Jim Hester, and Romain Francois. 2016. <em>Readr: Read Tabular Data</em>. <a href="https://CRAN.R-project.org/package=readr" class="uri">https://CRAN.R-project.org/package=readr</a>.</p>
-</div>
-<div>
-<p>Wilcox, Rand R. 2011. <em>Introduction to Robust Estimation and Hypothesis Testing</em>. Academic Press.</p>
-</div>
-<div>
-<p>Wilkinson, GN, and CE Rogers. 1973. “Symbolic Description of Factorial Models for Analysis of Variance.” <em>Applied Statistics</em>. JSTOR, 392–99.</p>
-</div>
-<div>
-<p>Wilkinson, Leland. 2006. <em>The Grammar of Graphics</em>. Springer Science &amp; Business Media.</p>
-</div>
-<div>
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. Vol. 29. CRC Press.</p>
-</div>
-<div>
-<p>———. 2016. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. CRC Press.</p>
-</div>
-</div>
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-readr">
-<p>Wickham, Hadley, Jim Hester, and Romain Francois. 2016. <em>Readr: Read Tabular Data</em>. <a href="https://CRAN.R-project.org/package=readr" class="uri">https://CRAN.R-project.org/package=readr</a>.</p>
+<p>Wickham, Hadley, Jim Hester, and Romain Francois. 2016. <em>Readr: Read Tabular Data</em>. <a href="https://CRAN.R-project.org/package=readr">https://CRAN.R-project.org/package=readr</a>.</p>
 </div>
 <div id="ref-dplyr">
-<p>Wickham, Hadley, and Romain Francois. 2016. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr" class="uri">https://CRAN.R-project.org/package=dplyr</a>.</p>
+<p>Wickham, Hadley, and Romain Francois. 2016. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.</p>
 </div>
 <div id="ref-datatable">
-<p>Dowle, Matt, and Arun Srinivasan. 2017. <em>Data.table: Extension of ‘Data.frame‘</em>. <a href="https://CRAN.R-project.org/package=data.table" class="uri">https://CRAN.R-project.org/package=data.table</a>.</p>
+<p>Dowle, Matt, and Arun Srinivasan. 2017. <em>Data.table: Extension of ‘Data.frame‘</em>. <a href="https://CRAN.R-project.org/package=data.table">https://CRAN.R-project.org/package=data.table</a>.</p>
 </div>
 </div>
             </section>
@@ -974,8 +801,8 @@ df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">semi
           </div>
         </div>
       </div>
-<a href="psychometrics.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="psychometrics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="causality.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -993,10 +820,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1004,8 +832,12 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/23-hadleyverse.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/96-hadleyverse.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": ["Rcourse.pdf"],
 "toc": {
@@ -1020,9 +852,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
