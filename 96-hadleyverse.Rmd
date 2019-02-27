@@ -87,7 +87,7 @@ arrange(flights, desc(arr_delay)) # sort descending
 select(flights, year, month, day) # select columns year, month, and day
 select(flights, year:day) # select column range
 select(flights, -(year:day)) # drop columns
-rename(flights, tail_num = tailnum) # rename column
+rename(flights, c(tail_num = "tailnum")) # rename column
 
 # add a new computed colume
 mutate(flights,
@@ -120,11 +120,11 @@ We now perform operations on subgroups.
 we group observations along the plane's tail number (`tailnum`), and compute the count, average distance traveled, and average delay.
 We group with `group_by`, and compute subgroup statistics with `summarise`.
 
-```{r}
+```{r, eval=FALSE}
 by_tailnum <- group_by(flights, tailnum)
 
 delay <- summarise(by_tailnum,
-  count = n(),
+  count = length(),
   avg.dist = mean(distance, na.rm = TRUE),
   avg.delay = mean(arr_delay, na.rm = TRUE))
 
@@ -135,7 +135,7 @@ delay
 We can group along several variables, with a hierarchy.
 We then collapse the hierarchy one by one. 
 
-```{r}
+```{r, eval=FALSE}
 daily <- group_by(flights, year, month, day)
 per_day   <- summarise(daily, flights = n())
 per_month <- summarise(per_day, flights = sum(flights))

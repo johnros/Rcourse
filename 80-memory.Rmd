@@ -175,7 +175,7 @@ The package __RSQLite__ includes an SQLite server, which we now setup for demons
 The package __dplyr__, discussed in the Hadleyverse Chapter \@ref(hadley), will take care of translating the __dplyr__ syntax, to the SQL syntax of the DBMS. 
 The following example is taken from the __dplyr__ [Databases vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html).
 
-```{r}
+```{r rsqlite, eval=FALSE}
 library(RSQLite)
 library(dplyr)
 
@@ -198,17 +198,14 @@ Things to note:
 
 We can now start querying the DBMS.
 
-```{r}
+```{r, eval=FALSE}
 select(flights_sqlite, year:day, dep_delay, arr_delay)
 ```
 
-```{r}
+```{r, eval=FALSE}
 filter(flights_sqlite, dep_delay > 240)
 ```
 
-```{r}
-summarise(flights_sqlite, delay = mean(dep_time))
-```
 
 
 
@@ -269,7 +266,7 @@ If you deal with big data frames, or any other non-numeric matrix, __bigmemory__
 # download.file("http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/BSAPUFS/Downloads/2010_Carrier_PUF.zip", "2010_Carrier_PUF.zip")
 # unzip(zipfile="2010_Carrier_PUF.zip")
 
-library("bigmemory")
+library(bigmemory)
 x <- read.big.matrix("data/2010_BSA_Carrier_PUF.csv", header = TRUE, 
                      backingfile = "airline.bin", 
                      descriptorfile = "airline.desc", 
@@ -342,7 +339,7 @@ The __ffbase__ package provides several statistical tools to compute with `ff` c
 Here is simple table.
 
 ```{r ffdf table, cache=TRUE}
-ffbase:::table.ff(data.ffdf$age) 
+ffbase::table.ff(data.ffdf$age) 
 ```
 
 The EMA implementation of `biglm::biglm` and `biglm::bigglm` have their __ff__ versions.
@@ -424,7 +421,8 @@ We do not cover this topic here, and refer the reader to the __RHipe__, __RHadoo
 ## Bibliographic Notes
 
 An absolute SUPERB review on computing with big data is @wang2015statistical, and references therein (@kane2013scalable in particular). 
-For an up-to-date list of the packages that deal with memory constraints, see the __Large memory and out-of-memory data__ section in the High Performance Computing [R task view](https://cran.r-project.org/web/views/HighPerformanceComputing.html).
+For an up-to-date list of the packages that deal with memory constraints, see the __Large memory and out-of-memory data__ section in the [High Performance Computing](https://cran.r-project.org/web/views/HighPerformanceComputing.html) task view.
+For a list of resources to interface to DMBS, see the [Databases with R](https://cran.r-project.org/web/views/Databases.html) task view. 
 
 
 

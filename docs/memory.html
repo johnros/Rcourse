@@ -5,27 +5,25 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 15 Memory Efficiency | R (BGU course)</title>
-  <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
+  <title></title>
+  <meta name="description" content="">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 15 Memory Efficiency | R (BGU course)" />
+  <meta property="og:title" content="" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
+  
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 15 Memory Efficiency | R (BGU course)" />
+  <meta name="twitter:title" content="" />
   
-  <meta name="twitter:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
+  
   
 
-<meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2018-12-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -48,77 +46,51 @@
 
 
 
-<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -145,51 +117,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
 <li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#ecosystem"><i class="fa fa-check"></i><b>2.2</b> The R Ecosystem</a></li>
 <li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#bibliographic-notes"><i class="fa fa-check"></i><b>2.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#practice-yourself"><i class="fa fa-check"></i><b>2.4</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>3</b> data.table</a><ul>
-<li class="chapter" data-level="3.1" data-path="datatable.html"><a href="datatable.html#make-your-own-variables"><i class="fa fa-check"></i><b>3.1</b> Make your own variables</a></li>
-<li class="chapter" data-level="3.2" data-path="datatable.html"><a href="datatable.html#join"><i class="fa fa-check"></i><b>3.2</b> Join</a></li>
-<li class="chapter" data-level="3.3" data-path="datatable.html"><a href="datatable.html#reshaping-data"><i class="fa fa-check"></i><b>3.3</b> Reshaping data</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="datatable.html"><a href="datatable.html#wide-to-long"><i class="fa fa-check"></i><b>3.3.1</b> Wide to long</a></li>
-<li class="chapter" data-level="3.3.2" data-path="datatable.html"><a href="datatable.html#long-to-wide"><i class="fa fa-check"></i><b>3.3.2</b> Long to wide</a></li>
+<li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
+<li class="chapter" data-level="3.0.1" data-path="basics.html"><a href="basics.html#other-ides"><i class="fa fa-check"></i><b>3.0.1</b> Other IDEs</a></li>
+<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>3.1</b> File types</a></li>
+<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.2</b> Simple calculator</a></li>
+<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.3</b> Probability calculator</a></li>
+<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.4</b> Getting Help</a></li>
+<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.5</b> Variable Asignment</a></li>
+<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#missing"><i class="fa fa-check"></i><b>3.6</b> Missing</a></li>
+<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.7</b> Piping</a></li>
+<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.8</b> Vector Creation and Manipulation</a></li>
+<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.9</b> Search Paths and Packages</a></li>
+<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.10</b> Simple Plotting</a></li>
+<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.11</b> Object Types</a></li>
+<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.12</b> Data Frames</a></li>
+<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.13</b> Exctraction</a></li>
+<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#augmentations-of-the-data.frame-class"><i class="fa fa-check"></i><b>3.14</b> Augmentations of the data.frame class</a></li>
+<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.15</b> Data Import and Export</a><ul>
+<li class="chapter" data-level="3.15.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.15.1</b> Import from WEB</a></li>
+<li class="chapter" data-level="3.15.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.15.2</b> Export as CSV</a></li>
+<li class="chapter" data-level="3.15.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>3.15.3</b> Export non-CSV files</a></li>
+<li class="chapter" data-level="3.15.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.15.4</b> Reading From Text Files</a></li>
+<li class="chapter" data-level="3.15.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.15.5</b> Writing Data to Text Files</a></li>
+<li class="chapter" data-level="3.15.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.15.6</b> .XLS(X) files</a></li>
+<li class="chapter" data-level="3.15.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.15.7</b> Massive files</a></li>
+<li class="chapter" data-level="3.15.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.15.8</b> Databases</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="datatable.html"><a href="datatable.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.5" data-path="datatable.html"><a href="datatable.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.16</b> Functions</a></li>
+<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.17</b> Looping</a></li>
+<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.18</b> Apply</a></li>
+<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.19</b> Recursion</a></li>
+<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.20</b> Dates and Times</a></li>
+<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.21</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#practice-yourself"><i class="fa fa-check"></i><b>3.22</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>4</b> R Basics</a><ul>
-<li class="chapter" data-level="4.0.1" data-path="basics.html"><a href="basics.html#other-ides"><i class="fa fa-check"></i><b>4.0.1</b> Other IDEs</a></li>
-<li class="chapter" data-level="4.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>4.1</b> File types</a></li>
-<li class="chapter" data-level="4.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>4.2</b> Simple calculator</a></li>
-<li class="chapter" data-level="4.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>4.3</b> Probability calculator</a></li>
-<li class="chapter" data-level="4.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>4.4</b> Getting Help</a></li>
-<li class="chapter" data-level="4.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>4.5</b> Variable Asignment</a></li>
-<li class="chapter" data-level="4.6" data-path="basics.html"><a href="basics.html#missing"><i class="fa fa-check"></i><b>4.6</b> Missing</a></li>
-<li class="chapter" data-level="4.7" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>4.7</b> Piping</a></li>
-<li class="chapter" data-level="4.8" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>4.8</b> Vector Creation and Manipulation</a></li>
-<li class="chapter" data-level="4.9" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>4.9</b> Search Paths and Packages</a></li>
-<li class="chapter" data-level="4.10" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>4.10</b> Simple Plotting</a></li>
-<li class="chapter" data-level="4.11" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>4.11</b> Object Types</a></li>
-<li class="chapter" data-level="4.12" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>4.12</b> Data Frames</a></li>
-<li class="chapter" data-level="4.13" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>4.13</b> Exctraction</a></li>
-<li class="chapter" data-level="4.14" data-path="basics.html"><a href="basics.html#augmentations-of-the-data.frame-class"><i class="fa fa-check"></i><b>4.14</b> Augmentations of the data.frame class</a></li>
-<li class="chapter" data-level="4.15" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>4.15</b> Data Import and Export</a><ul>
-<li class="chapter" data-level="4.15.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>4.15.1</b> Import from WEB</a></li>
-<li class="chapter" data-level="4.15.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>4.15.2</b> Export as CSV</a></li>
-<li class="chapter" data-level="4.15.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>4.15.3</b> Export non-CSV files</a></li>
-<li class="chapter" data-level="4.15.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>4.15.4</b> Reading From Text Files</a></li>
-<li class="chapter" data-level="4.15.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>4.15.5</b> Writing Data to Text Files</a></li>
-<li class="chapter" data-level="4.15.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>4.15.6</b> .XLS(X) files</a></li>
-<li class="chapter" data-level="4.15.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>4.15.7</b> Massive files</a></li>
-<li class="chapter" data-level="4.15.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>4.15.8</b> Databases</a></li>
+<li class="chapter" data-level="4" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>4</b> data.table</a><ul>
+<li class="chapter" data-level="4.1" data-path="datatable.html"><a href="datatable.html#make-your-own-variables"><i class="fa fa-check"></i><b>4.1</b> Make your own variables</a></li>
+<li class="chapter" data-level="4.2" data-path="datatable.html"><a href="datatable.html#join"><i class="fa fa-check"></i><b>4.2</b> Join</a></li>
+<li class="chapter" data-level="4.3" data-path="datatable.html"><a href="datatable.html#reshaping-data"><i class="fa fa-check"></i><b>4.3</b> Reshaping data</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="datatable.html"><a href="datatable.html#wide-to-long"><i class="fa fa-check"></i><b>4.3.1</b> Wide to long</a></li>
+<li class="chapter" data-level="4.3.2" data-path="datatable.html"><a href="datatable.html#long-to-wide"><i class="fa fa-check"></i><b>4.3.2</b> Long to wide</a></li>
 </ul></li>
-<li class="chapter" data-level="4.16" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>4.16</b> Functions</a></li>
-<li class="chapter" data-level="4.17" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>4.17</b> Looping</a></li>
-<li class="chapter" data-level="4.18" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>4.18</b> Apply</a></li>
-<li class="chapter" data-level="4.19" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>4.19</b> Recursion</a></li>
-<li class="chapter" data-level="4.20" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>4.20</b> Dates and Times</a></li>
-<li class="chapter" data-level="4.21" data-path="basics.html"><a href="basics.html#bibliographic-notes-2"><i class="fa fa-check"></i><b>4.21</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="4.22" data-path="basics.html"><a href="basics.html#practice-yourself-2"><i class="fa fa-check"></i><b>4.22</b> Practice Yourself</a></li>
+<li class="chapter" data-level="4.4" data-path="datatable.html"><a href="datatable.html#bibliographic-notes-2"><i class="fa fa-check"></i><b>4.4</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="4.5" data-path="datatable.html"><a href="datatable.html#practice-yourself-1"><i class="fa fa-check"></i><b>4.5</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>5</b> Exploratory Data Analysis</a><ul>
 <li class="chapter" data-level="5.1" data-path="eda.html"><a href="eda.html#summary-statistics"><i class="fa fa-check"></i><b>5.1</b> Summary Statistics</a><ul>
@@ -204,7 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3.1" data-path="eda.html"><a href="eda.html#alluvian-diagram"><i class="fa fa-check"></i><b>5.3.1</b> Alluvian Diagram</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="eda.html"><a href="eda.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="5.5" data-path="eda.html"><a href="eda.html#practice-yourself-3"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="5.5" data-path="eda.html"><a href="eda.html#practice-yourself-2"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="lm.html"><a href="lm.html"><i class="fa fa-check"></i><b>6</b> Linear Models</a><ul>
 <li class="chapter" data-level="6.1" data-path="lm.html"><a href="lm.html#problem-setup"><i class="fa fa-check"></i><b>6.1</b> Problem Setup</a></li>
@@ -217,7 +188,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.5" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>6.3.5</b> Testing a Hypothesis on a Single Contrast (*)</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-4"><i class="fa fa-check"></i><b>6.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="6.5" data-path="lm.html"><a href="lm.html#practice-yourself-4"><i class="fa fa-check"></i><b>6.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="6.5" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>6.5</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>7</b> Generalized Linear Models</a><ul>
 <li class="chapter" data-level="7.1" data-path="glm.html"><a href="glm.html#problem-setup-1"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
@@ -257,7 +228,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.6" data-path="lme.html"><a href="lme.html#the-variance-components-view"><i class="fa fa-check"></i><b>8.6</b> The Variance-Components View</a></li>
 <li class="chapter" data-level="8.7" data-path="lme.html"><a href="lme.html#bibliographic-notes-6"><i class="fa fa-check"></i><b>8.7</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="8.8" data-path="lme.html"><a href="lme.html#practice-yourself-5"><i class="fa fa-check"></i><b>8.8</b> Practice Yourself</a></li>
+<li class="chapter" data-level="8.8" data-path="lme.html"><a href="lme.html#practice-yourself-4"><i class="fa fa-check"></i><b>8.8</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="multivariate.html"><a href="multivariate.html"><i class="fa fa-check"></i><b>9</b> Multivariate Data Analysis</a><ul>
 <li class="chapter" data-level="9.1" data-path="multivariate.html"><a href="multivariate.html#signal-detection"><i class="fa fa-check"></i><b>9.1</b> Signal Detection</a><ul>
@@ -278,7 +249,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>9.6.1</b> Graphical Models in R</a></li>
 </ul></li>
 <li class="chapter" data-level="9.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>9.7</b> Biblipgraphic Notes</a></li>
-<li class="chapter" data-level="9.8" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-6"><i class="fa fa-check"></i><b>9.8</b> Practice Yourself</a></li>
+<li class="chapter" data-level="9.8" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-5"><i class="fa fa-check"></i><b>9.8</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>10</b> Supervised Learning</a><ul>
 <li class="chapter" data-level="10.1" data-path="supervised.html"><a href="supervised.html#problem-setup-3"><i class="fa fa-check"></i><b>10.1</b> Problem Setup</a><ul>
@@ -299,7 +270,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.2.9" data-path="supervised.html"><a href="supervised.html#gradient-boosting"><i class="fa fa-check"></i><b>10.2.9</b> Gradient Boosting</a></li>
 </ul></li>
 <li class="chapter" data-level="10.3" data-path="supervised.html"><a href="supervised.html#bibliographic-notes-7"><i class="fa fa-check"></i><b>10.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="10.4" data-path="supervised.html"><a href="supervised.html#practice-yourself-7"><i class="fa fa-check"></i><b>10.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="10.4" data-path="supervised.html"><a href="supervised.html#practice-yourself-6"><i class="fa fa-check"></i><b>10.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="unsupervised.html"><a href="unsupervised.html"><i class="fa fa-check"></i><b>11</b> Unsupervised Learning</a><ul>
 <li class="chapter" data-level="11.1" data-path="unsupervised.html"><a href="unsupervised.html#dim-reduce"><i class="fa fa-check"></i><b>11.1</b> Dimensionality Reduction</a><ul>
@@ -315,7 +286,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.2.3" data-path="unsupervised.html"><a href="unsupervised.html#clustering-in-r"><i class="fa fa-check"></i><b>11.2.3</b> Clustering in R</a></li>
 </ul></li>
 <li class="chapter" data-level="11.3" data-path="unsupervised.html"><a href="unsupervised.html#bibliographic-notes-8"><i class="fa fa-check"></i><b>11.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="11.4" data-path="unsupervised.html"><a href="unsupervised.html#practice-yourself-8"><i class="fa fa-check"></i><b>11.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="11.4" data-path="unsupervised.html"><a href="unsupervised.html#practice-yourself-7"><i class="fa fa-check"></i><b>11.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>12</b> Plotting</a><ul>
 <li class="chapter" data-level="12.1" data-path="plotting.html"><a href="plotting.html#the-graphics-system"><i class="fa fa-check"></i><b>12.1</b> The graphics System</a><ul>
@@ -331,7 +302,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="12.4" data-path="plotting.html"><a href="plotting.html#r2d3"><i class="fa fa-check"></i><b>12.4</b> r2d3</a></li>
 <li class="chapter" data-level="12.5" data-path="plotting.html"><a href="plotting.html#bibliographic-notes-9"><i class="fa fa-check"></i><b>12.5</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="12.6" data-path="plotting.html"><a href="plotting.html#practice-yourself-9"><i class="fa fa-check"></i><b>12.6</b> Practice Yourself</a></li>
+<li class="chapter" data-level="12.6" data-path="plotting.html"><a href="plotting.html#practice-yourself-8"><i class="fa fa-check"></i><b>12.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="report.html"><a href="report.html"><i class="fa fa-check"></i><b>13</b> Reports</a><ul>
 <li class="chapter" data-level="13.1" data-path="report.html"><a href="report.html#knitr"><i class="fa fa-check"></i><b>13.1</b> knitr</a><ul>
@@ -350,7 +321,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="13.4" data-path="report.html"><a href="report.html#flexdashboard"><i class="fa fa-check"></i><b>13.4</b> flexdashboard</a></li>
 <li class="chapter" data-level="13.5" data-path="report.html"><a href="report.html#bibliographic-notes-10"><i class="fa fa-check"></i><b>13.5</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="13.6" data-path="report.html"><a href="report.html#practice-yourself-10"><i class="fa fa-check"></i><b>13.6</b> Practice Yourself</a></li>
+<li class="chapter" data-level="13.6" data-path="report.html"><a href="report.html#practice-yourself-9"><i class="fa fa-check"></i><b>13.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a><ul>
 <li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a><ul>
@@ -366,7 +337,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.2.4" data-path="sparse.html"><a href="sparse.html#the-sparsem-package"><i class="fa fa-check"></i><b>14.2.4</b> The SparseM Package</a></li>
 </ul></li>
 <li class="chapter" data-level="14.3" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>14.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="14.4" data-path="sparse.html"><a href="sparse.html#practice-yourself-11"><i class="fa fa-check"></i><b>14.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="14.4" data-path="sparse.html"><a href="sparse.html#practice-yourself-10"><i class="fa fa-check"></i><b>14.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a><ul>
 <li class="chapter" data-level="15.1" data-path="memory.html"><a href="memory.html#efficient-computing-from-ram"><i class="fa fa-check"></i><b>15.1</b> Efficient Computing from RAM</a><ul>
@@ -387,7 +358,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="15.9" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.9</b> Computing from a Distributed File System</a></li>
 <li class="chapter" data-level="15.10" data-path="memory.html"><a href="memory.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>15.10</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="15.11" data-path="memory.html"><a href="memory.html#practice-yourself-12"><i class="fa fa-check"></i><b>15.11</b> Practice Yourself</a></li>
+<li class="chapter" data-level="15.11" data-path="memory.html"><a href="memory.html#practice-yourself-11"><i class="fa fa-check"></i><b>15.11</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
 <li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
@@ -395,7 +366,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
 </ul></li>
 <li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-13"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-13"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-12"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a><ul>
 <li class="chapter" data-level="17.1" data-path="algebra.html"><a href="algebra.html#lu-factorization"><i class="fa fa-check"></i><b>17.1</b> LU Factorization</a></li>
@@ -405,7 +376,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="17.5" data-path="algebra.html"><a href="algebra.html#iterative-methods"><i class="fa fa-check"></i><b>17.5</b> Iterative Methods</a></li>
 <li class="chapter" data-level="17.6" data-path="algebra.html"><a href="algebra.html#solving-ols"><i class="fa fa-check"></i><b>17.6</b> Solving the OLS Problem</a></li>
 <li class="chapter" data-level="17.7" data-path="algebra.html"><a href="algebra.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>17.7</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="17.8" data-path="algebra.html"><a href="algebra.html#practice-yourself-14"><i class="fa fa-check"></i><b>17.8</b> Practice Yourself</a></li>
+<li class="chapter" data-level="17.8" data-path="algebra.html"><a href="algebra.html#practice-yourself-13"><i class="fa fa-check"></i><b>17.8</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="18" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>18</b> Convex Optimization</a><ul>
 <li class="chapter" data-level="18.1" data-path="convex.html"><a href="convex.html#theoretical-backround"><i class="fa fa-check"></i><b>18.1</b> Theoretical Backround</a></li>
@@ -415,23 +386,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.2.3" data-path="convex.html"><a href="convex.html#minqa-package"><i class="fa fa-check"></i><b>18.2.3</b> minqa Package</a></li>
 </ul></li>
 <li class="chapter" data-level="18.3" data-path="convex.html"><a href="convex.html#bibliographic-notes-15"><i class="fa fa-check"></i><b>18.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="18.4" data-path="convex.html"><a href="convex.html#practice-yourself-15"><i class="fa fa-check"></i><b>18.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="18.4" data-path="convex.html"><a href="convex.html#practice-yourself-14"><i class="fa fa-check"></i><b>18.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="rcpp.html"><a href="rcpp.html"><i class="fa fa-check"></i><b>19</b> RCpp</a><ul>
 <li class="chapter" data-level="19.1" data-path="rcpp.html"><a href="rcpp.html#bibliographic-notes-16"><i class="fa fa-check"></i><b>19.1</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="19.2" data-path="rcpp.html"><a href="rcpp.html#practice-yourself-16"><i class="fa fa-check"></i><b>19.2</b> Practice Yourself</a></li>
+<li class="chapter" data-level="19.2" data-path="rcpp.html"><a href="rcpp.html#practice-yourself-15"><i class="fa fa-check"></i><b>19.2</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="20" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>20</b> Debugging Tools</a><ul>
 <li class="chapter" data-level="20.1" data-path="debugging.html"><a href="debugging.html#bibliographic-notes-17"><i class="fa fa-check"></i><b>20.1</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="20.2" data-path="debugging.html"><a href="debugging.html#practice-yourself-17"><i class="fa fa-check"></i><b>20.2</b> Practice Yourself</a></li>
+<li class="chapter" data-level="20.2" data-path="debugging.html"><a href="debugging.html#practice-yourself-16"><i class="fa fa-check"></i><b>20.2</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="21" data-path="econometrics.html"><a href="econometrics.html"><i class="fa fa-check"></i><b>21</b> Econometrics</a><ul>
 <li class="chapter" data-level="21.1" data-path="econometrics.html"><a href="econometrics.html#bibliographic-notes-18"><i class="fa fa-check"></i><b>21.1</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="21.2" data-path="econometrics.html"><a href="econometrics.html#practice-yourself-18"><i class="fa fa-check"></i><b>21.2</b> Practice Yourself</a></li>
+<li class="chapter" data-level="21.2" data-path="econometrics.html"><a href="econometrics.html#practice-yourself-17"><i class="fa fa-check"></i><b>21.2</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="22" data-path="psychometrics.html"><a href="psychometrics.html"><i class="fa fa-check"></i><b>22</b> Psychometrics</a><ul>
 <li class="chapter" data-level="22.1" data-path="psychometrics.html"><a href="psychometrics.html#bibliographic-notes-19"><i class="fa fa-check"></i><b>22.1</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="22.2" data-path="psychometrics.html"><a href="psychometrics.html#practice-yourself-19"><i class="fa fa-check"></i><b>22.2</b> Practice Yourself</a></li>
+<li class="chapter" data-level="22.2" data-path="psychometrics.html"><a href="psychometrics.html#practice-yourself-18"><i class="fa fa-check"></i><b>22.2</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="23" data-path="hadley.html"><a href="hadley.html"><i class="fa fa-check"></i><b>23</b> The Hadleyverse</a><ul>
 <li class="chapter" data-level="23.1" data-path="hadley.html"><a href="hadley.html#readr"><i class="fa fa-check"></i><b>23.1</b> readr</a></li>
@@ -441,7 +412,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="23.5" data-path="hadley.html"><a href="hadley.html#stringr"><i class="fa fa-check"></i><b>23.5</b> stringr</a></li>
 <li class="chapter" data-level="23.6" data-path="hadley.html"><a href="hadley.html#anytime"><i class="fa fa-check"></i><b>23.6</b> anytime</a></li>
 <li class="chapter" data-level="23.7" data-path="hadley.html"><a href="hadley.html#biblipgraphic-notes-1"><i class="fa fa-check"></i><b>23.7</b> Biblipgraphic Notes</a></li>
-<li class="chapter" data-level="23.8" data-path="hadley.html"><a href="hadley.html#practice-yourself-20"><i class="fa fa-check"></i><b>23.8</b> Practice Yourself</a></li>
+<li class="chapter" data-level="23.8" data-path="hadley.html"><a href="hadley.html#practice-yourself-19"><i class="fa fa-check"></i><b>23.8</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="24" data-path="causality.html"><a href="causality.html"><i class="fa fa-check"></i><b>24</b> Causal Inferense</a><ul>
 <li class="chapter" data-level="24.1" data-path="causality.html"><a href="causality.html#causal-inference-from-designed-experiments"><i class="fa fa-check"></i><b>24.1</b> Causal Inference From Designed Experiments</a><ul>
@@ -456,7 +427,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="24.2.5" data-path="causality.html"><a href="causality.html#regression-discontinuity"><i class="fa fa-check"></i><b>24.2.5</b> Regression Discontinuity</a></li>
 </ul></li>
 <li class="chapter" data-level="24.3" data-path="causality.html"><a href="causality.html#bibliographic-notes-20"><i class="fa fa-check"></i><b>24.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="24.4" data-path="causality.html"><a href="causality.html#practice-yourself-21"><i class="fa fa-check"></i><b>24.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="24.4" data-path="causality.html"><a href="causality.html#practice-yourself-20"><i class="fa fa-check"></i><b>24.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -470,7 +441,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R (BGU course)</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
           </h1>
         </div>
 
@@ -480,56 +451,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="memory" class="section level1">
 <h1><span class="header-section-number">Chapter 15</span> Memory Efficiency</h1>
-<p>As put by <span class="citation">Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span>, it was quite puzzling when very few of the competitors, for the Million dollars prize in the <a href="https://en.wikipedia.org/wiki/Netflix_Prize">Netflix challenge</a>, were statisticians.
-This is perhaps because the statistical community historically uses SAS, SPSS, and R.
-The first two tools are very well equipped to deal with big data, but are very unfriendly when trying to implement a new method.
-R, on the other hand, is very friendly for innovation, but was not equipped to deal with the large data sets of the Netflix challenge.
-A lot has changed in R since 2006. This is the topic of this chapter.</p>
-<p>As we have seen in the Sparsity Chapter <a href="sparse.html#sparse">14</a>, an efficient representation of your data in RAM will reduce computing time, and will allow you to fit models that would otherwise require tremendous amounts of RAM.
-Not all problems are sparse however.
-It is also possible that your data does not fit in RAM, even if sparse.
-There are several scenarios to consider:</p>
+<p>As put by <span class="citation">@kane2013scalable</span>, it was quite puzzling when very few of the competitors, for the Million dollars prize in the <a href="https://en.wikipedia.org/wiki/Netflix_Prize">Netflix challenge</a>, were statisticians. This is perhaps because the statistical community historically uses SAS, SPSS, and R. The first two tools are very well equipped to deal with big data, but are very unfriendly when trying to implement a new method. R, on the other hand, is very friendly for innovation, but was not equipped to deal with the large data sets of the Netflix challenge. A lot has changed in R since 2006. This is the topic of this chapter.</p>
+<p>As we have seen in the Sparsity Chapter <a href="sparse.html#sparse">14</a>, an efficient representation of your data in RAM will reduce computing time, and will allow you to fit models that would otherwise require tremendous amounts of RAM. Not all problems are sparse however. It is also possible that your data does not fit in RAM, even if sparse. There are several scenarios to consider:</p>
 <ol style="list-style-type: decimal">
 <li>Your data fits in RAM, but is too big to compute with.</li>
 <li>Your data does not fit in RAM, but fits in your local storage (HD, SSD, etc.)</li>
 <li>Your data does not fit in your local storage.</li>
 </ol>
-<p>If your data fits in RAM, but is too large to compute with, a solution is to replace the algorithm you are using.
-Instead of computing with the whole data, your algorithm will compute with parts of the data, also called <em>chunks</em>, or <em>batches</em>.
-These algorithms are known as <em>external memory algorithms</em> (EMA).</p>
-<p>If your data does not fit in RAM, but fits in your local storage, you have two options.
-The first is to save your data in a <em>database management system</em> (DBMS).
-This will allow you to use the algorithms provided by your DBMS, or let R use an EMA while “chunking” from your DBMS.
-Alternatively, and preferably, you may avoid using a DBMS, and work with the data directly form your local storage by saving your data in some efficient manner.</p>
+<p>If your data fits in RAM, but is too large to compute with, a solution is to replace the algorithm you are using. Instead of computing with the whole data, your algorithm will compute with parts of the data, also called <em>chunks</em>, or <em>batches</em>. These algorithms are known as <em>external memory algorithms</em> (EMA).</p>
+<p>If your data does not fit in RAM, but fits in your local storage, you have two options. The first is to save your data in a <em>database management system</em> (DBMS). This will allow you to use the algorithms provided by your DBMS, or let R use an EMA while “chunking” from your DBMS. Alternatively, and preferably, you may avoid using a DBMS, and work with the data directly form your local storage by saving your data in some efficient manner.</p>
 <p>Finally, if your data does not fit on you local storage, you will need some external storage solution such as a distributed DBMS, or distributed file system.</p>
 
 <div class="remark">
- <span class="remark"><em>Remark. </em></span> If you use Linux, you may be better of than Windows users.
-Linux will allow you to compute with larger datasets using its <em>swap file</em> that extends RAM using your HD or SSD.
-On the other hand, relying on the swap file is a BAD practice since it is much slower than RAM, and you can typically do much better using the tricks of this chapter.
-Also, while I LOVE Linux, I would never dare to recommend switching to Linux just to deal with memory contraints.
+ <span class="remark"><em>Remark. </em></span> If you use Linux, you may be better of than Windows users. Linux will allow you to compute with larger datasets using its <em>swap file</em> that extends RAM using your HD or SSD. On the other hand, relying on the swap file is a BAD practice since it is much slower than RAM, and you can typically do much better using the tricks of this chapter. Also, while I LOVE Linux, I would never dare to recommend switching to Linux just to deal with memory contraints.
 </div>
 
 <div id="efficient-computing-from-ram" class="section level2">
 <h2><span class="header-section-number">15.1</span> Efficient Computing from RAM</h2>
-<p>If our data can fit in RAM, but is still too large to compute with it (recall that fitting a model requires roughly 5-10 times more memory than saving it), there are several facilities to be used.
-The first, is the sparse representation discussed in Chapter <a href="sparse.html#sparse">14</a>, which is relevant when you have factors, which will typically map to sparse model matrices.
-Another way is to use <em>external memory algorithms</em> (EMA).</p>
-<p>The <code>biglm::biglm</code> function provides an EMA for linear regression.
-The following if taken from the function’s example.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(trees)
+<p>If our data can fit in RAM, but is still too large to compute with it (recall that fitting a model requires roughly 5-10 times more memory than saving it), there are several facilities to be used. The first, is the sparse representation discussed in Chapter <a href="sparse.html#sparse">14</a>, which is relevant when you have factors, which will typically map to sparse model matrices. Another way is to use <em>external memory algorithms</em> (EMA).</p>
+<p>The <code>biglm::biglm</code> function provides an EMA for linear regression. The following if taken from the function’s example.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(trees)
 ff&lt;-<span class="kw">log</span>(Volume)<span class="op">~</span><span class="kw">log</span>(Girth)<span class="op">+</span><span class="kw">log</span>(Height)
 
 chunk1&lt;-trees[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,]
 chunk2&lt;-trees[<span class="dv">11</span><span class="op">:</span><span class="dv">20</span>,]
 chunk3&lt;-trees[<span class="dv">21</span><span class="op">:</span><span class="dv">31</span>,]
 
-<span class="kw">library</span>(biglm)
-a &lt;-<span class="st"> </span><span class="kw">biglm</span>(ff,chunk1)
+<span class="kw">library</span>(biglm)</code></pre></div>
+<pre><code>## Loading required package: DBI</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="kw">biglm</span>(ff,chunk1)
 a &lt;-<span class="st"> </span><span class="kw">update</span>(a,chunk2)
 a &lt;-<span class="st"> </span><span class="kw">update</span>(a,chunk3)
 
-<span class="kw">coef</span>(a)</code></pre>
+<span class="kw">coef</span>(a)</code></pre></div>
 <pre><code>## (Intercept)  log(Girth) log(Height) 
 ##   -6.631617    1.982650    1.117123</code></pre>
 <p>Things to note:</p>
@@ -539,22 +493,17 @@ a &lt;-<span class="st"> </span><span class="kw">update</span>(a,chunk3)
 <li>The model is updated with further chunks using the <code>update</code> function.</li>
 </ul>
 <p>We now compare it to the in-memory version of <code>lm</code> to verify the results are the same.</p>
-<pre class="sourceCode r"><code class="sourceCode r">b &lt;-<span class="st"> </span><span class="kw">lm</span>(ff, <span class="dt">data=</span>trees)
-<span class="kw">rbind</span>(<span class="kw">coef</span>(a),<span class="kw">coef</span>(b))</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b &lt;-<span class="st"> </span><span class="kw">lm</span>(ff, <span class="dt">data=</span>trees)
+<span class="kw">rbind</span>(<span class="kw">coef</span>(a),<span class="kw">coef</span>(b))</code></pre></div>
 <pre><code>##      (Intercept) log(Girth) log(Height)
 ## [1,]   -6.631617    1.98265    1.117123
 ## [2,]   -6.631617    1.98265    1.117123</code></pre>
 <p>Other packages that follow these lines, particularly with classification using SVMs, are <strong>LiblineaR</strong>, and <strong>RSofia</strong>.</p>
 <div id="summary-statistics-from-ram" class="section level3">
 <h3><span class="header-section-number">15.1.1</span> Summary Statistics from RAM</h3>
-<p>If you are not going to do any model fitting, and all you want is efficient filtering, selection and summary statistics, then a lot of my warnings above are irrelevant.
-For these purposes, the facilities provided by <strong>base</strong>, <strong>stats</strong>, and <strong>dplyr</strong> are probably enough.
-If the data is large, however, these facilities may be too slow.
-If your data fits into RAM, but speed bothers you, take a look at the <strong>data.table</strong> package.
-The syntax is less friendly than <strong>dplyr</strong>, but <strong>data.table</strong> is BLAZING FAST compared to competitors.
-Here is a little benchmark<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a>.</p>
+<p>If you are not going to do any model fitting, and all you want is efficient filtering, selection and summary statistics, then a lot of my warnings above are irrelevant. For these purposes, the facilities provided by <strong>base</strong>, <strong>stats</strong>, and <strong>dplyr</strong> are probably enough. If the data is large, however, these facilities may be too slow. If your data fits into RAM, but speed bothers you, take a look at the <strong>data.table</strong> package. The syntax is less friendly than <strong>dplyr</strong>, but <strong>data.table</strong> is BLAZING FAST compared to competitors. Here is a little benchmark<a href="#fn26" class="footnoteRef" id="fnref26"><sup>26</sup></a>.</p>
 <p>First, we setup the data.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)
 
 n &lt;-<span class="st"> </span><span class="fl">1e6</span> <span class="co"># number of rows</span>
 k &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">200</span>,<span class="dv">500</span>) <span class="co"># number of distinct values for each &#39;group_by&#39; variable</span>
@@ -567,66 +516,77 @@ tbl &lt;-<span class="st"> </span><span class="kw">data.table</span>(L1,L2) <spa
 <span class="st">  </span><span class="kw">setnames</span>(<span class="kw">c</span>(<span class="kw">paste</span>(<span class="st">&quot;v&quot;</span>,<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(k),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>), <span class="kw">paste</span>(<span class="st">&quot;x&quot;</span>,<span class="dv">1</span><span class="op">:</span>p,<span class="dt">sep=</span><span class="st">&quot;&quot;</span>) ))
 
 tbl_dt &lt;-<span class="st"> </span>tbl
-tbl_df &lt;-<span class="st"> </span>tbl <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame</code></pre>
-<p>We compare the aggregation speeds.
-Here is the timing for <strong>dplyr</strong>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-<span class="kw">system.time</span>( tbl_df <span class="op">%&gt;%</span><span class="st"> </span>
+tbl_df &lt;-<span class="st"> </span>tbl <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame</code></pre></div>
+<p>We compare the aggregation speeds. Here is the timing for <strong>dplyr</strong>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:plyr&#39;:
+## 
+##     arrange, count, desc, failwith, id, mutate, rename, summarise,
+##     summarize</code></pre>
+<pre><code>## The following object is masked from &#39;package:nlme&#39;:
+## 
+##     collapse</code></pre>
+<pre><code>## The following object is masked from &#39;package:MASS&#39;:
+## 
+##     select</code></pre>
+<pre><code>## The following objects are masked from &#39;package:data.table&#39;:
+## 
+##     between, first, last</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( tbl_df <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">               </span><span class="kw">group_by</span>(v1,v2) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">               </span><span class="kw">summarize</span>(
                  <span class="dt">x1 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x1)), 
                  <span class="dt">x2 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x2)), 
                  <span class="dt">x3 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x3)) 
                  )
-             )</code></pre>
+             )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   9.684   0.044   9.733</code></pre>
+##   1.493   0.031   1.525</code></pre>
 <p>And now the timing for <strong>data.table</strong>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_dt[ ,  .( <span class="dt">x1 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x1)), <span class="dt">x2 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x2)), <span class="dt">x3 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x3)) ), .(v1,v2)]
-  )</code></pre>
+  )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.320   0.112   0.433</code></pre>
-<p>The winner is obvious.
-Let’s compare filtering (i.e. row subsets, i.e. SQL’s SELECT).</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
+##   0.356   0.091   0.447</code></pre>
+<p>The winner is obvious. Let’s compare filtering (i.e. row subsets, i.e. SQL’s SELECT).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(v1 <span class="op">==</span><span class="st"> &quot;1&quot;</span>) 
-  )</code></pre>
+  )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.028   0.072   0.099</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
+##   0.014   0.060   0.073</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_dt[v1 <span class="op">==</span><span class="st"> &quot;1&quot;</span>] 
-  )</code></pre>
+  )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.008   0.012   0.019</code></pre>
+##   0.017   0.060   0.076</code></pre>
 </div>
 </div>
 <div id="computing-from-a-database" class="section level2">
 <h2><span class="header-section-number">15.2</span> Computing from a Database</h2>
-<p>The early solutions to oversized data relied on storing your data in some DBMS such as <em>MySQL</em>, <em>PostgresSQL</em>, <em>SQLite</em>, <em>H2</em>, <em>Oracle</em>, etc.
-Several R packages provide interfaces to these DBMSs, such as <strong>sqldf</strong>, <strong>RDBI</strong>, <strong>RSQite</strong>.
-Some will even include the DBMS as part of the package itself.</p>
-<p>Storing your data in a DBMS has the advantage that you can typically rely on DBMS providers to include very efficient algorithms for the queries they support.
-On the downside, SQL queries may include a lot of summary statistics, but will rarely include model fitting<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a>.
-This means that even for simple things like linear models, you will have to revert to R’s facilities– typically some sort of EMA with chunking from the DBMS.
-For this reason, and others, we prefer to compute from efficient file structures, as described in Section <a href="memory.html#file-structure">15.3</a>.</p>
+<p>The early solutions to oversized data relied on storing your data in some DBMS such as <em>MySQL</em>, <em>PostgresSQL</em>, <em>SQLite</em>, <em>H2</em>, <em>Oracle</em>, etc. Several R packages provide interfaces to these DBMSs, such as <strong>sqldf</strong>, <strong>RDBI</strong>, <strong>RSQite</strong>. Some will even include the DBMS as part of the package itself.</p>
+<p>Storing your data in a DBMS has the advantage that you can typically rely on DBMS providers to include very efficient algorithms for the queries they support. On the downside, SQL queries may include a lot of summary statistics, but will rarely include model fitting<a href="#fn27" class="footnoteRef" id="fnref27"><sup>27</sup></a>. This means that even for simple things like linear models, you will have to revert to R’s facilities– typically some sort of EMA with chunking from the DBMS. For this reason, and others, we prefer to compute from efficient file structures, as described in Section <a href="memory.html#file-structure">15.3</a>.</p>
 <p>If, however, you have a powerful DBMS around, or you only need summary statistics, or you are an SQL master, keep reading.</p>
-<p>The package <strong>RSQLite</strong> includes an SQLite server, which we now setup for demonstration.
-The package <strong>dplyr</strong>, discussed in the Hadleyverse Chapter <a href="hadley.html#hadley">23</a>, will take care of translating the <strong>dplyr</strong> syntax, to the SQL syntax of the DBMS.
-The following example is taken from the <strong>dplyr</strong> <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html">Databases vignette</a>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RSQLite)
+<p>The package <strong>RSQLite</strong> includes an SQLite server, which we now setup for demonstration. The package <strong>dplyr</strong>, discussed in the Hadleyverse Chapter <a href="hadley.html#hadley">23</a>, will take care of translating the <strong>dplyr</strong> syntax, to the SQL syntax of the DBMS. The following example is taken from the <strong>dplyr</strong> <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html">Databases vignette</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RSQLite)
 <span class="kw">library</span>(dplyr)
 
-<span class="kw">file.remove</span>(<span class="st">&#39;my_db.sqlite3&#39;</span>)</code></pre>
-<pre><code>## [1] TRUE</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">my_db &lt;-<span class="st"> </span><span class="kw">src_sqlite</span>(<span class="dt">path =</span> <span class="st">&quot;my_db.sqlite3&quot;</span>, <span class="dt">create =</span> <span class="ot">TRUE</span>)
+<span class="kw">file.remove</span>(<span class="st">&#39;my_db.sqlite3&#39;</span>)
+my_db &lt;-<span class="st"> </span><span class="kw">src_sqlite</span>(<span class="dt">path =</span> <span class="st">&quot;my_db.sqlite3&quot;</span>, <span class="dt">create =</span> <span class="ot">TRUE</span>)
 
 <span class="kw">library</span>(nycflights13)
 flights_sqlite &lt;-<span class="st"> </span><span class="kw">copy_to</span>(
   <span class="dt">dest=</span> my_db, 
   <span class="dt">df=</span> flights, 
   <span class="dt">temporary =</span> <span class="ot">FALSE</span>, 
-  <span class="dt">indexes =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;month&quot;</span>, <span class="st">&quot;day&quot;</span>), <span class="st">&quot;carrier&quot;</span>, <span class="st">&quot;tailnum&quot;</span>))</code></pre>
+  <span class="dt">indexes =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;month&quot;</span>, <span class="st">&quot;day&quot;</span>), <span class="st">&quot;carrier&quot;</span>, <span class="st">&quot;tailnum&quot;</span>))</code></pre></div>
 <p>Things to note:</p>
 <ul>
 <li><code>src_sqlite</code> to start an empty table, managed by SQLite, at the desired path.</li>
@@ -634,54 +594,12 @@ flights_sqlite &lt;-<span class="st"> </span><span class="kw">copy_to</span>(
 <li>Typically, setting up a DBMS like this makes no sense, since it requires loading the data into RAM, which is precisely what we want to avoid.</li>
 </ul>
 <p>We can now start querying the DBMS.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(flights_sqlite, year<span class="op">:</span>day, dep_delay, arr_delay)</code></pre>
-<pre><code>## # Source:   lazy query [?? x 5]
-## # Database: sqlite 3.22.0 [my_db.sqlite3]
-##     year month   day dep_delay arr_delay
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-##  1  2013     1     1         2        11
-##  2  2013     1     1         4        20
-##  3  2013     1     1         2        33
-##  4  2013     1     1        -1       -18
-##  5  2013     1     1        -6       -25
-##  6  2013     1     1        -4        12
-##  7  2013     1     1        -5        19
-##  8  2013     1     1        -3       -14
-##  9  2013     1     1        -3        -8
-## 10  2013     1     1        -2         8
-## # ... with more rows</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(flights_sqlite, dep_delay <span class="op">&gt;</span><span class="st"> </span><span class="dv">240</span>)</code></pre>
-<pre><code>## # Source:   lazy query [?? x 19]
-## # Database: sqlite 3.22.0 [my_db.sqlite3]
-##     year month   day dep_time sched_dep_time dep_delay arr_time
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
-##  1  2013     1     1      848           1835       853     1001
-##  2  2013     1     1     1815           1325       290     2120
-##  3  2013     1     1     1842           1422       260     1958
-##  4  2013     1     1     2115           1700       255     2330
-##  5  2013     1     1     2205           1720       285       46
-##  6  2013     1     1     2343           1724       379      314
-##  7  2013     1     2     1332            904       268     1616
-##  8  2013     1     2     1412            838       334     1710
-##  9  2013     1     2     1607           1030       337     2003
-## 10  2013     1     2     2131           1512       379     2340
-## # ... with more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
-## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
-## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
-## #   minute &lt;dbl&gt;, time_hour &lt;dbl&gt;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summarise</span>(flights_sqlite, <span class="dt">delay =</span> <span class="kw">mean</span>(dep_time))</code></pre>
-<pre><code>## Warning: Missing values are always removed in SQL.
-## Use `AVG(x, na.rm = TRUE)` to silence this warning</code></pre>
-<pre><code>## # Source:   lazy query [?? x 1]
-## # Database: sqlite 3.22.0 [my_db.sqlite3]
-##   delay
-##   &lt;dbl&gt;
-## 1 1349.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">select</span>(flights_sqlite, year<span class="op">:</span>day, dep_delay, arr_delay)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(flights_sqlite, dep_delay <span class="op">&gt;</span><span class="st"> </span><span class="dv">240</span>)</code></pre></div>
 </div>
 <div id="file-structure" class="section level2">
 <h2><span class="header-section-number">15.3</span> Computing From Efficient File Structrures</h2>
-<p>It is possible to save your data on your storage device, without the DBMS layer to manage it.
-This has several advantages:</p>
+<p>It is possible to save your data on your storage device, without the DBMS layer to manage it. This has several advantages:</p>
 <ul>
 <li>You don’t need to manage a DBMS.</li>
 <li>You don’t have the computational overhead of the DBMS.</li>
@@ -689,45 +607,27 @@ This has several advantages:</p>
 </ul>
 <p>There are several facilities that allow you to save and compute directly from your storage:</p>
 <ol style="list-style-type: decimal">
-<li><p><strong>Memory Mapping</strong>:
-Where RAM addresses are mapped to a file on your storage.
-This extends the RAM to the capacity of your storage (HD, SSD,…).
-Performance slightly deteriorates, but the access is typically very fast.
-This approach is implemented in the <strong>bigmemory</strong> package.</p></li>
-<li><p><strong>Efficient Binaries</strong>:
-Where the data is stored as a file on the storage device.
-The file is binary, with a well designed structure, so that chunking is easy.
-This approach is implemented in the <strong>ff</strong> package, and the commercial <strong>RevoScaleR</strong> package.</p></li>
+<li><p><strong>Memory Mapping</strong>: Where RAM addresses are mapped to a file on your storage. This extends the RAM to the capacity of your storage (HD, SSD,…). Performance slightly deteriorates, but the access is typically very fast. This approach is implemented in the <strong>bigmemory</strong> package.</p></li>
+<li><p><strong>Efficient Binaries</strong>: Where the data is stored as a file on the storage device. The file is binary, with a well designed structure, so that chunking is easy. This approach is implemented in the <strong>ff</strong> package, and the commercial <strong>RevoScaleR</strong> package.</p></li>
 </ol>
-<p>Your algorithms need to be aware of the facility you are using.
-For this reason each facility ( <strong>bigmemory</strong>, <strong>ff</strong>, <strong>RevoScaleR</strong>,…) has an eco-system of packages that implement various statistical methods using that facility.
-As a general rule, you can see which package builds on a package using the <em>Reverse Depends</em> entry in the package description.
-For the <strong>bigmemory</strong> package, for instance, <a href="https://cran.r-project.org/web/packages/bigmemory/index.html">we can see</a> that the packages <strong>bigalgebra</strong>, <strong>biganalytics</strong>, <strong>bigFastlm</strong>, <strong>biglasso</strong>, <strong>bigpca</strong>, <strong>bigtabulate</strong>, <strong>GHap</strong>, and <strong>oem</strong>, build upon it.
-We can expect this list to expand.</p>
-<p>Here is a benchmark result, from <span class="citation">Wang et al. (<a href="#ref-wang2015statistical">2015</a>)</span>.
-It can be seen that <strong>ff</strong> and <strong>bigmemory</strong> have similar performance, while <strong>RevoScaleR</strong> (RRE in the figure) outperforms them.
-This has to do both with the efficiency of the binary representation, but also because <strong>RevoScaleR</strong> is inherently parallel.
-More on this in the Parallelization Chapter <a href="parallel.html#parallel">16</a>.
-<img src="art/benchmark.png" alt="bigmemory vs. ff vs. RevoScaleR when reading, trasnforming, or fitting a model to 12GB of data, on a standrard laptop (in 2015 standards)." /></p>
+<p>Your algorithms need to be aware of the facility you are using. For this reason each facility ( <strong>bigmemory</strong>, <strong>ff</strong>, <strong>RevoScaleR</strong>,…) has an eco-system of packages that implement various statistical methods using that facility. As a general rule, you can see which package builds on a package using the <em>Reverse Depends</em> entry in the package description. For the <strong>bigmemory</strong> package, for instance, <a href="https://cran.r-project.org/web/packages/bigmemory/index.html">we can see</a> that the packages <strong>bigalgebra</strong>, <strong>biganalytics</strong>, <strong>bigFastlm</strong>, <strong>biglasso</strong>, <strong>bigpca</strong>, <strong>bigtabulate</strong>, <strong>GHap</strong>, and <strong>oem</strong>, build upon it. We can expect this list to expand.</p>
+<p>Here is a benchmark result, from <span class="citation">@wang2015statistical</span>. It can be seen that <strong>ff</strong> and <strong>bigmemory</strong> have similar performance, while <strong>RevoScaleR</strong> (RRE in the figure) outperforms them. This has to do both with the efficiency of the binary representation, but also because <strong>RevoScaleR</strong> is inherently parallel. More on this in the Parallelization Chapter <a href="parallel.html#parallel">16</a>. <img src="art/benchmark.png" alt="bigmemory vs. ff vs. RevoScaleR when reading, trasnforming, or fitting a model to 12GB of data, on a standrard laptop (in 2015 standards)." /></p>
 <div id="bigmemory" class="section level3">
 <h3><span class="header-section-number">15.3.1</span> bigmemory</h3>
-<p>We now demonstrate the workflow of the <strong>bigmemory</strong> package.
-We will see that <strong>bigmemory</strong>, with it’s <code>big.matrix</code> object is a very powerful mechanism.
-If you deal with big numeric matrices, you will find it very useful.
-If you deal with big data frames, or any other non-numeric matrix, <strong>bigmemory</strong> may not be the appropriate tool, and you should try <strong>ff</strong>, or the commercial <strong>RevoScaleR</strong>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download.file(&quot;http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/BSAPUFS/Downloads/2010_Carrier_PUF.zip&quot;, &quot;2010_Carrier_PUF.zip&quot;)</span>
+<p>We now demonstrate the workflow of the <strong>bigmemory</strong> package. We will see that <strong>bigmemory</strong>, with it’s <code>big.matrix</code> object is a very powerful mechanism. If you deal with big numeric matrices, you will find it very useful. If you deal with big data frames, or any other non-numeric matrix, <strong>bigmemory</strong> may not be the appropriate tool, and you should try <strong>ff</strong>, or the commercial <strong>RevoScaleR</strong>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># download.file(&quot;http://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/BSAPUFS/Downloads/2010_Carrier_PUF.zip&quot;, &quot;2010_Carrier_PUF.zip&quot;)</span>
 <span class="co"># unzip(zipfile=&quot;2010_Carrier_PUF.zip&quot;)</span>
 
-<span class="kw">library</span>(<span class="st">&quot;bigmemory&quot;</span>)
+<span class="kw">library</span>(bigmemory)
 x &lt;-<span class="st"> </span><span class="kw">read.big.matrix</span>(<span class="st">&quot;data/2010_BSA_Carrier_PUF.csv&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>, 
                      <span class="dt">backingfile =</span> <span class="st">&quot;airline.bin&quot;</span>, 
                      <span class="dt">descriptorfile =</span> <span class="st">&quot;airline.desc&quot;</span>, 
                      <span class="dt">type =</span> <span class="st">&quot;integer&quot;</span>)
-<span class="kw">dim</span>(x)</code></pre>
+<span class="kw">dim</span>(x)</code></pre></div>
 <pre><code>## [1] 2801660      11</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">pryr<span class="op">::</span><span class="kw">object_size</span>(x)</code></pre>
-<pre><code>## 664 B</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(x)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pryr<span class="op">::</span><span class="kw">object_size</span>(x)</code></pre></div>
+<pre><code>## 696 B</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(x)</code></pre></div>
 <pre><code>## [1] &quot;big.matrix&quot;
 ## attr(,&quot;package&quot;)
 ## [1] &quot;bigmemory&quot;</code></pre>
@@ -735,15 +635,13 @@ x &lt;-<span class="st"> </span><span class="kw">read.big.matrix</span>(<span cl
 <ul>
 <li>The basic building block of the <strong>bigmemory</strong> ecosystem, is the <code>big.matrix</code> class, we constructed with <code>read.big.matrix</code>.</li>
 <li><code>read.big.matrix</code> handles the import to R, and the saving to a memory mapped file. The implementation is such that at no point does R hold the data in RAM.</li>
-<li>The memory mapped file will be there after the session is over. It can thus be called by other R sessions using <code>attach.big.matrix("airline.desc")</code>. This will be useful when parallelizing.</li>
+<li>The memory mapped file will be there after the session is over. It can thus be called by other R sessions using <code>attach.big.matrix(&quot;airline.desc&quot;)</code>. This will be useful when parallelizing.</li>
 <li><code>pryr::object_size</code> return the size of the object. Since <code>x</code> holds only the memory mappings, it is much smaller than the 100MB of data that it holds.</li>
 </ul>
-<p>We can now start computing with the data.
-Many statistical procedures for the <code>big.matrix</code> object are provided by the <strong>biganalytics</strong> package.
-In particular, the <code>biglm.big.matrix</code> and <code>bigglm.big.matrix</code> functions, provide an interface from <code>big.matrix</code> objects, to the EMA linear models in <code>biglm::biglm</code> and <code>biglm::bigglm</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(biganalytics)
-biglm<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">bigglm.big.matrix</span>(BENE_SEX_IDENT_CD<span class="op">~</span>CAR_LINE_HCPCS_CD, <span class="dt">data=</span>x)
-<span class="kw">coef</span>(biglm<span class="fl">.2</span>)</code></pre>
+<p>We can now start computing with the data. Many statistical procedures for the <code>big.matrix</code> object are provided by the <strong>biganalytics</strong> package. In particular, the <code>biglm.big.matrix</code> and <code>bigglm.big.matrix</code> functions, provide an interface from <code>big.matrix</code> objects, to the EMA linear models in <code>biglm::biglm</code> and <code>biglm::bigglm</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(biganalytics)
+biglm.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">bigglm.big.matrix</span>(BENE_SEX_IDENT_CD<span class="op">~</span>CAR_LINE_HCPCS_CD, <span class="dt">data=</span>x)
+<span class="kw">coef</span>(biglm.<span class="dv">2</span>)</code></pre></div>
 <pre><code>##       (Intercept) CAR_LINE_HCPCS_CD 
 ##      1.537848e+00      1.210282e-07</code></pre>
 <p>Other notable packages that operate with <code>big.matrix</code> objects include:</p>
@@ -759,18 +657,15 @@ biglm<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">b
 </div>
 <div id="ff" class="section level2">
 <h2><span class="header-section-number">15.4</span> ff</h2>
-<p>The <strong>ff</strong> packages replaces R’s in-RAM storage mechanism with on-disk (efficient) storage.
-Unlike <strong>bigmemory</strong>, <strong>ff</strong> supports all of R vector types such as factors, and not only numeric.
-Unlike <code>big.matrix</code>, which deals with (numeric) matrices, the <code>ffdf</code> class can deal with data frames.</p>
-<p>Here is an example.
-First open a connection to the file, without actually importing it using the <code>LaF::laf_open_csv</code> function.</p>
-<pre class="sourceCode r"><code class="sourceCode r">.dat &lt;-<span class="st"> </span>LaF<span class="op">::</span><span class="kw">laf_open_csv</span>(<span class="dt">filename =</span> <span class="st">&quot;data/2010_BSA_Carrier_PUF.csv&quot;</span>,
+<p>The <strong>ff</strong> packages replaces R’s in-RAM storage mechanism with on-disk (efficient) storage. Unlike <strong>bigmemory</strong>, <strong>ff</strong> supports all of R vector types such as factors, and not only numeric. Unlike <code>big.matrix</code>, which deals with (numeric) matrices, the <code>ffdf</code> class can deal with data frames.</p>
+<p>Here is an example. First open a connection to the file, without actually importing it using the <code>LaF::laf_open_csv</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">.dat &lt;-<span class="st"> </span>LaF<span class="op">::</span><span class="kw">laf_open_csv</span>(<span class="dt">filename =</span> <span class="st">&quot;data/2010_BSA_Carrier_PUF.csv&quot;</span>,
                     <span class="dt">column_types =</span> <span class="kw">c</span>(<span class="st">&quot;integer&quot;</span>, <span class="st">&quot;integer&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;integer&quot;</span>, <span class="st">&quot;integer&quot;</span>, <span class="st">&quot;categorical&quot;</span>, <span class="st">&quot;integer&quot;</span>, <span class="st">&quot;integer&quot;</span>, <span class="st">&quot;integer&quot;</span>), 
                     <span class="dt">column_names =</span> <span class="kw">c</span>(<span class="st">&quot;sex&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;diagnose&quot;</span>, <span class="st">&quot;healthcare.procedure&quot;</span>, <span class="st">&quot;typeofservice&quot;</span>, <span class="st">&quot;service.count&quot;</span>, <span class="st">&quot;provider.type&quot;</span>, <span class="st">&quot;servicesprocessed&quot;</span>, <span class="st">&quot;place.served&quot;</span>, <span class="st">&quot;payment&quot;</span>, <span class="st">&quot;carrierline.count&quot;</span>), 
-                    <span class="dt">skip =</span> <span class="dv">1</span>)</code></pre>
+                    <span class="dt">skip =</span> <span class="dv">1</span>)</code></pre></div>
 <p>Now write the data to local storage as an ff data frame, using <code>laf_to_ffdf</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">data.ffdf &lt;-<span class="st"> </span>ffbase<span class="op">::</span><span class="kw">laf_to_ffdf</span>(<span class="dt">laf =</span> .dat)
-<span class="kw">head</span>(data.ffdf)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data.ffdf &lt;-<span class="st"> </span>ffbase<span class="op">::</span><span class="kw">laf_to_ffdf</span>(<span class="dt">laf =</span> .dat)
+<span class="kw">head</span>(data.ffdf)</code></pre></div>
 <pre><code>## ffdf (all open) dim=c(2801660,6), dimorder=c(1,2) row.names=NULL
 ## ffdf virtual mapping
 ##                              PhysicalName VirtualVmode PhysicalVmode  AsIs
@@ -832,19 +727,18 @@ First open a connection to the file, without actually importing it using the <co
 ## 2801659         1    
 ## 2801660         1</code></pre>
 <p>We can verify that the <code>ffdf</code> data frame has a small RAM footprint.</p>
-<pre class="sourceCode r"><code class="sourceCode r">pryr<span class="op">::</span><span class="kw">object_size</span>(data.ffdf)</code></pre>
-<pre><code>## 343 kB</code></pre>
-<p>The <strong>ffbase</strong> package provides several statistical tools to compute with <code>ff</code> class objects.
-Here is simple table.</p>
-<pre class="sourceCode r"><code class="sourceCode r">ffbase<span class="op">:::</span><span class="kw">table.ff</span>(data.ffdf<span class="op">$</span>age) </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pryr<span class="op">::</span><span class="kw">object_size</span>(data.ffdf)</code></pre></div>
+<pre><code>## 392 kB</code></pre>
+<p>The <strong>ffbase</strong> package provides several statistical tools to compute with <code>ff</code> class objects. Here is simple table.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ffbase<span class="op">::</span><span class="kw">table.ff</span>(data.ffdf<span class="op">$</span>age) </code></pre></div>
 <pre><code>## 
 ##      1      2      3      4      5      6 
 ## 517717 495315 492851 457643 419429 418705</code></pre>
 <p>The EMA implementation of <code>biglm::biglm</code> and <code>biglm::bigglm</code> have their <strong>ff</strong> versions.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(biglm)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(biglm)
 mymodel.ffdf &lt;-<span class="st"> </span><span class="kw">biglm</span>(payment <span class="op">~</span><span class="st"> </span><span class="kw">factor</span>(sex) <span class="op">+</span><span class="st"> </span><span class="kw">factor</span>(age) <span class="op">+</span><span class="st"> </span>place.served, 
                               <span class="dt">data =</span> data.ffdf)
-<span class="kw">summary</span>(mymodel.ffdf)</code></pre>
+<span class="kw">summary</span>(mymodel.ffdf)</code></pre></div>
 <pre><code>## Large data regression model: biglm(payment ~ factor(sex) + factor(age) + place.served, data = data.ffdf)
 ## Sample size =  2801660 
 ##                 Coef    (95%     CI)     SE      p
@@ -860,8 +754,7 @@ mymodel.ffdf &lt;-<span class="st"> </span><span class="kw">biglm</span>(payment
 <ul>
 <li><code>biglm::biglm</code> notices the input of of class <code>ffdf</code> and calls the appropriate implementation.</li>
 <li>The model formula, <code>payment ~ factor(sex) + factor(age) + place.served</code>, includes factors which cause no difficulty.</li>
-<li>You cannot inspect the factor coding (dummy? effect?) using <code>model.matrix</code>.
-This is because EMAs never really construct the whole matrix, let alone, save it in memory.</li>
+<li>You cannot inspect the factor coding (dummy? effect?) using <code>model.matrix</code>. This is because EMAs never really construct the whole matrix, let alone, save it in memory.</li>
 </ul>
 </div>
 <div id="matter" class="section level2">
@@ -871,18 +764,12 @@ This is because EMAs never really construct the whole matrix, let alone, save it
 </div>
 <div id="iotools" class="section level2">
 <h2><span class="header-section-number">15.6</span> iotools</h2>
-<p>A low level facility for connecting to on-disk binary storage.
-Unlike <strong>ff</strong>, and <strong>bigmemory</strong>, it behaves like native R objects, with their copy-on-write policy.
-Unlike <strong>reader</strong>, it allows chunking.
-Unlike <code>read.csv</code>, it allows fast I/O.
-<strong>iotools</strong> is thus a potentially very powerfull facility.
-See <span class="citation">Arnold, Kane, and Urbanek (<a href="#ref-arnold2015iotools">2015</a>)</span> for details.</p>
+<p>A low level facility for connecting to on-disk binary storage. Unlike <strong>ff</strong>, and <strong>bigmemory</strong>, it behaves like native R objects, with their copy-on-write policy. Unlike <strong>reader</strong>, it allows chunking. Unlike <code>read.csv</code>, it allows fast I/O. <strong>iotools</strong> is thus a potentially very powerfull facility. See <span class="citation">@arnold2015iotools</span> for details.</p>
 <p>TODO</p>
 </div>
 <div id="hdf5" class="section level2">
 <h2><span class="header-section-number">15.7</span> HDF5</h2>
-<p>Like <strong>ff</strong>, HDF5 is an on-disk efficient file format.
-The package <strong>h5</strong> is interface to the “HDF5” library supporting fast storage and retrieval of R-objects like vectors, matrices and arrays.</p>
+<p>Like <strong>ff</strong>, HDF5 is an on-disk efficient file format. The package <strong>h5</strong> is interface to the “HDF5” library supporting fast storage and retrieval of R-objects like vectors, matrices and arrays.</p>
 <p>TODO</p>
 </div>
 <div id="delayedarray" class="section level2">
@@ -906,36 +793,22 @@ The package <strong>h5</strong> is interface to the “HDF5” library supportin
 </div>
 <div id="computing-from-a-distributed-file-system" class="section level2">
 <h2><span class="header-section-number">15.9</span> Computing from a Distributed File System</h2>
-<p>If your data is SOOO big that it cannot fit on your local storage, you will need a distributed file system or DBMS.
-We do not cover this topic here, and refer the reader to the <strong>RHipe</strong>, <strong>RHadoop</strong>, and <strong>RSpark</strong> packages and references therein.</p>
+<p>If your data is SOOO big that it cannot fit on your local storage, you will need a distributed file system or DBMS. We do not cover this topic here, and refer the reader to the <strong>RHipe</strong>, <strong>RHadoop</strong>, and <strong>RSpark</strong> packages and references therein.</p>
 </div>
 <div id="bibliographic-notes-12" class="section level2">
 <h2><span class="header-section-number">15.10</span> Bibliographic Notes</h2>
-<p>An absolute SUPERB review on computing with big data is <span class="citation">Wang et al. (<a href="#ref-wang2015statistical">2015</a>)</span>, and references therein (<span class="citation">Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span> in particular).
-For an up-to-date list of the packages that deal with memory constraints, see the <strong>Large memory and out-of-memory data</strong> section in the High Performance Computing <a href="https://cran.r-project.org/web/views/HighPerformanceComputing.html">R task view</a>.</p>
+<p>An absolute SUPERB review on computing with big data is <span class="citation">@wang2015statistical</span>, and references therein (<span class="citation">@kane2013scalable</span> in particular). For an up-to-date list of the packages that deal with memory constraints, see the <strong>Large memory and out-of-memory data</strong> section in the <a href="https://cran.r-project.org/web/views/HighPerformanceComputing.html">High Performance Computing</a> task view. For a list of resources to interface to DMBS, see the <a href="https://cran.r-project.org/web/views/Databases.html">Databases with R</a> task view.</p>
 </div>
-<div id="practice-yourself-12" class="section level2">
+<div id="practice-yourself-11" class="section level2">
 <h2><span class="header-section-number">15.11</span> Practice Yourself</h2>
 
-</div>
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-kane2013scalable">
-<p>Kane, Michael J, John Emerson, Stephen Weston, and others. 2013. “Scalable Strategies for Computing with Massive Data.” <em>Journal of Statistical Software</em> 55 (14): 1–19.</p>
-</div>
-<div id="ref-wang2015statistical">
-<p>Wang, Chun, Ming-Hui Chen, Elizabeth Schifano, Jing Wu, and Jun Yan. 2015. “Statistical Methods and Computing for Big Data.” <em>arXiv Preprint arXiv:1502.07989</em>.</p>
-</div>
-<div id="ref-arnold2015iotools">
-<p>Arnold, Taylor, Michael Kane, and Simon Urbanek. 2015. “Iotools: High-Performance I/O Tools for R.” <em>arXiv Preprint arXiv:1510.00041</em>.</p>
 </div>
 </div>
 <div class="footnotes">
 <hr />
 <ol start="26">
-<li id="fn26"><p>The code was contributed by Liad Shekel.<a href="memory.html#fnref26" class="footnote-back">↩</a></p></li>
-<li id="fn27"><p>This is slowly changing. Indeed, Microsoft’s SQL Server 2016 is already providing <a href="https://blogs.technet.microsoft.com/dataplatforminsider/2016/03/29/in-database-advanced-analytics-with-r-in-sql-server-2016/">in-database-analytics</a>, and other will surely follow.<a href="memory.html#fnref27" class="footnote-back">↩</a></p></li>
+<li id="fn26"><p>The code was contributed by Liad Shekel.<a href="memory.html#fnref26">↩</a></p></li>
+<li id="fn27"><p>This is slowly changing. Indeed, Microsoft’s SQL Server 2016 is already providing <a href="https://blogs.technet.microsoft.com/dataplatforminsider/2016/03/29/in-database-advanced-analytics-with-r-in-sql-server-2016/">in-database-analytics</a>, and other will surely follow.<a href="memory.html#fnref27">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -994,7 +867,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "true";
+    var src = "";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

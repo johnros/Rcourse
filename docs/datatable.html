@@ -5,35 +5,33 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 3 data.table | R (BGU course)</title>
-  <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
+  <title></title>
+  <meta name="description" content="">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 3 data.table | R (BGU course)" />
+  <meta property="og:title" content="" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
+  
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 data.table | R (BGU course)" />
+  <meta name="twitter:title" content="" />
   
-  <meta name="twitter:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
+  
   
 
-<meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2018-12-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="intro.html">
-<link rel="next" href="basics.html">
+<link rel="prev" href="basics.html">
+<link rel="next" href="eda.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -48,77 +46,51 @@
 
 
 
-<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -145,51 +117,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-r"><i class="fa fa-check"></i><b>2.1</b> What is R?</a></li>
 <li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#ecosystem"><i class="fa fa-check"></i><b>2.2</b> The R Ecosystem</a></li>
 <li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#bibliographic-notes"><i class="fa fa-check"></i><b>2.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#practice-yourself"><i class="fa fa-check"></i><b>2.4</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>3</b> data.table</a><ul>
-<li class="chapter" data-level="3.1" data-path="datatable.html"><a href="datatable.html#make-your-own-variables"><i class="fa fa-check"></i><b>3.1</b> Make your own variables</a></li>
-<li class="chapter" data-level="3.2" data-path="datatable.html"><a href="datatable.html#join"><i class="fa fa-check"></i><b>3.2</b> Join</a></li>
-<li class="chapter" data-level="3.3" data-path="datatable.html"><a href="datatable.html#reshaping-data"><i class="fa fa-check"></i><b>3.3</b> Reshaping data</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="datatable.html"><a href="datatable.html#wide-to-long"><i class="fa fa-check"></i><b>3.3.1</b> Wide to long</a></li>
-<li class="chapter" data-level="3.3.2" data-path="datatable.html"><a href="datatable.html#long-to-wide"><i class="fa fa-check"></i><b>3.3.2</b> Long to wide</a></li>
+<li class="chapter" data-level="3" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>3</b> R Basics</a><ul>
+<li class="chapter" data-level="3.0.1" data-path="basics.html"><a href="basics.html#other-ides"><i class="fa fa-check"></i><b>3.0.1</b> Other IDEs</a></li>
+<li class="chapter" data-level="3.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>3.1</b> File types</a></li>
+<li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.2</b> Simple calculator</a></li>
+<li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.3</b> Probability calculator</a></li>
+<li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.4</b> Getting Help</a></li>
+<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.5</b> Variable Asignment</a></li>
+<li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#missing"><i class="fa fa-check"></i><b>3.6</b> Missing</a></li>
+<li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.7</b> Piping</a></li>
+<li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.8</b> Vector Creation and Manipulation</a></li>
+<li class="chapter" data-level="3.9" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>3.9</b> Search Paths and Packages</a></li>
+<li class="chapter" data-level="3.10" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>3.10</b> Simple Plotting</a></li>
+<li class="chapter" data-level="3.11" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>3.11</b> Object Types</a></li>
+<li class="chapter" data-level="3.12" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>3.12</b> Data Frames</a></li>
+<li class="chapter" data-level="3.13" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>3.13</b> Exctraction</a></li>
+<li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#augmentations-of-the-data.frame-class"><i class="fa fa-check"></i><b>3.14</b> Augmentations of the data.frame class</a></li>
+<li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.15</b> Data Import and Export</a><ul>
+<li class="chapter" data-level="3.15.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.15.1</b> Import from WEB</a></li>
+<li class="chapter" data-level="3.15.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.15.2</b> Export as CSV</a></li>
+<li class="chapter" data-level="3.15.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>3.15.3</b> Export non-CSV files</a></li>
+<li class="chapter" data-level="3.15.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.15.4</b> Reading From Text Files</a></li>
+<li class="chapter" data-level="3.15.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.15.5</b> Writing Data to Text Files</a></li>
+<li class="chapter" data-level="3.15.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.15.6</b> .XLS(X) files</a></li>
+<li class="chapter" data-level="3.15.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.15.7</b> Massive files</a></li>
+<li class="chapter" data-level="3.15.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.15.8</b> Databases</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="datatable.html"><a href="datatable.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.5" data-path="datatable.html"><a href="datatable.html#practice-yourself-1"><i class="fa fa-check"></i><b>3.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.16</b> Functions</a></li>
+<li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.17</b> Looping</a></li>
+<li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.18</b> Apply</a></li>
+<li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.19</b> Recursion</a></li>
+<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.20</b> Dates and Times</a></li>
+<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.21</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#practice-yourself"><i class="fa fa-check"></i><b>3.22</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>4</b> R Basics</a><ul>
-<li class="chapter" data-level="4.0.1" data-path="basics.html"><a href="basics.html#other-ides"><i class="fa fa-check"></i><b>4.0.1</b> Other IDEs</a></li>
-<li class="chapter" data-level="4.1" data-path="basics.html"><a href="basics.html#file-types"><i class="fa fa-check"></i><b>4.1</b> File types</a></li>
-<li class="chapter" data-level="4.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>4.2</b> Simple calculator</a></li>
-<li class="chapter" data-level="4.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>4.3</b> Probability calculator</a></li>
-<li class="chapter" data-level="4.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>4.4</b> Getting Help</a></li>
-<li class="chapter" data-level="4.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>4.5</b> Variable Asignment</a></li>
-<li class="chapter" data-level="4.6" data-path="basics.html"><a href="basics.html#missing"><i class="fa fa-check"></i><b>4.6</b> Missing</a></li>
-<li class="chapter" data-level="4.7" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>4.7</b> Piping</a></li>
-<li class="chapter" data-level="4.8" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>4.8</b> Vector Creation and Manipulation</a></li>
-<li class="chapter" data-level="4.9" data-path="basics.html"><a href="basics.html#search-paths-and-packages"><i class="fa fa-check"></i><b>4.9</b> Search Paths and Packages</a></li>
-<li class="chapter" data-level="4.10" data-path="basics.html"><a href="basics.html#simple-plotting"><i class="fa fa-check"></i><b>4.10</b> Simple Plotting</a></li>
-<li class="chapter" data-level="4.11" data-path="basics.html"><a href="basics.html#object-types"><i class="fa fa-check"></i><b>4.11</b> Object Types</a></li>
-<li class="chapter" data-level="4.12" data-path="basics.html"><a href="basics.html#data-frames"><i class="fa fa-check"></i><b>4.12</b> Data Frames</a></li>
-<li class="chapter" data-level="4.13" data-path="basics.html"><a href="basics.html#exctraction"><i class="fa fa-check"></i><b>4.13</b> Exctraction</a></li>
-<li class="chapter" data-level="4.14" data-path="basics.html"><a href="basics.html#augmentations-of-the-data.frame-class"><i class="fa fa-check"></i><b>4.14</b> Augmentations of the data.frame class</a></li>
-<li class="chapter" data-level="4.15" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>4.15</b> Data Import and Export</a><ul>
-<li class="chapter" data-level="4.15.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>4.15.1</b> Import from WEB</a></li>
-<li class="chapter" data-level="4.15.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>4.15.2</b> Export as CSV</a></li>
-<li class="chapter" data-level="4.15.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>4.15.3</b> Export non-CSV files</a></li>
-<li class="chapter" data-level="4.15.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>4.15.4</b> Reading From Text Files</a></li>
-<li class="chapter" data-level="4.15.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>4.15.5</b> Writing Data to Text Files</a></li>
-<li class="chapter" data-level="4.15.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>4.15.6</b> .XLS(X) files</a></li>
-<li class="chapter" data-level="4.15.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>4.15.7</b> Massive files</a></li>
-<li class="chapter" data-level="4.15.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>4.15.8</b> Databases</a></li>
+<li class="chapter" data-level="4" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>4</b> data.table</a><ul>
+<li class="chapter" data-level="4.1" data-path="datatable.html"><a href="datatable.html#make-your-own-variables"><i class="fa fa-check"></i><b>4.1</b> Make your own variables</a></li>
+<li class="chapter" data-level="4.2" data-path="datatable.html"><a href="datatable.html#join"><i class="fa fa-check"></i><b>4.2</b> Join</a></li>
+<li class="chapter" data-level="4.3" data-path="datatable.html"><a href="datatable.html#reshaping-data"><i class="fa fa-check"></i><b>4.3</b> Reshaping data</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="datatable.html"><a href="datatable.html#wide-to-long"><i class="fa fa-check"></i><b>4.3.1</b> Wide to long</a></li>
+<li class="chapter" data-level="4.3.2" data-path="datatable.html"><a href="datatable.html#long-to-wide"><i class="fa fa-check"></i><b>4.3.2</b> Long to wide</a></li>
 </ul></li>
-<li class="chapter" data-level="4.16" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>4.16</b> Functions</a></li>
-<li class="chapter" data-level="4.17" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>4.17</b> Looping</a></li>
-<li class="chapter" data-level="4.18" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>4.18</b> Apply</a></li>
-<li class="chapter" data-level="4.19" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>4.19</b> Recursion</a></li>
-<li class="chapter" data-level="4.20" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>4.20</b> Dates and Times</a></li>
-<li class="chapter" data-level="4.21" data-path="basics.html"><a href="basics.html#bibliographic-notes-2"><i class="fa fa-check"></i><b>4.21</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="4.22" data-path="basics.html"><a href="basics.html#practice-yourself-2"><i class="fa fa-check"></i><b>4.22</b> Practice Yourself</a></li>
+<li class="chapter" data-level="4.4" data-path="datatable.html"><a href="datatable.html#bibliographic-notes-2"><i class="fa fa-check"></i><b>4.4</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="4.5" data-path="datatable.html"><a href="datatable.html#practice-yourself-1"><i class="fa fa-check"></i><b>4.5</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="eda.html"><a href="eda.html"><i class="fa fa-check"></i><b>5</b> Exploratory Data Analysis</a><ul>
 <li class="chapter" data-level="5.1" data-path="eda.html"><a href="eda.html#summary-statistics"><i class="fa fa-check"></i><b>5.1</b> Summary Statistics</a><ul>
@@ -204,7 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3.1" data-path="eda.html"><a href="eda.html#alluvian-diagram"><i class="fa fa-check"></i><b>5.3.1</b> Alluvian Diagram</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="eda.html"><a href="eda.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="5.5" data-path="eda.html"><a href="eda.html#practice-yourself-3"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="5.5" data-path="eda.html"><a href="eda.html#practice-yourself-2"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="lm.html"><a href="lm.html"><i class="fa fa-check"></i><b>6</b> Linear Models</a><ul>
 <li class="chapter" data-level="6.1" data-path="lm.html"><a href="lm.html#problem-setup"><i class="fa fa-check"></i><b>6.1</b> Problem Setup</a></li>
@@ -217,7 +188,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.3.5" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>6.3.5</b> Testing a Hypothesis on a Single Contrast (*)</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-4"><i class="fa fa-check"></i><b>6.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="6.5" data-path="lm.html"><a href="lm.html#practice-yourself-4"><i class="fa fa-check"></i><b>6.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="6.5" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>6.5</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>7</b> Generalized Linear Models</a><ul>
 <li class="chapter" data-level="7.1" data-path="glm.html"><a href="glm.html#problem-setup-1"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
@@ -257,7 +228,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.6" data-path="lme.html"><a href="lme.html#the-variance-components-view"><i class="fa fa-check"></i><b>8.6</b> The Variance-Components View</a></li>
 <li class="chapter" data-level="8.7" data-path="lme.html"><a href="lme.html#bibliographic-notes-6"><i class="fa fa-check"></i><b>8.7</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="8.8" data-path="lme.html"><a href="lme.html#practice-yourself-5"><i class="fa fa-check"></i><b>8.8</b> Practice Yourself</a></li>
+<li class="chapter" data-level="8.8" data-path="lme.html"><a href="lme.html#practice-yourself-4"><i class="fa fa-check"></i><b>8.8</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="multivariate.html"><a href="multivariate.html"><i class="fa fa-check"></i><b>9</b> Multivariate Data Analysis</a><ul>
 <li class="chapter" data-level="9.1" data-path="multivariate.html"><a href="multivariate.html#signal-detection"><i class="fa fa-check"></i><b>9.1</b> Signal Detection</a><ul>
@@ -278,7 +249,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>9.6.1</b> Graphical Models in R</a></li>
 </ul></li>
 <li class="chapter" data-level="9.7" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>9.7</b> Biblipgraphic Notes</a></li>
-<li class="chapter" data-level="9.8" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-6"><i class="fa fa-check"></i><b>9.8</b> Practice Yourself</a></li>
+<li class="chapter" data-level="9.8" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-5"><i class="fa fa-check"></i><b>9.8</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>10</b> Supervised Learning</a><ul>
 <li class="chapter" data-level="10.1" data-path="supervised.html"><a href="supervised.html#problem-setup-3"><i class="fa fa-check"></i><b>10.1</b> Problem Setup</a><ul>
@@ -299,7 +270,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.2.9" data-path="supervised.html"><a href="supervised.html#gradient-boosting"><i class="fa fa-check"></i><b>10.2.9</b> Gradient Boosting</a></li>
 </ul></li>
 <li class="chapter" data-level="10.3" data-path="supervised.html"><a href="supervised.html#bibliographic-notes-7"><i class="fa fa-check"></i><b>10.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="10.4" data-path="supervised.html"><a href="supervised.html#practice-yourself-7"><i class="fa fa-check"></i><b>10.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="10.4" data-path="supervised.html"><a href="supervised.html#practice-yourself-6"><i class="fa fa-check"></i><b>10.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="unsupervised.html"><a href="unsupervised.html"><i class="fa fa-check"></i><b>11</b> Unsupervised Learning</a><ul>
 <li class="chapter" data-level="11.1" data-path="unsupervised.html"><a href="unsupervised.html#dim-reduce"><i class="fa fa-check"></i><b>11.1</b> Dimensionality Reduction</a><ul>
@@ -315,7 +286,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.2.3" data-path="unsupervised.html"><a href="unsupervised.html#clustering-in-r"><i class="fa fa-check"></i><b>11.2.3</b> Clustering in R</a></li>
 </ul></li>
 <li class="chapter" data-level="11.3" data-path="unsupervised.html"><a href="unsupervised.html#bibliographic-notes-8"><i class="fa fa-check"></i><b>11.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="11.4" data-path="unsupervised.html"><a href="unsupervised.html#practice-yourself-8"><i class="fa fa-check"></i><b>11.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="11.4" data-path="unsupervised.html"><a href="unsupervised.html#practice-yourself-7"><i class="fa fa-check"></i><b>11.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>12</b> Plotting</a><ul>
 <li class="chapter" data-level="12.1" data-path="plotting.html"><a href="plotting.html#the-graphics-system"><i class="fa fa-check"></i><b>12.1</b> The graphics System</a><ul>
@@ -331,7 +302,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="12.4" data-path="plotting.html"><a href="plotting.html#r2d3"><i class="fa fa-check"></i><b>12.4</b> r2d3</a></li>
 <li class="chapter" data-level="12.5" data-path="plotting.html"><a href="plotting.html#bibliographic-notes-9"><i class="fa fa-check"></i><b>12.5</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="12.6" data-path="plotting.html"><a href="plotting.html#practice-yourself-9"><i class="fa fa-check"></i><b>12.6</b> Practice Yourself</a></li>
+<li class="chapter" data-level="12.6" data-path="plotting.html"><a href="plotting.html#practice-yourself-8"><i class="fa fa-check"></i><b>12.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="report.html"><a href="report.html"><i class="fa fa-check"></i><b>13</b> Reports</a><ul>
 <li class="chapter" data-level="13.1" data-path="report.html"><a href="report.html#knitr"><i class="fa fa-check"></i><b>13.1</b> knitr</a><ul>
@@ -350,7 +321,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="13.4" data-path="report.html"><a href="report.html#flexdashboard"><i class="fa fa-check"></i><b>13.4</b> flexdashboard</a></li>
 <li class="chapter" data-level="13.5" data-path="report.html"><a href="report.html#bibliographic-notes-10"><i class="fa fa-check"></i><b>13.5</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="13.6" data-path="report.html"><a href="report.html#practice-yourself-10"><i class="fa fa-check"></i><b>13.6</b> Practice Yourself</a></li>
+<li class="chapter" data-level="13.6" data-path="report.html"><a href="report.html#practice-yourself-9"><i class="fa fa-check"></i><b>13.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a><ul>
 <li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a><ul>
@@ -366,7 +337,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.2.4" data-path="sparse.html"><a href="sparse.html#the-sparsem-package"><i class="fa fa-check"></i><b>14.2.4</b> The SparseM Package</a></li>
 </ul></li>
 <li class="chapter" data-level="14.3" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>14.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="14.4" data-path="sparse.html"><a href="sparse.html#practice-yourself-11"><i class="fa fa-check"></i><b>14.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="14.4" data-path="sparse.html"><a href="sparse.html#practice-yourself-10"><i class="fa fa-check"></i><b>14.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a><ul>
 <li class="chapter" data-level="15.1" data-path="memory.html"><a href="memory.html#efficient-computing-from-ram"><i class="fa fa-check"></i><b>15.1</b> Efficient Computing from RAM</a><ul>
@@ -387,7 +358,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="15.9" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.9</b> Computing from a Distributed File System</a></li>
 <li class="chapter" data-level="15.10" data-path="memory.html"><a href="memory.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>15.10</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="15.11" data-path="memory.html"><a href="memory.html#practice-yourself-12"><i class="fa fa-check"></i><b>15.11</b> Practice Yourself</a></li>
+<li class="chapter" data-level="15.11" data-path="memory.html"><a href="memory.html#practice-yourself-11"><i class="fa fa-check"></i><b>15.11</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
 <li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
@@ -395,7 +366,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
 </ul></li>
 <li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-13"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-13"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-12"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a><ul>
 <li class="chapter" data-level="17.1" data-path="algebra.html"><a href="algebra.html#lu-factorization"><i class="fa fa-check"></i><b>17.1</b> LU Factorization</a></li>
@@ -405,7 +376,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="17.5" data-path="algebra.html"><a href="algebra.html#iterative-methods"><i class="fa fa-check"></i><b>17.5</b> Iterative Methods</a></li>
 <li class="chapter" data-level="17.6" data-path="algebra.html"><a href="algebra.html#solving-ols"><i class="fa fa-check"></i><b>17.6</b> Solving the OLS Problem</a></li>
 <li class="chapter" data-level="17.7" data-path="algebra.html"><a href="algebra.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>17.7</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="17.8" data-path="algebra.html"><a href="algebra.html#practice-yourself-14"><i class="fa fa-check"></i><b>17.8</b> Practice Yourself</a></li>
+<li class="chapter" data-level="17.8" data-path="algebra.html"><a href="algebra.html#practice-yourself-13"><i class="fa fa-check"></i><b>17.8</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="18" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>18</b> Convex Optimization</a><ul>
 <li class="chapter" data-level="18.1" data-path="convex.html"><a href="convex.html#theoretical-backround"><i class="fa fa-check"></i><b>18.1</b> Theoretical Backround</a></li>
@@ -415,23 +386,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.2.3" data-path="convex.html"><a href="convex.html#minqa-package"><i class="fa fa-check"></i><b>18.2.3</b> minqa Package</a></li>
 </ul></li>
 <li class="chapter" data-level="18.3" data-path="convex.html"><a href="convex.html#bibliographic-notes-15"><i class="fa fa-check"></i><b>18.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="18.4" data-path="convex.html"><a href="convex.html#practice-yourself-15"><i class="fa fa-check"></i><b>18.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="18.4" data-path="convex.html"><a href="convex.html#practice-yourself-14"><i class="fa fa-check"></i><b>18.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="rcpp.html"><a href="rcpp.html"><i class="fa fa-check"></i><b>19</b> RCpp</a><ul>
 <li class="chapter" data-level="19.1" data-path="rcpp.html"><a href="rcpp.html#bibliographic-notes-16"><i class="fa fa-check"></i><b>19.1</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="19.2" data-path="rcpp.html"><a href="rcpp.html#practice-yourself-16"><i class="fa fa-check"></i><b>19.2</b> Practice Yourself</a></li>
+<li class="chapter" data-level="19.2" data-path="rcpp.html"><a href="rcpp.html#practice-yourself-15"><i class="fa fa-check"></i><b>19.2</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="20" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>20</b> Debugging Tools</a><ul>
 <li class="chapter" data-level="20.1" data-path="debugging.html"><a href="debugging.html#bibliographic-notes-17"><i class="fa fa-check"></i><b>20.1</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="20.2" data-path="debugging.html"><a href="debugging.html#practice-yourself-17"><i class="fa fa-check"></i><b>20.2</b> Practice Yourself</a></li>
+<li class="chapter" data-level="20.2" data-path="debugging.html"><a href="debugging.html#practice-yourself-16"><i class="fa fa-check"></i><b>20.2</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="21" data-path="econometrics.html"><a href="econometrics.html"><i class="fa fa-check"></i><b>21</b> Econometrics</a><ul>
 <li class="chapter" data-level="21.1" data-path="econometrics.html"><a href="econometrics.html#bibliographic-notes-18"><i class="fa fa-check"></i><b>21.1</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="21.2" data-path="econometrics.html"><a href="econometrics.html#practice-yourself-18"><i class="fa fa-check"></i><b>21.2</b> Practice Yourself</a></li>
+<li class="chapter" data-level="21.2" data-path="econometrics.html"><a href="econometrics.html#practice-yourself-17"><i class="fa fa-check"></i><b>21.2</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="22" data-path="psychometrics.html"><a href="psychometrics.html"><i class="fa fa-check"></i><b>22</b> Psychometrics</a><ul>
 <li class="chapter" data-level="22.1" data-path="psychometrics.html"><a href="psychometrics.html#bibliographic-notes-19"><i class="fa fa-check"></i><b>22.1</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="22.2" data-path="psychometrics.html"><a href="psychometrics.html#practice-yourself-19"><i class="fa fa-check"></i><b>22.2</b> Practice Yourself</a></li>
+<li class="chapter" data-level="22.2" data-path="psychometrics.html"><a href="psychometrics.html#practice-yourself-18"><i class="fa fa-check"></i><b>22.2</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="23" data-path="hadley.html"><a href="hadley.html"><i class="fa fa-check"></i><b>23</b> The Hadleyverse</a><ul>
 <li class="chapter" data-level="23.1" data-path="hadley.html"><a href="hadley.html#readr"><i class="fa fa-check"></i><b>23.1</b> readr</a></li>
@@ -441,7 +412,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="23.5" data-path="hadley.html"><a href="hadley.html#stringr"><i class="fa fa-check"></i><b>23.5</b> stringr</a></li>
 <li class="chapter" data-level="23.6" data-path="hadley.html"><a href="hadley.html#anytime"><i class="fa fa-check"></i><b>23.6</b> anytime</a></li>
 <li class="chapter" data-level="23.7" data-path="hadley.html"><a href="hadley.html#biblipgraphic-notes-1"><i class="fa fa-check"></i><b>23.7</b> Biblipgraphic Notes</a></li>
-<li class="chapter" data-level="23.8" data-path="hadley.html"><a href="hadley.html#practice-yourself-20"><i class="fa fa-check"></i><b>23.8</b> Practice Yourself</a></li>
+<li class="chapter" data-level="23.8" data-path="hadley.html"><a href="hadley.html#practice-yourself-19"><i class="fa fa-check"></i><b>23.8</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="24" data-path="causality.html"><a href="causality.html"><i class="fa fa-check"></i><b>24</b> Causal Inferense</a><ul>
 <li class="chapter" data-level="24.1" data-path="causality.html"><a href="causality.html#causal-inference-from-designed-experiments"><i class="fa fa-check"></i><b>24.1</b> Causal Inference From Designed Experiments</a><ul>
@@ -456,7 +427,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="24.2.5" data-path="causality.html"><a href="causality.html#regression-discontinuity"><i class="fa fa-check"></i><b>24.2.5</b> Regression Discontinuity</a></li>
 </ul></li>
 <li class="chapter" data-level="24.3" data-path="causality.html"><a href="causality.html#bibliographic-notes-20"><i class="fa fa-check"></i><b>24.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="24.4" data-path="causality.html"><a href="causality.html#practice-yourself-21"><i class="fa fa-check"></i><b>24.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="24.4" data-path="causality.html"><a href="causality.html#practice-yourself-20"><i class="fa fa-check"></i><b>24.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -470,7 +441,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R (BGU course)</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
           </h1>
         </div>
 
@@ -479,22 +450,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="datatable" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> data.table</h1>
-<p><code>data.table</code> is an excellent extension of the <code>data.frame</code> class.
-If used as a <code>data.frame</code> it will look and feel like a data frame.
-If, however, it is used with it’s unique capabilities, it will prove faster and easier to manipulate.</p>
+<h1><span class="header-section-number">Chapter 4</span> data.table</h1>
+<p><code>data.table</code> is an excellent extension of the <code>data.frame</code> class. If used as a <code>data.frame</code> it will look and feel like a data frame. If, however, it is used with it’s unique capabilities, it will prove faster and easier to manipulate.</p>
 <p>Let’s start with importing some freely available car sales data from <a href="https://www.kaggle.com/orgesleka/used-cars-database">Kaggle</a>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)
-<span class="kw">library</span>(magrittr)
-auto &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st">&#39;data/autos.csv&#39;</span>)</code></pre>
-<pre><code>## 
-Read 69.9% of 371824 rows
-Read 99.5% of 371824 rows
-Read 371824 rows and 20 (of 20) columns from 0.064 GB file in 00:00:04</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">View</span>(auto)</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(auto) <span class="co">#  Rows and columns</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)</code></pre></div>
+<pre><code>## data.table 1.12.0  Latest news: r-datatable.com</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
+auto &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st">&#39;data/autos.csv&#39;</span>)</code></pre></div>
+<pre><code>## Warning in fread(&quot;data/autos.csv&quot;): Found and resolved improper
+## quoting out-of-sample. First healed line 5263: &lt;&lt;2016-03-29
+## 16:46:46,&quot;_SPARDOSE&quot;______Polo_1_4___6N1___60PS___5Tuerer____FESTPREIS,privat,Angebot,
+## 500,control,limousine,1999,manuell,60,polo,150000,12,benzin,volkswagen,ja,
+## 2016-03-25 00:00:00,0,59581,2016-03-30 11:46:58&gt;&gt;. If the fields are
+## not quoted (e.g. field separator does not appear within any field), try
+## quote=&quot;&quot; to avoid this warning.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">View</span>(auto)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(auto) <span class="co">#  Rows and columns</span></code></pre></div>
 <pre><code>## [1] 371824     20</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(auto) <span class="co"># Variable names</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(auto) <span class="co"># Variable names</span></code></pre></div>
 <pre><code>##  [1] &quot;dateCrawled&quot;         &quot;name&quot;                &quot;seller&quot;             
 ##  [4] &quot;offerType&quot;           &quot;price&quot;               &quot;abtest&quot;             
 ##  [7] &quot;vehicleType&quot;         &quot;yearOfRegistration&quot;  &quot;gearbox&quot;            
@@ -502,17 +475,17 @@ Read 371824 rows and 20 (of 20) columns from 0.064 GB file in 00:00:04</code></p
 ## [13] &quot;monthOfRegistration&quot; &quot;fuelType&quot;            &quot;brand&quot;              
 ## [16] &quot;notRepairedDamage&quot;   &quot;dateCreated&quot;         &quot;nrOfPictures&quot;       
 ## [19] &quot;postalCode&quot;          &quot;lastSeen&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(auto) <span class="co"># Object class</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(auto) <span class="co"># Object class</span></code></pre></div>
 <pre><code>## [1] &quot;data.table&quot; &quot;data.frame&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">file.info</span>(<span class="st">&#39;data/autos.csv&#39;</span>) <span class="co"># File info on disk</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">file.info</span>(<span class="st">&#39;data/autos.csv&#39;</span>) <span class="co"># File info on disk</span></code></pre></div>
 <pre><code>##                    size isdir mode               mtime               ctime
-## data/autos.csv 68439217 FALSE  664 2016-11-28 15:47:00 2017-10-30 22:48:56
+## data/autos.csv 68439217 FALSE  644 2019-02-24 23:52:04 2019-02-24 23:52:04
 ##                              atime  uid  gid   uname  grname
-## data/autos.csv 2018-12-27 21:55:01 1000 1000 johnros johnros</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">gdata<span class="op">::</span><span class="kw">humanReadable</span>(<span class="dv">68439217</span>)</code></pre>
+## data/autos.csv 2019-02-27 15:45:40 1000 1000 johnros johnros</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gdata<span class="op">::</span><span class="kw">humanReadable</span>(<span class="dv">68439217</span>)</code></pre></div>
 <pre><code>## [1] &quot;65.3 MiB&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">object.size</span>(auto) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">units =</span> <span class="st">&#39;auto&#39;</span>) <span class="co"># File size in memory</span></code></pre>
-<pre><code>## 97.9 Mb</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">object.size</span>(auto) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">units =</span> <span class="st">&#39;auto&#39;</span>) <span class="co"># File size in memory</span></code></pre></div>
+<pre><code>## 103.3 Mb</code></pre>
 <p>Things to note:</p>
 <ul>
 <li>The import has been done with <code>fread</code> instead of <code>read.csv</code>. This is more efficient, and directly creates a <code>data.table</code> object.</li>
@@ -520,7 +493,7 @@ Read 371824 rows and 20 (of 20) columns from 0.064 GB file in 00:00:04</code></p
 <li>The data after import is slightly larger than when stored on disk (in this case).</li>
 </ul>
 <p>Let’s start with verifying that it behaves like a <code>data.frame</code> when expected.</p>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="dv">2</span>] <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="dv">2</span>] <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre></div>
 <pre><code>##                                                  name
 ## 1:                                         Golf_3_1.6
 ## 2:                               A5_Sportback_2.7_Tdi
@@ -528,36 +501,32 @@ Read 371824 rows and 20 (of 20) columns from 0.064 GB file in 00:00:04</code></p
 ## 4:                              GOLF_4_1_4__3T\xdcRER
 ## 5:                     Skoda_Fabia_1.4_TDI_PD_Classic
 ## 6: BMW_316i___e36_Limousine___Bastlerfahrzeug__Export</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">auto[[<span class="dv">2</span>]] <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[[<span class="dv">2</span>]] <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre></div>
 <pre><code>## [1] &quot;Golf_3_1.6&quot;                                        
 ## [2] &quot;A5_Sportback_2.7_Tdi&quot;                              
 ## [3] &quot;Jeep_Grand_Cherokee_\&quot;Overland\&quot;&quot;                  
 ## [4] &quot;GOLF_4_1_4__3T\xdcRER&quot;                             
 ## [5] &quot;Skoda_Fabia_1.4_TDI_PD_Classic&quot;                    
 ## [6] &quot;BMW_316i___e36_Limousine___Bastlerfahrzeug__Export&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">auto[<span class="dv">1</span>,<span class="dv">2</span>] <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[<span class="dv">1</span>,<span class="dv">2</span>] <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre></div>
 <pre><code>##          name
 ## 1: Golf_3_1.6</code></pre>
 <p>But notice the difference between <code>data.frame</code> and <code>data.table</code> when subsetting multiple rows. Uhh!</p>
-<pre class="sourceCode r"><code class="sourceCode r">auto[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>] <span class="op">%&gt;%</span><span class="st"> </span>dim <span class="co"># data.table will exctract *rows*</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>] <span class="op">%&gt;%</span><span class="st"> </span>dim <span class="co"># data.table will exctract *rows*</span></code></pre></div>
 <pre><code>## [1]  3 20</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.data.frame</span>(auto)[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>] <span class="op">%&gt;%</span><span class="st"> </span>dim <span class="co"># data.frame will exctract *columns*</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.data.frame</span>(auto)[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>] <span class="op">%&gt;%</span><span class="st"> </span>dim <span class="co"># data.frame will exctract *columns*</span></code></pre></div>
 <pre><code>## [1] 371824      3</code></pre>
 <p>Just use columns (<code>,</code>) and be explicit regarding the dimension you are extracting…</p>
-<p>Now let’s do some <code>data.table</code> specific operations.
-The general syntax has the form <code>DT[i,j,by]</code>.
-SQL users may think of <code>i</code> as <code>WHERE</code>, <code>j</code> as <code>SELECT</code>, and <code>by</code> as <code>GROUP BY</code>.
-We don’t need to name the arguments explicitly.
-Also, the <code>Tab</code> key will typically help you to fill in column names.</p>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,vehicleType,] <span class="op">%&gt;%</span><span class="st"> </span>table <span class="co"># Exctract column and tabulate</span></code></pre>
+<p>Now let’s do some <code>data.table</code> specific operations. The general syntax has the form <code>DT[i,j,by]</code>. SQL users may think of <code>i</code> as <code>WHERE</code>, <code>j</code> as <code>SELECT</code>, and <code>by</code> as <code>GROUP BY</code>. We don’t need to name the arguments explicitly. Also, the <code>Tab</code> key will typically help you to fill in column names.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,vehicleType,] <span class="op">%&gt;%</span><span class="st"> </span>table <span class="co"># Exctract column and tabulate</span></code></pre></div>
 <pre><code>## .
 ##                andere        bus     cabrio      coupe kleinwagen 
 ##      37899       3362      30220      22914      19026      80098 
 ##      kombi  limousine        suv 
 ##      67626      95963      14716</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">auto[vehicleType<span class="op">==</span><span class="st">&#39;coupe&#39;</span>,,] <span class="op">%&gt;%</span><span class="st"> </span>dim <span class="co"># Exctract rows </span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[vehicleType<span class="op">==</span><span class="st">&#39;coupe&#39;</span>,,] <span class="op">%&gt;%</span><span class="st"> </span>dim <span class="co"># Exctract rows </span></code></pre></div>
 <pre><code>## [1] 19026    20</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,gearbox<span class="op">:</span>model,] <span class="op">%&gt;%</span><span class="st"> </span>head <span class="co"># exctract column range</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,gearbox<span class="op">:</span>model,] <span class="op">%&gt;%</span><span class="st"> </span>head <span class="co"># exctract column range</span></code></pre></div>
 <pre><code>##      gearbox powerPS model
 ## 1:   manuell       0  golf
 ## 2:   manuell     190      
@@ -565,22 +534,22 @@ Also, the <code>Tab</code> key will typically help you to fill in column names.<
 ## 4:   manuell      75  golf
 ## 5:   manuell      69 fabia
 ## 6:   manuell     102   3er</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,gearbox,] <span class="op">%&gt;%</span><span class="st"> </span>table</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,gearbox,] <span class="op">%&gt;%</span><span class="st"> </span>table</code></pre></div>
 <pre><code>## .
 ##           automatik   manuell 
 ##     20223     77169    274432</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">auto[vehicleType<span class="op">==</span><span class="st">&#39;coupe&#39;</span> <span class="op">&amp;</span><span class="st"> </span>gearbox<span class="op">==</span><span class="st">&#39;automatik&#39;</span>,,] <span class="op">%&gt;%</span><span class="st"> </span>dim <span class="co"># intersect conditions</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[vehicleType<span class="op">==</span><span class="st">&#39;coupe&#39;</span> <span class="op">&amp;</span><span class="st"> </span>gearbox<span class="op">==</span><span class="st">&#39;automatik&#39;</span>,,] <span class="op">%&gt;%</span><span class="st"> </span>dim <span class="co"># intersect conditions</span></code></pre></div>
 <pre><code>## [1] 6008   20</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">table</span>(vehicleType),] <span class="co"># uhh? why would this even work?!?</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">table</span>(vehicleType),] <span class="co"># uhh? why would this even work?!?</span></code></pre></div>
 <pre><code>## vehicleType
 ##                andere        bus     cabrio      coupe kleinwagen 
 ##      37899       3362      30220      22914      19026      80098 
 ##      kombi  limousine        suv 
 ##      67626      95963      14716</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">auto[, <span class="kw">mean</span>(price), by=vehicleType] <span class="co"># average price by car group</span></code></pre>
-<pre><code>## Warning in gmean(price): Group 9 summed to more than type &#39;integer&#39;
-## can hold so the result has been coerced to &#39;numeric&#39; automatically, for
-## convenience.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[, <span class="kw">mean</span>(price), by=vehicleType] <span class="co"># average price by car group</span></code></pre></div>
+<pre><code>## Warning in gmean(price): The sum of an integer column for a group was more
+## than type &#39;integer&#39; can hold so the result has been coerced to &#39;numeric&#39;
+## automatically for convenience.</code></pre>
 <pre><code>##    vehicleType         V1
 ## 1:              20124.688
 ## 2:       coupe  25951.506
@@ -591,9 +560,8 @@ Also, the <code>Tab</code> key will typically help you to fill in column names.<
 ## 7:         bus  10300.686
 ## 8:       kombi   7739.518
 ## 9:      andere 676327.100</code></pre>
-<p>The <code>.N</code> operator is very useful if you need to count the length of the result.
-Notice where I use it:</p>
-<pre class="sourceCode r"><code class="sourceCode r">auto[.N<span class="dv">-1</span>,,] <span class="co"># will exctract the *last* row</span></code></pre>
+<p>The <code>.N</code> operator is very useful if you need to count the length of the result. Notice where I use it:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[.N<span class="op">-</span><span class="dv">1</span>,,] <span class="co"># will exctract the *last* row</span></code></pre></div>
 <pre><code>##            dateCrawled                   name seller offerType price
 ## 1: 2016-03-20 19:41:08 VW_Golf_Kombi_1_9l_TDI privat   Angebot  3400
 ##    abtest vehicleType yearOfRegistration gearbox powerPS model kilometer
@@ -602,9 +570,9 @@ Notice where I use it:</p>
 ## 1:                   6   diesel volkswagen                  
 ##            dateCreated nrOfPictures postalCode            lastSeen
 ## 1: 2016-03-20 00:00:00            0      40764 2016-03-24 12:45:21</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,.N] <span class="co"># will count rows</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,.N] <span class="co"># will count rows</span></code></pre></div>
 <pre><code>## [1] 371824</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,.N, vehicleType] <span class="co"># will count rows by type</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,.N, vehicleType] <span class="co"># will count rows by type</span></code></pre></div>
 <pre><code>##    vehicleType     N
 ## 1:             37899
 ## 2:       coupe 19026
@@ -616,10 +584,10 @@ Notice where I use it:</p>
 ## 8:       kombi 67626
 ## 9:      andere  3362</code></pre>
 <p>You may concatenate results into a vector:</p>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">c</span>(<span class="kw">mean</span>(price), <span class="kw">mean</span>(powerPS)),]</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">c</span>(<span class="kw">mean</span>(price), <span class="kw">mean</span>(powerPS)),]</code></pre></div>
 <pre><code>## [1] 17286.2996   115.5414</code></pre>
 <p>This <code>c()</code> syntax no longer behaves well if splitting:</p>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">c</span>(<span class="kw">mean</span>(price), <span class="kw">mean</span>(powerPS)), by=vehicleType]</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">c</span>(<span class="kw">mean</span>(price), <span class="kw">mean</span>(powerPS)), by=vehicleType]</code></pre></div>
 <pre><code>##     vehicleType           V1
 ##  1:              20124.68801
 ##  2:                 71.23249
@@ -640,10 +608,10 @@ Notice where I use it:</p>
 ## 17:      andere 676327.09964
 ## 18:      andere    102.11154</code></pre>
 <p>Use a <code>list()</code> instead of <code>c()</code>, within <code>data.table</code> commands:</p>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">list</span>(<span class="kw">mean</span>(price), <span class="kw">mean</span>(powerPS)), by=vehicleType]</code></pre>
-<pre><code>## Warning in gmean(price): Group 9 summed to more than type &#39;integer&#39;
-## can hold so the result has been coerced to &#39;numeric&#39; automatically, for
-## convenience.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">list</span>(<span class="kw">mean</span>(price), <span class="kw">mean</span>(powerPS)), by=vehicleType]</code></pre></div>
+<pre><code>## Warning in gmean(price): The sum of an integer column for a group was more
+## than type &#39;integer&#39; can hold so the result has been coerced to &#39;numeric&#39;
+## automatically for convenience.</code></pre>
 <pre><code>##    vehicleType         V1        V2
 ## 1:              20124.688  71.23249
 ## 2:       coupe  25951.506 172.97614
@@ -655,10 +623,10 @@ Notice where I use it:</p>
 ## 8:       kombi   7739.518 136.40654
 ## 9:      andere 676327.100 102.11154</code></pre>
 <p>You can add names to your new variables:</p>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">list</span>(<span class="dt">Price=</span><span class="kw">mean</span>(price), <span class="dt">Power=</span><span class="kw">mean</span>(powerPS)), by=vehicleType]</code></pre>
-<pre><code>## Warning in gmean(price): Group 9 summed to more than type &#39;integer&#39;
-## can hold so the result has been coerced to &#39;numeric&#39; automatically, for
-## convenience.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">list</span>(<span class="dt">Price=</span><span class="kw">mean</span>(price), <span class="dt">Power=</span><span class="kw">mean</span>(powerPS)), by=vehicleType]</code></pre></div>
+<pre><code>## Warning in gmean(price): The sum of an integer column for a group was more
+## than type &#39;integer&#39; can hold so the result has been coerced to &#39;numeric&#39;
+## automatically for convenience.</code></pre>
 <pre><code>##    vehicleType      Price     Power
 ## 1:              20124.688  71.23249
 ## 2:       coupe  25951.506 172.97614
@@ -670,10 +638,10 @@ Notice where I use it:</p>
 ## 8:       kombi   7739.518 136.40654
 ## 9:      andere 676327.100 102.11154</code></pre>
 <p>You can use <code>.()</code> to replace the longer <code>list()</code> command:</p>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,.(<span class="dt">Price=</span><span class="kw">mean</span>(price), <span class="dt">Power=</span><span class="kw">mean</span>(powerPS)), by=vehicleType]</code></pre>
-<pre><code>## Warning in gmean(price): Group 9 summed to more than type &#39;integer&#39;
-## can hold so the result has been coerced to &#39;numeric&#39; automatically, for
-## convenience.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,.(<span class="dt">Price=</span><span class="kw">mean</span>(price), <span class="dt">Power=</span><span class="kw">mean</span>(powerPS)), by=vehicleType]</code></pre></div>
+<pre><code>## Warning in gmean(price): The sum of an integer column for a group was more
+## than type &#39;integer&#39; can hold so the result has been coerced to &#39;numeric&#39;
+## automatically for convenience.</code></pre>
 <pre><code>##    vehicleType      Price     Power
 ## 1:              20124.688  71.23249
 ## 2:       coupe  25951.506 172.97614
@@ -685,10 +653,10 @@ Notice where I use it:</p>
 ## 8:       kombi   7739.518 136.40654
 ## 9:      andere 676327.100 102.11154</code></pre>
 <p>And split by multiple variables:</p>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,.(<span class="dt">Price=</span><span class="kw">mean</span>(price), <span class="dt">Power=</span><span class="kw">mean</span>(powerPS)), by=.(vehicleType,fuelType)] <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre>
-<pre><code>## Warning in gmean(price): Group 37 summed to more than type &#39;integer&#39;
-## can hold so the result has been coerced to &#39;numeric&#39; automatically, for
-## convenience.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,.(<span class="dt">Price=</span><span class="kw">mean</span>(price), <span class="dt">Power=</span><span class="kw">mean</span>(powerPS)), by=.(vehicleType,fuelType)] <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre></div>
+<pre><code>## Warning in gmean(price): The sum of an integer column for a group was more
+## than type &#39;integer&#39; can hold so the result has been coerced to &#39;numeric&#39;
+## automatically for convenience.</code></pre>
 <pre><code>##    vehicleType fuelType     Price     Power
 ## 1:               benzin 11820.443  70.14477
 ## 2:       coupe   diesel 51170.248 179.48704
@@ -697,22 +665,22 @@ Notice where I use it:</p>
 ## 5:  kleinwagen   diesel  4295.550  76.83666
 ## 6:   limousine   benzin  6974.360 127.87025</code></pre>
 <p>Compute with variables created on the fly:</p>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">sum</span>(price<span class="op">&lt;</span><span class="fl">1e4</span>),] <span class="co"># Count prices higher than 10,000</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">sum</span>(price<span class="op">&lt;</span><span class="fl">1e4</span>),] <span class="co"># Count prices higher than 10,000</span></code></pre></div>
 <pre><code>## [1] 310497</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">mean</span>(price<span class="op">&lt;</span><span class="fl">1e4</span>),] <span class="co"># Proportion of prices larger than 10,000</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">mean</span>(price<span class="op">&lt;</span><span class="fl">1e4</span>),] <span class="co"># Proportion of prices larger than 10,000</span></code></pre></div>
 <pre><code>## [1] 0.8350644</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,.(<span class="dt">Power=</span><span class="kw">mean</span>(powerPS)), by=.(<span class="dt">PriceRange=</span>price<span class="op">&gt;</span><span class="fl">1e4</span>)] </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,.(<span class="dt">Power=</span><span class="kw">mean</span>(powerPS)), by=.(<span class="dt">PriceRange=</span>price<span class="op">&gt;</span><span class="fl">1e4</span>)] </code></pre></div>
 <pre><code>##    PriceRange    Power
 ## 1:      FALSE 101.8838
 ## 2:       TRUE 185.9029</code></pre>
 <p>You may sort along one or more columns</p>
-<pre class="sourceCode r"><code class="sourceCode r">auto[<span class="kw">order</span>(<span class="op">-</span>price), price,] <span class="op">%&gt;%</span><span class="st"> </span>head <span class="co"># Order along price. Descending</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[<span class="kw">order</span>(<span class="op">-</span>price), price,] <span class="op">%&gt;%</span><span class="st"> </span>head <span class="co"># Order along price. Descending</span></code></pre></div>
 <pre><code>## [1] 2147483647   99999999   99999999   99999999   99999999   99999999</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">auto[<span class="kw">order</span>(price, <span class="op">-</span>lastSeen), price,] <span class="op">%&gt;%</span><span class="st"> </span>head<span class="co"># Order along price and last seen . Ascending and descending.</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[<span class="kw">order</span>(price, <span class="op">-</span>lastSeen), price,] <span class="op">%&gt;%</span><span class="st"> </span>head<span class="co"># Order along price and last seen . Ascending and descending.</span></code></pre></div>
 <pre><code>## [1] 0 0 0 0 0 0</code></pre>
 <p>You may apply a function to ALL columns using a Subset of the Data using <code>.SD</code></p>
-<pre class="sourceCode r"><code class="sourceCode r">count.uniques &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">length</span>(<span class="kw">unique</span>(x))
-auto[,<span class="kw">lapply</span>(.SD, count.uniques), vehicleType]</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">count.uniques &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">length</span>(<span class="kw">unique</span>(x))
+auto[,<span class="kw">lapply</span>(.SD, count.uniques), vehicleType]</code></pre></div>
 <pre><code>##    vehicleType dateCrawled  name seller offerType price abtest
 ## 1:                   36714 32891      1         2  1378      2
 ## 2:       coupe       18745 13182      1         2  1994      2
@@ -759,7 +727,7 @@ auto[,<span class="kw">lapply</span>(.SD, count.uniques), vehicleType]</code></p
 <li>Recall that <code>lapply</code> applies the same function to all elements of a list. In this example, to all columns of <code>.SD</code>.</li>
 </ul>
 <p>If you want to apply a function only to a subset of columns, use the <code>.SDcols</code> argument</p>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">lapply</span>(.SD, count.uniques), by=vehicleType, .SDcols=price<span class="op">:</span>gearbox]</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">lapply</span>(.SD, count.uniques), by=vehicleType, .SDcols=price<span class="op">:</span>gearbox]</code></pre></div>
 <pre><code>##    vehicleType price abtest vehicleType yearOfRegistration gearbox
 ## 1:              1378      2           1                101       3
 ## 2:       coupe  1994      2           1                 75       3
@@ -771,32 +739,29 @@ auto[,<span class="kw">lapply</span>(.SD, count.uniques), vehicleType]</code></p
 ## 8:       kombi  2529      2           1                 64       3
 ## 9:      andere   562      2           1                 81       3</code></pre>
 <div id="make-your-own-variables" class="section level2">
-<h2><span class="header-section-number">3.1</span> Make your own variables</h2>
+<h2><span class="header-section-number">4.1</span> Make your own variables</h2>
 <p>It is very easy to compute new variables</p>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">log</span>(price<span class="op">/</span>powerPS),] <span class="op">%&gt;%</span><span class="st"> </span>head <span class="co"># This makes no sense</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">log</span>(price<span class="op">/</span>powerPS),] <span class="op">%&gt;%</span><span class="st"> </span>head <span class="co"># This makes no sense</span></code></pre></div>
 <pre><code>## [1]      Inf 4.567632 4.096387 2.995732 3.954583 1.852000</code></pre>
 <p>And if you want to store the result in a new variable, use the <code>:=</code> operator</p>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,newVar<span class="op">:</span><span class="er">=</span><span class="kw">log</span>(price<span class="op">/</span>powerPS),]</code></pre>
-<p>Or create multiple variables at once.
-The syntax <code>c("A","B"):=.(expression1,expression2)</code>is read “save the <strong>list</strong> of results from expression1 and expression2 using the <strong>vector</strong> of names A, and B”.</p>
-<pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">c</span>(<span class="st">&#39;newVar&#39;</span>,<span class="st">&#39;newVar2&#39;</span>)<span class="op">:</span><span class="er">=</span>.(<span class="kw">log</span>(price<span class="op">/</span>powerPS),price<span class="op">^</span><span class="dv">2</span><span class="op">/</span>powerPS),]</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,newVar<span class="op">:</span><span class="er">=</span><span class="kw">log</span>(price<span class="op">/</span>powerPS),]</code></pre></div>
+<p>Or create multiple variables at once. The syntax <code>c(&quot;A&quot;,&quot;B&quot;):=.(expression1,expression2)</code>is read “save the <strong>list</strong> of results from expression1 and expression2 using the <strong>vector</strong> of names A, and B”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="kw">c</span>(<span class="st">&#39;newVar&#39;</span>,<span class="st">&#39;newVar2&#39;</span>)<span class="op">:</span><span class="er">=</span>.(<span class="kw">log</span>(price<span class="op">/</span>powerPS),price<span class="op">^</span><span class="dv">2</span><span class="op">/</span>powerPS),]</code></pre></div>
 </div>
 <div id="join" class="section level2">
-<h2><span class="header-section-number">3.2</span> Join</h2>
-<p><strong>data.table</strong> can be used for joining.
-A <em>join</em> is the operation of aligning two (or more) data frames/tables along some index.
-The index can be a single variable, or a combination thereof.</p>
+<h2><span class="header-section-number">4.2</span> Join</h2>
+<p><strong>data.table</strong> can be used for joining. A <em>join</em> is the operation of aligning two (or more) data frames/tables along some index. The index can be a single variable, or a combination thereof.</p>
 <p>Here is a simple example of aligning age and gender from two different data tables:</p>
-<pre class="sourceCode r"><code class="sourceCode r">DT1 &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="dt">Names=</span><span class="kw">c</span>(<span class="st">&quot;Alice&quot;</span>,<span class="st">&quot;Bob&quot;</span>), <span class="dt">Age=</span><span class="kw">c</span>(<span class="dv">29</span>,<span class="dv">31</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DT1 &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="dt">Names=</span><span class="kw">c</span>(<span class="st">&quot;Alice&quot;</span>,<span class="st">&quot;Bob&quot;</span>), <span class="dt">Age=</span><span class="kw">c</span>(<span class="dv">29</span>,<span class="dv">31</span>))
 DT2 &lt;-<span class="st"> </span><span class="kw">data.table</span>(<span class="dt">Names=</span><span class="kw">c</span>(<span class="st">&quot;Alice&quot;</span>,<span class="st">&quot;Bob&quot;</span>,<span class="st">&quot;Carl&quot;</span>), <span class="dt">Gender=</span><span class="kw">c</span>(<span class="st">&quot;F&quot;</span>,<span class="st">&quot;M&quot;</span>,<span class="st">&quot;M&quot;</span>))
 <span class="kw">setkey</span>(DT1, Names)
 <span class="kw">setkey</span>(DT2, Names)
-DT1[DT2,,] </code></pre>
+DT1[DT2,,] </code></pre></div>
 <pre><code>##    Names Age Gender
 ## 1: Alice  29      F
 ## 2:   Bob  31      M
 ## 3:  Carl  NA      M</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">DT2[DT1,,] </code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DT2[DT1,,] </code></pre></div>
 <pre><code>##    Names Gender Age
 ## 1: Alice      F  29
 ## 2:   Bob      M  31</code></pre>
@@ -812,25 +777,21 @@ DT1[DT2,,] </code></pre>
 <li><strong>Left join</strong>: Returns the rows along the index of the “left” data set.</li>
 <li><strong>Right join</strong>: Returns the rows along the index of the “right” data set.</li>
 </ul>
-<p>Assuming <code>DT1</code> is the “left” data set, we see that <code>DT1[DT2,,]</code> is a right join, and <code>DT2[DT1,,]</code> is a left join.
-For an inner join use the <code>nomath=0</code> argument:</p>
-<pre class="sourceCode r"><code class="sourceCode r">DT1[DT2,,,nomatch=<span class="dv">0</span>]</code></pre>
+<p>Assuming <code>DT1</code> is the “left” data set, we see that <code>DT1[DT2,,]</code> is a right join, and <code>DT2[DT1,,]</code> is a left join. For an inner join use the <code>nomath=0</code> argument:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DT1[DT2,,,nomatch=<span class="dv">0</span>]</code></pre></div>
 <pre><code>##    Names Age Gender
 ## 1: Alice  29      F
 ## 2:   Bob  31      M</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">DT2[DT1,,,nomatch=<span class="dv">0</span>]</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DT2[DT1,,,nomatch=<span class="dv">0</span>]</code></pre></div>
 <pre><code>##    Names Gender Age
 ## 1: Alice      F  29
 ## 2:   Bob      M  31</code></pre>
 </div>
 <div id="reshaping-data" class="section level2">
-<h2><span class="header-section-number">3.3</span> Reshaping data</h2>
-<p>Data sets (i.e. frames or tables) may arrive in a “wide” form or a “long” form.
-The difference is best illustrated with an example.
-The <code>ChickWeight</code> data encodes the weight of various chicks. It is “long” in that a variable encodes the time of measurement, making the data, well, simply long:</p>
-<pre class="sourceCode r"><code class="sourceCode r">ChickWeight <span class="op">%&gt;%</span><span class="st">  </span>head</code></pre>
-<pre><code>## Grouped Data: weight ~ Time | Chick
-##   weight Time Chick Diet
+<h2><span class="header-section-number">4.3</span> Reshaping data</h2>
+<p>Data sets (i.e. frames or tables) may arrive in a “wide” form or a “long” form. The difference is best illustrated with an example. The <code>ChickWeight</code> data encodes the weight of various chicks. It is “long” in that a variable encodes the time of measurement, making the data, well, simply long:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ChickWeight <span class="op">%&gt;%</span><span class="st">  </span>head</code></pre></div>
+<pre><code>##   weight Time Chick Diet
 ## 1     42    0     1    1
 ## 2     51    2     1    1
 ## 3     59    4     1    1
@@ -838,7 +799,7 @@ The <code>ChickWeight</code> data encodes the weight of various chicks. It is �
 ## 5     76    8     1    1
 ## 6     93   10     1    1</code></pre>
 <p>The <code>mtcars</code> data encodes 10 characteristics of 32 types of automobiles. It is “wide” since the various characteristics are encoded in different variables, making the data, well, simply wide.</p>
-<pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre></div>
 <pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 ## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
 ## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
@@ -846,13 +807,11 @@ The <code>ChickWeight</code> data encodes the weight of various chicks. It is �
 ## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
 ## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 ## Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
-<p>Most of <em>R</em>’s functions, with exceptions, will prefer data in the long format.
-There are thus various facilities to convert from one format to another.
-We will focus on the <code>melt</code> and <code>dcast</code> functions to convert from one format to another.</p>
+<p>Most of <em>R</em>’s functions, with exceptions, will prefer data in the long format. There are thus various facilities to convert from one format to another. We will focus on the <code>melt</code> and <code>dcast</code> functions to convert from one format to another.</p>
 <div id="wide-to-long" class="section level3">
-<h3><span class="header-section-number">3.3.1</span> Wide to long</h3>
+<h3><span class="header-section-number">4.3.1</span> Wide to long</h3>
 <p><code>melt</code> will convert from wide to long.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dimnames</span>(mtcars)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dimnames</span>(mtcars)</code></pre></div>
 <pre><code>## [[1]]
 ##  [1] &quot;Mazda RX4&quot;           &quot;Mazda RX4 Wag&quot;       &quot;Datsun 710&quot;         
 ##  [4] &quot;Hornet 4 Drive&quot;      &quot;Hornet Sportabout&quot;   &quot;Valiant&quot;            
@@ -869,8 +828,8 @@ We will focus on the <code>melt</code> and <code>dcast</code> functions to conve
 ## [[2]]
 ##  [1] &quot;mpg&quot;  &quot;cyl&quot;  &quot;disp&quot; &quot;hp&quot;   &quot;drat&quot; &quot;wt&quot;   &quot;qsec&quot; &quot;vs&quot;   &quot;am&quot;   &quot;gear&quot;
 ## [11] &quot;carb&quot;</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">mtcars<span class="op">$</span>type &lt;-<span class="st"> </span><span class="kw">rownames</span>(mtcars)
-<span class="kw">melt</span>(mtcars, <span class="dt">id.vars=</span><span class="kw">c</span>(<span class="st">&quot;type&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars<span class="op">$</span>type &lt;-<span class="st"> </span><span class="kw">rownames</span>(mtcars)
+<span class="kw">melt</span>(mtcars, <span class="dt">id.vars=</span><span class="kw">c</span>(<span class="st">&quot;type&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre></div>
 <pre><code>##                type variable value
 ## 1         Mazda RX4      mpg  21.0
 ## 2     Mazda RX4 Wag      mpg  21.0
@@ -886,7 +845,7 @@ We will focus on the <code>melt</code> and <code>dcast</code> functions to conve
 <li>By default, the molten columns are automatically named <code>variable</code> and <code>value</code>.</li>
 </ul>
 <p>We can replace the automatic namings using <code>variable.name</code> and <code>value.name</code>:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">melt</span>(mtcars, <span class="dt">id.vars=</span><span class="kw">c</span>(<span class="st">&quot;type&quot;</span>), <span class="dt">variable.name=</span><span class="st">&quot;Charachteristic&quot;</span>, <span class="dt">value.name=</span><span class="st">&quot;Measurement&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">melt</span>(mtcars, <span class="dt">id.vars=</span><span class="kw">c</span>(<span class="st">&quot;type&quot;</span>), <span class="dt">variable.name=</span><span class="st">&quot;Charachteristic&quot;</span>, <span class="dt">value.name=</span><span class="st">&quot;Measurement&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre></div>
 <pre><code>##                type Charachteristic Measurement
 ## 1         Mazda RX4             mpg        21.0
 ## 2     Mazda RX4 Wag             mpg        21.0
@@ -896,9 +855,9 @@ We will focus on the <code>melt</code> and <code>dcast</code> functions to conve
 ## 6           Valiant             mpg        18.1</code></pre>
 </div>
 <div id="long-to-wide" class="section level3">
-<h3><span class="header-section-number">3.3.2</span> Long to wide</h3>
+<h3><span class="header-section-number">4.3.2</span> Long to wide</h3>
 <p><code>dcast</code> will conver from long to wide:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dcast</span>(ChickWeight, Chick<span class="op">~</span>Time, <span class="dt">value.var=</span><span class="st">&quot;weight&quot;</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dcast</span>(ChickWeight, Chick<span class="op">~</span>Time, <span class="dt">value.var=</span><span class="st">&quot;weight&quot;</span>)</code></pre></div>
 <pre><code>##    Chick  0  2  4  6   8  10  12  14  16  18  20  21
 ## 1     18 39 35 NA NA  NA  NA  NA  NA  NA  NA  NA  NA
 ## 2     16 41 45 49 51  57  51  54  NA  NA  NA  NA  NA
@@ -957,17 +916,13 @@ We will focus on the <code>melt</code> and <code>dcast</code> functions to conve
 </ul>
 </div>
 </div>
-<div id="bibliographic-notes-1" class="section level2">
-<h2><span class="header-section-number">3.4</span> Bibliographic Notes</h2>
-<p><code>data.table</code> has excellent online documentation.
-See <a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html">here</a>.
-See <a href="https://rstudio-pubs-static.s3.amazonaws.com/52230_5ae0d25125b544caab32f75f0360e775.html">here</a> for joining data.tables.
-See <a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html">here</a> for more on reshaping data.tables.
-See <a href="https://www.r-bloggers.com/intro-to-the-data-table-package/">here</a> for a comparison of the <code>data.frame</code> way, versus the <code>data.table</code> way.
-For some advanced tips and tricks see <a href="http://brooksandrew.github.io/simpleblog/articles/advanced-data-table/">Andrew Brooks’ blog</a>.</p>
+<div id="bibliographic-notes-2" class="section level2">
+<h2><span class="header-section-number">4.4</span> Bibliographic Notes</h2>
+<p><code>data.table</code> has excellent online documentation. See <a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html">here</a>. See <a href="https://rstudio-pubs-static.s3.amazonaws.com/52230_5ae0d25125b544caab32f75f0360e775.html">here</a> for joining data.tables. See <a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html">here</a> for more on reshaping data.tables. See <a href="https://www.r-bloggers.com/intro-to-the-data-table-package/">here</a> for a comparison of the <code>data.frame</code> way, versus the <code>data.table</code> way. For some advanced tips and tricks see <a href="http://brooksandrew.github.io/simpleblog/articles/advanced-data-table/">Andrew Brooks’ blog</a>.</p>
 </div>
 <div id="practice-yourself-1" class="section level2">
-<h2><span class="header-section-number">3.5</span> Practice Yourself</h2>
+<h2><span class="header-section-number">4.5</span> Practice Yourself</h2>
+<p>See DataCamp’s <a href="https://www.datacamp.com/courses/data-manipulation-in-r-with-datatable">Data Manipulation in R with data.table</a>, by Matt Dowle, the author of <em>data.table</em> for more self practice.</p>
 
 </div>
 </div>
@@ -976,8 +931,8 @@ For some advanced tips and tricks see <a href="http://brooksandrew.github.io/sim
           </div>
         </div>
       </div>
-<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="basics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="eda.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -1007,7 +962,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/21-datatable.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/26-datatable.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -1027,7 +982,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "true";
+    var src = "";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
