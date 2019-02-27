@@ -5,25 +5,27 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title></title>
-  <meta name="description" content="">
+  <title>Chapter 3 R Basics | R (BGU course)</title>
+  <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="" />
+  <meta property="og:title" content="Chapter 3 R Basics | R (BGU course)" />
   <meta property="og:type" content="book" />
   
   
-  
+  <meta property="og:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="" />
+  <meta name="twitter:title" content="Chapter 3 R Basics | R (BGU course)" />
   
-  
+  <meta name="twitter:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
   
 
+<meta name="author" content="Jonathan D. Rosenblatt">
 
 
+<meta name="date" content="2019-02-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -148,9 +150,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.17</b> Looping</a></li>
 <li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.18</b> Apply</a></li>
 <li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.19</b> Recursion</a></li>
-<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.20</b> Dates and Times</a></li>
-<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.21</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#practice-yourself"><i class="fa fa-check"></i><b>3.22</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#strings"><i class="fa fa-check"></i><b>3.20</b> Strings</a></li>
+<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.21</b> Dates and Times</a></li>
+<li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.22</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.23" data-path="basics.html"><a href="basics.html#practice-yourself"><i class="fa fa-check"></i><b>3.23</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>4</b> data.table</a><ul>
 <li class="chapter" data-level="4.1" data-path="datatable.html"><a href="datatable.html#make-your-own-variables"><i class="fa fa-check"></i><b>4.1</b> Make your own variables</a></li>
@@ -326,8 +329,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a><ul>
 <li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a><ul>
 <li class="chapter" data-level="14.1.1" data-path="sparse.html"><a href="sparse.html#coo"><i class="fa fa-check"></i><b>14.1.1</b> Coordinate List Representation</a></li>
-<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Column Oriented Representation</a></li>
-<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Column Oriented Representation</a></li>
 <li class="chapter" data-level="14.1.4" data-path="sparse.html"><a href="sparse.html#sparse-algorithms"><i class="fa fa-check"></i><b>14.1.4</b> Sparse Algorithms</a></li>
 </ul></li>
 <li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a><ul>
@@ -346,6 +349,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.2" data-path="memory.html"><a href="memory.html#computing-from-a-database"><i class="fa fa-check"></i><b>15.2</b> Computing from a Database</a></li>
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
+<li class="chapter" data-level="15.3.2" data-path="memory.html"><a href="memory.html#bigstep"><i class="fa fa-check"></i><b>15.3.2</b> bigstep</a></li>
 </ul></li>
 <li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
 <li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.5</b> matter</a></li>
@@ -441,7 +445,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R (BGU course)</a>
           </h1>
         </div>
 
@@ -689,7 +693,7 @@ car_data &lt;-<span class="st"> </span>
 y&lt;-<span class="st"> </span><span class="dv">3</span><span class="op">+</span><span class="kw">sin</span>(x) 
 <span class="kw">plot</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y) <span class="co"># x,y syntax                         </span></code></pre></div>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-32-1.png" width="50%" /></p>
-<p>Given an <code>x</code> argument and a <code>y</code> argument, <code>plot</code> tries to present a scatter plot. We call this the <code>x,y</code> syntax. R has another unique syntax to state functional relations. We call <code>y~x</code> the “tilde” syntax, which originates in works of <span class="citation">@wilkinson1973symbolic</span> and was adopted in the early days of S.</p>
+<p>Given an <code>x</code> argument and a <code>y</code> argument, <code>plot</code> tries to present a scatter plot. We call this the <code>x,y</code> syntax. R has another unique syntax to state functional relations. We call <code>y~x</code> the “tilde” syntax, which originates in works of <span class="citation">G. Wilkinson and Rogers (<a href="#ref-wilkinson1973symbolic">1973</a>)</span> and was adopted in the early days of S.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x) <span class="co"># y~x syntax </span></code></pre></div>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-33-1.png" width="50%" /></p>
 <p>The syntax <code>y~x</code> is read as “y is a function of x”. We will prefer the <code>y~x</code> syntax over the <code>x,y</code> syntax since it is easier to read, and will be very useful when we discuss more complicated models.</p>
@@ -1032,19 +1036,23 @@ See the RCpp Chapter <a href="rcpp.html#rcpp">19</a> for linking C code, which i
 <span class="kw">fib</span>(<span class="dv">5</span>)</code></pre></div>
 <pre><code>## [1] 8</code></pre>
 </div>
+<div id="strings" class="section level2">
+<h2><span class="header-section-number">3.20</span> Strings</h2>
+<p>TODO. In the meanwhile, see <a href="http://www.gastonsanchez.com/r4strings/">Gaston Sanchez’s book</a>.</p>
+</div>
 <div id="dates-and-times" class="section level2">
-<h2><span class="header-section-number">3.20</span> Dates and Times</h2>
-<p>[TODO. In the meanwhile, see the <strong>lubridate</strong> pacakge].</p>
+<h2><span class="header-section-number">3.21</span> Dates and Times</h2>
+<p>TODO. In the meanwhile, see the <a href="https://lubridate.tidyverse.org/">lubridate</a> pacakge.</p>
 </div>
 <div id="bibliographic-notes-1" class="section level2">
-<h2><span class="header-section-number">3.21</span> Bibliographic Notes</h2>
-<p>There are endlessly many introductory texts on R. For a list of free resources see <a href="http://stats.stackexchange.com/questions/138/free-resources-for-learning-r">CrossValidated</a>. I personally recommend the official introduction <span class="citation">@venables2004introduction</span>, <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf">available online</a>, or anything else Bill Venables writes.</p>
+<h2><span class="header-section-number">3.22</span> Bibliographic Notes</h2>
+<p>There are endlessly many introductory texts on R. For a list of free resources see <a href="http://stats.stackexchange.com/questions/138/free-resources-for-learning-r">CrossValidated</a>. I personally recommend the official introduction <span class="citation">Venables et al. (<a href="#ref-venables2004introduction">2004</a>)</span>, <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf">available online</a>, or anything else Bill Venables writes.</p>
 <p>For Importing and Exporting see (<a href="https://cran.r-project.org/doc/manuals/r-release/R-data.html" class="uri">https://cran.r-project.org/doc/manuals/r-release/R-data.html</a>). For working with databases see (<a href="https://rforanalytics.wordpress.com/useful-links-for-r/odbc-databases-for-r/" class="uri">https://rforanalytics.wordpress.com/useful-links-for-r/odbc-databases-for-r/</a>).</p>
-<p>For advanced R programming see <span class="citation">@wickham2014advanced</span>, <a href="http://adv-r.had.co.nz/">available online</a>, or anything else Hadley Wickham writes.</p>
+<p>For advanced R programming see <span class="citation">Wickham (<a href="#ref-wickham2014advanced">2014</a>)</span>, <a href="http://adv-r.had.co.nz/">available online</a>, or anything else Hadley Wickham writes.</p>
 <p>For a curated list of recommended packages see <a href="https://github.com/rstudio/RStartHere/blob/master/README.md">here</a>.</p>
 </div>
 <div id="practice-yourself" class="section level2">
-<h2><span class="header-section-number">3.22</span> Practice Yourself</h2>
+<h2><span class="header-section-number">3.23</span> Practice Yourself</h2>
 <ol style="list-style-type: decimal">
 <li><p>Load the package <strong>MASS</strong>. That was easy. Now load <strong>ggplot2</strong>, after looking into <code>install.pacakges()</code>.</p></li>
 <li><p>Save the numbers 1 to 1,000,000 (<code>1e6</code>) into an object named <code>object</code>.</p></li>
@@ -1063,6 +1071,18 @@ Make another data frame (<code>dataB</code>) with three columns and 100 rows. No
 </ol>
 <p>You can also self practice with DataCamp’s <a href="https://www.datacamp.com/courses/free-introduction-to-r">Intoroduction to R</a> course.</p>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-wilkinson1973symbolic">
+<p>Wilkinson, GN, and CE Rogers. 1973. “Symbolic Description of Factorial Models for Analysis of Variance.” <em>Applied Statistics</em>. JSTOR, 392–99.</p>
+</div>
+<div id="ref-venables2004introduction">
+<p>Venables, William N, David M Smith, R Development Core Team, and others. 2004. “An Introduction to R.” Network Theory Limited.</p>
+</div>
+<div id="ref-wickham2014advanced">
+<p>Wickham, Hadley. 2014. <em>Advanced R</em>. CRC Press.</p>
 </div>
 </div>
 <div class="footnotes">

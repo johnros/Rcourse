@@ -144,18 +144,21 @@ $$ \begin{bmatrix}
 2 & 3 & b_3 
 \end{bmatrix}.  $$
 
-### Compressed Column Oriented Representation 
-A _compressed column oriented representation_, also known as _compressed sparse column_, or _CSC_, where the __row__ index is similar to COO, but instead of saving the column indexes, we save the locations in the row index vectors where the column index has to increase. 
-The following figure may clarify this simple idea.
-
-The nature of statistical applications is such, that CSC representation is typically the most economical, justifying its popularity.
-
-
 ### Compressed Row Oriented Representation 
-A _compressed row oriented representation_, also known as _compressed sparse row_, or _CSR_, is very similar to CSC, after switching the role of rows and columns.
-CSR is much less popular than CSC.
+_Compressed row oriented representation_, also known as _compressed sparse row_, or _CSR_.
+_CSR_ is similar to _COO_ with a compressed row vector.
+Instead of holding the row of each non-zero entry, the row vector holds the locations in the colum vector where a row is increased. 
+See the next illustration.
 
 ![The CSR data structure. From @shah2004sparse. Remember that MATLAB is written in C, where the indexing starts at $0$, and not $1$.](art/crc.png)
+
+
+
+### Compressed Column Oriented Representation 
+A _compressed column oriented representation_, also known as _compressed sparse column_, or _CSC_.
+In _CSC_ the column vector is compressed. Unlike _CSR_ where the row vector is compressed. 
+The nature of statistical applications is such, that CSC representation is typically the most economical, justifying its popularity.
+
 
 
 

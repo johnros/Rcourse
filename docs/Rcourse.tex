@@ -24,11 +24,14 @@
 \PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
 \usepackage[unicode=true]{hyperref}
 \hypersetup{
+            pdftitle={R (BGU course)},
+            pdfauthor={Jonathan D. Rosenblatt},
+            pdfkeywords={Rstats, Statistics},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
 \usepackage{natbib}
-\bibliographystyle{plainnat}
+\bibliographystyle{apalike}
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -121,7 +124,9 @@
 }
 \makeatother
 
-\date{}
+\title{R (BGU course)}
+\author{Jonathan D. Rosenblatt}
+\date{2019-02-27}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -140,25 +145,12 @@
 \newtheorem*{solution}{Solution}
 \let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
 \begin{document}
+\maketitle
 
 {
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
-\begin{longtable}[]{@{}l@{}}
-\toprule
-\begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
-tle: ``R (BGU course)'' thor: ``Jonathan D. Rosenblatt'' te:
-`2019-02-27' bliography: bib.bib scription: Class notes for the R course
-at the BGU's IE\&M dept. cumentclass: book ywords: ``Rstats,
-Statistics''\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.05\columnwidth}\raggedright\strut
-nk-citations: yes blio-style: apalike\strut
-\end{minipage}\tabularnewline
-\bottomrule
-\end{longtable}
-
 \chapter{Preface}\label{preface}
 
 This book accompanies BGU's ``R'' course, at the department of
@@ -1849,9 +1841,15 @@ demonstration with the Fibonacci series.
 ## [1] 8
 \end{verbatim}
 
+\section{Strings}\label{strings}
+
+TODO. In the meanwhile, see
+\href{http://www.gastonsanchez.com/r4strings/}{Gaston Sanchez's book}.
+
 \section{Dates and Times}\label{dates-and-times}
 
-{[}TODO. In the meanwhile, see the \textbf{lubridate} pacakge{]}.
+TODO. In the meanwhile, see the
+\href{https://lubridate.tidyverse.org/}{lubridate} pacakge.
 
 \section{Bibliographic Notes}\label{bibliographic-notes-1}
 
@@ -7785,7 +7783,7 @@ include:
 \item
   \textbf{Elastic net}: a combination of the lasso and ridge penalty.
   I.e.
-  ,\(\Vert f \Vert= (1-\alpha) \Vert \beta \Vert_2^2 + \alpha \Vert \beta \Vert_1\).
+  ,\(\Vert f \Vert= \alpha \Vert \beta \Vert_2^2 + (1-\alpha) \Vert \beta \Vert_1\).
 \item
   \textbf{Function Norms}: If the hypothesis class \(\mathcal{F}\) does
   not admit a finite dimensional representation, the penalty is no
@@ -12431,25 +12429,14 @@ each non-zero entry in the matrix. For instance the matrix
 2 & 3 & b_3 
 \end{bmatrix}.  \]
 
-\subsection{Compressed Column Oriented
-Representation}\label{compressed-column-oriented-representation}
-
-A \emph{compressed column oriented representation}, also known as
-\emph{compressed sparse column}, or \emph{CSC}, where the \textbf{row}
-index is similar to COO, but instead of saving the column indexes, we
-save the locations in the row index vectors where the column index has
-to increase. The following figure may clarify this simple idea.
-
-The nature of statistical applications is such, that CSC representation
-is typically the most economical, justifying its popularity.
-
 \subsection{Compressed Row Oriented
 Representation}\label{compressed-row-oriented-representation}
 
-A \emph{compressed row oriented representation}, also known as
-\emph{compressed sparse row}, or \emph{CSR}, is very similar to CSC,
-after switching the role of rows and columns. CSR is much less popular
-than CSC.
+\emph{Compressed row oriented representation}, also known as
+\emph{compressed sparse row}, or \emph{CSR}. \emph{CSR} is similar to
+\emph{COO} with a compressed row vector. Instead of holding the row of
+each non-zero entry, the row vector holds the locations in the colum
+vector where a row is increased. See the next illustration.
 
 \begin{figure}
 \centering
@@ -12458,6 +12445,16 @@ than CSC.
 that MATLAB is written in C, where the indexing starts at \(0\), and not
 \(1\).}
 \end{figure}
+
+\subsection{Compressed Column Oriented
+Representation}\label{compressed-column-oriented-representation}
+
+A \emph{compressed column oriented representation}, also known as
+\emph{compressed sparse column}, or \emph{CSC}. In \emph{CSC} the column
+vector is compressed. Unlike \emph{CSR} where the row vector is
+compressed. The nature of statistical applications is such, that CSC
+representation is typically the most economical, justifying its
+popularity.
 
 \subsection{Sparse Algorithms}\label{sparse-algorithms}
 
@@ -13136,6 +13133,15 @@ include:
 \item
   \textbf{GHap}: Haplotype calling from phased SNP data.
 \end{itemize}
+
+\subsection{bigstep}\label{bigstep}
+
+The
+\href{https://cran.r-project.org/web/packages/bigstep/vignettes/bigstep.html}{bigstep}
+package uses the \textbf{bigmemory} framework to perform stepwise model
+selction, when the data cannot fit into RAM.
+
+TODO
 
 \section{ff}\label{ff}
 
@@ -13822,7 +13828,7 @@ equations, can be cast as optimization problems: simply find \(x\) by
 minimizing \(\Vert Ax-b \Vert\).
 
 Some methods for solving (convex) optimization problems are reviewed in
-the Convex Optimization Chapter \ref@(convex). For our purposes we will
+the Convex Optimization Chapter \ref{convex}. For our purposes we will
 just mention that historically (this means in the \texttt{lm} function,
 and in the LAPACK numerical libraries) the factorization approach was
 preferred, and now optimization approaches are preferred. This is
@@ -13894,7 +13900,8 @@ views}
 
 \chapter{Debugging Tools}\label{debugging}
 
-TODO
+TODO. In the meanwhile, get started with \citet{wickham2011testthat},
+and get pro with \citet{cotton2017testing}.
 
 \section{Bibliographic Notes}\label{bibliographic-notes-17}
 
@@ -14505,6 +14512,12 @@ TODO
 
 \section{Bibliographic Notes}\label{bibliographic-notes-20}
 
+On the tail behind ``smoking causes cancer'' see
+\href{https://profiles.nlm.nih.gov/ps/retrieve/Narrative/NN/p-nid/60}{NIH's
+Reports of the Surgeon General}.
+
 \section{Practice Yourself}\label{practice-yourself-20}
+
+\bibliography{bib.bib}
 
 \end{document}

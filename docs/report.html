@@ -5,25 +5,27 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title></title>
-  <meta name="description" content="">
+  <title>Chapter 13 Reports | R (BGU course)</title>
+  <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="" />
+  <meta property="og:title" content="Chapter 13 Reports | R (BGU course)" />
   <meta property="og:type" content="book" />
   
   
-  
+  <meta property="og:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="" />
+  <meta name="twitter:title" content="Chapter 13 Reports | R (BGU course)" />
   
-  
+  <meta name="twitter:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
   
 
+<meta name="author" content="Jonathan D. Rosenblatt">
 
 
+<meta name="date" content="2019-02-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -148,9 +150,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.17</b> Looping</a></li>
 <li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.18</b> Apply</a></li>
 <li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.19</b> Recursion</a></li>
-<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.20</b> Dates and Times</a></li>
-<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.21</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#practice-yourself"><i class="fa fa-check"></i><b>3.22</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#strings"><i class="fa fa-check"></i><b>3.20</b> Strings</a></li>
+<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.21</b> Dates and Times</a></li>
+<li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.22</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.23" data-path="basics.html"><a href="basics.html#practice-yourself"><i class="fa fa-check"></i><b>3.23</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>4</b> data.table</a><ul>
 <li class="chapter" data-level="4.1" data-path="datatable.html"><a href="datatable.html#make-your-own-variables"><i class="fa fa-check"></i><b>4.1</b> Make your own variables</a></li>
@@ -326,8 +329,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a><ul>
 <li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a><ul>
 <li class="chapter" data-level="14.1.1" data-path="sparse.html"><a href="sparse.html#coo"><i class="fa fa-check"></i><b>14.1.1</b> Coordinate List Representation</a></li>
-<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Column Oriented Representation</a></li>
-<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Column Oriented Representation</a></li>
 <li class="chapter" data-level="14.1.4" data-path="sparse.html"><a href="sparse.html#sparse-algorithms"><i class="fa fa-check"></i><b>14.1.4</b> Sparse Algorithms</a></li>
 </ul></li>
 <li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a><ul>
@@ -346,6 +349,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.2" data-path="memory.html"><a href="memory.html#computing-from-a-database"><i class="fa fa-check"></i><b>15.2</b> Computing from a Database</a></li>
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
+<li class="chapter" data-level="15.3.2" data-path="memory.html"><a href="memory.html#bigstep"><i class="fa fa-check"></i><b>15.3.2</b> bigstep</a></li>
 </ul></li>
 <li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
 <li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.5</b> matter</a></li>
@@ -441,7 +445,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R (BGU course)</a>
           </h1>
         </div>
 
@@ -453,10 +457,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 13</span> Reports</h1>
 <p>If you have ever written a report, you are probably familiar with the process of preparing your figures in some software, say R, and then copy-pasting into your text editor, say MS Word. While very popular, this process is both tedious, and plain painful if your data has changed and you need to update the report. Wouldn’t it be nice if you could produce figures and numbers from within the text of the report, and everything else would be automated? It turns out it is possible. There are actually several systems in R that allow this. We start with a brief review.</p>
 <ol style="list-style-type: decimal">
-<li><p><strong>Sweave</strong>: <em>LaTeX</em> is a markup language that compiles to <em>Tex</em> programs that compile, in turn, to documents (typically PS or PDFs). If you never heard of it, it may be because you were born the the MS Windows+MS Word era. You should know, however, that <em>LaTeX</em> was there much earlier, when computers were mainframes with text-only graphic devices. You should also know that <em>LaTeX</em> is still very popular (in some communities) due to its very rich markup syntax, and beautiful output. <em>Sweave</em> <span class="citation">[@leisch2002sweave]</span> is a compiler for <em>LaTeX</em> that allows you do insert R commands in the <em>LaTeX</em> source file, and get the result as part of the outputted PDF. It’s name suggests just that: it allows to weave S<a href="#fn25" class="footnoteRef" id="fnref25"><sup>25</sup></a> output into the document, thus, Sweave.</p></li>
-<li><p><strong>knitr</strong>: <em>Markdown</em> is a text editing syntax that, unlike <em>LaTeX</em>, is aimed to be human-readable, but also compilable by a machine. If you ever tried to read HTML or <em>LaTeX</em> source files, you may understand why human-readability is a desirable property. There are many <em>markdown</em> compilers. One of the most popular is Pandoc, written by the Berkeley philosopher(!) Jon MacFarlane. The availability of Pandoc gave <a href="https://yihui.name/">Yihui Xie</a>, a name to remember, the idea that it is time for Sweave to evolve. Yihui thus wrote <strong>knitr</strong> <span class="citation">[@xie2015dynamic]</span>, which allows to write human readable text in <em>Rmarkdown</em>, a superset of <em>markdown</em>, compile it with R and the compile it with Pandoc. Because Pandoc can compile to PDF, but also to HTML, and DOCX, among others, this means that you can write in Rmarkdown, and get output in almost all text formats out there.</p></li>
-<li><p><strong>bookdown</strong>: <strong>Bookdown</strong> <span class="citation">[@xie2016bookdown]</span> is an evolution of <strong>knitr</strong>, also written by Yihui Xie, now working for RStudio. The text you are now reading was actually written in <strong>bookdown</strong>. It deals with the particular needs of writing large documents, and cross referencing in particular (which is very challenging if you want the text to be human readable).</p></li>
-<li><p><strong>Shiny</strong>: Shiny is essentially a framework for quick web-development. It includes (i) an abstraction layer that specifies the layout of a web-site which is our report, (ii) the command to start a web server to deliver the site. For more on Shiny see <span class="citation">@shiny</span>.</p></li>
+<li><p><strong>Sweave</strong>: <em>LaTeX</em> is a markup language that compiles to <em>Tex</em> programs that compile, in turn, to documents (typically PS or PDFs). If you never heard of it, it may be because you were born the the MS Windows+MS Word era. You should know, however, that <em>LaTeX</em> was there much earlier, when computers were mainframes with text-only graphic devices. You should also know that <em>LaTeX</em> is still very popular (in some communities) due to its very rich markup syntax, and beautiful output. <em>Sweave</em> <span class="citation">(Leisch <a href="#ref-leisch2002sweave">2002</a>)</span> is a compiler for <em>LaTeX</em> that allows you do insert R commands in the <em>LaTeX</em> source file, and get the result as part of the outputted PDF. It’s name suggests just that: it allows to weave S<a href="#fn25" class="footnoteRef" id="fnref25"><sup>25</sup></a> output into the document, thus, Sweave.</p></li>
+<li><p><strong>knitr</strong>: <em>Markdown</em> is a text editing syntax that, unlike <em>LaTeX</em>, is aimed to be human-readable, but also compilable by a machine. If you ever tried to read HTML or <em>LaTeX</em> source files, you may understand why human-readability is a desirable property. There are many <em>markdown</em> compilers. One of the most popular is Pandoc, written by the Berkeley philosopher(!) Jon MacFarlane. The availability of Pandoc gave <a href="https://yihui.name/">Yihui Xie</a>, a name to remember, the idea that it is time for Sweave to evolve. Yihui thus wrote <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015dynamic">2015</a>)</span>, which allows to write human readable text in <em>Rmarkdown</em>, a superset of <em>markdown</em>, compile it with R and the compile it with Pandoc. Because Pandoc can compile to PDF, but also to HTML, and DOCX, among others, this means that you can write in Rmarkdown, and get output in almost all text formats out there.</p></li>
+<li><p><strong>bookdown</strong>: <strong>Bookdown</strong> <span class="citation">(Xie <a href="#ref-xie2016bookdown">2016</a>)</span> is an evolution of <strong>knitr</strong>, also written by Yihui Xie, now working for RStudio. The text you are now reading was actually written in <strong>bookdown</strong>. It deals with the particular needs of writing large documents, and cross referencing in particular (which is very challenging if you want the text to be human readable).</p></li>
+<li><p><strong>Shiny</strong>: Shiny is essentially a framework for quick web-development. It includes (i) an abstraction layer that specifies the layout of a web-site which is our report, (ii) the command to start a web server to deliver the site. For more on Shiny see <span class="citation">Chang et al. (<a href="#ref-shiny">2017</a>)</span>.</p></li>
 </ol>
 <div id="knitr" class="section level2">
 <h2><span class="header-section-number">13.1</span> knitr</h2>
@@ -553,7 +557,7 @@ plot(rnorm(10))
 </div>
 <div id="shiny" class="section level2">
 <h2><span class="header-section-number">13.3</span> Shiny</h2>
-<p><strong>Shiny</strong> <span class="citation">[@shiny]</span> is different than the previous systems, because it sets up an interactive web-site, and not a static file. The power of Shiny is that the layout of the web-site, and the settings of the web-server, is made with several simple R commands, with no need for web-programming. Once you have your app up and running, you can setup your own Shiny server on the web, or publish it via <a href="https://www.shinyapps.io/">Shinyapps.io</a>. The freemium versions of the service can deal with a small amount of traffic. If you expect a lot of traffic, you will probably need the paid versions.</p>
+<p><strong>Shiny</strong> <span class="citation">(Chang et al. <a href="#ref-shiny">2017</a>)</span> is different than the previous systems, because it sets up an interactive web-site, and not a static file. The power of Shiny is that the layout of the web-site, and the settings of the web-server, is made with several simple R commands, with no need for web-programming. Once you have your app up and running, you can setup your own Shiny server on the web, or publish it via <a href="https://www.shinyapps.io/">Shinyapps.io</a>. The freemium versions of the service can deal with a small amount of traffic. If you expect a lot of traffic, you will probably need the paid versions.</p>
 <div id="installation-1" class="section level3">
 <h3><span class="header-section-number">13.3.1</span> Installation</h3>
 <p>To setup your first Shiny app, you will need the <strong>shiny</strong> package. You will probably want RStudio, which facilitates the process.</p>
@@ -767,7 +771,7 @@ plot(rnorm(10))
 </div>
 <div id="bibliographic-notes-10" class="section level2">
 <h2><span class="header-section-number">13.5</span> Bibliographic Notes</h2>
-<p>For RMarkdown see <a href="http://rmarkdown.rstudio.com/">here</a>. For everything on <strong>knitr</strong> see <a href="https://yihui.name/knitr/">Yihui’s blog</a>, or the book <span class="citation">@xie2015dynamic</span>. For a <strong>bookdown</strong> manual, see <span class="citation">@xie2016bookdown</span>. For a Shiny manual, see <span class="citation">@shiny</span>, the <a href="http://shiny.rstudio.com/tutorial/">RStudio tutorial</a>, or <a href="http://zevross.com/blog/2016/04/19/r-powered-web-applications-with-shiny-a-tutorial-and-cheat-sheet-with-40-example-apps/">Zev Ross’s</a> excellent guide. Video tutorials are available <a href="https://www.rstudio.com/resources/webinars/shiny-developer-conference/">here</a>.</p>
+<p>For RMarkdown see <a href="http://rmarkdown.rstudio.com/">here</a>. For everything on <strong>knitr</strong> see <a href="https://yihui.name/knitr/">Yihui’s blog</a>, or the book <span class="citation">Xie (<a href="#ref-xie2015dynamic">2015</a>)</span>. For a <strong>bookdown</strong> manual, see <span class="citation">Xie (<a href="#ref-xie2016bookdown">2016</a>)</span>. For a Shiny manual, see <span class="citation">Chang et al. (<a href="#ref-shiny">2017</a>)</span>, the <a href="http://shiny.rstudio.com/tutorial/">RStudio tutorial</a>, or <a href="http://zevross.com/blog/2016/04/19/r-powered-web-applications-with-shiny-a-tutorial-and-cheat-sheet-with-40-example-apps/">Zev Ross’s</a> excellent guide. Video tutorials are available <a href="https://www.rstudio.com/resources/webinars/shiny-developer-conference/">here</a>.</p>
 </div>
 <div id="practice-yourself-9" class="section level2">
 <h2><span class="header-section-number">13.6</span> Practice Yourself</h2>
@@ -776,6 +780,21 @@ plot(rnorm(10))
 <li><p>Recall that this book is written in <strong>bookdown</strong>, which is a superset of <strong>knitr</strong>. Go to the source .Rmd file of the first chapter, and parse it in your head: (<a href="https://raw.githubusercontent.com/johnros/Rcourse/master/02-r-basics.Rmd" class="uri">https://raw.githubusercontent.com/johnros/Rcourse/master/02-r-basics.Rmd</a>)</p></li>
 </ol>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-leisch2002sweave">
+<p>Leisch, Friedrich. 2002. “Sweave: Dynamic Generation of Statistical Reports Using Literate Data Analysis.” In <em>Compstat</em>, 575–80. Springer.</p>
+</div>
+<div id="ref-xie2015dynamic">
+<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. Vol. 29. CRC Press.</p>
+</div>
+<div id="ref-xie2016bookdown">
+<p>Xie, Yihui. 2016. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. CRC Press.</p>
+</div>
+<div id="ref-shiny">
+<p>Chang, Winston, Joe Cheng, JJ Allaire, Yihui Xie, and Jonathan McPherson. 2017. <em>Shiny: Web Application Framework for R</em>. <a href="https://CRAN.R-project.org/package=shiny" class="uri">https://CRAN.R-project.org/package=shiny</a>.</p>
 </div>
 </div>
 <div class="footnotes">

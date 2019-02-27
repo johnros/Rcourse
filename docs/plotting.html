@@ -5,25 +5,27 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title></title>
-  <meta name="description" content="">
+  <title>Chapter 12 Plotting | R (BGU course)</title>
+  <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="" />
+  <meta property="og:title" content="Chapter 12 Plotting | R (BGU course)" />
   <meta property="og:type" content="book" />
   
   
-  
+  <meta property="og:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="" />
+  <meta name="twitter:title" content="Chapter 12 Plotting | R (BGU course)" />
   
-  
+  <meta name="twitter:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
   
 
+<meta name="author" content="Jonathan D. Rosenblatt">
 
 
+<meta name="date" content="2019-02-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -148,9 +150,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.17</b> Looping</a></li>
 <li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.18</b> Apply</a></li>
 <li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.19</b> Recursion</a></li>
-<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.20</b> Dates and Times</a></li>
-<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.21</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#practice-yourself"><i class="fa fa-check"></i><b>3.22</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#strings"><i class="fa fa-check"></i><b>3.20</b> Strings</a></li>
+<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.21</b> Dates and Times</a></li>
+<li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.22</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.23" data-path="basics.html"><a href="basics.html#practice-yourself"><i class="fa fa-check"></i><b>3.23</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>4</b> data.table</a><ul>
 <li class="chapter" data-level="4.1" data-path="datatable.html"><a href="datatable.html#make-your-own-variables"><i class="fa fa-check"></i><b>4.1</b> Make your own variables</a></li>
@@ -326,8 +329,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a><ul>
 <li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a><ul>
 <li class="chapter" data-level="14.1.1" data-path="sparse.html"><a href="sparse.html#coo"><i class="fa fa-check"></i><b>14.1.1</b> Coordinate List Representation</a></li>
-<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Column Oriented Representation</a></li>
-<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Column Oriented Representation</a></li>
 <li class="chapter" data-level="14.1.4" data-path="sparse.html"><a href="sparse.html#sparse-algorithms"><i class="fa fa-check"></i><b>14.1.4</b> Sparse Algorithms</a></li>
 </ul></li>
 <li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a><ul>
@@ -346,6 +349,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.2" data-path="memory.html"><a href="memory.html#computing-from-a-database"><i class="fa fa-check"></i><b>15.2</b> Computing from a Database</a></li>
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
+<li class="chapter" data-level="15.3.2" data-path="memory.html"><a href="memory.html#bigstep"><i class="fa fa-check"></i><b>15.3.2</b> bigstep</a></li>
 </ul></li>
 <li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
 <li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.5</b> matter</a></li>
@@ -441,7 +445,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R (BGU course)</a>
           </h1>
         </div>
 
@@ -454,8 +458,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Whether you are doing EDA, or preparing your results for publication, you need plots. R has many plotting mechanisms, allowing the user a tremendous amount of flexibility, while abstracting away a lot of the tedious details. To be concrete, many of the plots in R are simply impossible to produce with Excel, SPSS, or SAS, and would take a tremendous amount of work to produce with Python, Java and lower level programming languages.</p>
 <p>In this text, we will focus on two plotting packages. The basic <strong>graphics</strong> package, distributed with the base R distribution, and the <strong>ggplot2</strong> package.</p>
 <p>Before going into the details of the plotting packages, we start with some philosophy. The <strong>graphics</strong> package originates from the mainframe days. Computers had no graphical interface, and the output of the plot was immediately sent to a printer. Once a plot has been produced with the <strong>graphics</strong> package, just like a printed output, it cannot be queried nor changed, except for further additions.</p>
-<p>The philosophy of R is that <strong>everyting is an object</strong>. The <strong>graphics</strong> package does not adhere to this philosophy, and indeed it was soon augmented with the <strong>grid</strong> package <span class="citation">[@Rlanguage]</span>, that treats plots as objects. <strong>grid</strong> is a low level graphics interface, and users may be more familiar with the <strong>lattice</strong> package built upon it <span class="citation">[@lattice]</span>.</p>
-<p><strong>lattice</strong> is very powerful, but soon enough, it was overtaken in popularity by the <strong>ggplot2</strong> package <span class="citation">[@ggplot2]</span>. <strong>ggplot2</strong> was the PhD project of <a href="http://hadley.nz/">Hadley Wickham</a>, a name to remember… Two fundamental ideas underlay <strong>ggplot2</strong>: (i) everything is an object, and (ii), plots can be described by a simple grammar, i.e., a language to describe the building blocks of the plot. The grammar in <strong>ggplot2</strong> are is the one stated by <span class="citation">@wilkinson2006grammar</span>. The objects and grammar of <strong>ggplot2</strong> have later evolved to allow more complicated plotting and in particular, interactive plotting.</p>
+<p>The philosophy of R is that <strong>everyting is an object</strong>. The <strong>graphics</strong> package does not adhere to this philosophy, and indeed it was soon augmented with the <strong>grid</strong> package <span class="citation">(R Core Team <a href="#ref-Rlanguage">2016</a>)</span>, that treats plots as objects. <strong>grid</strong> is a low level graphics interface, and users may be more familiar with the <strong>lattice</strong> package built upon it <span class="citation">(Sarkar <a href="#ref-lattice">2008</a>)</span>.</p>
+<p><strong>lattice</strong> is very powerful, but soon enough, it was overtaken in popularity by the <strong>ggplot2</strong> package <span class="citation">(Wickham <a href="#ref-ggplot2">2009</a>)</span>. <strong>ggplot2</strong> was the PhD project of <a href="http://hadley.nz/">Hadley Wickham</a>, a name to remember… Two fundamental ideas underlay <strong>ggplot2</strong>: (i) everything is an object, and (ii), plots can be described by a simple grammar, i.e., a language to describe the building blocks of the plot. The grammar in <strong>ggplot2</strong> are is the one stated by <span class="citation">L. Wilkinson (<a href="#ref-wilkinson2006grammar">2006</a>)</span>. The objects and grammar of <strong>ggplot2</strong> have later evolved to allow more complicated plotting and in particular, interactive plotting.</p>
 <p>Interactive plotting is a very important feature for EDA, and reporting. The major leap in interactive plotting was made possible by the advancement of web technologies, such as JavaScript and <a href="https://en.wikipedia.org/wiki/D3.js">D3.JS</a>. Why is this? Because an interactive plot, or report, can be seen as a web-site. Building upon the capabilities of JavaScript and your web browser to provide the interactivity, greatly facilitates the development of such plots, as the programmer can rely on the web-browsers capabilities for interactivity.</p>
 <div id="the-graphics-system" class="section level2">
 <h2><span class="header-section-number">12.1</span> The graphics System</h2>
@@ -904,7 +908,7 @@ d &lt;-<span class="st"> </span>diamonds[<span class="kw">sample</span>(<span cl
 </div>
 <div id="bibliographic-notes-9" class="section level2">
 <h2><span class="header-section-number">12.5</span> Bibliographic Notes</h2>
-<p>For the <strong>graphics</strong> package, see <span class="citation">@Rlanguage</span>. For <strong>ggplot2</strong> see <span class="citation">@ggplot2</span>. For the theory underlying <strong>ggplot2</strong>, i.e. the Grammer of Graphics, see <span class="citation">@wilkinson2006grammar</span>. A <a href="https://www.youtube.com/watch?v=9Objw9Tvhb4&amp;feature=youtu.be">video</a> by one of my heroes, <a href="http://www.bcaffo.com/">Brian Caffo</a>, discussing <strong>graphics</strong> vs. <strong>ggplot2</strong>.</p>
+<p>For the <strong>graphics</strong> package, see <span class="citation">R Core Team (<a href="#ref-Rlanguage">2016</a>)</span>. For <strong>ggplot2</strong> see <span class="citation">Wickham (<a href="#ref-ggplot2">2009</a>)</span>. For the theory underlying <strong>ggplot2</strong>, i.e. the Grammer of Graphics, see <span class="citation">L. Wilkinson (<a href="#ref-wilkinson2006grammar">2006</a>)</span>. A <a href="https://www.youtube.com/watch?v=9Objw9Tvhb4&amp;feature=youtu.be">video</a> by one of my heroes, <a href="http://www.bcaffo.com/">Brian Caffo</a>, discussing <strong>graphics</strong> vs. <strong>ggplot2</strong>.</p>
 </div>
 <div id="practice-yourself-8" class="section level2">
 <h2><span class="header-section-number">12.6</span> Practice Yourself</h2>
@@ -935,6 +939,21 @@ d &lt;-<span class="st"> </span>diamonds[<span class="kw">sample</span>(<span cl
 </ol>
 <p>See DataCamp’s <a href="https://www.datacamp.com/courses/data-visualization-with-ggplot2-1">Data Visualization with ggplot2</a> for more self practice.</p>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Rlanguage">
+<p>R Core Team. 2016. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p>
+</div>
+<div id="ref-lattice">
+<p>Sarkar, Deepayan. 2008. <em>Lattice: Multivariate Data Visualization with R</em>. New York: Springer. <a href="http://lmdvr.r-forge.r-project.org" class="uri">http://lmdvr.r-forge.r-project.org</a>.</p>
+</div>
+<div id="ref-ggplot2">
+<p>Wickham, Hadley. 2009. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York. <a href="http://ggplot2.org" class="uri">http://ggplot2.org</a>.</p>
+</div>
+<div id="ref-wilkinson2006grammar">
+<p>Wilkinson, Leland. 2006. <em>The Grammar of Graphics</em>. Springer Science &amp; Business Media.</p>
 </div>
 </div>
             </section>

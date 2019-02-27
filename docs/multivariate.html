@@ -5,25 +5,27 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title></title>
-  <meta name="description" content="">
+  <title>Chapter 9 Multivariate Data Analysis | R (BGU course)</title>
+  <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="" />
+  <meta property="og:title" content="Chapter 9 Multivariate Data Analysis | R (BGU course)" />
   <meta property="og:type" content="book" />
   
   
-  
+  <meta property="og:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="" />
+  <meta name="twitter:title" content="Chapter 9 Multivariate Data Analysis | R (BGU course)" />
   
-  
+  <meta name="twitter:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
   
 
+<meta name="author" content="Jonathan D. Rosenblatt">
 
 
+<meta name="date" content="2019-02-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -148,9 +150,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.17</b> Looping</a></li>
 <li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.18</b> Apply</a></li>
 <li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.19</b> Recursion</a></li>
-<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.20</b> Dates and Times</a></li>
-<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.21</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#practice-yourself"><i class="fa fa-check"></i><b>3.22</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#strings"><i class="fa fa-check"></i><b>3.20</b> Strings</a></li>
+<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.21</b> Dates and Times</a></li>
+<li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.22</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.23" data-path="basics.html"><a href="basics.html#practice-yourself"><i class="fa fa-check"></i><b>3.23</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>4</b> data.table</a><ul>
 <li class="chapter" data-level="4.1" data-path="datatable.html"><a href="datatable.html#make-your-own-variables"><i class="fa fa-check"></i><b>4.1</b> Make your own variables</a></li>
@@ -326,8 +329,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a><ul>
 <li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a><ul>
 <li class="chapter" data-level="14.1.1" data-path="sparse.html"><a href="sparse.html#coo"><i class="fa fa-check"></i><b>14.1.1</b> Coordinate List Representation</a></li>
-<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Column Oriented Representation</a></li>
-<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Column Oriented Representation</a></li>
 <li class="chapter" data-level="14.1.4" data-path="sparse.html"><a href="sparse.html#sparse-algorithms"><i class="fa fa-check"></i><b>14.1.4</b> Sparse Algorithms</a></li>
 </ul></li>
 <li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a><ul>
@@ -346,6 +349,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.2" data-path="memory.html"><a href="memory.html#computing-from-a-database"><i class="fa fa-check"></i><b>15.2</b> Computing from a Database</a></li>
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
+<li class="chapter" data-level="15.3.2" data-path="memory.html"><a href="memory.html#bigstep"><i class="fa fa-check"></i><b>15.3.2</b> bigstep</a></li>
 </ul></li>
 <li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
 <li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.5</b> matter</a></li>
@@ -441,7 +445,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R (BGU course)</a>
           </h1>
         </div>
 
@@ -483,7 +487,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <div class="remark">
- <span class="remark"><em>Remark. </em></span> In the above, “signal” is defined in terms of <span class="math inline">\(\mu\)</span>. It is possible that the signal is not in the location, <span class="math inline">\(\mu\)</span>, but rather in the covariance, <span class="math inline">\(\Sigma\)</span>. We do not discuss these problems here, and refer the reader to <span class="citation">@nadler2008finite</span>.
+ <span class="remark"><em>Remark. </em></span> In the above, “signal” is defined in terms of <span class="math inline">\(\mu\)</span>. It is possible that the signal is not in the location, <span class="math inline">\(\mu\)</span>, but rather in the covariance, <span class="math inline">\(\Sigma\)</span>. We do not discuss these problems here, and refer the reader to <span class="citation">Nadler (<a href="#ref-nadler2008finite">2008</a>)</span>.
 </div>
 
 <p>Another possible question is: does a multivariate analysis gives us something we cannot get from a mass-univariate analysis (i.e., a multivariate analysis on each variable separately). In Example <a href="multivariate.html#exm:icu">9.1</a> we could have just performed multiple univariate tests, and sign an alarm when any of the univariate detectors was triggered. The reason we want a multivariate detector, and not multiple univariate detectors is that it is possible that each measurement alone is borderline, but together, the signal accumulates. In our ICU example is may mean that the pulse is borderline, the body temperature is borderline, etc. Analyzed simultaneously, it is clear that the patient is in distress.</p>
@@ -528,7 +532,7 @@ which is the definition of Hotelling’s <span class="math inline">\(T^2\)</span
 <li><strong>Very High Dimension</strong>: We call a problem <em>very high dimensional</em> if <span class="math inline">\(p/n \to c\)</span>, where <span class="math inline">\(1&lt;c&lt;\infty\)</span>. This means there are less observations than parameter.</li>
 </ol>
 <p>Hotelling’s <span class="math inline">\(T^2\)</span> test can only be used in the low dimensional regime. For some intuition on this statement, think of taking <span class="math inline">\(n=20\)</span> measurements of <span class="math inline">\(p=100\)</span> physiological variables. We seemingly have <span class="math inline">\(20\)</span> observations, but there are <span class="math inline">\(100\)</span> unknown quantities in <span class="math inline">\(\mu\)</span>. Would you trust your conclusion that <span class="math inline">\(\bar x\)</span> is different than <span class="math inline">\(\mu_0\)</span> based on merely <span class="math inline">\(20\)</span> observations.</p>
-<p>The above criticism is formalized in <span class="citation">@bai1996effect</span>. For modern applications, Hotelling’s <span class="math inline">\(T^2\)</span> is not recommended, since many modern alternatives have been made available. See <span class="citation">@rosenblatt2016better</span> and references for a review.</p>
+<p>The above criticism is formalized in <span class="citation">Bai and Saranadasa (<a href="#ref-bai1996effect">1996</a>)</span>. For modern applications, Hotelling’s <span class="math inline">\(T^2\)</span> is not recommended, since many modern alternatives have been made available. See <span class="citation">J. Rosenblatt, Gilron, and Mukamel (<a href="#ref-rosenblatt2016better">2016</a>)</span> and references for a review.</p>
 </div>
 <div id="various-types-of-signal-to-detect" class="section level3">
 <h3><span class="header-section-number">9.1.2</span> Various Types of Signal to Detect</h3>
@@ -713,7 +717,7 @@ p.values.BH &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.val
 <div id="signal-estimation" class="section level2">
 <h2><span class="header-section-number">9.4</span> Signal Estimation (*)</h2>
 <p>The estimation of the elements of <span class="math inline">\(\mu\)</span> is a seemingly straightforward task. This is not the case, however, if we estimate only the elements that were selected because they were significant (or any other data-dependent criterion). Clearly, estimating only significant entries will introduce a bias in the estimation. In the statistical literature, this is known as <em>selection bias</em>. Selection bias also occurs when you perform inference on regression coefficients after some model selection, say, with a lasso, or a forward search<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a>.</p>
-<p>Selective inference is a complicated and active research topic so we will not offer any off-the-shelf solution to the matter. The curious reader is invited to read <span class="citation">@rosenblatt2014selective</span>, <span class="citation">@javanmard2014confidence</span>, or <a href="http://www.stat.berkeley.edu/~wfithian/">Will Fithian’s</a> PhD thesis <span class="citation">[@fithian2015topics]</span> for more on the topic.</p>
+<p>Selective inference is a complicated and active research topic so we will not offer any off-the-shelf solution to the matter. The curious reader is invited to read <span class="citation">J. D. Rosenblatt and Benjamini (<a href="#ref-rosenblatt2014selective">2014</a>)</span>, <span class="citation">Javanmard and Montanari (<a href="#ref-javanmard2014confidence">2014</a>)</span>, or <a href="http://www.stat.berkeley.edu/~wfithian/">Will Fithian’s</a> PhD thesis <span class="citation">(Fithian <a href="#ref-fithian2015topics">2015</a>)</span> for more on the topic.</p>
 </div>
 <div id="multivariate-regression" class="section level2">
 <h2><span class="header-section-number">9.5</span> Multivariate Regression (*)</h2>
@@ -737,7 +741,7 @@ p.values.BH &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.val
 </div>
 <div id="biblipgraphic-notes" class="section level2">
 <h2><span class="header-section-number">9.7</span> Biblipgraphic Notes</h2>
-<p>For a general introduction to multivariate data analysis see <span class="citation">@anderson2004introduction</span>. For an R oriented introduction, see <span class="citation">@everitt2011introduction</span>. For more on the difficulties with high dimensional problems, see <span class="citation">@bai1996effect</span>. For some cutting edge solutions for testing in high-dimension, see <span class="citation">@rosenblatt2016better</span> and references therein. Simes’ test is not very well known. It is introduced in <span class="citation">@simes1986improved</span>, and proven to control the type I error of detection under a PRDS type of dependence in <span class="citation">@benjamini2001control</span>. For more on multiple testing, and signal identification, see <span class="citation">@efron2012large</span>. For more on the choice of your error rate see <span class="citation">@rosenblatt2013practitioner</span>. For an excellent review on graphical models see <span class="citation">@kalisch2014causal</span>. Everything you need on graphical models, Bayesian belief networks, and structure learning in R, is collected in the <a href="https://cran.r-project.org/web/views/gR.html">Task View</a>.</p>
+<p>For a general introduction to multivariate data analysis see <span class="citation">Anderson-Cook (<a href="#ref-anderson2004introduction">2004</a>)</span>. For an R oriented introduction, see <span class="citation">Everitt and Hothorn (<a href="#ref-everitt2011introduction">2011</a>)</span>. For more on the difficulties with high dimensional problems, see <span class="citation">Bai and Saranadasa (<a href="#ref-bai1996effect">1996</a>)</span>. For some cutting edge solutions for testing in high-dimension, see <span class="citation">J. Rosenblatt, Gilron, and Mukamel (<a href="#ref-rosenblatt2016better">2016</a>)</span> and references therein. Simes’ test is not very well known. It is introduced in <span class="citation">Simes (<a href="#ref-simes1986improved">1986</a>)</span>, and proven to control the type I error of detection under a PRDS type of dependence in <span class="citation">Benjamini and Yekutieli (<a href="#ref-benjamini2001control">2001</a>)</span>. For more on multiple testing, and signal identification, see <span class="citation">Efron (<a href="#ref-efron2012large">2012</a>)</span>. For more on the choice of your error rate see <span class="citation">J. Rosenblatt (<a href="#ref-rosenblatt2013practitioner">2013</a>)</span>. For an excellent review on graphical models see <span class="citation">Kalisch and Bühlmann (<a href="#ref-kalisch2014causal">2014</a>)</span>. Everything you need on graphical models, Bayesian belief networks, and structure learning in R, is collected in the <a href="https://cran.r-project.org/web/views/gR.html">Task View</a>.</p>
 </div>
 <div id="practice-yourself-5" class="section level2">
 <h2><span class="header-section-number">9.8</span> Practice Yourself</h2>
@@ -762,6 +766,48 @@ multi&lt;-<span class="st">  </span><span class="kw">rmvnorm</span>(<span class=
 <li><p>Return to the previous problem, but set <code>n=9</code>. Verify that you cannot compute your Hotelling statistic.</p></li>
 </ol>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-nadler2008finite">
+<p>Nadler, Boaz. 2008. “Finite Sample Approximation Results for Principal Component Analysis: A Matrix Perturbation Approach.” <em>The Annals of Statistics</em>. JSTOR, 2791–2817.</p>
+</div>
+<div id="ref-bai1996effect">
+<p>Bai, Zhidong, and Hewa Saranadasa. 1996. “Effect of High Dimension: By an Example of a Two Sample Problem.” <em>Statistica Sinica</em>. JSTOR, 311–29.</p>
+</div>
+<div id="ref-rosenblatt2016better">
+<p>Rosenblatt, Jonathan, Roee Gilron, and Roy Mukamel. 2016. “Better-Than-Chance Classification for Signal Detection.” <em>arXiv Preprint arXiv:1608.08873</em>.</p>
+</div>
+<div id="ref-rosenblatt2014selective">
+<p>Rosenblatt, Jonathan D, and Yoav Benjamini. 2014. “Selective Correlations; Not Voodoo.” <em>NeuroImage</em> 103. Elsevier: 401–10.</p>
+</div>
+<div id="ref-javanmard2014confidence">
+<p>Javanmard, Adel, and Andrea Montanari. 2014. “Confidence Intervals and Hypothesis Testing for High-Dimensional Regression.” <em>Journal of Machine Learning Research</em> 15 (1): 2869–2909.</p>
+</div>
+<div id="ref-fithian2015topics">
+<p>Fithian, William. 2015. “Topics in Adaptive Inference.” PhD thesis, STANFORD UNIVERSITY.</p>
+</div>
+<div id="ref-anderson2004introduction">
+<p>Anderson-Cook, Christine M. 2004. “An Introduction to Multivariate Statistical Analysis.” <em>Journal of the American Statistical Association</em> 99 (467). American Statistical Association: 907–9.</p>
+</div>
+<div id="ref-everitt2011introduction">
+<p>Everitt, Brian, and Torsten Hothorn. 2011. <em>An Introduction to Applied Multivariate Analysis with R</em>. Springer Science &amp; Business Media.</p>
+</div>
+<div id="ref-simes1986improved">
+<p>Simes, R John. 1986. “An Improved Bonferroni Procedure for Multiple Tests of Significance.” <em>Biometrika</em> 73 (3). Oxford University Press: 751–54.</p>
+</div>
+<div id="ref-benjamini2001control">
+<p>Benjamini, Yoav, and Daniel Yekutieli. 2001. “The Control of the False Discovery Rate in Multiple Testing Under Dependency.” <em>Annals of Statistics</em>. JSTOR, 1165–88.</p>
+</div>
+<div id="ref-efron2012large">
+<p>Efron, Bradley. 2012. <em>Large-Scale Inference: Empirical Bayes Methods for Estimation, Testing, and Prediction</em>. Vol. 1. Cambridge University Press.</p>
+</div>
+<div id="ref-rosenblatt2013practitioner">
+<p>Rosenblatt, Jonathan. 2013. “A Practitioner’s Guide to Multiple Testing Error Rates.” <em>arXiv Preprint arXiv:1304.4920</em>.</p>
+</div>
+<div id="ref-kalisch2014causal">
+<p>Kalisch, Markus, and Peter Bühlmann. 2014. “Causal Structure Learning and Inference: A Selective Review.” <em>Quality Technology &amp; Quantitative Management</em> 11 (1). Taylor &amp; Francis: 3–21.</p>
 </div>
 </div>
 <div class="footnotes">

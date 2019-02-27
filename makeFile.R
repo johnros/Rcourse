@@ -12,7 +12,7 @@ for(i in 1:length(files)){
   bookdown::preview_chapter(files[i],"bookdown::pdf_book" )
   readline(prompt="Press [enter] to continue")
 }
-bookdown::preview_chapter(files[10],"bookdown::pdf_book" )
+bookdown::preview_chapter(files[1],"bookdown::pdf_book" )
 bookdown::preview_chapter(files[22],"bookdown::gitbook" )
 
 bookdown::preview_chapter('98-causality.Rmd',"bookdown::pdf_book" )

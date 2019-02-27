@@ -5,25 +5,27 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title></title>
-  <meta name="description" content="">
+  <title>Chapter 11 Unsupervised Learning | R (BGU course)</title>
+  <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="" />
+  <meta property="og:title" content="Chapter 11 Unsupervised Learning | R (BGU course)" />
   <meta property="og:type" content="book" />
   
   
-  
+  <meta property="og:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="" />
+  <meta name="twitter:title" content="Chapter 11 Unsupervised Learning | R (BGU course)" />
   
-  
+  <meta name="twitter:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
   
 
+<meta name="author" content="Jonathan D. Rosenblatt">
 
 
+<meta name="date" content="2019-02-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -148,9 +150,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.17</b> Looping</a></li>
 <li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.18</b> Apply</a></li>
 <li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.19</b> Recursion</a></li>
-<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.20</b> Dates and Times</a></li>
-<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.21</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#practice-yourself"><i class="fa fa-check"></i><b>3.22</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#strings"><i class="fa fa-check"></i><b>3.20</b> Strings</a></li>
+<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.21</b> Dates and Times</a></li>
+<li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.22</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.23" data-path="basics.html"><a href="basics.html#practice-yourself"><i class="fa fa-check"></i><b>3.23</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>4</b> data.table</a><ul>
 <li class="chapter" data-level="4.1" data-path="datatable.html"><a href="datatable.html#make-your-own-variables"><i class="fa fa-check"></i><b>4.1</b> Make your own variables</a></li>
@@ -326,8 +329,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a><ul>
 <li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a><ul>
 <li class="chapter" data-level="14.1.1" data-path="sparse.html"><a href="sparse.html#coo"><i class="fa fa-check"></i><b>14.1.1</b> Coordinate List Representation</a></li>
-<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Column Oriented Representation</a></li>
-<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Column Oriented Representation</a></li>
 <li class="chapter" data-level="14.1.4" data-path="sparse.html"><a href="sparse.html#sparse-algorithms"><i class="fa fa-check"></i><b>14.1.4</b> Sparse Algorithms</a></li>
 </ul></li>
 <li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a><ul>
@@ -346,6 +349,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.2" data-path="memory.html"><a href="memory.html#computing-from-a-database"><i class="fa fa-check"></i><b>15.2</b> Computing from a Database</a></li>
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
+<li class="chapter" data-level="15.3.2" data-path="memory.html"><a href="memory.html#bigstep"><i class="fa fa-check"></i><b>15.3.2</b> bigstep</a></li>
 </ul></li>
 <li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
 <li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.5</b> matter</a></li>
@@ -441,7 +445,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R (BGU course)</a>
           </h1>
         </div>
 
@@ -474,7 +478,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3><span class="header-section-number">11.1.1</span> Principal Component Analysis</h3>
 <p><em>Principal Component Analysis</em> (PCA) is such a basic technique, it has been rediscovered and renamed independently in many fields. It can be found under the names of Discrete Karhunen–Loève Transform; Hotteling Transform; Proper Orthogonal Decomposition; Eckart–Young Theorem; Schmidt–Mirsky Theorem; Empirical Orthogonal Functions; Empirical Eigenfunction Decomposition; Empirical Component Analysis; Quasi-Harmonic Modes; Spectral Decomposition; Empirical Modal Analysis, and possibly more<a href="#fn21" class="footnoteRef" id="fnref21"><sup>21</sup></a>. The many names are quite interesting as they offer an insight into the different problems that led to PCA’s (re)discovery.</p>
 <p>Return to the BMI problem in Example <a href="unsupervised.html#exm:bmi">11.1</a>. Assume you wish to give each individual a “size score”, that is a <strong>linear</strong> combination of height and weight: PCA does just that. It returns the linear combination that has the largest variability, i.e., the combination which best distinguishes between individuals.</p>
-<p>The variance maximizing motivation above was the one that guided <span class="citation">@hotelling1933analysis</span>. But <span class="math inline">\(30\)</span> years before him, <span class="citation">@pearson1901liii</span> derived the same procedure with a different motivation in mind. Pearson was also trying to give each individual a score. He did not care about variance maximization, however. He simply wanted a small set of coordinates in some (linear) space that approximates the original data well.</p>
+<p>The variance maximizing motivation above was the one that guided <span class="citation">Hotelling (<a href="#ref-hotelling1933analysis">1933</a>)</span>. But <span class="math inline">\(30\)</span> years before him, <span class="citation">Pearson (<a href="#ref-pearson1901liii">1901</a>)</span> derived the same procedure with a different motivation in mind. Pearson was also trying to give each individual a score. He did not care about variance maximization, however. He simply wanted a small set of coordinates in some (linear) space that approximates the original data well.</p>
 <p>Before we proceed, we give an example to fix ideas. Consider the crime rate data in <code>USArrests</code>, which encodes reported murder events, assaults, rapes, and the urban population of each american state.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(USArrests)</code></pre></div>
 <pre><code>##            Murder Assault UrbanPop Rape
@@ -591,7 +595,7 @@ where <span class="math inline">\(A\)</span> is the <span class="math inline">\(
 <div id="multidimensional-scaling-mds" class="section level4">
 <h4><span class="header-section-number">11.1.4.1</span> Multidimensional Scaling (MDS)</h4>
 <p>MDS can be thought of as a variation on PCA, that begins with the <span class="math inline">\(n \times n\)</span> graph of distances between data points <span class="math inline">\(\mathcal{G}\)</span>; In contrast to PCA which operates on the original <span class="math inline">\(n \times p\)</span> data <span class="math inline">\(X\)</span>. The term <em>graph</em> is typically used in this context, but saying <em>network</em> instead of <em>graph</em> is more appropriate. This is because a graph encodes connections (topology) and networks encode distances (geometry). Put differently, a graph can be encoded in a matrix of zeroes and ones, and a network with real numbers.</p>
-<p>MDS aims at embedding <span class="math inline">\(\mathcal{G}\)</span> into the plane, typically for visualization, while preserving the original distances. Basic results in graph/network theory suggest that the geometry of a graph cannot be preserved when embedding it into lower dimensions <span class="citation">[@graham1988isometric]</span>. The different types of MDSs, such as <em>Classical MDS</em>, and <em>Sammon Mappings</em>, differ in the <em>stress function</em> that penalizes for the geometric distortion caused by the embedding.</p>
+<p>MDS aims at embedding <span class="math inline">\(\mathcal{G}\)</span> into the plane, typically for visualization, while preserving the original distances. Basic results in graph/network theory suggest that the geometry of a graph cannot be preserved when embedding it into lower dimensions <span class="citation">(Graham <a href="#ref-graham1988isometric">1988</a>)</span>. The different types of MDSs, such as <em>Classical MDS</em>, and <em>Sammon Mappings</em>, differ in the <em>stress function</em> that penalizes for the geometric distortion caused by the embedding.</p>
 </div>
 <div id="local-multidimensional-scaling-local-mds" class="section level4">
 <h4><span class="header-section-number">11.1.4.2</span> Local Multidimensional Scaling (Local MDS)</h4>
@@ -841,7 +845,7 @@ spca1<span class="op">$</span>loadings</code></pre></div>
 </div>
 <div id="mca" class="section level4">
 <h4><span class="header-section-number">11.1.5.7</span> MCA</h4>
-<p>See <span class="citation">@izenman2008modern</span>.</p>
+<p>See <span class="citation">Izenman (<a href="#ref-izenman2008modern">2008</a>)</span>.</p>
 </div>
 </div>
 </div>
@@ -922,7 +926,7 @@ spca1<span class="op">$</span>loadings</code></pre></div>
 </ol>
 
 <div class="remark">
- <span class="remark"><em>Remark. </em></span> If trained as a statistician, you may wonder- what population quantity is K-medoids actually estimating? The estimand of K-medoids is the median of their neighbourhood. A delicate matter is that quantiles are not easy to define for <strong>multivariate</strong> variables so that the “multivaraitre median”, may be a more subtle quantity than you may think. See <span class="citation">@small1990survey</span>.
+ <span class="remark"><em>Remark. </em></span> If trained as a statistician, you may wonder- what population quantity is K-medoids actually estimating? The estimand of K-medoids is the median of their neighbourhood. A delicate matter is that quantiles are not easy to define for <strong>multivariate</strong> variables so that the “multivaraitre median”, may be a more subtle quantity than you may think. See <span class="citation">Small (<a href="#ref-small1990survey">1990</a>)</span>.
 </div>
 
 </div>
@@ -1056,7 +1060,7 @@ hirar.<span class="dv">11</span> &lt;-<span class="st"> </span><span class="kw">
 </div>
 <div id="bibliographic-notes-8" class="section level2">
 <h2><span class="header-section-number">11.3</span> Bibliographic Notes</h2>
-<p>For more on PCA see my <a href="https://github.com/johnros/dim_reduce/blob/master/dim_reduce.pdf">Dimensionality Reduction Class Notes</a> and references therein. Another excellent reference on multivariate analysis (exploratory and inference) is <span class="citation">@izenman2008modern</span>. For an excellent book on kernel methods (RKHS) see <span class="citation">@shawe2004kernel</span>. For more on everything, see <span class="citation">@friedman2001elements</span>. For a softer introduction (to everything), see <span class="citation">@james2013introduction</span>.</p>
+<p>For more on PCA see my <a href="https://github.com/johnros/dim_reduce/blob/master/dim_reduce.pdf">Dimensionality Reduction Class Notes</a> and references therein. Another excellent reference on multivariate analysis (exploratory and inference) is <span class="citation">Izenman (<a href="#ref-izenman2008modern">2008</a>)</span>. For an excellent book on kernel methods (RKHS) see <span class="citation">Shawe-Taylor and Cristianini (<a href="#ref-shawe2004kernel">2004</a>)</span>. For more on everything, see <span class="citation">Friedman, Hastie, and Tibshirani (<a href="#ref-friedman2001elements">2001</a>)</span>. For a softer introduction (to everything), see <span class="citation">James et al. (<a href="#ref-james2013introduction">2013</a>)</span>.</p>
 </div>
 <div id="practice-yourself-7" class="section level2">
 <h2><span class="header-section-number">11.4</span> Practice Yourself</h2>
@@ -1082,6 +1086,33 @@ hirar.<span class="dv">11</span> &lt;-<span class="st"> </span><span class="kw">
 </ol>
 <p>See DataCap’s <a href="https://www.datacamp.com/courses/unsupervised-learning-in-r">Unsupervised Learning in R</a>, <a href="https://www.datacamp.com/courses/cluster-analysis-in-r">Cluster Analysis in R</a>, <a href="https://www.datacamp.com/courses/dimensionality-reduction-in-r">Dimensionality Reduction in R</a>, and <a href="https://www.datacamp.com/courses/advanced-dimensionality-reduction-in-r">Advanced Dimensionality Reduction in R</a> for more self practice.</p>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-hotelling1933analysis">
+<p>Hotelling, Harold. 1933. “Analysis of a Complex of Statistical Variables into Principal Components.” <em>Journal of Educational Psychology</em> 24 (6). Warwick &amp; York: 417.</p>
+</div>
+<div id="ref-pearson1901liii">
+<p>Pearson, Karl. 1901. “LIII. on Lines and Planes of Closest Fit to Systems of Points in Space.” <em>The London, Edinburgh, and Dublin Philosophical Magazine and Journal of Science</em> 2 (11). Taylor &amp; Francis: 559–72.</p>
+</div>
+<div id="ref-graham1988isometric">
+<p>Graham, RL. 1988. “Isometric Embeddings of Graphs.” <em>Selected Topics in Graph Theory</em> 3. Academic Press San Diego, CA: 133–50.</p>
+</div>
+<div id="ref-izenman2008modern">
+<p>Izenman, Alan Julian. 2008. “Modern Multivariate Statistical Techniques.” <em>Regression, Classification and Manifold Learning</em>. Springer.</p>
+</div>
+<div id="ref-small1990survey">
+<p>Small, Christopher G. 1990. “A Survey of Multidimensional Medians.” <em>International Statistical Review/Revue Internationale de Statistique</em>. JSTOR, 263–77.</p>
+</div>
+<div id="ref-shawe2004kernel">
+<p>Shawe-Taylor, John, and Nello Cristianini. 2004. <em>Kernel Methods for Pattern Analysis</em>. Cambridge university press.</p>
+</div>
+<div id="ref-friedman2001elements">
+<p>Friedman, Jerome, Trevor Hastie, and Robert Tibshirani. 2001. <em>The Elements of Statistical Learning</em>. Vol. 1. Springer series in statistics Springer, Berlin.</p>
+</div>
+<div id="ref-james2013introduction">
+<p>James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning</em>. Vol. 6. Springer.</p>
 </div>
 </div>
 <div class="footnotes">

@@ -5,25 +5,27 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title></title>
-  <meta name="description" content="">
+  <title>Chapter 15 Memory Efficiency | R (BGU course)</title>
+  <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="" />
+  <meta property="og:title" content="Chapter 15 Memory Efficiency | R (BGU course)" />
   <meta property="og:type" content="book" />
   
   
-  
+  <meta property="og:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="" />
+  <meta name="twitter:title" content="Chapter 15 Memory Efficiency | R (BGU course)" />
   
-  
+  <meta name="twitter:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
   
 
+<meta name="author" content="Jonathan D. Rosenblatt">
 
 
+<meta name="date" content="2019-02-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -148,9 +150,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.17</b> Looping</a></li>
 <li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.18</b> Apply</a></li>
 <li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.19</b> Recursion</a></li>
-<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.20</b> Dates and Times</a></li>
-<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.21</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#practice-yourself"><i class="fa fa-check"></i><b>3.22</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#strings"><i class="fa fa-check"></i><b>3.20</b> Strings</a></li>
+<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.21</b> Dates and Times</a></li>
+<li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.22</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.23" data-path="basics.html"><a href="basics.html#practice-yourself"><i class="fa fa-check"></i><b>3.23</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>4</b> data.table</a><ul>
 <li class="chapter" data-level="4.1" data-path="datatable.html"><a href="datatable.html#make-your-own-variables"><i class="fa fa-check"></i><b>4.1</b> Make your own variables</a></li>
@@ -326,8 +329,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a><ul>
 <li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a><ul>
 <li class="chapter" data-level="14.1.1" data-path="sparse.html"><a href="sparse.html#coo"><i class="fa fa-check"></i><b>14.1.1</b> Coordinate List Representation</a></li>
-<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Column Oriented Representation</a></li>
-<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Column Oriented Representation</a></li>
 <li class="chapter" data-level="14.1.4" data-path="sparse.html"><a href="sparse.html#sparse-algorithms"><i class="fa fa-check"></i><b>14.1.4</b> Sparse Algorithms</a></li>
 </ul></li>
 <li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a><ul>
@@ -346,6 +349,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.2" data-path="memory.html"><a href="memory.html#computing-from-a-database"><i class="fa fa-check"></i><b>15.2</b> Computing from a Database</a></li>
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
+<li class="chapter" data-level="15.3.2" data-path="memory.html"><a href="memory.html#bigstep"><i class="fa fa-check"></i><b>15.3.2</b> bigstep</a></li>
 </ul></li>
 <li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
 <li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.5</b> matter</a></li>
@@ -441,7 +445,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R (BGU course)</a>
           </h1>
         </div>
 
@@ -451,7 +455,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="memory" class="section level1">
 <h1><span class="header-section-number">Chapter 15</span> Memory Efficiency</h1>
-<p>As put by <span class="citation">@kane2013scalable</span>, it was quite puzzling when very few of the competitors, for the Million dollars prize in the <a href="https://en.wikipedia.org/wiki/Netflix_Prize">Netflix challenge</a>, were statisticians. This is perhaps because the statistical community historically uses SAS, SPSS, and R. The first two tools are very well equipped to deal with big data, but are very unfriendly when trying to implement a new method. R, on the other hand, is very friendly for innovation, but was not equipped to deal with the large data sets of the Netflix challenge. A lot has changed in R since 2006. This is the topic of this chapter.</p>
+<p>As put by <span class="citation">M. J. Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span>, it was quite puzzling when very few of the competitors, for the Million dollars prize in the <a href="https://en.wikipedia.org/wiki/Netflix_Prize">Netflix challenge</a>, were statisticians. This is perhaps because the statistical community historically uses SAS, SPSS, and R. The first two tools are very well equipped to deal with big data, but are very unfriendly when trying to implement a new method. R, on the other hand, is very friendly for innovation, but was not equipped to deal with the large data sets of the Netflix challenge. A lot has changed in R since 2006. This is the topic of this chapter.</p>
 <p>As we have seen in the Sparsity Chapter <a href="sparse.html#sparse">14</a>, an efficient representation of your data in RAM will reduce computing time, and will allow you to fit models that would otherwise require tremendous amounts of RAM. Not all problems are sparse however. It is also possible that your data does not fit in RAM, even if sparse. There are several scenarios to consider:</p>
 <ol style="list-style-type: decimal">
 <li>Your data fits in RAM, but is too big to compute with.</li>
@@ -611,7 +615,7 @@ flights_sqlite &lt;-<span class="st"> </span><span class="kw">copy_to</span>(
 <li><p><strong>Efficient Binaries</strong>: Where the data is stored as a file on the storage device. The file is binary, with a well designed structure, so that chunking is easy. This approach is implemented in the <strong>ff</strong> package, and the commercial <strong>RevoScaleR</strong> package.</p></li>
 </ol>
 <p>Your algorithms need to be aware of the facility you are using. For this reason each facility ( <strong>bigmemory</strong>, <strong>ff</strong>, <strong>RevoScaleR</strong>,…) has an eco-system of packages that implement various statistical methods using that facility. As a general rule, you can see which package builds on a package using the <em>Reverse Depends</em> entry in the package description. For the <strong>bigmemory</strong> package, for instance, <a href="https://cran.r-project.org/web/packages/bigmemory/index.html">we can see</a> that the packages <strong>bigalgebra</strong>, <strong>biganalytics</strong>, <strong>bigFastlm</strong>, <strong>biglasso</strong>, <strong>bigpca</strong>, <strong>bigtabulate</strong>, <strong>GHap</strong>, and <strong>oem</strong>, build upon it. We can expect this list to expand.</p>
-<p>Here is a benchmark result, from <span class="citation">@wang2015statistical</span>. It can be seen that <strong>ff</strong> and <strong>bigmemory</strong> have similar performance, while <strong>RevoScaleR</strong> (RRE in the figure) outperforms them. This has to do both with the efficiency of the binary representation, but also because <strong>RevoScaleR</strong> is inherently parallel. More on this in the Parallelization Chapter <a href="parallel.html#parallel">16</a>. <img src="art/benchmark.png" alt="bigmemory vs. ff vs. RevoScaleR when reading, trasnforming, or fitting a model to 12GB of data, on a standrard laptop (in 2015 standards)." /></p>
+<p>Here is a benchmark result, from <span class="citation">Wang et al. (<a href="#ref-wang2015statistical">2015</a>)</span>. It can be seen that <strong>ff</strong> and <strong>bigmemory</strong> have similar performance, while <strong>RevoScaleR</strong> (RRE in the figure) outperforms them. This has to do both with the efficiency of the binary representation, but also because <strong>RevoScaleR</strong> is inherently parallel. More on this in the Parallelization Chapter <a href="parallel.html#parallel">16</a>. <img src="art/benchmark.png" alt="bigmemory vs. ff vs. RevoScaleR when reading, trasnforming, or fitting a model to 12GB of data, on a standrard laptop (in 2015 standards)." /></p>
 <div id="bigmemory" class="section level3">
 <h3><span class="header-section-number">15.3.1</span> bigmemory</h3>
 <p>We now demonstrate the workflow of the <strong>bigmemory</strong> package. We will see that <strong>bigmemory</strong>, with it’s <code>big.matrix</code> object is a very powerful mechanism. If you deal with big numeric matrices, you will find it very useful. If you deal with big data frames, or any other non-numeric matrix, <strong>bigmemory</strong> may not be the appropriate tool, and you should try <strong>ff</strong>, or the commercial <strong>RevoScaleR</strong>.</p>
@@ -653,6 +657,11 @@ biglm.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">b
 <li><strong>biglasso</strong>: extends lasso and elastic nets.</li>
 <li><strong>GHap</strong>: Haplotype calling from phased SNP data.</li>
 </ul>
+</div>
+<div id="bigstep" class="section level3">
+<h3><span class="header-section-number">15.3.2</span> bigstep</h3>
+<p>The <a href="https://cran.r-project.org/web/packages/bigstep/vignettes/bigstep.html">bigstep</a> package uses the <strong>bigmemory</strong> framework to perform stepwise model selction, when the data cannot fit into RAM.</p>
+<p>TODO</p>
 </div>
 </div>
 <div id="ff" class="section level2">
@@ -764,7 +773,7 @@ mymodel.ffdf &lt;-<span class="st"> </span><span class="kw">biglm</span>(payment
 </div>
 <div id="iotools" class="section level2">
 <h2><span class="header-section-number">15.6</span> iotools</h2>
-<p>A low level facility for connecting to on-disk binary storage. Unlike <strong>ff</strong>, and <strong>bigmemory</strong>, it behaves like native R objects, with their copy-on-write policy. Unlike <strong>reader</strong>, it allows chunking. Unlike <code>read.csv</code>, it allows fast I/O. <strong>iotools</strong> is thus a potentially very powerfull facility. See <span class="citation">@arnold2015iotools</span> for details.</p>
+<p>A low level facility for connecting to on-disk binary storage. Unlike <strong>ff</strong>, and <strong>bigmemory</strong>, it behaves like native R objects, with their copy-on-write policy. Unlike <strong>reader</strong>, it allows chunking. Unlike <code>read.csv</code>, it allows fast I/O. <strong>iotools</strong> is thus a potentially very powerfull facility. See <span class="citation">Arnold, Kane, and Urbanek (<a href="#ref-arnold2015iotools">2015</a>)</span> for details.</p>
 <p>TODO</p>
 </div>
 <div id="hdf5" class="section level2">
@@ -797,11 +806,23 @@ mymodel.ffdf &lt;-<span class="st"> </span><span class="kw">biglm</span>(payment
 </div>
 <div id="bibliographic-notes-12" class="section level2">
 <h2><span class="header-section-number">15.10</span> Bibliographic Notes</h2>
-<p>An absolute SUPERB review on computing with big data is <span class="citation">@wang2015statistical</span>, and references therein (<span class="citation">@kane2013scalable</span> in particular). For an up-to-date list of the packages that deal with memory constraints, see the <strong>Large memory and out-of-memory data</strong> section in the <a href="https://cran.r-project.org/web/views/HighPerformanceComputing.html">High Performance Computing</a> task view. For a list of resources to interface to DMBS, see the <a href="https://cran.r-project.org/web/views/Databases.html">Databases with R</a> task view.</p>
+<p>An absolute SUPERB review on computing with big data is <span class="citation">Wang et al. (<a href="#ref-wang2015statistical">2015</a>)</span>, and references therein (<span class="citation">M. J. Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span> in particular). For an up-to-date list of the packages that deal with memory constraints, see the <strong>Large memory and out-of-memory data</strong> section in the <a href="https://cran.r-project.org/web/views/HighPerformanceComputing.html">High Performance Computing</a> task view. For a list of resources to interface to DMBS, see the <a href="https://cran.r-project.org/web/views/Databases.html">Databases with R</a> task view.</p>
 </div>
 <div id="practice-yourself-11" class="section level2">
 <h2><span class="header-section-number">15.11</span> Practice Yourself</h2>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-kane2013scalable">
+<p>Kane, Michael J, John Emerson, Stephen Weston, and others. 2013. “Scalable Strategies for Computing with Massive Data.” <em>Journal of Statistical Software</em> 55 (14): 1–19.</p>
+</div>
+<div id="ref-wang2015statistical">
+<p>Wang, Chun, Ming-Hui Chen, Elizabeth Schifano, Jing Wu, and Jun Yan. 2015. “Statistical Methods and Computing for Big Data.” <em>arXiv Preprint arXiv:1502.07989</em>.</p>
+</div>
+<div id="ref-arnold2015iotools">
+<p>Arnold, Taylor, Michael Kane, and Simon Urbanek. 2015. “Iotools: High-Performance I/O Tools for R.” <em>arXiv Preprint arXiv:1510.00041</em>.</p>
 </div>
 </div>
 <div class="footnotes">

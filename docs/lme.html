@@ -5,25 +5,27 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title></title>
-  <meta name="description" content="">
+  <title>Chapter 8 Linear Mixed Models | R (BGU course)</title>
+  <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="" />
+  <meta property="og:title" content="Chapter 8 Linear Mixed Models | R (BGU course)" />
   <meta property="og:type" content="book" />
   
   
-  
+  <meta property="og:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="" />
+  <meta name="twitter:title" content="Chapter 8 Linear Mixed Models | R (BGU course)" />
   
-  
+  <meta name="twitter:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
   
 
+<meta name="author" content="Jonathan D. Rosenblatt">
 
 
+<meta name="date" content="2019-02-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -148,9 +150,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.17</b> Looping</a></li>
 <li class="chapter" data-level="3.18" data-path="basics.html"><a href="basics.html#apply"><i class="fa fa-check"></i><b>3.18</b> Apply</a></li>
 <li class="chapter" data-level="3.19" data-path="basics.html"><a href="basics.html#recursion"><i class="fa fa-check"></i><b>3.19</b> Recursion</a></li>
-<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.20</b> Dates and Times</a></li>
-<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.21</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#practice-yourself"><i class="fa fa-check"></i><b>3.22</b> Practice Yourself</a></li>
+<li class="chapter" data-level="3.20" data-path="basics.html"><a href="basics.html#strings"><i class="fa fa-check"></i><b>3.20</b> Strings</a></li>
+<li class="chapter" data-level="3.21" data-path="basics.html"><a href="basics.html#dates-and-times"><i class="fa fa-check"></i><b>3.21</b> Dates and Times</a></li>
+<li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.22</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="3.23" data-path="basics.html"><a href="basics.html#practice-yourself"><i class="fa fa-check"></i><b>3.23</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="datatable.html"><a href="datatable.html"><i class="fa fa-check"></i><b>4</b> data.table</a><ul>
 <li class="chapter" data-level="4.1" data-path="datatable.html"><a href="datatable.html#make-your-own-variables"><i class="fa fa-check"></i><b>4.1</b> Make your own variables</a></li>
@@ -326,8 +329,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a><ul>
 <li class="chapter" data-level="14.1" data-path="sparse.html"><a href="sparse.html#sparse-matrix-representations"><i class="fa fa-check"></i><b>14.1</b> Sparse Matrix Representations</a><ul>
 <li class="chapter" data-level="14.1.1" data-path="sparse.html"><a href="sparse.html#coo"><i class="fa fa-check"></i><b>14.1.1</b> Coordinate List Representation</a></li>
-<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Column Oriented Representation</a></li>
-<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.2" data-path="sparse.html"><a href="sparse.html#compressed-row-oriented-representation"><i class="fa fa-check"></i><b>14.1.2</b> Compressed Row Oriented Representation</a></li>
+<li class="chapter" data-level="14.1.3" data-path="sparse.html"><a href="sparse.html#compressed-column-oriented-representation"><i class="fa fa-check"></i><b>14.1.3</b> Compressed Column Oriented Representation</a></li>
 <li class="chapter" data-level="14.1.4" data-path="sparse.html"><a href="sparse.html#sparse-algorithms"><i class="fa fa-check"></i><b>14.1.4</b> Sparse Algorithms</a></li>
 </ul></li>
 <li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a><ul>
@@ -346,6 +349,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.2" data-path="memory.html"><a href="memory.html#computing-from-a-database"><i class="fa fa-check"></i><b>15.2</b> Computing from a Database</a></li>
 <li class="chapter" data-level="15.3" data-path="memory.html"><a href="memory.html#file-structure"><i class="fa fa-check"></i><b>15.3</b> Computing From Efficient File Structrures</a><ul>
 <li class="chapter" data-level="15.3.1" data-path="memory.html"><a href="memory.html#bigmemory"><i class="fa fa-check"></i><b>15.3.1</b> bigmemory</a></li>
+<li class="chapter" data-level="15.3.2" data-path="memory.html"><a href="memory.html#bigstep"><i class="fa fa-check"></i><b>15.3.2</b> bigstep</a></li>
 </ul></li>
 <li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
 <li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.5</b> matter</a></li>
@@ -441,7 +445,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R (BGU course)</a>
           </h1>
         </div>
 
@@ -492,7 +496,7 @@ Alternatively, we could treat the between-machine variability as another source 
 <ol style="list-style-type: decimal">
 <li><p>Like in previous chapters, by “model” we refer to the assumed generative distribution, i.e., the sampling distribution.</p></li>
 <li><p>LMMs are a way to infer against the right level of variability. Using a naive linear model (which assumes a single source of variability) instead of a mixed effects model, probably means your inference is overly anti-conservative. Put differently, the uncertainty in your estimates is higher than the linear model from Chapter <a href="lm.html#lm">6</a> may suggest.</p></li>
-<li><p>In a LMM we will specify the dependence structure via the hierarchy in the sampling scheme (e.g. caps within machine, students within class, etc.). Not all dependency models can be specified in this way. Dependency structures that are not hierarchical include temporal dependencies (<a href="https://en.wikipedia.org/wiki/Autoregressive_model">AR</a>, <a href="https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average">ARIMA</a>, <a href="https://en.wikipedia.org/wiki/Autoregressive_conditional_heteroskedasticity">ARCH</a> and GARCH), <a href="https://en.wikipedia.org/wiki/Spatial_dependence">spatial</a>, <a href="https://en.wikipedia.org/wiki/Markov_chain">Markov Chains</a>, and more. To specify dependency structures that are no hierarchical, see Chapter 8 in (the excellent) <span class="citation">@weiss2005modeling</span>.</p></li>
+<li><p>In a LMM we will specify the dependence structure via the hierarchy in the sampling scheme (e.g. caps within machine, students within class, etc.). Not all dependency models can be specified in this way. Dependency structures that are not hierarchical include temporal dependencies (<a href="https://en.wikipedia.org/wiki/Autoregressive_model">AR</a>, <a href="https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average">ARIMA</a>, <a href="https://en.wikipedia.org/wiki/Autoregressive_conditional_heteroskedasticity">ARCH</a> and GARCH), <a href="https://en.wikipedia.org/wiki/Spatial_dependence">spatial</a>, <a href="https://en.wikipedia.org/wiki/Markov_chain">Markov Chains</a>, and more. To specify dependency structures that are no hierarchical, see Chapter 8 in (the excellent) <span class="citation">Weiss (<a href="#ref-weiss2005modeling">2005</a>)</span>.</p></li>
 <li><p>If you are using the model merely for predictions, and not for inference on the fixed effects or variance components, then stating the generative distribution may be be useful, but not necessarily. See the Supervised Learning Chapter <a href="supervised.html#supervised">10</a> for more on prediction problems. Also recall that machine learning from non-independent observations (such as LMMs) is a delicate matter that is rarely treated in the literature.</p></li>
 </ol>
 <div id="problem-setup-2" class="section level2">
@@ -915,7 +919,7 @@ lattice<span class="op">::</span><span class="kw">levelplot</span>(the.cov)</cod
 </div>
 <div id="bibliographic-notes-6" class="section level2">
 <h2><span class="header-section-number">8.7</span> Bibliographic Notes</h2>
-<p>Most of the examples in this chapter are from the documentation of the <strong>lme4</strong> package <span class="citation">[@lme4]</span>. For a general and very applied treatment, see <span class="citation">@pinero2000mixed</span>. As usual, a hands on view can be found in <span class="citation">@venables2013modern</span>, and also in an excellent blog post by <a href="http://rpsychologist.com/r-guide-longitudinal-lme-lmer">Kristoffer Magnusson</a> For a more theoretical view see <span class="citation">@weiss2005modeling</span> or <span class="citation">@searle2009variance</span>. Sometimes it is unclear if an effect is random or fixed; on the difference between the two types of inference see <span class="citation">@rosset2018fixed</span> and references therein. For more on predictions in linear mixed models see <span class="citation">@robinson1991blup</span>, <span class="citation">@rabinowicz2018assessing</span>, and references therein. See <a href="https://m-clark.github.io/docs/clustered/">Michael Clarck’s</a> guide for various ways of dealing with correlations within groups. For the geo-spatial view and terminology of correlated data, see <span class="citation">@christakos2000modern</span>, <span class="citation">@diggle1998model</span>, <span class="citation">@allard2013j</span>, and <span class="citation">@cressie2015statistics</span>.</p>
+<p>Most of the examples in this chapter are from the documentation of the <strong>lme4</strong> package <span class="citation">(Bates et al. <a href="#ref-lme4">2015</a>)</span>. For a general and very applied treatment, see <span class="citation">Pinero and Bates (<a href="#ref-pinero2000mixed">2000</a>)</span>. As usual, a hands on view can be found in <span class="citation">Venables and Ripley (<a href="#ref-venables2013modern">2013</a>)</span>, and also in an excellent blog post by <a href="http://rpsychologist.com/r-guide-longitudinal-lme-lmer">Kristoffer Magnusson</a> For a more theoretical view see <span class="citation">Weiss (<a href="#ref-weiss2005modeling">2005</a>)</span> or <span class="citation">Searle, Casella, and McCulloch (<a href="#ref-searle2009variance">2009</a>)</span>. Sometimes it is unclear if an effect is random or fixed; on the difference between the two types of inference see <span class="citation">Rosset and Tibshirani (<a href="#ref-rosset2018fixed">2018</a>)</span> and references therein. For more on predictions in linear mixed models see <span class="citation">Robinson (<a href="#ref-robinson1991blup">1991</a>)</span>, <span class="citation">Rabinowicz and Rosset (<a href="#ref-rabinowicz2018assessing">2018</a>)</span>, and references therein. See <a href="https://m-clark.github.io/docs/clustered/">Michael Clarck’s</a> guide for various ways of dealing with correlations within groups. For the geo-spatial view and terminology of correlated data, see <span class="citation">Christakos (<a href="#ref-christakos2000modern">2000</a>)</span>, <span class="citation">Diggle, Tawn, and Moyeed (<a href="#ref-diggle1998model">1998</a>)</span>, <span class="citation">Allard (<a href="#ref-allard2013j">2013</a>)</span>, and <span class="citation">Cressie and Wikle (<a href="#ref-cressie2015statistics">2015</a>)</span>.</p>
 </div>
 <div id="practice-yourself-4" class="section level2">
 <h2><span class="header-section-number">8.8</span> Practice Yourself</h2>
@@ -938,6 +942,45 @@ lattice<span class="op">::</span><span class="kw">levelplot</span>(the.cov)</cod
 </ol>
 <p>See DataCamps’ <a href="https://www.datacamp.com/courses/hierarchical-and-mixed-effects-models">Hierarchical and Mixed Effects Models</a> for more self practice.</p>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-weiss2005modeling">
+<p>Weiss, Robert E. 2005. <em>Modeling Longitudinal Data</em>. Springer Science &amp; Business Media.</p>
+</div>
+<div id="ref-lme4">
+<p>Bates, Douglas, Martin Mächler, Ben Bolker, and Steve Walker. 2015. “Fitting Linear Mixed-Effects Models Using lme4.” <em>Journal of Statistical Software</em> 67 (1): 1–48. doi:<a href="https://doi.org/10.18637/jss.v067.i01">10.18637/jss.v067.i01</a>.</p>
+</div>
+<div id="ref-pinero2000mixed">
+<p>Pinero, Jose, and Douglas Bates. 2000. “Mixed-Effects Models in S and S-Plus (Statistics and Computing).” Springer, New York.</p>
+</div>
+<div id="ref-venables2013modern">
+<p>Venables, William N, and Brian D Ripley. 2013. <em>Modern Applied Statistics with S-Plus</em>. Springer Science &amp; Business Media.</p>
+</div>
+<div id="ref-searle2009variance">
+<p>Searle, Shayle R, George Casella, and Charles E McCulloch. 2009. <em>Variance Components</em>. Vol. 391. John Wiley &amp; Sons.</p>
+</div>
+<div id="ref-rosset2018fixed">
+<p>Rosset, Saharon, and Ryan J Tibshirani. 2018. “From Fixed-X to Random-X Regression: Bias-Variance Decompositions, Covariance Penalties, and Prediction Error Estimation.” <em>Journal of the American Statistical Association</em>, no. just-accepted. Taylor &amp; Francis.</p>
+</div>
+<div id="ref-robinson1991blup">
+<p>Robinson, George K. 1991. “That Blup Is a Good Thing: The Estimation of Random Effects.” <em>Statistical Science</em>. JSTOR, 15–32.</p>
+</div>
+<div id="ref-rabinowicz2018assessing">
+<p>Rabinowicz, Assaf, and Saharon Rosset. 2018. “Assessing Prediction Error at Interpolation and Extrapolation Points.” <em>arXiv Preprint arXiv:1802.00996</em>.</p>
+</div>
+<div id="ref-christakos2000modern">
+<p>Christakos, George. 2000. <em>Modern Spatiotemporal Geostatistics</em>. Vol. 6. Oxford University Press.</p>
+</div>
+<div id="ref-diggle1998model">
+<p>Diggle, Peter J, JA Tawn, and RA Moyeed. 1998. “Model-Based Geostatistics.” <em>Journal of the Royal Statistical Society: Series C (Applied Statistics)</em> 47 (3). Wiley Online Library: 299–350.</p>
+</div>
+<div id="ref-allard2013j">
+<p>Allard, Denis. 2013. “J.-P. Chiles, P. Delfiner: Geostatistics: Modeling Spatial Uncertainty.” Springer.</p>
+</div>
+<div id="ref-cressie2015statistics">
+<p>Cressie, Noel, and Christopher K Wikle. 2015. <em>Statistics for Spatio-Temporal Data</em>. John Wiley; Sons.</p>
 </div>
 </div>
 <div class="footnotes">
