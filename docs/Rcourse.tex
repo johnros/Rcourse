@@ -1781,6 +1781,22 @@ trick is to create your own function that takes only one argument:
 ##        4.075      109.000       54.500       15.075
 \end{verbatim}
 
+What is you are applying the same function with \textbf{two} lists of
+arguments? Use \textbf{mapply}. The following will compute a different
+quantile to each column in the data:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{quantiles <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.3}\NormalTok{, }\FloatTok{0.2}\NormalTok{)}
+\KeywordTok{mapply}\NormalTok{(quantile, USArrests, quantiles)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Murder.10%  Assault.50% UrbanPop.30%     Rape.20% 
+##         2.56       159.00        57.70        13.92
+\end{verbatim}
+
 R provides many variations on \texttt{lapply} to facilitate programming.
 Here is a partial list:
 
@@ -1849,7 +1865,11 @@ TODO. In the meanwhile, see
 \section{Dates and Times}\label{dates-and-times}
 
 TODO. In the meanwhile, see the
-\href{https://lubridate.tidyverse.org/}{lubridate} pacakge.
+\href{https://lubridate.tidyverse.org/}{lubridate} pacakge. Also note
+manipulating dates and times is different than working with time series.
+For a little intro on time-series objects in R see
+\href{http://www.christophsax.com/2018/05/15/tsbox/}{Cristoph Sax's
+blog}.
 
 \section{Bibliographic Notes}\label{bibliographic-notes-1}
 

@@ -1,0 +1,263 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+# data.table {#datatable}
+
+`data.table` is an excellent extension of the `data.frame` class.
+If used as a `data.frame` it will look and feel like a data frame.
+If, however, it is used with it's unique capabilities, it will prove faster and easier to manipulate. 
+
+Let's start with importing some freely available car sales data from [Kaggle](https://www.kaggle.com/orgesleka/used-cars-database).
+```{r}
+library(data.table)
+library(magrittr)
+auto <- fread('data/autos.csv')
+```
+
+```{r, eval=FALSE}
+View(auto)
+```
+
+```{r}
+dim(auto) #  Rows and columns
+names(auto) # Variable names
+class(auto) # Object class
+file.info('data/autos.csv') # File info on disk
+gdata::humanReadable(68439217)
+object.size(auto) %>% print(units = 'auto') # File size in memory
+```
+
+Things to note:
+
+- The import has been done with `fread` instead of `read.csv`. This is more efficient, and directly creates a `data.table` object.
+- The import is very fast. 
+- The data after import is slightly larger than when stored on disk (in this case).
+
+Let's start with verifying that it behaves like a `data.frame` when expected.
+```{r}
+auto[,2] %>% head
+auto[[2]] %>% head
+auto[1,2] %>% head
+```
+
+But notice the difference between `data.frame` and `data.table` when subsetting multiple rows. Uhh!
+```{r}
+auto[1:3] %>% dim # data.table will exctract *rows*
+as.data.frame(auto)[1:3] %>% dim # data.frame will exctract *columns*
+```
+Just use columns (`,`) and be explicit regarding the dimension you are extracting...
+
+
+Now let's do some `data.table` specific operations.
+The general syntax has the form `DT[i,j,by]`.
+SQL users may think of `i` as `WHERE`, `j` as `SELECT`, and `by` as `GROUP BY`.
+We don't need to name the arguments explicitly.
+Also, the `Tab` key will typically help you to fill in column names.
+
+```{r}
+auto[,vehicleType,] %>% table # Exctract column and tabulate
+auto[vehicleType=='coupe',,] %>% dim # Exctract rows 
+auto[,gearbox:model,] %>% head # exctract column range
+auto[,gearbox,] %>% table
+auto[vehicleType=='coupe' & gearbox=='automatik',,] %>% dim # intersect conditions
+auto[,table(vehicleType),] # uhh? why would this even work?!?
+auto[, mean(price), by=vehicleType] # average price by car group
+```
+
+
+The `.N` operator is very useful if you need to count the length of the result. 
+Notice where I use it:
+```{r}
+auto[.N-1,,] # will exctract the *last* row
+auto[,.N] # will count rows
+auto[,.N, vehicleType] # will count rows by type
+```
+
+
+You may concatenate results into a vector:
+```{r}
+auto[,c(mean(price), mean(powerPS)),]
+```
+
+This `c()` syntax no longer behaves well if splitting:
+```{r}
+auto[,c(mean(price), mean(powerPS)), by=vehicleType]
+```
+
+Use a `list()` instead of `c()`, within `data.table` commands:
+```{r}
+auto[,list(mean(price), mean(powerPS)), by=vehicleType]
+```
+
+You can add names to your new variables:
+```{r}
+auto[,list(Price=mean(price), Power=mean(powerPS)), by=vehicleType]
+```
+
+You can use `.()` to replace the longer `list()` command:
+```{r}
+auto[,.(Price=mean(price), Power=mean(powerPS)), by=vehicleType]
+```
+
+And split by multiple variables:
+```{r}
+auto[,.(Price=mean(price), Power=mean(powerPS)), by=.(vehicleType,fuelType)] %>% head
+```
+
+Compute with variables created on the fly:
+```{r}
+auto[,sum(price<1e4),] # Count prices higher than 10,000
+auto[,mean(price<1e4),] # Proportion of prices larger than 10,000
+auto[,.(Power=mean(powerPS)), by=.(PriceRange=price>1e4)] 
+```
+
+You may sort along one or more columns
+```{r}
+auto[order(-price), price,] %>% head # Order along price. Descending
+auto[order(price, -lastSeen), price,] %>% head# Order along price and last seen . Ascending and descending.
+```
+
+
+You may apply a function to ALL columns using a Subset of the Data using `.SD`
+```{r}
+count.uniques <- function(x) length(unique(x))
+auto[,lapply(.SD, count.uniques), vehicleType]
+```
+
+Things to note:
+
+- `.SD` is the data subset after splitting along the `by` argument. 
+- Recall that `lapply` applies the same function to all elements of a list. In this example, to all columns of `.SD`.
+
+If you want to apply a function only to a subset of columns, use the `.SDcols` argument
+```{r}
+auto[,lapply(.SD, count.uniques), by=vehicleType, .SDcols=price:gearbox]
+```
+
+## Make your own variables
+
+It is very easy to compute new variables
+```{r}
+auto[,log(price/powerPS),] %>% head # This makes no sense
+```
+
+And if you want to store the result in a new variable, use the `:=` operator
+```{r}
+auto[,newVar:=log(price/powerPS),]
+```
+
+Or create multiple variables at once. 
+The syntax `c("A","B"):=.(expression1,expression2)`is read "save the __list__ of results from expression1 and expression2 using the __vector__ of names A, and B".
+```{r}
+auto[,c('newVar','newVar2'):=.(log(price/powerPS),price^2/powerPS),]
+```
+
+
+
+## Join
+
+__data.table__ can be used for joining.
+A _join_ is the operation of aligning two (or more) data frames/tables along some index.
+The index can be a single variable, or a combination thereof.
+
+Here is a simple example of aligning age and gender from two different data tables:
+```{r}
+DT1 <- data.table(Names=c("Alice","Bob"), Age=c(29,31))
+DT2 <- data.table(Names=c("Alice","Bob","Carl"), Gender=c("F","M","M"))
+setkey(DT1, Names)
+setkey(DT2, Names)
+DT1[DT2,,] 
+DT2[DT1,,] 
+```
+
+Things to note:
+
+- A join with `data.tables` is performed by indexing one `data.table` with another. Which is the outer and which is the inner will affect the result.
+- The indexing variable needs to be set using the `setkey` function.
+
+There are several types of joins:
+
+- __Inner join__: Returns the rows along the intersection of keys, i.e., rows that appear in __all__ data sets.
+- __Outer join__: Returns the rows along the union of keys, i.e., rows that appear in __any__ of the data sets. 
+- __Left join__: Returns the rows along the index of the "left" data set.
+- __Right join__: Returns the rows along the index of the "right" data set.
+
+Assuming `DT1` is the "left" data set, we see that `DT1[DT2,,]` is a right join, and `DT2[DT1,,]` is a left join.
+For an inner join use the `nomath=0` argument:
+```{r}
+DT1[DT2,,,nomatch=0]
+DT2[DT1,,,nomatch=0]
+```
+
+
+
+## Reshaping data
+
+Data sets (i.e. frames or tables) may arrive in a "wide" form or a "long" form.
+The difference is best illustrated with an example. 
+The `ChickWeight` data encodes the weight of various chicks. It is "long" in that a variable encodes the time of measurement, making the data, well, simply long:
+```{r}
+ChickWeight %>%  head
+```
+
+The `mtcars` data encodes 10 characteristics of 32 types of automobiles. It is "wide" since the various characteristics are encoded in different variables, making the data, well, simply wide.
+
+```{r}
+mtcars %>% head
+```
+
+Most of _R_'s functions, with exceptions, will prefer data in the long format. 
+There are thus various facilities to convert from one format to another. 
+We will focus on the `melt` and `dcast` functions to convert from one format to another.
+
+### Wide to long
+
+`melt` will convert from wide to long. 
+
+```{r}
+dimnames(mtcars)
+mtcars$type <- rownames(mtcars)
+melt(mtcars, id.vars=c("type")) %>% head
+```
+
+
+Things to note:
+
+- The car type was originally encoded in the rows' names, and not as a variable. We thus created an explicit variable with the cars' type using the `rownames` function.
+- The `id.vars` of the `melt` function names the variables that will be used as identifiers. All other variables are assumed to be measurements. These can have been specified using their index instead of their name.
+- If not all variables are measurements, we could have names measurement variables explicitly using the `measure.vars` argument of the `melt` function. These can have been specified using their index instead of their name.
+- By default, the molten columns are automatically named `variable` and `value`.
+
+We can replace the automatic namings using `variable.name` and `value.name`:
+```{r}
+melt(mtcars, id.vars=c("type"), variable.name="Charachteristic", value.name="Measurement") %>% head
+```
+
+### Long to wide
+
+`dcast` will conver from long to wide:
+```{r}
+dcast(ChickWeight, Chick~Time, value.var="weight")
+```
+
+Things to note:
+
+- `dcast` uses a formula interface (`~`) to specify the row identifier and the variables. The LHS is the row identifier, and the RHS for the variables to be created. 
+- The measurement of each LHS at each RHS, is specified using the `value.var` argument.
+
+
+
+
+
+## Bibliographic Notes
+`data.table` has excellent online documentation. 
+See  [here](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html).
+See [here](https://rstudio-pubs-static.s3.amazonaws.com/52230_5ae0d25125b544caab32f75f0360e775.html) for joining data.tables. 
+See [here](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-reshape.html) for more on reshaping data.tables.
+See [here](https://www.r-bloggers.com/intro-to-the-data-table-package/) for a comparison of the `data.frame` way, versus the `data.table` way.
+For some advanced tips and tricks see [Andrew Brooks' blog](http://brooksandrew.github.io/simpleblog/articles/advanced-data-table/).
+
+## Practice Yourself
+See DataCamp's [Data Manipulation in R with data.table](https://www.datacamp.com/courses/data-manipulation-in-r-with-datatable), by Matt Dowle, the author of _data.table_ for more self practice.

@@ -310,7 +310,7 @@ It tells us that this function is part of the __utils__ package.
 We did not need to know this because it is loaded by default.
 Here are some packages that I have currently loaded:
 ```{r}
-head(search())
+search()
 ```
 Other packages can be loaded via the `library` function, or downloaded from the internet using the `install.packages` function before loading with `library`. 
 R's package import mechanism is quite powerful, and is one of the reasons for R's success. 
@@ -331,7 +331,7 @@ We call this the `x,y` syntax.
 R has another unique syntax to state functional relations.
 We call `y~x` the "tilde" syntax, which originates in works of @wilkinson1973symbolic and was adopted in the early days of S.
 ```{r}
-plot(y ~ x) # y~x syntax 
+plot(y ~ x, type='l') # y~x syntax 
 ```
 
 The syntax `y~x` is read as "y is a function of x".
@@ -416,7 +416,7 @@ head(frame1)
 
 Now using the RStudio Excel-like viewer:
 ```{r, eval=FALSE}
-frame1 %>% View() 
+View(frame1) 
 ```
 
 We highly advise against editing the data this way since there will be no documentation of the changes you made.
@@ -736,6 +736,12 @@ quantile.25 <- function(x) quantile(x,0.25)
 sapply(USArrests, quantile.25)
 ```
 
+What is you are applying the same function with __two__ lists of arguments? Use __mapply__.
+The following will compute a different quantile to each column in the data:
+```{r mapply}
+quantiles <- c(0.1, 0.5, 0.3, 0.2)
+mapply(quantile, USArrests, quantiles)
+```
 
 
 R provides many variations on `lapply` to facilitate programming. 
@@ -774,6 +780,26 @@ TODO. In the meanwhile, see [Gaston Sanchez's book](http://www.gastonsanchez.com
 
 ## Dates and Times
 TODO. In the meanwhile, see the [lubridate](https://lubridate.tidyverse.org/) pacakge.
+Also note manipulating dates and times is different than working with time series. 
+For a little intro on time-series objects in R see [Cristoph Sax's blog](http://www.christophsax.com/2018/05/15/tsbox/).
+
+
+## Complex Objects
+Say you have a list with many elements, and you want to inspect this list.
+You can do it using the _Environment_ pane in RStudio (Ctrl+8), or using the __str__ function:
+
+```{r str}
+complex.object <- list(7, 'hello', list(a=7,b=8,c=9), FOO=read.csv)
+str(complex.object)
+```
+
+Some (very) advanced users may want a deeper look into object.
+Try the [lobstr](https://github.com/r-lib/lobstr/blob/master/README.md) package, or the __.Internal(inspect(...))__ function described [here](https://www.brodieg.com/2019/02/18/an-unofficial-reference-for-internal-inspect/).
+
+```{r}
+x <- c(7,10)
+.Internal(inspect(x))
+```
 
 
 ## Bibliographic Notes
