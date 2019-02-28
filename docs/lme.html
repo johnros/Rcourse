@@ -248,6 +248,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>9.4</b> Signal Estimation (*)</a></li>
 <li class="chapter" data-level="9.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>9.5</b> Multivariate Regression (*)</a><ul>
 <li class="chapter" data-level="9.5.1" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression-with-r"><i class="fa fa-check"></i><b>9.5.1</b> Multivariate Regression with R</a></li>
+<li class="chapter" data-level="9.5.2" data-path="multivariate.html"><a href="multivariate.html#mcglm"><i class="fa fa-check"></i><b>9.5.2</b> mcglm</a></li>
 </ul></li>
 <li class="chapter" data-level="9.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>9.6</b> Graphical Models (*)</a><ul>
 <li class="chapter" data-level="9.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>9.6.1</b> Graphical Models in R</a></li>
@@ -512,7 +513,7 @@ Alternatively, we could treat the between-machine variability as another source 
 </div>
 <div id="generalized-linear-mixed-models-glmm" class="section level3">
 <h3><span class="header-section-number">8.1.2</span> Generalized Linear Mixed Models (GLMM)</h3>
-<p>You can marry the ideas of random effects, with non-linear link functions, and non-Gaussian distribution of the response. These are known as <a href="https://en.wikipedia.org/wiki/Generalized_linear_mixed_model">Generalized Linear Mixed Models</a>. <a href="http://glmm.wikidot.com/pkg-comparison">Wikidot</a> has a nice comparison of several software suits for GLMMs.</p>
+<p>You can marry the ideas of random effects, with non-linear link functions, and non-Gaussian distribution of the response. These are known as <a href="https://en.wikipedia.org/wiki/Generalized_linear_mixed_model">Generalized Linear Mixed Models</a>. <a href="http://glmm.wikidot.com/pkg-comparison">Wikidot</a> has a nice comparison of several software suits for GLMMs. Also consider the <a href="https://www.jstatsoft.org/article/view/v084i04">mcglm</a> R pacakge <span class="citation">(Bonat <a href="#ref-bonat2018multiple">2018</a>)</span>.</p>
 </div>
 </div>
 <div id="mixed-models-with-r" class="section level2">
@@ -941,6 +942,9 @@ lattice<span class="op">::</span><span class="kw">levelplot</span>(the.cov)</cod
 <div id="refs" class="references">
 <div id="ref-weiss2005modeling">
 <p>Weiss, Robert E. 2005. <em>Modeling Longitudinal Data</em>. Springer Science &amp; Business Media.</p>
+</div>
+<div id="ref-bonat2018multiple">
+<p>Bonat, Wagner Hugo. 2018. “Multiple Response Variables Regression Models in R: The Mcglm Package.” <em>Journal of Statistical Software</em> 84 (1): 1–30.</p>
 </div>
 <div id="ref-lme4">
 <p>Bates, Douglas, Martin Mächler, Ben Bolker, and Steve Walker. 2015. “Fitting Linear Mixed-Effects Models Using lme4.” <em>Journal of Statistical Software</em> 67 (1): 1–48. doi:<a href="https://doi.org/10.18637/jss.v067.i01">10.18637/jss.v067.i01</a>.</p>

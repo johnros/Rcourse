@@ -248,6 +248,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>9.4</b> Signal Estimation (*)</a></li>
 <li class="chapter" data-level="9.5" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression"><i class="fa fa-check"></i><b>9.5</b> Multivariate Regression (*)</a><ul>
 <li class="chapter" data-level="9.5.1" data-path="multivariate.html"><a href="multivariate.html#multivariate-regression-with-r"><i class="fa fa-check"></i><b>9.5.1</b> Multivariate Regression with R</a></li>
+<li class="chapter" data-level="9.5.2" data-path="multivariate.html"><a href="multivariate.html#mcglm"><i class="fa fa-check"></i><b>9.5.2</b> mcglm</a></li>
 </ul></li>
 <li class="chapter" data-level="9.6" data-path="multivariate.html"><a href="multivariate.html#graphical-models"><i class="fa fa-check"></i><b>9.6</b> Graphical Models (*)</a><ul>
 <li class="chapter" data-level="9.6.1" data-path="multivariate.html"><a href="multivariate.html#graphical-models-in-r"><i class="fa fa-check"></i><b>9.6.1</b> Graphical Models in R</a></li>
@@ -679,9 +680,23 @@ car_data &lt;-<span class="st"> </span>
 ## &lt;bytecode: 0x3e49070&gt;
 ## &lt;environment: namespace:utils&gt;</code></pre>
 <p>Never mind what the function does. Note the <code>environment: namespace:utils</code> line at the end. It tells us that this function is part of the <strong>utils</strong> package. We did not need to know this because it is loaded by default. Here are some packages that I have currently loaded:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">search</span>())</code></pre></div>
-<pre><code>## [1] &quot;.GlobalEnv&quot;        &quot;package:magrittr&quot;  &quot;tools:rstudio&quot;    
-## [4] &quot;package:stats&quot;     &quot;package:graphics&quot;  &quot;package:grDevices&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">search</span>()</code></pre></div>
+<pre><code>##  [1] &quot;.GlobalEnv&quot;           &quot;package:nycflights13&quot; &quot;package:doSNOW&quot;      
+##  [4] &quot;package:snow&quot;         &quot;package:doParallel&quot;   &quot;package:parallel&quot;    
+##  [7] &quot;package:iterators&quot;    &quot;package:biganalytics&quot; &quot;package:bigmemory&quot;   
+## [10] &quot;package:dplyr&quot;        &quot;package:biglm&quot;        &quot;package:DBI&quot;         
+## [13] &quot;package:MatrixModels&quot; &quot;package:plotly&quot;       &quot;package:kernlab&quot;     
+## [16] &quot;package:scales&quot;       &quot;package:plyr&quot;         &quot;package:class&quot;       
+## [19] &quot;package:rpart&quot;        &quot;package:nnet&quot;         &quot;package:e1071&quot;       
+## [22] &quot;package:glmnet&quot;       &quot;package:foreach&quot;      &quot;package:ellipse&quot;     
+## [25] &quot;package:nlme&quot;         &quot;package:lattice&quot;      &quot;package:lme4&quot;        
+## [28] &quot;package:Matrix&quot;       &quot;package:multcomp&quot;     &quot;package:TH.data&quot;     
+## [31] &quot;package:survival&quot;     &quot;package:mvtnorm&quot;      &quot;package:MASS&quot;        
+## [34] &quot;package:ggalluvial&quot;   &quot;package:ggplot2&quot;      &quot;package:hexbin&quot;      
+## [37] &quot;package:data.table&quot;   &quot;package:magrittr&quot;     &quot;tools:rstudio&quot;       
+## [40] &quot;package:stats&quot;        &quot;package:graphics&quot;     &quot;package:grDevices&quot;   
+## [43] &quot;package:utils&quot;        &quot;package:datasets&quot;     &quot;package:methods&quot;     
+## [46] &quot;Autoloads&quot;            &quot;package:base&quot;</code></pre>
 <p>Other packages can be loaded via the <code>library</code> function, or downloaded from the internet using the <code>install.packages</code> function before loading with <code>library</code>. R’s package import mechanism is quite powerful, and is one of the reasons for R’s success.</p>
 </div>
 <div id="simple-plotting" class="section level2">
@@ -692,7 +707,7 @@ y&lt;-<span class="st"> </span><span class="dv">3</span><span class="op">+</span
 <span class="kw">plot</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y) <span class="co"># x,y syntax                         </span></code></pre></div>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-32-1.png" width="50%" /></p>
 <p>Given an <code>x</code> argument and a <code>y</code> argument, <code>plot</code> tries to present a scatter plot. We call this the <code>x,y</code> syntax. R has another unique syntax to state functional relations. We call <code>y~x</code> the “tilde” syntax, which originates in works of <span class="citation">G. Wilkinson and Rogers (<a href="#ref-wilkinson1973symbolic">1973</a>)</span> and was adopted in the early days of S.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x) <span class="co"># y~x syntax </span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">type=</span><span class="st">&#39;l&#39;</span>) <span class="co"># y~x syntax </span></code></pre></div>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-33-1.png" width="50%" /></p>
 <p>The syntax <code>y~x</code> is read as “y is a function of x”. We will prefer the <code>y~x</code> syntax over the <code>x,y</code> syntax since it is easier to read, and will be very useful when we discuss more complicated models.</p>
 <p>Here are some arguments that control the plot’s appearance. We use <code>type</code> to control the plot type, <code>main</code> to control the main title.</p>
@@ -747,7 +762,7 @@ frame1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span cl
 ## 5 5 2.041076
 ## 6 6 2.720585</code></pre>
 <p>Now using the RStudio Excel-like viewer:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">frame1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">View</span>() </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">View</span>(frame1) </code></pre></div>
 <p>We highly advise against editing the data this way since there will be no documentation of the changes you made. Always transform your data using scripts, so that everything is documented.</p>
 <p>Verifying this is a data frame:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(frame1) <span class="co"># the object is of type data.frame</span></code></pre></div>
@@ -1091,7 +1106,7 @@ Make another data frame (<code>dataB</code>) with three columns and 100 rows. No
 </ol></li>
 <li><p>Nothing like cleaning a dataset, to paractice your R basics. Have a look at <a href="https://makingnoiseandhearingthings.com/2018/04/19/datasets-for-data-cleaning-practice/">RACHAEL TATMAN</a> collected several datasets which BADLY need some cleansing.</p></li>
 </ol>
-<p>You can also self practice with DataCamp’s <a href="https://www.datacamp.com/courses/free-introduction-to-r">Intoroduction to R</a> course.</p>
+<p>You can also self practice with DataCamp’s <a href="https://www.datacamp.com/courses/free-introduction-to-r">Intoroduction to R</a> course, or go directly to exercising with <a href="https://www.r-exercises.com/start-here-to-learn-r/">R-exercises</a>.</p>
 
 </div>
 </div>
