@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2019-02-28">
+<meta name="date" content="2019-03-01">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -283,7 +283,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11.1.2" data-path="unsupervised.html"><a href="unsupervised.html#dimensionality-reduction-preliminaries"><i class="fa fa-check"></i><b>11.1.2</b> Dimensionality Reduction Preliminaries</a></li>
 <li class="chapter" data-level="11.1.3" data-path="unsupervised.html"><a href="unsupervised.html#latent-variable-generative-approaches"><i class="fa fa-check"></i><b>11.1.3</b> Latent Variable Generative Approaches</a></li>
 <li class="chapter" data-level="11.1.4" data-path="unsupervised.html"><a href="unsupervised.html#purely-algorithmic-approaches"><i class="fa fa-check"></i><b>11.1.4</b> Purely Algorithmic Approaches</a></li>
-<li class="chapter" data-level="11.1.5" data-path="unsupervised.html"><a href="unsupervised.html#dimensionality-reduction-in-r"><i class="fa fa-check"></i><b>11.1.5</b> Dimensionality Reduction in R</a></li>
+<li class="chapter" data-level="11.1.5" data-path="unsupervised.html"><a href="unsupervised.html#t-sne"><i class="fa fa-check"></i><b>11.1.5</b> t-SNE</a></li>
+<li class="chapter" data-level="11.1.6" data-path="unsupervised.html"><a href="unsupervised.html#dimensionality-reduction-in-r"><i class="fa fa-check"></i><b>11.1.6</b> Dimensionality Reduction in R</a></li>
 </ul></li>
 <li class="chapter" data-level="11.2" data-path="unsupervised.html"><a href="unsupervised.html#cluster"><i class="fa fa-check"></i><b>11.2</b> Clustering</a><ul>
 <li class="chapter" data-level="11.2.1" data-path="unsupervised.html"><a href="unsupervised.html#latent-variable-generative-approaches-1"><i class="fa fa-check"></i><b>11.2.1</b> Latent Variable Generative Approaches</a></li>
@@ -614,27 +615,31 @@ where <span class="math inline">\(A\)</span> is the <span class="math inline">\(
 <h4><span class="header-section-number">11.1.4.4</span> Local Linear Embedding (LLE)</h4>
 <p>Very similar to IsoMap <a href="unsupervised.html#isomap">11.1.4.3</a>.</p>
 </div>
+</div>
+<div id="t-sne" class="section level3">
+<h3><span class="header-section-number">11.1.5</span> t-SNE</h3>
+<p>TODO</p>
 <div id="kernel-pca-kpca" class="section level4">
-<h4><span class="header-section-number">11.1.4.5</span> Kernel PCA (kPCA)</h4>
+<h4><span class="header-section-number">11.1.5.1</span> Kernel PCA (kPCA)</h4>
 <p>Returning to the BMI example (<a href="unsupervised.html#exm:bmi">11.1</a>); what if we want to learn scores that best separate between individuals, but unlike PCA, are non-linear in the original features. Kernel PCA does just that, only that it restricts the possible scores to simple functions of the original variables. The allowed functions resides in a function space called Reproducing Kernel Hilbert Space (RKHS), this giving kPCA it’s name.</p>
 </div>
 <div id="sparse-pca-spca" class="section level4">
-<h4><span class="header-section-number">11.1.4.6</span> Sparse PCA (sPCA)</h4>
+<h4><span class="header-section-number">11.1.5.2</span> Sparse PCA (sPCA)</h4>
 <p>sPCA is a type of PCA where the loadings are sparse. This means that PCs are linear combinations of a small number of variables. This makes sPCA easier to interpret. Note that the <em>varimax</em> rotation of factor-analysis has a similar goal: create factors with minimally contributing variables, so that they are easy to explain.</p>
 </div>
 <div id="sparse-kernel-pca-skpca" class="section level4">
-<h4><span class="header-section-number">11.1.4.7</span> Sparse kernel PCA (skPCA)</h4>
+<h4><span class="header-section-number">11.1.5.3</span> Sparse kernel PCA (skPCA)</h4>
 <p>A marriage between sPCA and kPCA: generate scores that are non linear transformations of a minimal number of variables, each.</p>
 </div>
 <div id="correspondence-analysis-ca" class="section level4">
-<h4><span class="header-section-number">11.1.4.8</span> Correspondence Analysis (CA)</h4>
+<h4><span class="header-section-number">11.1.5.4</span> Correspondence Analysis (CA)</h4>
 <p>What if <span class="math inline">\(x\)</span> is not continuous, i.e., <span class="math inline">\(\mathcal{X}\neq \mathbb{R}^p\)</span>? We could dummy-code <span class="math inline">\(x\)</span>, and then use plain PCA. A more principled view, when <span class="math inline">\(x\)</span> is categorical, is that of <a href="https://en.wikipedia.org/wiki/Correspondence_analysis">Correspondence Analysis</a>.</p>
 </div>
 </div>
 <div id="dimensionality-reduction-in-r" class="section level3">
-<h3><span class="header-section-number">11.1.5</span> Dimensionality Reduction in R</h3>
+<h3><span class="header-section-number">11.1.6</span> Dimensionality Reduction in R</h3>
 <div id="pca-in-r" class="section level4">
-<h4><span class="header-section-number">11.1.5.1</span> PCA</h4>
+<h4><span class="header-section-number">11.1.6.1</span> PCA</h4>
 <p>We already saw the basics of PCA in <a href="unsupervised.html#pca">11.1.1</a>. The fitting is done with the <code>prcomp</code> function. The <em>bi-plot</em> is a useful way to visualize the output of PCA.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># library(devtools)</span>
 <span class="co"># install_github(&quot;vqv/ggbiplot&quot;)</span>
@@ -665,7 +670,7 @@ ade4<span class="op">::</span><span class="kw">dudi.pca</span>()
 amap<span class="op">::</span><span class="kw">acp</span>()</code></pre></div>
 </div>
 <div id="fa" class="section level4">
-<h4><span class="header-section-number">11.1.5.2</span> FA</h4>
+<h4><span class="header-section-number">11.1.6.2</span> FA</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fa.<span class="dv">1</span> &lt;-<span class="st"> </span>psych<span class="op">::</span><span class="kw">principal</span>(USArrests.<span class="dv">1</span>, <span class="dt">nfactors =</span> <span class="dv">2</span>, <span class="dt">rotate =</span> <span class="st">&quot;none&quot;</span>)
 fa.<span class="dv">1</span></code></pre></div>
 <pre><code>## Principal Components Analysis
@@ -739,7 +744,7 @@ fa.<span class="dv">2</span><span class="op">$</span>loadings</code></pre></div>
 </ul>
 </div>
 <div id="ica" class="section level4">
-<h4><span class="header-section-number">11.1.5.3</span> ICA</h4>
+<h4><span class="header-section-number">11.1.6.3</span> ICA</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ica.<span class="dv">1</span> &lt;-<span class="st"> </span>fastICA<span class="op">::</span><span class="kw">fastICA</span>(USArrests.<span class="dv">1</span>, <span class="dt">n.com=</span><span class="dv">2</span>) <span class="co"># Also performs projection pursuit</span>
 
 <span class="kw">plot</span>(ica.<span class="dv">1</span><span class="op">$</span>S)
@@ -756,7 +761,7 @@ fa.<span class="dv">2</span><span class="op">$</span>loadings</code></pre></div>
 </ul>
 </div>
 <div id="mds" class="section level4">
-<h4><span class="header-section-number">11.1.5.4</span> MDS</h4>
+<h4><span class="header-section-number">11.1.6.4</span> MDS</h4>
 <p>Classical MDS, also compared with PCA.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We first need a dissimarity matrix/graph:</span>
 state.disimilarity &lt;-<span class="st"> </span><span class="kw">dist</span>(USArrests.<span class="dv">1</span>)
@@ -795,8 +800,12 @@ USArrests.<span class="dv">2</span> &lt;-<span class="st"> </span>USArrests[,<sp
 <li>Sammon strain is different than PCA.</li>
 </ul>
 </div>
+<div id="t-sne-1" class="section level4">
+<h4><span class="header-section-number">11.1.6.5</span> t-SNE</h4>
+<p>TODO. For a natve R implementation: <a href="https://cran.r-project.org/web/packages/tsne/">tsne package</a>. For an R wrapper for C libraries: <a href="https://github.com/jkrijthe/Rtsne">Rtsne package</a>. The latter should be faster. Did not check.</p>
+</div>
 <div id="sparse-pca" class="section level4">
-<h4><span class="header-section-number">11.1.5.5</span> Sparse PCA</h4>
+<h4><span class="header-section-number">11.1.6.6</span> Sparse PCA</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compute similarity graph</span>
 state.similarity &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">cov.rob</span>(USArrests.<span class="dv">1</span>)<span class="op">$</span>cov
 
@@ -813,7 +822,7 @@ spca1<span class="op">$</span>loadings</code></pre></div>
 </ul>
 </div>
 <div id="kernel-pca" class="section level4">
-<h4><span class="header-section-number">11.1.5.6</span> Kernel PCA</h4>
+<h4><span class="header-section-number">11.1.6.7</span> Kernel PCA</h4>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(kernlab)</code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;kernlab&#39;</code></pre>
@@ -843,7 +852,7 @@ spca1<span class="op">$</span>loadings</code></pre></div>
 </ul>
 </div>
 <div id="mca" class="section level4">
-<h4><span class="header-section-number">11.1.5.7</span> MCA</h4>
+<h4><span class="header-section-number">11.1.6.8</span> MCA</h4>
 <p>See <span class="citation">Izenman (<a href="#ref-izenman2008modern">2008</a>)</span>.</p>
 </div>
 </div>
