@@ -287,7 +287,7 @@ Basic results in graph/network theory suggest that the geometry of a graph canno
 The different types of MDSs, such as _Classical MDS_, and _Sammon Mappings_, differ in the _stress function_ that penalizes for the geometric distortion caused by the embedding.
 
 
-#### Local Multidimensional Scaling (Local MDS)
+#### Local Multidimensional Scaling (Local MDS) {#loc-mds}
 
 ```{example, label='non-euclidean'}
 Consider data of coordinates on the globe. 
@@ -298,7 +298,8 @@ Being a highly folded surface, the Euclidean distance between points is far from
 ```
 
 Local MDS is aimed at solving the case where Euclidean distances are inappropriate. 
-Instead of using the graph of Euclidean distances between any two points, $\mathcal{G}=X'X$, local MDS computes $\mathcal{G}$ starting with the Euclidean distance between pairs of nearest points. Longer distances are solved as a [shortest path problem](https://en.wikipedia.org/wiki/Shortest_path_problem). 
+Instead of using the graph of Euclidean distances between any two points, $\mathcal{G}=X'X$, local MDS computes $\mathcal{G}$ starting with the Euclidean distance between pairs of nearest points. 
+Longer distances are solved as a [shortest path problem](https://en.wikipedia.org/wiki/Shortest_path_problem). 
 This is akin to computing the distance between Jerusalem to Beijing by computing Euclidean distances between Jerusalem-Bagdad, Bagdad-Teheran, Teheran-Ashgabat, Ashgabat-Tashkent,and so on. Because the [geographical-distance](https://en.wikipedia.org/wiki/Geographical_distance) between these cities is well approximated with the Euclidean distance, summing local distanes is better than operating with the Euclidean distance between Jerusalem and Beijing. 
 
 After computing $\mathcal{G}$, local MDS ends with the usual MDS for the embedding.
@@ -313,14 +314,33 @@ Like localMDS, only that the embedding, and not only the computation of the dist
 Very similar to IsoMap \@ref(isomap).
 
 
-### t-SNE
-TODO
+#### t-SNE
+t-SNE is a recently popularized visualization method for high dimentional data. 
+t-SNE starts by computing a proximity graph, $\mathcal{G}$. 
+Computation of distances in the graph assumes a Gaussian decay of distances. 
+Put differently: only the nearest observations have a non-trivial similarity. 
+This stage is similar (in spirit) to the growing of $\mathcal{G}$ in \@ref(loc-mds).
+
+The second stage in t-SNE consists of finding a mapping to 2D (or 3D), which conserves distances in $\mathcal{G}$. 
+The uniquness of t-SNE copared to other space embeddings is in the way distances are computed in the target 2D (or 3D) space.
+
+
+
+#### Force Directed Graph Drawing
+
+This class of algorithms star with a proximty graph $\mathcal{G}$, to define a set of phisically motivated "forces", operating between data-points. 
+Think of $\mathcal{G}$ as governing a set of springs between data points. 
+These springs have some steady-state: this is what you see in the visualization.
+
 
 
 #### Kernel PCA (kPCA)
 Returning to the BMI example (\@ref(exm:bmi)); what if we want to learn scores that best separate between individuals, but unlike PCA, are non-linear in the original features. 
 Kernel PCA does just that, only that it restricts the possible scores to simple functions of the original variables. 
 The allowed functions resides in a function space called Reproducing Kernel Hilbert Space (RKHS), this giving kPCA it's name.
+
+
+
 
 
 #### Sparse PCA (sPCA)
@@ -522,10 +542,92 @@ Things to note:
 
 
 #### t-SNE
-TODO.
-For a natve R implementation: [tsne package](https://cran.r-project.org/web/packages/tsne/).
+For a native R implementation: [tsne package](https://cran.r-project.org/web/packages/tsne/).
 For an R wrapper for C libraries: [Rtsne package](https://github.com/jkrijthe/Rtsne).
-The latter should be faster. Did not check.
+
+
+The [MNIST](http://yann.lecun.com/exdb/mnist/) image bank of hand-written images has its own data format. The import process is adapted from [David Dalpiaz](https://gist.github.com/daviddalpiaz/ae62ae5ccd0bada4b9acd6dbc9008706):
+```{r}
+show_digit <- function(arr784, col = gray(12:1 / 12), ...) {
+  image(matrix(as.matrix(arr784[-785]), nrow = 28)[, 28:1], col = col, ...)
+}
+
+# load image files
+load_image_file <- function(filename) {
+  ret <- list()
+  f <- file(filename, 'rb')
+  readBin(f, 'integer', n = 1, size = 4, endian = 'big')
+  n    <- readBin(f, 'integer', n = 1, size = 4, endian = 'big')
+  nrow <- readBin(f, 'integer', n = 1, size = 4, endian = 'big')
+  ncol <- readBin(f, 'integer', n = 1, size = 4, endian = 'big')
+  x <- readBin(f, 'integer', n = n * nrow * ncol, size = 1, signed = FALSE)
+  close(f)
+  data.frame(matrix(x, ncol = nrow * ncol, byrow = TRUE))
+}
+
+# load label files
+load_label_file <- function(filename) {
+  f <- file(filename, 'rb')
+  readBin(f, 'integer', n = 1, size = 4, endian = 'big')
+  n <- readBin(f, 'integer', n = 1, size = 4, endian = 'big')
+  y <- readBin(f, 'integer', n = n, size = 1, signed = FALSE)
+  close(f)
+  y
+}
+
+# load images
+train <- load_image_file("data/train-images-idx3-ubyte")
+test  <- load_image_file("data/t10k-images-idx3-ubyte")
+
+# load labels
+train$y = as.factor(load_label_file("data/train-labels-idx1-ubyte"))
+test$y  = as.factor(load_label_file("data/t10k-labels-idx1-ubyte"))
+```
+
+Inspect some digits:
+```{r}
+par(mfrow=c(3,3))
+ind <- sample(1:nrow(train),9)
+for(i in 1:9){
+  show_digit(train[ind[i],], main=paste('Label= ',train$y[ind[i]], sep=''))  }
+```
+
+
+The analysis is adapted from [Shruti Marwaha](https://rpubs.com/marwahsi/tnse).
+I start by dowloading and importing the famous digit data of .
+
+
+```{r}
+numTrain <- 5e3 # Subset data for speed
+rows <- sample(1:nrow(train), numTrain)
+train.sub <- train[rows, -which(names(train)=='y')] %>% as.matrix
+train.sub.labs <- train[rows, which(names(train)=='y')]
+
+tsne <- Rtsne::Rtsne(train.sub, dims = 2, perplexity=30, verbose=FALSE, max_iter = 500)
+
+colors <- rainbow(length(unique(train.sub.labs)))
+names(colors) <- unique(train.sub.labs)
+par(mgp=c(2.5,1,0))
+par(mfrow=c(1,1))
+plot(tsne$Y, t='n', 
+     main="tSNE", 
+     xlab="tSNE dimension 1", 
+     ylab="tSNE dimension 2", 
+     "cex.main"=2, 
+     "cex.lab"=1.5)
+text(tsne$Y, labels=train.sub.labs, col=colors[train.sub.labs])
+```
+
+
+
+
+#### Force Embedding
+I am unaware of an R implementation of force-embedding.
+Maybe because of the interactive nature of the algorithm, that is not suited for R. 
+Force embedding is much more natural to interactive GUIs. 
+Here is a fun [javascript implementation](http://bl.ocks.org/eesur/be2abfb3155a38be4de4).
+
+
 
 #### Sparse PCA
 
@@ -852,8 +954,9 @@ plot(hirar.11, ylab="Distance", main=paste('Strong Separation Between',n.groups,
 
 ## Bibliographic Notes
 For some theory of PCA see my [Dimensionality Reduction Class Notes](https://github.com/johnros/dim_reduce/blob/master/dim_reduce.pdf) and references therein.
-For an interactive, visual demonstration of dimensionality reduction, see [Christopher Olah's](http://colah.github.io/posts/2014-10-Visualizing-MNIST/) excellent blog. 
+For a SUPERB, interactive, visual demonstration of dimensionality reduction, see [Christopher Olah's](http://colah.github.io/posts/2014-10-Visualizing-MNIST/) blog. 
 An excellent reference on multivariate analysis (exploratory and inference) is @izenman2008modern. 
+For t-SNE see the creator's site: [Laurens van der Maaten](https://lvdmaaten.github.io/tsne/).
 For an excellent book on kernel methods (RKHS) see @shawe2004kernel.
 For more on everything, see @friedman2001elements.
 For a softer introduction (to everything), see @james2013introduction.
