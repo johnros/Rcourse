@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2019-03-02">
+<meta name="date" content="2019-03-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -49,6 +49,13 @@
 
 
 <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="libs/sequences-0.1/sequences.css" rel="stylesheet" />
+<script src="libs/sunburst-binding-2.1.0/sunburst.js"></script>
+<script src="libs/d3-5.7.0/d3.min.js"></script>
+<script src="libs/d3-lasso-0.0.5/d3-lasso.min.js"></script>
+<link href="libs/ggiraphjs-0.1.0/styles.css" rel="stylesheet" />
+<script src="libs/ggiraphjs-0.1.0/ggiraphjs.min.js"></script>
+<script src="libs/girafe-binding-0.6.0/girafe.js"></script>
 <script src="libs/plotly-binding-4.8.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
@@ -176,7 +183,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.2.2" data-path="eda.html"><a href="eda.html#continuous-data"><i class="fa fa-check"></i><b>5.2.2</b> Continuous Data</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="eda.html"><a href="eda.html#mixed-type-data"><i class="fa fa-check"></i><b>5.3</b> Mixed Type Data</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="eda.html"><a href="eda.html#alluvian-diagram"><i class="fa fa-check"></i><b>5.3.1</b> Alluvian Diagram</a></li>
+<li class="chapter" data-level="5.3.1" data-path="eda.html"><a href="eda.html#alluvian"><i class="fa fa-check"></i><b>5.3.1</b> Alluvian Diagram</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="eda.html"><a href="eda.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="5.5" data-path="eda.html"><a href="eda.html#practice-yourself-2"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
@@ -305,9 +312,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="12.3" data-path="plotting.html"><a href="plotting.html#interactive-graphics"><i class="fa fa-check"></i><b>12.3</b> Interactive Graphics</a><ul>
 <li class="chapter" data-level="12.3.1" data-path="plotting.html"><a href="plotting.html#plotly"><i class="fa fa-check"></i><b>12.3.1</b> Plotly</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="plotting.html"><a href="plotting.html#r2d3"><i class="fa fa-check"></i><b>12.4</b> r2d3</a></li>
-<li class="chapter" data-level="12.5" data-path="plotting.html"><a href="plotting.html#bibliographic-notes-9"><i class="fa fa-check"></i><b>12.5</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="12.6" data-path="plotting.html"><a href="plotting.html#practice-yourself-8"><i class="fa fa-check"></i><b>12.6</b> Practice Yourself</a></li>
+<li class="chapter" data-level="12.4" data-path="plotting.html"><a href="plotting.html#rbokeh"><i class="fa fa-check"></i><b>12.4</b> Rbokeh</a></li>
+<li class="chapter" data-level="12.5" data-path="plotting.html"><a href="plotting.html#r2d3"><i class="fa fa-check"></i><b>12.5</b> r2d3</a></li>
+<li class="chapter" data-level="12.6" data-path="plotting.html"><a href="plotting.html#bibliographic-notes-9"><i class="fa fa-check"></i><b>12.6</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="12.7" data-path="plotting.html"><a href="plotting.html#practice-yourself-8"><i class="fa fa-check"></i><b>12.7</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="report.html"><a href="report.html"><i class="fa fa-check"></i><b>13</b> Reports</a><ul>
 <li class="chapter" data-level="13.1" data-path="report.html"><a href="report.html#knitr"><i class="fa fa-check"></i><b>13.1</b> knitr</a><ul>
@@ -498,7 +506,7 @@ Similar to active learning, in that the machine may query for labels. Different 
 <p>The fundamental task in supervised (statistical) learning is to recover a hypothesis that minimizes the average loss in the sample, and not in the population. This is know as the <em>risk minimization problem</em>.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-215" class="definition"><strong>Definition 10.1  (Risk Function)  </strong></span>The <em>risk function</em>, a.k.a. <em>generalization error</em>, or <em>test error</em>, is the population average loss of a predictor <span class="math inline">\(f\)</span>:
+<span id="def:unnamed-chunk-218" class="definition"><strong>Definition 10.1  (Risk Function)  </strong></span>The <em>risk function</em>, a.k.a. <em>generalization error</em>, or <em>test error</em>, is the population average loss of a predictor <span class="math inline">\(f\)</span>:
 <span class="math display">\[\begin{align}
   R(f):=\mathbb{E}_P[l(f(x),y)].
 \end{align}\]</span>
@@ -512,7 +520,7 @@ The best predictor, is the risk minimizer:
 <p>Another fundamental problem is that we do not know the distribution of all possible inputs and outputs, <span class="math inline">\(P\)</span>. We typically only have a sample of <span class="math inline">\((x_i,y_i), i=1,\dots,n\)</span>. We thus state the <em>empirical</em> counterpart of <a href="supervised.html#eq:risk">(10.1)</a>, which consists of minimizing the average loss. This is known as the <em>empirical risk miminization</em> problem (ERM).</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-216" class="definition"><strong>Definition 10.2  (Empirical Risk)  </strong></span>The <em>empirical risk function</em>, a.k.a. <em>in-sample error</em>, or <em>train error</em>, is the sample average loss of a predictor <span class="math inline">\(f\)</span>:
+<span id="def:unnamed-chunk-219" class="definition"><strong>Definition 10.2  (Empirical Risk)  </strong></span>The <em>empirical risk function</em>, a.k.a. <em>in-sample error</em>, or <em>train error</em>, is the sample average loss of a predictor <span class="math inline">\(f\)</span>:
 <span class="math display">\[\begin{align}
   R_n(f):= 1/n \sum_i l(f(x_i),y_i).
 \end{align}\]</span>
@@ -710,7 +718,7 @@ train.errors &lt;-<span class="st"> </span><span class="kw">rep</span>(<span cla
        <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;Training&quot;</span>, <span class="st">&quot;Validation&quot;</span>), 
        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;blue&quot;</span>), 
        <span class="dt">pch =</span> <span class="dv">19</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-218-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-221-1.png" width="50%" /></p>
 <p>Checking all possible models is computationally very hard. <em>Forward selection</em> is a greedy approach that adds one variable at a time.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols.<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(lcavol<span class="op">~</span><span class="dv">1</span> ,<span class="dt">data =</span> prostate.train)
 model.scope &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">upper=</span>ols.<span class="dv">1</span>, <span class="dt">lower=</span>ols.<span class="dv">0</span>)
@@ -969,7 +977,7 @@ nnet.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">nn
 <pre><code>## [1] 0.5623316</code></pre>
 <p>We can use the <strong>rpart.plot</strong> package to visualize and interpret the predictor.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rpart.plot<span class="op">::</span><span class="kw">rpart.plot</span>(tree.<span class="dv">1</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-223-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-226-1.png" width="50%" /></p>
 <p>Trees are very prone to overfitting. To avoid this, we reduce a tree’s complexity by <em>pruning</em> it. This is done with the <code>prune</code> function (not demonstrated herein).</p>
 <p>We now fit a classification tree.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tree.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">rpart</span>(spam<span class="op">~</span>., <span class="dt">data=</span>spam.train)

@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2019-03-02">
+<meta name="date" content="2019-03-04">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -49,6 +49,13 @@
 
 
 <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="libs/sequences-0.1/sequences.css" rel="stylesheet" />
+<script src="libs/sunburst-binding-2.1.0/sunburst.js"></script>
+<script src="libs/d3-5.7.0/d3.min.js"></script>
+<script src="libs/d3-lasso-0.0.5/d3-lasso.min.js"></script>
+<link href="libs/ggiraphjs-0.1.0/styles.css" rel="stylesheet" />
+<script src="libs/ggiraphjs-0.1.0/ggiraphjs.min.js"></script>
+<script src="libs/girafe-binding-0.6.0/girafe.js"></script>
 <script src="libs/plotly-binding-4.8.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
@@ -176,7 +183,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.2.2" data-path="eda.html"><a href="eda.html#continuous-data"><i class="fa fa-check"></i><b>5.2.2</b> Continuous Data</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="eda.html"><a href="eda.html#mixed-type-data"><i class="fa fa-check"></i><b>5.3</b> Mixed Type Data</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="eda.html"><a href="eda.html#alluvian-diagram"><i class="fa fa-check"></i><b>5.3.1</b> Alluvian Diagram</a></li>
+<li class="chapter" data-level="5.3.1" data-path="eda.html"><a href="eda.html#alluvian"><i class="fa fa-check"></i><b>5.3.1</b> Alluvian Diagram</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="eda.html"><a href="eda.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="5.5" data-path="eda.html"><a href="eda.html#practice-yourself-2"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
@@ -305,9 +312,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="12.3" data-path="plotting.html"><a href="plotting.html#interactive-graphics"><i class="fa fa-check"></i><b>12.3</b> Interactive Graphics</a><ul>
 <li class="chapter" data-level="12.3.1" data-path="plotting.html"><a href="plotting.html#plotly"><i class="fa fa-check"></i><b>12.3.1</b> Plotly</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="plotting.html"><a href="plotting.html#r2d3"><i class="fa fa-check"></i><b>12.4</b> r2d3</a></li>
-<li class="chapter" data-level="12.5" data-path="plotting.html"><a href="plotting.html#bibliographic-notes-9"><i class="fa fa-check"></i><b>12.5</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="12.6" data-path="plotting.html"><a href="plotting.html#practice-yourself-8"><i class="fa fa-check"></i><b>12.6</b> Practice Yourself</a></li>
+<li class="chapter" data-level="12.4" data-path="plotting.html"><a href="plotting.html#rbokeh"><i class="fa fa-check"></i><b>12.4</b> Rbokeh</a></li>
+<li class="chapter" data-level="12.5" data-path="plotting.html"><a href="plotting.html#r2d3"><i class="fa fa-check"></i><b>12.5</b> r2d3</a></li>
+<li class="chapter" data-level="12.6" data-path="plotting.html"><a href="plotting.html#bibliographic-notes-9"><i class="fa fa-check"></i><b>12.6</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="12.7" data-path="plotting.html"><a href="plotting.html#practice-yourself-8"><i class="fa fa-check"></i><b>12.7</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="report.html"><a href="report.html"><i class="fa fa-check"></i><b>13</b> Reports</a><ul>
 <li class="chapter" data-level="13.1" data-path="report.html"><a href="report.html#knitr"><i class="fa fa-check"></i><b>13.1</b> knitr</a><ul>
@@ -553,7 +561,7 @@ pca.<span class="dv">1</span></code></pre></div>
 <p>FA originates from the psychometric literature. We thus revisit the IQ (actually g-factor<a href="#fn23" class="footnoteRef" id="fnref23"><sup>23</sup></a>) Example <a href="unsupervised.html#exm:iq">11.2</a>:</p>
 
 <div class="example">
-<span id="exm:unnamed-chunk-227" class="example"><strong>Example 11.4  </strong></span>Assume <span class="math inline">\(n\)</span> respondents answer <span class="math inline">\(p\)</span> quantitative questions: <span class="math inline">\(x_i \in \mathbb{R}^p, i=1,\dots,n\)</span>. Also assume, their responses are some linear function of a single personality attribute, <span class="math inline">\(s_i\)</span>. We can think of <span class="math inline">\(s_i\)</span> as the subject’s “intelligence”. We thus have
+<span id="exm:unnamed-chunk-230" class="example"><strong>Example 11.4  </strong></span>Assume <span class="math inline">\(n\)</span> respondents answer <span class="math inline">\(p\)</span> quantitative questions: <span class="math inline">\(x_i \in \mathbb{R}^p, i=1,\dots,n\)</span>. Also assume, their responses are some linear function of a single personality attribute, <span class="math inline">\(s_i\)</span>. We can think of <span class="math inline">\(s_i\)</span> as the subject’s “intelligence”. We thus have
 <span class="math display">\[\begin{align}
     x_i = s_i A  + \varepsilon_i
 \end{align}\]</span>
@@ -648,7 +656,7 @@ where <span class="math inline">\(A\)</span> is the <span class="math inline">\(
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># library(devtools)</span>
 <span class="co"># install_github(&quot;vqv/ggbiplot&quot;)</span>
 ggbiplot<span class="op">::</span><span class="kw">ggbiplot</span>(pca.<span class="dv">1</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-229-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-232-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>We used the <code>ggbiplot</code> function from the <strong>ggbiplot</strong> (available from github, but not from CRAN), because it has a nicer output than <code>stats::biplot</code>.</li>
@@ -659,7 +667,7 @@ ggbiplot<span class="op">::</span><span class="kw">ggbiplot</span>(pca.<span cla
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ggbiplot<span class="op">::</span><span class="kw">ggscreeplot</span>(pca.<span class="dv">1</span>)</code></pre></div>
 <p><img src="Rcourse_files/figure-html/scree-1.png" width="50%" /></p>
 <p>See how the first PC captures the variability in the Assault levels and Murder levels, with a single score.</p>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-230-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-233-1.png" width="50%" /></p>
 <p>More implementations of PCA:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># FAST solutions:</span>
 gmodels<span class="op">::</span><span class="kw">fast.prcomp</span>()
@@ -847,7 +855,7 @@ test<span class="op">$</span>y  =<span class="st"> </span><span class="kw">as.fa
 ind &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(train),<span class="dv">9</span>)
 <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">9</span>){
   <span class="kw">show_digit</span>(train[ind[i],], <span class="dt">main=</span><span class="kw">paste</span>(<span class="st">&#39;Label= &#39;</span>,train<span class="op">$</span>y[ind[i]], <span class="dt">sep=</span><span class="st">&#39;&#39;</span>))  }</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-233-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-236-1.png" width="50%" /></p>
 <p>The analysis is adapted from <a href="https://rpubs.com/marwahsi/tnse">Shruti Marwaha</a>. I start by dowloading and importing the famous digit data of .</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">numTrain &lt;-<span class="st"> </span><span class="fl">5e3</span> <span class="co"># Subset data for speed</span>
 rows &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(train), numTrain)
@@ -867,7 +875,7 @@ colors &lt;-<span class="st"> </span><span class="kw">rainbow</span>(<span class
      <span class="st">&quot;cex.main&quot;</span>=<span class="dv">2</span>, 
      <span class="st">&quot;cex.lab&quot;</span>=<span class="fl">1.5</span>)
 <span class="kw">text</span>(tsne<span class="op">$</span>Y, <span class="dt">labels=</span>train.sub.labs, <span class="dt">col=</span>colors[train.sub.labs])</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-234-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-237-1.png" width="50%" /></p>
 </div>
 <div id="force-embedding" class="section level4">
 <h4><span class="header-section-number">11.1.5.6</span> Force Embedding</h4>
@@ -1125,13 +1133,13 @@ the.data.<span class="dv">10</span> &lt;-<span class="st"> </span>mvtnorm<span c
 data.disimilarity.<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">dist</span>(the.data.<span class="dv">10</span>)
 hirar.<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(data.disimilarity.<span class="dv">10</span>, <span class="dt">method =</span> <span class="st">&quot;complete&quot;</span>)
 <span class="kw">plot</span>(hirar.<span class="dv">10</span>, <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>, <span class="dt">main=</span><span class="st">&#39;All from the same group&#39;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-238-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-241-1.png" width="50%" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># data with strong separation between groups</span>
 the.data.<span class="dv">11</span> &lt;-the.data.<span class="dv">10</span> <span class="op">+</span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">10</span>,<span class="dv">20</span>), data.n, <span class="dt">replace=</span><span class="ot">TRUE</span>) <span class="co"># Shift each group </span>
 data.disimilarity.<span class="dv">11</span> &lt;-<span class="st"> </span><span class="kw">dist</span>(the.data.<span class="dv">11</span>)
 hirar.<span class="dv">11</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(data.disimilarity.<span class="dv">11</span>, <span class="dt">method =</span> <span class="st">&quot;complete&quot;</span>)
 <span class="kw">plot</span>(hirar.<span class="dv">11</span>, <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>, <span class="dt">main=</span><span class="kw">paste</span>(<span class="st">&#39;Strong Separation Between&#39;</span>,n.groups, <span class="st">&#39;Groups&#39;</span>))</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-238-2.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-241-2.png" width="50%" /></p>
 </div>
 </div>
 </div>

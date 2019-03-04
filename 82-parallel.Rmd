@@ -175,8 +175,12 @@ qs
 
 
 ### Caution: Implicit with Explicit Parallelism
-A common problem when parallelizing is that the machines you invoked with explicit parallelism, invoke other machines using implicit parallelism. You then lose control of the number of machine being invoked, and the operating system spends most of its time managing resources, instead of doing your computations. 
-In Linux, this can easily be diagnozed using [htop](https://hisham.hm/htop/): red bars are system management tasks; green bars are your computations. If there are too many red bars, you have a problem, and should consult an expert. 
+A common problem when parallelizing is that the machines you invoked with __explicit__ parallelism, invoke other machines using __implicit__ parallelism. 
+You then lose control of the number of machine being invoked, and the operating system spends most of its time managing resources, instead of doing your computations. 
+
+Modern linear algebra libraries may try to implicitly parallelize vector and matrix operations.
+To avoid this type of implicity parallelism within an explicit paralleliation, use the [RhpcBLASctl package](), and in particular  _evaRhpcBLASctl::blas_set_num_threads()_.
+In other cases, you should consult an expert. 
 
 
 
@@ -185,6 +189,8 @@ In Linux, this can easily be diagnozed using [htop](https://hisham.hm/htop/): re
 ## Bibliographic Notes
 For a brief and excellent explanation on parallel computing in R see @schmidberger2009state.
 For a full review see @chapple2016mastering.
+For a blog-level introduction see [ParallelR
+](http://www.parallelr.com/r-with-parallel-computing/).
 For an up-to-date list of packages supporting parallel programming see the High Performance Computing [R task view](https://cran.r-project.org/web/views/HighPerformanceComputing.html).
 
 ## Practice Yourself

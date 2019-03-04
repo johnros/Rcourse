@@ -231,7 +231,7 @@ How would you define a robust covariance matrix?
 
 ## Visualization
 Summarizing the information in a variable to a single number clearly conceals much of the story in the sample. 
-This is akin to inspecting a person using a caricature, instead of a picture. 
+This is like inspecting a person using a caricature, instead of a picture. 
 Visualizing the data, when possible, is more informative. 
 
 ### Categorical Data
@@ -260,6 +260,22 @@ The _mosaic plot_ is not easy to generalize to more than two variables, but it i
 plot(table2.1, main='Trivaraite mosaic plot')
 ```
 
+When one of the variables is a (discrete) time variable, then the plot has a notion dynamics in time. For this see the Alluvian plot \@ref(alluvian).
+
+If the variables represent a hirarcy, consider a __Sunburst Plot__:
+```{r sunburst}
+# In the HTML version of the book this plot is interactive.
+
+library(sunburstR)
+# read in sample visit-sequences.csv data provided in source
+# https://gist.github.com/kerryrodden/7090426#file-visit-sequences-csv
+sequences <- read.csv(
+  system.file("examples/visit-sequences.csv",package="sunburstR")
+  ,header=F
+  ,stringsAsFactors = FALSE
+)
+sunburst(sequences)
+```
 
 
 ### Continuous Data
@@ -310,6 +326,40 @@ The boxplot is designed to capture the main phenomena in the data, and simultane
 boxplot(sample1)	
 ```
 
+Another way to deal with a massive amount of data points, is to emphasize important points, and conceal non-important. 
+This is the purpose of __circle-packing__ (example from [r-graph gallery](https://www.r-graph-gallery.com/308-interactive-circle-packing/)):
+```{r, echo=FALSE}
+# libraries
+library(packcircles)
+library(ggplot2)
+library(viridis)
+library(ggiraph)
+
+# Create data
+data=data.frame(group=paste("Group_", sample(letters, 70, replace=T), sample(letters, 70, replace=T), sample(letters, 70, replace=T), sep="" ), value=sample(seq(1,70),70)) 
+
+# Add a column with the text you want to display for each bubble:
+data$text=paste("name: ",data$group, "\n", "value:", data$value, "\n", "You can add a story here!")
+
+# Generate the layout
+packing <- circleProgressiveLayout(data$value, sizetype='area')
+data = cbind(data, packing)
+dat.gg <- circleLayoutVertices(packing, npoints=50)
+
+# Make the plot with a few differences compared to the static version:
+p=ggplot() + 
+  geom_polygon_interactive(data = dat.gg, aes(x, y, group = id, fill=id, tooltip = data$text[id], data_id = id), colour = "black", alpha = 0.6) +
+  scale_fill_viridis() +
+  geom_text(data = data, aes(x, y, label = gsub("Group_", "", group)), size=2, color="black") +
+  theme_void() + 
+  theme(legend.position="none", plot.margin=unit(c(0,0,0,0),"cm") ) + 
+  coord_equal()
+
+
+ggiraph(ggobj = p, width_svg = 7, height_svg = 7)
+```
+
+
 
 #### Visualizing Bivariate Continuous Data
 The bivariate counterpart of the `stipchart` is the celebrated scatter plot. 
@@ -319,6 +369,32 @@ x1 <- rexp(n)
 x2 <- 2* x1 + 4 + rexp(n)
 plot(x2~x1)
 ```
+
+A scatter-plot may be augmented with marginal univariate visualization.
+See, for instance, the _rug_ function to add the raw data on the margins:
+```{r}
+plot(x2~x1)
+rug(x1,side = 1)
+rug(x2,side = 2)
+```
+
+A fancire version may use a histogram on the margins:
+```{r, echo=FALSE}
+library(ggplot2)
+library(ggExtra)
+set.seed(1234)
+x <- c(rnorm(500, mean = -1), rnorm(500, mean = 1.5))
+y <- c(rnorm(500, mean = 1), rnorm(500, mean = 1.7))
+df3 <- data.frame(x, y)
+sp2 <- ggplot(df3,aes(x, y)) + geom_point()
+ggMarginal(sp2 + theme_gray(), type = "histogram",
+           fill = "steelblue", col = "darkblue")
+```
+
+
+
+
+
 
 Like the univariate `stripchart`, the scatter plot will be an uninformative mess in the presence of a lot of data. 
 A nice bivariate counterpart of the univariate histogram is the _hexbin plot_, which tessellates the plane with hexagons, and reports their frequencies.
@@ -380,7 +456,7 @@ There are, however, interesting dedicated visualization for such data.
 
 
 
-### Alluvian Diagram
+### Alluvian Diagram {#alluvian}
 An Alluvian plot is a type of [Parallel Coordinate Plot](#parcoord) for multivariate categorical data. 
 It is particularly interesting when the $x$ axis is a discretized time variable, and it is used to visualize flow. 
 

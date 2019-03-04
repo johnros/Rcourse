@@ -157,8 +157,14 @@ which compiles into
 plot(rnorm(10))
 ```
 
-TODO: more code chunk options.
+Some useful code chunk options include:
 
+- `eval=FALSE`: to return code only, without output.
+- `echo=FALSE`: to return output, without code.
+- `cache=`: to save results so that future compilations are faster.
+- `results='hide'`: to plot figures, without text output.
+- `collapse=TRUE`: if you want the whole output after the whole code, and not interleaved.
+- `warning=FALSE`: to supress watning. The same for `message=FALSE`, and `error=FALSE`.
 
 You can also call r expressions inline. 
 This is done with a single tick and the `r` argument.
@@ -477,7 +483,7 @@ A template for Shiny to give it s modern look.
 
 
 ## flexdashboard
-If you want to quickly write an interactive dashboard, which is simple enough to be a static HTML file and does not need an HTML server, then Shiney may be an overkill. 
+If you want to quickly write an interactive dashboard, which is simple enough to be a static HTML file and does not need an HTML server, then Shiny may be an overkill. 
 With __flexdashboard__ you can write your dashboard a single .Rmd file, which will generate an interactive dashboard as a static HTML file. 
 
 See [http://rmarkdown.rstudio.com/flexdashboard/] for more info.
