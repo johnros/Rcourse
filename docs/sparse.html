@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2019-03-04">
+<meta name="date" content="2019-03-05">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -345,8 +345,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a><ul>
 <li class="chapter" data-level="14.2.1" data-path="sparse.html"><a href="sparse.html#the-matrix-package"><i class="fa fa-check"></i><b>14.2.1</b> The Matrix Package</a></li>
-<li class="chapter" data-level="14.2.2" data-path="sparse.html"><a href="sparse.html#the-matrixmodels-package"><i class="fa fa-check"></i><b>14.2.2</b> The MatrixModels Package</a></li>
-<li class="chapter" data-level="14.2.3" data-path="sparse.html"><a href="sparse.html#the-glmnet-package"><i class="fa fa-check"></i><b>14.2.3</b> The glmnet Package</a></li>
+<li class="chapter" data-level="14.2.2" data-path="sparse.html"><a href="sparse.html#the-glmnet-package"><i class="fa fa-check"></i><b>14.2.2</b> The glmnet Package</a></li>
+<li class="chapter" data-level="14.2.3" data-path="sparse.html"><a href="sparse.html#the-matrixmodels-package"><i class="fa fa-check"></i><b>14.2.3</b> The MatrixModels Package</a></li>
 <li class="chapter" data-level="14.2.4" data-path="sparse.html"><a href="sparse.html#the-sparsem-package"><i class="fa fa-check"></i><b>14.2.4</b> The SparseM Package</a></li>
 </ul></li>
 <li class="chapter" data-level="14.3" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>14.3</b> Bibliographic Notes</a></li>
@@ -385,7 +385,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="17.4" data-path="algebra.html"><a href="algebra.html#singular-value-factorization"><i class="fa fa-check"></i><b>17.4</b> Singular Value Factorization</a></li>
 <li class="chapter" data-level="17.5" data-path="algebra.html"><a href="algebra.html#iterative-methods"><i class="fa fa-check"></i><b>17.5</b> Iterative Methods</a></li>
 <li class="chapter" data-level="17.6" data-path="algebra.html"><a href="algebra.html#solving-ols"><i class="fa fa-check"></i><b>17.6</b> Solving the OLS Problem</a></li>
-<li class="chapter" data-level="17.7" data-path="algebra.html"><a href="algebra.html#numerical-libraries-for-linear-algebra"><i class="fa fa-check"></i><b>17.7</b> Numerical Libraries for Linear Algebra</a></li>
+<li class="chapter" data-level="17.7" data-path="algebra.html"><a href="algebra.html#numerical-libraries-for-linear-algebra"><i class="fa fa-check"></i><b>17.7</b> Numerical Libraries for Linear Algebra</a><ul>
+<li class="chapter" data-level="17.7.1" data-path="algebra.html"><a href="algebra.html#openblas"><i class="fa fa-check"></i><b>17.7.1</b> OpenBlas</a></li>
+<li class="chapter" data-level="17.7.2" data-path="algebra.html"><a href="algebra.html#mkl"><i class="fa fa-check"></i><b>17.7.2</b> MKL</a></li>
+</ul></li>
 <li class="chapter" data-level="17.8" data-path="algebra.html"><a href="algebra.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>17.8</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="17.9" data-path="algebra.html"><a href="algebra.html#practice-yourself-13"><i class="fa fa-check"></i><b>17.9</b> Practice Yourself</a></li>
 </ul></li>
@@ -545,7 +548,7 @@ X.<span class="dv">2</span>&lt;-<span class="st"> </span><span class="kw">as</sp
 <pre><code>## [1] TRUE</code></pre>
 <p>You can also visualize the non zero entries, i.e., the sparsity structure.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(X.<span class="dv">2</span>[<span class="dv">1</span><span class="op">:</span><span class="dv">26</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">26</span>])</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-310-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-312-1.png" width="50%" /></p>
 <div id="sparse-matrix-representations" class="section level2">
 <h2><span class="header-section-number">14.1</span> Sparse Matrix Representations</h2>
 <p>We first distinguish between the two main goals of the efficient representation: (i) efficient writing, i.e., modification; (ii) efficient reading, i.e., access. For our purposes, we will typically want efficient reading, since the <code>model.matrix</code> will not change while a model is being fitted.</p>
@@ -601,12 +604,8 @@ X.<span class="dv">2</span>&lt;-<span class="st"> </span><span class="kw">as</sp
 </ul>
 <p>Why bother with distinguishing between the different shapes of the matrix? Because the more structure is assumed on a matrix, the more our (statistical) algorithms can be optimized. For our purposes <code>dgCMatrix</code> will be the most useful.</p>
 </div>
-<div id="the-matrixmodels-package" class="section level3">
-<h3><span class="header-section-number">14.2.2</span> The MatrixModels Package</h3>
-<p>TODO</p>
-</div>
 <div id="the-glmnet-package" class="section level3">
-<h3><span class="header-section-number">14.2.3</span> The glmnet Package</h3>
+<h3><span class="header-section-number">14.2.2</span> The glmnet Package</h3>
 <p>As previously stated, an efficient storage of the <code>model.matrix</code> is half of the story. We now need implementations of our favorite statistical algorithms that make use of this representation. At the time of writing, a very useful package that does that is the <strong>glmnet</strong> package, which allows to fit linear models, generalized linear models, with ridge, lasso, and elastic net regularization. The <strong>glmnet</strong> package allows all of this, using the sparse matrices of the <strong>Matrix</strong> package.</p>
 <p>The following example is taken from <a href="http://www.johnmyleswhite.com/notebook/2011/10/31/using-sparse-matrices-in-r/">John Myles White’s blog</a>, and compares the runtime of fitting an OLS model, using <code>glmnet</code> with both sparse and dense matrix representations.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(<span class="st">&#39;glmnet&#39;</span>))
@@ -663,16 +662,21 @@ performance &lt;-<span class="st"> </span><span class="kw">data.frame</span>()
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;bar&#39;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;errorbar&#39;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&#39;Elapsed Time in Seconds&#39;</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-311-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-313-1.png" width="50%" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(performance, <span class="kw">aes</span>(<span class="dt">x =</span> Format, <span class="dt">y =</span> Size <span class="op">/</span><span class="st"> </span><span class="dv">1000000</span>, <span class="dt">fill =</span> Format)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;bar&#39;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;errorbar&#39;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&#39;Matrix Size in MB&#39;</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-312-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-314-1.png" width="50%" /></p>
 <p>How do we perform other types of regression with the <strong>glmnet</strong>? We just need to use the <code>family</code> and <code>alpha</code> arguments of <code>glmnet::glmnet</code>. The <code>family</code> argument governs the type of GLM to fit: logistic, Poisson, probit, or other types of GLM. The <code>alpha</code> argument controls the type of regularization. Set to <code>alpha=0</code> for ridge, <code>alpha=1</code> for lasso, and any value in between for elastic-net regularization.</p>
+</div>
+<div id="the-matrixmodels-package" class="section level3">
+<h3><span class="header-section-number">14.2.3</span> The MatrixModels Package</h3>
+<p>The <a href="https://cran.r-project.org/package=MatrixModels">MatrixModels</a> package is designed to fit various models (linear, non-linear, generalized) using sparse matries. The function <code>MatrixModels::glm4</code> can easily replace <code>stats::glm</code> for all your needs. Unlike <strong>glmnet</strong>, the <strong>MatrixModels</strong> package will not offer you model regularization.</p>
 </div>
 <div id="the-sparsem-package" class="section level3">
 <h3><span class="header-section-number">14.2.4</span> The SparseM Package</h3>
+<p>Basic linear algebra with sparse matrices.</p>
 </div>
 </div>
 <div id="bibliographic-notes-11" class="section level2">
@@ -681,6 +685,7 @@ performance &lt;-<span class="st"> </span><span class="kw">data.frame</span>()
 </div>
 <div id="practice-yourself-10" class="section level2">
 <h2><span class="header-section-number">14.4</span> Practice Yourself</h2>
+<p>TODO</p>
 
 </div>
 </div>

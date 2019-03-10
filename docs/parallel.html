@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2019-03-04">
+<meta name="date" content="2019-03-05">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -345,8 +345,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="14.2" data-path="sparse.html"><a href="sparse.html#sparse-matrices-and-sparse-models-in-r"><i class="fa fa-check"></i><b>14.2</b> Sparse Matrices and Sparse Models in R</a><ul>
 <li class="chapter" data-level="14.2.1" data-path="sparse.html"><a href="sparse.html#the-matrix-package"><i class="fa fa-check"></i><b>14.2.1</b> The Matrix Package</a></li>
-<li class="chapter" data-level="14.2.2" data-path="sparse.html"><a href="sparse.html#the-matrixmodels-package"><i class="fa fa-check"></i><b>14.2.2</b> The MatrixModels Package</a></li>
-<li class="chapter" data-level="14.2.3" data-path="sparse.html"><a href="sparse.html#the-glmnet-package"><i class="fa fa-check"></i><b>14.2.3</b> The glmnet Package</a></li>
+<li class="chapter" data-level="14.2.2" data-path="sparse.html"><a href="sparse.html#the-glmnet-package"><i class="fa fa-check"></i><b>14.2.2</b> The glmnet Package</a></li>
+<li class="chapter" data-level="14.2.3" data-path="sparse.html"><a href="sparse.html#the-matrixmodels-package"><i class="fa fa-check"></i><b>14.2.3</b> The MatrixModels Package</a></li>
 <li class="chapter" data-level="14.2.4" data-path="sparse.html"><a href="sparse.html#the-sparsem-package"><i class="fa fa-check"></i><b>14.2.4</b> The SparseM Package</a></li>
 </ul></li>
 <li class="chapter" data-level="14.3" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>14.3</b> Bibliographic Notes</a></li>
@@ -385,7 +385,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="17.4" data-path="algebra.html"><a href="algebra.html#singular-value-factorization"><i class="fa fa-check"></i><b>17.4</b> Singular Value Factorization</a></li>
 <li class="chapter" data-level="17.5" data-path="algebra.html"><a href="algebra.html#iterative-methods"><i class="fa fa-check"></i><b>17.5</b> Iterative Methods</a></li>
 <li class="chapter" data-level="17.6" data-path="algebra.html"><a href="algebra.html#solving-ols"><i class="fa fa-check"></i><b>17.6</b> Solving the OLS Problem</a></li>
-<li class="chapter" data-level="17.7" data-path="algebra.html"><a href="algebra.html#numerical-libraries-for-linear-algebra"><i class="fa fa-check"></i><b>17.7</b> Numerical Libraries for Linear Algebra</a></li>
+<li class="chapter" data-level="17.7" data-path="algebra.html"><a href="algebra.html#numerical-libraries-for-linear-algebra"><i class="fa fa-check"></i><b>17.7</b> Numerical Libraries for Linear Algebra</a><ul>
+<li class="chapter" data-level="17.7.1" data-path="algebra.html"><a href="algebra.html#openblas"><i class="fa fa-check"></i><b>17.7.1</b> OpenBlas</a></li>
+<li class="chapter" data-level="17.7.2" data-path="algebra.html"><a href="algebra.html#mkl"><i class="fa fa-check"></i><b>17.7.2</b> MKL</a></li>
+</ul></li>
 <li class="chapter" data-level="17.8" data-path="algebra.html"><a href="algebra.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>17.8</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="17.9" data-path="algebra.html"><a href="algebra.html#practice-yourself-13"><i class="fa fa-check"></i><b>17.9</b> Practice Yourself</a></li>
 </ul></li>
@@ -532,11 +535,10 @@ ptime &lt;-<span class="st"> </span><span class="kw">system.time</span>({
  result1 &lt;-<span class="st"> </span><span class="kw">glm</span>(x[ind,<span class="dv">2</span>]<span class="op">~</span>x[ind,<span class="dv">1</span>], <span class="dt">family=</span><span class="kw">binomial</span>(logit))
  <span class="kw">coefficients</span>(result1)
  }
- })[<span class="dv">3</span>]</code></pre></div>
-<pre><code>## Warning: executing %dopar% sequentially: no parallel backend registered</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ptime</code></pre></div>
+ })[<span class="dv">3</span>]
+ptime</code></pre></div>
 <pre><code>## elapsed 
-##  17.144</code></pre>
+##   9.748</code></pre>
 <p>Things to note:</p>
 <ul>
 <li>As usual, we use the <code>foreach</code> function with the <code>%dopar%</code> operator to loop in parallel.</li>
@@ -553,7 +555,7 @@ ptime &lt;-<span class="st"> </span><span class="kw">system.time</span>({
  })[<span class="dv">3</span>]
 stime</code></pre></div>
 <pre><code>## elapsed 
-##  16.898</code></pre>
+##   17.33</code></pre>
 <p>Yes. Parallelising is clearly faster.</p>
 <p>Let’s see how we can combine the power of <strong>bigmemory</strong> and <strong>foreach</strong> by creating a file mapped <code>big.matrix</code> object, which is shared by all machines. The following example is taken from <span class="citation">M. J. Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span>, and uses the <code>big.matrix</code> object we created in Chapter <a href="memory.html#memory">15</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bigmemory)

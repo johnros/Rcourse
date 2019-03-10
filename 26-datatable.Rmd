@@ -8,6 +8,11 @@ editor_options:
 `data.table` is an excellent extension of the `data.frame` class.
 If used as a `data.frame` it will look and feel like a data frame.
 If, however, it is used with it's unique capabilities, it will prove faster and easier to manipulate. 
+This is because `data.frame`s, like most of R objects, make a copy of themselves when modified. 
+This is known as [passing by value](https://stackoverflow.com/questions/373419/whats-the-difference-between-passing-by-reference-vs-passing-by-value), and it is done to ensure that object are not corrupted if an operation fails (if your computer shuts down before the operation is completed, for instance). 
+Making copies of large objects is clearly time and memory consuming.
+A `data.table` can make changes in place. 
+This is known as [passing by reference](https://stackoverflow.com/questions/373419/whats-the-difference-between-passing-by-reference-vs-passing-by-value), which is considerably faster than passing by value. 
 
 Let's start with importing some freely available car sales data from [Kaggle](https://www.kaggle.com/orgesleka/used-cars-database).
 ```{r}
@@ -108,8 +113,8 @@ auto[,.(Price=mean(price), Power=mean(powerPS)), by=.(vehicleType,fuelType)] %>%
 
 Compute with variables created on the fly:
 ```{r}
-auto[,sum(price<1e4),] # Count prices higher than 10,000
-auto[,mean(price<1e4),] # Proportion of prices larger than 10,000
+auto[,sum(price<1e4),] # Count prices lower than 10,000
+auto[,mean(price<1e4),] # Proportion of prices lower than 10,000
 auto[,.(Power=mean(powerPS)), by=.(PriceRange=price>1e4)] 
 ```
 
@@ -237,7 +242,7 @@ melt(mtcars, id.vars=c("type"), variable.name="Charachteristic", value.name="Mea
 
 ### Long to wide
 
-`dcast` will conver from long to wide:
+`dcast` will convert from long to wide:
 ```{r}
 dcast(ChickWeight, Chick~Time, value.var="weight")
 ```

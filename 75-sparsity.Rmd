@@ -204,11 +204,6 @@ For our purposes `dgCMatrix` will be the most useful.
 
 
 
-### The MatrixModels Package
-TODO
-
-
-
 
 
 ### The glmnet Package
@@ -296,7 +291,15 @@ The `alpha` argument controls the type of regularization. Set to `alpha=0` for r
 
 
 
+### The MatrixModels Package
+The [MatrixModels](https://cran.r-project.org/package=MatrixModels) package is designed to fit various models (linear, non-linear, generalized) using sparse matries. 
+The function `MatrixModels::glm4` can easily replace `stats::glm` for all your needs. 
+Unlike __glmnet__, the __MatrixModels__ package will not offer you model regularization.
+
+
+
 ### The SparseM Package
+Basic linear algebra with sparse matrices. 
 
 
 ## Bibliographic Notes
@@ -308,3 +311,12 @@ For general numerical linear algebra see @gentle2012numerical.
 
 
 ## Practice Yourself
+
+1. What is the CSC representation of the following matrix:
+$$\begin{bmatrix}
+0 & 1 & 0 \\
+0 & 0 & 6 \\
+1 & 0 & 1 
+\end{bmatrix}$$
+
+1. Write a function that takes two matrices in CSC and returns their matrix product.

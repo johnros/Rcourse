@@ -377,40 +377,7 @@ The curious reader is invited to read @rosenblatt2014selective, @javanmard2014co
 
 
 
-## Multivariate Regression (*)
 
-_Multivaraite regression_, a.k.a. _MANOVA_, similar to [_structured learning_](https://en.wikipedia.org/wiki/Structured_prediction) in machine learning, is simply a regression problem where the outcome, $y$, is not scalar values but vector valued. 
-It is not to be confused with _multiple regression_ where the predictor, $x$, is vector valued, but the outcome is scalar. 
-
-If the linear models generalize the two-sample t-test from two, to multiple populations, then multivariate regression generalizes Hotelling's test in the same way.
-
-When the entries of $y$ are independent, MANOVA collapses to multiple univariate regressions. It is only when entries in $y$ are correlated that we can gain in accuracy and power by harnessing these correlations through the MANOVA framework. 
-
-
-### Multivariate Regression with R
-TODO
-
-### mcglm
-@bonat2018multiple
-
-
-## Graphical Models (*)
-
-Fitting a multivariate distribution, i.e. learning a _graphical model_, is a very hard task.
-To see why, consider the problem of $p$ continuous variables. 
-In the simplest case, where we can assume normality, fitting a distributions means estimating the $p$ parameters in the expectation, $\mu$, and $p(p+1)/2$ parameters in the covariance, $\Sigma$. 
-The number of observations required for this task, $n$, may be formidable.
-
-A more humble task, is to identify __independencies__, known as _structure learning_ in the machine learning literature. 
-Under the multivariate normality assumption, this means identifying zero entries in $\Sigma$, or more precisely, zero entries in $\Sigma^{-1}$. 
-This task can be approached as a __signal identification__ problem (\@ref(identification)).
-The same solutions may be applied to identify non-zero entries in $\Sigma$, instead of $\mu$ as discussed until now. 
-
-If multivariate normality cannot be assumed, then identifying independencies cannot be done via the covariance matrix $\Sigma$ and more elaborate algorithms are required. 
-
-
-### Graphical Models in R
-TODO
 
 
 

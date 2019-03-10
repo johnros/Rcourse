@@ -262,7 +262,7 @@ plot(table2.1, main='Trivaraite mosaic plot')
 
 When one of the variables is a (discrete) time variable, then the plot has a notion dynamics in time. For this see the Alluvian plot \@ref(alluvian).
 
-If the variables represent a hirarcy, consider a __Sunburst Plot__:
+If the variables represent a hierarchy, consider a __Sunburst Plot__:
 ```{r sunburst}
 # In the HTML version of the book this plot is interactive.
 
@@ -378,7 +378,7 @@ rug(x1,side = 1)
 rug(x2,side = 2)
 ```
 
-A fancire version may use a histogram on the margins:
+A fancier version may use a histogram on the margins:
 ```{r, echo=FALSE}
 library(ggplot2)
 library(ggExtra)
@@ -415,8 +415,8 @@ We thus have several options:
 (i) To project the data to 2D. This is discussed in the Dimensionality Reduction Section \@ref(dim-reduce).
 (ii) To visualize not the raw data, but rather its summaries, like the covariance matrix.
 
-Our own [Multinav](https://github.com/EfratVil/MultiNav) package adopts an interactive aproach. 
-For each (multivaraite) observation a simple univariate summary may be computed and visualized. These summaries may be compared, and the original (multivariate) observation insected upon demand. 
+Our own [Multinav](https://github.com/EfratVil/MultiNav) package adopts an interactive approach. 
+For each (multivaraite) observation a simple univariate summary may be computed and visualized. These summaries may be compared, and the original (multivariate) observation inspected upon demand. 
 Contact [Efrat](http://efratvil.github.io/home/index.html) for more details.  
 ![The Multinav Package](art/multinav.png)
 
@@ -433,8 +433,8 @@ lattice::levelplot(correlations)
 ```
 
 If we believe the covariance has some structure, we can do better then viewing the raw correlations.
-In temporal, and spatial data, we belive correlations decay as some function of distances.
-We can thus view correlations as a function of the distnace between observations. This is known as a _variogram_. 
+In temporal, and spatial data, we believe correlations decay as some function of distances.
+We can thus view correlations as a function of the distance between observations. This is known as a _variogram_. 
 Note that for a variogram to be informative, is it implied that correlations are merely a function of distances (and not locations themselves). 
 This is formally known as _stationary_ and _isotropic_ correlations.
 
@@ -445,13 +445,20 @@ This is formally known as _stationary_ and _isotropic_ correlations.
 
 
 #### Parallel Coordinate Plots {#parcoord}
-TODO
+
+In a parallel coordinate plot, we plot a multivariate observation as a function of its coordinates. 
+In the following example, we visualize the celebrated [Iris dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set). 
+In this dataset, for each of 50 iris flowers, Edgar Anderson measured 4 characteristics. 
+```{r}
+ir <- rbind(iris3[,,1], iris3[,,2], iris3[,,3])
+MASS::parcoord(log(ir)[, c(3, 4, 2, 1)], col = 1 + (0:149)%/%50)
+```
 
 
 
 ## Mixed Type Data
-Most real data sets will be of mixed type: both categorical and continous. 
-One approach to view such data, is to visualize the continous variables separatly, for each level of the categorical variables. 
+Most real data sets will be of mixed type: both categorical and w. 
+One approach to view such data, is to visualize the continuous variables separately, for each level of the categorical variables. 
 There are, however, interesting dedicated visualization for such data. 
 
 
