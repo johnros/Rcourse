@@ -31,7 +31,7 @@ Some useful pointers for this IDE include:
 Currently, I recommend RStudio, but here are some other IDEs:
 
 1. Jupyter Lab: a very promising IDE, originally designed for Python, that also supports R. 
-At the time of writing, it seems that RStudio is more convenient for R, but it is definetly an IDE to follow closely. 
+At the time of writing, it seems that RStudio is more convenient for R, but it is definitely an IDE to follow closely. 
 See [Max Woolf's](http://minimaxir.com/2017/06/r-notebooks/) review.
 
 1. Eclipse: If you are a Java programmer, you are probably familiar with Eclipse, which does have an R plugin: [StatEt](http://www.walware.de/goto/statet).
@@ -537,7 +537,7 @@ Always look at the imported result!
 head(tirgul1)
 ```
 
-Ohh dear. 
+Oh dear. 
 `read.,table` tried to guess the structure of the input, but failed to recognize the header row. Set it manually with `header=TRUE`:
 ```{r, eval=FALSE}
 tirgul1 <- read.table('data/bone.data', header = TRUE) 
@@ -776,14 +776,190 @@ fib(5)
 
 
 ## Strings
-TODO. 
-In the meanwhile, see [Gaston Sanchez's book](http://www.gastonsanchez.com/r4strings/). 
+
+Note: this chapter is courtesy of Ron Sarafian.
+
+Strings may appear as character vectors,files names, paths (directories), graphing elements, and more.
+
+Strings can be concatenated with the super useful `paste` function.
+
+```{r}
+a <- "good"
+b <- "morning"
+is.character(a)
+paste(a,b)
+(c <- paste(a,b, sep = "."))
+paste(a,b,1:3, collapse = '^^^^', paste='@@@')
+```
+
+Things to note:
+
+- `sep` is used to separate strings.
+- `collapse` is used to separate results. 
+
+The `substr` function extract or replace substrings in a character vector:
+
+```{r}
+substr(c, start=2, stop=4)
+substr(c, start=6, stop=12) <- "evening"
+```
+
+The `grep` function is a very powerful tool to search for patterns in text. 
+These patterns are called [regular expressions](https://en.wikipedia.org/wiki/Regular_expression)
+
+```{r}
+(d <- c(a,b,c))
+grep(pattern = "good",x = d) 
+grep("good",d, value=TRUE, ignore.case=TRUE) 
+grep("([a-zA-Z]+)\\1",d, value=TRUE, perl=TRUE) 
+```
+
+Things to note:
+
+- Use `value=TRUE` to return the string itself, instead of its index.
+- `([a-zA-Z]+)\\1` is a regular expression to find repeating characters. `perl=TRUE` to activate the [Perl](https://en.wikipedia.org/wiki/Perl) "flavored" regular expressions.
+
+Use `gsub` to replace characters in a string object:
+```{r}
+gsub("o", "q", d) # replace the letter "o" with "q".
+gsub("([a-zA-Z]+)\\1", "q", d, perl=TRUE) # replace repeating characters with "q".
+```
+
+The `strsplit` allows to split string vectors to list:
+```{r}
+(x <- c(a = "thiszis", b = "justzan", c = "example"))
+strsplit(x, "z") # split x on the letter z
+```
+
+
+Some more examples:
+```{r}
+nchar(x) #  count the nuber of characters in every element of a string vector.
+
+toupper(x) # translate characters in character vectors from to upper case
+tolower(toupper(x)) # vice verca
+
+letters[1:10] # lower case letters vector
+LETTERS[1:10] # upper case letters vector
+
+cat("the sum of", 1, "and", 2, "is", 1+2) #  concatenate and print strings and values
+```
+
+If you need more than this, look for the [stringr](https://r4ds.had.co.nz/strings.html) package that provides a set of internally consistent tools.
+
+
 
 ## Dates and Times
-TODO. 
-In the meanwhile, see the [lubridate](https://lubridate.tidyverse.org/) pacakge.
-Also note manipulating dates and times is different than working with time series. 
-For a little intro on time-series objects in R see [Cristoph Sax's blog](http://www.christophsax.com/2018/05/15/tsbox/).
+
+Note: This Section is courtesy of [Ron Sarafian](https://www.linkedin.com/in/ron-sarafian-4a5a95110/).
+
+### Dates
+
+R provides several packages for dealing with date and date/time data. 
+We start with the `base` package. 
+
+R needs to be informed explicitly that an object holds dates. 
+The `as.Date` function convert values to dates. 
+You can pass it a `character`, a `numeric`, or a `POSIXct` (we'll soon explain what it is).
+
+```{r}
+start <- "1948-05-14"
+class(start)
+start <- as.Date(start)
+class(start)
+```
+
+But what if our date is not in the yyyy-mm-dd format? 
+We can tell R what is the character date's format.
+
+```{r}
+as.Date("14/5/1948", format="%d/%m/%Y")
+as.Date("14may1948", format="%d%b%Y")
+```
+
+Things to note:
+
+- The format of the date is specified with the `format=` argument. 
+`%d` for day of the month, `/` for separation, `%m` for month, and `%Y` for year in four digits. See `?strptime` for more available formatting. 
+
+Many functions are content aware, and adapt their behavior when dealing with dates:
+```{r}
+(today <- Sys.Date()) # the current date
+
+today + 1 # Add one day
+today - start # Diffenrece between dates
+min(start,today)
+month(today)
+```
+
+### Times
+Specifying times is similar to dates, only that more formatting parameters are required. 
+The `POSIXct` is the object class for times.
+It expects strings to be in the format YYYY-MM-DD HH:MM:SS. 
+With `POSIXct` you can also specify the timezone, e.g., `"Asia/Jerusalem"`. 
+```{r}
+time1 <- Sys.time()
+class(time1)
+time2 <- time1 + 72*60*60 # add 72 hours
+time2-time1
+class(time2-time1)
+```
+
+Compute differences in your unit of choice:
+```{r}
+difftime(time2,time1, units =  "hour")
+difftime(time2,time1, units =  "week")
+```
+
+Generate sequences:
+```{r}
+seq(from = time1, to = time2, by = "day") 
+seq(time1, by = "month", length.out = 12)
+```
+
+### lubridate Package
+
+The __lubridate__ package replaces many of the __base__ package functionality, with a more consistent interface. 
+You only need to specify the order of arguments, not their format:
+
+```{r}
+library(lubridate)
+ymd("2017/01/31")
+mdy("January 31st, 2017")
+dmy("31-Jan-2017")
+ymd_hms("2000-01-01 00:00:01")
+ymd_hms("20000101000001")
+```
+
+Another nice thing in __lubridate__, is that periods can be created with a number of friendly constructor functions that you can combine time objects. E.g.: 
+
+```{r}
+seconds(1)
+minutes(c(2,3))
+hours(4)
+days(5)
+months(c(6,7,8))
+weeks(9)
+years(10)
+
+(t <- ymd_hms("20000101000001"))
+t + seconds(1)
+t + minutes(c(2,3)) + years(10)
+```
+
+And you can also extract and assign the time components:
+
+```{r}
+t
+second(t)
+second(t) <- 26
+t
+```
+
+Analyzing temporal data is different than actually storing it. 
+If you are interested in time-series analysis, try the __tseries__, __forecast__ and __zoo__ packages.
+
+
 
 
 ## Complex Objects
@@ -804,6 +980,69 @@ x <- c(7,10)
 ```
 
 
+
+## Vectors and Matrices Linear Algebra
+This section is courtesy of Ron Sarafian. 
+
+If you are operating with numeric vectors, or matrices, you may want to compute products. 
+You can easily write your own R loops, but it is much more efficient to use the built-in operations. 
+
+```{definition, label="matrix-product", name="Matrix Product"}
+The matrix-product between matrice $n \times m$ matrix $A$, and 
+$m \times p$ matrix $B$, is a $n \times p$ matrix $C$, where:
+$$c_{i,j}:=\sum_{k=1}^m a_{i,k} b_{k,j}$$
+```
+
+Vectors can be seen as single row/column matrices. 
+We can thus use matrix products to define the following:
+
+```{definition, label="dot-product", name="Dot Product"}
+The dot-product, a.k.a. scalar-product, or inner-product, between row-vectors $x:=(x_1,\dots,x_n)$ and $y:=(y_1,\dots,y_n)$ is defined as the matrix product between the $1 \times n$ matrix $x'$, and the $n \times 1$ matrix y:
+$$x'y:= \sum_i x_i y_i$$
+```
+
+```{definition, label="outer-product", name="Outer Product"}
+The outer product between row-vectors $x:=(x_1,\dots,x_n)$ and $y:=(y_1,\dots,y_n)$ is defined as the matrix product between the $n \times 1$ matrix $x$, and the $1 \times n$ matrix $y'$:
+$$(xy')_{i,j}:=x_i \, y_j$$
+```
+
+
+Matrix products are computed with the `%*%` operator:
+```{r}
+x <- rnorm(4) 
+y <- exp(-x) 
+t(x) %*% y # Dot product.
+x %*% y # Dot product.
+crossprod(x,y) # Dot product.
+crossprod(t(x),y) # Outer product.
+crossprod(t(x),t(y)) # Outer product.
+x %*% t(y) # Outer product
+x %o% y # Outer product
+outer(x,y) # Outer product
+```
+
+Things to note:
+
+- The definition of the matrix product has to do with the view of a matrix as a linear operator, and not only a table with numbers. Pick up any linear algebra book to understand why it is defined this way. 
+- Vectors are matrices. The dot product, is a matrix product where $m=1$.
+- `*` is an element-wise product, whereas `%*%` is a dot product.
+- While not specifying whether the vectors are horizontal or vertical, R treats the operation as $(1 \times n) * (n \times 1)$. 
+- `t()` is the vector/ matrix transpose.
+
+Now for matrix multiplication:
+```{r}
+(x <- rep(1,5))
+(A <- matrix(data = rep(1:5,5), nrow = 5, ncol = 5, byrow = TRUE)) # 
+
+x %*% A # (1X5) * (5X5) => (1X5)
+A %*% x # (5X5) * (5X1) => (1X5)
+0.5 * A 
+A %*% t(A) # Gram matrix
+t(x) %*% A %*% x # Quadratic form
+```
+
+
+
 ## Bibliographic Notes
 
 There are endlessly many introductory texts on R.
@@ -812,10 +1051,9 @@ I personally recommend the official introduction @venables2004introduction, [ava
 
 For Importing and Exporting see  (https://cran.r-project.org/doc/manuals/r-release/R-data.html).
 For working with databases see (https://rforanalytics.wordpress.com/useful-links-for-r/odbc-databases-for-r/).
-
-For advanced R programming see @wickham2014advanced, [available online](http://adv-r.had.co.nz/),  or anything else Hadley Wickham writes. 
-
-For a curated list of recommended packages see [here](https://github.com/rstudio/RStartHere/blob/master/README.md).
+For a little intro on time-series objects in R see [Cristoph Sax's blog](http://www.christophsax.com/2018/05/15/tsbox/).
+For working with strings see [Gaston Sanchez's book](http://www.gastonsanchez.com/r4strings/). 
+For advanced R programming see @wickham2014advanced, [available online](http://adv-r.had.co.nz/),  or anything else Hadley Wickham writes. For a curated list of recommended packages see [here](https://github.com/rstudio/RStartHere/blob/master/README.md).
 
 
 
@@ -851,6 +1089,6 @@ Make a scatter plot of `dataAB` where the x-axes is the first column, the y-axes
     1. What is the proportion of samples smaller than $12.4$ ?
     1. What is the $0.23$ percentile of the sample?
 
-1. Nothing like cleaning a dataset, to paractice your R basics. Have a look at [RACHAEL TATMAN](https://makingnoiseandhearingthings.com/2018/04/19/datasets-for-data-cleaning-practice/) collected several datasets which BADLY need some cleansing. 
+1. Nothing like cleaning a dataset, to practice your R basics. Have a look at [RACHAEL TATMAN](https://makingnoiseandhearingthings.com/2018/04/19/datasets-for-data-cleaning-practice/) collected several datasets which BADLY need some cleansing. 
 
 You can also self practice with DataCamp's [Intoroduction to R](https://www.datacamp.com/courses/free-introduction-to-r) course, or go directly to exercising with [R-exercises](https://www.r-exercises.com/start-here-to-learn-r/).
