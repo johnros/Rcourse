@@ -338,7 +338,7 @@ Currently, I recommend RStudio, but here are some other IDEs:
 \item
   Jupyter Lab: a very promising IDE, originally designed for Python,
   that also supports R. At the time of writing, it seems that RStudio is
-  more convenient for R, but it is definetly an IDE to follow closely.
+  more convenient for R, but it is definitely an IDE to follow closely.
   See \href{http://minimaxir.com/2017/06/r-notebooks/}{Max Woolf's}
   review.
 \item
@@ -1461,8 +1461,8 @@ Always look at the imported result!
 ## 6     2  14.3   male   0.2105263
 \end{verbatim}
 
-Ohh dear. \texttt{read.,table} tried to guess the structure of the
-input, but failed to recognize the header row. Set it manually with
+Oh dear. \texttt{read.,table} tried to guess the structure of the input,
+but failed to recognize the header row. Set it manually with
 \texttt{header=TRUE}:
 
 \begin{Shaded}
@@ -1878,17 +1878,677 @@ demonstration with the Fibonacci series.
 
 \section{Strings}\label{strings}
 
-TODO. In the meanwhile, see
-\href{http://www.gastonsanchez.com/r4strings/}{Gaston Sanchez's book}.
+Note: this chapter is courtesy of Ron Sarafian.
+
+Strings may appear as character vectors,files names, paths
+(directories), graphing elements, and more.
+
+Strings can be concatenated with the super useful \texttt{paste}
+function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a <-}\StringTok{ "good"}
+\NormalTok{b <-}\StringTok{ "morning"}
+\KeywordTok{is.character}\NormalTok{(a)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{paste}\NormalTok{(a,b)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "good morning"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(c <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(a,b, }\DataTypeTok{sep =} \StringTok{"."}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "good.morning"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{paste}\NormalTok{(a,b,}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{, }\DataTypeTok{collapse =} \StringTok{'^^^^'}\NormalTok{, }\DataTypeTok{paste=}\StringTok{'@@@'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "good morning 1 @@@^^^^good morning 2 @@@^^^^good morning 3 @@@"
+\end{verbatim}
+
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{sep} is used to separate strings.
+\item
+  \texttt{collapse} is used to separate results.
+\end{itemize}
+
+The \texttt{substr} function extract or replace substrings in a
+character vector:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{substr}\NormalTok{(c, }\DataTypeTok{start=}\DecValTok{2}\NormalTok{, }\DataTypeTok{stop=}\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "ood"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{substr}\NormalTok{(c, }\DataTypeTok{start=}\DecValTok{6}\NormalTok{, }\DataTypeTok{stop=}\DecValTok{12}\NormalTok{) <-}\StringTok{ "evening"}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{grep} function is a very powerful tool to search for
+patterns in text. These patterns are called
+\href{https://en.wikipedia.org/wiki/Regular_expression}{regular
+expressions}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(d <-}\StringTok{ }\KeywordTok{c}\NormalTok{(a,b,c))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "good"         "morning"      "good.evening"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{grep}\NormalTok{(}\DataTypeTok{pattern =} \StringTok{"good"}\NormalTok{,}\DataTypeTok{x =}\NormalTok{ d) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{grep}\NormalTok{(}\StringTok{"good"}\NormalTok{,d, }\DataTypeTok{value=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{ignore.case=}\OtherTok{TRUE}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "good"         "good.evening"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{grep}\NormalTok{(}\StringTok{"([a-zA-Z]+)}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{1"}\NormalTok{,d, }\DataTypeTok{value=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{perl=}\OtherTok{TRUE}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "good"         "good.evening"
+\end{verbatim}
+
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  Use \texttt{value=TRUE} to return the string itself, instead of its
+  index.
+\item
+  \texttt{({[}a-zA-Z{]}+)\textbackslash{}\textbackslash{}1} is a regular
+  expression to find repeating characters. \texttt{perl=TRUE} to
+  activate the \href{https://en.wikipedia.org/wiki/Perl}{Perl}
+  ``flavored'' regular expressions.
+\end{itemize}
+
+Use \texttt{gsub} to replace characters in a string object:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{gsub}\NormalTok{(}\StringTok{"o"}\NormalTok{, }\StringTok{"q"}\NormalTok{, d) }\CommentTok{# replace the letter "o" with "q".}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "gqqd"         "mqrning"      "gqqd.evening"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{gsub}\NormalTok{(}\StringTok{"([a-zA-Z]+)}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{1"}\NormalTok{, }\StringTok{"q"}\NormalTok{, d, }\DataTypeTok{perl=}\OtherTok{TRUE}\NormalTok{) }\CommentTok{# replace repeating characters with "q".}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "gqd"         "morning"     "gqd.evening"
+\end{verbatim}
+
+The \texttt{strsplit} allows to split string vectors to list:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DataTypeTok{a =} \StringTok{"thiszis"}\NormalTok{, }\DataTypeTok{b =} \StringTok{"justzan"}\NormalTok{, }\DataTypeTok{c =} \StringTok{"example"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         a         b         c 
+## "thiszis" "justzan" "example"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{strsplit}\NormalTok{(x, }\StringTok{"z"}\NormalTok{) }\CommentTok{# split x on the letter z}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $a
+## [1] "this" "is"  
+## 
+## $b
+## [1] "just" "an"  
+## 
+## $c
+## [1] "example"
+\end{verbatim}
+
+Some more examples:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{nchar}\NormalTok{(x) }\CommentTok{#  count the nuber of characters in every element of a string vector.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## a b c 
+## 7 7 7
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{toupper}\NormalTok{(x) }\CommentTok{# translate characters in character vectors from to upper case}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         a         b         c 
+## "THISZIS" "JUSTZAN" "EXAMPLE"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tolower}\NormalTok{(}\KeywordTok{toupper}\NormalTok{(x)) }\CommentTok{# vice verca}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         a         b         c 
+## "thiszis" "justzan" "example"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{letters[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{] }\CommentTok{# lower case letters vector}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{LETTERS[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{] }\CommentTok{# upper case letters vector}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cat}\NormalTok{(}\StringTok{"the sum of"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\StringTok{"and"}\NormalTok{, }\DecValTok{2}\NormalTok{, }\StringTok{"is"}\NormalTok{, }\DecValTok{1}\OperatorTok{+}\DecValTok{2}\NormalTok{) }\CommentTok{#  concatenate and print strings and values}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## the sum of 1 and 2 is 3
+\end{verbatim}
+
+If you need more than this, look for the
+\href{https://r4ds.had.co.nz/strings.html}{stringr} package that
+provides a set of internally consistent tools.
 
 \section{Dates and Times}\label{dates-and-times}
 
-TODO. In the meanwhile, see the
-\href{https://lubridate.tidyverse.org/}{lubridate} pacakge. Also note
-manipulating dates and times is different than working with time series.
-For a little intro on time-series objects in R see
-\href{http://www.christophsax.com/2018/05/15/tsbox/}{Cristoph Sax's
-blog}.
+Note: This Section is courtesy of
+\href{https://www.linkedin.com/in/ron-sarafian-4a5a95110/}{Ron
+Sarafian}.
+
+\subsection{Dates}\label{dates}
+
+R provides several packages for dealing with date and date/time data. We
+start with the \texttt{base} package.
+
+R needs to be informed explicitly that an object holds dates. The
+\texttt{as.Date} function convert values to dates. You can pass it a
+\texttt{character}, a \texttt{numeric}, or a \texttt{POSIXct} (we'll
+soon explain what it is).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{start <-}\StringTok{ "1948-05-14"}
+\KeywordTok{class}\NormalTok{(start)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "character"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{start <-}\StringTok{ }\KeywordTok{as.Date}\NormalTok{(start)}
+\KeywordTok{class}\NormalTok{(start)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Date"
+\end{verbatim}
+
+But what if our date is not in the yyyy-mm-dd format? We can tell R what
+is the character date's format.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{as.Date}\NormalTok{(}\StringTok{"14/5/1948"}\NormalTok{, }\DataTypeTok{format=}\StringTok{"%d/%m/%Y"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "1948-05-14"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{as.Date}\NormalTok{(}\StringTok{"14may1948"}\NormalTok{, }\DataTypeTok{format=}\StringTok{"%d%b%Y"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "1948-05-14"
+\end{verbatim}
+
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  The format of the date is specified with the \texttt{format=}
+  argument. \texttt{\%d} for day of the month, \texttt{/} for
+  separation, \texttt{\%m} for month, and \texttt{\%Y} for year in four
+  digits. See \texttt{?strptime} for more available formatting.
+\end{itemize}
+
+Many functions are content aware, and adapt their behavior when dealing
+with dates:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(today <-}\StringTok{ }\KeywordTok{Sys.Date}\NormalTok{()) }\CommentTok{# the current date}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "2019-03-11"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{today }\OperatorTok{+}\StringTok{ }\DecValTok{1} \CommentTok{# Add one day}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "2019-03-12"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{today }\OperatorTok{-}\StringTok{ }\NormalTok{start }\CommentTok{# Diffenrece between dates}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Time difference of 25868 days
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{min}\NormalTok{(start,today)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "1948-05-14"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{month}\NormalTok{(today)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3
+\end{verbatim}
+
+\subsection{Times}\label{times}
+
+Specifying times is similar to dates, only that more formatting
+parameters are required. The \texttt{POSIXct} is the object class for
+times. It expects strings to be in the format YYYY-MM-DD HH:MM:SS. With
+\texttt{POSIXct} you can also specify the timezone, e.g.,
+\texttt{"Asia/Jerusalem"}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{time1 <-}\StringTok{ }\KeywordTok{Sys.time}\NormalTok{()}
+\KeywordTok{class}\NormalTok{(time1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "POSIXct" "POSIXt"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{time2 <-}\StringTok{ }\NormalTok{time1 }\OperatorTok{+}\StringTok{ }\DecValTok{72}\OperatorTok{*}\DecValTok{60}\OperatorTok{*}\DecValTok{60} \CommentTok{# add 72 hours}
+\NormalTok{time2}\OperatorTok{-}\NormalTok{time1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Time difference of 3 days
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{(time2}\OperatorTok{-}\NormalTok{time1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "difftime"
+\end{verbatim}
+
+Compute differences in your unit of choice:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{difftime}\NormalTok{(time2,time1, }\DataTypeTok{units =}  \StringTok{"hour"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Time difference of 72 hours
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{difftime}\NormalTok{(time2,time1, }\DataTypeTok{units =}  \StringTok{"week"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Time difference of 0.4285714 weeks
+\end{verbatim}
+
+Generate sequences:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =}\NormalTok{ time1, }\DataTypeTok{to =}\NormalTok{ time2, }\DataTypeTok{by =} \StringTok{"day"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "2019-03-11 15:11:38 IST" "2019-03-12 15:11:38 IST"
+## [3] "2019-03-13 15:11:38 IST" "2019-03-14 15:11:38 IST"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{seq}\NormalTok{(time1, }\DataTypeTok{by =} \StringTok{"month"}\NormalTok{, }\DataTypeTok{length.out =} \DecValTok{12}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "2019-03-11 15:11:38 IST" "2019-04-11 15:11:38 IDT"
+##  [3] "2019-05-11 15:11:38 IDT" "2019-06-11 15:11:38 IDT"
+##  [5] "2019-07-11 15:11:38 IDT" "2019-08-11 15:11:38 IDT"
+##  [7] "2019-09-11 15:11:38 IDT" "2019-10-11 15:11:38 IDT"
+##  [9] "2019-11-11 15:11:38 IST" "2019-12-11 15:11:38 IST"
+## [11] "2020-01-11 15:11:38 IST" "2020-02-11 15:11:38 IST"
+\end{verbatim}
+
+\subsection{lubridate Package}\label{lubridate-package}
+
+The \textbf{lubridate} package replaces many of the \textbf{base}
+package functionality, with a more consistent interface. You only need
+to specify the order of arguments, not their format:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(lubridate)}
+\KeywordTok{ymd}\NormalTok{(}\StringTok{"2017/01/31"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "2017-01-31"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mdy}\NormalTok{(}\StringTok{"January 31st, 2017"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "2017-01-31"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dmy}\NormalTok{(}\StringTok{"31-Jan-2017"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "2017-01-31"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ymd_hms}\NormalTok{(}\StringTok{"2000-01-01 00:00:01"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "2000-01-01 00:00:01 UTC"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ymd_hms}\NormalTok{(}\StringTok{"20000101000001"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "2000-01-01 00:00:01 UTC"
+\end{verbatim}
+
+Another nice thing in \textbf{lubridate}, is that periods can be created
+with a number of friendly constructor functions that you can combine
+time objects. E.g.:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{seconds}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "1S"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{minutes}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "2M 0S" "3M 0S"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hours}\NormalTok{(}\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "4H 0M 0S"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{days}\NormalTok{(}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "5d 0H 0M 0S"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{months}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "6m 0d 0H 0M 0S" "7m 0d 0H 0M 0S" "8m 0d 0H 0M 0S"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{weeks}\NormalTok{(}\DecValTok{9}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "63d 0H 0M 0S"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{years}\NormalTok{(}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "10y 0m 0d 0H 0M 0S"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(t <-}\StringTok{ }\KeywordTok{ymd_hms}\NormalTok{(}\StringTok{"20000101000001"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "2000-01-01 00:00:01 UTC"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t }\OperatorTok{+}\StringTok{ }\KeywordTok{seconds}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "2000-01-01 00:00:02 UTC"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t }\OperatorTok{+}\StringTok{ }\KeywordTok{minutes}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{years}\NormalTok{(}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "2010-01-01 00:02:01 UTC" "2010-01-01 00:03:01 UTC"
+\end{verbatim}
+
+And you can also extract and assign the time components:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "2000-01-01 00:00:01 UTC"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{second}\NormalTok{(t)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{second}\NormalTok{(t) <-}\StringTok{ }\DecValTok{26}
+\NormalTok{t}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "2000-01-01 00:00:26 UTC"
+\end{verbatim}
+
+Analyzing temporal data is different than actually storing it. If you
+are interested in time-series analysis, try the \textbf{tseries},
+\textbf{forecast} and \textbf{zoo} packages.
 
 \section{Complex Objects}\label{complex-objects}
 
@@ -1928,7 +2588,266 @@ package, or the \textbf{.Internal(inspect(\ldots{}))} function described
 \end{Shaded}
 
 \begin{verbatim}
-## @15f2f618 14 REALSXP g0c2 [NAM(3)] (len=2, tl=0) 7,10
+## @50ef1828 14 REALSXP g0c2 [NAM(3)] (len=2, tl=0) 7,10
+\end{verbatim}
+
+\section{Vectors and Matrices Linear
+Algebra}\label{vectors-and-matrices-linear-algebra}
+
+This section is courtesy of Ron Sarafian.
+
+If you are operating with numeric vectors, or matrices, you may want to
+compute products. You can easily write your own R loops, but it is much
+more efficient to use the built-in operations.
+
+\BeginKnitrBlock{definition}[Matrix Product]
+\protect\hypertarget{def:matrix-product}{}{\label{def:matrix-product}
+\iffalse (Matrix Product) \fi{} }The matrix-product between matrice
+\(n \times m\) matrix \(A\), and \(m \times p\) matrix \(B\), is a
+\(n \times p\) matrix \(C\), where:
+\[c_{i,j}:=\sum_{k=1}^m a_{i,k} b_{k,j}\]
+\EndKnitrBlock{definition}
+
+Vectors can be seen as single row/column matrices. We can thus use
+matrix products to define the following:
+
+\BeginKnitrBlock{definition}[Dot Product]
+\protect\hypertarget{def:dot-product}{}{\label{def:dot-product}
+\iffalse (Dot Product) \fi{} }The dot-product, a.k.a. scalar-product, or
+inner-product, between row-vectors \(x:=(x_1,\dots,x_n)\) and
+\(y:=(y_1,\dots,y_n)\) is defined as the matrix product between the
+\(1 \times n\) matrix \(x'\), and the \(n \times 1\) matrix y:
+\[x'y:= \sum_i x_i y_i\]
+\EndKnitrBlock{definition}
+
+\BeginKnitrBlock{definition}[Outer Product]
+\protect\hypertarget{def:outer-product}{}{\label{def:outer-product}
+\iffalse (Outer Product) \fi{} }The outer product between row-vectors
+\(x:=(x_1,\dots,x_n)\) and \(y:=(y_1,\dots,y_n)\) is defined as the
+matrix product between the \(n \times 1\) matrix \(x\), and the
+\(1 \times n\) matrix \(y'\): \[(xy')_{i,j}:=x_i \, y_j\]
+\EndKnitrBlock{definition}
+
+Matrix products are computed with the \texttt{\%*\%} operator:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{4}\NormalTok{) }
+\NormalTok{y <-}\StringTok{ }\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\NormalTok{x) }
+\KeywordTok{t}\NormalTok{(x) }\OperatorTok{%*%}\StringTok{ }\NormalTok{y }\CommentTok{# Dot product.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           [,1]
+## [1,] -3.298627
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{%*%}\StringTok{ }\NormalTok{y }\CommentTok{# Dot product.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           [,1]
+## [1,] -3.298627
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{crossprod}\NormalTok{(x,y) }\CommentTok{# Dot product.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           [,1]
+## [1,] -3.298627
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{crossprod}\NormalTok{(}\KeywordTok{t}\NormalTok{(x),y) }\CommentTok{# Outer product.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            [,1]       [,2]       [,3]       [,4]
+## [1,] -1.5412664 -0.5513476 -1.7862644 -0.5988587
+## [2,]  0.6075926  0.2173503  0.7041748  0.2360800
+## [3,] -1.8496379 -0.6616595 -2.1436542 -0.7186764
+## [4,]  0.4348046  0.1555399  0.5039206  0.1689432
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{crossprod}\NormalTok{(}\KeywordTok{t}\NormalTok{(x),}\KeywordTok{t}\NormalTok{(y)) }\CommentTok{# Outer product.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            [,1]       [,2]       [,3]       [,4]
+## [1,] -1.5412664 -0.5513476 -1.7862644 -0.5988587
+## [2,]  0.6075926  0.2173503  0.7041748  0.2360800
+## [3,] -1.8496379 -0.6616595 -2.1436542 -0.7186764
+## [4,]  0.4348046  0.1555399  0.5039206  0.1689432
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{%*%}\StringTok{ }\KeywordTok{t}\NormalTok{(y) }\CommentTok{# Outer product}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            [,1]       [,2]       [,3]       [,4]
+## [1,] -1.5412664 -0.5513476 -1.7862644 -0.5988587
+## [2,]  0.6075926  0.2173503  0.7041748  0.2360800
+## [3,] -1.8496379 -0.6616595 -2.1436542 -0.7186764
+## [4,]  0.4348046  0.1555399  0.5039206  0.1689432
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{%o%}\StringTok{ }\NormalTok{y }\CommentTok{# Outer product}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            [,1]       [,2]       [,3]       [,4]
+## [1,] -1.5412664 -0.5513476 -1.7862644 -0.5988587
+## [2,]  0.6075926  0.2173503  0.7041748  0.2360800
+## [3,] -1.8496379 -0.6616595 -2.1436542 -0.7186764
+## [4,]  0.4348046  0.1555399  0.5039206  0.1689432
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{outer}\NormalTok{(x,y) }\CommentTok{# Outer product}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            [,1]       [,2]       [,3]       [,4]
+## [1,] -1.5412664 -0.5513476 -1.7862644 -0.5988587
+## [2,]  0.6075926  0.2173503  0.7041748  0.2360800
+## [3,] -1.8496379 -0.6616595 -2.1436542 -0.7186764
+## [4,]  0.4348046  0.1555399  0.5039206  0.1689432
+\end{verbatim}
+
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  The definition of the matrix product has to do with the view of a
+  matrix as a linear operator, and not only a table with numbers. Pick
+  up any linear algebra book to understand why it is defined this way.
+\item
+  Vectors are matrices. The dot product, is a matrix product where
+  \(m=1\).
+\item
+  \texttt{*} is an element-wise product, whereas \texttt{\%*\%} is a dot
+  product.
+\item
+  While not specifying whether the vectors are horizontal or vertical, R
+  treats the operation as \((1 \times n) * (n \times 1)\).
+\item
+  \texttt{t()} is the vector/ matrix transpose.
+\end{itemize}
+
+Now for matrix multiplication:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(x <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1 1 1 1 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(A <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \KeywordTok{rep}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{,}\DecValTok{5}\NormalTok{), }\DataTypeTok{nrow =} \DecValTok{5}\NormalTok{, }\DataTypeTok{ncol =} \DecValTok{5}\NormalTok{, }\DataTypeTok{byrow =} \OtherTok{TRUE}\NormalTok{)) }\CommentTok{# }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    2    3    4    5
+## [2,]    1    2    3    4    5
+## [3,]    1    2    3    4    5
+## [4,]    1    2    3    4    5
+## [5,]    1    2    3    4    5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{%*%}\StringTok{ }\NormalTok{A }\CommentTok{# (1X5) * (5X5) => (1X5)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    5   10   15   20   25
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A }\OperatorTok{%*%}\StringTok{ }\NormalTok{x }\CommentTok{# (5X5) * (5X1) => (1X5)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1]
+## [1,]   15
+## [2,]   15
+## [3,]   15
+## [4,]   15
+## [5,]   15
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FloatTok{0.5} \OperatorTok{*}\StringTok{ }\NormalTok{A }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]  0.5    1  1.5    2  2.5
+## [2,]  0.5    1  1.5    2  2.5
+## [3,]  0.5    1  1.5    2  2.5
+## [4,]  0.5    1  1.5    2  2.5
+## [5,]  0.5    1  1.5    2  2.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A }\OperatorTok{%*%}\StringTok{ }\KeywordTok{t}\NormalTok{(A) }\CommentTok{# Gram matrix}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]   55   55   55   55   55
+## [2,]   55   55   55   55   55
+## [3,]   55   55   55   55   55
+## [4,]   55   55   55   55   55
+## [5,]   55   55   55   55   55
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t}\NormalTok{(x) }\OperatorTok{%*%}\StringTok{ }\NormalTok{A }\OperatorTok{%*%}\StringTok{ }\NormalTok{x }\CommentTok{# Quadratic form}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1]
+## [1,]   75
 \end{verbatim}
 
 \section{Bibliographic Notes}\label{bibliographic-notes-1}
@@ -1945,12 +2864,13 @@ For Importing and Exporting see
 (\url{https://cran.r-project.org/doc/manuals/r-release/R-data.html}).
 For working with databases see
 (\url{https://rforanalytics.wordpress.com/useful-links-for-r/odbc-databases-for-r/}).
-
+For a little intro on time-series objects in R see
+\href{http://www.christophsax.com/2018/05/15/tsbox/}{Cristoph Sax's
+blog}. For working with strings see
+\href{http://www.gastonsanchez.com/r4strings/}{Gaston Sanchez's book}.
 For advanced R programming see \citet{wickham2014advanced},
 \href{http://adv-r.had.co.nz/}{available online}, or anything else
-Hadley Wickham writes.
-
-For a curated list of recommended packages see
+Hadley Wickham writes. For a curated list of recommended packages see
 \href{https://github.com/rstudio/RStartHere/blob/master/README.md}{here}.
 
 \section{Practice Yourself}\label{practice-yourself}
@@ -2005,7 +2925,7 @@ For a curated list of recommended packages see
     What is the \(0.23\) percentile of the sample?
   \end{enumerate}
 \item
-  Nothing like cleaning a dataset, to paractice your R basics. Have a
+  Nothing like cleaning a dataset, to practice your R basics. Have a
   look at
   \href{https://makingnoiseandhearingthings.com/2018/04/19/datasets-for-data-cleaning-practice/}{RACHAEL
   TATMAN} collected several datasets which BADLY need some cleansing.
@@ -2106,7 +3026,7 @@ Let's start with importing some freely available car sales data from
 ##                    size isdir mode               mtime               ctime
 ## data/autos.csv 68439217 FALSE  644 2019-02-24 23:52:04 2019-02-24 23:52:04
 ##                              atime  uid  gid   uname  grname
-## data/autos.csv 2019-02-28 18:15:13 1000 1000 johnros johnros
+## data/autos.csv 2019-03-11 14:13:43 1000 1000 johnros johnros
 \end{verbatim}
 
 \begin{Shaded}
@@ -3107,7 +4027,7 @@ Data}\label{summary-of-univariate-categorical-data}
 \begin{verbatim}
 ## age
 ##   Old Young 
-##    10    12
+##    11    11
 \end{verbatim}
 
 If instead of the level counts you want the proportions, you can use
@@ -3179,15 +4099,15 @@ with, and \texttt{ftable} is human readable.
 ## 
 ##       drink
 ## gender Coffee Coke Sprite Tea Water
-##   Boy       1    2      1   0     0
-##   Girl      2    0      0   3     1
+##   Boy       1    2      2   0     0
+##   Girl      2    0      0   4     0
 ## 
 ## , , age = Young
 ## 
 ##       drink
 ## gender Coffee Coke Sprite Tea Water
-##   Boy       1    3      2   0     0
-##   Girl      2    0      0   4     0
+##   Boy       1    3      1   0     0
+##   Girl      2    0      0   3     1
 \end{verbatim}
 
 \begin{Shaded}
@@ -3202,14 +4122,14 @@ with, and \texttt{ftable} is human readable.
 ## gender drink               
 ## Boy    Coffee       1     1
 ##        Coke         2     3
-##        Sprite       1     2
+##        Sprite       2     1
 ##        Tea          0     0
 ##        Water        0     0
 ## Girl   Coffee       2     2
 ##        Coke         0     0
 ##        Sprite       0     0
-##        Tea          3     4
-##        Water        1     0
+##        Tea          4     3
+##        Water        0     1
 \end{verbatim}
 
 If you want proportions instead of counts, you need to specify the
@@ -3258,7 +4178,7 @@ different property of the data.
 Capture the ``location'' of the data. These include:
 
 \BeginKnitrBlock{definition}[Average]
-\protect\hypertarget{def:unnamed-chunk-98}{}{\label{def:unnamed-chunk-98}
+\protect\hypertarget{def:unnamed-chunk-115}{}{\label{def:unnamed-chunk-115}
 \iffalse (Average) \fi{} }The mean, or average, of a sample
 \(x:=(x_1,\dots,x_n)\), denoted \(\bar x\) is defined as
 \[ \bar x := n^{-1} \sum x_i. \]
@@ -3273,7 +4193,7 @@ We start by defining the sample quantiles, themselves \textbf{not} a
 summary of location.
 
 \BeginKnitrBlock{definition}[Quantiles]
-\protect\hypertarget{def:unnamed-chunk-99}{}{\label{def:unnamed-chunk-99}
+\protect\hypertarget{def:unnamed-chunk-116}{}{\label{def:unnamed-chunk-116}
 \iffalse (Quantiles) \fi{} }The \(\alpha\) quantile of a sample \(x\),
 denoted \(x_\alpha\), is (non uniquely) defined as a value above
 \(100 \alpha \%\) of the sample, and below \(100 (1-\alpha) \%\).
@@ -3286,7 +4206,7 @@ Using the sample quantiles, we can now define another summary of
 location, the \textbf{median}.
 
 \BeginKnitrBlock{definition}[Median]
-\protect\hypertarget{def:unnamed-chunk-100}{}{\label{def:unnamed-chunk-100}
+\protect\hypertarget{def:unnamed-chunk-117}{}{\label{def:unnamed-chunk-117}
 \iffalse (Median) \fi{} }The median of a sample \(x\), denoted
 \(x_{0.5}\) is the \(\alpha=0.5\) quantile of the sample.
 \EndKnitrBlock{definition}
@@ -3295,7 +4215,7 @@ A whole family of summaries of locations is the \textbf{alpha trimmed
 mean}.
 
 \BeginKnitrBlock{definition}[Alpha Trimmed Mean]
-\protect\hypertarget{def:unnamed-chunk-101}{}{\label{def:unnamed-chunk-101}
+\protect\hypertarget{def:unnamed-chunk-118}{}{\label{def:unnamed-chunk-118}
 \iffalse (Alpha Trimmed Mean) \fi{} }The \(\alpha\) trimmed mean of a
 sample \(x\), denoted \(\bar x_\alpha\) is the average of the sample
 after removing the \(\alpha\) proportion of largest and \(\alpha\)
@@ -3315,7 +4235,7 @@ Here are the R implementations:
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 1.074307
+## [1] 1.081481
 \end{verbatim}
 
 \begin{Shaded}
@@ -3325,7 +4245,7 @@ Here are the R implementations:
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.7814793
+## [1] 0.7900071
 \end{verbatim}
 
 \begin{Shaded}
@@ -3335,7 +4255,7 @@ Here are the R implementations:
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.7988495
+## [1] 0.8334495
 \end{verbatim}
 
 \subsubsection{Summary of Scale}\label{summary-of-scale}
@@ -3344,7 +4264,7 @@ The \emph{scale} of the data, sometimes known as \emph{spread}, can be
 thought of its variability.
 
 \BeginKnitrBlock{definition}[Standard Deviation]
-\protect\hypertarget{def:unnamed-chunk-103}{}{\label{def:unnamed-chunk-103}
+\protect\hypertarget{def:unnamed-chunk-120}{}{\label{def:unnamed-chunk-120}
 \iffalse (Standard Deviation) \fi{} }The standard deviation of a sample
 \(x\), denoted \(S(x)\), is defined as
 \[ S(x):=\sqrt{(n-1)^{-1} \sum (x_i-\bar x)^2} . \]
@@ -3354,7 +4274,7 @@ For reasons of robustness, we define other, more robust, measures of
 scale.
 
 \BeginKnitrBlock{definition}[MAD]
-\protect\hypertarget{def:unnamed-chunk-104}{}{\label{def:unnamed-chunk-104}
+\protect\hypertarget{def:unnamed-chunk-121}{}{\label{def:unnamed-chunk-121}
 \iffalse (MAD) \fi{} }The Median Absolute Deviation from the median,
 denoted as \(MAD(x)\), is defined as
 \[MAD(x):= c \: |x-x_{0.5}|_{0.5} . \]
@@ -3364,7 +4284,7 @@ where \(c\) is some constant, typically set to \(c=1.4826\) so that MAD
 and \(S(x)\) have the same large sample limit.
 
 \BeginKnitrBlock{definition}[IQR]
-\protect\hypertarget{def:unnamed-chunk-105}{}{\label{def:unnamed-chunk-105}
+\protect\hypertarget{def:unnamed-chunk-122}{}{\label{def:unnamed-chunk-122}
 \iffalse (IQR) \fi{} }The Inter Quantile Range of a sample \(x\),
 denoted as \(IQR(x)\), is defined as \[ IQR(x):= x_{0.75}-x_{0.25} .\]
 \EndKnitrBlock{definition}
@@ -3378,7 +4298,7 @@ Here are the R implementations
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 1.070065
+## [1] 0.9881312
 \end{verbatim}
 
 \begin{Shaded}
@@ -3388,7 +4308,7 @@ Here are the R implementations
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.7046802
+## [1] 0.6353695
 \end{verbatim}
 
 \begin{Shaded}
@@ -3398,7 +4318,7 @@ Here are the R implementations
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.9900286
+## [1] 0.9262965
 \end{verbatim}
 
 \subsubsection{Summary of Asymmetry}\label{summary-of-asymmetry}
@@ -3407,7 +4327,7 @@ Summaries of asymmetry, also known as \emph{skewness}, quantify the
 departure of the \(x\) from a symmetric sample.
 
 \BeginKnitrBlock{definition}[Yule]
-\protect\hypertarget{def:unnamed-chunk-107}{}{\label{def:unnamed-chunk-107}
+\protect\hypertarget{def:unnamed-chunk-124}{}{\label{def:unnamed-chunk-124}
 \iffalse (Yule) \fi{} }The Yule measure of assymetry, denoted
 \(Yule(x)\) is defined as
 \[Yule(x) := \frac{1/2 \: (x_{0.75}+x_{0.25}) - x_{0.5} }{1/2 \: IQR(x)} .\]
@@ -3439,7 +4359,7 @@ the topic of this section, in which we want to summarize the association
 \textbf{between} the variables, and not within them.
 
 \BeginKnitrBlock{definition}[Covariance]
-\protect\hypertarget{def:unnamed-chunk-108}{}{\label{def:unnamed-chunk-108}
+\protect\hypertarget{def:unnamed-chunk-125}{}{\label{def:unnamed-chunk-125}
 \iffalse (Covariance) \fi{} }The covariance between two samples, \(x\)
 and \(y\), of same length \(n\), is defined as
 \[Cov(x,y):= (n-1)^{-1} \sum (x_i-\bar x)(y_i-\bar y)  \]
@@ -3452,7 +4372,7 @@ some authors call it the \emph{empirical covariance}, or \emph{sample
 covariance}.
 
 \BeginKnitrBlock{definition}[Pearson's Correlation Coefficient]
-\protect\hypertarget{def:unnamed-chunk-109}{}{\label{def:unnamed-chunk-109}
+\protect\hypertarget{def:unnamed-chunk-126}{}{\label{def:unnamed-chunk-126}
 \iffalse (Pearson's Correlation Coefficient) \fi{} }Peasrson's
 correlation coefficient, a.k.a. Pearson's moment product correlation, or
 simply, the correlation, denoted \texttt{r(x,y)}, is defined as
@@ -3464,7 +4384,7 @@ the covariance between \(x\) and \(y\) after transforming each to the
 unitless scale of z-scores.
 
 \BeginKnitrBlock{definition}[Z-Score]
-\protect\hypertarget{def:unnamed-chunk-110}{}{\label{def:unnamed-chunk-110}
+\protect\hypertarget{def:unnamed-chunk-127}{}{\label{def:unnamed-chunk-127}
 \iffalse (Z-Score) \fi{} }The z-scores of a sample \(x\) are defined as
 the mean-centered, scale normalized observations:
 \[z_i(x):= \frac{x_i-\bar x}{S(x)}.\]
@@ -3482,7 +4402,7 @@ relation, is the \textbf{covariance matrix}, but we warn that only the
 simplest multivariate relations are fully summarized by this matrix.
 
 \BeginKnitrBlock{definition}[Sample Covariance Matrix]
-\protect\hypertarget{def:unnamed-chunk-111}{}{\label{def:unnamed-chunk-111}
+\protect\hypertarget{def:unnamed-chunk-128}{}{\label{def:unnamed-chunk-128}
 \iffalse (Sample Covariance Matrix) \fi{} }Given \(n\) observations on
 \(p\) variables, denote \(x_{i,j}\) the \(i\)'th observation of the
 \(j\)'th variable. The \emph{sample covariance matrix}, denoted
@@ -3537,7 +4457,7 @@ default in R.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-113-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-130-1}
 
 \subsubsection{Visualizing Multivariate Categorical
 Data}\label{visualizing-multivariate-categorical-data}
@@ -3551,7 +4471,7 @@ variables, but it is still possible (at the cost of interpretability).
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-114-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-131-1}
 
 When one of the variables is a (discrete) time variable, then the plot
 has a notion dynamics in time. For this see the Alluvian plot
@@ -3594,7 +4514,7 @@ the \texttt{stripchart}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-115-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-132-1}
 
 Clearly, if there are many observations, the \texttt{stripchart} will be
 a useless line of black dots. We thus bin them together, and look at the
@@ -3609,7 +4529,7 @@ of bins. Here is a histogram showing the counts of each bin.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-116-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-133-1}
 
 The bin counts can be replaced with the proportion of each bin using the
 \texttt{freq} argument.
@@ -3620,7 +4540,7 @@ The bin counts can be replaced with the proportion of each bin using the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-117-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-134-1}
 
 The bins of a histogram are non overlapping. We can adopt a sliding
 window approach, instead of binning. This is the \emph{density plot}
@@ -3638,7 +4558,7 @@ the histogram, or the smoothing of the density plot.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-118-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-135-1}
 
 \BeginKnitrBlock{remark}
 \iffalse{} {Remark. } \fi{}Why would it make no sense to make a table,
@@ -3655,7 +4575,7 @@ the data, and simultaneously point to outlines.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-120-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-137-1}
 
 Another way to deal with a massive amount of data points, is to
 emphasize important points, and conceal non-important. This is the
@@ -3663,7 +4583,7 @@ purpose of \textbf{circle-packing} (example from
 \href{https://www.r-graph-gallery.com/308-interactive-circle-packing/}{r-graph
 gallery}):
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-121-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-138-1}
 
 \subsubsection{Visualizing Bivariate Continuous
 Data}\label{visualizing-bivariate-continuous-data}
@@ -3680,7 +4600,7 @@ scatter plot.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-122-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-139-1}
 
 A scatter-plot may be augmented with marginal univariate visualization.
 See, for instance, the \emph{rug} function to add the raw data on the
@@ -3694,11 +4614,11 @@ margins:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-123-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-140-1}
 
 A fancier version may use a histogram on the margins:
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-124-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-141-1}
 
 Like the univariate \texttt{stripchart}, the scatter plot will be an
 uninformative mess in the presence of a lot of data. A nice bivariate
@@ -3715,7 +4635,7 @@ tessellates the plane with hexagons, and reports their frequencies.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-125-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-142-1}
 
 \subsubsection{Visualizing Multivariate Continuous
 Data}\label{visualizing-multivariate-continuous-data}
@@ -3750,7 +4670,7 @@ operator when we want to emphasize the package of origin of a function.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-126-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-143-1}
 
 If we believe the covariance has some structure, we can do better then
 viewing the raw correlations. In temporal, and spatial data, we believe
@@ -3785,7 +4705,7 @@ characteristics.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-127-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-144-1}
 
 \section{Mixed Type Data}\label{mixed-type-data}
 
@@ -3823,7 +4743,7 @@ majors, as semesters evolve.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-128-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-145-1}
 
 Things to note:
 
@@ -3921,20 +4841,20 @@ problems is discussed in the Supervised Learning Chapter
 Here are some more examples of the types of problems we are discussing.
 
 \BeginKnitrBlock{example}[Plant Growth]
-\protect\hypertarget{exm:unnamed-chunk-129}{}{\label{exm:unnamed-chunk-129}
+\protect\hypertarget{exm:unnamed-chunk-146}{}{\label{exm:unnamed-chunk-146}
 \iffalse (Plant Growth) \fi{} }Consider the treatment of various plants
 with various fertilizers to study the fertilizer's effect on growth.
 \EndKnitrBlock{example}
 
 \BeginKnitrBlock{example}[Return to Education]
-\protect\hypertarget{exm:unnamed-chunk-130}{}{\label{exm:unnamed-chunk-130}
+\protect\hypertarget{exm:unnamed-chunk-147}{}{\label{exm:unnamed-chunk-147}
 \iffalse (Return to Education) \fi{} }Consider the study of return to
 education by analyzing the incomes of individuals with different
 education years.
 \EndKnitrBlock{example}
 
 \BeginKnitrBlock{example}[Drug Effect]
-\protect\hypertarget{exm:unnamed-chunk-131}{}{\label{exm:unnamed-chunk-131}
+\protect\hypertarget{exm:unnamed-chunk-148}{}{\label{exm:unnamed-chunk-148}
 \iffalse (Drug Effect) \fi{} }Consider the study of the effect of a new
 drug for hemophilia, by analyzing the level of blood coagulation after
 the administration of various amounts of the new drug.
@@ -4290,7 +5210,7 @@ Chapter \ref{supervised}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-140-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-157-1}
 
 The model seems to fit the data nicely. A common measure of the goodness
 of fit is the \emph{coefficient of determination}, more commonly known
@@ -4299,7 +5219,7 @@ as the \(R^2\).
 
 
 \BeginKnitrBlock{definition}[R2]
-\protect\hypertarget{def:unnamed-chunk-141}{}{\label{def:unnamed-chunk-141}
+\protect\hypertarget{def:unnamed-chunk-158}{}{\label{def:unnamed-chunk-158}
 \iffalse (R2) \fi{} }The coefficient of determination, denoted \(R^2\),
 is defined as
 
@@ -4419,7 +5339,7 @@ shape.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-144-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-161-1}
 
 I can't say I see any shape. Let's fit a \textbf{wrong} model, just to
 see what ``shape'' means.
@@ -4431,7 +5351,7 @@ see what ``shape'' means.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-145-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-162-1}
 
 Things to note:
 
@@ -4468,7 +5388,7 @@ line, then the assumed distribution does not fit the sample.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-146-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-163-1}
 
 Things to note:
 
@@ -4492,7 +5412,7 @@ distributed sample, to see how that would look.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-147-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-164-1}
 
 \subsection{Testing a Hypothesis on a Single
 Coefficient}\label{testing-a-hypothesis-on-a-single-coefficient}
@@ -4758,7 +5678,7 @@ Things to note:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-156-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-173-1}
 If you don't want the default dummy coding, look at \texttt{?contrasts}.
 
 If you are more familiar with the ANOVA literature, or that you don't
@@ -5211,7 +6131,7 @@ indexed by \(x\): \(x=0\) for the first, and \(x=1\) for the second. We
 start with some definitions.
 
 \BeginKnitrBlock{definition}[Odds]
-\protect\hypertarget{def:unnamed-chunk-165}{}{\label{def:unnamed-chunk-165}
+\protect\hypertarget{def:unnamed-chunk-182}{}{\label{def:unnamed-chunk-182}
 \iffalse (Odds) \fi{} }The \emph{odds}, of a binary random variable,
 \(y\), is defined as \[\frac{P(y=1)}{P(y=0)}.\]
 \EndKnitrBlock{definition}
@@ -5222,7 +6142,7 @@ you ever placed a bet, the language of ``odds'' should not be unfamiliar
 to you.
 
 \BeginKnitrBlock{definition}[Odds Ratio]
-\protect\hypertarget{def:unnamed-chunk-166}{}{\label{def:unnamed-chunk-166}
+\protect\hypertarget{def:unnamed-chunk-183}{}{\label{def:unnamed-chunk-183}
 \iffalse (Odds Ratio) \fi{} }The \emph{odds ratio} between two binary
 random variables, \(y_1\) and \(y_2\), is defined as the ratio between
 their odds. Formally:
@@ -5297,7 +6217,7 @@ do we expect? What should be the sign of each effect?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-169-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-186-1}
 
 Let's fit a logistic regression, and inspect the output.
 
@@ -5667,7 +6587,7 @@ Look at the following plot and think:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-176-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-193-1}
 
 We now fit a model to check for the change in the rate of events as a
 function of the days since the outbreak.
@@ -6178,7 +7098,7 @@ And visually
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-182-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-199-1}
 
 If we want to do inference on the (global) mean yield, we need to
 account for the two sources of variability: the within-batch
@@ -6301,7 +7221,7 @@ One sample per combination:
 
 And visually:
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-186-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-203-1}
 
 Let's fit a mixed-effects model with a random plate effect, and a random
 sample effect:
@@ -6402,7 +7322,7 @@ Variability in response for each plate, over various sample types:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-189-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-206-1}
 
 Variability in response for each sample type, over the various plates:
 
@@ -6412,7 +7332,7 @@ Variability in response for each sample type, over the various plates:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-190-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-207-1}
 
 Things to note:
 
@@ -6488,7 +7408,7 @@ series of tests (\texttt{Reaction}), after various subject
 (\texttt{Subject}) underwent various amounts of sleep deprivation
 (\texttt{Day}).
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-194-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-211-1}
 
 We now want to estimate the (fixed) effect of the days of sleep
 deprivation on response time, while allowing each subject to have
@@ -6578,12 +7498,12 @@ To demonstrate the ``strength borrowing'', here is a comparison of the
 lme, versus the effects of fitting a linear model to each subject
 separately.
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-197-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-214-1}
 
 Here is a comparison of the random-day effect from \texttt{lme} versus a
 subject-wise linear model. They are not the same.
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-198-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-215-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6715,7 +7635,7 @@ We can now inspect the contrivance implied by our model's specification:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-201-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-218-1}
 
 \section{Extensions}\label{extensions-1}
 
@@ -7045,7 +7965,7 @@ demonstrate the difference between Euclidean Distance and Mahalanobis
 Distance.
 \EndKnitrBlock{remark}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-204-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-221-1}
 
 \section{Signal Detection}\label{signal-detection}
 
@@ -7211,7 +8131,7 @@ Let's generate some data with no signal.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-205-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-222-1}
 
 Now make our own Hotelling function.
 
@@ -7433,7 +8353,7 @@ computing the coordinate-wise (i.e.~hypothesis-wise) p-value.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-212-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-229-1}
 
 We now compute the pvalues of each coordinate. We use a coordinate-wise
 t-test. Why a t-test? Because for the purpose of demonstration we want a
@@ -7448,7 +8368,7 @@ p-values.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-213-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-230-1}
 
 Things to note:
 
@@ -7750,7 +8670,7 @@ a hypothesis that minimizes the average loss in the sample, and not in
 the population. This is know as the \emph{risk minimization problem}.
 
 \BeginKnitrBlock{definition}[Risk Function]
-\protect\hypertarget{def:unnamed-chunk-219}{}{\label{def:unnamed-chunk-219}
+\protect\hypertarget{def:unnamed-chunk-236}{}{\label{def:unnamed-chunk-236}
 \iffalse (Risk Function) \fi{} }The \emph{risk function}, a.k.a.
 \emph{generalization error}, or \emph{test error}, is the population
 average loss of a predictor \(f\):
@@ -7775,7 +8695,7 @@ loss. This is known as the \emph{empirical risk miminization} problem
 (ERM).
 
 \BeginKnitrBlock{definition}[Empirical Risk]
-\protect\hypertarget{def:unnamed-chunk-220}{}{\label{def:unnamed-chunk-220}
+\protect\hypertarget{def:unnamed-chunk-237}{}{\label{def:unnamed-chunk-237}
 \iffalse (Empirical Risk) \fi{} }The \emph{empirical risk function},
 a.k.a. \emph{in-sample error}, or \emph{train error}, is the sample
 average loss of a predictor \(f\):
@@ -8217,7 +9137,7 @@ Plotting results.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-222-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-239-1}
 
 Checking all possible models is computationally very hard. \emph{Forward
 selection} is a greedy approach that adds one variable at a time.
@@ -8790,7 +9710,7 @@ the predictor.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-227-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-244-1}
 
 Trees are very prone to overfitting. To avoid this, we reduce a tree's
 complexity by \emph{pruning} it. This is done with the
@@ -9545,7 +10465,7 @@ FA originates from the psychometric literature. We thus revisit the IQ
 Example \ref{exm:iq}:
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{exm:unnamed-chunk-233}{}{\label{exm:unnamed-chunk-233}
+\protect\hypertarget{exm:unnamed-chunk-250}{}{\label{exm:unnamed-chunk-250}
 }Assume \(n\) respondents answer \(p\) quantitative questions:
 \(x_i \in \mathbb{R}^p, i=1,\dots,n\). Also assume, their responses are
 some linear function of a single personality attribute, \(s_i\). We can
@@ -9784,7 +10704,7 @@ visualize the output of PCA.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-235-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-252-1}
 
 Things to note:
 
@@ -9823,7 +10743,7 @@ This is known as the ``knee heuristic''.
 See how the first PC captures the variability in the Assault levels and
 Murder levels, with a single score.
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-236-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-253-1}
 
 More implementations of PCA:
 
@@ -10139,7 +11059,7 @@ Inspect some digits:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-239-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-256-1}
 
 The analysis is adapted from
 \href{https://rpubs.com/marwahsi/tnse}{Shruti Marwaha}. I start by
@@ -10168,7 +11088,7 @@ dowloading and importing the famous digit data of .
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-240-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-257-1}
 
 \subsubsection{Force Embedding}\label{force-embedding}
 
@@ -10684,7 +11604,7 @@ simulation to demonstrate this:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-244-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-261-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10696,7 +11616,7 @@ simulation to demonstrate this:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-244-2}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-261-2}
 
 \section{Bibliographic Notes}\label{bibliographic-notes-8}
 
@@ -10858,7 +11778,7 @@ A simple scatter plot.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-245-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-262-1}
 
 Various types of plots.
 
@@ -10875,7 +11795,7 @@ Various types of plots.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-246-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-263-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10911,7 +11831,7 @@ with the \texttt{cex} argument.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-247-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-264-1}
 
 Control the line's type with \texttt{lty} argument, and width with
 \texttt{lwd}.
@@ -10928,7 +11848,7 @@ Control the line's type with \texttt{lty} argument, and width with
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-248-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-265-1}
 
 Add line by slope and intercept with \texttt{abline}.
 
@@ -10941,7 +11861,7 @@ Add line by slope and intercept with \texttt{abline}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-249-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-266-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10954,7 +11874,7 @@ Add line by slope and intercept with \texttt{abline}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-250-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-267-1}
 
 Things to note:
 
@@ -10987,7 +11907,7 @@ Add other elements.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-251-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-268-1}
 
 Things to note:
 
@@ -11013,7 +11933,7 @@ Add a legend.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-252-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-269-1}
 
 Adjusting Axes with \texttt{xlim} and \texttt{ylim}.
 
@@ -11023,7 +11943,7 @@ Adjusting Axes with \texttt{xlim} and \texttt{ylim}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-253-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-270-1}
 
 Use \texttt{layout} for complicated plot layouts.
 
@@ -11044,7 +11964,7 @@ Use \texttt{layout} for complicated plot layouts.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-254-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-271-1}
 
 Always detach.
 
@@ -11136,7 +12056,7 @@ See \texttt{?pdf} and \texttt{?jpeg} for more info.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-259-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-276-1}
 
 Things to note:
 
@@ -11169,7 +12089,7 @@ Things to note:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-260-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-277-1}
 
 \subsubsection{Arrows}\label{arrows}
 
@@ -11186,7 +12106,7 @@ Things to note:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-261-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-278-1}
 
 \subsubsection{Arrows as error bars}\label{arrows-as-error-bars}
 
@@ -11206,7 +12126,7 @@ Things to note:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-262-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-279-1}
 
 \subsubsection{Histogram}\label{histogram}
 
@@ -11222,7 +12142,7 @@ A histogram is nothing but a bunch of rectangle elements.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-263-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-280-1}
 
 \paragraph{Spiral Squares}\label{spiral-squares}
 
@@ -11243,7 +12163,7 @@ A histogram is nothing but a bunch of rectangle elements.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-264-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-281-1}
 
 \subsubsection{Circles}\label{circles}
 
@@ -11264,7 +12184,7 @@ Circles are just dense polygons.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-265-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-282-1}
 
 \subsubsection{Spiral}\label{spiral}
 
@@ -11282,7 +12202,7 @@ Circles are just dense polygons.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-266-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-283-1}
 
 \section{The ggplot2 System}\label{the-ggplot2-system}
 
@@ -11350,7 +12270,7 @@ at various times, with various diets.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-268-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-285-1}
 
 Things to note:
 
@@ -11384,7 +12304,7 @@ Let's add some color.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-269-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-286-1}
 
 The \texttt{color} argument tells R to use the variable \texttt{Diet} as
 the coloring. A legend is added by default. If we wanted a fixed color,
@@ -11398,7 +12318,7 @@ outside the \texttt{aes} function.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-270-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-287-1}
 
 Let's save the \textbf{ggplot2} object so we can reuse it. Notice it is
 not plotted.
@@ -11422,7 +12342,7 @@ line to the plot \texttt{p}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-272-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-289-1}
 
 Things to note:
 
@@ -11445,7 +12365,7 @@ To split the plot along some variable, we use faceting, done with the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-273-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-290-1}
 
 Instead of faceting, we can add a layer of the mean of each
 \texttt{Diet} subgroup, connected by lines.
@@ -11456,7 +12376,7 @@ Instead of faceting, we can add a layer of the mean of each
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-274-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-291-1}
 
 Things to note:
 
@@ -11508,7 +12428,7 @@ start with a histogram.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-275-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-292-1}
 
 A bar plot.
 
@@ -11519,7 +12439,7 @@ A bar plot.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-276-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-293-1}
 
 A scatter plot.
 
@@ -11530,7 +12450,7 @@ A scatter plot.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-277-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-294-1}
 
 A smooth regression plot, reusing the \texttt{tp} object.
 
@@ -11540,7 +12460,7 @@ A smooth regression plot, reusing the \texttt{tp} object.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-278-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-295-1}
 
 And now, a simple line plot, reusing the \texttt{tp} object, and
 connecting lines along \texttt{Cow}.
@@ -11551,7 +12471,7 @@ connecting lines along \texttt{Cow}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-279-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-296-1}
 
 The line plot is completely incomprehensible. Better look at boxplots
 along time (even if omitting the \texttt{Cow} information).
@@ -11562,7 +12482,7 @@ along time (even if omitting the \texttt{Cow} information).
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-280-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-297-1}
 
 We can do some statistics for each subgroup. The following will compute
 the mean and standard errors of \texttt{protein} at each time point.
@@ -11574,7 +12494,7 @@ the mean and standard errors of \texttt{protein} at each time point.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-281-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-298-1}
 
 Some popular statistical summaries, have gained their own functions:
 
@@ -11604,7 +12524,7 @@ function in \texttt{stat\_summary}. The median is a first example.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-282-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-299-1}
 
 We can also define our own statistical summaries.
 
@@ -11616,7 +12536,7 @@ We can also define our own statistical summaries.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-283-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-300-1}
 
 \textbf{Faceting} allows to split the plotting along some variable.
 \texttt{face\_wrap} tells R to compute the number of columns and rows of
@@ -11630,7 +12550,7 @@ plots automatically.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-284-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-301-1}
 
 \texttt{facet\_grid} forces the plot to appear allow rows or columns,
 using the \texttt{\textasciitilde{}} syntax.
@@ -11643,7 +12563,7 @@ using the \texttt{\textasciitilde{}} syntax.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-285-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-302-1}
 
 To control the looks of the plot, \textbf{ggplot2} uses \textbf{themes}.
 
@@ -11655,7 +12575,7 @@ To control the looks of the plot, \textbf{ggplot2} uses \textbf{themes}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-286-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-303-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -11666,7 +12586,7 @@ To control the looks of the plot, \textbf{ggplot2} uses \textbf{themes}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-287-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-304-1}
 
 Saving plots can be done using \texttt{ggplot2::ggsave}, or with
 \texttt{pdf} like the \textbf{graphics} plots:
@@ -11746,7 +12666,7 @@ using \texttt{plotly::ggplotly}:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-291-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-308-1}
 
 How about exporting \textbf{plotly} objects? Well, a \textbf{plotly}
 object is nothing more than a little web site: an HTML file. When
@@ -11813,7 +12733,7 @@ discussing \textbf{graphics} vs. \textbf{ggplot2}.
 \end{Highlighting}
 \end{Shaded}
 
-  \includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-292-1}
+  \includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-309-1}
   ```
 \item
   Write a function that creates a boxplot from scratch. See how I built
@@ -12051,8 +12971,8 @@ This chunk will compile to the following output (after setting
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] -0.04525463  0.44090002  2.23537620 -0.58615484  0.59936025
-##  [6]  1.27423315 -0.91177115 -1.37545906 -0.28772686  0.08148341
+##  [1] -0.36276795  2.43272890  0.59209119 -0.57620077  0.40662824
+##  [6] -0.04525463  0.44090002  2.23537620 -0.58615484  0.59936025
 \end{verbatim}
 
 Things to note:
@@ -12086,7 +13006,7 @@ which compiles into
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-297-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-314-1}
 
 Some useful code chunk options include:
 
@@ -12121,7 +13041,7 @@ Gaussian
 will output
 
 \begin{quote}
-0.064282 is a random Gaussian.
+-1.0374466 is a random Gaussian.
 \end{quote}
 
 \subsection{BibTex}\label{bibtex}
@@ -12332,7 +13252,7 @@ Things to note:
 
 This is the output.
 
-\href{http://shiny.rstudio.com/gallery/example-01-hello.html}{\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-303-1} }
+\href{http://shiny.rstudio.com/gallery/example-01-hello.html}{\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-320-1} }
 
 Here is another example, taken from the RStudio
 \href{https://github.com/rstudio/shiny-examples/tree/master/006-tabsets}{Shiny
@@ -12449,7 +13369,7 @@ Things to note:
 
 This is the output:
 
-\href{https://shiny.rstudio.com/gallery/tabsets.html}{\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-306-1} }
+\href{https://shiny.rstudio.com/gallery/tabsets.html}{\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-323-1} }
 
 \subsection{Beyond the Basics}\label{beyond-the-basics}
 
@@ -12492,7 +13412,7 @@ basic report.
 See examples
 \href{https://shiny.rstudio.com/gallery/widget-gallery.html}{here}.
 
-\href{https://shiny.rstudio.com/gallery/widget-gallery.html}{\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-307-1} }
+\href{https://shiny.rstudio.com/gallery/widget-gallery.html}{\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-324-1} }
 
 \subsubsection{Output Elements}\label{output-elements}
 
@@ -12840,7 +13760,7 @@ structure.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-313-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-330-1}
 
 \section{Sparse Matrix
 Representations}\label{sparse-matrix-representations}
@@ -13060,7 +13980,7 @@ discover that sparse representations make a BIG difference.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-314-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-331-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -13071,7 +13991,7 @@ discover that sparse representations make a BIG difference.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-315-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-332-1}
 
 How do we perform other types of regression with the \textbf{glmnet}? We
 just need to use the \texttt{family} and \texttt{alpha} arguments of
@@ -13317,7 +14237,7 @@ And now the timing for \textbf{data.table}.
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.690   0.040   0.728
+##   0.712   0.133   0.861
 \end{verbatim}
 
 The winner is obvious. Let's compare filtering (i.e.~row subsets,
@@ -13333,7 +14253,7 @@ i.e.~SQL's SELECT).
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.337   0.119   0.455
+##   0.339   0.143   0.488
 \end{verbatim}
 
 \begin{Shaded}
@@ -13346,7 +14266,7 @@ i.e.~SQL's SELECT).
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.019   0.082   0.101
+##   0.022   0.093   0.114
 \end{verbatim}
 
 \section{Computing from a Database}\label{computing-from-a-database}
@@ -14053,7 +14973,7 @@ means that in each iteration, we resample the data, and refit the model.
 
 \begin{verbatim}
 ## elapsed 
-##  10.528
+##  10.421
 \end{verbatim}
 
 Things to note:
@@ -14089,7 +15009,7 @@ to replace \texttt{\%dopar\%} with \texttt{\%do\%} to test.
 
 \begin{verbatim}
 ## elapsed 
-##  18.054
+##  18.178
 \end{verbatim}
 
 Yes. Parallelising is clearly faster.
