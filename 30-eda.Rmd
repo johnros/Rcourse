@@ -264,8 +264,6 @@ When one of the variables is a (discrete) time variable, then the plot has a not
 
 If the variables represent a hierarchy, consider a __Sunburst Plot__:
 ```{r sunburst}
-# In the HTML version of the book this plot is interactive.
-
 library(sunburstR)
 # read in sample visit-sequences.csv data provided in source
 # https://gist.github.com/kerryrodden/7090426#file-visit-sequences-csv
@@ -274,7 +272,7 @@ sequences <- read.csv(
   ,header=F
   ,stringsAsFactors = FALSE
 )
-sunburst(sequences)
+sunburst(sequences) # In the HTML version of the book this plot is interactive.
 ```
 
 
