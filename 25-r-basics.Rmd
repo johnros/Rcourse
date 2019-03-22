@@ -737,7 +737,7 @@ quantile.25 <- function(x) quantile(x,0.25)
 sapply(USArrests, quantile.25)
 ```
 
-What is you are applying the same function with __two__ lists of arguments? Use __mapply__.
+What if you are applying the same function with __two__ lists of arguments? Use __mapply__.
 The following will compute a different quantile to each column in the data:
 ```{r mapply}
 quantiles <- c(0.1, 0.5, 0.3, 0.2)
