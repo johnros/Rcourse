@@ -768,7 +768,7 @@ If you really insist to write recursions in R, make sure to use the `Recall` fun
 Here is a demonstration with the Fibonacci series. 
 ```{r recusrion, cache=TRUE}
 fib<-function(n) {
-    if (n < 2) fn<-1 
+    if (n <= 2) fn<-1 
     else fn <- Recall(n - 1) + Recall(n - 2) 
     return(fn)
 } 
