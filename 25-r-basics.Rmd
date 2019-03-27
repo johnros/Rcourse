@@ -880,7 +880,8 @@ as.Date("14may1948", format="%d%b%Y")
 Things to note:
 
 - The format of the date is specified with the `format=` argument. 
-`%d` for day of the month, `/` for separation, `%m` for month, and `%Y` for year in four digits. See `?strptime` for more available formatting. 
+`%d` for day of the month, `/` for separation, `%m` for month, and `%Y` for year in four digits. See `?strptime` for more available formatting.
+- If it returns NA, then use the command `Sys.setlocale("LC_TIME","C")`
 
 Many functions are content aware, and adapt their behavior when dealing with dates:
 ```{r}
