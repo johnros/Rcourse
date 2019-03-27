@@ -12,7 +12,7 @@ Consider the prediction of rental prices given an appartment's attributes.
 
 Both examples require some statistical model, but they are very different.
 The first is a _causal inference_ problem: we want to design an intervention so that we need to recover the causal effect of temperature and pressure.
-The second is a _prediction_ problem, a.k.a. a _forecasting_ problem, in which we don't care about the causal effects, we just want good predictions.
+The second is a [prediction](https://en.wikipedia.org/wiki/Prediction) problem, a.k.a. a [forecasting](https://en.wikipedia.org/wiki/Forecasting) problem, in which we don't care about the causal effects, we just want good predictions.
 
 In this chapter we discuss the causal problem in Example \@ref(exm:cap-experiment).
 This means that when we assume a model, we assume it is the actual _data generating process_, i.e., we assume the _sampling distribution_ is well specified.
@@ -55,14 +55,16 @@ or in matrix notation
 
 
 Let's demonstrate Eq.\@ref(eq:linear-observed).
-In our cap example (\@ref(exm:cap-experiment)), assuming that pressure and temperature have two levels each (say, high and low), we would write $x_{i,1}=1$ if the pressure of the $i$'th measurement was set to high, and $x_{i,1}=-1$ if the __pressure__ was set to low. 
-Similarly, we would write $x_{i,2}=1$, and $x_{i,2}=-1$, if the __temperature__ was set to high, or low, respectively.
-The coding with $\{-1,1\}$ is known as _effect coding_.
-If you prefer coding with $\{0,1\}$, this is known as _dummy coding_.
-The choice of coding has no real effect on the results, provided that you remember what coding you used when interpreting $\hat \beta$.
+In our bottle-caps example [\@ref(cap-experiment)], we may produce bottle caps at various temperatures. 
+We design an experiment where we produce bottle-caps at varying temperatures. 
+Let $x_i$ be the temperate at which bottle-cap $i$ was manufactured. 
+Let $y_i$ be its measured diameter. 
+By the linear model assumption, the expected diameter varies linearly with the temperature: $\mathbb{E}[y_i]=\beta_0 + x_i \beta_1$. 
+This implies that $\beta_1$ is the (expected) change in diameter due to a unit change in temperature. 
 
 ```{remark}
 In [Galton's](https://en.wikipedia.org/wiki/Regression_toward_the_mean) classical regression problem, where we try to seek the relation between the heights of sons and fathers then $p=1$, $y_i$ is the height of the $i$'th father, and $x_i$ the height of the $i$'th son.
+This is a prediction problem, more than it is a causal-inference problem. 
 ```
 
 There are many reasons linear models are very popular:
@@ -75,7 +77,7 @@ Why is that?
 They are simple so that they do not require a lot of data to be computed. 
 Put differently, they may be biased, but their variance is small enough to make them more accurate than other models.
 
-1. For non continuous  predictors, __any__ functional relation can be cast as a linear model.
+1. For non continuous predictors, __any__ functional relation can be cast as a linear model.
 
 1. For the purpose of _screening_, where we only want to show the existence of an effect, and are less interested in the magnitude of that effect, a linear model is enough.
 
@@ -151,7 +153,7 @@ Things to note:
 We used `Insul=='Before'` to subset observations before the insulation.
 - The result is assigned to the object `lm.1`.
 
-Like any other language, spoken or programable, there are many ways to say the same thing. Some more elegant than others...
+Like any other language, spoken or programmable, there are many ways to say the same thing. Some more elegant than others...
 ```{r, eval=FALSE}
 lm.1 <- lm(y=Gas, x=Temp, data=whiteside[whiteside$Insul=='Before',]) 
 lm.1 <- lm(y=whiteside[whiteside$Insul=='Before',]$Gas,x=whiteside[whiteside$Insul=='Before',]$Temp)  
@@ -170,7 +172,7 @@ The `str` function, short for "structure", shows us the various elements of the 
 str(lm.1)
 ```
 
-In RStudio it is particularly easy to extract objects. Just write `your.object$` and press `tab` after the `$` for autocompletion.
+In RStudio it is particularly easy to extract objects. Just write `your.object$` and press `tab` after the `$` for auto-completion.
 
 If we only want $\hat \beta$, it can also be extracted with the `coef` function.
 ```{r}
@@ -337,7 +339,7 @@ Things to note:
 - The `~` syntax allows to specify various predictors separated by the `+` operator. 
 - The summary of the model now reports the estimated effect, i.e., the regression coefficient, of each of the variables. 
 
-Clearly, naming each variable explicitely is a tedios task if there are many. The use of `Fertility~.` in the next example reads: "Fertility as a function of all other variables in the `swiss` data.frame".
+Clearly, naming each variable explicitly is a tedious task if there are many. The use of `Fertility~.` in the next example reads: "Fertility as a function of all other variables in the `swiss` data.frame".
 
 ```{r}
 lm.5 <- lm(data=swiss, Fertility~.)

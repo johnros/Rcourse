@@ -320,7 +320,7 @@ R's package import mechanism is quite powerful, and is one of the reasons for R'
 ## Simple Plotting 
 R has many plotting facilities as we will further detail in the Plotting Chapter \@ref(plotting).
 We start with the simplest facilities, namely, the `plot` function from the __graphics__ package, which is loaded by default. 
-```{r}
+```{r basic-scatter-plot}
 x<- 1:100
 y<- 3+sin(x) 
 plot(x = x, y = y) # x,y syntax  						
@@ -347,12 +347,12 @@ plot(y~x, type='l', main='Plotting a connected line')
 ```
 
 We use `xlab` for the x-axis label, `ylab` for the y-axis.
-```{r}
+```{r axis-labels}
 plot(y~x, type='h', main='Sticks plot', xlab='Insert x axis label', ylab='Insert y axis label') 
 ```
 
 We use `pch` to control the point type. 
-```{r}
+```{r pch}
 plot(y~x, pch=5) # Point type with pcf
 ```
 
@@ -548,6 +548,10 @@ head(tirgul1)
 tirgul1 <- read.table('data/bone.data', header = TRUE)
 ```
 
+
+### Import From Clipboard
+
+TODO:[datapasta](https://github.com/MilesMcBain/datapasta)
 
 
 ### Export as CSV 

@@ -265,4 +265,14 @@ See [here](https://www.r-bloggers.com/intro-to-the-data-table-package/) for a co
 For some advanced tips and tricks see [Andrew Brooks' blog](http://brooksandrew.github.io/simpleblog/articles/advanced-data-table/).
 
 ## Practice Yourself
-See DataCamp's [Data Manipulation in R with data.table](https://www.datacamp.com/courses/data-manipulation-in-r-with-datatable), by Matt Dowle, the author of _data.table_ for more self practice.
+
+1. Create a matrix of ones with `1e5` rows and `1e2` columns. Create a `data.table` using this matrix. 
+    1. Replace the first column of each, with the sequence $1,2,3,\dots$. 
+    1. Create a column which is the sum of all columns, and a $\mathcal{N}(0,1)$ random variable. 
+
+2. Use the cars dataset used in this chapter from kaggle [Kaggle](https://www.kaggle.com/orgesleka/used-cars-database). 
+    1. Import the data using the function `fread`. What is the class of your object? 
+    1. Use `system.time()` to measure the time to sort along "seller". Do the same after converting the data to `data.frame`. Are data tables faster?
+
+
+Also, see DataCamp's [Data Manipulation in R with data.table](https://www.datacamp.com/courses/data-manipulation-in-r-with-datatable), by Matt Dowle, the author of _data.table_ for more self practice.
