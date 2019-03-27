@@ -43,6 +43,7 @@ See [Max Woolf's](http://minimaxir.com/2017/06/r-notebooks/) review.
 1. Visual Studio also [supports R](https://www.visualstudio.com/vs/features/rtvs/). 
 If you need R for commercial purposes, it may be worthwhile trying Microsoft's R, instead of the usual R. See [here](https://mran.microsoft.com/documents/rro/installation) for installation instructions. 
 
+1. Online version (currently alpha): [R Studio Cloud](https://rstudio.cloud).
 
 
 
@@ -227,7 +228,7 @@ Because R originates in Unix and Linux environments, it inherits much of its fla
 Piping thus makes code easier to read and write. 
 
 ```{remark}
-Volleyball fans may be confused with the idea of spiking a ball from the 3-meter line, also called [piping](https://www.youtube.com/watch?v=GWW15Nr1lQM). 
+Volleyball fans may be confused with the idea of spiking a ball from the 3-meter line, also called piping. 
 So:
 (a) These are very different things.
 (b) If you can pipe, [ASA-BGU](http://in.bgu.ac.il/sport/Pages/asa.aspx) is looking for you!
@@ -351,12 +352,12 @@ We use `xlab` for the x-axis label, `ylab` for the y-axis.
 plot(y~x, type='h', main='Sticks plot', xlab='Insert x axis label', ylab='Insert y axis label') 
 ```
 
-We use `pch` to control the point type. 
+We use `pch` to control the point type (pch is acronym for Plotting CHaracter). 
 ```{r}
 plot(y~x, pch=5) # Point type with pcf
 ```
 
-We use `col` to control the color,  `cex` for the point size, and `abline` to add a straight line.
+We use `col` to control the color,  `cex` (Character EXpansion) for the point size, and `abline` (y=Bx+A) to add a straight line.
 ```{r, results='hold'}
 plot(y~x, pch=10, type='p', col='blue', cex=4) 
 abline(3, 0.002) 
@@ -538,7 +539,7 @@ head(tirgul1)
 ```
 
 Oh dear. 
-`read.,table` tried to guess the structure of the input, but failed to recognize the header row. Set it manually with `header=TRUE`:
+`read.,table` tried to guess the structure of the input, but failed to recognize the header row. Set it manually with `header=TRUE` (file taken from [git](https://github.com/johnros/Rcourse/tree/master/data)):
 ```{r, eval=FALSE}
 tirgul1 <- read.table('data/bone.data', header = TRUE) 
 head(tirgul1)
@@ -719,11 +720,11 @@ If you already know that you will be needing to parallelize your work, get used 
 
 ## Apply 
 For applying the same function to a set of elements, there is no need to write an explicit loop.
-This is such en elementary operation that every programming language will provide some facility to __apply__, or __map__ the function to all elements of a set.
+This is such an elementary operation that every programming language will provide some facility to __apply__, or __map__ the function to all elements of a set.
 R provides several facilities to perform this. 
 The most basic of which is `lapply` which applies a function over all elements of a list, and return a list of outputs:
 ```{r lapply}
-the.list <- list(1,'a',mean) # a list of 3 elements from different calsses
+the.list <- list(1,'a',mean) # a list of 3 elements from different classes
 lapply(X = the.list, FUN = class) # apply the function `class` to each elements
 sapply(X = the.list, FUN = class) # lapply with cleaned output
 ```
@@ -736,7 +737,7 @@ quantile.25 <- function(x) quantile(x,0.25)
 sapply(USArrests, quantile.25)
 ```
 
-What is you are applying the same function with __two__ lists of arguments? Use __mapply__.
+What if you are applying the same function with __two__ lists of arguments? Use __mapply__.
 The following will compute a different quantile to each column in the data:
 ```{r mapply}
 quantiles <- c(0.1, 0.5, 0.3, 0.2)
@@ -767,7 +768,7 @@ If you really insist to write recursions in R, make sure to use the `Recall` fun
 Here is a demonstration with the Fibonacci series. 
 ```{r recusrion, cache=TRUE}
 fib<-function(n) {
-    if (n < 2) fn<-1 
+    if (n <= 2) fn<-1 
     else fn <- Recall(n - 1) + Recall(n - 2) 
     return(fn)
 } 
@@ -777,7 +778,7 @@ fib(5)
 
 ## Strings
 
-Note: this chapter is courtesy of Ron Sarafian.
+Note: this section is courtesy of Ron Sarafian.
 
 Strings may appear as character vectors,files names, paths (directories), graphing elements, and more.
 
@@ -789,7 +790,7 @@ b <- "morning"
 is.character(a)
 paste(a,b)
 (c <- paste(a,b, sep = "."))
-paste(a,b,1:3, collapse = '^^^^', paste='@@@')
+paste(a,b,1:3,'@@@', collapse = '^^^^')
 ```
 
 Things to note:
@@ -836,7 +837,7 @@ Some more examples:
 ```{r}
 nchar(x) #  count the nuber of characters in every element of a string vector.
 
-toupper(x) # translate characters in character vectors from to upper case
+toupper(x) # translate characters in character vectors to upper case
 tolower(toupper(x)) # vice verca
 
 letters[1:10] # lower case letters vector
@@ -880,7 +881,8 @@ as.Date("14may1948", format="%d%b%Y")
 Things to note:
 
 - The format of the date is specified with the `format=` argument. 
-`%d` for day of the month, `/` for separation, `%m` for month, and `%Y` for year in four digits. See `?strptime` for more available formatting. 
+`%d` for day of the month, `/` for separation, `%m` for month, and `%Y` for year in four digits. See `?strptime` for more available formatting.
+- If it returns NA, then use the command `Sys.setlocale("LC_TIME","C")`
 
 Many functions are content aware, and adapt their behavior when dealing with dates:
 ```{r}
@@ -904,6 +906,10 @@ time2 <- time1 + 72*60*60 # add 72 hours
 time2-time1
 class(time2-time1)
 ```
+
+Things to note:
+
+- Be careful about DST, because `as.POSIXct("2019-03-29 01:30")+3600` will not add 1 hour, but 2 with the result: `[1] "2019-03-29 03:30:00 IDT"`
 
 Compute differences in your unit of choice:
 ```{r}
@@ -1074,7 +1080,7 @@ Is the difference considerable? Ask me about it in class.
 1. Apply the previous function to all the numbers in `object`. Try using a `for` loop, but also a mapping/apply function.
 
 1. Make a matrix of random numbers using `A <- matrix(rnorm(40), ncol=10, nrow=4)`. 
-Compute the mean of each columns. 
+Compute the mean of each column. 
 Do it using your own loop and then do the same with `lapply` or `apply`.
 
 1. Make a data frame (`dataA`) with three columns, and 100 rows.
