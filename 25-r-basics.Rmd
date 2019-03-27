@@ -906,6 +906,10 @@ time2-time1
 class(time2-time1)
 ```
 
+Things to note:
+
+- Be careful about DST, because `as.POSIXct("2019-03-29 01:30")+3600` will not add 1 hour, but 2 with the result: `[1] "2019-03-29 03:30:00 IDT"`
+
 Compute differences in your unit of choice:
 ```{r}
 difftime(time2,time1, units =  "hour")
