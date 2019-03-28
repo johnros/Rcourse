@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2019-03-11">
+<meta name="date" content="2019-03-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -145,13 +145,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#augmentations-of-the-data.frame-class"><i class="fa fa-check"></i><b>3.14</b> Augmentations of the data.frame class</a></li>
 <li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.15</b> Data Import and Export</a><ul>
 <li class="chapter" data-level="3.15.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.15.1</b> Import from WEB</a></li>
-<li class="chapter" data-level="3.15.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.15.2</b> Export as CSV</a></li>
-<li class="chapter" data-level="3.15.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>3.15.3</b> Export non-CSV files</a></li>
-<li class="chapter" data-level="3.15.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.15.4</b> Reading From Text Files</a></li>
-<li class="chapter" data-level="3.15.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.15.5</b> Writing Data to Text Files</a></li>
-<li class="chapter" data-level="3.15.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.15.6</b> .XLS(X) files</a></li>
-<li class="chapter" data-level="3.15.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.15.7</b> Massive files</a></li>
-<li class="chapter" data-level="3.15.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.15.8</b> Databases</a></li>
+<li class="chapter" data-level="3.15.2" data-path="basics.html"><a href="basics.html#import-from-clipboard"><i class="fa fa-check"></i><b>3.15.2</b> Import From Clipboard</a></li>
+<li class="chapter" data-level="3.15.3" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.15.3</b> Export as CSV</a></li>
+<li class="chapter" data-level="3.15.4" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>3.15.4</b> Export non-CSV files</a></li>
+<li class="chapter" data-level="3.15.5" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.15.5</b> Reading From Text Files</a></li>
+<li class="chapter" data-level="3.15.6" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.15.6</b> Writing Data to Text Files</a></li>
+<li class="chapter" data-level="3.15.7" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.15.7</b> .XLS(X) files</a></li>
+<li class="chapter" data-level="3.15.8" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.15.8</b> Massive files</a></li>
+<li class="chapter" data-level="3.15.9" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.15.9</b> Databases</a></li>
 </ul></li>
 <li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.16</b> Functions</a></li>
 <li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.17</b> Looping</a></li>
@@ -164,7 +165,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.21.3" data-path="basics.html"><a href="basics.html#lubridate-package"><i class="fa fa-check"></i><b>3.21.3</b> lubridate Package</a></li>
 </ul></li>
 <li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#complex-objects"><i class="fa fa-check"></i><b>3.22</b> Complex Objects</a></li>
-<li class="chapter" data-level="3.23" data-path="basics.html"><a href="basics.html#vectors-and-matrices-linear-algebra"><i class="fa fa-check"></i><b>3.23</b> Vectors and Matrices Linear Algebra</a></li>
+<li class="chapter" data-level="3.23" data-path="basics.html"><a href="basics.html#vectors-and-matrix-products"><i class="fa fa-check"></i><b>3.23</b> Vectors and Matrix Products</a></li>
 <li class="chapter" data-level="3.24" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.24</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="3.25" data-path="basics.html"><a href="basics.html#practice-yourself"><i class="fa fa-check"></i><b>3.25</b> Practice Yourself</a></li>
 </ul></li>
@@ -505,7 +506,7 @@ Similar to active learning, in that the machine may query for labels. Different 
 <p>The fundamental task in supervised (statistical) learning is to recover a hypothesis that minimizes the average loss in the sample, and not in the population. This is know as the <em>risk minimization problem</em>.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-236" class="definition"><strong>Definition 10.1  (Risk Function)  </strong></span>The <em>risk function</em>, a.k.a. <em>generalization error</em>, or <em>test error</em>, is the population average loss of a predictor <span class="math inline">\(f\)</span>:
+<span id="def:unnamed-chunk-234" class="definition"><strong>Definition 10.1  (Risk Function)  </strong></span>The <em>risk function</em>, a.k.a. <em>generalization error</em>, or <em>test error</em>, is the population average loss of a predictor <span class="math inline">\(f\)</span>:
 <span class="math display">\[\begin{align}
   R(f):=\mathbb{E}_P[l(f(x),y)].
 \end{align}\]</span>
@@ -519,7 +520,7 @@ The best predictor, is the risk minimizer:
 <p>Another fundamental problem is that we do not know the distribution of all possible inputs and outputs, <span class="math inline">\(P\)</span>. We typically only have a sample of <span class="math inline">\((x_i,y_i), i=1,\dots,n\)</span>. We thus state the <em>empirical</em> counterpart of <a href="supervised.html#eq:risk">(10.1)</a>, which consists of minimizing the average loss. This is known as the <em>empirical risk miminization</em> problem (ERM).</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-237" class="definition"><strong>Definition 10.2  (Empirical Risk)  </strong></span>The <em>empirical risk function</em>, a.k.a. <em>in-sample error</em>, or <em>train error</em>, is the sample average loss of a predictor <span class="math inline">\(f\)</span>:
+<span id="def:unnamed-chunk-235" class="definition"><strong>Definition 10.2  (Empirical Risk)  </strong></span>The <em>empirical risk function</em>, a.k.a. <em>in-sample error</em>, or <em>train error</em>, is the sample average loss of a predictor <span class="math inline">\(f\)</span>:
 <span class="math display">\[\begin{align}
   R_n(f):= 1/n \sum_i l(f(x_i),y_i).
 \end{align}\]</span>
@@ -717,7 +718,7 @@ train.errors &lt;-<span class="st"> </span><span class="kw">rep</span>(<span cla
        <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;Training&quot;</span>, <span class="st">&quot;Validation&quot;</span>), 
        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;blue&quot;</span>), 
        <span class="dt">pch =</span> <span class="dv">19</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-239-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-237-1.png" width="50%" /></p>
 <p>Checking all possible models is computationally very hard. <em>Forward selection</em> is a greedy approach that adds one variable at a time.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols.<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(lcavol<span class="op">~</span><span class="dv">1</span> ,<span class="dt">data =</span> prostate.train)
 model.scope &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">upper=</span>ols.<span class="dv">1</span>, <span class="dt">lower=</span>ols.<span class="dv">0</span>)
@@ -976,7 +977,7 @@ nnet.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">nn
 <pre><code>## [1] 0.5623316</code></pre>
 <p>We can use the <strong>rpart.plot</strong> package to visualize and interpret the predictor.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rpart.plot<span class="op">::</span><span class="kw">rpart.plot</span>(tree.<span class="dv">1</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-244-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-242-1.png" width="50%" /></p>
 <p>Trees are very prone to overfitting. To avoid this, we reduce a tree’s complexity by <em>pruning</em> it. This is done with the <code>rpart::prune</code> function (not demonstrated herein).</p>
 <p>We now fit a classification tree.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tree.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">rpart</span>(spam<span class="op">~</span>., <span class="dt">data=</span>spam.train)
@@ -1155,15 +1156,17 @@ rf.<span class="dv">1</span></code></pre></div>
 <p>The fundamental idea behind <strong>Boosting</strong> is to construct a predictor, as the sum of several “weak” predictors. These weak predictors, are not trained on the same data. Instead, each predictor is trained on the residuals of the previous. Think of it this way: The first predictor targets the strongest signal. The second targets what the first did not predict. Etc. At some point, the residuals cannot be predicted anymore, and the learning will stabilize. Boosting is typically, but not necessarily, implemented as a sum of trees (@(trees)).</p>
 <div id="the-gbm-package" class="section level4">
 <h4><span class="header-section-number">10.2.9.1</span> The gbm Package</h4>
+<p>TODO</p>
 </div>
 <div id="the-xgboost-package" class="section level4">
 <h4><span class="header-section-number">10.2.9.2</span> The xgboost Package</h4>
+<p>TODO</p>
 </div>
 </div>
 </div>
 <div id="bibliographic-notes-7" class="section level2">
 <h2><span class="header-section-number">10.3</span> Bibliographic Notes</h2>
-<p>The ultimate reference on (statistical) machine learning is <span class="citation">Friedman, Hastie, and Tibshirani (<a href="#ref-friedman2001elements">2001</a>)</span>. For a softer introduction, see <span class="citation">James et al. (<a href="#ref-james2013introduction">2013</a>)</span>. A statistician will also like <span class="citation">Ripley (<a href="#ref-ripley2007pattern">2007</a>)</span>. For an R oriented view see <span class="citation">Lantz (<a href="#ref-lantz2013machine">2013</a>)</span>. For a very algorithmic view, see the seminal <span class="citation">Leskovec, Rajaraman, and Ullman (<a href="#ref-leskovec2014mining">2014</a>)</span> or <span class="citation">Conway and White (<a href="#ref-conway2012machine">2012</a>)</span>. For a much more theoretical reference, see <span class="citation">Mohri, Rostamizadeh, and Talwalkar (<a href="#ref-mohri2012foundations">2012</a>)</span>, <span class="citation">Vapnik (<a href="#ref-vapnik2013nature">2013</a>)</span>, <span class="citation">Shalev-Shwartz and Ben-David (<a href="#ref-shalev2014understanding">2014</a>)</span>. Terminology taken from <span class="citation">Sammut and Webb (<a href="#ref-sammut2011encyclopedia">2011</a>)</span>. For a review of resampling based unbiased risk estimation (i.e. cross validation) see the exceptional review of <span class="citation">Arlot, Celisse, and others (<a href="#ref-arlot2010survey">2010</a>)</span>. If you want to know about Deep-Nets in R see <a href="https://www.datacamp.com/community/tutorials/keras-r-deep-learning">here</a>.</p>
+<p>The ultimate reference on (statistical) machine learning is <span class="citation">Friedman, Hastie, and Tibshirani (<a href="#ref-friedman2001elements">2001</a>)</span>. For a softer introduction, see <span class="citation">James et al. (<a href="#ref-james2013introduction">2013</a>)</span>. A statistician will also like <span class="citation">Ripley (<a href="#ref-ripley2007pattern">2007</a>)</span>. For a very algorithmic view, see the seminal <span class="citation">Leskovec, Rajaraman, and Ullman (<a href="#ref-leskovec2014mining">2014</a>)</span> or <span class="citation">Conway and White (<a href="#ref-conway2012machine">2012</a>)</span>. For a much more theoretical reference, see <span class="citation">Mohri, Rostamizadeh, and Talwalkar (<a href="#ref-mohri2012foundations">2012</a>)</span>, <span class="citation">Vapnik (<a href="#ref-vapnik2013nature">2013</a>)</span>, <span class="citation">Shalev-Shwartz and Ben-David (<a href="#ref-shalev2014understanding">2014</a>)</span>. Terminology taken from <span class="citation">Sammut and Webb (<a href="#ref-sammut2011encyclopedia">2011</a>)</span>. For an R oriented view see <span class="citation">Lantz (<a href="#ref-lantz2013machine">2013</a>)</span>. For review of other R sources for machine learning see <a href="http://modernstatisticalworkflow.blogspot.com/2018/01/some-good-introductory-machine-learning.html">Jim Savege’s post</a>, or the official <a href="https://cran.r-project.org/web/views/MachineLearning.html">Task View</a>. For a review of resampling based unbiased risk estimation (i.e. cross validation) see the exceptional review of <span class="citation">Arlot, Celisse, and others (<a href="#ref-arlot2010survey">2010</a>)</span>. If you want to know about Deep-Nets in R see <a href="https://www.datacamp.com/community/tutorials/keras-r-deep-learning">here</a>.</p>
 </div>
 <div id="practice-yourself-6" class="section level2">
 <h2><span class="header-section-number">10.4</span> Practice Yourself</h2>
@@ -1202,9 +1205,6 @@ rf.<span class="dv">1</span></code></pre></div>
 <div id="ref-ripley2007pattern">
 <p>Ripley, Brian D. 2007. <em>Pattern Recognition and Neural Networks</em>. Cambridge university press.</p>
 </div>
-<div id="ref-lantz2013machine">
-<p>Lantz, Brett. 2013. <em>Machine Learning with R</em>. Packt Publishing Ltd.</p>
-</div>
 <div id="ref-leskovec2014mining">
 <p>Leskovec, Jure, Anand Rajaraman, and Jeffrey David Ullman. 2014. <em>Mining of Massive Datasets</em>. Cambridge University Press.</p>
 </div>
@@ -1219,6 +1219,9 @@ rf.<span class="dv">1</span></code></pre></div>
 </div>
 <div id="ref-shalev2014understanding">
 <p>Shalev-Shwartz, Shai, and Shai Ben-David. 2014. <em>Understanding Machine Learning: From Theory to Algorithms</em>. Cambridge university press.</p>
+</div>
+<div id="ref-lantz2013machine">
+<p>Lantz, Brett. 2013. <em>Machine Learning with R</em>. Packt Publishing Ltd.</p>
 </div>
 <div id="ref-arlot2010survey">
 <p>Arlot, Sylvain, Alain Celisse, and others. 2010. “A Survey of Cross-Validation Procedures for Model Selection.” <em>Statistics Surveys</em> 4. The author, under a Creative Commons Attribution License: 40–79.</p>

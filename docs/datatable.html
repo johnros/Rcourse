@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2019-03-11">
+<meta name="date" content="2019-03-27">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -145,13 +145,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.14" data-path="basics.html"><a href="basics.html#augmentations-of-the-data.frame-class"><i class="fa fa-check"></i><b>3.14</b> Augmentations of the data.frame class</a></li>
 <li class="chapter" data-level="3.15" data-path="basics.html"><a href="basics.html#data-import-and-export"><i class="fa fa-check"></i><b>3.15</b> Data Import and Export</a><ul>
 <li class="chapter" data-level="3.15.1" data-path="basics.html"><a href="basics.html#import-from-web"><i class="fa fa-check"></i><b>3.15.1</b> Import from WEB</a></li>
-<li class="chapter" data-level="3.15.2" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.15.2</b> Export as CSV</a></li>
-<li class="chapter" data-level="3.15.3" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>3.15.3</b> Export non-CSV files</a></li>
-<li class="chapter" data-level="3.15.4" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.15.4</b> Reading From Text Files</a></li>
-<li class="chapter" data-level="3.15.5" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.15.5</b> Writing Data to Text Files</a></li>
-<li class="chapter" data-level="3.15.6" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.15.6</b> .XLS(X) files</a></li>
-<li class="chapter" data-level="3.15.7" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.15.7</b> Massive files</a></li>
-<li class="chapter" data-level="3.15.8" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.15.8</b> Databases</a></li>
+<li class="chapter" data-level="3.15.2" data-path="basics.html"><a href="basics.html#import-from-clipboard"><i class="fa fa-check"></i><b>3.15.2</b> Import From Clipboard</a></li>
+<li class="chapter" data-level="3.15.3" data-path="basics.html"><a href="basics.html#export-as-csv"><i class="fa fa-check"></i><b>3.15.3</b> Export as CSV</a></li>
+<li class="chapter" data-level="3.15.4" data-path="basics.html"><a href="basics.html#export-non-csv-files"><i class="fa fa-check"></i><b>3.15.4</b> Export non-CSV files</a></li>
+<li class="chapter" data-level="3.15.5" data-path="basics.html"><a href="basics.html#reading-from-text-files"><i class="fa fa-check"></i><b>3.15.5</b> Reading From Text Files</a></li>
+<li class="chapter" data-level="3.15.6" data-path="basics.html"><a href="basics.html#writing-data-to-text-files"><i class="fa fa-check"></i><b>3.15.6</b> Writing Data to Text Files</a></li>
+<li class="chapter" data-level="3.15.7" data-path="basics.html"><a href="basics.html#xlsx-files"><i class="fa fa-check"></i><b>3.15.7</b> .XLS(X) files</a></li>
+<li class="chapter" data-level="3.15.8" data-path="basics.html"><a href="basics.html#massive-files"><i class="fa fa-check"></i><b>3.15.8</b> Massive files</a></li>
+<li class="chapter" data-level="3.15.9" data-path="basics.html"><a href="basics.html#databases"><i class="fa fa-check"></i><b>3.15.9</b> Databases</a></li>
 </ul></li>
 <li class="chapter" data-level="3.16" data-path="basics.html"><a href="basics.html#functions"><i class="fa fa-check"></i><b>3.16</b> Functions</a></li>
 <li class="chapter" data-level="3.17" data-path="basics.html"><a href="basics.html#looping"><i class="fa fa-check"></i><b>3.17</b> Looping</a></li>
@@ -164,7 +165,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.21.3" data-path="basics.html"><a href="basics.html#lubridate-package"><i class="fa fa-check"></i><b>3.21.3</b> lubridate Package</a></li>
 </ul></li>
 <li class="chapter" data-level="3.22" data-path="basics.html"><a href="basics.html#complex-objects"><i class="fa fa-check"></i><b>3.22</b> Complex Objects</a></li>
-<li class="chapter" data-level="3.23" data-path="basics.html"><a href="basics.html#vectors-and-matrices-linear-algebra"><i class="fa fa-check"></i><b>3.23</b> Vectors and Matrices Linear Algebra</a></li>
+<li class="chapter" data-level="3.23" data-path="basics.html"><a href="basics.html#vectors-and-matrix-products"><i class="fa fa-check"></i><b>3.23</b> Vectors and Matrix Products</a></li>
 <li class="chapter" data-level="3.24" data-path="basics.html"><a href="basics.html#bibliographic-notes-1"><i class="fa fa-check"></i><b>3.24</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="3.25" data-path="basics.html"><a href="basics.html#practice-yourself"><i class="fa fa-check"></i><b>3.25</b> Practice Yourself</a></li>
 </ul></li>
@@ -490,7 +491,7 @@ auto &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st
 <pre><code>##                    size isdir mode               mtime               ctime
 ## data/autos.csv 68439217 FALSE  644 2019-02-24 23:52:04 2019-02-24 23:52:04
 ##                              atime  uid  gid   uname  grname
-## data/autos.csv 2019-03-11 14:13:43 1000 1000 johnros johnros</code></pre>
+## data/autos.csv 2019-03-27 22:15:55 1000 1000 johnros johnros</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gdata<span class="op">::</span><span class="kw">humanReadable</span>(<span class="dv">68439217</span>)</code></pre></div>
 <pre><code>## [1] &quot;65.3 MiB&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">object.size</span>(auto) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>(<span class="dt">units =</span> <span class="st">&#39;auto&#39;</span>) <span class="co"># File size in memory</span></code></pre></div>
@@ -932,7 +933,19 @@ DT1[DT2,,] </code></pre></div>
 </div>
 <div id="practice-yourself-1" class="section level2">
 <h2><span class="header-section-number">4.5</span> Practice Yourself</h2>
-<p>See DataCamp’s <a href="https://www.datacamp.com/courses/data-manipulation-in-r-with-datatable">Data Manipulation in R with data.table</a>, by Matt Dowle, the author of <em>data.table</em> for more self practice.</p>
+<ol style="list-style-type: decimal">
+<li>Create a matrix of ones with <code>1e5</code> rows and <code>1e2</code> columns. Create a <code>data.table</code> using this matrix.
+<ol style="list-style-type: decimal">
+<li>Replace the first column of each, with the sequence <span class="math inline">\(1,2,3,\dots\)</span>.</li>
+<li>Create a column which is the sum of all columns, and a <span class="math inline">\(\mathcal{N}(0,1)\)</span> random variable.</li>
+</ol></li>
+<li>Use the cars dataset used in this chapter from kaggle <a href="https://www.kaggle.com/orgesleka/used-cars-database">Kaggle</a>.
+<ol style="list-style-type: decimal">
+<li>Import the data using the function <code>fread</code>. What is the class of your object?</li>
+<li>Use <code>system.time()</code> to measure the time to sort along “seller”. Do the same after converting the data to <code>data.frame</code>. Are data tables faster?</li>
+</ol></li>
+</ol>
+<p>Also, see DataCamp’s <a href="https://www.datacamp.com/courses/data-manipulation-in-r-with-datatable">Data Manipulation in R with data.table</a>, by Matt Dowle, the author of <em>data.table</em> for more self practice.</p>
 
 </div>
 </div>
