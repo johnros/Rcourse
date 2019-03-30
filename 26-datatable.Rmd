@@ -38,7 +38,7 @@ Things to note:
 
 - The import has been done with `fread` instead of `read.csv`. This is more efficient, and directly creates a `data.table` object.
 - The import is very fast. 
-- The data after import is slightly larger than when stored on disk (in this case).
+- The data after import is slightly larger than when stored on disk (in this case). The extra data allows faster operation of this object, and the rule of thumb is to have 3 to 5 times more [RAM](https://en.wikipedia.org/wiki/Random-access_memory) than file size (e.g.: 4GB RAM for 1GB file)
 - `auto` has two classes. It means that everything that expects a `data.frame` we can feed it a `data.table` and it will work.
 
 Let's start with verifying that it behaves like a `data.frame` when expected.
