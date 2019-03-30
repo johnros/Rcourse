@@ -76,7 +76,7 @@ auto[, mean(price), by=vehicleType] # average price by car group
 The `.N` operator is very useful if you need to count the length of the result. 
 Notice where I use it:
 ```{r}
-auto[.N-1,,] # will exctract the *last* row
+auto[.N-1,,] # will exctract the *last* but one row (1=first row, .N=last row)
 auto[,.N] # will count rows
 auto[,.N, vehicleType] # will count rows by type
 ```
