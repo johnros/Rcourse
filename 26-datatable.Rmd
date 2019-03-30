@@ -122,6 +122,7 @@ auto[,.(Power=mean(powerPS)), by=.(PriceRange=price>1e4)]
 Things to note:
 
 - The term `price<1e4` creates *on the fly* a binary vector of TRUE=1 / FALSE=0 for prices less than 10k and then sums/means this vector, hence `sum` is actually a count, and `mean` is proportion=count/total
+- Summing all prices lower than 10k is done with the command `auto[price<1e4,sum(price),]`
 
 You may sort along one or more columns
 ```{r}
