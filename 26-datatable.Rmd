@@ -119,6 +119,10 @@ auto[,mean(price<1e4),] # Proportion of prices lower than 10,000
 auto[,.(Power=mean(powerPS)), by=.(PriceRange=price>1e4)] 
 ```
 
+Things to note:
+
+- The term `price<1e4` creates *on the fly* a binary vector of TRUE=1 / FALSE=0 for prices less than 10k and then sums/means this vector, hence `sum` is actually a count, and `mean` is proportion=count/total
+
 You may sort along one or more columns
 ```{r}
 auto[order(-price), price,] %>% head # Order along price. Descending
