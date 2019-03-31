@@ -38,7 +38,8 @@ Things to note:
 
 - The import has been done with `fread` instead of `read.csv`. This is more efficient, and directly creates a `data.table` object.
 - The import is very fast. 
-- The data after import is slightly larger than when stored on disk (in this case).
+- The data after import is slightly larger than when stored on disk (in this case). The extra data allows faster operation of this object, and the rule of thumb is to have 3 to 5 times more [RAM](https://en.wikipedia.org/wiki/Random-access_memory) than file size (e.g.: 4GB RAM for 1GB file)
+- `auto` has two classes. It means that everything that expects a `data.frame` we can feed it a `data.table` and it will work.
 
 Let's start with verifying that it behaves like a `data.frame` when expected.
 ```{r}
@@ -75,7 +76,7 @@ auto[, mean(price), by=vehicleType] # average price by car group
 The `.N` operator is very useful if you need to count the length of the result. 
 Notice where I use it:
 ```{r}
-auto[.N-1,,] # will exctract the *last* row
+auto[.N-1,,] # will exctract the *last* but one row (1=first row, .N=last row)
 auto[,.N] # will count rows
 auto[,.N, vehicleType] # will count rows by type
 ```
@@ -117,6 +118,11 @@ auto[,sum(price<1e4),] # Count prices lower than 10,000
 auto[,mean(price<1e4),] # Proportion of prices lower than 10,000
 auto[,.(Power=mean(powerPS)), by=.(PriceRange=price>1e4)] 
 ```
+
+Things to note:
+
+- The term `price<1e4` creates *on the fly* a binary vector of TRUE=1 / FALSE=0 for prices less than 10k and then sums/means this vector, hence `sum` is actually a count, and `mean` is proportion=count/total
+- Summing all prices lower than 10k is done with the command `auto[price<1e4,sum(price),]`
 
 You may sort along one or more columns
 ```{r}
@@ -207,7 +213,7 @@ The `ChickWeight` data encodes the weight of various chicks. It is "long" in tha
 ChickWeight %>%  head
 ```
 
-The `mtcars` data encodes 10 characteristics of 32 types of automobiles. It is "wide" since the various characteristics are encoded in different variables, making the data, well, simply wide.
+The `mtcars` data encodes 11 characteristics of 32 types of automobiles. It is "wide" since the various characteristics are encoded in different variables, making the data, well, simply wide.
 
 ```{r}
 mtcars %>% head
