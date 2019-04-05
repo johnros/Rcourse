@@ -211,6 +211,15 @@ $$z_i(x):= \frac{x_i-\bar x}{S(x)}.$$
 
 We thus have that $r(x,y)=Cov(z(x),z(y))$. 
 
+Here are the R implementations
+
+```{r}
+y <- rexp(100) # generate another vector of some random data
+cov(x,y) # covariance between x and y
+cor(x,y) # correlation between x and y (default is pearson)
+scale(x) %>% head # z-score of x
+```
+
 
 #### Summary of Multivariate Continuous Data
 
