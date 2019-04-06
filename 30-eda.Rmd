@@ -319,6 +319,9 @@ The bin counts can be replaced with the proportion of each bin using the `freq` 
 hist(sample1, freq=F, main='Proportion') 	
 ```
 
+Things to note:
+
+- The bins' proportion summary is larger than 1 because it considers each bin's width, which in this case has a constant width of 0.5, hence the total proportion sum is 1/0.5=2.
 
 The bins of a histogram are non overlapping.
 We can adopt a sliding window approach, instead of binning. 
