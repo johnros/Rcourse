@@ -278,7 +278,7 @@ The _mosaic plot_ is not easy to generalize to more than two variables, but it i
 plot(table2.1, main='Trivaraite mosaic plot')
 ```
 
-When one of the variables is a (discrete) time variable, then the plot has a notion dynamics in time. For this see the Alluvian plot \@ref(alluvian).
+When one of the variables is a (discrete) time variable, then the plot has a notion dynamics in time. For this see the Alluvial plot \@ref(alluvial).
 
 If the variables represent a hierarchy, consider a __Sunburst Plot__:
 ```{r sunburst}
@@ -479,8 +479,8 @@ There are, however, interesting dedicated visualization for such data.
 
 
 
-### Alluvian Diagram {#alluvian}
-An Alluvian plot is a type of [Parallel Coordinate Plot](#parcoord) for multivariate categorical data. 
+### Alluvial Diagram {#alluvial}
+An Alluvial plot is a type of [Parallel Coordinate Plot](#parcoord) for multivariate categorical data. 
 It is particularly interesting when the $x$ axis is a discretized time variable, and it is used to visualize flow. 
 
 The following example, from the __ggalluvial__ package Vignette by [Jason Cory Brunson](https://cran.r-project.org/web/packages/ggalluvial/vignettes/ggalluvial.html), demonstrates the flow of students between different majors, as semesters evolve. 
@@ -501,7 +501,7 @@ ggplot(majors,
 
 Things to note:
 
-- We used the __galluvian__ package of the __ggplot2__ ecosystem. More on __ggplot2__ in the [Plotting Chapter](#plotting).
+- We used the __ggalluvial__ package of the __ggplot2__ ecosystem. More on __ggplot2__ in the [Plotting Chapter](#plotting).
 - Time is on the $x$ axis. Categories are color coded.
 
 
