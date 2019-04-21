@@ -143,6 +143,7 @@ head(whiteside) # inspect the data
 
 We do the OLS estimation on the pre-insulation data with `lm` function (acronym for Linear Model), possibly the most important function in R.
 ```{r}
+library(data.table)
 whiteside <- data.table(whiteside)
 lm.1 <- lm(Gas~Temp, data=whiteside[Insul=='Before']) # OLS estimation 
 ```
@@ -210,6 +211,7 @@ where $\hat y_i$ is the model's prediction, $\hat y_i = x_i \hat \beta$.
 
 It can be easily computed
 ```{r}
+library(magrittr)
 R2 <- function(y, y.hat){
   numerator <- (y-y.hat)^2 %>% sum
   denominator <- (y-mean(y))^2 %>% sum
