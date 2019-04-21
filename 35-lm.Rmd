@@ -141,7 +141,7 @@ data(whiteside) # load the data
 head(whiteside) # inspect the data
 ```
 
-We do the OLS estimation on the pre-insulation data with `lm` function, possibly the most important function in R.
+We do the OLS estimation on the pre-insulation data with `lm` function (acronym for Linear Model), possibly the most important function in R.
 ```{r}
 whiteside <- data.table(whiteside)
 lm.1 <- lm(Gas~Temp, data=whiteside[Insul=='Before']) # OLS estimation 
