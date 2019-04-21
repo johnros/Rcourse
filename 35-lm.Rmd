@@ -33,7 +33,7 @@ Consider the study of the effect of a new drug for hemophilia, by analyzing the 
 ```
 
 Let's present the linear model.
-We assume that a response^[The "response" is also know as the "dependent" variable in the statistical literature, or the "labels" in the machine learning literature.] variable is the sum of effects of some factors^[The "factors" are also known as the "independent variable", or  "the design", in the statistical literature, and the "features", or "attributes" in the machine learning literature.].
+We assume that a response^[The "response" is also known as the "dependent" variable in the statistical literature, or the "labels" in the machine learning literature.] variable is the sum of effects of some factors^[The "factors" are also known as the "independent variable", or  "the design", in the statistical literature, and the "features", or "attributes" in the machine learning literature.].
 Denoting the response variable by $y$, the factors by $x=(x_1,\dots,x_p)$, and the effects by $\beta:=(\beta_1,\dots,\beta_p)$ the linear model assumption implies that the expected response is the sum of the factors effects:
 
 \begin{align}
@@ -57,7 +57,7 @@ or in matrix notation
 Let's demonstrate Eq.\@ref(eq:linear-observed).
 In our bottle-caps example [\@ref(exm:cap-experiment)], we may produce bottle caps at various temperatures. 
 We design an experiment where we produce bottle-caps at varying temperatures. 
-Let $x_i$ be the temperate at which bottle-cap $i$ was manufactured. 
+Let $x_i$ be the temperature at which bottle-cap $i$ was manufactured. 
 Let $y_i$ be its measured diameter. 
 By the linear model assumption, the expected diameter varies linearly with the temperature: $\mathbb{E}[y_i]=\beta_0 + x_i \beta_1$. 
 This implies that $\beta_1$ is the (expected) change in diameter due to a unit change in temperature. 
@@ -85,7 +85,7 @@ Put differently, they may be biased, but their variance is small enough to make 
 
 
 There are still two matters we have to attend: 
-(i) How the estimate $\beta$? 
+(i) How to estimate $\beta$? 
 (ii) How to perform inference?
 
 In the simplest linear models the estimation of $\beta$ is done using the method of least squares. A linear model with least squares estimation is known as Ordinary Least Squares (OLS).
@@ -141,7 +141,7 @@ data(whiteside) # load the data
 head(whiteside) # inspect the data
 ```
 
-We do the OLS estimation on the pre-insulation data with `lm` function, possibly the most important function in R.
+We do the OLS estimation on the pre-insulation data with `lm` function (acronym for Linear Model), possibly the most important function in R.
 ```{r}
 whiteside <- data.table(whiteside)
 lm.1 <- lm(Gas~Temp, data=whiteside[Insul=='Before']) # OLS estimation 
