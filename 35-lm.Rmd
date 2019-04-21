@@ -192,7 +192,7 @@ The magnitude of the coefficient means that for a unit increase in the outside t
 We can use the `predict` function to make predictions, but we emphasize that if the purpose of the model is to make predictions, and not interpret coefficients, better skip to the Supervised Learning Chapter \@ref(supervised).
 ```{r, results='hold'}
 plot(predict(lm.1)~whiteside[Insul=='Before',Gas])
-abline(0,1, lty=2)
+abline(0,1, lty=2) # lty=Line Type, 2 means dashed line
 ```
 
 The model seems to fit the data nicely.
