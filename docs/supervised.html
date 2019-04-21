@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2019-03-27">
+<meta name="date" content="2019-03-31">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -506,7 +506,7 @@ Similar to active learning, in that the machine may query for labels. Different 
 <p>The fundamental task in supervised (statistical) learning is to recover a hypothesis that minimizes the average loss in the sample, and not in the population. This is know as the <em>risk minimization problem</em>.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-234" class="definition"><strong>Definition 10.1  (Risk Function)  </strong></span>The <em>risk function</em>, a.k.a. <em>generalization error</em>, or <em>test error</em>, is the population average loss of a predictor <span class="math inline">\(f\)</span>:
+<span id="def:unnamed-chunk-235" class="definition"><strong>Definition 10.1  (Risk Function)  </strong></span>The <em>risk function</em>, a.k.a. <em>generalization error</em>, or <em>test error</em>, is the population average loss of a predictor <span class="math inline">\(f\)</span>:
 <span class="math display">\[\begin{align}
   R(f):=\mathbb{E}_P[l(f(x),y)].
 \end{align}\]</span>
@@ -520,7 +520,7 @@ The best predictor, is the risk minimizer:
 <p>Another fundamental problem is that we do not know the distribution of all possible inputs and outputs, <span class="math inline">\(P\)</span>. We typically only have a sample of <span class="math inline">\((x_i,y_i), i=1,\dots,n\)</span>. We thus state the <em>empirical</em> counterpart of <a href="supervised.html#eq:risk">(10.1)</a>, which consists of minimizing the average loss. This is known as the <em>empirical risk miminization</em> problem (ERM).</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-235" class="definition"><strong>Definition 10.2  (Empirical Risk)  </strong></span>The <em>empirical risk function</em>, a.k.a. <em>in-sample error</em>, or <em>train error</em>, is the sample average loss of a predictor <span class="math inline">\(f\)</span>:
+<span id="def:unnamed-chunk-236" class="definition"><strong>Definition 10.2  (Empirical Risk)  </strong></span>The <em>empirical risk function</em>, a.k.a. <em>in-sample error</em>, or <em>train error</em>, is the sample average loss of a predictor <span class="math inline">\(f\)</span>:
 <span class="math display">\[\begin{align}
   R_n(f):= 1/n \sum_i l(f(x_i),y_i).
 \end{align}\]</span>
@@ -718,7 +718,7 @@ train.errors &lt;-<span class="st"> </span><span class="kw">rep</span>(<span cla
        <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;Training&quot;</span>, <span class="st">&quot;Validation&quot;</span>), 
        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;blue&quot;</span>), 
        <span class="dt">pch =</span> <span class="dv">19</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-237-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-238-1.png" width="50%" /></p>
 <p>Checking all possible models is computationally very hard. <em>Forward selection</em> is a greedy approach that adds one variable at a time.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols.<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(lcavol<span class="op">~</span><span class="dv">1</span> ,<span class="dt">data =</span> prostate.train)
 model.scope &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">upper=</span>ols.<span class="dv">1</span>, <span class="dt">lower=</span>ols.<span class="dv">0</span>)
@@ -977,7 +977,7 @@ nnet.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">nn
 <pre><code>## [1] 0.5623316</code></pre>
 <p>We can use the <strong>rpart.plot</strong> package to visualize and interpret the predictor.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rpart.plot<span class="op">::</span><span class="kw">rpart.plot</span>(tree.<span class="dv">1</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-242-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-243-1.png" width="50%" /></p>
 <p>Trees are very prone to overfitting. To avoid this, we reduce a tree’s complexity by <em>pruning</em> it. This is done with the <code>rpart::prune</code> function (not demonstrated herein).</p>
 <p>We now fit a classification tree.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tree.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">rpart</span>(spam<span class="op">~</span>., <span class="dt">data=</span>spam.train)

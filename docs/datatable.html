@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2019-03-27">
+<meta name="date" content="2019-03-31">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -500,7 +500,8 @@ auto &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st
 <ul>
 <li>The import has been done with <code>fread</code> instead of <code>read.csv</code>. This is more efficient, and directly creates a <code>data.table</code> object.</li>
 <li>The import is very fast.</li>
-<li>The data after import is slightly larger than when stored on disk (in this case).</li>
+<li>The data after import is slightly larger than when stored on disk (in this case). The extra data allows faster operation of this object, and the rule of thumb is to have 3 to 5 times more <a href="https://en.wikipedia.org/wiki/Random-access_memory">RAM</a> than file size (e.g.: 4GB RAM for 1GB file)</li>
+<li><code>auto</code> has two classes. It means that everything that expects a <code>data.frame</code> we can feed it a <code>data.table</code> and it will work.</li>
 </ul>
 <p>Let’s start with verifying that it behaves like a <code>data.frame</code> when expected.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,<span class="dv">2</span>] <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre></div>
@@ -571,15 +572,15 @@ auto &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st
 ## 8:       kombi   7739.518
 ## 9:      andere 676327.100</code></pre>
 <p>The <code>.N</code> operator is very useful if you need to count the length of the result. Notice where I use it:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[.N<span class="op">-</span><span class="dv">1</span>,,] <span class="co"># will exctract the *last* row</span></code></pre></div>
-<pre><code>##            dateCrawled                   name seller offerType price
-## 1: 2016-03-20 19:41:08 VW_Golf_Kombi_1_9l_TDI privat   Angebot  3400
-##    abtest vehicleType yearOfRegistration gearbox powerPS model kilometer
-## 1:   test       kombi               2002 manuell     100  golf    150000
-##    monthOfRegistration fuelType      brand notRepairedDamage
-## 1:                   6   diesel volkswagen                  
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[.N,,] <span class="co"># will exctract the *last* row</span></code></pre></div>
+<pre><code>##            dateCrawled                                         name seller
+## 1: 2016-03-07 19:39:19 BMW_M135i_vollausgestattet_NP_52.720____Euro privat
+##    offerType price  abtest vehicleType yearOfRegistration gearbox powerPS
+## 1:   Angebot 28990 control   limousine               2013 manuell     320
+##      model kilometer monthOfRegistration fuelType brand notRepairedDamage
+## 1: m_reihe     50000                   8   benzin   bmw              nein
 ##            dateCreated nrOfPictures postalCode            lastSeen
-## 1: 2016-03-20 00:00:00            0      40764 2016-03-24 12:45:21</code></pre>
+## 1: 2016-03-07 00:00:00            0      73326 2016-03-22 03:17:10</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,.N] <span class="co"># will count rows</span></code></pre></div>
 <pre><code>## [1] 371824</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[,.N, vehicleType] <span class="co"># will count rows by type</span></code></pre></div>
@@ -683,6 +684,11 @@ auto &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st
 <pre><code>##    PriceRange    Power
 ## 1:      FALSE 101.8838
 ## 2:       TRUE 185.9029</code></pre>
+<p>Things to note:</p>
+<ul>
+<li>The term <code>price&lt;1e4</code> creates <em>on the fly</em> a binary vector of TRUE=1 / FALSE=0 for prices less than 10k and then sums/means this vector, hence <code>sum</code> is actually a count, and <code>mean</code> is proportion=count/total</li>
+<li>Summing all prices lower than 10k is done with the command <code>auto[price&lt;1e4,sum(price),]</code></li>
+</ul>
 <p>You may sort along one or more columns</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">auto[<span class="kw">order</span>(<span class="op">-</span>price), price,] <span class="op">%&gt;%</span><span class="st"> </span>head <span class="co"># Order along price. Descending</span></code></pre></div>
 <pre><code>## [1] 2147483647   99999999   99999999   99999999   99999999   99999999</code></pre>
@@ -809,7 +815,7 @@ DT1[DT2,,] </code></pre></div>
 ## 4     64    6     1    1
 ## 5     76    8     1    1
 ## 6     93   10     1    1</code></pre>
-<p>The <code>mtcars</code> data encodes 10 characteristics of 32 types of automobiles. It is “wide” since the various characteristics are encoded in different variables, making the data, well, simply wide.</p>
+<p>The <code>mtcars</code> data encodes 11 characteristics of 32 types of automobiles. It is “wide” since the various characteristics are encoded in different variables, making the data, well, simply wide.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars <span class="op">%&gt;%</span><span class="st"> </span>head</code></pre></div>
 <pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 ## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4

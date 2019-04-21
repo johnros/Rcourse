@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2019-03-27">
+<meta name="date" content="2019-03-31">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1168,15 +1168,13 @@ b &lt;-<span class="st"> &quot;morning&quot;</span>
 </ul>
 <p>Many functions are content aware, and adapt their behavior when dealing with dates:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(today &lt;-<span class="st"> </span><span class="kw">Sys.Date</span>()) <span class="co"># the current date</span></code></pre></div>
-<pre><code>## [1] &quot;2019-03-27&quot;</code></pre>
+<pre><code>## [1] &quot;2019-03-31&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">today <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="co"># Add one day</span></code></pre></div>
-<pre><code>## [1] &quot;2019-03-28&quot;</code></pre>
+<pre><code>## [1] &quot;2019-04-01&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">today <span class="op">-</span><span class="st"> </span>start <span class="co"># Diffenrece between dates</span></code></pre></div>
-<pre><code>## Time difference of 25884 days</code></pre>
+<pre><code>## Time difference of 25888 days</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">min</span>(start,today)</code></pre></div>
 <pre><code>## [1] &quot;1948-05-14&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">month</span>(today)</code></pre></div>
-<pre><code>## [1] 3</code></pre>
 </div>
 <div id="times" class="section level3">
 <h3><span class="header-section-number">3.21.2</span> Times</h3>

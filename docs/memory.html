@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2019-03-27">
+<meta name="date" content="2019-03-31">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -566,18 +566,18 @@ tbl_df &lt;-<span class="st"> </span>tbl <span class="op">%&gt;%</span><span cla
   tbl_dt[ ,  .( <span class="dt">x1 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x1)), <span class="dt">x2 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x2)), <span class="dt">x3 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x3)) ), .(v1,v2)]
   )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.704   0.487   1.266</code></pre>
+##   0.747   0.359   1.184</code></pre>
 <p>The winner is obvious. Let’s compare filtering (i.e. row subsets, i.e. SQL’s SELECT).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(v1 <span class="op">==</span><span class="st"> &quot;1&quot;</span>) 
   )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.396   0.118   0.525</code></pre>
+##   0.336   0.084   0.430</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_dt[v1 <span class="op">==</span><span class="st"> &quot;1&quot;</span>] 
   )</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.025   0.054   0.077</code></pre>
+##   0.025   0.051   0.076</code></pre>
 </div>
 </div>
 <div id="computing-from-a-database" class="section level2">

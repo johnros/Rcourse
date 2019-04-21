@@ -25,7 +25,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt">
 
 
-<meta name="date" content="2019-03-27">
+<meta name="date" content="2019-03-31">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -504,7 +504,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
  <span class="remark"><em>Remark. </em></span> The following figure may also be used to demonstrate the difference between Euclidean Distance and Mahalanobis Distance.
 </div>
 
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-219-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-220-1.png" width="50%" /></p>
 <div id="signal-detection" class="section level2">
 <h2><span class="header-section-number">9.1</span> Signal Detection</h2>
 <p>Signal detection deals with the detection of the departure of <span class="math inline">\(\mu\)</span> from some <span class="math inline">\(\mu_0\)</span>, and especially, <span class="math inline">\(\mu_0=0\)</span>. This problem can be thought of as the multivariate counterpart of the univariate hypothesis t-test.</p>
@@ -569,7 +569,7 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 <span class="kw">dim</span>(x)</code></pre></div>
 <pre><code>## [1] 100  18</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lattice<span class="op">::</span><span class="kw">levelplot</span>(x)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-220-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-221-1.png" width="50%" /></p>
 <p>Now make our own Hotelling function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hotellingOneSample &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">mu0=</span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="kw">ncol</span>(x))){
   n &lt;-<span class="st"> </span><span class="kw">nrow</span>(x)
@@ -678,12 +678,12 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 <span class="kw">dim</span>(x)</code></pre></div>
 <pre><code>## [1]  10 100</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lattice<span class="op">::</span><span class="kw">levelplot</span>(x)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-227-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-228-1.png" width="50%" /></p>
 <p>We now compute the pvalues of each coordinate. We use a coordinate-wise t-test. Why a t-test? Because for the purpose of demonstration we want a simple test. In reality, you may use any test that returns valid p-values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t.pval &lt;-<span class="st"> </span><span class="cf">function</span>(y) <span class="kw">t.test</span>(y)<span class="op">$</span>p.value
 p.values &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="dt">X =</span> x, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> t.pval) 
 <span class="kw">plot</span>(p.values, <span class="dt">type=</span><span class="st">&#39;h&#39;</span>)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-228-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-229-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li><code>t.pval</code> is a function that merely returns the p-value of a t.test.</li>
