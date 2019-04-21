@@ -51,7 +51,7 @@ prop.table(table(gender))
 
 ```{r}
 library(magrittr)
-cbind(gender, drink) %>% head # bind vectors into matrix and inspect
+cbind(gender, drink) %>% head # bind vectors into matrix and inspect (`c` indicates Column)
 table1 <- table(gender, drink) # count frequencies of bivariate combinations
 table1										
 ```
@@ -64,7 +64,7 @@ R offers several solutions: `table` is easier to compute with, and `ftable` is h
 ```{r}
 table2.1 <- table(gender, drink, age) # A machine readable table. 
 table2.1
-table.2.2 <- ftable(gender, drink, age) # A human readable table.
+table.2.2 <- ftable(gender, drink, age) # A human readable table (`f` indicates Flat).
 table.2.2
 ```
 
@@ -72,8 +72,8 @@ If you want proportions instead of counts, you need to specify the denominator, 
 Think: what is the margin in each of the following outputs?
 
 ```{r}
-prop.table(table1, margin = 1)
-prop.table(table1, margin = 2)
+prop.table(table1, margin = 1) # every row is summed up to 1
+prop.table(table1, margin = 2) # every column amounts to 100%
 ```
 
 
@@ -146,7 +146,7 @@ $$MAD(x):= c \: |x-x_{0.5}|_{0.5} . $$
 where $c$ is some constant, typically set to $c=1.4826$ so that MAD and $S(x)$ have the same large sample limit.
 
 ```{definition, name="IQR"}
-The Inter Quantile Range of a sample $x$, denoted as $IQR(x)$, is defined as 
+The Inter Quartile Range of a sample $x$, denoted as $IQR(x)$, is defined as 
 $$ IQR(x):= x_{0.75}-x_{0.25} .$$
 ```
 
@@ -179,6 +179,11 @@ yule <- function(x){
 yule(x)
 ```
 
+Things to note:
+
+- A perfectly symmetric vector will return 0 because the median will be exactly on the midway.
+- It is bounded between -1 and 1 because of the denominator
+
 
 #### Summary of Bivariate Continuous Data
 When dealing with bivariate, or multivariate data, we can obviously compute univariate summaries for each variable separately. 
@@ -205,6 +210,15 @@ $$z_i(x):= \frac{x_i-\bar x}{S(x)}.$$
 ```
 
 We thus have that $r(x,y)=Cov(z(x),z(y))$. 
+
+Here are the R implementations
+
+```{r}
+y <- rexp(100) # generate another vector of some random data
+cov(x,y) # covariance between x and y
+cor(x,y) # correlation between x and y (default is pearson)
+scale(x) %>% head # z-score of x
+```
 
 
 #### Summary of Multivariate Continuous Data
@@ -252,6 +266,10 @@ In this text, we advocate the use of the _mosaic plot_ which is also the default
 plot(table1, main='Bivariate mosaic plot')
 ```
 
+Things to note:
+
+- The proportion of each category is encoded in the width of the bars (more girls than boys here)
+- Zero observations are marked as a line. Negative obs. are more complicated and not discussed here.
 
 #### Visualizing Multivariate Categorical Data 
 The _mosaic plot_ is not easy to generalize to more than two variables, but it is still possible (at the cost of interpretability).
@@ -260,7 +278,7 @@ The _mosaic plot_ is not easy to generalize to more than two variables, but it i
 plot(table2.1, main='Trivaraite mosaic plot')
 ```
 
-When one of the variables is a (discrete) time variable, then the plot has a notion dynamics in time. For this see the Alluvian plot \@ref(alluvian).
+When one of the variables is a (discrete) time variable, then the plot has a notion dynamics in time. For this see the Alluvial plot \@ref(alluvial).
 
 If the variables represent a hierarchy, consider a __Sunburst Plot__:
 ```{r sunburst}
@@ -279,7 +297,7 @@ sunburst(sequences) # In the HTML version of the book this plot is interactive.
 ### Continuous Data
 
 #### Visualizing Univariate Continuous Data
-Unlike categorical variables, there are endlessly many way to visualize continuous variables. 
+Unlike categorical variables, there are endlessly many ways to visualize continuous variables. 
 The simplest way is to look at the raw data via the `stripchart`.
 
 ```{r}
@@ -301,6 +319,9 @@ The bin counts can be replaced with the proportion of each bin using the `freq` 
 hist(sample1, freq=F, main='Proportion') 	
 ```
 
+Things to note:
+
+- The bins' proportion summary is larger than 1 because it considers each bin's width, which in this case has a constant width of 0.5, hence the total proportion sum is 1/0.5=2.
 
 The bins of a histogram are non overlapping.
 We can adopt a sliding window approach, instead of binning. 
@@ -414,14 +435,14 @@ We thus have several options:
 (ii) To visualize not the raw data, but rather its summaries, like the covariance matrix.
 
 Our own [Multinav](https://github.com/EfratVil/MultiNav) package adopts an interactive approach. 
-For each (multivaraite) observation a simple univariate summary may be computed and visualized. These summaries may be compared, and the original (multivariate) observation inspected upon demand. 
+For each (multivariate) observation a simple univariate summary may be computed and visualized. These summaries may be compared, and the original (multivariate) observation inspected upon demand. 
 Contact [Efrat](http://efratvil.github.io/home/index.html) for more details.  
 ![The Multinav Package](art/multinav.png)
 
 
 
-An alternative approach starts with the a covariance matrix, $\hat \Sigma$, that can be visualized as an image.
-Note the use of the `::` operator, which is used to call a function from some package, without loading the whole package. 
+An alternative approach starts with the covariance matrix, $\hat \Sigma$, that can be visualized as an image.
+Note the use of the `::` operator (called *Double Colon Operator*, for help: `?'::'`), which is used to call a function from some package, without loading the whole package. 
 We will use the `::` operator when we want to emphasize the package of origin of a function.
 
 ```{r}
@@ -430,10 +451,10 @@ correlations <- cor(longley) # The correlations of the longley dataset
 lattice::levelplot(correlations)
 ```
 
-If we believe the covariance has some structure, we can do better then viewing the raw correlations.
+If we believe the covariance has some structure, we can do better than viewing the raw correlations.
 In temporal, and spatial data, we believe correlations decay as some function of distances.
 We can thus view correlations as a function of the distance between observations. This is known as a _variogram_. 
-Note that for a variogram to be informative, is it implied that correlations are merely a function of distances (and not locations themselves). 
+Note that for a variogram to be informative, it is implied that correlations are merely a function of distances (and not locations themselves). 
 This is formally known as _stationary_ and _isotropic_ correlations.
 
 ![Variogram: plotting correlation as a function of spatial distance. Courtesy of Ron Sarafian.](art/variogram.png)
@@ -455,14 +476,14 @@ MASS::parcoord(log(ir)[, c(3, 4, 2, 1)], col = 1 + (0:149)%/%50)
 
 
 ## Mixed Type Data
-Most real data sets will be of mixed type: both categorical and w. 
+Most real data sets will be of mixed type: both categorical and continuous. 
 One approach to view such data, is to visualize the continuous variables separately, for each level of the categorical variables. 
 There are, however, interesting dedicated visualization for such data. 
 
 
 
-### Alluvian Diagram {#alluvian}
-An Alluvian plot is a type of [Parallel Coordinate Plot](#parcoord) for multivariate categorical data. 
+### Alluvial Diagram {#alluvial}
+An Alluvial plot is a type of [Parallel Coordinate Plot](#parcoord) for multivariate categorical data. 
 It is particularly interesting when the $x$ axis is a discretized time variable, and it is used to visualize flow. 
 
 The following example, from the __ggalluvial__ package Vignette by [Jason Cory Brunson](https://cran.r-project.org/web/packages/ggalluvial/vignettes/ggalluvial.html), demonstrates the flow of students between different majors, as semesters evolve. 
@@ -483,7 +504,7 @@ ggplot(majors,
 
 Things to note:
 
-- We used the __galluvian__ package of the __ggplot2__ ecosystem. More on __ggplot2__ in the [Plotting Chapter](#plotting).
+- We used the __ggalluvial__ package of the __ggplot2__ ecosystem. More on __ggplot2__ in the [Plotting Chapter](#plotting).
 - Time is on the $x$ axis. Categories are color coded.
 
 
