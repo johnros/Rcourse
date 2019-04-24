@@ -143,6 +143,7 @@ head(whiteside) # inspect the data
 
 We do the OLS estimation on the pre-insulation data with `lm` function (acronym for Linear Model), possibly the most important function in R.
 ```{r}
+library(data.table)
 whiteside <- data.table(whiteside)
 lm.1 <- lm(Gas~Temp, data=whiteside[Insul=='Before']) # OLS estimation 
 ```
@@ -192,7 +193,7 @@ The magnitude of the coefficient means that for a unit increase in the outside t
 We can use the `predict` function to make predictions, but we emphasize that if the purpose of the model is to make predictions, and not interpret coefficients, better skip to the Supervised Learning Chapter \@ref(supervised).
 ```{r, results='hold'}
 plot(predict(lm.1)~whiteside[Insul=='Before',Gas])
-abline(0,1, lty=2)
+abline(0,1, lty=2) # lty=Line Type, 2 means dashed line
 ```
 
 The model seems to fit the data nicely.
@@ -210,6 +211,7 @@ where $\hat y_i$ is the model's prediction, $\hat y_i = x_i \hat \beta$.
 
 It can be easily computed
 ```{r}
+library(magrittr)
 R2 <- function(y, y.hat){
   numerator <- (y-y.hat)^2 %>% sum
   denominator <- (y-mean(y))^2 %>% sum
