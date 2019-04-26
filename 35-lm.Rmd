@@ -255,6 +255,7 @@ Some.
 Let's start with the linearity assumption.
 If we were wrong, and the data is not arranged about a linear line, the residuals will have some shape. We thus plot the residuals as a function of the predictor to diagnose shape. 
 ```{r, results='hold'}
+# errors (epsilons) vs. temperature, should oscillate around zero.
 plot(residuals(lm.1)~whiteside[Insul=='Before',Temp])
 abline(0,0, lty=2)
 ```
