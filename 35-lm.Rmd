@@ -269,7 +269,7 @@ plot(residuals(lm.1.1)~whiteside[Insul=='Before',Temp]); abline(0,0, lty=2)
 
 Things to note:
 
-- We used `I(Temp)^2` to specify the model $Gas=\beta_0 + \beta_1 Temp^2+ \varepsilon$.
+- We used `I(Temp^2)` to specify the model $Gas=\beta_0 + \beta_1 Temp^2+ \varepsilon$.
 - The residuals have a "belly". 
 Because they are not a cloud around the linear trend, and we have the wrong model.
 
