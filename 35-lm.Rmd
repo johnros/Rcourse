@@ -431,7 +431,7 @@ Here are other ways to specify the same model.
 lm.3 <- lm(StressReduction ~ Treatment * Age - 1,data=twoWay)
 lm.3 <- lm(StressReduction~(.)^2 - 1,data=twoWay)
 ```
-The syntax `Treatment * Age` means "mains effects with second order interactions".
+The syntax `Treatment * Age` means "main effects with second order interactions".
 The syntax `(.)^2` means "everything with second order interactions"
 
 Let's inspect the model
