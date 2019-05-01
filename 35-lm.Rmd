@@ -425,7 +425,7 @@ In the statistical parlance, this is called an _interaction_, or more precisely,
 ```{r}
 lm.3 <- lm(StressReduction~Treatment+Age+Treatment:Age-1,data=twoWay)
 ```
-The syntax `StressReduction~Treatment+Age+Treatment:Age-1` tells R to include main effects of Treatment, Age, and their interactions.
+The syntax `StressReduction~Treatment+Age+Treatment:Age-1` tells R to include main effects of Treatment, Age, and their interactions. The -1 removes the intercept.
 Here are other ways to specify the same model.
 ```{r, eval=FALSE}
 lm.3 <- lm(StressReduction ~ Treatment * Age - 1,data=twoWay)
