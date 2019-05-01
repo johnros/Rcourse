@@ -432,7 +432,7 @@ lm.3 <- lm(StressReduction ~ Treatment * Age - 1,data=twoWay)
 lm.3 <- lm(StressReduction~(.)^2 - 1,data=twoWay)
 ```
 The syntax `Treatment * Age` means "main effects with second order interactions".
-The syntax `(.)^2` means "everything with second order interactions"
+The syntax `(.)^2` means "everything with second order interactions", this time we don't have I() as in the temperature example because here we want the second order interaction and not the square of each variable.
 
 Let's inspect the model
 ```{r}
