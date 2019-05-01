@@ -337,7 +337,7 @@ _Multiple regression_ is not to be confused with _multivariate regression_ discu
 The `swiss` dataset encodes the fertility at each of Switzerland's 47 French speaking provinces, along other socio-economic indicators. Let's see if these are statistically related:
 ```{r}
 head(swiss)
-lm.5 <- lm(data=swiss, Fertility~Agriculture+Examination+Education+Education+Catholic+Infant.Mortality)
+lm.5 <- lm(data=swiss, Fertility~Agriculture+Examination+Education+Catholic+Infant.Mortality)
 summary(lm.5)
 ```
 
