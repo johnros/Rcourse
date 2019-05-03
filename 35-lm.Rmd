@@ -383,6 +383,8 @@ Things to note:
 
 - All the (main) effects and the intercept seem to be significant. 
 
+- Mid age and medical treatment are missing, hence it is implied that they are the baseline, and this model accounts for the departure from this baseline.
+
 - The data has 2 factors, but the coefficients table has 4 predictors. This is because `lm` noticed that `Treatment` and `Age` are factors. Each level of each factor is thus encoded as a different (dummy) variable.
 The numerical values of the factors are meaningless.
 Instead, R has constructed a dummy variable for each level of each factor. 
