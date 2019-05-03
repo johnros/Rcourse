@@ -192,8 +192,10 @@ The magnitude of the coefficient means that for a unit increase in the outside t
 
 We can use the `predict` function to make predictions, but we emphasize that if the purpose of the model is to make predictions, and not interpret coefficients, better skip to the Supervised Learning Chapter \@ref(supervised).
 ```{r, results='hold'}
+# Gas predictions (b0+b1*temperature) vs. actual Gas measurements, ideal slope should be 1.
 plot(predict(lm.1)~whiteside[Insul=='Before',Gas])
-abline(0,1, lty=2) # lty=Line Type, 2 means dashed line
+# plots identity line (slope 1), lty=Line Type, 2 means dashed line.
+abline(0,1, lty=2)
 ```
 
 The model seems to fit the data nicely.
@@ -231,7 +233,7 @@ This is exactly what Eq.\@ref(eq:ols-distribution) gives us.
 
 Luckily, we don't need to manipulate multivariate distributions manually, and everything we need is already implemented. 
 The most important function is `summary` which gives us an overview of the model's fit.
-We emphasize that that fitting a model with `lm` is an assumption free algorithmic step. 
+We emphasize that fitting a model with `lm` is an assumption free algorithmic step. 
 Inference using `summary` is __not__ assumption free, and requires the set of assumptions leading to Eq.\@ref(eq:ols-distribution).
 ```{r}
 summary(lm.1)
@@ -253,6 +255,7 @@ Some.
 Let's start with the linearity assumption.
 If we were wrong, and the data is not arranged about a linear line, the residuals will have some shape. We thus plot the residuals as a function of the predictor to diagnose shape. 
 ```{r, results='hold'}
+# errors (epsilons) vs. temperature, should oscillate around zero.
 plot(residuals(lm.1)~whiteside[Insul=='Before',Temp])
 abline(0,0, lty=2)
 ```
@@ -266,7 +269,7 @@ plot(residuals(lm.1.1)~whiteside[Insul=='Before',Temp]); abline(0,0, lty=2)
 
 Things to note:
 
-- We used `I(Temp)^2` to specify the model $Gas=\beta_0 + \beta_1 Temp^2+ \varepsilon$.
+- We used `I(Temp^2)` to specify the model $Gas=\beta_0 + \beta_1 Temp^2+ \varepsilon$.
 - The residuals have a "belly". 
 Because they are not a cloud around the linear trend, and we have the wrong model.
 
@@ -282,7 +285,7 @@ As previously stated, if $n \gg p$, this assumption can be relaxed.
 If $n$ is in the order of $p$, we need to verify this assumption.
 My favorite tool for this task is the _qqplot_.
 A qqplot compares the quantiles of the sample with the respective quantiles of the assumed distribution.
-If quantiles align along a line, the assumed distribution if OK.
+If quantiles align along a line, the assumed distribution is OK.
 If quantiles depart from a line, then the assumed distribution does not fit the sample.
 ```{r}
 qqnorm(resid(lm.1))
@@ -309,7 +312,7 @@ summary.lm1 <- summary(lm.1)
 coefs.lm1 <- summary.lm1$coefficients
 coefs.lm1
 ```
-We see that the p-value for $H_{0,1}: \beta_1=0$ against a two sided alternative is effectively `r round(coefs.lm1[2,4],2)`, so that $\beta_1$ is unlikely to be $0$.
+We see that the p-value for $H_{0,1}: \beta_1=0$ against a two sided alternative is effectively `r round(coefs.lm1[2,4],2)` (row 2 columns 4), so that $\beta_1$ is unlikely to be $0$ (the null hypothesis can be rejected).
 
 
 
@@ -321,7 +324,9 @@ In our example the interval is
 coefs.lm1[2,1] + c(-2,2) * coefs.lm1[2,2]
 ```
 
+Things to note:
 
+- The function `confint(lm.1)` can calculate it. Sometimes it's more simple to write 20 characters of code than finding a function that does it for us. 
 
 ### Multiple Regression
 
@@ -332,7 +337,7 @@ _Multiple regression_ is not to be confused with _multivariate regression_ discu
 The `swiss` dataset encodes the fertility at each of Switzerland's 47 French speaking provinces, along other socio-economic indicators. Let's see if these are statistically related:
 ```{r}
 head(swiss)
-lm.5 <- lm(data=swiss, Fertility~Agriculture+Examination+Education+Education+Catholic+Infant.Mortality)
+lm.5 <- lm(data=swiss, Fertility~Agriculture+Examination+Education+Catholic+Infant.Mortality)
 summary(lm.5)
 ```
 
@@ -378,6 +383,8 @@ Things to note:
 
 - All the (main) effects and the intercept seem to be significant. 
 
+- Mid age and medical treatment are missing, hence it is implied that they are the baseline, and this model accounts for the departure from this baseline.
+
 - The data has 2 factors, but the coefficients table has 4 predictors. This is because `lm` noticed that `Treatment` and `Age` are factors. Each level of each factor is thus encoded as a different (dummy) variable.
 The numerical values of the factors are meaningless.
 Instead, R has constructed a dummy variable for each level of each factor. 
@@ -412,7 +419,7 @@ Things to note:
 
 - The `lm` function has been replaced with an `aov` function. 
 - The output of `aov` is an `aov` class object, which extends the `lm` class.
-- The summary of an `aov` does not like the summary of an `lm` object, but rather, like an ANOVA table. 
+- The summary of an `aov` is not like the summary of an `lm` object, but rather, like an ANOVA table. 
 
 
 As in any two-way ANOVA, we may want to ask if different age groups respond differently to different treatments. 
@@ -420,14 +427,14 @@ In the statistical parlance, this is called an _interaction_, or more precisely,
 ```{r}
 lm.3 <- lm(StressReduction~Treatment+Age+Treatment:Age-1,data=twoWay)
 ```
-The syntax `StressReduction~Treatment+Age+Treatment:Age-1` tells R to include main effects of Treatment, Age, and their interactions.
+The syntax `StressReduction~Treatment+Age+Treatment:Age-1` tells R to include main effects of Treatment, Age, and their interactions. The -1 removes the intercept.
 Here are other ways to specify the same model.
 ```{r, eval=FALSE}
 lm.3 <- lm(StressReduction ~ Treatment * Age - 1,data=twoWay)
 lm.3 <- lm(StressReduction~(.)^2 - 1,data=twoWay)
 ```
-The syntax `Treatment * Age` means "mains effects with second order interactions".
-The syntax `(.)^2` means "everything with second order interactions"
+The syntax `Treatment * Age` means "main effects with second order interactions".
+The syntax `(.)^2` means "everything with second order interactions", this time we don't have I() as in the temperature example because here we want the second order interaction and not the square of each variable.
 
 Let's inspect the model
 ```{r}
@@ -471,7 +478,7 @@ summary(lm.4)
 Things to note:
 
 - A contrast is a linear function of the coefficients. In our example $H_0:\beta_1-\beta_3=0$, which justifies the construction of `my.contrast`.
-- We used the `glht` function (generalized linear hypothesis test) from the package __multcompt__.
+- We used the `glht` function (generalized linear hypothesis test) from the package __multcomp__.
 - The contrast is significant, i.e., the effect of a medical treatment, is different than that of a physical treatment.
 
 
@@ -494,7 +501,7 @@ For the theory of linear models, I like @greene2003econometric.
 1. Write a function that takes an `lm` class object, and returns the confidence interval on the first coefficient. Apply it on the height and weight data. 
 1. Use the `ANOVA` function to test the significance of the effect of height.
 
-1. Read about the “mtcars” dataset using `? mtcars`.Inspect the dependency of the fuel consumption (mpg) in the weight (wt) and the 1/4 mile time (qsec).
+1. Read about the “mtcars” dataset using `? mtcars`. Inspect the dependency of the fuel consumption (mpg) in the weight (wt) and the 1/4 mile time (qsec).
     1. Make a pairs scatter plot with `plot(mtcars[,c("mpg","wt","qsec")])`
 Does the connection look linear?
     1. Fit a multiple linear regression with `lm`. Call it `model1`.
