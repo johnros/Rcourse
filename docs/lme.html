@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Linear Mixed Models | R (BGU course)</title>
-  <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
+  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Linear Mixed Models | R (BGU course)" />
   <meta property="og:type" content="book" />
@@ -22,14 +21,14 @@
   <meta name="twitter:description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
   
 
-<meta name="author" content="Jonathan D. Rosenblatt">
+<meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-03-31">
+<meta name="date" content="2019-05-14" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="glm.html">
@@ -189,7 +188,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.2.2" data-path="eda.html"><a href="eda.html#continuous-data"><i class="fa fa-check"></i><b>5.2.2</b> Continuous Data</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="eda.html"><a href="eda.html#mixed-type-data"><i class="fa fa-check"></i><b>5.3</b> Mixed Type Data</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="eda.html"><a href="eda.html#alluvian"><i class="fa fa-check"></i><b>5.3.1</b> Alluvian Diagram</a></li>
+<li class="chapter" data-level="5.3.1" data-path="eda.html"><a href="eda.html#alluvial"><i class="fa fa-check"></i><b>5.3.1</b> Alluvial Diagram</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="eda.html"><a href="eda.html#bibliographic-notes-3"><i class="fa fa-check"></i><b>5.4</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="5.5" data-path="eda.html"><a href="eda.html#practice-yourself-2"><i class="fa fa-check"></i><b>5.5</b> Practice Yourself</a></li>
@@ -258,7 +257,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9.3.1" data-path="multivariate.html"><a href="multivariate.html#signal-identification-in-r"><i class="fa fa-check"></i><b>9.3.1</b> Signal Identification in R</a></li>
 </ul></li>
 <li class="chapter" data-level="9.4" data-path="multivariate.html"><a href="multivariate.html#signal-estimation"><i class="fa fa-check"></i><b>9.4</b> Signal Estimation (*)</a></li>
-<li class="chapter" data-level="9.5" data-path="multivariate.html"><a href="multivariate.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>9.5</b> Biblipgraphic Notes</a></li>
+<li class="chapter" data-level="9.5" data-path="multivariate.html"><a href="multivariate.html#bibliographic-notes-7"><i class="fa fa-check"></i><b>9.5</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="9.6" data-path="multivariate.html"><a href="multivariate.html#practice-yourself-5"><i class="fa fa-check"></i><b>9.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="supervised.html"><a href="supervised.html"><i class="fa fa-check"></i><b>10</b> Supervised Learning</a><ul>
@@ -279,7 +278,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="10.2.8" data-path="supervised.html"><a href="supervised.html#random-forrest"><i class="fa fa-check"></i><b>10.2.8</b> Random Forrest</a></li>
 <li class="chapter" data-level="10.2.9" data-path="supervised.html"><a href="supervised.html#boosting"><i class="fa fa-check"></i><b>10.2.9</b> Boosting</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="supervised.html"><a href="supervised.html#bibliographic-notes-7"><i class="fa fa-check"></i><b>10.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="10.3" data-path="supervised.html"><a href="supervised.html#bibliographic-notes-8"><i class="fa fa-check"></i><b>10.3</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="10.4" data-path="supervised.html"><a href="supervised.html#practice-yourself-6"><i class="fa fa-check"></i><b>10.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="unsupervised.html"><a href="unsupervised.html"><i class="fa fa-check"></i><b>11</b> Unsupervised Learning</a><ul>
@@ -295,7 +294,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="11.2.2" data-path="unsupervised.html"><a href="unsupervised.html#purely-algorithmic-approaches-1"><i class="fa fa-check"></i><b>11.2.2</b> Purely Algorithmic Approaches</a></li>
 <li class="chapter" data-level="11.2.3" data-path="unsupervised.html"><a href="unsupervised.html#clustering-in-r"><i class="fa fa-check"></i><b>11.2.3</b> Clustering in R</a></li>
 </ul></li>
-<li class="chapter" data-level="11.3" data-path="unsupervised.html"><a href="unsupervised.html#bibliographic-notes-8"><i class="fa fa-check"></i><b>11.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="11.3" data-path="unsupervised.html"><a href="unsupervised.html#bibliographic-notes-9"><i class="fa fa-check"></i><b>11.3</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="11.4" data-path="unsupervised.html"><a href="unsupervised.html#practice-yourself-7"><i class="fa fa-check"></i><b>11.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>12</b> Plotting</a><ul>
@@ -311,7 +310,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="12.3.1" data-path="plotting.html"><a href="plotting.html#plotly"><i class="fa fa-check"></i><b>12.3.1</b> Plotly</a></li>
 </ul></li>
 <li class="chapter" data-level="12.4" data-path="plotting.html"><a href="plotting.html#other-r-interfaces-to-javascript-plotting"><i class="fa fa-check"></i><b>12.4</b> Other R Interfaces to JavaScript Plotting</a></li>
-<li class="chapter" data-level="12.5" data-path="plotting.html"><a href="plotting.html#bibliographic-notes-9"><i class="fa fa-check"></i><b>12.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="12.5" data-path="plotting.html"><a href="plotting.html#bibliographic-notes-10"><i class="fa fa-check"></i><b>12.5</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="12.6" data-path="plotting.html"><a href="plotting.html#practice-yourself-8"><i class="fa fa-check"></i><b>12.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="13" data-path="report.html"><a href="report.html"><i class="fa fa-check"></i><b>13</b> Reports</a><ul>
@@ -330,7 +329,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="13.3.4" data-path="report.html"><a href="report.html#shinydashboard"><i class="fa fa-check"></i><b>13.3.4</b> shinydashboard</a></li>
 </ul></li>
 <li class="chapter" data-level="13.4" data-path="report.html"><a href="report.html#flexdashboard"><i class="fa fa-check"></i><b>13.4</b> flexdashboard</a></li>
-<li class="chapter" data-level="13.5" data-path="report.html"><a href="report.html#bibliographic-notes-10"><i class="fa fa-check"></i><b>13.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="13.5" data-path="report.html"><a href="report.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>13.5</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="13.6" data-path="report.html"><a href="report.html#practice-yourself-9"><i class="fa fa-check"></i><b>13.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="14" data-path="sparse.html"><a href="sparse.html"><i class="fa fa-check"></i><b>14</b> Sparse Representations</a><ul>
@@ -346,8 +345,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="14.2.3" data-path="sparse.html"><a href="sparse.html#the-matrixmodels-package"><i class="fa fa-check"></i><b>14.2.3</b> The MatrixModels Package</a></li>
 <li class="chapter" data-level="14.2.4" data-path="sparse.html"><a href="sparse.html#the-sparsem-package"><i class="fa fa-check"></i><b>14.2.4</b> The SparseM Package</a></li>
 </ul></li>
-<li class="chapter" data-level="14.3" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-11"><i class="fa fa-check"></i><b>14.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="14.4" data-path="sparse.html"><a href="sparse.html#practice-yourself-10"><i class="fa fa-check"></i><b>14.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="14.3" data-path="sparse.html"><a href="sparse.html#beyond-sparsity"><i class="fa fa-check"></i><b>14.3</b> Beyond Sparsity</a></li>
+<li class="chapter" data-level="14.4" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>14.4</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="14.5" data-path="sparse.html"><a href="sparse.html#practice-yourself-10"><i class="fa fa-check"></i><b>14.5</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a><ul>
 <li class="chapter" data-level="15.1" data-path="memory.html"><a href="memory.html#efficient-computing-from-ram"><i class="fa fa-check"></i><b>15.1</b> Efficient Computing from RAM</a><ul>
@@ -364,7 +364,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#hdf5"><i class="fa fa-check"></i><b>15.7</b> HDF5</a></li>
 <li class="chapter" data-level="15.8" data-path="memory.html"><a href="memory.html#delayedarray"><i class="fa fa-check"></i><b>15.8</b> DelayedArray</a></li>
 <li class="chapter" data-level="15.9" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.9</b> Computing from a Distributed File System</a></li>
-<li class="chapter" data-level="15.10" data-path="memory.html"><a href="memory.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>15.10</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="15.10" data-path="memory.html"><a href="memory.html#bibliographic-notes-13"><i class="fa fa-check"></i><b>15.10</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="15.11" data-path="memory.html"><a href="memory.html#practice-yourself-11"><i class="fa fa-check"></i><b>15.11</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
@@ -372,7 +372,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Explicit Parallelism</a><ul>
 <li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
 </ul></li>
-<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-13"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-12"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a><ul>
@@ -386,7 +386,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="17.7.1" data-path="algebra.html"><a href="algebra.html#openblas"><i class="fa fa-check"></i><b>17.7.1</b> OpenBlas</a></li>
 <li class="chapter" data-level="17.7.2" data-path="algebra.html"><a href="algebra.html#mkl"><i class="fa fa-check"></i><b>17.7.2</b> MKL</a></li>
 </ul></li>
-<li class="chapter" data-level="17.8" data-path="algebra.html"><a href="algebra.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>17.8</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="17.8" data-path="algebra.html"><a href="algebra.html#bibliographic-notes-15"><i class="fa fa-check"></i><b>17.8</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="17.9" data-path="algebra.html"><a href="algebra.html#practice-yourself-13"><i class="fa fa-check"></i><b>17.9</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="18" data-path="convex.html"><a href="convex.html"><i class="fa fa-check"></i><b>18</b> Convex Optimization</a><ul>
@@ -396,49 +396,41 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="18.2.2" data-path="convex.html"><a href="convex.html#the-nloptr-package"><i class="fa fa-check"></i><b>18.2.2</b> The nloptr Package</a></li>
 <li class="chapter" data-level="18.2.3" data-path="convex.html"><a href="convex.html#minqa-package"><i class="fa fa-check"></i><b>18.2.3</b> minqa Package</a></li>
 </ul></li>
-<li class="chapter" data-level="18.3" data-path="convex.html"><a href="convex.html#bibliographic-notes-15"><i class="fa fa-check"></i><b>18.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="18.3" data-path="convex.html"><a href="convex.html#bibliographic-notes-16"><i class="fa fa-check"></i><b>18.3</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="18.4" data-path="convex.html"><a href="convex.html#practice-yourself-14"><i class="fa fa-check"></i><b>18.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="rcpp.html"><a href="rcpp.html"><i class="fa fa-check"></i><b>19</b> RCpp</a><ul>
-<li class="chapter" data-level="19.1" data-path="rcpp.html"><a href="rcpp.html#bibliographic-notes-16"><i class="fa fa-check"></i><b>19.1</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="19.1" data-path="rcpp.html"><a href="rcpp.html#bibliographic-notes-17"><i class="fa fa-check"></i><b>19.1</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="19.2" data-path="rcpp.html"><a href="rcpp.html#practice-yourself-15"><i class="fa fa-check"></i><b>19.2</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="20" data-path="debugging.html"><a href="debugging.html"><i class="fa fa-check"></i><b>20</b> Debugging Tools</a><ul>
-<li class="chapter" data-level="20.1" data-path="debugging.html"><a href="debugging.html#bibliographic-notes-17"><i class="fa fa-check"></i><b>20.1</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="20.1" data-path="debugging.html"><a href="debugging.html#bibliographic-notes-18"><i class="fa fa-check"></i><b>20.1</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="20.2" data-path="debugging.html"><a href="debugging.html#practice-yourself-16"><i class="fa fa-check"></i><b>20.2</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="21" data-path="econometrics.html"><a href="econometrics.html"><i class="fa fa-check"></i><b>21</b> Econometrics</a><ul>
-<li class="chapter" data-level="21.1" data-path="econometrics.html"><a href="econometrics.html#bibliographic-notes-18"><i class="fa fa-check"></i><b>21.1</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="21.2" data-path="econometrics.html"><a href="econometrics.html#practice-yourself-17"><i class="fa fa-check"></i><b>21.2</b> Practice Yourself</a></li>
+<li class="chapter" data-level="21" data-path="hadley.html"><a href="hadley.html"><i class="fa fa-check"></i><b>21</b> The Hadleyverse</a><ul>
+<li class="chapter" data-level="21.1" data-path="hadley.html"><a href="hadley.html#readr"><i class="fa fa-check"></i><b>21.1</b> readr</a></li>
+<li class="chapter" data-level="21.2" data-path="hadley.html"><a href="hadley.html#dplyr"><i class="fa fa-check"></i><b>21.2</b> dplyr</a></li>
+<li class="chapter" data-level="21.3" data-path="hadley.html"><a href="hadley.html#tidyr"><i class="fa fa-check"></i><b>21.3</b> tidyr</a></li>
+<li class="chapter" data-level="21.4" data-path="hadley.html"><a href="hadley.html#reshape2"><i class="fa fa-check"></i><b>21.4</b> reshape2</a></li>
+<li class="chapter" data-level="21.5" data-path="hadley.html"><a href="hadley.html#stringr"><i class="fa fa-check"></i><b>21.5</b> stringr</a></li>
+<li class="chapter" data-level="21.6" data-path="hadley.html"><a href="hadley.html#anytime"><i class="fa fa-check"></i><b>21.6</b> anytime</a></li>
+<li class="chapter" data-level="21.7" data-path="hadley.html"><a href="hadley.html#biblipgraphic-notes"><i class="fa fa-check"></i><b>21.7</b> Biblipgraphic Notes</a></li>
+<li class="chapter" data-level="21.8" data-path="hadley.html"><a href="hadley.html#practice-yourself-17"><i class="fa fa-check"></i><b>21.8</b> Practice Yourself</a></li>
 </ul></li>
-<li class="chapter" data-level="22" data-path="psychometrics.html"><a href="psychometrics.html"><i class="fa fa-check"></i><b>22</b> Psychometrics</a><ul>
-<li class="chapter" data-level="22.1" data-path="psychometrics.html"><a href="psychometrics.html#bibliographic-notes-19"><i class="fa fa-check"></i><b>22.1</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="22.2" data-path="psychometrics.html"><a href="psychometrics.html#practice-yourself-18"><i class="fa fa-check"></i><b>22.2</b> Practice Yourself</a></li>
+<li class="chapter" data-level="22" data-path="causality.html"><a href="causality.html"><i class="fa fa-check"></i><b>22</b> Causal Inferense</a><ul>
+<li class="chapter" data-level="22.1" data-path="causality.html"><a href="causality.html#causal-inference-from-designed-experiments"><i class="fa fa-check"></i><b>22.1</b> Causal Inference From Designed Experiments</a><ul>
+<li class="chapter" data-level="22.1.1" data-path="causality.html"><a href="causality.html#design-of-experiments"><i class="fa fa-check"></i><b>22.1.1</b> Design of Experiments</a></li>
+<li class="chapter" data-level="22.1.2" data-path="causality.html"><a href="causality.html#randomized-inference"><i class="fa fa-check"></i><b>22.1.2</b> Randomized Inference</a></li>
 </ul></li>
-<li class="chapter" data-level="23" data-path="hadley.html"><a href="hadley.html"><i class="fa fa-check"></i><b>23</b> The Hadleyverse</a><ul>
-<li class="chapter" data-level="23.1" data-path="hadley.html"><a href="hadley.html#readr"><i class="fa fa-check"></i><b>23.1</b> readr</a></li>
-<li class="chapter" data-level="23.2" data-path="hadley.html"><a href="hadley.html#dplyr"><i class="fa fa-check"></i><b>23.2</b> dplyr</a></li>
-<li class="chapter" data-level="23.3" data-path="hadley.html"><a href="hadley.html#tidyr"><i class="fa fa-check"></i><b>23.3</b> tidyr</a></li>
-<li class="chapter" data-level="23.4" data-path="hadley.html"><a href="hadley.html#reshape2"><i class="fa fa-check"></i><b>23.4</b> reshape2</a></li>
-<li class="chapter" data-level="23.5" data-path="hadley.html"><a href="hadley.html#stringr"><i class="fa fa-check"></i><b>23.5</b> stringr</a></li>
-<li class="chapter" data-level="23.6" data-path="hadley.html"><a href="hadley.html#anytime"><i class="fa fa-check"></i><b>23.6</b> anytime</a></li>
-<li class="chapter" data-level="23.7" data-path="hadley.html"><a href="hadley.html#biblipgraphic-notes-1"><i class="fa fa-check"></i><b>23.7</b> Biblipgraphic Notes</a></li>
-<li class="chapter" data-level="23.8" data-path="hadley.html"><a href="hadley.html#practice-yourself-19"><i class="fa fa-check"></i><b>23.8</b> Practice Yourself</a></li>
+<li class="chapter" data-level="22.2" data-path="causality.html"><a href="causality.html#causal-inference-from-observational-data"><i class="fa fa-check"></i><b>22.2</b> Causal Inference from Observational Data</a><ul>
+<li class="chapter" data-level="22.2.1" data-path="causality.html"><a href="causality.html#principal-stratification"><i class="fa fa-check"></i><b>22.2.1</b> Principal Stratification</a></li>
+<li class="chapter" data-level="22.2.2" data-path="causality.html"><a href="causality.html#instrumental-variables"><i class="fa fa-check"></i><b>22.2.2</b> Instrumental Variables</a></li>
+<li class="chapter" data-level="22.2.3" data-path="causality.html"><a href="causality.html#propensity-scores"><i class="fa fa-check"></i><b>22.2.3</b> Propensity Scores</a></li>
+<li class="chapter" data-level="22.2.4" data-path="causality.html"><a href="causality.html#direct-lieklihood"><i class="fa fa-check"></i><b>22.2.4</b> Direct Lieklihood</a></li>
+<li class="chapter" data-level="22.2.5" data-path="causality.html"><a href="causality.html#regression-discontinuity"><i class="fa fa-check"></i><b>22.2.5</b> Regression Discontinuity</a></li>
 </ul></li>
-<li class="chapter" data-level="24" data-path="causality.html"><a href="causality.html"><i class="fa fa-check"></i><b>24</b> Causal Inferense</a><ul>
-<li class="chapter" data-level="24.1" data-path="causality.html"><a href="causality.html#causal-inference-from-designed-experiments"><i class="fa fa-check"></i><b>24.1</b> Causal Inference From Designed Experiments</a><ul>
-<li class="chapter" data-level="24.1.1" data-path="causality.html"><a href="causality.html#design-of-experiments"><i class="fa fa-check"></i><b>24.1.1</b> Design of Experiments</a></li>
-<li class="chapter" data-level="24.1.2" data-path="causality.html"><a href="causality.html#randomized-inference"><i class="fa fa-check"></i><b>24.1.2</b> Randomized Inference</a></li>
-</ul></li>
-<li class="chapter" data-level="24.2" data-path="causality.html"><a href="causality.html#causal-inference-from-observational-data"><i class="fa fa-check"></i><b>24.2</b> Causal Inference from Observational Data</a><ul>
-<li class="chapter" data-level="24.2.1" data-path="causality.html"><a href="causality.html#principal-stratification"><i class="fa fa-check"></i><b>24.2.1</b> Principal Stratification</a></li>
-<li class="chapter" data-level="24.2.2" data-path="causality.html"><a href="causality.html#instrumental-variables"><i class="fa fa-check"></i><b>24.2.2</b> Instrumental Variables</a></li>
-<li class="chapter" data-level="24.2.3" data-path="causality.html"><a href="causality.html#propensity-scores"><i class="fa fa-check"></i><b>24.2.3</b> Propensity Scores</a></li>
-<li class="chapter" data-level="24.2.4" data-path="causality.html"><a href="causality.html#direct-lieklihood"><i class="fa fa-check"></i><b>24.2.4</b> Direct Lieklihood</a></li>
-<li class="chapter" data-level="24.2.5" data-path="causality.html"><a href="causality.html#regression-discontinuity"><i class="fa fa-check"></i><b>24.2.5</b> Regression Discontinuity</a></li>
-</ul></li>
-<li class="chapter" data-level="24.3" data-path="causality.html"><a href="causality.html#bibliographic-notes-20"><i class="fa fa-check"></i><b>24.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="24.4" data-path="causality.html"><a href="causality.html#practice-yourself-20"><i class="fa fa-check"></i><b>24.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="22.3" data-path="causality.html"><a href="causality.html#bibliographic-notes-19"><i class="fa fa-check"></i><b>22.3</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="22.4" data-path="causality.html"><a href="causality.html#practice-yourself-18"><i class="fa fa-check"></i><b>22.4</b> Practice Yourself</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -607,7 +599,7 @@ diffs <span class="co"># Q:what is this estimating? A: epsilon+epsilon.</span></
 ## 6     B  1540</code></pre>
 <p>And visually</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lattice<span class="op">::</span><span class="kw">dotplot</span>(Yield<span class="op">~</span>Batch)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-198-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-199-1.png" width="50%" /></p>
 <p>If we want to do inference on the (global) mean yield, we need to account for the two sources of variability: the within-batch variability, and the between-batch variability We thus fit a mixed model, with an intercept and random batch effect.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme.<span class="dv">1</span>&lt;-<span class="st"> </span><span class="kw">lmer</span>( Yield <span class="op">~</span><span class="st"> </span><span class="dv">1</span>  <span class="op">|</span><span class="st"> </span>Batch  , Dyestuff )
 <span class="kw">summary</span>(lme.<span class="dv">1</span>)</code></pre></div>
@@ -664,7 +656,7 @@ diffs <span class="co"># Q:what is this estimating? A: epsilon+epsilon.</span></
 ##      E 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ##      F 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</code></pre>
 <p>And visually:</p>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-202-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-203-1.png" width="50%" /></p>
 <p>Let’s fit a mixed-effects model with a random plate effect, and a random sample effect:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">lmer</span> ( diameter <span class="op">~</span><span class="st">  </span><span class="dv">1</span>  <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>plate )<span class="op">+</span>(<span class="dv">1</span><span class="op">|</span>sample) , Penicillin )
 <span class="kw">fixef</span>(lme.<span class="dv">2</span>) <span class="co"># Fixed effects</span></code></pre></div>
@@ -719,10 +711,10 @@ diffs <span class="co"># Q:what is this estimating? A: epsilon+epsilon.</span></
 qrr2 &lt;-<span class="st"> </span>lattice<span class="op">::</span><span class="kw">dotplot</span>(random.effect.lme2, <span class="dt">strip =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>Variability in response for each plate, over various sample types:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(qrr2[[<span class="dv">1</span>]]) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-205-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-206-1.png" width="50%" /></p>
 <p>Variability in response for each sample type, over the various plates:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(qrr2[[<span class="dv">2</span>]])  </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-206-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-207-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li>The <code>condVar</code> argument of the <code>ranef</code> function tells R to compute the variability in response conditional on each random effect at a time.</li>
@@ -749,7 +741,7 @@ qrr2 &lt;-<span class="st"> </span>lattice<span class="op">::</span><span class=
 <div id="a-full-mixed-model" class="section level3">
 <h3><span class="header-section-number">8.2.3</span> A Full Mixed-Model</h3>
 <p>In the <code>sleepstudy</code> data, we recorded the reaction times to a series of tests (<code>Reaction</code>), after various subject (<code>Subject</code>) underwent various amounts of sleep deprivation (<code>Day</code>).</p>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-210-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-211-1.png" width="50%" /></p>
 <p>We now want to estimate the (fixed) effect of the days of sleep deprivation on response time, while allowing each subject to have his/hers own effect. Put differently, we want to estimate a <em>random slope</em> for the effect of <code>day</code>. The fixed <code>Days</code> effect can be thought of as the average slope over subjects.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme.<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">lmer</span> ( Reaction <span class="op">~</span><span class="st"> </span>Days <span class="op">+</span><span class="st"> </span>( Days <span class="op">|</span><span class="st"> </span>Subject ) , <span class="dt">data=</span> sleepstudy )</code></pre></div>
 <p>Things to note:</p>
@@ -788,9 +780,9 @@ qrr2 &lt;-<span class="st"> </span>lattice<span class="op">::</span><span class=
 ## with conditional variances for &quot;Subject&quot;</code></pre>
 <p>Did we really need the whole <code>lme</code> machinery to fit a within-subject linear regression and then average over subjects? The answer is yes. The assumptions on the distribution of random effect, namely, that they are normally distributed, allows us to pool information from one subject to another. In the words of John Tukey: “we borrow strength over subjects”. Is this a good thing? If the normality assumption is true, it certainly is. If, on the other hand, you have a lot of samples per subject, and you don’t need to “borrow strength” from one subject to another, you can simply fit within-subject linear models without the mixed-models machinery.</p>
 <p>To demonstrate the “strength borrowing”, here is a comparison of the lme, versus the effects of fitting a linear model to each subject separately.</p>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-213-1.png" width="50%" /></p>
-<p>Here is a comparison of the random-day effect from <code>lme</code> versus a subject-wise linear model. They are not the same.</p>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-214-1.png" width="50%" /></p>
+<p>Here is a comparison of the random-day effect from <code>lme</code> versus a subject-wise linear model. They are not the same.</p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-215-1.png" width="50%" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(Penicillin)</code></pre></div>
 </div>
 </div>
@@ -859,7 +851,7 @@ qrr2 &lt;-<span class="st"> </span>lattice<span class="op">::</span><span class=
 <p>We can now inspect the contrivance implied by our model’s specification:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">the.cov &lt;-<span class="st"> </span>mgcv<span class="op">::</span><span class="kw">extract.lme.cov</span>(fm1Ovar.lme, <span class="dt">data =</span> Ovary) 
 lattice<span class="op">::</span><span class="kw">levelplot</span>(the.cov)</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-217-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-218-1.png" width="50%" /></p>
 </div>
 <div id="extensions-1" class="section level2">
 <h2><span class="header-section-number">8.4</span> Extensions</h2>
@@ -944,23 +936,23 @@ lattice<span class="op">::</span><span class="kw">levelplot</span>(the.cov)</cod
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
-<div id="ref-weiss2005modeling">
-<p>Weiss, Robert E. 2005. <em>Modeling Longitudinal Data</em>. Springer Science &amp; Business Media.</p>
-</div>
-<div id="ref-bonat2018multiple">
-<p>Bonat, Wagner Hugo. 2018. “Multiple Response Variables Regression Models in R: The Mcglm Package.” <em>Journal of Statistical Software</em> 84 (1): 1–30.</p>
+<div id="ref-allard2013j">
+<p>Allard, Denis. 2013. “J.-P. Chiles, P. Delfiner: Geostatistics: Modeling Spatial Uncertainty.” Springer.</p>
 </div>
 <div id="ref-lme4">
 <p>Bates, Douglas, Martin Mächler, Ben Bolker, and Steve Walker. 2015. “Fitting Linear Mixed-Effects Models Using lme4.” <em>Journal of Statistical Software</em> 67 (1): 1–48. doi:<a href="https://doi.org/10.18637/jss.v067.i01">10.18637/jss.v067.i01</a>.</p>
 </div>
-<div id="ref-pinero2000mixed">
-<p>Pinero, Jose, and Douglas Bates. 2000. “Mixed-Effects Models in S and S-Plus (Statistics and Computing).” Springer, New York.</p>
+<div id="ref-bonat2018multiple">
+<p>Bonat, Wagner Hugo. 2018. “Multiple Response Variables Regression Models in R: The Mcglm Package.” <em>Journal of Statistical Software</em> 84 (1): 1–30.</p>
 </div>
-<div id="ref-venables2013modern">
-<p>Venables, William N, and Brian D Ripley. 2013. <em>Modern Applied Statistics with S-Plus</em>. Springer Science &amp; Business Media.</p>
+<div id="ref-christakos2000modern">
+<p>Christakos, George. 2000. <em>Modern Spatiotemporal Geostatistics</em>. Vol. 6. Oxford University Press.</p>
 </div>
-<div id="ref-searle2009variance">
-<p>Searle, Shayle R, George Casella, and Charles E McCulloch. 2009. <em>Variance Components</em>. Vol. 391. John Wiley &amp; Sons.</p>
+<div id="ref-cressie2015statistics">
+<p>Cressie, Noel, and Christopher K Wikle. 2015. <em>Statistics for Spatio-Temporal Data</em>. John Wiley; Sons.</p>
+</div>
+<div id="ref-diggle1998model">
+<p>Diggle, Peter J, JA Tawn, and RA Moyeed. 1998. “Model-Based Geostatistics.” <em>Journal of the Royal Statistical Society: Series C (Applied Statistics)</em> 47 (3). Wiley Online Library: 299–350.</p>
 </div>
 <div id="ref-eisenhart1947assumptions">
 <p>Eisenhart, Churchill. 1947. “The Assumptions Underlying the Analysis of Variance.” <em>Biometrics</em> 3 (1). JSTOR: 1–21.</p>
@@ -968,26 +960,26 @@ lattice<span class="op">::</span><span class="kw">levelplot</span>(the.cov)</cod
 <div id="ref-kempthorne1975fixed">
 <p>Kempthorne, Oscar. 1975. “Fixed and Mixed Models in the Analysis of Variance.” <em>Biometrics</em>. JSTOR, 473–86.</p>
 </div>
-<div id="ref-rosset2018fixed">
-<p>Rosset, Saharon, and Ryan J Tibshirani. 2018. “From Fixed-X to Random-X Regression: Bias-Variance Decompositions, Covariance Penalties, and Prediction Error Estimation.” <em>Journal of the American Statistical Association</em>, no. just-accepted. Taylor &amp; Francis.</p>
-</div>
-<div id="ref-robinson1991blup">
-<p>Robinson, George K. 1991. “That Blup Is a Good Thing: The Estimation of Random Effects.” <em>Statistical Science</em>. JSTOR, 15–32.</p>
+<div id="ref-pinero2000mixed">
+<p>Pinero, Jose, and Douglas Bates. 2000. “Mixed-Effects Models in S and S-Plus (Statistics and Computing).” Springer, New York.</p>
 </div>
 <div id="ref-rabinowicz2018assessing">
 <p>Rabinowicz, Assaf, and Saharon Rosset. 2018. “Assessing Prediction Error at Interpolation and Extrapolation Points.” <em>arXiv Preprint arXiv:1802.00996</em>.</p>
 </div>
-<div id="ref-christakos2000modern">
-<p>Christakos, George. 2000. <em>Modern Spatiotemporal Geostatistics</em>. Vol. 6. Oxford University Press.</p>
+<div id="ref-robinson1991blup">
+<p>Robinson, George K. 1991. “That Blup Is a Good Thing: The Estimation of Random Effects.” <em>Statistical Science</em>. JSTOR, 15–32.</p>
 </div>
-<div id="ref-diggle1998model">
-<p>Diggle, Peter J, JA Tawn, and RA Moyeed. 1998. “Model-Based Geostatistics.” <em>Journal of the Royal Statistical Society: Series C (Applied Statistics)</em> 47 (3). Wiley Online Library: 299–350.</p>
+<div id="ref-rosset2018fixed">
+<p>Rosset, Saharon, and Ryan J Tibshirani. 2018. “From Fixed-X to Random-X Regression: Bias-Variance Decompositions, Covariance Penalties, and Prediction Error Estimation.” <em>Journal of the American Statistical Association</em>, no. just-accepted. Taylor &amp; Francis.</p>
 </div>
-<div id="ref-allard2013j">
-<p>Allard, Denis. 2013. “J.-P. Chiles, P. Delfiner: Geostatistics: Modeling Spatial Uncertainty.” Springer.</p>
+<div id="ref-searle2009variance">
+<p>Searle, Shayle R, George Casella, and Charles E McCulloch. 2009. <em>Variance Components</em>. Vol. 391. John Wiley &amp; Sons.</p>
 </div>
-<div id="ref-cressie2015statistics">
-<p>Cressie, Noel, and Christopher K Wikle. 2015. <em>Statistics for Spatio-Temporal Data</em>. John Wiley; Sons.</p>
+<div id="ref-venables2013modern">
+<p>Venables, William N, and Brian D Ripley. 2013. <em>Modern Applied Statistics with S-Plus</em>. Springer Science &amp; Business Media.</p>
+</div>
+<div id="ref-weiss2005modeling">
+<p>Weiss, Robert E. 2005. <em>Modeling Longitudinal Data</em>. Springer Science &amp; Business Media.</p>
 </div>
 </div>
 <div class="footnotes">
