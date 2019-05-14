@@ -20,29 +20,43 @@ This instance of supervised learning is more similar to game theory than statist
 
 Other types of machine learning problems include [@sammut2011encyclopedia]: 
 
-- __Unsupervised learning__: 
+- __Unsupervised Learning__: 
+Where we merely analyze the inputs/features, but no desirable outcome is avaiable to the learning machine.
 See Chapter \@ref(unsupervised).
 
-- __Semi supervised learning__: 
+- __Semi Supervised Learning__: 
 Where only part of the samples are labeled. 
 A.k.a. _co-training_, _learning from labeled and unlabeled data_, _transductive learning_. 
 
-- __Active learning__: 
+- __Active Learning__: 
 Where the machine is allowed to query the user for labels. Very similar to _adaptive design of experiments_. 
 
-- __Learning on a budget__: 
+- __Learning on a Budget__: 
 A version of active learning where querying for labels induces variable costs.
 
-- __Weak learning__:
+- __Weak Learning__:
 A version of supervised learning where the labels are given not by an expert, but rather by some heuristic rule. 
 Example: mass-labeling cyber attacks by a rule based software, instead of a manual inspection.
 
-- __Reinforcement learning__:  
+- __Reinforcement Learning__:  
 Similar to active learning, in that the machine may query for labels. 
 Different from active learning, in that the machine does not receive labels, but _rewards_. 
 
-- __Structure learning__: 
-When predicting objects with structure such as dependent vectors, graphs, images, tensors, etc.
+- __Structure Learning__: 
+An instance of supervised learning where we predict objects with structure such as dependent vectors, graphs, images, tensors, etc.
+
+- __Online Learning__: 
+An instance of supervised learning, where we need to make predictions where data inputs as a stream. 
+
+- __Transduction__: 
+An instance of supervised learning where we need to make predictions for a new set of predictors, but which are known at the time of learning. 
+Can be thought of as semi-supervised _extrapolation_. 
+
+- __Covariate shift__:
+An instance of supervised learning where we need to make predictions for a set of predictors that ha a different distribution than the data generating source. 
+
+- __Co-training__: 
+An instance of supervised learning where we solve several problems, and exploit some assumed relation between the problems. 
 
 - __Manifold learning__: An instance of unsupervised learning, where the goal is to reduce the dimension of the data by embedding it into a lower dimensional manifold. 
 A.k.a. _support estimation_.

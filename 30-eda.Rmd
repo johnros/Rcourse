@@ -51,7 +51,7 @@ prop.table(table(gender))
 
 ```{r}
 library(magrittr)
-cbind(gender, drink) %>% head # bind vectors into matrix and inspect (`c` indicates Column)
+cbind(gender, drink) %>% head # bind vectors into matrix and inspect (`c` for column)
 table1 <- table(gender, drink) # count frequencies of bivariate combinations
 table1										
 ```
@@ -64,7 +64,7 @@ R offers several solutions: `table` is easier to compute with, and `ftable` is h
 ```{r}
 table2.1 <- table(gender, drink, age) # A machine readable table. 
 table2.1
-table.2.2 <- ftable(gender, drink, age) # A human readable table (`f` indicates Flat).
+table.2.2 <- ftable(gender, drink, age) # A human readable table (`f` for Flat).
 table.2.2
 ```
 
@@ -72,8 +72,8 @@ If you want proportions instead of counts, you need to specify the denominator, 
 Think: what is the margin in each of the following outputs?
 
 ```{r}
-prop.table(table1, margin = 1) # every row is summed up to 1
-prop.table(table1, margin = 2) # every column amounts to 100%
+prop.table(table1, margin = 1) # every *row* sums to to 1
+prop.table(table1, margin = 2) # every *column* sums to 1
 ```
 
 
@@ -121,7 +121,7 @@ The simple mean and median are instances of the alpha trimmed mean: $\bar x_0$ a
 Here are the R implementations:
 
 ```{r}
-x <- rexp(100) # generate some random data
+x <- rexp(100) # generate some (assymetric) random data
 mean(x) # simple mean
 median(x) # median
 mean(x, trim = 0.2) # alpha trimmed mean with alpha=0.2
@@ -269,7 +269,7 @@ plot(table1, main='Bivariate mosaic plot')
 Things to note:
 
 - The proportion of each category is encoded in the width of the bars (more girls than boys here)
-- Zero observations are marked as a line. Negative obs. are more complicated and not discussed here.
+- Zero observations are marked as a line. 
 
 #### Visualizing Multivariate Categorical Data 
 The _mosaic plot_ is not easy to generalize to more than two variables, but it is still possible (at the cost of interpretability).
@@ -435,7 +435,8 @@ We thus have several options:
 (ii) To visualize not the raw data, but rather its summaries, like the covariance matrix.
 
 Our own [Multinav](https://github.com/EfratVil/MultiNav) package adopts an interactive approach. 
-For each (multivariate) observation a simple univariate summary may be computed and visualized. These summaries may be compared, and the original (multivariate) observation inspected upon demand. 
+For each (multivariate) observation a simple univariate summary may be computed and visualized. 
+These summaries may be compared, and the original (multivariate) observation inspected upon demand. 
 Contact [Efrat](http://efratvil.github.io/home/index.html) for more details.  
 ![The Multinav Package](art/multinav.png)
 
