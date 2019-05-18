@@ -139,7 +139,7 @@ head(PlantGrowth)
 ```
 
 We will now `attach` the data so that its contents is available in the workspace (don't forget to `detach` afterwards, or you can expect some conflicting object names).
-We will also use the `cut` function to create a binary response variable for Light, and Heavy plants (we are doing logistic regression, so we need a two-class response).
+We will also use the `cut` function to create a binary response variable for Light, and Heavy plants (we are doing logistic regression, so we need a two-class response), notice also that `cut` splits according to range and not to length.
 As a general rule of thumb, when we discretize continuous variables, we lose information. 
 For pedagogical reasons, however, we will proceed with this bad practice. 
 
