@@ -29,7 +29,7 @@ $$
  y|x \sim \mathcal{N}(x'\beta, \sigma^2).
 $$
 
-This model not allow for the non-linear relations of Example \@ref(exm:cigarettes), nor does it allow for the distrbituion of $\varepsilon$ to change with $x$, as in Example \@ref(exm:cars).
+This model not allow for the non-linear relations of Example \@ref(exm:cigarettes), nor does it allow for the distribution of $\varepsilon$ to change with $x$, as in Example \@ref(exm:cars).
 _Generalize linear models_ (GLM), as the name suggests, are a generalization of the linear models in Chapter \@ref(lm) that allow that^[Do not confuse _generalized linear models_ with [_non-linear regression_](https://en.wikipedia.org/wiki/Nonlinear_regression), or [_generalized least squares_](https://en.wikipedia.org/wiki/Generalized_least_squares). 
 These are different things, that we do not discuss.].
 
@@ -139,7 +139,7 @@ head(PlantGrowth)
 ```
 
 We will now `attach` the data so that its contents is available in the workspace (don't forget to `detach` afterwards, or you can expect some conflicting object names).
-We will also use the `cut` function to create a binary response variable for Light, and Heavy plants (we are doing logistic regression, so we need a two-class response).
+We will also use the `cut` function to create a binary response variable for Light, and Heavy plants (we are doing logistic regression, so we need a two-class response), notice also that `cut` splits according to range and not to length.
 As a general rule of thumb, when we discretize continuous variables, we lose information. 
 For pedagogical reasons, however, we will proceed with this bad practice. 
 
@@ -264,7 +264,7 @@ head(cases)
 
 Look at the following plot and think: 
 
-- Can we assume that the errors have constant variace?
+- Can we assume that the errors have constant variance?
 - What is the sign of the effect of time on the number of sick students?
 - Can we assume a linear effect of time?
 ```{r}
