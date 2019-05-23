@@ -21,7 +21,7 @@ This instance of supervised learning is more similar to game theory than statist
 Other types of machine learning problems include [@sammut2011encyclopedia]: 
 
 - __Unsupervised Learning__: 
-Where we merely analyze the inputs/features, but no desirable outcome is avaiable to the learning machine.
+Where we merely analyze the inputs/features, but no desirable outcome is available to the learning machine.
 See Chapter \@ref(unsupervised).
 
 - __Semi Supervised Learning__: 
@@ -54,6 +54,9 @@ Can be thought of as semi-supervised _extrapolation_.
 
 - __Covariate shift__:
 An instance of supervised learning where we need to make predictions for a set of predictors that ha a different distribution than the data generating source. 
+
+- __Targeted Learning__:
+A form of supervised learning, designed at causal inference for decision making. 
 
 - __Co-training__: 
 An instance of supervised learning where we solve several problems, and exploit some assumed relation between the problems. 
@@ -456,6 +459,7 @@ means <- apply(X.train, 2, mean)
 sds <- apply(X.train, 2, sd)
 X.train.scaled <- X.train %>% sweep(MARGIN = 2, STATS = means, FUN = `-`) %>% 
   sweep(MARGIN = 2, STATS = sds, FUN = `/`)
+
 ridge.2 <- glmnet(x=X.train.scaled, y=y.train, family = 'gaussian', alpha = 0)
 
 # Train error:
