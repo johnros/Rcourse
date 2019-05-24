@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-05-14" />
+<meta name="date" content="2019-05-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -458,7 +458,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>There are many learning setups, that depend on what information is available to the machine. The most common setup, discussed in this chapter, is <em>supervised learning</em>. The name takes from the fact that by giving the machine data samples with known inputs (a.k.a. features) and desired outputs (a.k.a. labels), the human is effectively supervising the learning. If we think of the inputs as predictors, and outcomes as predicted, it is no wonder that supervised learning is very similar to statistical prediction. When asked “are these the same?” I like to give the example of internet fraud. If you take a sample of fraud “attacks”, a statistical formulation of the problem is highly unlikely. This is because fraud events are not randomly drawn from some distribution, but rather, arrive from an adversary learning the defenses and adapting to it. This instance of supervised learning is more similar to game theory than statistics.</p>
 <p>Other types of machine learning problems include <span class="citation">(Sammut and Webb <a href="#ref-sammut2011encyclopedia">2011</a>)</span>:</p>
 <ul>
-<li><p><strong>Unsupervised Learning</strong>: Where we merely analyze the inputs/features, but no desirable outcome is avaiable to the learning machine. See Chapter <a href="unsupervised.html#unsupervised">11</a>.</p></li>
+<li><p><strong>Unsupervised Learning</strong>: Where we merely analyze the inputs/features, but no desirable outcome is available to the learning machine. See Chapter <a href="unsupervised.html#unsupervised">11</a>.</p></li>
 <li><p><strong>Semi Supervised Learning</strong>: Where only part of the samples are labeled. A.k.a. <em>co-training</em>, <em>learning from labeled and unlabeled data</em>, <em>transductive learning</em>.</p></li>
 <li><p><strong>Active Learning</strong>: Where the machine is allowed to query the user for labels. Very similar to <em>adaptive design of experiments</em>.</p></li>
 <li><p><strong>Learning on a Budget</strong>: A version of active learning where querying for labels induces variable costs.</p></li>
@@ -469,6 +469,7 @@ Similar to active learning, in that the machine may query for labels. Different 
 <li><p><strong>Online Learning</strong>: An instance of supervised learning, where we need to make predictions where data inputs as a stream.</p></li>
 <li><p><strong>Transduction</strong>: An instance of supervised learning where we need to make predictions for a new set of predictors, but which are known at the time of learning. Can be thought of as semi-supervised <em>extrapolation</em>.</p></li>
 <li><p><strong>Covariate shift</strong>: An instance of supervised learning where we need to make predictions for a set of predictors that ha a different distribution than the data generating source.</p></li>
+<li><p><strong>Targeted Learning</strong>: A form of supervised learning, designed at causal inference for decision making.</p></li>
 <li><p><strong>Co-training</strong>: An instance of supervised learning where we solve several problems, and exploit some assumed relation between the problems.</p></li>
 <li><p><strong>Manifold learning</strong>: An instance of unsupervised learning, where the goal is to reduce the dimension of the data by embedding it into a lower dimensional manifold. A.k.a. <em>support estimation</em>.</p></li>
 <li><p><strong>Similarity Learning</strong>: Where we try to learn how to measure similarity between objects (like faces, texts, images, etc.).</p></li>
@@ -809,6 +810,7 @@ means &lt;-<span class="st"> </span><span class="kw">apply</span>(X.train, <span
 sds &lt;-<span class="st"> </span><span class="kw">apply</span>(X.train, <span class="dv">2</span>, sd)
 X.train.scaled &lt;-<span class="st"> </span>X.train <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sweep</span>(<span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">STATS =</span> means, <span class="dt">FUN =</span> <span class="st">`</span><span class="dt">-</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">sweep</span>(<span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">STATS =</span> sds, <span class="dt">FUN =</span> <span class="st">`</span><span class="dt">/</span><span class="st">`</span>)
+
 ridge.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">glmnet</span>(<span class="dt">x=</span>X.train.scaled, <span class="dt">y=</span>y.train, <span class="dt">family =</span> <span class="st">&#39;gaussian&#39;</span>, <span class="dt">alpha =</span> <span class="dv">0</span>)
 
 <span class="co"># Train error:</span>

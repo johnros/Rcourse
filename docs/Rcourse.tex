@@ -126,7 +126,7 @@
 
 \title{R (BGU course)}
 \author{Jonathan D. Rosenblatt}
-\date{2019-05-14}
+\date{2019-05-24}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -266,6 +266,10 @@ ecosystem include:
   cutting edge web-design technologies, remote access, and other killer
   features, making it today's most popular IDE for R.
 \item
+  \href{https://www.rstudio.com/resources/cheatsheets/}{CheatSheets}
+  Rstudio curates a list of CheatSheets. Very useful to print some, and
+  have them around when coding.
+\item
   \href{https://github.com/rstudio/RStartHere/blob/master/README.md\#import}{RStartHere}:
   a curated list of useful packages.
 \end{itemize}
@@ -311,6 +315,9 @@ this IDE include:
   Ctrl+2 to skip to console.
 \item
   Ctrl+8 to skip to the environment list.
+\item
+  Ctrl + Alt + Shift + M to select all instances of the selection (for
+  refactoring).
 \item
   Code Folding:
 
@@ -7883,9 +7890,10 @@ Data}\label{linear-models-for-panel-data}
 functionality you need for panel data. If, however, you are trained as
 an econometrist, prefer the econometric parlance, and are not using
 non-linead models, then the
-\href{https://cran.r-project.org/package=plm}{plm} package is just for
-you. In particular, it allows for cluster-robust covariance estimates,
-and
+\href{https://cran.r-project.org/package=plm}{plm} and
+\href{https://www.jacob-long.com/post/panelr-intro/}{panelr} packages
+are just for you. In particular, it allows for cluster-robust covariance
+estimates, and
 \href{https://en.wikipedia.org/wiki/Durbin\%E2\%80\%93Wu\%E2\%80\%93Hausman_test}{Durbin--Wu--Hausman
 test} for random effects. The \textbf{plm}
 \href{https://cran.r-project.org/web/packages/plm/vignettes/plm.pdf}{package
@@ -8797,7 +8805,7 @@ Other types of machine learning problems include
 \begin{itemize}
 \item
   \textbf{Unsupervised Learning}: Where we merely analyze the
-  inputs/features, but no desirable outcome is avaiable to the learning
+  inputs/features, but no desirable outcome is available to the learning
   machine. See Chapter \ref{unsupervised}.
 \item
   \textbf{Semi Supervised Learning}: Where only part of the samples are
@@ -8836,6 +8844,9 @@ Other types of machine learning problems include
   \textbf{Covariate shift}: An instance of supervised learning where we
   need to make predictions for a set of predictors that ha a different
   distribution than the data generating source.
+\item
+  \textbf{Targeted Learning}: A form of supervised learning, designed at
+  causal inference for decision making.
 \item
   \textbf{Co-training}: An instance of supervised learning where we
   solve several problems, and exploit some assumed relation between the
@@ -9545,6 +9556,7 @@ models in particular.
 \NormalTok{sds <-}\StringTok{ }\KeywordTok{apply}\NormalTok{(X.train, }\DecValTok{2}\NormalTok{, sd)}
 \NormalTok{X.train.scaled <-}\StringTok{ }\NormalTok{X.train }\OperatorTok{%>%}\StringTok{ }\KeywordTok{sweep}\NormalTok{(}\DataTypeTok{MARGIN =} \DecValTok{2}\NormalTok{, }\DataTypeTok{STATS =}\NormalTok{ means, }\DataTypeTok{FUN =} \StringTok{`}\DataTypeTok{-}\StringTok{`}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
 \StringTok{  }\KeywordTok{sweep}\NormalTok{(}\DataTypeTok{MARGIN =} \DecValTok{2}\NormalTok{, }\DataTypeTok{STATS =}\NormalTok{ sds, }\DataTypeTok{FUN =} \StringTok{`}\DataTypeTok{/}\StringTok{`}\NormalTok{)}
+
 \NormalTok{ridge.}\DecValTok{2}\NormalTok{ <-}\StringTok{ }\KeywordTok{glmnet}\NormalTok{(}\DataTypeTok{x=}\NormalTok{X.train.scaled, }\DataTypeTok{y=}\NormalTok{y.train, }\DataTypeTok{family =} \StringTok{'gaussian'}\NormalTok{, }\DataTypeTok{alpha =} \DecValTok{0}\NormalTok{)}
 
 \CommentTok{# Train error:}

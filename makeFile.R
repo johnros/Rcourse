@@ -8,7 +8,7 @@ bookdown::clean_book()
 
 files <- list.files(pattern = '.Rmd')
 file.remove('Rcourse.Rmd')
-for(i in 1:length(files)){
+for(i in 9:length(files)){
   bookdown::preview_chapter(files[i],"bookdown::pdf_book" )
   readline(prompt="Press [enter] to continue")
 }
