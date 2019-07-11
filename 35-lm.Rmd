@@ -482,6 +482,46 @@ Things to note:
 - The contrast is significant, i.e., the effect of a medical treatment, is different than that of a physical treatment.
 
 
+## Extra Diagnostics
+
+### Diagnosing Heteroskedasticity
+Textbook assumptions for inference on $\hat \beta_{OLS}$ include the _homoskedasticiy_ assumption, i.e., $Var[\varepsilon]$ is fixed and independent of everyhting. 
+This comes from viewing $\varepsilon$ as a measurement error.
+It may not be the case when viewing $\varepsilon$ as "all other effect not included in the model". 
+In technical terms, homoskedastocity implies that $Var[\varepsilon]$ is a scaled identity matrix. 
+Heteroskedasticity means that $Var[\varepsilon]$ is a diagonal matrix.
+Because a scaled identify matrix implies that the quantiles of a multivariate Gaussian are spheres, testing for heteroskedasticity is also known as a _Sphericity Test_. 
+
+Can we verify homoskedasticity, and do we need it?
+
+To verify homoskedasticity we only need to look at the residuals of a model. If they seem to have the same variability for all $x$ we are clear. 
+If $x$ is multivariate, and we cannot visualise residuals, $y_i-\hat y_$ as a function of $x$, then visualising it as a function of $\hat y_i$ is also good. 
+
+Another way of dealing with heteroskedasticity is by estimating variances for groups of observations separately. 
+This is the _Cluster Robust Standard Errors_ discussed in \@ref(cr-se).
+
+Can use perform a test to infer homoskedasticity? 
+In the frequentist hypotesis testing framework we can only reject homoskedasticity, not accept it. 
+In the [Bayesian hypotesis testing](https://en.wikipedia.org/wiki/Bayesian_inference) framework we can indeed infer homoskedasticity, but one would have to defend his/her priors. 
+
+For some tests that detect heteroskedasticity see the [olsrr](https://cran.r-project.org/web/packages/olsrr/vignettes/heteroskedasticity.html) package. 
+For an econometric flavored approach to the problem, see the [plm](https://cran.r-project.org/package=plm) package, and its excellent [vignette](https://cran.r-project.org/web/packages/plm/vignettes/plmPackage.html).
+
+
+### Diagnosing Multicolinearity
+
+When designing an experiment (e.g. [RCTs](https://en.wikipedia.org/wiki/Randomized_controlled_trial)) we will assure treatments are "balanced", so that one effect estimates are not correlated. 
+This is not always possible, especially not in observational studies. 
+If various variables capture the same effect, the certainty in the effect will "spread" over these variables. 
+Formally: the standard errros of effect estimates will increase. 
+Perhaps more importantly- causal inference with correlated predictors is very hard to interpret, because changes in outcome may be attibuted to any on of the (correlated) predictors. 
+
+We will eschew the complicated philosophical implication of causal infernece with correlated predictors, and merely refer the reader to the package [olsrr](https://cran.r-project.org/web/packages/olsrr/vignettes/regression_diagnostics.html) for some popular tools to diagnose multicolinearity. 
+
+
+
+
+
 
 
 ## Bibliographic Notes
