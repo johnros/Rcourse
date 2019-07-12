@@ -16,6 +16,7 @@ The second is a [prediction](https://en.wikipedia.org/wiki/Prediction) problem, 
 
 In this chapter we discuss the causal problem in Example \@ref(exm:cap-experiment).
 This means that when we assume a model, we assume it is the actual _data generating process_, i.e., we assume the _sampling distribution_ is well specified.
+In the econometric literature, these are the [structural equations](https://en.wikipedia.org/wiki/Structural_equation_modeling). 
 The second type of problems is discussed in the Supervised Learning Chapter \@ref(supervised).
 
 Here are some more examples of the types of problems we are discussing.
@@ -495,7 +496,7 @@ Because a scaled identify matrix implies that the quantiles of a multivariate Ga
 Can we verify homoskedasticity, and do we need it?
 
 To verify homoskedasticity we only need to look at the residuals of a model. If they seem to have the same variability for all $x$ we are clear. 
-If $x$ is multivariate, and we cannot visualise residuals, $y_i-\hat y_$ as a function of $x$, then visualising it as a function of $\hat y_i$ is also good. 
+If $x$ is multivariate, and we cannot visualise residuals, $y_i-\hat y_i$ as a function of $x$, then visualising it as a function of $\hat y_i$ is also good. 
 
 Another way of dealing with heteroskedasticity is by estimating variances for groups of observations separately. 
 This is the _Cluster Robust Standard Errors_ discussed in \@ref(cr-se).

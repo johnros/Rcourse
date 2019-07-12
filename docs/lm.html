@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Linear Models | R (BGU course)</title>
   <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
-  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Linear Models | R (BGU course)" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-05-24" />
+<meta name="date" content="2019-07-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -203,8 +203,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.3.4" data-path="lm.html"><a href="lm.html#anova"><i class="fa fa-check"></i><b>6.3.4</b> ANOVA (*)</a></li>
 <li class="chapter" data-level="6.3.5" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>6.3.5</b> Testing a Hypothesis on a Single Contrast (*)</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-4"><i class="fa fa-check"></i><b>6.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="6.5" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>6.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="6.4" data-path="lm.html"><a href="lm.html#extra-diagnostics"><i class="fa fa-check"></i><b>6.4</b> Extra Diagnostics</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="lm.html"><a href="lm.html#diagnosing-heteroskedasticity"><i class="fa fa-check"></i><b>6.4.1</b> Diagnosing Heteroskedasticity</a></li>
+<li class="chapter" data-level="6.4.2" data-path="lm.html"><a href="lm.html#diagnosing-multicolinearity"><i class="fa fa-check"></i><b>6.4.2</b> Diagnosing Multicolinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="lm.html"><a href="lm.html#bibliographic-notes-4"><i class="fa fa-check"></i><b>6.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="6.6" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>6.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>7</b> Generalized Linear Models</a><ul>
 <li class="chapter" data-level="7.1" data-path="glm.html"><a href="glm.html#problem-setup-1"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
@@ -228,7 +232,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="lme.html"><a href="lme.html#serial"><i class="fa fa-check"></i><b>8.3</b> Serial Correlations</a></li>
 <li class="chapter" data-level="8.4" data-path="lme.html"><a href="lme.html#extensions-1"><i class="fa fa-check"></i><b>8.4</b> Extensions</a><ul>
-<li class="chapter" data-level="8.4.1" data-path="lme.html"><a href="lme.html#cluster-robust-standard-errors"><i class="fa fa-check"></i><b>8.4.1</b> Cluster Robust Standard Errors</a></li>
+<li class="chapter" data-level="8.4.1" data-path="lme.html"><a href="lme.html#cr-se"><i class="fa fa-check"></i><b>8.4.1</b> Cluster Robust Standard Errors</a></li>
 <li class="chapter" data-level="8.4.2" data-path="lme.html"><a href="lme.html#linear-models-for-panel-data"><i class="fa fa-check"></i><b>8.4.2</b> Linear Models for Panel Data</a></li>
 <li class="chapter" data-level="8.4.3" data-path="lme.html"><a href="lme.html#testing-hypotheses-on-correlations"><i class="fa fa-check"></i><b>8.4.3</b> Testing Hypotheses on Correlations</a></li>
 </ul></li>
@@ -467,7 +471,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 
 <p>Both examples require some statistical model, but they are very different. The first is a <em>causal inference</em> problem: we want to design an intervention so that we need to recover the causal effect of temperature and pressure. The second is a <a href="https://en.wikipedia.org/wiki/Prediction">prediction</a> problem, a.k.a. a <a href="https://en.wikipedia.org/wiki/Forecasting">forecasting</a> problem, in which we don’t care about the causal effects, we just want good predictions.</p>
-<p>In this chapter we discuss the causal problem in Example <a href="lm.html#exm:cap-experiment">6.1</a>. This means that when we assume a model, we assume it is the actual <em>data generating process</em>, i.e., we assume the <em>sampling distribution</em> is well specified. The second type of problems is discussed in the Supervised Learning Chapter <a href="supervised.html#supervised">10</a>.</p>
+<p>In this chapter we discuss the causal problem in Example <a href="lm.html#exm:cap-experiment">6.1</a>. This means that when we assume a model, we assume it is the actual <em>data generating process</em>, i.e., we assume the <em>sampling distribution</em> is well specified. In the econometric literature, these are the <a href="https://en.wikipedia.org/wiki/Structural_equation_modeling">structural equations</a>. The second type of problems is discussed in the Supervised Learning Chapter <a href="supervised.html#supervised">10</a>.</p>
 <p>Here are some more examples of the types of problems we are discussing.</p>
 
 <div class="example">
@@ -559,7 +563,8 @@ Given the above assumptions, we can apply some probability theory and linear alg
 ## 5 Before  2.9 5.8
 ## 6 Before  3.2 5.8</code></pre>
 <p>We do the OLS estimation on the pre-insulation data with <code>lm</code> function (acronym for Linear Model), possibly the most important function in R.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">whiteside &lt;-<span class="st"> </span><span class="kw">data.table</span>(whiteside)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)
+whiteside &lt;-<span class="st"> </span><span class="kw">data.table</span>(whiteside)
 lm.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(Gas<span class="op">~</span>Temp, <span class="dt">data=</span>whiteside[Insul<span class="op">==</span><span class="st">&#39;Before&#39;</span>]) <span class="co"># OLS estimation </span></code></pre></div>
 <p>Things to note:</p>
 <ul>
@@ -644,7 +649,9 @@ lm.<span class="dv">1</span> &lt;-<span class="st"> </span>whiteside[whiteside<s
 <li><p>The effect of temperature, i.e., <span class="math inline">\(\hat \beta_1\)</span>, is -0.39. The negative sign means that the higher the temperature, the less gas is consumed. The magnitude of the coefficient means that for a unit increase in the outside temperature, the gas consumption decreases by 0.39 units.</p></li>
 </ul>
 <p>We can use the <code>predict</code> function to make predictions, but we emphasize that if the purpose of the model is to make predictions, and not interpret coefficients, better skip to the Supervised Learning Chapter <a href="supervised.html#supervised">10</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">predict</span>(lm.<span class="dv">1</span>)<span class="op">~</span>whiteside[Insul<span class="op">==</span><span class="st">&#39;Before&#39;</span>,Gas])
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Gas predictions (b0+b1*temperature) vs. actual Gas measurements, ideal slope should be 1.</span>
+<span class="kw">plot</span>(<span class="kw">predict</span>(lm.<span class="dv">1</span>)<span class="op">~</span>whiteside[Insul<span class="op">==</span><span class="st">&#39;Before&#39;</span>,Gas])
+<span class="co"># plots identity line (slope 1), lty=Line Type, 2 means dashed line.</span>
 <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-157-1.png" width="50%" /></p>
 <p>The model seems to fit the data nicely. A common measure of the goodness of fit is the <em>coefficient of determination</em>, more commonly known as the <span class="math inline">\(R^2\)</span>.</p>
@@ -659,7 +666,8 @@ where <span class="math inline">\(\hat y_i\)</span> is the model’s prediction,
 </div>
 
 <p>It can be easily computed</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R2 &lt;-<span class="st"> </span><span class="cf">function</span>(y, y.hat){
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
+R2 &lt;-<span class="st"> </span><span class="cf">function</span>(y, y.hat){
   numerator &lt;-<span class="st"> </span>(y<span class="op">-</span>y.hat)<span class="op">^</span><span class="dv">2</span> <span class="op">%&gt;%</span><span class="st"> </span>sum
   denominator &lt;-<span class="st"> </span>(y<span class="op">-</span><span class="kw">mean</span>(y))<span class="op">^</span><span class="dv">2</span> <span class="op">%&gt;%</span><span class="st"> </span>sum
   <span class="dv">1</span><span class="op">-</span>numerator<span class="op">/</span>denominator
@@ -672,7 +680,7 @@ where <span class="math inline">\(\hat y_i\)</span> is the model’s prediction,
 <div id="inference" class="section level2">
 <h2><span class="header-section-number">6.3</span> Inference</h2>
 <p>To perform inference on <span class="math inline">\(\hat \beta\)</span>, in order to test hypotheses and construct confidence intervals, we need to quantify the uncertainly in the reported <span class="math inline">\(\hat \beta\)</span>. This is exactly what Eq.<a href="lm.html#eq:ols-distribution">(6.6)</a> gives us.</p>
-<p>Luckily, we don’t need to manipulate multivariate distributions manually, and everything we need is already implemented. The most important function is <code>summary</code> which gives us an overview of the model’s fit. We emphasize that that fitting a model with <code>lm</code> is an assumption free algorithmic step. Inference using <code>summary</code> is <strong>not</strong> assumption free, and requires the set of assumptions leading to Eq.<a href="lm.html#eq:ols-distribution">(6.6)</a>.</p>
+<p>Luckily, we don’t need to manipulate multivariate distributions manually, and everything we need is already implemented. The most important function is <code>summary</code> which gives us an overview of the model’s fit. We emphasize that fitting a model with <code>lm</code> is an assumption free algorithmic step. Inference using <code>summary</code> is <strong>not</strong> assumption free, and requires the set of assumptions leading to Eq.<a href="lm.html#eq:ols-distribution">(6.6)</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(lm.<span class="dv">1</span>)</code></pre></div>
 <pre><code>## 
 ## Call:
@@ -702,7 +710,8 @@ where <span class="math inline">\(\hat y_i\)</span> is the model’s prediction,
 </ul>
 <p>As the name suggests, <code>summary</code> is merely a summary. The full <code>summary(lm.1)</code> object is a monstrous object. Its various elements can be queried using <code>str(sumary(lm.1))</code>.</p>
 <p>Can we check the assumptions required for inference? Some. Let’s start with the linearity assumption. If we were wrong, and the data is not arranged about a linear line, the residuals will have some shape. We thus plot the residuals as a function of the predictor to diagnose shape.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="kw">residuals</span>(lm.<span class="dv">1</span>)<span class="op">~</span>whiteside[Insul<span class="op">==</span><span class="st">&#39;Before&#39;</span>,Temp])
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># errors (epsilons) vs. temperature, should oscillate around zero.</span>
+<span class="kw">plot</span>(<span class="kw">residuals</span>(lm.<span class="dv">1</span>)<span class="op">~</span>whiteside[Insul<span class="op">==</span><span class="st">&#39;Before&#39;</span>,Temp])
 <span class="kw">abline</span>(<span class="dv">0</span>,<span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)</code></pre></div>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-161-1.png" width="50%" /></p>
 <p>I can’t say I see any shape. Let’s fit a <strong>wrong</strong> model, just to see what “shape” means.</p>
@@ -711,11 +720,11 @@ where <span class="math inline">\(\hat y_i\)</span> is the model’s prediction,
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-162-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
-<li>We used <code>I(Temp)^2</code> to specify the model <span class="math inline">\(Gas=\beta_0 + \beta_1 Temp^2+ \varepsilon\)</span>.</li>
+<li>We used <code>I(Temp^2)</code> to specify the model <span class="math inline">\(Gas=\beta_0 + \beta_1 Temp^2+ \varepsilon\)</span>.</li>
 <li>The residuals have a “belly”. Because they are not a cloud around the linear trend, and we have the wrong model.</li>
 </ul>
 <p>To the next assumption. We assumed <span class="math inline">\(\varepsilon_i\)</span> are independent of everything else. The residuals, <span class="math inline">\(y_i-\hat y_i\)</span> can be thought of a sample of <span class="math inline">\(\varepsilon_i\)</span>. When diagnosing the linearity assumption, we already saw their distribution does not vary with the <span class="math inline">\(x\)</span>’s, <code>Temp</code> in our case. They may be correlated with themselves; a positive departure from the model, may be followed by a series of positive departures etc. Diagnosing these <em>auto-correlations</em> is a real art, which is not part of our course.</p>
-<p>The last assumption we required is normality. As previously stated, if <span class="math inline">\(n \gg p\)</span>, this assumption can be relaxed. If <span class="math inline">\(n\)</span> is in the order of <span class="math inline">\(p\)</span>, we need to verify this assumption. My favorite tool for this task is the <em>qqplot</em>. A qqplot compares the quantiles of the sample with the respective quantiles of the assumed distribution. If quantiles align along a line, the assumed distribution if OK. If quantiles depart from a line, then the assumed distribution does not fit the sample.</p>
+<p>The last assumption we required is normality. As previously stated, if <span class="math inline">\(n \gg p\)</span>, this assumption can be relaxed. If <span class="math inline">\(n\)</span> is in the order of <span class="math inline">\(p\)</span>, we need to verify this assumption. My favorite tool for this task is the <em>qqplot</em>. A qqplot compares the quantiles of the sample with the respective quantiles of the assumed distribution. If quantiles align along a line, the assumed distribution is OK. If quantiles depart from a line, then the assumed distribution does not fit the sample.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qqnorm</span>(<span class="kw">resid</span>(lm.<span class="dv">1</span>))</code></pre></div>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-163-1.png" width="50%" /></p>
 <p>Things to note:</p>
@@ -735,13 +744,17 @@ coefs.lm1</code></pre></div>
 <pre><code>##               Estimate Std. Error   t value     Pr(&gt;|t|)
 ## (Intercept)  6.8538277 0.11842341  57.87561 2.717533e-27
 ## Temp        -0.3932388 0.01958601 -20.07754 1.640469e-16</code></pre>
-<p>We see that the p-value for <span class="math inline">\(H_{0,1}: \beta_1=0\)</span> against a two sided alternative is effectively 0, so that <span class="math inline">\(\beta_1\)</span> is unlikely to be <span class="math inline">\(0\)</span>.</p>
+<p>We see that the p-value for <span class="math inline">\(H_{0,1}: \beta_1=0\)</span> against a two sided alternative is effectively 0 (row 2 column 4), so that <span class="math inline">\(\beta_1\)</span> is unlikely to be <span class="math inline">\(0\)</span> (the null hypothesis can be rejected).</p>
 </div>
 <div id="constructing-a-confidence-interval-on-a-single-coefficient" class="section level3">
 <h3><span class="header-section-number">6.3.2</span> Constructing a Confidence Interval on a Single Coefficient</h3>
 <p>Since the <code>summary</code> function gives us the standard errors of <span class="math inline">\(\hat \beta\)</span>, we can immediately compute <span class="math inline">\(\hat \beta_j \pm 2 \sqrt{Var[\hat \beta_j]}\)</span> to get ourselves a (roughly) <span class="math inline">\(95\%\)</span> confidence interval. In our example the interval is</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">coefs.lm1[<span class="dv">2</span>,<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>coefs.lm1[<span class="dv">2</span>,<span class="dv">2</span>]</code></pre></div>
 <pre><code>## [1] -0.4324108 -0.3540668</code></pre>
+<p>Things to note:</p>
+<ul>
+<li>The function <code>confint(lm.1)</code> can calculate it. Sometimes it’s more simple to write 20 characters of code than finding a function that does it for us.</li>
+</ul>
 </div>
 <div id="multiple-regression" class="section level3">
 <h3><span class="header-section-number">6.3.3</span> Multiple Regression</h3>
@@ -766,12 +779,12 @@ coefs.lm1</code></pre></div>
 ## Moutier                  20.3
 ## Neuveville               20.6
 ## Porrentruy               26.6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm.<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="dt">data=</span>swiss, Fertility<span class="op">~</span>Agriculture<span class="op">+</span>Examination<span class="op">+</span>Education<span class="op">+</span>Education<span class="op">+</span>Catholic<span class="op">+</span>Infant.Mortality)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm.<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="dt">data=</span>swiss, Fertility<span class="op">~</span>Agriculture<span class="op">+</span>Examination<span class="op">+</span>Education<span class="op">+</span>Catholic<span class="op">+</span>Infant.Mortality)
 <span class="kw">summary</span>(lm.<span class="dv">5</span>)</code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Fertility ~ Agriculture + Examination + Education + 
-##     Education + Catholic + Infant.Mortality, data = swiss)
+##     Catholic + Infant.Mortality, data = swiss)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
@@ -869,6 +882,7 @@ coefs.lm1</code></pre></div>
 <ul>
 <li><p>The <code>StressReduction~.</code> syntax is read as “Stress reduction as a function of everything else”.</p></li>
 <li><p>All the (main) effects and the intercept seem to be significant.</p></li>
+<li><p>Mid age and medical treatment are missing, hence it is implied that they are the baseline, and this model accounts for the departure from this baseline.</p></li>
 <li><p>The data has 2 factors, but the coefficients table has 4 predictors. This is because <code>lm</code> noticed that <code>Treatment</code> and <code>Age</code> are factors. Each level of each factor is thus encoded as a different (dummy) variable. The numerical values of the factors are meaningless. Instead, R has constructed a dummy variable for each level of each factor. The names of the effect are a concatenation of the factor’s name, and its level. You can inspect these dummy variables with the <code>model.matrix</code> command.</p></li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">model.matrix</span>(lm.<span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span>lattice<span class="op">::</span><span class="kw">levelplot</span>()</code></pre></div>
@@ -906,14 +920,14 @@ coefs.lm1</code></pre></div>
 <ul>
 <li>The <code>lm</code> function has been replaced with an <code>aov</code> function.</li>
 <li>The output of <code>aov</code> is an <code>aov</code> class object, which extends the <code>lm</code> class.</li>
-<li>The summary of an <code>aov</code> does not like the summary of an <code>lm</code> object, but rather, like an ANOVA table.</li>
+<li>The summary of an <code>aov</code> is not like the summary of an <code>lm</code> object, but rather, like an ANOVA table.</li>
 </ul>
 <p>As in any two-way ANOVA, we may want to ask if different age groups respond differently to different treatments. In the statistical parlance, this is called an <em>interaction</em>, or more precisely, an <em>interaction of order 2</em>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm.<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(StressReduction<span class="op">~</span>Treatment<span class="op">+</span>Age<span class="op">+</span>Treatment<span class="op">:</span>Age<span class="op">-</span><span class="dv">1</span>,<span class="dt">data=</span>twoWay)</code></pre></div>
-<p>The syntax <code>StressReduction~Treatment+Age+Treatment:Age-1</code> tells R to include main effects of Treatment, Age, and their interactions. Here are other ways to specify the same model.</p>
+<p>The syntax <code>StressReduction~Treatment+Age+Treatment:Age-1</code> tells R to include main effects of Treatment, Age, and their interactions. The -1 removes the intercept. Here are other ways to specify the same model.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm.<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(StressReduction <span class="op">~</span><span class="st"> </span>Treatment <span class="op">*</span><span class="st"> </span>Age <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,<span class="dt">data=</span>twoWay)
 lm.<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(StressReduction<span class="op">~</span>(.)<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,<span class="dt">data=</span>twoWay)</code></pre></div>
-<p>The syntax <code>Treatment * Age</code> means “mains effects with second order interactions”. The syntax <code>(.)^2</code> means “everything with second order interactions”</p>
+<p>The syntax <code>Treatment * Age</code> means “main effects with second order interactions”. The syntax <code>(.)^2</code> means “everything with second order interactions”, this time we don’t have I() as in the temperature example because here we want the second order interaction and not the square of each variable.</p>
 <p>Let’s inspect the model</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(lm.<span class="dv">3</span>)</code></pre></div>
 <pre><code>## 
@@ -988,17 +1002,34 @@ lm.<span class="dv">4</span> &lt;-<span class="st"> </span><span class="kw">glht
 <p>Things to note:</p>
 <ul>
 <li>A contrast is a linear function of the coefficients. In our example <span class="math inline">\(H_0:\beta_1-\beta_3=0\)</span>, which justifies the construction of <code>my.contrast</code>.</li>
-<li>We used the <code>glht</code> function (generalized linear hypothesis test) from the package <strong>multcompt</strong>.</li>
+<li>We used the <code>glht</code> function (generalized linear hypothesis test) from the package <strong>multcomp</strong>.</li>
 <li>The contrast is significant, i.e., the effect of a medical treatment, is different than that of a physical treatment.</li>
 </ul>
 </div>
 </div>
+<div id="extra-diagnostics" class="section level2">
+<h2><span class="header-section-number">6.4</span> Extra Diagnostics</h2>
+<div id="diagnosing-heteroskedasticity" class="section level3">
+<h3><span class="header-section-number">6.4.1</span> Diagnosing Heteroskedasticity</h3>
+<p>Textbook assumptions for inference on <span class="math inline">\(\hat \beta_{OLS}\)</span> include the <em>homoskedasticiy</em> assumption, i.e., <span class="math inline">\(Var[\varepsilon]\)</span> is fixed and independent of everyhting. This comes from viewing <span class="math inline">\(\varepsilon\)</span> as a measurement error. It may not be the case when viewing <span class="math inline">\(\varepsilon\)</span> as “all other effect not included in the model”. In technical terms, homoskedastocity implies that <span class="math inline">\(Var[\varepsilon]\)</span> is a scaled identity matrix. Heteroskedasticity means that <span class="math inline">\(Var[\varepsilon]\)</span> is a diagonal matrix. Because a scaled identify matrix implies that the quantiles of a multivariate Gaussian are spheres, testing for heteroskedasticity is also known as a <em>Sphericity Test</em>.</p>
+<p>Can we verify homoskedasticity, and do we need it?</p>
+<p>To verify homoskedasticity we only need to look at the residuals of a model. If they seem to have the same variability for all <span class="math inline">\(x\)</span> we are clear. If <span class="math inline">\(x\)</span> is multivariate, and we cannot visualise residuals, <span class="math inline">\(y_i-\hat y_i\)</span> as a function of <span class="math inline">\(x\)</span>, then visualising it as a function of <span class="math inline">\(\hat y_i\)</span> is also good.</p>
+<p>Another way of dealing with heteroskedasticity is by estimating variances for groups of observations separately. This is the <em>Cluster Robust Standard Errors</em> discussed in <a href="lme.html#cr-se">8.4.1</a>.</p>
+<p>Can use perform a test to infer homoskedasticity? In the frequentist hypotesis testing framework we can only reject homoskedasticity, not accept it. In the <a href="https://en.wikipedia.org/wiki/Bayesian_inference">Bayesian hypotesis testing</a> framework we can indeed infer homoskedasticity, but one would have to defend his/her priors.</p>
+<p>For some tests that detect heteroskedasticity see the <a href="https://cran.r-project.org/web/packages/olsrr/vignettes/heteroskedasticity.html">olsrr</a> package. For an econometric flavored approach to the problem, see the <a href="https://cran.r-project.org/package=plm">plm</a> package, and its excellent <a href="https://cran.r-project.org/web/packages/plm/vignettes/plmPackage.html">vignette</a>.</p>
+</div>
+<div id="diagnosing-multicolinearity" class="section level3">
+<h3><span class="header-section-number">6.4.2</span> Diagnosing Multicolinearity</h3>
+<p>When designing an experiment (e.g. <a href="https://en.wikipedia.org/wiki/Randomized_controlled_trial">RCTs</a>) we will assure treatments are “balanced”, so that one effect estimates are not correlated. This is not always possible, especially not in observational studies. If various variables capture the same effect, the certainty in the effect will “spread” over these variables. Formally: the standard errros of effect estimates will increase. Perhaps more importantly- causal inference with correlated predictors is very hard to interpret, because changes in outcome may be attibuted to any on of the (correlated) predictors.</p>
+<p>We will eschew the complicated philosophical implication of causal infernece with correlated predictors, and merely refer the reader to the package <a href="https://cran.r-project.org/web/packages/olsrr/vignettes/regression_diagnostics.html">olsrr</a> for some popular tools to diagnose multicolinearity.</p>
+</div>
+</div>
 <div id="bibliographic-notes-4" class="section level2">
-<h2><span class="header-section-number">6.4</span> Bibliographic Notes</h2>
+<h2><span class="header-section-number">6.5</span> Bibliographic Notes</h2>
 <p>Like any other topic in this book, you can consult <span class="citation">Venables and Ripley (<a href="#ref-venables2013modern">2013</a>)</span> for more on linear models. For the theory of linear models, I like <span class="citation">Greene (<a href="#ref-greene2003econometric">2003</a>)</span>.</p>
 </div>
 <div id="practice-yourself-3" class="section level2">
-<h2><span class="header-section-number">6.5</span> Practice Yourself</h2>
+<h2><span class="header-section-number">6.6</span> Practice Yourself</h2>
 <ol style="list-style-type: decimal">
 <li>Inspect women’s heights and weights with <code>?women</code>.
 <ol style="list-style-type: decimal">
@@ -1011,7 +1042,7 @@ lm.<span class="dv">4</span> &lt;-<span class="st"> </span><span class="kw">glht
 </ol></li>
 <li>Write a function that takes an <code>lm</code> class object, and returns the confidence interval on the first coefficient. Apply it on the height and weight data.</li>
 <li><p>Use the <code>ANOVA</code> function to test the significance of the effect of height.</p></li>
-<li>Read about the “mtcars” dataset using <code>? mtcars</code>.Inspect the dependency of the fuel consumption (mpg) in the weight (wt) and the 1/4 mile time (qsec).
+<li>Read about the “mtcars” dataset using <code>? mtcars</code>. Inspect the dependency of the fuel consumption (mpg) in the weight (wt) and the 1/4 mile time (qsec).
 <ol style="list-style-type: decimal">
 <li>Make a pairs scatter plot with <code>plot(mtcars[,c(&quot;mpg&quot;,&quot;wt&quot;,&quot;qsec&quot;)])</code> Does the connection look linear?</li>
 <li>Fit a multiple linear regression with <code>lm</code>. Call it <code>model1</code>.</li>

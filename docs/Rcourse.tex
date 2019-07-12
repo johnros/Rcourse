@@ -126,7 +126,7 @@
 
 \title{R (BGU course)}
 \author{Jonathan D. Rosenblatt}
-\date{2019-05-24}
+\date{2019-07-12}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -992,8 +992,11 @@ have currently loaded:
 
 Other packages can be loaded via the \texttt{library} function, or
 downloaded from the internet using the \texttt{install.packages}
-function before loading with \texttt{library}. R's package import
-mechanism is quite powerful, and is one of the reasons for R's success.
+function before loading with \texttt{library}. Note that you can easily
+speedup package download by using multiple CPUs. Just call
+\texttt{options(Ncpus\ =\ XXX)}, where \texttt{XXX} is the number of
+CPUs you want to use. Run \texttt{parallel::detectCores()} if you are
+unsure how many CPUs you have on your machine.
 
 \section{Simple Plotting}\label{simple-plotting}
 
@@ -5058,9 +5061,11 @@ good predictions.
 In this chapter we discuss the causal problem in Example
 \ref{exm:cap-experiment}. This means that when we assume a model, we
 assume it is the actual \emph{data generating process}, i.e., we assume
-the \emph{sampling distribution} is well specified. The second type of
-problems is discussed in the Supervised Learning Chapter
-\ref{supervised}.
+the \emph{sampling distribution} is well specified. In the econometric
+literature, these are the
+\href{https://en.wikipedia.org/wiki/Structural_equation_modeling}{structural
+equations}. The second type of problems is discussed in the Supervised
+Learning Chapter \ref{supervised}.
 
 Here are some more examples of the types of problems we are discussing.
 
@@ -5273,6 +5278,7 @@ function in R.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(data.table)}
 \NormalTok{whiteside <-}\StringTok{ }\KeywordTok{data.table}\NormalTok{(whiteside)}
 \NormalTok{lm.}\DecValTok{1}\NormalTok{ <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(Gas}\OperatorTok{~}\NormalTok{Temp, }\DataTypeTok{data=}\NormalTok{whiteside[Insul}\OperatorTok{==}\StringTok{'Before'}\NormalTok{]) }\CommentTok{# OLS estimation }
 \end{Highlighting}
@@ -5430,7 +5436,9 @@ Chapter \ref{supervised}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{# Gas predictions (b0+b1*temperature) vs. actual Gas measurements, ideal slope should be 1.}
 \KeywordTok{plot}\NormalTok{(}\KeywordTok{predict}\NormalTok{(lm.}\DecValTok{1}\NormalTok{)}\OperatorTok{~}\NormalTok{whiteside[Insul}\OperatorTok{==}\StringTok{'Before'}\NormalTok{,Gas])}
+\CommentTok{# plots identity line (slope 1), lty=Line Type, 2 means dashed line.}
 \KeywordTok{abline}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -5460,6 +5468,7 @@ It can be easily computed
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(magrittr)}
 \NormalTok{R2 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(y, y.hat)\{}
 \NormalTok{  numerator <-}\StringTok{ }\NormalTok{(y}\OperatorTok{-}\NormalTok{y.hat)}\OperatorTok{^}\DecValTok{2} \OperatorTok{%>%}\StringTok{ }\NormalTok{sum}
 \NormalTok{  denominator <-}\StringTok{ }\NormalTok{(y}\OperatorTok{-}\KeywordTok{mean}\NormalTok{(y))}\OperatorTok{^}\DecValTok{2} \OperatorTok{%>%}\StringTok{ }\NormalTok{sum}
@@ -5489,8 +5498,8 @@ Eq.\eqref{eq:ols-distribution} gives us.
 Luckily, we don't need to manipulate multivariate distributions
 manually, and everything we need is already implemented. The most
 important function is \texttt{summary} which gives us an overview of the
-model's fit. We emphasize that that fitting a model with \texttt{lm} is
-an assumption free algorithmic step. Inference using \texttt{summary} is
+model's fit. We emphasize that fitting a model with \texttt{lm} is an
+assumption free algorithmic step. Inference using \texttt{summary} is
 \textbf{not} assumption free, and requires the set of assumptions
 leading to Eq.\eqref{eq:ols-distribution}.
 
@@ -5559,6 +5568,7 @@ shape.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{# errors (epsilons) vs. temperature, should oscillate around zero.}
 \KeywordTok{plot}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(lm.}\DecValTok{1}\NormalTok{)}\OperatorTok{~}\NormalTok{whiteside[Insul}\OperatorTok{==}\StringTok{'Before'}\NormalTok{,Temp])}
 \KeywordTok{abline}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
@@ -5583,7 +5593,7 @@ Things to note:
 \begin{itemize}
 \tightlist
 \item
-  We used \texttt{I(Temp)\^{}2} to specify the model
+  We used \texttt{I(Temp\^{}2)} to specify the model
   \(Gas=\beta_0 + \beta_1 Temp^2+ \varepsilon\).
 \item
   The residuals have a ``belly''. Because they are not a cloud around
@@ -5604,7 +5614,7 @@ The last assumption we required is normality. As previously stated, if
 \(p\), we need to verify this assumption. My favorite tool for this task
 is the \emph{qqplot}. A qqplot compares the quantiles of the sample with
 the respective quantiles of the assumed distribution. If quantiles align
-along a line, the assumed distribution if OK. If quantiles depart from a
+along a line, the assumed distribution is OK. If quantiles depart from a
 line, then the assumed distribution does not fit the sample.
 
 \begin{Shaded}
@@ -5662,8 +5672,8 @@ given immediately by \texttt{summary(lm.1)}
 \end{verbatim}
 
 We see that the p-value for \(H_{0,1}: \beta_1=0\) against a two sided
-alternative is effectively 0, so that \(\beta_1\) is unlikely to be
-\(0\).
+alternative is effectively 0 (row 2 column 4), so that \(\beta_1\) is
+unlikely to be \(0\) (the null hypothesis can be rejected).
 
 \subsection{Constructing a Confidence Interval on a Single
 Coefficient}\label{constructing-a-confidence-interval-on-a-single-coefficient}
@@ -5682,6 +5692,16 @@ Since the \texttt{summary} function gives us the standard errors of
 \begin{verbatim}
 ## [1] -0.4324108 -0.3540668
 \end{verbatim}
+
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  The function \texttt{confint(lm.1)} can calculate it. Sometimes it's
+  more simple to write 20 characters of code than finding a function
+  that does it for us.
+\end{itemize}
 
 \subsection{Multiple Regression}\label{multiple-regression}
 
@@ -5720,7 +5740,7 @@ indicators. Let's see if these are statistically related:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lm.}\DecValTok{5}\NormalTok{ <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(}\DataTypeTok{data=}\NormalTok{swiss, Fertility}\OperatorTok{~}\NormalTok{Agriculture}\OperatorTok{+}\NormalTok{Examination}\OperatorTok{+}\NormalTok{Education}\OperatorTok{+}\NormalTok{Education}\OperatorTok{+}\NormalTok{Catholic}\OperatorTok{+}\NormalTok{Infant.Mortality)}
+\NormalTok{lm.}\DecValTok{5}\NormalTok{ <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(}\DataTypeTok{data=}\NormalTok{swiss, Fertility}\OperatorTok{~}\NormalTok{Agriculture}\OperatorTok{+}\NormalTok{Examination}\OperatorTok{+}\NormalTok{Education}\OperatorTok{+}\NormalTok{Catholic}\OperatorTok{+}\NormalTok{Infant.Mortality)}
 \KeywordTok{summary}\NormalTok{(lm.}\DecValTok{5}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -5729,7 +5749,7 @@ indicators. Let's see if these are statistically related:
 ## 
 ## Call:
 ## lm(formula = Fertility ~ Agriculture + Examination + Education + 
-##     Education + Catholic + Infant.Mortality, data = swiss)
+##     Catholic + Infant.Mortality, data = swiss)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
@@ -5887,6 +5907,10 @@ Things to note:
 \item
   All the (main) effects and the intercept seem to be significant.
 \item
+  Mid age and medical treatment are missing, hence it is implied that
+  they are the baseline, and this model accounts for the departure from
+  this baseline.
+\item
   The data has 2 factors, but the coefficients table has 4 predictors.
   This is because \texttt{lm} noticed that \texttt{Treatment} and
   \texttt{Age} are factors. Each level of each factor is thus encoded as
@@ -5987,7 +6011,7 @@ Things to note:
   The output of \texttt{aov} is an \texttt{aov} class object, which
   extends the \texttt{lm} class.
 \item
-  The summary of an \texttt{aov} does not like the summary of an
+  The summary of an \texttt{aov} is not like the summary of an
   \texttt{lm} object, but rather, like an ANOVA table.
 \end{itemize}
 
@@ -6005,7 +6029,8 @@ parlance, this is called an \emph{interaction}, or more precisely, an
 The syntax
 \texttt{StressReduction\textasciitilde{}Treatment+Age+Treatment:Age-1}
 tells R to include main effects of Treatment, Age, and their
-interactions. Here are other ways to specify the same model.
+interactions. The -1 removes the intercept. Here are other ways to
+specify the same model.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6014,9 +6039,11 @@ interactions. Here are other ways to specify the same model.
 \end{Highlighting}
 \end{Shaded}
 
-The syntax \texttt{Treatment\ *\ Age} means ``mains effects with second
+The syntax \texttt{Treatment\ *\ Age} means ``main effects with second
 order interactions''. The syntax \texttt{(.)\^{}2} means ``everything
-with second order interactions''
+with second order interactions'', this time we don't have I() as in the
+temperature example because here we want the second order interaction
+and not the square of each variable.
 
 Let's inspect the model
 
@@ -6160,11 +6187,74 @@ Things to note:
   \texttt{my.contrast}.
 \item
   We used the \texttt{glht} function (generalized linear hypothesis
-  test) from the package \textbf{multcompt}.
+  test) from the package \textbf{multcomp}.
 \item
   The contrast is significant, i.e., the effect of a medical treatment,
   is different than that of a physical treatment.
 \end{itemize}
+
+\section{Extra Diagnostics}\label{extra-diagnostics}
+
+\subsection{Diagnosing
+Heteroskedasticity}\label{diagnosing-heteroskedasticity}
+
+Textbook assumptions for inference on \(\hat \beta_{OLS}\) include the
+\emph{homoskedasticiy} assumption, i.e., \(Var[\varepsilon]\) is fixed
+and independent of everyhting. This comes from viewing \(\varepsilon\)
+as a measurement error. It may not be the case when viewing
+\(\varepsilon\) as ``all other effect not included in the model''. In
+technical terms, homoskedastocity implies that \(Var[\varepsilon]\) is a
+scaled identity matrix. Heteroskedasticity means that
+\(Var[\varepsilon]\) is a diagonal matrix. Because a scaled identify
+matrix implies that the quantiles of a multivariate Gaussian are
+spheres, testing for heteroskedasticity is also known as a
+\emph{Sphericity Test}.
+
+Can we verify homoskedasticity, and do we need it?
+
+To verify homoskedasticity we only need to look at the residuals of a
+model. If they seem to have the same variability for all \(x\) we are
+clear. If \(x\) is multivariate, and we cannot visualise residuals,
+\(y_i-\hat y_i\) as a function of \(x\), then visualising it as a
+function of \(\hat y_i\) is also good.
+
+Another way of dealing with heteroskedasticity is by estimating
+variances for groups of observations separately. This is the
+\emph{Cluster Robust Standard Errors} discussed in \ref{cr-se}.
+
+Can use perform a test to infer homoskedasticity? In the frequentist
+hypotesis testing framework we can only reject homoskedasticity, not
+accept it. In the
+\href{https://en.wikipedia.org/wiki/Bayesian_inference}{Bayesian
+hypotesis testing} framework we can indeed infer homoskedasticity, but
+one would have to defend his/her priors.
+
+For some tests that detect heteroskedasticity see the
+\href{https://cran.r-project.org/web/packages/olsrr/vignettes/heteroskedasticity.html}{olsrr}
+package. For an econometric flavored approach to the problem, see the
+\href{https://cran.r-project.org/package=plm}{plm} package, and its
+excellent
+\href{https://cran.r-project.org/web/packages/plm/vignettes/plmPackage.html}{vignette}.
+
+\subsection{Diagnosing
+Multicolinearity}\label{diagnosing-multicolinearity}
+
+When designing an experiment (e.g.
+\href{https://en.wikipedia.org/wiki/Randomized_controlled_trial}{RCTs})
+we will assure treatments are ``balanced'', so that one effect estimates
+are not correlated. This is not always possible, especially not in
+observational studies. If various variables capture the same effect, the
+certainty in the effect will ``spread'' over these variables. Formally:
+the standard errros of effect estimates will increase. Perhaps more
+importantly- causal inference with correlated predictors is very hard to
+interpret, because changes in outcome may be attibuted to any on of the
+(correlated) predictors.
+
+We will eschew the complicated philosophical implication of causal
+infernece with correlated predictors, and merely refer the reader to the
+package
+\href{https://cran.r-project.org/web/packages/olsrr/vignettes/regression_diagnostics.html}{olsrr}
+for some popular tools to diagnose multicolinearity.
 
 \section{Bibliographic Notes}\label{bibliographic-notes-4}
 
@@ -6206,9 +6296,9 @@ linear models, I like \citet{greene2003econometric}.
   Use the \texttt{ANOVA} function to test the significance of the effect
   of height.
 \item
-  Read about the ``mtcars'' dataset using \texttt{?\ mtcars}.Inspect the
-  dependency of the fuel consumption (mpg) in the weight (wt) and the
-  1/4 mile time (qsec).
+  Read about the ``mtcars'' dataset using \texttt{?\ mtcars}. Inspect
+  the dependency of the fuel consumption (mpg) in the weight (wt) and
+  the 1/4 mile time (qsec).
 
   \begin{enumerate}
   \def\labelenumii{\arabic{enumii}.}
@@ -6269,7 +6359,7 @@ same linear model, slightly differently: \[
 \]
 
 This model not allow for the non-linear relations of Example
-\ref{exm:cigarettes}, nor does it allow for the distrbituion of
+\ref{exm:cigarettes}, nor does it allow for the distribution of
 \(\varepsilon\) to change with \(x\), as in Example \ref{exm:cars}.
 \emph{Generalize linear models} (GLM), as the name suggests, are a
 generalization of the linear models in Chapter \ref{lm} that allow
@@ -6427,7 +6517,8 @@ in the workspace (don't forget to \texttt{detach} afterwards, or you can
 expect some conflicting object names). We will also use the \texttt{cut}
 function to create a binary response variable for Light, and Heavy
 plants (we are doing logistic regression, so we need a two-class
-response). As a general rule of thumb, when we discretize continuous
+response), notice also that \texttt{cut} splits according to range and
+not to length. As a general rule of thumb, when we discretize continuous
 variables, we lose information. For pedagogical reasons, however, we
 will proceed with this bad practice.
 
@@ -6799,7 +6890,7 @@ Look at the following plot and think:
 \begin{itemize}
 \tightlist
 \item
-  Can we assume that the errors have constant variace?
+  Can we assume that the errors have constant variance?
 \item
   What is the sign of the effect of time on the number of sick students?
 \item
@@ -7864,8 +7955,7 @@ We can now inspect the contrivance implied by our model's specification:
 
 \section{Extensions}\label{extensions-1}
 
-\subsection{Cluster Robust Standard
-Errors}\label{cluster-robust-standard-errors}
+\subsection{Cluster Robust Standard Errors}\label{cr-se}
 
 As previously stated, random effects are nothing more than a convenient
 way to specify dependencies within a level of a random effect, i.e.,
@@ -8016,8 +8106,11 @@ Magnusson} For a more theoretical view see \citet{weiss2005modeling} or
 random or fixed; on the difference between the two types of inference
 see the classics: \citet{eisenhart1947assumptions},
 \citet{kempthorne1975fixed}, and the more recent
-\citet{rosset2018fixed}. For more on predictions in linear mixed models
-see \citet{robinson1991blup}, \citet{rabinowicz2018assessing}, and
+\citet{rosset2018fixed}. For an interactive, beatiful visualization of
+the shrinkage introduced by mixed models, see
+\href{http://m-clark.github.io/posts/2019-05-14-shrinkage-in-mixed-models/}{Michael
+Clark's blog}. For more on predictions in linear mixed models see
+\citet{robinson1991blup}, \citet{rabinowicz2018assessing}, and
 references therein. See
 \href{https://m-clark.github.io/docs/clustered/}{Michael Clarck's} guide
 for various ways of dealing with correlations within groups. For the
@@ -10411,8 +10504,8 @@ View}. For a review of resampling based unbiased risk estimation
     Compare the test MSE of the three models. Which is the best ?
   \end{enumerate}
 \item
-  Read about the \texttt{Glass} dataset using \texttt{library(e1071)}
-  and \texttt{?Glass}.
+  Read about the \texttt{Glass} dataset using
+  \texttt{data(Glass,\ package="mlbench")} and \texttt{?Glass}.
 
   \begin{enumerate}
   \def\labelenumii{\arabic{enumii}.}
@@ -12969,6 +13062,10 @@ beautiful charting libraries.
   for beautiful, interactive, plotting of
   \href{https://www.juiceanalytics.com/writing/better-know-visualization-small-multiples}{small
   multiples}; think of it as interactive faceting.
+\item
+  \href{https://vegawidget.github.io/vegawidget/}{VegaWidget}. An
+  interfave to the \href{https://vega.github.io/vega-lite/}{Vega-lite}
+  plotting libraries.
 \end{itemize}
 
 \section{Bibliographic Notes}\label{bibliographic-notes-10}
@@ -14352,7 +14449,7 @@ If your data fits in RAM, but is too large to compute with, a solution
 is to replace the algorithm you are using. Instead of computing with the
 whole data, your algorithm will compute with parts of the data, also
 called \emph{chunks}, or \emph{batches}. These algorithms are known as
-\emph{external memory algorithms} (EMA).
+\emph{external memory algorithms} (EMA), or \emph{batch processing}.
 
 If your data does not fit in RAM, but fits in your local storage, you
 have two options. The first is to save your data in a \emph{database

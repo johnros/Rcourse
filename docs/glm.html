@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Generalized Linear Models | R (BGU course)</title>
   <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
-  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Generalized Linear Models | R (BGU course)" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-05-24" />
+<meta name="date" content="2019-07-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -203,8 +203,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.3.4" data-path="lm.html"><a href="lm.html#anova"><i class="fa fa-check"></i><b>6.3.4</b> ANOVA (*)</a></li>
 <li class="chapter" data-level="6.3.5" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>6.3.5</b> Testing a Hypothesis on a Single Contrast (*)</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-4"><i class="fa fa-check"></i><b>6.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="6.5" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>6.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="6.4" data-path="lm.html"><a href="lm.html#extra-diagnostics"><i class="fa fa-check"></i><b>6.4</b> Extra Diagnostics</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="lm.html"><a href="lm.html#diagnosing-heteroskedasticity"><i class="fa fa-check"></i><b>6.4.1</b> Diagnosing Heteroskedasticity</a></li>
+<li class="chapter" data-level="6.4.2" data-path="lm.html"><a href="lm.html#diagnosing-multicolinearity"><i class="fa fa-check"></i><b>6.4.2</b> Diagnosing Multicolinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="lm.html"><a href="lm.html#bibliographic-notes-4"><i class="fa fa-check"></i><b>6.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="6.6" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>6.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>7</b> Generalized Linear Models</a><ul>
 <li class="chapter" data-level="7.1" data-path="glm.html"><a href="glm.html#problem-setup-1"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
@@ -228,7 +232,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="lme.html"><a href="lme.html#serial"><i class="fa fa-check"></i><b>8.3</b> Serial Correlations</a></li>
 <li class="chapter" data-level="8.4" data-path="lme.html"><a href="lme.html#extensions-1"><i class="fa fa-check"></i><b>8.4</b> Extensions</a><ul>
-<li class="chapter" data-level="8.4.1" data-path="lme.html"><a href="lme.html#cluster-robust-standard-errors"><i class="fa fa-check"></i><b>8.4.1</b> Cluster Robust Standard Errors</a></li>
+<li class="chapter" data-level="8.4.1" data-path="lme.html"><a href="lme.html#cr-se"><i class="fa fa-check"></i><b>8.4.1</b> Cluster Robust Standard Errors</a></li>
 <li class="chapter" data-level="8.4.2" data-path="lme.html"><a href="lme.html#linear-models-for-panel-data"><i class="fa fa-check"></i><b>8.4.2</b> Linear Models for Panel Data</a></li>
 <li class="chapter" data-level="8.4.3" data-path="lme.html"><a href="lme.html#testing-hypotheses-on-correlations"><i class="fa fa-check"></i><b>8.4.3</b> Testing Hypotheses on Correlations</a></li>
 </ul></li>
@@ -469,7 +473,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>In the Linear Models Chapter <a href="lm.html#lm">6</a>, we assumed the generative process to be linear in the effects of the predictors <span class="math inline">\(x\)</span>. We now write that same linear model, slightly differently: <span class="math display">\[
  y|x \sim \mathcal{N}(x&#39;\beta, \sigma^2).
 \]</span></p>
-<p>This model not allow for the non-linear relations of Example <a href="glm.html#exm:cigarettes">7.1</a>, nor does it allow for the distrbituion of <span class="math inline">\(\varepsilon\)</span> to change with <span class="math inline">\(x\)</span>, as in Example <a href="glm.html#exm:cars">7.2</a>. <em>Generalize linear models</em> (GLM), as the name suggests, are a generalization of the linear models in Chapter <a href="lm.html#lm">6</a> that allow that<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a>.</p>
+<p>This model not allow for the non-linear relations of Example <a href="glm.html#exm:cigarettes">7.1</a>, nor does it allow for the distribution of <span class="math inline">\(\varepsilon\)</span> to change with <span class="math inline">\(x\)</span>, as in Example <a href="glm.html#exm:cars">7.2</a>. <em>Generalize linear models</em> (GLM), as the name suggests, are a generalization of the linear models in Chapter <a href="lm.html#lm">6</a> that allow that<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a>.</p>
 <p>For Example <a href="glm.html#exm:cigarettes">7.1</a>, we would like something in the lines of <span class="math display">\[
  y|x \sim Binom(1,p(x))
 \]</span></p>
@@ -542,7 +546,7 @@ Under the logit link assumption formalized in Eq.<a href="glm.html#eq:logistic">
 ## 4   6.11  ctrl
 ## 5   4.50  ctrl
 ## 6   4.61  ctrl</code></pre>
-<p>We will now <code>attach</code> the data so that its contents is available in the workspace (don’t forget to <code>detach</code> afterwards, or you can expect some conflicting object names). We will also use the <code>cut</code> function to create a binary response variable for Light, and Heavy plants (we are doing logistic regression, so we need a two-class response). As a general rule of thumb, when we discretize continuous variables, we lose information. For pedagogical reasons, however, we will proceed with this bad practice.</p>
+<p>We will now <code>attach</code> the data so that its contents is available in the workspace (don’t forget to <code>detach</code> afterwards, or you can expect some conflicting object names). We will also use the <code>cut</code> function to create a binary response variable for Light, and Heavy plants (we are doing logistic regression, so we need a two-class response), notice also that <code>cut</code> splits according to range and not to length. As a general rule of thumb, when we discretize continuous variables, we lose information. For pedagogical reasons, however, we will proceed with this bad practice.</p>
 <p>Look at the following output and think: how many <code>group</code> effects do we expect? What should be the sign of each effect?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(PlantGrowth)
 weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <span class="dv">2</span>, <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&#39;Light&#39;</span>, <span class="st">&#39;Heavy&#39;</span>)) <span class="co"># binarize weights</span>
@@ -749,7 +753,7 @@ weight.factor&lt;-<span class="st"> </span><span class="kw">cut</span>(weight, <
 ## 6    4        3</code></pre>
 <p>Look at the following plot and think:</p>
 <ul>
-<li>Can we assume that the errors have constant variace?</li>
+<li>Can we assume that the errors have constant variance?</li>
 <li>What is the sign of the effect of time on the number of sick students?</li>
 <li>Can we assume a linear effect of time?</li>
 </ul>

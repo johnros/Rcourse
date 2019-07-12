@@ -315,8 +315,9 @@ Here are some packages that I have currently loaded:
 search()
 ```
 Other packages can be loaded via the `library` function, or downloaded from the internet using the `install.packages` function before loading with `library`. 
-R's package import mechanism is quite powerful, and is one of the reasons for R's success. 
-
+Note that you can easily speedup package download by using multiple CPUs. 
+Just call `options(Ncpus = XXX)`, where `XXX` is the number of CPUs you want to use. 
+Run `parallel::detectCores()` if you are unsure how many CPUs you have on your machine. 
 
 
 ## Simple Plotting 

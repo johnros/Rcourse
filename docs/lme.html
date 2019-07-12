@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 8 Linear Mixed Models | R (BGU course)</title>
   <meta name="description" content="Class notes for the R course at the BGU’s IE&amp;M dept." />
-  <meta name="generator" content="bookdown 0.10 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 8 Linear Mixed Models | R (BGU course)" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-05-24" />
+<meta name="date" content="2019-07-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -203,8 +203,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.3.4" data-path="lm.html"><a href="lm.html#anova"><i class="fa fa-check"></i><b>6.3.4</b> ANOVA (*)</a></li>
 <li class="chapter" data-level="6.3.5" data-path="lm.html"><a href="lm.html#testing-a-hypothesis-on-a-single-contrast"><i class="fa fa-check"></i><b>6.3.5</b> Testing a Hypothesis on a Single Contrast (*)</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="lm.html"><a href="lm.html#bibliographic-notes-4"><i class="fa fa-check"></i><b>6.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="6.5" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>6.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="6.4" data-path="lm.html"><a href="lm.html#extra-diagnostics"><i class="fa fa-check"></i><b>6.4</b> Extra Diagnostics</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="lm.html"><a href="lm.html#diagnosing-heteroskedasticity"><i class="fa fa-check"></i><b>6.4.1</b> Diagnosing Heteroskedasticity</a></li>
+<li class="chapter" data-level="6.4.2" data-path="lm.html"><a href="lm.html#diagnosing-multicolinearity"><i class="fa fa-check"></i><b>6.4.2</b> Diagnosing Multicolinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="lm.html"><a href="lm.html#bibliographic-notes-4"><i class="fa fa-check"></i><b>6.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="6.6" data-path="lm.html"><a href="lm.html#practice-yourself-3"><i class="fa fa-check"></i><b>6.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="glm.html"><a href="glm.html"><i class="fa fa-check"></i><b>7</b> Generalized Linear Models</a><ul>
 <li class="chapter" data-level="7.1" data-path="glm.html"><a href="glm.html#problem-setup-1"><i class="fa fa-check"></i><b>7.1</b> Problem Setup</a></li>
@@ -228,7 +232,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="lme.html"><a href="lme.html#serial"><i class="fa fa-check"></i><b>8.3</b> Serial Correlations</a></li>
 <li class="chapter" data-level="8.4" data-path="lme.html"><a href="lme.html#extensions-1"><i class="fa fa-check"></i><b>8.4</b> Extensions</a><ul>
-<li class="chapter" data-level="8.4.1" data-path="lme.html"><a href="lme.html#cluster-robust-standard-errors"><i class="fa fa-check"></i><b>8.4.1</b> Cluster Robust Standard Errors</a></li>
+<li class="chapter" data-level="8.4.1" data-path="lme.html"><a href="lme.html#cr-se"><i class="fa fa-check"></i><b>8.4.1</b> Cluster Robust Standard Errors</a></li>
 <li class="chapter" data-level="8.4.2" data-path="lme.html"><a href="lme.html#linear-models-for-panel-data"><i class="fa fa-check"></i><b>8.4.2</b> Linear Models for Panel Data</a></li>
 <li class="chapter" data-level="8.4.3" data-path="lme.html"><a href="lme.html#testing-hypotheses-on-correlations"><i class="fa fa-check"></i><b>8.4.3</b> Testing Hypotheses on Correlations</a></li>
 </ul></li>
@@ -855,7 +859,7 @@ lattice<span class="op">::</span><span class="kw">levelplot</span>(the.cov)</cod
 </div>
 <div id="extensions-1" class="section level2">
 <h2><span class="header-section-number">8.4</span> Extensions</h2>
-<div id="cluster-robust-standard-errors" class="section level3">
+<div id="cr-se" class="section level3">
 <h3><span class="header-section-number">8.4.1</span> Cluster Robust Standard Errors</h3>
 <p>As previously stated, random effects are nothing more than a convenient way to specify dependencies within a level of a random effect, i.e., within a group/cluster. This is also the motivation underlying <em>cluster robust</em> inference, which is immensely popular with econometricians, but less so elsewhere. What is the difference between the two?</p>
 <p>Mixed models framework is a bona-fide generalization of cluster robust inference. This author thus recommends using the <strong>lme4</strong> and <strong>nlme</strong> packages for mixed models to deal with correlations within cluster.</p>
@@ -909,7 +913,7 @@ lattice<span class="op">::</span><span class="kw">levelplot</span>(the.cov)</cod
 </div>
 <div id="bibliographic-notes-6" class="section level2">
 <h2><span class="header-section-number">8.6</span> Bibliographic Notes</h2>
-<p>Most of the examples in this chapter are from the documentation of the <strong>lme4</strong> package <span class="citation">(Bates et al. <a href="#ref-lme4">2015</a>)</span>. For a general and very applied treatment, see <span class="citation">Pinero and Bates (<a href="#ref-pinero2000mixed">2000</a>)</span>. As usual, a hands on view can be found in <span class="citation">Venables and Ripley (<a href="#ref-venables2013modern">2013</a>)</span>, and also in an excellent blog post by <a href="http://rpsychologist.com/r-guide-longitudinal-lme-lmer">Kristoffer Magnusson</a> For a more theoretical view see <span class="citation">Weiss (<a href="#ref-weiss2005modeling">2005</a>)</span> or <span class="citation">Searle, Casella, and McCulloch (<a href="#ref-searle2009variance">2009</a>)</span>. Sometimes it is unclear if an effect is random or fixed; on the difference between the two types of inference see the classics: <span class="citation">Eisenhart (<a href="#ref-eisenhart1947assumptions">1947</a>)</span>, <span class="citation">Kempthorne (<a href="#ref-kempthorne1975fixed">1975</a>)</span>, and the more recent <span class="citation">Rosset and Tibshirani (<a href="#ref-rosset2018fixed">2018</a>)</span>. For more on predictions in linear mixed models see <span class="citation">Robinson (<a href="#ref-robinson1991blup">1991</a>)</span>, <span class="citation">Rabinowicz and Rosset (<a href="#ref-rabinowicz2018assessing">2018</a>)</span>, and references therein. See <a href="https://m-clark.github.io/docs/clustered/">Michael Clarck’s</a> guide for various ways of dealing with correlations within groups. For the geo-spatial view and terminology of correlated data, see <span class="citation">Christakos (<a href="#ref-christakos2000modern">2000</a>)</span>, <span class="citation">Diggle, Tawn, and Moyeed (<a href="#ref-diggle1998model">1998</a>)</span>, <span class="citation">Allard (<a href="#ref-allard2013j">2013</a>)</span>, and <span class="citation">Cressie and Wikle (<a href="#ref-cressie2015statistics">2015</a>)</span>.</p>
+<p>Most of the examples in this chapter are from the documentation of the <strong>lme4</strong> package <span class="citation">(Bates et al. <a href="#ref-lme4">2015</a>)</span>. For a general and very applied treatment, see <span class="citation">Pinero and Bates (<a href="#ref-pinero2000mixed">2000</a>)</span>. As usual, a hands on view can be found in <span class="citation">Venables and Ripley (<a href="#ref-venables2013modern">2013</a>)</span>, and also in an excellent blog post by <a href="http://rpsychologist.com/r-guide-longitudinal-lme-lmer">Kristoffer Magnusson</a> For a more theoretical view see <span class="citation">Weiss (<a href="#ref-weiss2005modeling">2005</a>)</span> or <span class="citation">Searle, Casella, and McCulloch (<a href="#ref-searle2009variance">2009</a>)</span>. Sometimes it is unclear if an effect is random or fixed; on the difference between the two types of inference see the classics: <span class="citation">Eisenhart (<a href="#ref-eisenhart1947assumptions">1947</a>)</span>, <span class="citation">Kempthorne (<a href="#ref-kempthorne1975fixed">1975</a>)</span>, and the more recent <span class="citation">Rosset and Tibshirani (<a href="#ref-rosset2018fixed">2018</a>)</span>. For an interactive, beatiful visualization of the shrinkage introduced by mixed models, see <a href="http://m-clark.github.io/posts/2019-05-14-shrinkage-in-mixed-models/">Michael Clark’s blog</a>. For more on predictions in linear mixed models see <span class="citation">Robinson (<a href="#ref-robinson1991blup">1991</a>)</span>, <span class="citation">Rabinowicz and Rosset (<a href="#ref-rabinowicz2018assessing">2018</a>)</span>, and references therein. See <a href="https://m-clark.github.io/docs/clustered/">Michael Clarck’s</a> guide for various ways of dealing with correlations within groups. For the geo-spatial view and terminology of correlated data, see <span class="citation">Christakos (<a href="#ref-christakos2000modern">2000</a>)</span>, <span class="citation">Diggle, Tawn, and Moyeed (<a href="#ref-diggle1998model">1998</a>)</span>, <span class="citation">Allard (<a href="#ref-allard2013j">2013</a>)</span>, and <span class="citation">Cressie and Wikle (<a href="#ref-cressie2015statistics">2015</a>)</span>.</p>
 </div>
 <div id="practice-yourself-4" class="section level2">
 <h2><span class="header-section-number">8.7</span> Practice Yourself</h2>
