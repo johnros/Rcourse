@@ -367,6 +367,14 @@ Things to note:
 This is because EMAs never really construct the whole matrix, let alone, save it in memory.
 
 
+## Apache Arrow
+A set of C++ functions, for efficient representation of objects in RAM.
+Arrow is exciting because it is supported by various software suits, including R and Python.
+This means that when I implement my algorithm, I no longer need to think of how it is stored in memory (remember sparse matrix formats? \@ref(sparse)). 
+It is enough to know that is it _Arrow_ format, and the same algorithm may run in R, in on Python, etc. 
+Arrow also includes very efficient import functions from common file formats and databases: textual formats such as CSV, and binary formats such as [Apache Parquet](https://arrow.apache.org/docs/python/parquet.html), and particularly  [Feather](https://blog.rstudio.com/2016/03/29/feather/), which is an "on-disk" implementation of the Arrow data format. 
+Arrow is integrated in R via the [arrow](https://cran.r-project.org/package=arrow) package, and certainly is an exciting technology to follow. 
+
 
 ## matter
 
