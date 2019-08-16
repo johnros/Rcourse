@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-07-12" />
+<meta name="date" content="2019-08-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -132,7 +132,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.2</b> Simple calculator</a></li>
 <li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.3</b> Probability calculator</a></li>
 <li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.4</b> Getting Help</a></li>
-<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.5</b> Variable Asignment</a></li>
+<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#variable-assignment"><i class="fa fa-check"></i><b>3.5</b> Variable Assignment</a></li>
 <li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#missing"><i class="fa fa-check"></i><b>3.6</b> Missing</a></li>
 <li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.7</b> Piping</a></li>
 <li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.8</b> Vector Creation and Manipulation</a></li>
@@ -350,8 +350,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="14.2.4" data-path="sparse.html"><a href="sparse.html#the-sparsem-package"><i class="fa fa-check"></i><b>14.2.4</b> The SparseM Package</a></li>
 </ul></li>
 <li class="chapter" data-level="14.3" data-path="sparse.html"><a href="sparse.html#beyond-sparsity"><i class="fa fa-check"></i><b>14.3</b> Beyond Sparsity</a></li>
-<li class="chapter" data-level="14.4" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>14.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="14.5" data-path="sparse.html"><a href="sparse.html#practice-yourself-10"><i class="fa fa-check"></i><b>14.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="14.4" data-path="sparse.html"><a href="sparse.html#apache-arrow"><i class="fa fa-check"></i><b>14.4</b> Apache Arrow</a></li>
+<li class="chapter" data-level="14.5" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>14.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="14.6" data-path="sparse.html"><a href="sparse.html#practice-yourself-10"><i class="fa fa-check"></i><b>14.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a><ul>
 <li class="chapter" data-level="15.1" data-path="memory.html"><a href="memory.html#efficient-computing-from-ram"><i class="fa fa-check"></i><b>15.1</b> Efficient Computing from RAM</a><ul>
@@ -563,8 +564,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Or load a menu where you can navigate local help in a web-based fashion:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help.start</span>() </code></pre></div>
 </div>
-<div id="variable-asignment" class="section level2">
-<h2><span class="header-section-number">3.5</span> Variable Asignment</h2>
+<div id="variable-assignment" class="section level2">
+<h2><span class="header-section-number">3.5</span> Variable Assignment</h2>
 <p>Assignment of some output into an object named “x”:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x =<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>) <span class="co"># Works. Bad style.</span>
 x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dt">n=</span><span class="dv">10</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="fl">0.5</span>) </code></pre></div>
@@ -933,7 +934,7 @@ tirgul1 &lt;-<span class="st"> </span><span class="kw">read.table</span>(URL)</c
 </div>
 <div id="massive-files" class="section level3">
 <h3><span class="header-section-number">3.15.8</span> Massive files</h3>
-<p>The above importing and exporting mechanisms were not designed for massive files. See the section on the <strong>data.table</strong> package (<a href="datatable.html#datatable">4</a>), Sparse Representation (<a href="sparse.html#sparse">14</a>), and Out-of-Ram Algorithms (<a href="memory.html#memory">15</a>) for more on working with massive data files.</p>
+<p>The above importing and exporting mechanisms were not designed for massive files. An import function that were designed for large files is <a href="https://github.com/r-lib/vroom">vroom</a>. But also see the sections on the <strong>data.table</strong> package (<a href="datatable.html#datatable">4</a>), Sparse Representation (<a href="sparse.html#sparse">14</a>), and Out-of-Ram Algorithms (<a href="memory.html#memory">15</a>) for more on working with massive data files.</p>
 </div>
 <div id="databases" class="section level3">
 <h3><span class="header-section-number">3.15.9</span> Databases</h3>

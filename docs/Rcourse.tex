@@ -126,7 +126,7 @@
 
 \title{R (BGU course)}
 \author{Jonathan D. Rosenblatt}
-\date{2019-07-12}
+\date{2019-08-16}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -590,7 +590,7 @@ Or load a menu where you can navigate local help in a web-based fashion:
 \end{Highlighting}
 \end{Shaded}
 
-\section{Variable Asignment}\label{variable-asignment}
+\section{Variable Assignment}\label{variable-assignment}
 
 Assignment of some output into an object named ``x'':
 
@@ -1598,9 +1598,11 @@ csv. If you still insist see the \textbf{xlsx} package.
 \subsection{Massive files}\label{massive-files}
 
 The above importing and exporting mechanisms were not designed for
-massive files. See the section on the \textbf{data.table} package
-(\ref{datatable}), Sparse Representation (\ref{sparse}), and Out-of-Ram
-Algorithms (\ref{memory}) for more on working with massive data files.
+massive files. An import function that were designed for large files is
+\href{https://github.com/r-lib/vroom}{vroom}. But also see the sections
+on the \textbf{data.table} package (\ref{datatable}), Sparse
+Representation (\ref{sparse}), and Out-of-Ram Algorithms (\ref{memory})
+for more on working with massive data files.
 
 \subsection{Databases}\label{databases}
 
@@ -10054,6 +10056,11 @@ the predictor.
 
 \includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-244-1}
 
+Or the newer
+\href{https://cran.r-project.org/web/packages/ggparty/vignettes/ggparty-graphic-partying.html}{ggparty}
+package, for trees fitted with the
+\href{https://cran.r-project.org/package=party}{party} package.
+
 Trees are very prone to overfitting. To avoid this, we reduce a tree's
 complexity by \emph{pruning} it. This is done with the
 \texttt{rpart::prune} function (not demonstrated herein).
@@ -14385,7 +14392,35 @@ When you think of it, sparse matrix representations is nothing but a
 combo of lossless compression, with accompanying matrix algorithms. Can
 this combo be leveraged when matrices are not sparse? At the time of
 writing, I am unaware of R objects that explot this idea, but it is
-generally possible. See \citet{elgohary2017scaling} for details.
+generally possible.
+
+\section{Apache Arrow}\label{apache-arrow}
+
+It is quite possible that your data contain redundancies, other than the
+number 0. In this case, you can still find efficient representations,
+but you will need something more general than CRC and the likes. Apache
+Arrow is a a set of C++ functions, for efficient representation of
+objects in memory. It can detect redundancies, and exploit them for
+efficient representation, but it can do much much more:
+
+\begin{itemize}
+\tightlist
+\item
+  It is the technology underlying many
+  \href{https://arrow.apache.org/powered_by/}{software suits}, and is
+  supporteb by R and Python.
+\item
+  The memory representation is designed for easy read/writes into disk
+  or network. This means that saving your file, or sending it over the
+  network, will require very little CPU. For optimal performance save it
+  into \href{https://en.wikipedia.org/wiki/Apache_Parquet}{Apache
+  Parquet} using \texttt{arrow::wrte\_parquet}, or
+  \href{https://blog.rstudio.com/2016/03/29/feather/}{Feather} file
+  formats, using the \textbf{feather} package.
+\end{itemize}
+
+Arrow is a very exciting technology, and will certainly become dominant
+in the near future.
 
 \section{Bibliographic Notes}\label{bibliographic-notes-12}
 
@@ -14393,9 +14428,11 @@ The best place to start reading on sparse representations and algorithms
 is the
 \href{https://cran.r-project.org/web/packages/Matrix/vignettes/Intro2Matrix.pdf}{vignettes}
 of the \textbf{Matrix} package. \citet{gilbert1992sparse} is also a
-great read for some general background. For the theory on solving sparse
-linear systems see \citet{davis2006direct}. For general numerical linear
-algebra see \citet{gentle2012numerical}.
+great read for some general background. See
+\href{http://netlib.org/linalg/html_templates/node90.html}{here} for a
+blog-level review of sparse matrix formats. For the theory on solving
+sparse linear systems see \citet{davis2006direct}. For general numerical
+linear algebra see \citet{gentle2012numerical}.
 
 \section{Practice Yourself}\label{practice-yourself-10}
 

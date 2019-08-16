@@ -306,8 +306,21 @@ Basic linear algebra with sparse matrices.
 When you think of it, sparse matrix representations is nothing but a combo of lossless compression, with accompanying matrix algorithms. 
 Can this combo be leveraged when matrices are not sparse? 
 At the time of writing, I am unaware of R objects that explot this idea, but it is generally possible. 
-See @elgohary2017scaling for details. 
 
+
+
+
+
+## Apache Arrow
+It is quite possible that your data contain redundancies, other than the number 0.
+In this case, you can still find efficient representations, but you will need something more general than CRC and the likes. 
+Apache Arrow is a a set of C++ functions, for efficient representation of objects in memory.
+It can detect redundancies, and exploit them for efficient representation, but it can do much much more:
+
+- It is the technology underlying many [software suits](https://arrow.apache.org/powered_by/), and is supporteb by R and Python.
+- The memory representation is designed for easy read/writes into disk or network. This means that saving your file, or sending it over the network, will require very little CPU. For optimal performance save it into [Apache Parquet](https://en.wikipedia.org/wiki/Apache_Parquet) using `arrow::wrte_parquet`, or [Feather](https://blog.rstudio.com/2016/03/29/feather/) file formats, using the __feather__ package. 
+
+Arrow is a very exciting technology, and will certainly become dominant in the near future. 
 
 
 ## Bibliographic Notes
@@ -317,6 +330,7 @@ The best place to start reading on sparse representations and algorithms is the 
 See [here](http://netlib.org/linalg/html_templates/node90.html) for a blog-level review of sparse matrix formats. 
 For the theory on solving sparse linear systems see @davis2006direct.
 For general numerical linear algebra see @gentle2012numerical.
+
 
 
 ## Practice Yourself

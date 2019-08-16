@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-07-12" />
+<meta name="date" content="2019-08-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -132,7 +132,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.2" data-path="basics.html"><a href="basics.html#simple-calculator"><i class="fa fa-check"></i><b>3.2</b> Simple calculator</a></li>
 <li class="chapter" data-level="3.3" data-path="basics.html"><a href="basics.html#probability-calculator"><i class="fa fa-check"></i><b>3.3</b> Probability calculator</a></li>
 <li class="chapter" data-level="3.4" data-path="basics.html"><a href="basics.html#getting-help"><i class="fa fa-check"></i><b>3.4</b> Getting Help</a></li>
-<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#variable-asignment"><i class="fa fa-check"></i><b>3.5</b> Variable Asignment</a></li>
+<li class="chapter" data-level="3.5" data-path="basics.html"><a href="basics.html#variable-assignment"><i class="fa fa-check"></i><b>3.5</b> Variable Assignment</a></li>
 <li class="chapter" data-level="3.6" data-path="basics.html"><a href="basics.html#missing"><i class="fa fa-check"></i><b>3.6</b> Missing</a></li>
 <li class="chapter" data-level="3.7" data-path="basics.html"><a href="basics.html#piping"><i class="fa fa-check"></i><b>3.7</b> Piping</a></li>
 <li class="chapter" data-level="3.8" data-path="basics.html"><a href="basics.html#vector-creation-and-manipulation"><i class="fa fa-check"></i><b>3.8</b> Vector Creation and Manipulation</a></li>
@@ -350,8 +350,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="14.2.4" data-path="sparse.html"><a href="sparse.html#the-sparsem-package"><i class="fa fa-check"></i><b>14.2.4</b> The SparseM Package</a></li>
 </ul></li>
 <li class="chapter" data-level="14.3" data-path="sparse.html"><a href="sparse.html#beyond-sparsity"><i class="fa fa-check"></i><b>14.3</b> Beyond Sparsity</a></li>
-<li class="chapter" data-level="14.4" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>14.4</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="14.5" data-path="sparse.html"><a href="sparse.html#practice-yourself-10"><i class="fa fa-check"></i><b>14.5</b> Practice Yourself</a></li>
+<li class="chapter" data-level="14.4" data-path="sparse.html"><a href="sparse.html#apache-arrow"><i class="fa fa-check"></i><b>14.4</b> Apache Arrow</a></li>
+<li class="chapter" data-level="14.5" data-path="sparse.html"><a href="sparse.html#bibliographic-notes-12"><i class="fa fa-check"></i><b>14.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="14.6" data-path="sparse.html"><a href="sparse.html#practice-yourself-10"><i class="fa fa-check"></i><b>14.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="memory.html"><a href="memory.html"><i class="fa fa-check"></i><b>15</b> Memory Efficiency</a><ul>
 <li class="chapter" data-level="15.1" data-path="memory.html"><a href="memory.html#efficient-computing-from-ram"><i class="fa fa-check"></i><b>15.1</b> Efficient Computing from RAM</a><ul>
@@ -674,14 +675,23 @@ performance &lt;-<span class="st"> </span><span class="kw">data.frame</span>()
 </div>
 <div id="beyond-sparsity" class="section level2">
 <h2><span class="header-section-number">14.3</span> Beyond Sparsity</h2>
-<p>When you think of it, sparse matrix representations is nothing but a combo of lossless compression, with accompanying matrix algorithms. Can this combo be leveraged when matrices are not sparse? At the time of writing, I am unaware of R objects that explot this idea, but it is generally possible. See <span class="citation">Elgohary et al. (<a href="#ref-elgohary2017scaling">2017</a>)</span> for details.</p>
+<p>When you think of it, sparse matrix representations is nothing but a combo of lossless compression, with accompanying matrix algorithms. Can this combo be leveraged when matrices are not sparse? At the time of writing, I am unaware of R objects that explot this idea, but it is generally possible.</p>
+</div>
+<div id="apache-arrow" class="section level2">
+<h2><span class="header-section-number">14.4</span> Apache Arrow</h2>
+<p>It is quite possible that your data contain redundancies, other than the number 0. In this case, you can still find efficient representations, but you will need something more general than CRC and the likes. Apache Arrow is a a set of C++ functions, for efficient representation of objects in memory. It can detect redundancies, and exploit them for efficient representation, but it can do much much more:</p>
+<ul>
+<li>It is the technology underlying many <a href="https://arrow.apache.org/powered_by/">software suits</a>, and is supporteb by R and Python.</li>
+<li>The memory representation is designed for easy read/writes into disk or network. This means that saving your file, or sending it over the network, will require very little CPU. For optimal performance save it into <a href="https://en.wikipedia.org/wiki/Apache_Parquet">Apache Parquet</a> using <code>arrow::wrte_parquet</code>, or <a href="https://blog.rstudio.com/2016/03/29/feather/">Feather</a> file formats, using the <strong>feather</strong> package.</li>
+</ul>
+<p>Arrow is a very exciting technology, and will certainly become dominant in the near future.</p>
 </div>
 <div id="bibliographic-notes-12" class="section level2">
-<h2><span class="header-section-number">14.4</span> Bibliographic Notes</h2>
-<p>The best place to start reading on sparse representations and algorithms is the <a href="https://cran.r-project.org/web/packages/Matrix/vignettes/Intro2Matrix.pdf">vignettes</a> of the <strong>Matrix</strong> package. <span class="citation">Gilbert, Moler, and Schreiber (<a href="#ref-gilbert1992sparse">1992</a>)</span> is also a great read for some general background. For the theory on solving sparse linear systems see <span class="citation">Davis (<a href="#ref-davis2006direct">2006</a>)</span>. For general numerical linear algebra see <span class="citation">Gentle (<a href="#ref-gentle2012numerical">2012</a>)</span>.</p>
+<h2><span class="header-section-number">14.5</span> Bibliographic Notes</h2>
+<p>The best place to start reading on sparse representations and algorithms is the <a href="https://cran.r-project.org/web/packages/Matrix/vignettes/Intro2Matrix.pdf">vignettes</a> of the <strong>Matrix</strong> package. <span class="citation">Gilbert, Moler, and Schreiber (<a href="#ref-gilbert1992sparse">1992</a>)</span> is also a great read for some general background. See <a href="http://netlib.org/linalg/html_templates/node90.html">here</a> for a blog-level review of sparse matrix formats. For the theory on solving sparse linear systems see <span class="citation">Davis (<a href="#ref-davis2006direct">2006</a>)</span>. For general numerical linear algebra see <span class="citation">Gentle (<a href="#ref-gentle2012numerical">2012</a>)</span>.</p>
 </div>
 <div id="practice-yourself-10" class="section level2">
-<h2><span class="header-section-number">14.5</span> Practice Yourself</h2>
+<h2><span class="header-section-number">14.6</span> Practice Yourself</h2>
 <ol style="list-style-type: decimal">
 <li><p>What is the CSC representation of the following matrix: <span class="math display">\[\begin{bmatrix}
 0 &amp; 1 &amp; 0 \\
@@ -697,9 +707,6 @@ performance &lt;-<span class="st"> </span><span class="kw">data.frame</span>()
 <div id="refs" class="references">
 <div id="ref-davis2006direct">
 <p>Davis, Timothy A. 2006. <em>Direct Methods for Sparse Linear Systems</em>. SIAM.</p>
-</div>
-<div id="ref-elgohary2017scaling">
-<p>Elgohary, Ahmed, Matthias Boehm, Peter J Haas, Frederick R Reiss, and Berthold Reinwald. 2017. “Scaling Machine Learning via Compressed Linear Algebra.” <em>ACM SIGMOD Record</em> 46 (1). ACM: 42–49.</p>
 </div>
 <div id="ref-gentle2012numerical">
 <p>Gentle, James E. 2012. <em>Numerical Linear Algebra for Applications in Statistics</em>. Springer Science &amp; Business Media.</p>
