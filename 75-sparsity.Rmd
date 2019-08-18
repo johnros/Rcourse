@@ -318,7 +318,7 @@ Apache Arrow is a a set of C++ functions, for efficient representation of object
 It can detect redundancies, and exploit them for efficient representation, but it can do much much more:
 
 - It is the technology underlying many [software suits](https://arrow.apache.org/powered_by/), and is supporteb by R and Python.
-- The memory representation is designed for easy read/writes into disk or network. This means that saving your file, or sending it over the network, will require very little CPU. For optimal performance save it into [Apache Parquet](https://en.wikipedia.org/wiki/Apache_Parquet) using `arrow::wrte_parquet`, or [Feather](https://blog.rstudio.com/2016/03/29/feather/) file formats, using the __feather__ package. 
+- The memory representation is designed for easy read/writes into disk or network. This means that saving your file, or sending it over the network, will require very little CPU. For optimal performance save it into [Apache Parquet](https://en.wikipedia.org/wiki/Apache_Parquet) using `arrow::write_parquet`, or [Feather](http://arrow.apache.org/blog/2019/08/08/r-package-on-cran/) file formats, using the `arrow::write_feather()` function. Read functions are also provided. 
 
 Arrow is a very exciting technology, and will certainly become dominant in the near future. 
 

@@ -126,7 +126,7 @@
 
 \title{R (BGU course)}
 \author{Jonathan D. Rosenblatt}
-\date{2019-08-16}
+\date{2019-08-18}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -14414,9 +14414,10 @@ efficient representation, but it can do much much more:
   or network. This means that saving your file, or sending it over the
   network, will require very little CPU. For optimal performance save it
   into \href{https://en.wikipedia.org/wiki/Apache_Parquet}{Apache
-  Parquet} using \texttt{arrow::wrte\_parquet}, or
-  \href{https://blog.rstudio.com/2016/03/29/feather/}{Feather} file
-  formats, using the \textbf{feather} package.
+  Parquet} using \texttt{arrow::write\_parquet}, or
+  \href{http://arrow.apache.org/blog/2019/08/08/r-package-on-cran/}{Feather}
+  file formats, using the \texttt{arrow::write\_feather()} function.
+  Read functions are also provided.
 \end{itemize}
 
 Arrow is a very exciting technology, and will certainly become dominant

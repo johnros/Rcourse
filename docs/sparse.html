@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-08-16" />
+<meta name="date" content="2019-08-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -682,7 +682,7 @@ performance &lt;-<span class="st"> </span><span class="kw">data.frame</span>()
 <p>It is quite possible that your data contain redundancies, other than the number 0. In this case, you can still find efficient representations, but you will need something more general than CRC and the likes. Apache Arrow is a a set of C++ functions, for efficient representation of objects in memory. It can detect redundancies, and exploit them for efficient representation, but it can do much much more:</p>
 <ul>
 <li>It is the technology underlying many <a href="https://arrow.apache.org/powered_by/">software suits</a>, and is supporteb by R and Python.</li>
-<li>The memory representation is designed for easy read/writes into disk or network. This means that saving your file, or sending it over the network, will require very little CPU. For optimal performance save it into <a href="https://en.wikipedia.org/wiki/Apache_Parquet">Apache Parquet</a> using <code>arrow::wrte_parquet</code>, or <a href="https://blog.rstudio.com/2016/03/29/feather/">Feather</a> file formats, using the <strong>feather</strong> package.</li>
+<li>The memory representation is designed for easy read/writes into disk or network. This means that saving your file, or sending it over the network, will require very little CPU. For optimal performance save it into <a href="https://en.wikipedia.org/wiki/Apache_Parquet">Apache Parquet</a> using <code>arrow::write_parquet</code>, or <a href="http://arrow.apache.org/blog/2019/08/08/r-package-on-cran/">Feather</a> file formats, using the <code>arrow::write_feather()</code> function. Read functions are also provided.</li>
 </ul>
 <p>Arrow is a very exciting technology, and will certainly become dominant in the near future.</p>
 </div>
