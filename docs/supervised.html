@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-08-18" />
+<meta name="date" content="2019-09-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -364,13 +364,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.3.2" data-path="memory.html"><a href="memory.html#bigstep"><i class="fa fa-check"></i><b>15.3.2</b> bigstep</a></li>
 </ul></li>
 <li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
-<li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.5</b> matter</a></li>
-<li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.6</b> iotools</a></li>
-<li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#hdf5"><i class="fa fa-check"></i><b>15.7</b> HDF5</a></li>
-<li class="chapter" data-level="15.8" data-path="memory.html"><a href="memory.html#delayedarray"><i class="fa fa-check"></i><b>15.8</b> DelayedArray</a></li>
-<li class="chapter" data-level="15.9" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.9</b> Computing from a Distributed File System</a></li>
-<li class="chapter" data-level="15.10" data-path="memory.html"><a href="memory.html#bibliographic-notes-13"><i class="fa fa-check"></i><b>15.10</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="15.11" data-path="memory.html"><a href="memory.html#practice-yourself-11"><i class="fa fa-check"></i><b>15.11</b> Practice Yourself</a></li>
+<li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#disk.frame"><i class="fa fa-check"></i><b>15.5</b> disk.frame</a></li>
+<li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.6</b> matter</a></li>
+<li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.7</b> iotools</a></li>
+<li class="chapter" data-level="15.8" data-path="memory.html"><a href="memory.html#hdf5"><i class="fa fa-check"></i><b>15.8</b> HDF5</a></li>
+<li class="chapter" data-level="15.9" data-path="memory.html"><a href="memory.html#delayedarray"><i class="fa fa-check"></i><b>15.9</b> DelayedArray</a></li>
+<li class="chapter" data-level="15.10" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.10</b> Computing from a Distributed File System</a></li>
+<li class="chapter" data-level="15.11" data-path="memory.html"><a href="memory.html#bibliographic-notes-13"><i class="fa fa-check"></i><b>15.11</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="15.12" data-path="memory.html"><a href="memory.html#practice-yourself-11"><i class="fa fa-check"></i><b>15.12</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
 <li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
@@ -570,7 +571,7 @@ When using a linear hypothesis with squared loss, we see that the empirical risk
 <p>The most common complexity penalty applies to classes that have a finite dimensional parametric representation, such as the class of linear predictors, parametrized via its coefficients <span class="math inline">\(\beta\)</span>. In such classes we may penalize for the norm of the parameters. Common penalties include:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Ridge penalty</strong>: penalizing the <span class="math inline">\(l_2\)</span> norm of the parameter. I.e. <span class="math inline">\(\Vert f \Vert=\Vert \beta \Vert_2^2=\sum_j \beta_j^2\)</span>.</li>
-<li><strong>LASSO penalty</strong>: penalizing the <span class="math inline">\(l_1\)</span> norm of the parameter. I.e., <span class="math inline">\(\Vert f \Vert=\Vert \beta \Vert_1=\sum_j |\beta_j|\)</span></li>
+<li><strong>LASSO penalty</strong>: penalizing the <span class="math inline">\(l_1\)</span> norm of the parameter. I.e., <span class="math inline">\(\Vert f \Vert=\Vert \beta \Vert_1=\sum_j |\beta_j|\)</span>. Also known as <strong>Basis Pursuit</strong>, in signal processing.</li>
 <li><strong>Elastic net</strong>: a combination of the lasso and ridge penalty. I.e. ,<span class="math inline">\(\Vert f \Vert= \alpha \Vert \beta \Vert_2^2 + (1-\alpha) \Vert \beta \Vert_1\)</span>.</li>
 <li><strong>Function Norms</strong>: If the hypothesis class <span class="math inline">\(\mathcal{F}\)</span> does not admit a finite dimensional representation, the penalty is no longer a function of the parameters of the function. We may, however, penalize not the parametric representation of the function, but rather the function itself <span class="math inline">\(\Vert f \Vert=\sqrt{\int f(t)^2 dt}\)</span>.</li>
 </ol>
@@ -1049,6 +1050,11 @@ tree.<span class="dv">3</span></code></pre></div>
 <li>The train error is larger than the test error. This is possible because the tree is not an ERM on the train data. Rather, it is an ERM on the variations of the data generated by the cross-validation process.</li>
 </ul>
 </div>
+<div id="parsnip" class="section level4">
+<h4><span class="header-section-number">10.2.4.3</span> The parsnip package</h4>
+<p>At this point you may have noted that different R packages have differet interfaces to specify and fit models. Wouldn’t it be nice to have a unified language that allows to specify a model, indpendently of the undelying fitting libraries? This is percisely the purpose of <a href="https://github.com/tidymodels/parsnip">parsnip</a>, created by <a href="https://twitter.com/topepos">Max Kuhn</a>, the author of <strong>caret</strong>. With parsnip, you specify a model, save it, and can later dispatch it to fitting with <strong>lm</strong>, <strong>glmnet</strong>, <strong>Spark</strong>, or other fitting libraries. This is much like <strong>ggplot2</strong>, where you specify a plot, save it, and dispatch it for printing using <em>print()</em>.</p>
+<p>TODO: add code examples.</p>
+</div>
 </div>
 <div id="k-nearest-neighbour-knn" class="section level3">
 <h3><span class="header-section-number">10.2.5</span> K-nearest neighbour (KNN)</h3>
@@ -1170,7 +1176,7 @@ rf.<span class="dv">1</span></code></pre></div>
 </div>
 <div id="bibliographic-notes-8" class="section level2">
 <h2><span class="header-section-number">10.3</span> Bibliographic Notes</h2>
-<p>The ultimate reference on (statistical) machine learning is <span class="citation">Friedman, Hastie, and Tibshirani (<a href="#ref-friedman2001elements">2001</a>)</span>. For a softer introduction, see <span class="citation">James et al. (<a href="#ref-james2013introduction">2013</a>)</span>. A statistician will also like <span class="citation">Ripley (<a href="#ref-ripley2007pattern">2007</a>)</span>. For a very algorithmic view, see the seminal <span class="citation">Leskovec, Rajaraman, and Ullman (<a href="#ref-leskovec2014mining">2014</a>)</span> or <span class="citation">Conway and White (<a href="#ref-conway2012machine">2012</a>)</span>. For a much more theoretical reference, see <span class="citation">Mohri, Rostamizadeh, and Talwalkar (<a href="#ref-mohri2012foundations">2012</a>)</span>, <span class="citation">Vapnik (<a href="#ref-vapnik2013nature">2013</a>)</span>, <span class="citation">Shalev-Shwartz and Ben-David (<a href="#ref-shalev2014understanding">2014</a>)</span>. Terminology taken from <span class="citation">Sammut and Webb (<a href="#ref-sammut2011encyclopedia">2011</a>)</span>. For an R oriented view see <span class="citation">Lantz (<a href="#ref-lantz2013machine">2013</a>)</span>. For review of other R sources for machine learning see <a href="http://modernstatisticalworkflow.blogspot.com/2018/01/some-good-introductory-machine-learning.html">Jim Savege’s post</a>, or the official <a href="https://cran.r-project.org/web/views/MachineLearning.html">Task View</a>. For a review of resampling based unbiased risk estimation (i.e. cross validation) see the exceptional review of <span class="citation">Arlot, Celisse, and others (<a href="#ref-arlot2010survey">2010</a>)</span>. If you want to know about Deep-Nets in R see <a href="https://www.datacamp.com/community/tutorials/keras-r-deep-learning">here</a>.</p>
+<p>The ultimate reference on (statistical) machine learning is <span class="citation">Friedman, Hastie, and Tibshirani (<a href="#ref-friedman2001elements">2001</a>)</span>. For a softer introduction, see <span class="citation">James et al. (<a href="#ref-james2013introduction">2013</a>)</span>. A statistician will also like <span class="citation">Ripley (<a href="#ref-ripley2007pattern">2007</a>)</span>. For a very algorithmic view, see the seminal <span class="citation">Leskovec, Rajaraman, and Ullman (<a href="#ref-leskovec2014mining">2014</a>)</span> or <span class="citation">Conway and White (<a href="#ref-conway2012machine">2012</a>)</span>. For a much more theoretical reference, see <span class="citation">Mohri, Rostamizadeh, and Talwalkar (<a href="#ref-mohri2012foundations">2012</a>)</span>, <span class="citation">Vapnik (<a href="#ref-vapnik2013nature">2013</a>)</span>, <span class="citation">Shalev-Shwartz and Ben-David (<a href="#ref-shalev2014understanding">2014</a>)</span>. Terminology taken from <span class="citation">Sammut and Webb (<a href="#ref-sammut2011encyclopedia">2011</a>)</span>. For an R oriented view see <span class="citation">Lantz (<a href="#ref-lantz2013machine">2013</a>)</span>. For review of other R sources for machine learning see <a href="http://modernstatisticalworkflow.blogspot.com/2018/01/some-good-introductory-machine-learning.html">Jim Savege’s post</a>, or the official <a href="https://cran.r-project.org/web/views/MachineLearning.html">Task View</a>. For a review of resampling based unbiased risk estimation (i.e. cross validation) see the exceptional review of <span class="citation">Arlot, Celisse, and others (<a href="#ref-arlot2010survey">2010</a>)</span>. For feature engineering: <a href="https://bookdown.org/max/FES/">Feature Engineering and Selection: A Practical Approach for Predictive Models</a>. If you want to know about Deep-Nets in R see <a href="https://www.datacamp.com/community/tutorials/keras-r-deep-learning">here</a>.</p>
 </div>
 <div id="practice-yourself-6" class="section level2">
 <h2><span class="header-section-number">10.4</span> Practice Yourself</h2>

@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-08-18" />
+<meta name="date" content="2019-09-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -364,13 +364,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="15.3.2" data-path="memory.html"><a href="memory.html#bigstep"><i class="fa fa-check"></i><b>15.3.2</b> bigstep</a></li>
 </ul></li>
 <li class="chapter" data-level="15.4" data-path="memory.html"><a href="memory.html#ff"><i class="fa fa-check"></i><b>15.4</b> ff</a></li>
-<li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.5</b> matter</a></li>
-<li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.6</b> iotools</a></li>
-<li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#hdf5"><i class="fa fa-check"></i><b>15.7</b> HDF5</a></li>
-<li class="chapter" data-level="15.8" data-path="memory.html"><a href="memory.html#delayedarray"><i class="fa fa-check"></i><b>15.8</b> DelayedArray</a></li>
-<li class="chapter" data-level="15.9" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.9</b> Computing from a Distributed File System</a></li>
-<li class="chapter" data-level="15.10" data-path="memory.html"><a href="memory.html#bibliographic-notes-13"><i class="fa fa-check"></i><b>15.10</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="15.11" data-path="memory.html"><a href="memory.html#practice-yourself-11"><i class="fa fa-check"></i><b>15.11</b> Practice Yourself</a></li>
+<li class="chapter" data-level="15.5" data-path="memory.html"><a href="memory.html#disk.frame"><i class="fa fa-check"></i><b>15.5</b> disk.frame</a></li>
+<li class="chapter" data-level="15.6" data-path="memory.html"><a href="memory.html#matter"><i class="fa fa-check"></i><b>15.6</b> matter</a></li>
+<li class="chapter" data-level="15.7" data-path="memory.html"><a href="memory.html#iotools"><i class="fa fa-check"></i><b>15.7</b> iotools</a></li>
+<li class="chapter" data-level="15.8" data-path="memory.html"><a href="memory.html#hdf5"><i class="fa fa-check"></i><b>15.8</b> HDF5</a></li>
+<li class="chapter" data-level="15.9" data-path="memory.html"><a href="memory.html#delayedarray"><i class="fa fa-check"></i><b>15.9</b> DelayedArray</a></li>
+<li class="chapter" data-level="15.10" data-path="memory.html"><a href="memory.html#computing-from-a-distributed-file-system"><i class="fa fa-check"></i><b>15.10</b> Computing from a Distributed File System</a></li>
+<li class="chapter" data-level="15.11" data-path="memory.html"><a href="memory.html#bibliographic-notes-13"><i class="fa fa-check"></i><b>15.11</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="15.12" data-path="memory.html"><a href="memory.html#practice-yourself-11"><i class="fa fa-check"></i><b>15.12</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
 <li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
@@ -770,23 +771,27 @@ mymodel.ffdf &lt;-<span class="st"> </span><span class="kw">biglm</span>(payment
 <li>You cannot inspect the factor coding (dummy? effect?) using <code>model.matrix</code>. This is because EMAs never really construct the whole matrix, let alone, save it in memory.</li>
 </ul>
 </div>
+<div id="disk.frame" class="section level2">
+<h2><span class="header-section-number">15.5</span> disk.frame</h2>
+<p>TODO: <a href="https://github.com/xiaodaigh/disk.frame" class="uri">https://github.com/xiaodaigh/disk.frame</a></p>
+</div>
 <div id="matter" class="section level2">
-<h2><span class="header-section-number">15.5</span> matter</h2>
+<h2><span class="header-section-number">15.6</span> matter</h2>
 <p>Memory-efficient reading, writing, and manipulation of structured binary data on disk as vectors, matrices, arrays, lists, and data frames.</p>
 <p>TODO</p>
 </div>
 <div id="iotools" class="section level2">
-<h2><span class="header-section-number">15.6</span> iotools</h2>
+<h2><span class="header-section-number">15.7</span> iotools</h2>
 <p>A low level facility for connecting to on-disk binary storage. Unlike <strong>ff</strong>, and <strong>bigmemory</strong>, it behaves like native R objects, with their copy-on-write policy. Unlike <strong>reader</strong>, it allows chunking. Unlike <code>read.csv</code>, it allows fast I/O. <strong>iotools</strong> is thus a potentially very powerfull facility. See <span class="citation">Arnold, Kane, and Urbanek (<a href="#ref-arnold2015iotools">2015</a>)</span> for details.</p>
 <p>TODO</p>
 </div>
 <div id="hdf5" class="section level2">
-<h2><span class="header-section-number">15.7</span> HDF5</h2>
+<h2><span class="header-section-number">15.8</span> HDF5</h2>
 <p>Like <strong>ff</strong>, HDF5 is an on-disk efficient file format. The package <strong>h5</strong> is interface to the “HDF5” library supporting fast storage and retrieval of R-objects like vectors, matrices and arrays.</p>
 <p>TODO</p>
 </div>
 <div id="delayedarray" class="section level2">
-<h2><span class="header-section-number">15.8</span> DelayedArray</h2>
+<h2><span class="header-section-number">15.9</span> DelayedArray</h2>
 <p>An abstraction layer for operations on array objects, which supports various backend storage of arrays such as:</p>
 <ul>
 <li>In RAM: <a href="">base</a>, <a href="">Matrix</a>, <a href="https://bioconductor.org/packages/release/bioc/html/DelayedArray.html">DelayedArray</a>.</li>
@@ -799,15 +804,15 @@ mymodel.ffdf &lt;-<span class="st"> </span><span class="kw">biglm</span>(payment
 </ul>
 </div>
 <div id="computing-from-a-distributed-file-system" class="section level2">
-<h2><span class="header-section-number">15.9</span> Computing from a Distributed File System</h2>
+<h2><span class="header-section-number">15.10</span> Computing from a Distributed File System</h2>
 <p>If your data is SOOO big that it cannot fit on your local storage, you will need a distributed file system or DBMS. We do not cover this topic here, and refer the reader to the <strong>RHipe</strong>, <strong>RHadoop</strong>, and <strong>RSpark</strong> packages and references therein.</p>
 </div>
 <div id="bibliographic-notes-13" class="section level2">
-<h2><span class="header-section-number">15.10</span> Bibliographic Notes</h2>
+<h2><span class="header-section-number">15.11</span> Bibliographic Notes</h2>
 <p>An absolute SUPERB review on computing with big data is <span class="citation">Wang et al. (<a href="#ref-wang2015statistical">2015</a>)</span>, and references therein (<span class="citation">M. J. Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span> in particular). Here is also an excellent talk by <a href="http://www.columbia.edu/~sjm2186/EPIC_R/EPIC_R_BigData.pdf">Charles DiMaggio</a>. For an up-to-date list of the packages that deal with memory constraints, see the <strong>Large memory and out-of-memory data</strong> section in the <a href="https://cran.r-project.org/web/views/HighPerformanceComputing.html">High Performance Computing</a> task view. For a list of resources to interface to DMBS, see the <a href="https://cran.r-project.org/web/views/Databases.html">Databases with R</a> task view. For more on data analysis from disk, and not from RAM, see <a href="https://www.peterhickey.org/slides/2017/2017-08-01_Peter_Hickey_JSM.pdf">Peter_Hickey’s JSM talk</a>.</p>
 </div>
 <div id="practice-yourself-11" class="section level2">
-<h2><span class="header-section-number">15.11</span> Practice Yourself</h2>
+<h2><span class="header-section-number">15.12</span> Practice Yourself</h2>
 
 </div>
 </div>

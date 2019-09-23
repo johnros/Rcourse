@@ -126,7 +126,7 @@
 
 \title{R (BGU course)}
 \author{Jonathan D. Rosenblatt}
-\date{2019-08-18}
+\date{2019-09-23}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -9156,7 +9156,8 @@ include:
   I.e. \(\Vert f \Vert=\Vert \beta \Vert_2^2=\sum_j \beta_j^2\).
 \item
   \textbf{LASSO penalty}: penalizing the \(l_1\) norm of the parameter.
-  I.e., \(\Vert f \Vert=\Vert \beta \Vert_1=\sum_j |\beta_j|\)
+  I.e., \(\Vert f \Vert=\Vert \beta \Vert_1=\sum_j |\beta_j|\). Also
+  known as \textbf{Basis Pursuit}, in signal processing.
 \item
   \textbf{Elastic net}: a combination of the lasso and ridge penalty.
   I.e.
@@ -10209,6 +10210,22 @@ Things to note:
   process.
 \end{itemize}
 
+\subsubsection{The parsnip package}\label{parsnip}
+
+At this point you may have noted that different R packages have differet
+interfaces to specify and fit models. Wouldn't it be nice to have a
+unified language that allows to specify a model, indpendently of the
+undelying fitting libraries? This is percisely the purpose of
+\href{https://github.com/tidymodels/parsnip}{parsnip}, created by
+\href{https://twitter.com/topepos}{Max Kuhn}, the author of
+\textbf{caret}. With parsnip, you specify a model, save it, and can
+later dispatch it to fitting with \textbf{lm}, \textbf{glmnet},
+\textbf{Spark}, or other fitting libraries. This is much like
+\textbf{ggplot2}, where you specify a plot, save it, and dispatch it for
+printing using \emph{print()}.
+
+TODO: add code examples.
+
 \subsection{K-nearest neighbour (KNN)}\label{k-nearest-neighbour-knn}
 
 KNN is not an ERM problem. In the KNN algorithm, a prediction at some
@@ -10483,7 +10500,10 @@ Savege's post}, or the official
 \href{https://cran.r-project.org/web/views/MachineLearning.html}{Task
 View}. For a review of resampling based unbiased risk estimation
 (i.e.~cross validation) see the exceptional review of
-\citet{arlot2010survey}. If you want to know about Deep-Nets in R see
+\citet{arlot2010survey}. For feature engineering:
+\href{https://bookdown.org/max/FES/}{Feature Engineering and Selection:
+A Practical Approach for Predictive Models}. If you want to know about
+Deep-Nets in R see
 \href{https://www.datacamp.com/community/tutorials/keras-r-deep-learning}{here}.
 
 \section{Practice Yourself}\label{practice-yourself-6}
@@ -15099,6 +15119,10 @@ Things to note:
   \texttt{model.matrix}. This is because EMAs never really construct the
   whole matrix, let alone, save it in memory.
 \end{itemize}
+
+\section{disk.frame}\label{disk.frame}
+
+TODO: \url{https://github.com/xiaodaigh/disk.frame}
 
 \section{matter}\label{matter}
 
