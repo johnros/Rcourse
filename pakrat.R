@@ -1,6 +1,6 @@
 packrat::on()
-# packrat::restore()
 options(repos=structure(BiocManager::repositories()))
+# packrat::restore()
 # packrat::init()
 packrat::set_opts(vcs.ignore.lib=T)
 packrat::set_opts(vcs.ignore.src=T)

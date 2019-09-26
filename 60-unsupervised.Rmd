@@ -7,8 +7,9 @@ editor_options:
 
 This chapter deals with machine learning problems which are unsupervised.
 This means the machine has access to a set of inputs, $x$, but the desired outcome, $y$ is not available. 
-Clearly, learning a relation between inputs and outcomes makes no sense, but there are still a lot of problems of interest. 
-In particular, we may want to find a compact representation of the inputs, be it for visualization of further processing. This is the problem of _dimensionality reduction_.
+Clearly, learning a relation between inputs and outcomes is impossible, but there are still a lot of problems of interest. 
+In particular, we may want to find a compact representation of the inputs, be it for visualization of further processing. 
+This is the problem of _dimensionality reduction_.
 For the same reasons we may want to group similar inputs. This is the problem of _clustering_.
 
 In the statistical terminology, with some exceptions, this chapter can be thought of as multivariate __exploratory__ statistics.
@@ -27,8 +28,7 @@ We can thus state that heights and weights are not really two dimensional, but r
 
 ```{example, label='iq'}
 Consider the correctness of the answers to a questionnaire with $p$ questions. 
-The data may seemingly reside in a $p$ dimensional space, but assuming there is a thing as "skill", then given the correctness of a person's reply to a subset of questions, we have a good idea how he scores on the rest. 
-Put differently, we don't really need a $200$ question questionnaire-- $100$ is more than enough.
+The data may seemingly reside in a $p$ dimensional space, but if there is a thing such as "skill", then given the correctness of a person's reply to a subset of questions, we have a good idea how he scores on the rest. 
 If skill is indeed a one dimensional quality, then the questionnaire data should organize around a single line in the $p$ dimensional cube. 
 ```
 
@@ -37,10 +37,12 @@ If skill is indeed a one dimensional quality, then the questionnaire data should
 Consider $n$ microphones recording an individual. 
 The digitized recording consists of $p$ samples. 
 Are the recordings really a shapeless cloud of $n$ points in $\mathbb{R}^p$?
-Since they all record the same sound, one would expect the $n$ $p$-dimensional points to arrange around the source sound bit: a single point in $\mathbb{R}^p$.
-If microphones have different distances to the source, volumes may differ. 
+Since they all record the same sound, one would expect the $n$ $p$-dimensional points to arrange around the original, noisless, sound: a single point in $\mathbb{R}^p$.
+If microphones have different distances to the source, volumes and echoes may differ. 
 We would thus expect the $n$ points to arrange about a __line__ in $\mathbb{R}^p$. 	
 ```
+
+
 
 ### Principal Component Analysis {#pca}
 
@@ -51,7 +53,9 @@ The many names are quite interesting as they offer an insight into the different
 
 
 Return to the BMI problem in Example \@ref(exm:bmi).
-Assume you wish to give each individual a "size score", that is a __linear__ combination of height and weight: PCA does just that. 
+Assume you wish to give each individual a "size score".
+Also assume this score is a __linear__ combination of height and weight.
+That is the problem solved by PCA: 
 It returns the linear combination that has the largest variability, i.e., the combination which best distinguishes between individuals. 
 
 The variance maximizing motivation above was the one that guided @hotelling1933analysis.
@@ -69,7 +73,7 @@ head(USArrests)
 
 Following Hotelling's motivation, we may want to give each state a "crimilality score". 
 We first remove the `UrbanPop` variable, which does not encode crime levels. 
-We then z-score each variable with `scale`, and call PCA for a sequence of $1,\dots,3$ criminality scores that best separate between states. 
+We then z-score each variable with `base::scale()`, and call PCA for a sequence of $1,\dots,3$ criminality scores that best separate between states. 
 
 ```{r, echo=FALSE}
 library(magrittr)
@@ -84,13 +88,14 @@ pca.1
 
 Things to note and terminology:
 
-- Distinguishing between states, i.e., finding the variance maximizing scores, should be indifferent to the __average__ of each variable. 
-We also don't want the score to be sensitive to the measurement __scale__. 
-Formally, we say we want the scores to be _affine invariant_. 
+- The score that best distinguishes between states should be indifferent to the __average__ of each variable. 
+We also don't want the score to be sensitive to the measurement scale. 
+Formally, we want the scores to be _affine invariant_. 
 We thus perform PCA in the z-score scale of each variable, obtained with the `scale` function.
 
-- PCA is performed with the `prcomp` function. 
-It returns the contribution (weight) of the original variables, to the new crimeness score. These weights are called the _loadings_ . Z-scored loadings are known as _Rotations_, which is also the term  in the `prcomp` output. If you are confused between loadings and rotations, see this [Cross Validated](https://stats.stackexchange.com/questions/143905/loadings-vs-eigenvectors-in-pca-when-to-use-one-or-another) entry.
+- PCA is performed with the `stats::prcomp` function. 
+It returns the contribution (weight) of the original variables, to the new crimeness score. After rescaling, these weights are called the _loadings_. 
+Borrowing from the __Factor Analaysis__ literature, the loadings may be called _Rotations_, which is their name in the `stats::prcomp()` output. If you are confused between weights, loadings and rotations, see this [Cross Validated](https://stats.stackexchange.com/questions/143905/loadings-vs-eigenvectors-in-pca-when-to-use-one-or-another) entry.
 
 - The number of possible scores, is the same as the number of original variables in the data. 
 
@@ -102,7 +107,7 @@ Because all the $3$ crime variables have a similar loading on PC1.
 
 - The other PCs are slightly harder to interpret, but it is an interesting exercise.
 
-__If we now represent each state, not with its original $4$ variables, but only with the first $2$ PCs (for example), we have reduced the dimensionality of the data.__
+__If we now represent each state, not with its original $3$ crimes measurements variables, but only with the first $2$ PCs (for example), we have reduced the dimensionality of the data.__
 
 #### Mathematics of PCA
 
@@ -168,7 +173,7 @@ If the embedding is not only an algorithm, but rather, has a functional form rep
 Known to statisticians as the __sampling distribution__. 
 The assumed stochastic process that generated the observed $X$. 
 
-![Various embedding algorithms. No embedding of the sphere to the plane is perfect. This is obviously not new. [Maps makers](https://en.wikipedia.org/wiki/Map_projection) have known this for centuries!Source: http://sci kit-learn.org/stable/auto_examples/manifold/plot_manifold_sphere.html#sphx-glr-auto-examples-manifold-plot-manifold-sphere-py](art/sphx_glr_plot_manifold_sphere_001.png)
+![Various embedding algorithms. No embedding of the sphere to the plane is perfect. This is obviously not new. Maps makers have known this for centuries!](art/sphx_glr_plot_manifold_sphere_001.png)
 
 
 There are many motivations for dimensionality reduction:
@@ -196,7 +201,7 @@ We start with the simplest case of linear Factor Analysis.
 
 
 
-#### Factor Analysis (FA)
+#### Factor Analysis (FA) {#factor-analysis}
 
 FA originates from the psychometric literature. 
 We thus revisit the IQ (actually g-factor^[https://en.wikipedia.org/wiki/G_factor_(psychometrics)]) Example \@ref(exm:iq):
@@ -228,8 +233,8 @@ In the statistical parlance we say the problem is _non identifiable_, and in the
 ```{remark}
 The non-uniqueness (non-identifiability) of the FA solution under variable rotation is never mentioned in the PCA context. 
 Why is this?
-This is because the methods solve different problems. 
-The reason the solution to PCA is well defined is that PCA does not seek a single $S$ but rather a __sequence__ of $S_q$ with dimensions growing from $q=1$ to $q=p$. 
+This is because PCA and FA solve different problems. 
+$\hat S$ in PCA is well defined because PCA does not seek a single $S$ but rather a __sequence__ of $S_q$ with dimensions growing from $q=1$ to $q=p$. 
 ```
 
 
@@ -255,7 +260,7 @@ For a discussion of the similarities and dissimilarities, see this excellent [St
 
 #### Independent Component Analysis (ICA)
 Like FA, _independent compoent analysis_ (ICA) is a family of latent space models, thus, a _meta-method_.
-It assumes data is generated as some function of the latent variables $S$. 
+It assumes the observables are some function of the latent variables $S$. 
 In many cases this function is assumed to be linear in $S$ so that ICA is compared, if not confused, with PCA and even more so with FA. 
 
 The fundamental idea of ICA is that $S$ has a joint distribution of __non-Gaussian__, __independent__ variables. 
@@ -279,31 +284,32 @@ This does not mean that they cannot be cast via their generative model, but rath
 
 
 #### Multidimensional Scaling (MDS)
-MDS can be thought of as a variation on PCA, that begins with the $n \times n$ graph of distances between data points $\mathcal{G}$; In contrast to PCA which operates on the original $n \times p$ data $X$.
-The term _graph_ is typically used in this context, but saying _network_ instead of _graph_ is more appropriate. This is because a graph encodes connections (topology) and networks encode distances (geometry). Put differently, a graph can be encoded in a matrix of zeroes and ones, and a network with real numbers. 
+MDS can be thought of as a variation on PCA, that begins with the $n \times n$ graph of distances between data points $\mathcal{G}$; in contrast to PCA which operates on the original $n \times p$ data $X$.
+The term _graph_ is typically used in this context, but saying _network_ instead of _graph_ is more accurate. This is because a graph encodes connections (topology) and networks encode distances (geometry). Put differently, a graph can be encoded in a matrix of zeroes and ones, and a network in a matrix of real numbers. 
 
 MDS aims at embedding $\mathcal{G}$ into the plane, typically for visualization, while preserving the original distances.
 Basic results in graph/network theory suggest that the geometry of a graph cannot be preserved when embedding it into lower dimensions [@graham1988isometric]. 
 The different types of MDSs, such as _Classical MDS_, and _Sammon Mappings_, differ in the _stress function_ that penalizes for the geometric distortion caused by the embedding.
 
 
-#### Local Multidimensional Scaling (Local MDS) {#loc-mds}
+#### Local Multidimensional Scaling (local-MDS) {#loc-mds}
 
 ```{example, label='non-euclidean'}
-Consider data of coordinates on the globe. 
-At short distances, constructing a dissimilarity graph with Euclidean distances will capture the true distance between points. 
-At long distances, however, the Euclidean distances as grossly inappropriate. 
+Consider data, $X$, of Cartesian coordinates on the globe. 
+At short distances, constructing a dissimilarity graph, $X \mapsto \mathcal{G}$ using Euclidean distances between Cartesian coordinates will capture the true distance between points. 
+At long distances, however, the Euclidean distances, are a very poor aproximation of the distance to travel between points on the globe. 
 A more extreme example is coordinates on the brain's cerebral cortex.
 Being a highly folded surface, the Euclidean distance between points is far from the true geodesic distances along the cortex's surface^[Then again, it is possible that the true distances are the white matter fibers connecting going within the cortex, in which case, Euclidean distances are more appropriate than geodesic distances. We put that aside for now.].
 ```
 
-Local MDS is aimed at solving the case where Euclidean distances are inappropriate. 
-Instead of using the graph of Euclidean distances between any two points, $\mathcal{G}=X'X$, local MDS computes $\mathcal{G}$ starting with the Euclidean distance between pairs of nearest points. 
-Longer distances are solved as a [shortest path problem](https://en.wikipedia.org/wiki/Shortest_path_problem). 
-This is akin to computing the distance between Jerusalem to Beijing by computing Euclidean distances between Jerusalem-Bagdad, Bagdad-Teheran, Teheran-Ashgabat, Ashgabat-Tashkent,and so on. Because the [geographical-distance](https://en.wikipedia.org/wiki/Geographical_distance) between these cities is well approximated with the Euclidean distance, summing local distanes is better than operating with the Euclidean distance between Jerusalem and Beijing. 
+local-MDS is aimed at solving the case where Euclidean distances, implied by PCA and FA, are a bad measure of distance. 
+Instead of using the graph of Euclidean distances between any two points, $\mathcal{G}=X'X$, local-MDS computes $\mathcal{G}$ starting with the Euclidean distance between pairs of nearest points. 
+Longer distances are solved as a [shortest path problem](https://en.wikipedia.org/wiki/Shortest_path_problem).
+For instance, using the [Floyd–Warshall algorithm](https://en.wikipedia.org/wiki/Floyd–Warshall_algorithm), which sums distances between closest points. 
+This is akin to computing the distance between Jerusalem to Beijing by computing Euclidean distances between Jerusalem-Bagdad, Bagdad-Teheran, Teheran-Ashgabat, Ashgabat-Tashkent,and so on. Because the [geographical-distance](https://en.wikipedia.org/wiki/Geographical_distance) between nearby cities is well approximated with the Euclidean distance, summing local distanes is better than operating directly with the Euclidean distance between Jerusalem and Beijing. 
 
-After computing $\mathcal{G}$, local MDS ends with the usual MDS for the embedding.
-Because local MDS ends with a regular MDS, it can be seen as a non-linear embedding into a linear manifold $\mathcal{M}$. 
+After computing $\mathcal{G}$, local-MDS ends with the usual MDS for the embedding.
+Because local-MDS ends with a regular MDS, it can be seen as a non-linear embedding into a linear manifold $\mathcal{M}$. 
 
 
 #### Isometric Feature Mapping (IsoMap) {#isomap}
@@ -318,26 +324,31 @@ Very similar to IsoMap \@ref(isomap).
 t-SNE is a recently popularized visualization method for high dimentional data. 
 t-SNE starts by computing a proximity graph, $\mathcal{G}$. 
 Computation of distances in the graph assumes a Gaussian decay of distances. 
-Put differently: only the nearest observations have a non-trivial similarity. 
-This stage is similar (in spirit) to the growing of $\mathcal{G}$ in \@ref(loc-mds).
+Put differently: only the nearest observations have a non-vanishing similarity. 
+This stage is similar (in spirit) to the growing of $\mathcal{G}$ in local-MDS (\@ref(loc-mds)).
 
 The second stage in t-SNE consists of finding a mapping to 2D (or 3D), which conserves distances in $\mathcal{G}$. 
-The uniquness of t-SNE copared to other space embeddings is in the way distances are computed in the target 2D (or 3D) space.
+The uniquness of t-SNE compared to other space embeddings is in the way distances are computed in the target 2D (or 3D) space.
 
 
 
 #### Force Directed Graph Drawing
 
-This class of algorithms star with a proximty graph $\mathcal{G}$, to define a set of phisically motivated "forces", operating between data-points. 
+This class of algorithms start with a proximty graph $\mathcal{G}$, and define a set of phisically motivated "forces", operating between data-points. 
 Think of $\mathcal{G}$ as governing a set of springs between data points. 
-These springs have some steady-state: this is what you see in the visualization.
+These springs have some steady-state.
+The location of points in the embedding corrsponds to the steady state of this system of springs. 
 
 
 
 #### Kernel PCA (kPCA)
 Returning to the BMI example (\@ref(exm:bmi)); what if we want to learn scores that best separate between individuals, but unlike PCA, are non-linear in the original features. 
-Kernel PCA does just that, only that it restricts the possible scores to simple functions of the original variables. 
-The allowed functions resides in a function space called Reproducing Kernel Hilbert Space (RKHS), this giving kPCA it's name.
+Kernel PCA does just that, only that it restricts the possible scores to simple functions of the original variables.
+These functions are known as the _feature mapping_.
+The feature mappings resides in a function space called Reproducing Kernel Hilbert Space (RKHS), thus giving kPCA it's name.
+By defining a _Kernel_ one defines the class of feature mappings implied by the algorithm.
+The magic of kPCA, like other kernel methods, is that even if one chooses a kernel maps $p$ features, to an infinte dimensional space, the solution to the kPCA problem has a closed form solution. 
+This implies that theoreticians may study the statisticla properties of kPCA, and solutions do not require solving optimization probelm in  untractable function spaces. 
 
 
 
@@ -347,17 +358,17 @@ The allowed functions resides in a function space called Reproducing Kernel Hilb
 sPCA is a type of PCA where the loadings are sparse. 
 This means that PCs are linear combinations of a small number of variables. 
 This makes sPCA easier to interpret. 
-Note that the _varimax_ rotation of factor-analysis has a similar goal: create factors with minimally contributing variables, so that they are easy to explain. 
+Note that the _varimax_ rotation in factor-analysis (\@ref(factor-analysis)) has a similar goal: create factors with the smallest number of contributing variables, so that they are easy to explain. 
 
 
 #### Sparse kernel PCA (skPCA)
-A marriage between sPCA and kPCA: generate scores that are non linear transformations of a minimal number of variables, each. 
+A marriage between sPCA and kPCA: generate scores that are non linear transformations of a small number of variables, each. 
 
 
 #### Correspondence Analysis (CA)
 What if $x$ is not continuous, i.e., $\mathcal{X}\neq \mathbb{R}^p$?
 We could dummy-code $x$, and then use plain PCA. 
-A more principled view, when $x$ is categorical, is that of [Correspondence Analysis](https://en.wikipedia.org/wiki/Correspondence_analysis).
+A more principled view, when $x$ is categorical, is known as _Correspondence Analysis_.
 
 
 
@@ -367,7 +378,7 @@ A more principled view, when $x$ is categorical, is that of [Correspondence Anal
 #### PCA {#pca-in-r}
 
 We already saw the basics of PCA in \@ref(pca).
-The fitting is done with the `prcomp` function.
+The fitting is done with the `stats::prcomp` function.
 The _bi-plot_ is a useful way to visualize the output of PCA.
 
 ```{r}
@@ -379,13 +390,13 @@ ggbiplot::ggbiplot(pca.1)
 Things to note:
 
 
-- We used the `ggbiplot` function from the __ggbiplot__ (available from github, but not from CRAN), because it has a nicer output than `stats::biplot`. 
-- The bi-plot also plots the loadings as arrows. The coordinates of the arrows belong to the weight of each of the original variables in each PC. 
-For example, the x-value of each arrow is the loadings on the first PC (on the x-axis).
+- We used the `ggbiplot::ggbiplot` function  (available from github, but not from CRAN), because it has a nicer output than `stats::biplot`. 
+- The data is presented in the plane of PC1 and PC2.
+- The bi-plot plots the loadings as arrows. The coordinates of the arrows belong to the weight of each of the original variables in each PC. 
+For example, the x-value of each arrow is the loadings on the PC1.
 Since the weights of Murder, Assault, and Rape are almost the same, we conclude that PC1 captures the average crime rate in each state.
-- The bi-plot plots each data point along its PCs.
 
-The _scree plot_ depicts the quality of the approximation of $X$ as $q$ grows, i.e., as we add more and more PCs to explain the data. 
+The _scree plot_ depicts the quality of the approximation of $X$ as $q$ grows, i.e., as we allow increase the dimension of our new score. 
 This is depicted using the proportion of variability in $X$ that is removed by each added PC.
 It is customary to choose $q$ as the first PC that has a relative low contribution to the approximation of $X$.
 This is known as the "knee heuristic". 
@@ -394,7 +405,9 @@ This is known as the "knee heuristic".
 ggbiplot::ggscreeplot(pca.1)
 ```
 
-See how the first PC captures the variability in the Assault levels and Murder levels, with a single score.
+The scree plot suggests a PC1 alone captures about 0.8 of the variability in crime levels. 
+The next plot, is the classical class-room introduction to PCA.
+It shows that states are indeed arranged along a single line in the "Assault-Murder" plane. This line is PC1.
 
 ```{r, echo=FALSE}
 USArrests.1 <- USArrests[,-3] %>% scale
@@ -443,10 +456,14 @@ fa.1 <- psych::principal(USArrests.1, nfactors = 2, rotate = "none")
 fa.1
 biplot(fa.1, labels =  rownames(USArrests.1)) 
 
-# Numeric comparison with PCA:
+```
+
+Numeric comparison with PCA:
+```{r}
 fa.1$loadings
 pca.1$rotation
 ```
+
 
 Things to note:
 
