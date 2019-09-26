@@ -468,12 +468,12 @@ pca.1$rotation
 Things to note:
 
 - We perform FA with the `psych::principal` function. The `Principal Component Analysis` title is due to the fact that FA without rotations, is equivalent to PCA.
-- The first factor (`fa.1$loadings`) has different weights than the first PC (`pca.1$rotation`) because of normalization. They are the same, however, in that the first PC, and the first factor, capture average crime levels.
+- The first factor (`fa.1$loadings`) has different weights than the first PC (`pca.1$rotation`) because they have different normalizations. They have the same interpretation however:  all weights of the first component are simiar, suggesting it merely captures the average crime rate.
 
 Graphical model fans will like the following plot, where the contribution of each variable to each factor is encoded in the width of the arrow. 
 
-```{r, eval=FALSE}
-qgraph::qgraph(fa.1)
+```{r, eval=TRUE}
+qgraph::qgraph(fa.1$loadings)
 ```
 
 Let's add a rotation (Varimax), and note that the rotation has indeed changed the loadings of the variables, thus the interpretation of the factors. 

@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-09-23" />
+<meta name="date" content="2019-09-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,50 +55,76 @@
 <link href="libs/ggiraphjs-0.1.0/styles.css" rel="stylesheet" />
 <script src="libs/ggiraphjs-0.1.0/ggiraphjs.min.js"></script>
 <script src="libs/girafe-binding-0.6.0/girafe.js"></script>
-<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
+<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -462,91 +488,148 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 8</span> Linear Mixed Models</h1>
 
 <div class="example">
-<span id="exm:dependence" class="example"><strong>Example 8.1  (Dependent Samples on the Mean)  </strong></span>Consider inference on a population’s mean. Supposdly, more observations imply more infotmation on the mean. This, however, is not the case if samples are completely dependant. More observations do not add any new information. From this example one may think that dependence is a bad thing. This is a false intuitiont: negative correlations imply oscilations about the mean, so they are actually more informative on the mean than independent observations.
+<span id="exm:dependence" class="example"><strong>Example 8.1  (Dependent Samples on the Mean)  </strong></span>Consider inference on a population’s mean.
+Supposdly, more observations imply more infotmation on the mean. This, however, is not the case if samples are completely dependant. More observations do not add any new information.
+From this example one may think that dependence is a bad thing. This is a false intuitiont: negative correlations imply oscilations about the mean, so they are actually more informative on the mean than independent observations.
 </div>
 
 
 <div class="example">
-<span id="exm:repeated-measures" class="example"><strong>Example 8.2  (Repeated Measures)  </strong></span>Consider a prospective study, i.e., data that originates from selecting a set of subjects and making measurements on them over time. Also assume that some subjects received some treatment, and other did not. When we want to infer on the population from which these subjects have been sampled, we need to recall that some series of observations came from the same subject. If we were to ignore the subject of origin, and treat each observation as an independent sample point, we will think we have more information in our data than we actually do. For a rough intuition, think of a case where observatiosn within subject are perfectly dependent.
+<span id="exm:repeated-measures" class="example"><strong>Example 8.2  (Repeated Measures)  </strong></span>Consider a prospective study, i.e., data that originates from selecting a set of subjects and making measurements on them over time.
+Also assume that some subjects received some treatment, and other did not.
+When we want to infer on the population from which these subjects have been sampled, we need to recall that some series of observations came from the same subject.
+If we were to ignore the subject of origin, and treat each observation as an independent sample point, we will think we have more information in our data than we actually do.
+For a rough intuition, think of a case where observatiosn within subject are perfectly dependent.
 </div>
 
-<p>The sources of variability, i.e. noise, are known in the statistical literature as “random effects”. Specifying these sources determines the correlation structure in our measurements. In the simplest linear models of Chapter <a href="lm.html#lm">6</a>, we thought of the variability as a measurement error, independent of anything else. This, however, is rarely the case when time or space are involved.</p>
-<p>The variability in our data is rarely the object of interest. It is merely the source of uncertainty in our measurements. The effects we want to infer on are assumingly non-random, thus known as “fixed-effects”. A model which has several sources of variability, i.e. random-effects, and several deterministic effects to study, i.e. fixed-effects, is known as a “mixed effects” model. If the model is also linear, it is known as a <em>linear mixed model</em> (LMM). Here are some examples of such models.</p>
+<p>The sources of variability, i.e. noise, are known in the statistical literature as “random effects”.
+Specifying these sources determines the correlation structure in our measurements.
+In the simplest linear models of Chapter <a href="lm.html#lm">6</a>, we thought of the variability as a measurement error, independent of anything else. This, however, is rarely the case when time or space are involved.</p>
+<p>The variability in our data is rarely the object of interest.
+It is merely the source of uncertainty in our measurements.
+The effects we want to infer on are assumingly non-random, thus known as “fixed-effects”.
+A model which has several sources of variability, i.e. random-effects, and several deterministic effects to study, i.e. fixed-effects, is known as a “mixed effects” model.
+If the model is also linear, it is known as a <em>linear mixed model</em> (LMM).
+Here are some examples of such models.</p>
 
 <div class="example">
-<span id="exm:fixed-effects" class="example"><strong>Example 8.3  (Fixed and Random Machine Effect)  </strong></span>Consider the problem of testing for a change in the distribution of diamteters of manufactured bottle caps. We want to study the (fixed) effect of time: before versus after. Bottle caps are produced by several machines. Clearly there is variablity in the diameters within-machine and between-machines. Given many measurements on many bottle caps from many machines, we could standardize measurements by removing each machine’s average. This implies the within-machine variability is the only source of variability we care about, because the substration of the machine effect, removed information on the between-machine variability.<br />
+<span id="exm:fixed-effects" class="example"><strong>Example 8.3  (Fixed and Random Machine Effect)  </strong></span>Consider the problem of testing for a change in the distribution of diamteters of manufactured bottle caps.
+We want to study the (fixed) effect of time: before versus after.
+Bottle caps are produced by several machines.
+Clearly there is variablity in the diameters within-machine and between-machines.
+Given many measurements on many bottle caps from many machines, we could standardize measurements by removing each machine’s average.
+This implies the within-machine variability is the only source of variability we care about, because the substration of the machine effect, removed information on the between-machine variability.<br />
 Alternatively, we could treat the between-machine variability as another source of noise/uncertainty when inferring on the temporal fixed effect.
 </div>
 
 
 <div class="example">
-<span id="exm:random-effects" class="example"><strong>Example 8.4  (Fixed and Random Subject Effect)  </strong></span>Consider an experimenal design where each subject is given 2 types of diets, and his health condition is recorded. We could standardize over subjects by removing the subject-wise average, before comparing diets. This is what a paired t-test does. This also implies the within-subject variability is the only source of variability we care about. Alternatively, for inference on the population of “all subjects” we need to adress the between-subject variability, and not only the within-subject variability.
+<span id="exm:random-effects" class="example"><strong>Example 8.4  (Fixed and Random Subject Effect)  </strong></span>Consider an experimenal design where each subject is given 2 types of diets, and his health condition is recorded.
+We could standardize over subjects by removing the subject-wise average, before comparing diets.
+This is what a paired t-test does.
+This also implies the within-subject variability is the only source of variability we care about.
+Alternatively, for inference on the population of “all subjects” we need to adress the between-subject variability, and not only the within-subject variability.
 </div>
 
-<p>The unifying theme of the above examples, is that the variability in our data has several sources. Which are the sources of variability that need to concern us? This is a delicate matter which depends on your goals. As a rule of thumb, we will suggest the following view: <strong>If information of an effect will be available at the time of prediction, treat it as a fixed effect. If it is not, treat it as a random-effect.</strong></p>
+<p>The unifying theme of the above examples, is that the variability in our data has several sources.
+Which are the sources of variability that need to concern us?
+This is a delicate matter which depends on your goals.
+As a rule of thumb, we will suggest the following view:
+<strong>If information of an effect will be available at the time of prediction, treat it as a fixed effect. If it is not, treat it as a random-effect.</strong></p>
 <p>LMMs are so fundamental, that they have earned many names:</p>
 <ul>
-<li><p><strong>Mixed Effects</strong>: Because we may have both <em>fixed effects</em> we want to estimate and remove, and <em>random effects</em> which contribute to the variability to infer against.</p></li>
-<li><p><strong>Variance Components</strong>: Because as the examples show, variance has more than a single source (like in the Linear Models of Chapter <a href="lm.html#lm">6</a>).</p></li>
-<li><p><strong>Hirarchial Models</strong>: Because as Example <a href="lme.html#exm:random-effects">8.4</a> demonstrates, we can think of the sampling as hierarchical– first sample a subject, and then sample its response.</p></li>
-<li><p><strong>Multilevel Analysis</strong>: For the same reasons it is also known as Hierarchical Models.</p></li>
-<li><p><strong>Repeated Measures</strong>: Because we make several measurements from each unit, like in Example <a href="lme.html#exm:random-effects">8.4</a>.</p></li>
-<li><p><strong>Longitudinal Data</strong>: Because we follow units over time, like in Example <a href="lme.html#exm:random-effects">8.4</a>.</p></li>
-<li><p><strong>Panel Data</strong>: Is the term typically used in econometric for such longitudinal data.</p></li>
-<li><p><strong>MANOVA</strong>: Many of the problems that may be solved with a multivariate analysis of variance (MANOVA), may be solved with an LMM for reasons we detail in <a href="multivariate.html#multivariate">9</a>.</p></li>
-<li><p><strong>Structured Prediction</strong>: In the machine learning literature, predicting outcomes with structure, such as correlated vectors, is known as Structured Learning. Because LMMs merely specify correlations, using a LMM for making predictions may be thought of as an instance of structured prediction.</p></li>
+<li><p><strong>Mixed Effects</strong>:
+Because we may have both <em>fixed effects</em> we want to estimate and remove, and <em>random effects</em> which contribute to the variability to infer against.</p></li>
+<li><p><strong>Variance Components</strong>:
+Because as the examples show, variance has more than a single source (like in the Linear Models of Chapter <a href="lm.html#lm">6</a>).</p></li>
+<li><p><strong>Hirarchial Models</strong>:
+Because as Example <a href="lme.html#exm:random-effects">8.4</a> demonstrates, we can think of the sampling as hierarchical– first sample a subject, and then sample its response.</p></li>
+<li><p><strong>Multilevel Analysis</strong>:
+For the same reasons it is also known as Hierarchical Models.</p></li>
+<li><p><strong>Repeated Measures</strong>:
+Because we make several measurements from each unit, like in Example <a href="lme.html#exm:random-effects">8.4</a>.</p></li>
+<li><p><strong>Longitudinal Data</strong>:
+Because we follow units over time, like in Example <a href="lme.html#exm:random-effects">8.4</a>.</p></li>
+<li><p><strong>Panel Data</strong>:
+Is the term typically used in econometric for such longitudinal data.</p></li>
+<li><p><strong>MANOVA</strong>:
+Many of the problems that may be solved with a multivariate analysis of variance (MANOVA), may be solved with an LMM for reasons we detail in <a href="multivariate.html#multivariate">9</a>.</p></li>
+<li><p><strong>Structured Prediction</strong>:
+In the machine learning literature, predicting outcomes with structure, such as correlated vectors, is known as Structured Learning.
+Because LMMs merely specify correlations, using a LMM for making predictions may be thought of as an instance of structured prediction.</p></li>
 </ul>
-<p>Whether we are aiming to infer on a generative model’s parameters, or to make predictions, there is no “right” nor “wrong” approach. Instead, there is always some implied measure of error, and an algorithm may be good, or bad, with respect to this measure (think of false and true positives, for instance). This is why we care about dependencies in the data: ignoring the dependence structure will probably yield inefficient algorithms. Put differently, if we ignore the statistical dependence in the data we will probably me making more errors than possible/optimal.</p>
+<p>Whether we are aiming to infer on a generative model’s parameters, or to make predictions, there is no “right” nor “wrong” approach. Instead, there is always some implied measure of error, and an algorithm may be good, or bad, with respect to this measure (think of false and true positives, for instance).
+This is why we care about dependencies in the data: ignoring the dependence structure will probably yield inefficient algorithms.
+Put differently, if we ignore the statistical dependence in the data we will probably me making more errors than possible/optimal.</p>
 <p>We now emphasize:</p>
 <ol style="list-style-type: decimal">
 <li><p>Like in previous chapters, by “model” we refer to the assumed generative distribution, i.e., the sampling distribution.</p></li>
-<li><p>LMMs are a way to infer against the right level of variability. Using a naive linear model (which assumes a single source of variability) instead of a mixed effects model, probably means your inference is overly anti-conservative. Put differently, the uncertainty in your estimates is higher than the linear model from Chapter <a href="lm.html#lm">6</a> may suggest.</p></li>
-<li><p>In a LMM we will specify the dependence structure via the hierarchy in the sampling scheme (e.g. caps within machine, students within class, etc.). Not all dependency models can be specified in this way. Dependency structures that are not hierarchical include temporal dependencies (<a href="https://en.wikipedia.org/wiki/Autoregressive_model">AR</a>, <a href="https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average">ARIMA</a>, <a href="https://en.wikipedia.org/wiki/Autoregressive_conditional_heteroskedasticity">ARCH</a> and GARCH), <a href="https://en.wikipedia.org/wiki/Spatial_dependence">spatial</a>, <a href="https://en.wikipedia.org/wiki/Markov_chain">Markov Chains</a>, and more. To specify dependency structures that are no hierarchical, see Chapter 8 in (the excellent) <span class="citation">Weiss (<a href="#ref-weiss2005modeling">2005</a>)</span>.</p></li>
-<li><p>If you are using the model merely for predictions, and not for inference on the fixed effects or variance components, then stating the generative distribution may be be useful, but not necessarily. See the Supervised Learning Chapter <a href="supervised.html#supervised">10</a> for more on prediction problems. Also recall that machine learning from non-independent observations (such as LMMs) is a delicate matter that is rarely treated in the literature.</p></li>
+<li><p>LMMs are a way to infer against the right level of variability.
+Using a naive linear model (which assumes a single source of variability) instead of a mixed effects model, probably means your inference is overly anti-conservative.
+Put differently, the uncertainty in your estimates is higher than the linear model from Chapter <a href="lm.html#lm">6</a> may suggest.</p></li>
+<li><p>In a LMM we will specify the dependence structure via the hierarchy in the sampling scheme (e.g. caps within machine, students within class, etc.).
+Not all dependency models can be specified in this way.
+Dependency structures that are not hierarchical include temporal dependencies (<a href="https://en.wikipedia.org/wiki/Autoregressive_model">AR</a>, <a href="https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average">ARIMA</a>, <a href="https://en.wikipedia.org/wiki/Autoregressive_conditional_heteroskedasticity">ARCH</a> and GARCH), <a href="https://en.wikipedia.org/wiki/Spatial_dependence">spatial</a>, <a href="https://en.wikipedia.org/wiki/Markov_chain">Markov Chains</a>, and more.
+To specify dependency structures that are no hierarchical, see Chapter 8 in (the excellent) <span class="citation">Weiss (<a href="#ref-weiss2005modeling">2005</a>)</span>.</p></li>
+<li><p>If you are using the model merely for predictions, and not for inference on the fixed effects or variance components, then stating the generative distribution may be be useful, but not necessarily.
+See the Supervised Learning Chapter <a href="supervised.html#supervised">10</a> for more on prediction problems.
+Also recall that machine learning from non-independent observations (such as LMMs) is a delicate matter that is rarely treated in the literature.</p></li>
 </ol>
 <div id="problem-setup-2" class="section level2">
 <h2><span class="header-section-number">8.1</span> Problem Setup</h2>
-<span class="math display" id="eq:mixed-model">\[\begin{align}
+<p><span class="math display" id="eq:mixed-model">\[\begin{align}
   y|x,u = x&#39;\beta + z&#39;u + \varepsilon
   \tag{8.1}  
 \end{align}\]</span>
-<p>where <span class="math inline">\(x\)</span> are the factors with fixed effects, <span class="math inline">\(\beta\)</span>, which we may want to study. The factors <span class="math inline">\(z\)</span>, with effects <span class="math inline">\(u\)</span>, are the random effects which contribute to variability. In our repeated measures example (<a href="lme.html#exm:repeated-measures">8.2</a>) the treatment is a fixed effect, and the subject is a random effect. In our bottle-caps example (<a href="lme.html#exm:fixed-effects">8.3</a>) the time (before vs. after) is a fixed effect, and the machines may be either a fixed or a random effect (depending on the purpose of inference). In our diet example (<a href="lme.html#exm:random-effects">8.4</a>) the diet is the fixed effect and the family is a random effect.</p>
-<p>Notice that we state <span class="math inline">\(y|x,z\)</span> merely as a convenient way to do inference on <span class="math inline">\(y|x\)</span>, instead of directly specifying <span class="math inline">\(Var[y|x]\)</span>. This is exactly the power of LMMs: we specify the covariance not via the matrix <span class="math inline">\(Var[y,z]\)</span>, but rather via the sampling hierarchy.</p>
-<p>Given a sample of <span class="math inline">\(n\)</span> observations <span class="math inline">\((y_i,x_i,z_i)\)</span> from model <a href="lme.html#eq:mixed-model">(8.1)</a>, we will want to estimate <span class="math inline">\((\beta,u)\)</span>. Under some assumption on the distribution of <span class="math inline">\(\varepsilon\)</span> and <span class="math inline">\(z\)</span>, we can use <em>maximum likelihood</em> (ML). In the context of LMMs, however, ML is typically replaced with <em>restricted maximum likelihood</em> (ReML), because it returns unbiased estimates of <span class="math inline">\(Var[y|x]\)</span> and ML does not.</p>
+where <span class="math inline">\(x\)</span> are the factors with fixed effects, <span class="math inline">\(\beta\)</span>, which we may want to study.
+The factors <span class="math inline">\(z\)</span>, with effects <span class="math inline">\(u\)</span>, are the random effects which contribute to variability.
+In our repeated measures example (<a href="lme.html#exm:repeated-measures">8.2</a>) the treatment is a fixed effect, and the subject is a random effect.
+In our bottle-caps example (<a href="lme.html#exm:fixed-effects">8.3</a>) the time (before vs. after) is a fixed effect, and the machines may be either a fixed or a random effect (depending on the purpose of inference).
+In our diet example (<a href="lme.html#exm:random-effects">8.4</a>) the diet is the fixed effect and the family is a random effect.</p>
+<p>Notice that we state <span class="math inline">\(y|x,z\)</span> merely as a convenient way to do inference on <span class="math inline">\(y|x\)</span>, instead of directly specifying <span class="math inline">\(Var[y|x]\)</span>.
+This is exactly the power of LMMs: we specify the covariance not via the matrix <span class="math inline">\(Var[y,z]\)</span>, but rather via the sampling hierarchy.</p>
+<p>Given a sample of <span class="math inline">\(n\)</span> observations <span class="math inline">\((y_i,x_i,z_i)\)</span> from model <a href="lme.html#eq:mixed-model">(8.1)</a>, we will want to estimate <span class="math inline">\((\beta,u)\)</span>.
+Under some assumption on the distribution of <span class="math inline">\(\varepsilon\)</span> and <span class="math inline">\(z\)</span>, we can use <em>maximum likelihood</em> (ML).
+In the context of LMMs, however, ML is typically replaced with <em>restricted maximum likelihood</em> (ReML), because it returns unbiased estimates of <span class="math inline">\(Var[y|x]\)</span> and ML does not.</p>
 <div id="non-linear-mixed-models" class="section level3">
 <h3><span class="header-section-number">8.1.1</span> Non-Linear Mixed Models</h3>
-<p>The idea of random-effects can also be implemented for non-linear mean models. Formally, this means that <span class="math inline">\(y|x,z=f(x,z,\varepsilon)\)</span> for some non-linear <span class="math inline">\(f\)</span>. This is known as <em>non-linead-mixed-models</em>, which will not be discussed in this text.</p>
+<p>The idea of random-effects can also be implemented for non-linear mean models. Formally, this means that <span class="math inline">\(y|x,z=f(x,z,\varepsilon)\)</span> for some non-linear <span class="math inline">\(f\)</span>.
+This is known as <em>non-linead-mixed-models</em>, which will not be discussed in this text.</p>
 </div>
 <div id="generalized-linear-mixed-models-glmm" class="section level3">
 <h3><span class="header-section-number">8.1.2</span> Generalized Linear Mixed Models (GLMM)</h3>
-<p>You can marry the ideas of random effects, with non-linear link functions, and non-Gaussian distribution of the response. These are known as <a href="https://en.wikipedia.org/wiki/Generalized_linear_mixed_model">Generalized Linear Mixed Models</a>. <a href="http://glmm.wikidot.com/pkg-comparison">Wikidot</a> has a nice comparison of several software suits for GLMMs. Also consider the <a href="https://www.jstatsoft.org/article/view/v084i04">mcglm</a> R pacakge <span class="citation">(Bonat <a href="#ref-bonat2018multiple">2018</a>)</span>.</p>
+<p>You can marry the ideas of random effects, with non-linear link functions, and non-Gaussian distribution of the response.
+These are known as <a href="https://en.wikipedia.org/wiki/Generalized_linear_mixed_model">Generalized Linear Mixed Models</a>.
+<a href="http://glmm.wikidot.com/pkg-comparison">Wikidot</a> has a nice comparison of several software suits for GLMMs.
+Also consider the <a href="https://www.jstatsoft.org/article/view/v084i04">mcglm</a> R pacakge <span class="citation">(Bonat <a href="#ref-bonat2018multiple">2018</a>)</span>.</p>
 </div>
 </div>
 <div id="mixed-models-with-r" class="section level2">
 <h2><span class="header-section-number">8.2</span> Mixed Models with R</h2>
-<p>We will fit mixed models with the <code>lmer</code> function from the <strong>lme4</strong> package, written by the mixed-models Guru <a href="http://www.stat.wisc.edu/~bates/">Douglas Bates</a>. We start with a small simulation demonstrating the importance of acknowledging your sources of variability. Our demonstration consists of fitting a linear model that assumes independence, when data is clearly dependent.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Simulation parameters</span>
+<p>We will fit mixed models with the <code>lmer</code> function from the <strong>lme4</strong> package, written by the mixed-models Guru <a href="http://www.stat.wisc.edu/~bates/">Douglas Bates</a>.
+We start with a small simulation demonstrating the importance of acknowledging your sources of variability. Our demonstration consists of fitting a linear model that assumes independence, when data is clearly dependent.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Simulation parameters</span>
 n.groups &lt;-<span class="st"> </span><span class="dv">4</span> <span class="co"># number of groups</span>
 n.repeats &lt;-<span class="st"> </span><span class="dv">2</span> <span class="co"># sample per group</span>
 groups &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span>n.groups, <span class="dt">each=</span>n.repeats) <span class="op">%&gt;%</span><span class="st"> </span>as.factor
 n &lt;-<span class="st"> </span><span class="kw">length</span>(groups)
 z0 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n.groups,<span class="dv">0</span>,<span class="dv">10</span>) <span class="co"># generate group effects</span>
-(z &lt;-<span class="st"> </span>z0[<span class="kw">as.numeric</span>(groups)]) <span class="co"># generate and inspect random group effects</span></code></pre></div>
+(z &lt;-<span class="st"> </span>z0[<span class="kw">as.numeric</span>(groups)]) <span class="co"># generate and inspect random group effects</span></code></pre>
 <pre><code>## [1]   8.901364   8.901364  -4.318889  -4.318889   9.708611   9.708611
 ## [7] -10.693773 -10.693773</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">epsilon &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># generate measurement error</span>
+<pre class="sourceCode r"><code class="sourceCode r">epsilon &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># generate measurement error</span>
 
 <span class="co"># Generate data</span>
 beta0 &lt;-<span class="st"> </span><span class="dv">2</span> <span class="co"># set global mean</span>
-y &lt;-<span class="st"> </span>beta0 <span class="op">+</span><span class="st"> </span>z <span class="op">+</span><span class="st"> </span>epsilon <span class="co"># generate synthetic sample</span></code></pre></div>
+y &lt;-<span class="st"> </span>beta0 <span class="op">+</span><span class="st"> </span>z <span class="op">+</span><span class="st"> </span>epsilon <span class="co"># generate synthetic sample</span></code></pre>
 <p>We can now fit the linear and mixed models.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm.<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>)  <span class="co"># fit a linear model assuming independence</span>
-<span class="kw">library</span>(lme4)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>)  <span class="co"># fit a linear model assuming independence</span>
+<span class="kw">library</span>(lme4)</code></pre>
 <pre><code>## Loading required package: Matrix</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme.<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">lmer</span>(y<span class="op">~</span><span class="dv">1</span><span class="op">|</span>groups) <span class="co"># fit a mixed-model that deals with the group dependence</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">lme<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">lmer</span>(y<span class="op">~</span><span class="dv">1</span><span class="op">|</span>groups) <span class="co"># fit a mixed-model that deals with the group dependence</span></code></pre>
 <p>The summary of the linear model</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">summary.lm.<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">summary</span>(lm.<span class="dv">5</span>)
-summary.lm.<span class="dv">5</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">summary.lm<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">summary</span>(lm<span class="fl">.5</span>)
+summary.lm<span class="fl">.5</span></code></pre>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ 1)
@@ -561,8 +644,8 @@ summary.lm.<span class="dv">5</span></code></pre></div>
 ## 
 ## Residual standard error: 9.898 on 7 degrees of freedom</code></pre>
 <p>The summary of the mixed-model</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">summary.lme.<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">summary</span>(lme.<span class="dv">5</span>)
-summary.lme.<span class="dv">5</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">summary.lme<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">summary</span>(lme<span class="fl">.5</span>)
+summary.lme<span class="fl">.5</span></code></pre>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: y ~ 1 | groups
 ## 
@@ -581,21 +664,27 @@ summary.lme.<span class="dv">5</span></code></pre></div>
 ## Fixed effects:
 ##             Estimate Std. Error t value
 ## (Intercept)    3.317      5.314   0.624</code></pre>
-<p>Look at the standard error of the global mean, i.e., the intercept: for <code>lm</code> it is 3.4996374, and for <code>lme</code> it is 5.3143284. Why this difference? Because <code>lm</code> treats the group effect<a href="#fn15" class="footnoteRef" id="fnref15"><sup>15</sup></a> as a fixed while the mixed model treats the group effect as a source of noise/uncertainty. Clearly, inference using <code>lm</code> underestimates our uncertainty in the estimated population mean (<span class="math inline">\(\beta_0\)</span>).</p>
+<p>Look at the standard error of the global mean, i.e., the intercept:
+for <code>lm</code> it is 3.4996374, and for <code>lme</code> it is 5.3143284.
+Why this difference?
+Because <code>lm</code> treats the group effect<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> as a fixed while the mixed model treats the group effect as a source of noise/uncertainty.
+Clearly, inference using <code>lm</code> underestimates our uncertainty in the estimated population mean (<span class="math inline">\(\beta_0\)</span>).</p>
 <p>Now let’s adopt the paired t-test view, which removes the group mean, so that it implicitly ignores the between-group variability. Which is the model compatible with this view?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diffs &lt;-<span class="st"> </span><span class="kw">tapply</span>(y, groups, diff) 
-diffs <span class="co"># Q:what is this estimating? A: epsilon+epsilon.</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">diffs &lt;-<span class="st"> </span><span class="kw">tapply</span>(y, groups, diff) 
+diffs <span class="co"># Q:what is this estimating? A: epsilon+epsilon.</span></code></pre>
 <pre><code>##         1         2         3         4 
 ## -1.411024 -1.598983 -1.493730  3.052394</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(diffs) <span class="co"># </span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(diffs) <span class="co"># </span></code></pre>
 <pre><code>## [1] 2.278119</code></pre>
-<p>So we see that a paired t-test infers only against the within-group variability. Q:Is this a good think? A: depends…</p>
+<p>So we see that a paired t-test infers only against the within-group variability.
+Q:Is this a good think?
+A: depends…</p>
 <div id="a-single-random-effect" class="section level3">
 <h3><span class="header-section-number">8.2.1</span> A Single Random Effect</h3>
 <p>We will use the <code>Dyestuff</code> data from the <strong>lme4</strong> package, which encodes the yield, in grams, of a coloring solution (<code>dyestuff</code>), produced in 6 batches using 5 different preparations.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Dyestuff, <span class="dt">package=</span><span class="st">&#39;lme4&#39;</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Dyestuff, <span class="dt">package=</span><span class="st">&#39;lme4&#39;</span>)
 <span class="kw">attach</span>(Dyestuff)
-<span class="kw">head</span>(Dyestuff)</code></pre></div>
+<span class="kw">head</span>(Dyestuff)</code></pre>
 <pre><code>##   Batch Yield
 ## 1     A  1545
 ## 2     A  1440
@@ -604,11 +693,12 @@ diffs <span class="co"># Q:what is this estimating? A: epsilon+epsilon.</span></
 ## 5     A  1580
 ## 6     B  1540</code></pre>
 <p>And visually</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lattice<span class="op">::</span><span class="kw">dotplot</span>(Yield<span class="op">~</span>Batch)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">lattice<span class="op">::</span><span class="kw">dotplot</span>(Yield<span class="op">~</span>Batch)</code></pre>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-199-1.png" width="50%" /></p>
-<p>If we want to do inference on the (global) mean yield, we need to account for the two sources of variability: the within-batch variability, and the between-batch variability We thus fit a mixed model, with an intercept and random batch effect.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme.<span class="dv">1</span>&lt;-<span class="st"> </span><span class="kw">lmer</span>( Yield <span class="op">~</span><span class="st"> </span><span class="dv">1</span>  <span class="op">|</span><span class="st"> </span>Batch  , Dyestuff )
-<span class="kw">summary</span>(lme.<span class="dv">1</span>)</code></pre></div>
+<p>If we want to do inference on the (global) mean yield, we need to account for the two sources of variability: the within-batch variability, and the between-batch variability
+We thus fit a mixed model, with an intercept and random batch effect.</p>
+<pre class="sourceCode r"><code class="sourceCode r">lme<span class="fl">.1</span>&lt;-<span class="st"> </span><span class="kw">lmer</span>( Yield <span class="op">~</span><span class="st"> </span><span class="dv">1</span>  <span class="op">|</span><span class="st"> </span>Batch  , Dyestuff )
+<span class="kw">summary</span>(lme<span class="fl">.1</span>)</code></pre>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: Yield ~ 1 | Batch
 ##    Data: Dyestuff
@@ -635,14 +725,19 @@ diffs <span class="co"># Q:what is this estimating? A: epsilon+epsilon.</span></
 <li>The output distinguishes between random effects (<span class="math inline">\(u\)</span>), a source of variability, and fixed effect (<span class="math inline">\(\beta\)</span>), which we want to study. The mean of the random effect is not reported because it is unassumingly 0.</li>
 <li>Were we not interested in the variance components, and only in the coefficients or predictions, an (almost) equivalent <code>lm</code> formulation is <code>lm(Yield ~ Batch)</code>.</li>
 </ul>
-<p>Some utility functions let us query the <code>lme</code> object. The function <code>coef</code> will work, but will return a cumbersome output. Better use <code>fixef</code> to extract the fixed effects, and <code>ranef</code> to extract the random effects. The model matrix (of the fixed effects alone), can be extracted with <code>model.matrix</code>, and predictions made with <code>predict</code>. Note, however, that predictions with mixed-effect models are better treated as prediction problems as in the Supervised Learning Chapter <a href="supervised.html#supervised">10</a>, but are a very delicate matter.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(Dyestuff)</code></pre></div>
+<p>Some utility functions let us query the <code>lme</code> object.
+The function <code>coef</code> will work, but will return a cumbersome output. Better use <code>fixef</code> to extract the fixed effects, and <code>ranef</code> to extract the random effects.
+The model matrix (of the fixed effects alone), can be extracted with <code>model.matrix</code>, and predictions made with <code>predict</code>.
+Note, however, that predictions with mixed-effect models are better treated as prediction problems as in the Supervised Learning Chapter <a href="supervised.html#supervised">10</a>, but are a very delicate matter.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(Dyestuff)</code></pre>
 </div>
 <div id="multiple-random-effects" class="section level3">
 <h3><span class="header-section-number">8.2.2</span> Multiple Random Effects</h3>
-<p>Let’s make things more interesting by allowing more than one random effect. One-way ANOVA can be thought of as the fixed-effects counterpart of the single random effect.</p>
-<p>In the <code>Penicillin</code> data, we measured the diameter of spread of an organism, along the plate used (a to x), and penicillin type (A to F). We will now try to infer on the diameter of typical organism, and compute its variability over plates and Penicillin types.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(Penicillin)</code></pre></div>
+<p>Let’s make things more interesting by allowing more than one random effect.
+One-way ANOVA can be thought of as the fixed-effects counterpart of the single random effect.</p>
+<p>In the <code>Penicillin</code> data, we measured the diameter of spread of an organism, along the plate used (a to x), and penicillin type (A to F).
+We will now try to infer on the diameter of typical organism, and compute its variability over plates and Penicillin types.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(Penicillin)</code></pre>
 <pre><code>##   diameter plate sample
 ## 1       27     a      A
 ## 2       23     a      B
@@ -651,8 +746,8 @@ diffs <span class="co"># Q:what is this estimating? A: epsilon+epsilon.</span></
 ## 5       23     a      E
 ## 6       21     a      F</code></pre>
 <p>One sample per combination:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(Penicillin)
-<span class="kw">table</span>(sample, plate) <span class="co"># how many observations per plate &amp; type?</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attach</span>(Penicillin)
+<span class="kw">table</span>(sample, plate) <span class="co"># how many observations per plate &amp; type?</span></code></pre>
 <pre><code>##       plate
 ## sample a b c d e f g h i j k l m n o p q r s t u v w x
 ##      A 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
@@ -664,11 +759,11 @@ diffs <span class="co"># Q:what is this estimating? A: epsilon+epsilon.</span></
 <p>And visually:</p>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-203-1.png" width="50%" /></p>
 <p>Let’s fit a mixed-effects model with a random plate effect, and a random sample effect:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">lmer</span> ( diameter <span class="op">~</span><span class="st">  </span><span class="dv">1</span>  <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>plate )<span class="op">+</span>(<span class="dv">1</span><span class="op">|</span>sample) , Penicillin )
-<span class="kw">fixef</span>(lme.<span class="dv">2</span>) <span class="co"># Fixed effects</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">lme<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">lmer</span> ( diameter <span class="op">~</span><span class="st">  </span><span class="dv">1</span>  <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>plate )<span class="op">+</span>(<span class="dv">1</span><span class="op">|</span>sample) , Penicillin )
+<span class="kw">fixef</span>(lme<span class="fl">.2</span>) <span class="co"># Fixed effects</span></code></pre>
 <pre><code>## (Intercept) 
 ##    22.97222</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ranef</span>(lme.<span class="dv">2</span>) <span class="co"># Random effects</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ranef</span>(lme<span class="fl">.2</span>) <span class="co"># Random effects</span></code></pre>
 <pre><code>## $plate
 ##   (Intercept)
 ## a  0.80454389
@@ -712,14 +807,15 @@ diffs <span class="co"># Q:what is this estimating? A: epsilon+epsilon.</span></
 <li>Were we not interested in the variance components, an (almost) equivalent <code>lm</code> formulation is <code>lm(diameter ~ plate + sample)</code>.</li>
 <li>The output of <code>ranef</code> is somewhat controversial. Think about it: Why would we want to plot the estimates of a random variable?</li>
 </ul>
-<p>Since we have two random effects, we may compute the variability of the global mean (the only fixed effect) as we did before. Perhaps more interestingly, we can compute the variability in the response, for a particular plate or sample type.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">random.effect.lme2 &lt;-<span class="st"> </span><span class="kw">ranef</span>(lme.<span class="dv">2</span>, <span class="dt">condVar =</span> <span class="ot">TRUE</span>) 
-qrr2 &lt;-<span class="st"> </span>lattice<span class="op">::</span><span class="kw">dotplot</span>(random.effect.lme2, <span class="dt">strip =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>Since we have two random effects, we may compute the variability of the global mean (the only fixed effect) as we did before.
+Perhaps more interestingly, we can compute the variability in the response, for a particular plate or sample type.</p>
+<pre class="sourceCode r"><code class="sourceCode r">random.effect.lme2 &lt;-<span class="st"> </span><span class="kw">ranef</span>(lme<span class="fl">.2</span>, <span class="dt">condVar =</span> <span class="ot">TRUE</span>) 
+qrr2 &lt;-<span class="st"> </span>lattice<span class="op">::</span><span class="kw">dotplot</span>(random.effect.lme2, <span class="dt">strip =</span> <span class="ot">FALSE</span>)</code></pre>
 <p>Variability in response for each plate, over various sample types:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(qrr2[[<span class="dv">1</span>]]) </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(qrr2[[<span class="dv">1</span>]]) </code></pre>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-206-1.png" width="50%" /></p>
 <p>Variability in response for each sample type, over the various plates:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(qrr2[[<span class="dv">2</span>]])  </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(qrr2[[<span class="dv">2</span>]])  </code></pre>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-207-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
@@ -727,14 +823,14 @@ qrr2 &lt;-<span class="st"> </span>lattice<span class="op">::</span><span class=
 <li>The <code>dotplot</code> function, from the <strong>lattice</strong> package, is only there for the fancy plotting.</li>
 </ul>
 <p>We used the penicillin example to demonstrate the incorporation of two random-effects. We could have, however, compared between penicillin types. For this matter, penicillin types are fixed effects to infer on, and not part of the uncertainty in the mean diameter. The appropriate model is the following:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme.<span class="fl">2.2</span> &lt;-<span class="st"> </span><span class="kw">lmer</span>( diameter <span class="op">~</span><span class="st">  </span><span class="dv">1</span>  <span class="op">+</span><span class="st"> </span>sample <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>plate) , Penicillin )</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">lme.<span class="fl">2.2</span> &lt;-<span class="st"> </span><span class="kw">lmer</span>( diameter <span class="op">~</span><span class="st">  </span><span class="dv">1</span>  <span class="op">+</span><span class="st"> </span>sample <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>plate) , Penicillin )</code></pre>
 <p>I may now ask myself: does the <code>sample</code>, i.e. penicillin, have any effect? This is what the ANOVA table typically gives us. The next table can be thought of as a “repeated measures ANOVA”:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(lme.<span class="fl">2.2</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(lme.<span class="fl">2.2</span>)</code></pre>
 <pre><code>## Analysis of Variance Table
 ##        Df Sum Sq Mean Sq F value
 ## sample  5 449.22  89.844  297.09</code></pre>
 <p>Ugh! No p-values. Why is this? Because Doug Bates, the author of <strong>lme4</strong> makes a <a href="https://stat.ethz.ch/pipermail/r-help/2006-May/094765.html">strong argument</a> against current methods of computing p-values in mixed models. If you insist on an p-value, you may recur to other packages that provide that, at your own caution:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">car<span class="op">::</span><span class="kw">Anova</span>(lme.<span class="fl">2.2</span>) </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">car<span class="op">::</span><span class="kw">Anova</span>(lme.<span class="fl">2.2</span>) </code></pre>
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: diameter
@@ -748,8 +844,10 @@ qrr2 &lt;-<span class="st"> </span>lattice<span class="op">::</span><span class=
 <h3><span class="header-section-number">8.2.3</span> A Full Mixed-Model</h3>
 <p>In the <code>sleepstudy</code> data, we recorded the reaction times to a series of tests (<code>Reaction</code>), after various subject (<code>Subject</code>) underwent various amounts of sleep deprivation (<code>Day</code>).</p>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-211-1.png" width="50%" /></p>
-<p>We now want to estimate the (fixed) effect of the days of sleep deprivation on response time, while allowing each subject to have his/hers own effect. Put differently, we want to estimate a <em>random slope</em> for the effect of <code>day</code>. The fixed <code>Days</code> effect can be thought of as the average slope over subjects.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme.<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">lmer</span> ( Reaction <span class="op">~</span><span class="st"> </span>Days <span class="op">+</span><span class="st"> </span>( Days <span class="op">|</span><span class="st"> </span>Subject ) , <span class="dt">data=</span> sleepstudy )</code></pre></div>
+<p>We now want to estimate the (fixed) effect of the days of sleep deprivation on response time, while allowing each subject to have his/hers own effect.
+Put differently, we want to estimate a <em>random slope</em> for the effect of <code>day</code>.
+The fixed <code>Days</code> effect can be thought of as the average slope over subjects.</p>
+<pre class="sourceCode r"><code class="sourceCode r">lme<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">lmer</span> ( Reaction <span class="op">~</span><span class="st"> </span>Days <span class="op">+</span><span class="st"> </span>( Days <span class="op">|</span><span class="st"> </span>Subject ) , <span class="dt">data=</span> sleepstudy )</code></pre>
 <p>Things to note:</p>
 <ul>
 <li><code>~Days</code> specifies the fixed effect.</li>
@@ -757,11 +855,11 @@ qrr2 &lt;-<span class="st"> </span>lattice<span class="op">::</span><span class=
 <li>Were we fitting the model for purposes of prediction only, an (almost) equivalent <code>lm</code> formulation is <code>lm(Reaction~Days*Subject)</code>.</li>
 </ul>
 <p>The fixed day effect is:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fixef</span>(lme.<span class="dv">3</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fixef</span>(lme<span class="fl">.3</span>)</code></pre>
 <pre><code>## (Intercept)        Days 
 ##   251.40510    10.46729</code></pre>
 <p>The variability in the average response (intercept) and day effect is</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ranef</span>(lme.<span class="dv">3</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ranef</span>(lme<span class="fl">.3</span>)</code></pre>
 <pre><code>## $Subject
 ##     (Intercept)        Days
 ## 308   2.2575329   9.1992737
@@ -784,23 +882,33 @@ qrr2 &lt;-<span class="st"> </span>lattice<span class="op">::</span><span class=
 ## 372  12.3133491   1.2842380
 ## 
 ## with conditional variances for &quot;Subject&quot;</code></pre>
-<p>Did we really need the whole <code>lme</code> machinery to fit a within-subject linear regression and then average over subjects? The answer is yes. The assumptions on the distribution of random effect, namely, that they are normally distributed, allows us to pool information from one subject to another. In the words of John Tukey: “we borrow strength over subjects”. Is this a good thing? If the normality assumption is true, it certainly is. If, on the other hand, you have a lot of samples per subject, and you don’t need to “borrow strength” from one subject to another, you can simply fit within-subject linear models without the mixed-models machinery.</p>
+<p>Did we really need the whole <code>lme</code> machinery to fit a within-subject linear regression and then average over subjects?
+The answer is yes.
+The assumptions on the distribution of random effect, namely, that they are normally distributed, allows us to pool information from one subject to another. In the words of John Tukey: “we borrow strength over subjects”.
+Is this a good thing? If the normality assumption is true, it certainly is.
+If, on the other hand, you have a lot of samples per subject, and you don’t need to “borrow strength” from one subject to another, you can simply fit within-subject linear models without the mixed-models machinery.</p>
 <p>To demonstrate the “strength borrowing”, here is a comparison of the lme, versus the effects of fitting a linear model to each subject separately.</p>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-214-1.png" width="50%" /></p>
 <p>Here is a comparison of the random-day effect from <code>lme</code> versus a subject-wise linear model. They are not the same.</p>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-215-1.png" width="50%" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(Penicillin)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(Penicillin)</code></pre>
 </div>
 </div>
 <div id="serial" class="section level2">
 <h2><span class="header-section-number">8.3</span> Serial Correlations</h2>
-<p>As previously stated, a hierarchical model is a very convenient way to state correlations. The hierarchical sampling scheme will always yield correlations in blocks. What is the correlation does not have a block structure? Like a smooth temporal decay for time-series, or a smooth spatial decay for geospatial data?</p>
-<p>One way to go about, is to find a dedicated package. For instance, in the <a href="https://cran.r-project.org/web/views/SpatioTemporal.html">Spatio-Temporal Data</a> task view, or the <a href="https://cran.r-project.org/web/views/Environmetrics.html">Ecological and Environmental</a> task view. Fans of vector-auto-regression should have a look at the <a href="https://cran.r-project.org/package=vars">vars</a> package.</p>
-<p>Instead, we will show how to solve this matter using the <strong>nlme</strong> package. This is because <strong>nlme</strong> allows to specify both a block-covariance structure using the mixed-models framework, and the smooth parametric covariances we find in temporal and spatial data.</p>
+<p>As previously stated, a hierarchical model is a very convenient way to state correlations.
+The hierarchical sampling scheme will always yield correlations in blocks.
+What is the correlation does not have a block structure?
+Like a smooth temporal decay for time-series, or a smooth spatial decay for geospatial data?</p>
+<p>One way to go about, is to find a dedicated package.
+For instance, in the <a href="https://cran.r-project.org/web/views/SpatioTemporal.html">Spatio-Temporal Data</a> task view, or the <a href="https://cran.r-project.org/web/views/Environmetrics.html">Ecological and Environmental</a> task view.
+Fans of vector-auto-regression should have a look at the <a href="https://cran.r-project.org/package=vars">vars</a> package.</p>
+<p>Instead, we will show how to solve this matter using the <strong>nlme</strong> package.
+This is because <strong>nlme</strong> allows to specify both a block-covariance structure using the mixed-models framework, and the smooth parametric covariances we find in temporal and spatial data.</p>
 <p>The <code>nlme::Ovary</code> data is panel data of number of ovarian follicles in different mares (female horse), at various times.</p>
 <p>with an AR(1) temporal correlation, alongside random-effects, we take an example from the help of <code>nlme::corAR1</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nlme)
-<span class="kw">head</span>(nlme<span class="op">::</span>Ovary)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nlme)
+<span class="kw">head</span>(nlme<span class="op">::</span>Ovary)</code></pre>
 <pre><code>## Grouped Data: follicles ~ Time | Mare
 ##   Mare        Time follicles
 ## 1    1 -0.13636360        20
@@ -809,11 +917,11 @@ qrr2 &lt;-<span class="st"> </span>lattice<span class="op">::</span><span class=
 ## 4    1  0.00000000        16
 ## 5    1  0.04545455        13
 ## 6    1  0.09090910        10</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fm1Ovar.lme &lt;-<span class="st"> </span>nlme<span class="op">::</span><span class="kw">lme</span>(<span class="dt">fixed=</span>follicles <span class="op">~</span><span class="st"> </span><span class="kw">sin</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>Time) <span class="op">+</span><span class="st"> </span><span class="kw">cos</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>Time), 
+<pre class="sourceCode r"><code class="sourceCode r">fm1Ovar.lme &lt;-<span class="st"> </span>nlme<span class="op">::</span><span class="kw">lme</span>(<span class="dt">fixed=</span>follicles <span class="op">~</span><span class="st"> </span><span class="kw">sin</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>Time) <span class="op">+</span><span class="st"> </span><span class="kw">cos</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>Time), 
                    <span class="dt">data =</span> Ovary, 
                    <span class="dt">random =</span> <span class="kw">pdDiag</span>(<span class="op">~</span><span class="kw">sin</span>(<span class="dv">2</span><span class="op">*</span>pi<span class="op">*</span>Time)), 
                    <span class="dt">correlation=</span><span class="kw">corAR1</span>() )
-<span class="kw">summary</span>(fm1Ovar.lme)</code></pre></div>
+<span class="kw">summary</span>(fm1Ovar.lme)</code></pre>
 <pre><code>## Linear mixed-effects model fit by REML
 ##  Data: Ovary 
 ##        AIC     BIC   logLik
@@ -855,44 +963,65 @@ qrr2 &lt;-<span class="st"> </span>lattice<span class="op">::</span><span class=
 <li>From the summary, we see that a <code>Mare</code> random effect has also been added. Where is it specified? It is implied by the <code>random=</code> argument. Read <code>?lme</code> for further details.</li>
 </ul>
 <p>We can now inspect the contrivance implied by our model’s specification:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">the.cov &lt;-<span class="st"> </span>mgcv<span class="op">::</span><span class="kw">extract.lme.cov</span>(fm1Ovar.lme, <span class="dt">data =</span> Ovary) 
-lattice<span class="op">::</span><span class="kw">levelplot</span>(the.cov)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">the.cov &lt;-<span class="st"> </span>mgcv<span class="op">::</span><span class="kw">extract.lme.cov</span>(fm1Ovar.lme, <span class="dt">data =</span> Ovary) 
+lattice<span class="op">::</span><span class="kw">levelplot</span>(the.cov)</code></pre>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-218-1.png" width="50%" /></p>
 </div>
 <div id="extensions-1" class="section level2">
 <h2><span class="header-section-number">8.4</span> Extensions</h2>
 <div id="cr-se" class="section level3">
 <h3><span class="header-section-number">8.4.1</span> Cluster Robust Standard Errors</h3>
-<p>As previously stated, random effects are nothing more than a convenient way to specify dependencies within a level of a random effect, i.e., within a group/cluster. This is also the motivation underlying <em>cluster robust</em> inference, which is immensely popular with econometricians, but less so elsewhere. What is the difference between the two?</p>
-<p>Mixed models framework is a bona-fide generalization of cluster robust inference. This author thus recommends using the <strong>lme4</strong> and <strong>nlme</strong> packages for mixed models to deal with correlations within cluster.</p>
+<p>As previously stated, random effects are nothing more than a convenient way to specify dependencies within a level of a random effect, i.e., within a group/cluster.
+This is also the motivation underlying <em>cluster robust</em> inference, which is immensely popular with econometricians, but less so elsewhere.
+What is the difference between the two?</p>
+<p>Mixed models framework is a bona-fide generalization of cluster robust inference.
+This author thus recommends using the <strong>lme4</strong> and <strong>nlme</strong> packages for mixed models to deal with correlations within cluster.</p>
 <p>For a longer comparison between the two approaches, see <a href="https://m-clark.github.io/docs/clustered/">Michael Clarck’s guide</a>.</p>
 </div>
 <div id="linear-models-for-panel-data" class="section level3">
 <h3><span class="header-section-number">8.4.2</span> Linear Models for Panel Data</h3>
-<p><strong>nlme</strong> and <strong>lme4</strong> will probably provide you with all the functionality you need for panel data. If, however, you are trained as an econometrist, prefer the econometric parlance, and are not using non-linead models, then the <a href="https://cran.r-project.org/package=plm">plm</a> and <a href="https://www.jacob-long.com/post/panelr-intro/">panelr</a> packages are just for you. In particular, it allows for cluster-robust covariance estimates, and <a href="https://en.wikipedia.org/wiki/Durbin%E2%80%93Wu%E2%80%93Hausman_test">Durbin–Wu–Hausman test</a> for random effects. The <strong>plm</strong> <a href="https://cran.r-project.org/web/packages/plm/vignettes/plm.pdf">package vignette</a> also has a comparison to the <strong>nlme</strong> package.</p>
+<p><strong>nlme</strong> and <strong>lme4</strong> will probably provide you with all the functionality you need for panel data.
+If, however, you are trained as an econometrist, prefer the econometric parlance, and are not using non-linead models, then the <a href="https://cran.r-project.org/package=plm">plm</a> and <a href="https://www.jacob-long.com/post/panelr-intro/">panelr</a> packages are just for you.
+In particular, it allows for cluster-robust covariance estimates, and <a href="https://en.wikipedia.org/wiki/Durbin%E2%80%93Wu%E2%80%93Hausman_test">Durbin–Wu–Hausman test</a> for random effects.
+The <strong>plm</strong> <a href="https://cran.r-project.org/web/packages/plm/vignettes/plm.pdf">package vignette</a> also has a comparison to the <strong>nlme</strong> package.</p>
 </div>
 <div id="testing-hypotheses-on-correlations" class="section level3">
 <h3><span class="header-section-number">8.4.3</span> Testing Hypotheses on Correlations</h3>
-<p>After working so hard to model the correlations in observation, we may want to test if it was all required. Douglas Bates, the author of <strong>nlme</strong> and <strong>lme4</strong> wrote a famous cautionary note, <a href="https://stat.ethz.ch/pipermail/r-help/2006-May/094765.html">found here</a>, on hypothesis testing in mixed models. Many practitioners, however, do not adopt Doug’s view. Many of the popular tests, particularly the ones in the econometric literature, can be found in the <strong>plm</strong> package (see Section 6 in the <a href="https://cran.r-project.org/web/packages/plm/vignettes/plm.pdf">package vignette</a>). These include tests for poolability, Hausman test, tests for serial correlations, tests for cross-sectional dependence, and unit root tests.</p>
+<p>After working so hard to model the correlations in observation, we may want to test if it was all required.
+Douglas Bates, the author of <strong>nlme</strong> and <strong>lme4</strong> wrote a famous cautionary note, <a href="https://stat.ethz.ch/pipermail/r-help/2006-May/094765.html">found here</a>, on hypothesis testing in mixed models.
+Many practitioners, however, do not adopt Doug’s view.
+Many of the popular tests, particularly the ones in the econometric literature, can be found in the <strong>plm</strong> package (see Section 6 in the <a href="https://cran.r-project.org/web/packages/plm/vignettes/plm.pdf">package vignette</a>).
+These include tests for poolability, Hausman test, tests for serial correlations, tests for cross-sectional dependence, and unit root tests.</p>
 </div>
 </div>
 <div id="relation-to-other-estimators" class="section level2">
 <h2><span class="header-section-number">8.5</span> Relation to Other Estimators</h2>
 <div id="fixed-effects-in-the-econometric-literature" class="section level3">
 <h3><span class="header-section-number">8.5.1</span> Fixed Effects in the Econometric Literature</h3>
-<p>Fixed effects in the statistical literature, as discussed herein, are different than those in the econometric literature. See Section 7 of the <strong>plm</strong> <a href="https://cran.r-project.org/web/packages/plm/vignettes/plm.pdf">package vignette</a> for a comparison.</p>
+<p>Fixed effects in the statistical literature, as discussed herein, are different than those in the econometric literature.
+See Section 7 of the <strong>plm</strong> <a href="https://cran.r-project.org/web/packages/plm/vignettes/plm.pdf">package vignette</a> for a comparison.</p>
 </div>
 <div id="relation-to-generalized-least-squares-gls" class="section level3">
 <h3><span class="header-section-number">8.5.2</span> Relation to Generalized Least Squares (GLS)</h3>
-<p>GLS is the solution to a decorrelated least squares problem: <span class="math display">\[\hat{\beta}_{GLS}:=argmin_\beta\{(X&#39;\beta-y)&#39;\Sigma^{-1}(X&#39;\beta-y)&#39;\}.\]</span> This estimator can be viewed as a least squares estimator that accounts for correlations in the data. It is also a maximum likelihood estimator under a Gaussian error assumption. Viewed as the latter, then linear mixed models under a Gaussian error assumption, collapses to a GLS estimator.</p>
+<p>GLS is the solution to a decorrelated least squares problem:
+<span class="math display">\[\hat{\beta}_{GLS}:=argmin_\beta\{(X&#39;\beta-y)&#39;\Sigma^{-1}(X&#39;\beta-y)&#39;\}.\]</span>
+This estimator can be viewed as a least squares estimator that accounts for correlations in the data.
+It is also a maximum likelihood estimator under a Gaussian error assumption.
+Viewed as the latter, then linear mixed models under a Gaussian error assumption, collapses to a GLS estimator.</p>
 </div>
 <div id="relation-to-conditional-gaussian-fields" class="section level3">
 <h3><span class="header-section-number">8.5.3</span> Relation to Conditional Gaussian Fields</h3>
-<p>In the geo-spatial literature, geo-located measurements are typically assumed to be sampled from a <em>Gaussian Random Field</em>. All the models discussed in this chapter can be stated in terms of these random fields. In the random field nomenclature, the fixed effects are known as the <em>drift</em>, or the <em>mean field</em>, and the covariance in errors is known as the <em>correlation function</em>. In other fields of literature the correlation function is known as a <em>charachteristic function</em>, <em>radial basis functions</em>, or <em>kernel</em>. Assuming stationarity, these simplify to the <em>power spectrum</em> via the <em>Wiener–Khinchin theorem</em>. The predictions of such models may be found under the names of <em>linear projection operators</em>, <em>best linear unbiased prediction</em>, <em>Kriging</em>, <em>radial basis function interpolators</em>.</p>
+<p>In the geo-spatial literature, geo-located measurements are typically assumed to be sampled from a <em>Gaussian Random Field</em>.
+All the models discussed in this chapter can be stated in terms of these random fields.
+In the random field nomenclature, the fixed effects are known as the <em>drift</em>, or the <em>mean field</em>, and the covariance in errors is known as the <em>correlation function</em>.
+In other fields of literature the correlation function is known as a <em>charachteristic function</em>, <em>radial basis functions</em>, or <em>kernel</em>.
+Assuming stationarity, these simplify to the <em>power spectrum</em> via the <em>Wiener–Khinchin theorem</em>.
+The predictions of such models may be found under the names of <em>linear projection operators</em>, <em>best linear unbiased prediction</em>, <em>Kriging</em>, <em>radial basis function interpolators</em>.</p>
 </div>
 <div id="relation-to-empirical-risk-minimization-erm" class="section level3">
 <h3><span class="header-section-number">8.5.4</span> Relation to Empirical Risk Minimization (ERM)</h3>
-<p>ERM is more general than mixed-models estimation since it allows loss functions that are not the (log) likelihood. ERM is less general than LMM, in that ERM (typically) does not account for correlations in the data.</p>
+<p>ERM is more general than mixed-models estimation since it allows loss functions that are not the (log) likelihood.
+ERM is less general than LMM, in that ERM (typically) does not account for correlations in the data.</p>
 </div>
 <div id="relation-to-m-estimation" class="section level3">
 <h3><span class="header-section-number">8.5.5</span> Relation to M-Estimation</h3>
@@ -900,13 +1029,25 @@ lattice<span class="op">::</span><span class="kw">levelplot</span>(the.cov)</cod
 </div>
 <div id="relation-to-generalize-estimating-equations-gee" class="section level3">
 <h3><span class="header-section-number">8.5.6</span> Relation to Generalize Estimating Equations (GEE)</h3>
-<p>The first order condition of the LMM problem returns a set of (non-linear) estimating equations. In this sense, GEE can be seen as more general than LMM in that the GEE need not be the derivative of the (log) likelihood.</p>
+<p>The first order condition of the LMM problem returns a set of (non-linear) estimating equations.
+In this sense, GEE can be seen as more general than LMM in that the GEE need not be the derivative of the (log) likelihood.</p>
 </div>
 <div id="manova" class="section level3">
 <h3><span class="header-section-number">8.5.7</span> Relation to MANOVA</h3>
-<p>Multivariate analysis of variance (MANOVA) deals with the estimation of effect on <strong>vector valued</strong> outcomes. Put differently: in ANOVA the response, <span class="math inline">\(y\)</span>, is univariate. In MANOVA, the outcome is multivariate. MANOVA is useful when there are correlations among the entries of <span class="math inline">\(y\)</span>. Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.</p>
-<p>Now assume that the outcome of a MANOVA is measurements of an individual at several time periods. The measurements are clearly correlated, so that MANOVA may be useful. But one may also treat the subject as a random effect, with a univariate response. We thus see that this seemingly MANOVA problem can be solved with the mixed models framework.</p>
-<p>What MANOVA problems cannot be solved with mixed models? There may be cases where the covariance of the multivariate outcome, <span class="math inline">\(y\)</span>, is very complicated. If the covariance in <span class="math inline">\(y\)</span> may not be stated using a combination of random and fixed effects, then the covariance has to be stated explicitly. It is also possible to consider mixed-models with multivariate outcomes, i.e., a <em>mixed MANOVA</em>, or <em>hirarchial MANOVA</em>. The R functions we present herein permit this.</p>
+<p>Multivariate analysis of variance (MANOVA) deals with the estimation of effect on <strong>vector valued</strong> outcomes.
+Put differently: in ANOVA the response, <span class="math inline">\(y\)</span>, is univariate.
+In MANOVA, the outcome is multivariate.
+MANOVA is useful when there are correlations among the entries of <span class="math inline">\(y\)</span>.
+Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.</p>
+<p>Now assume that the outcome of a MANOVA is measurements of an individual at several time periods.
+The measurements are clearly correlated, so that MANOVA may be useful.
+But one may also treat the subject as a random effect, with a univariate response.
+We thus see that this seemingly MANOVA problem can be solved with the mixed models framework.</p>
+<p>What MANOVA problems cannot be solved with mixed models?
+There may be cases where the covariance of the multivariate outcome, <span class="math inline">\(y\)</span>, is very complicated.
+If the covariance in <span class="math inline">\(y\)</span> may not be stated using a combination of random and fixed effects, then the covariance has to be stated explicitly.
+It is also possible to consider mixed-models with multivariate outcomes, i.e., a <em>mixed MANOVA</em>, or <em>hirarchial MANOVA</em>.
+The R functions we present herein permit this.</p>
 </div>
 <div id="relation-to-seemingly-unrelated-equations-sur" class="section level3">
 <h3><span class="header-section-number">8.5.8</span> Relation to Seemingly Unrelated Equations (SUR)</h3>
@@ -915,7 +1056,15 @@ lattice<span class="op">::</span><span class="kw">levelplot</span>(the.cov)</cod
 </div>
 <div id="bibliographic-notes-6" class="section level2">
 <h2><span class="header-section-number">8.6</span> Bibliographic Notes</h2>
-<p>Most of the examples in this chapter are from the documentation of the <strong>lme4</strong> package <span class="citation">(Bates et al. <a href="#ref-lme4">2015</a>)</span>. For a general and very applied treatment, see <span class="citation">Pinero and Bates (<a href="#ref-pinero2000mixed">2000</a>)</span>. As usual, a hands on view can be found in <span class="citation">Venables and Ripley (<a href="#ref-venables2013modern">2013</a>)</span>, and also in an excellent blog post by <a href="http://rpsychologist.com/r-guide-longitudinal-lme-lmer">Kristoffer Magnusson</a> For a more theoretical view see <span class="citation">Weiss (<a href="#ref-weiss2005modeling">2005</a>)</span> or <span class="citation">Searle, Casella, and McCulloch (<a href="#ref-searle2009variance">2009</a>)</span>. Sometimes it is unclear if an effect is random or fixed; on the difference between the two types of inference see the classics: <span class="citation">Eisenhart (<a href="#ref-eisenhart1947assumptions">1947</a>)</span>, <span class="citation">Kempthorne (<a href="#ref-kempthorne1975fixed">1975</a>)</span>, and the more recent <span class="citation">Rosset and Tibshirani (<a href="#ref-rosset2018fixed">2018</a>)</span>. For an interactive, beatiful visualization of the shrinkage introduced by mixed models, see <a href="http://m-clark.github.io/posts/2019-05-14-shrinkage-in-mixed-models/">Michael Clark’s blog</a>. For more on predictions in linear mixed models see <span class="citation">Robinson (<a href="#ref-robinson1991blup">1991</a>)</span>, <span class="citation">Rabinowicz and Rosset (<a href="#ref-rabinowicz2018assessing">2018</a>)</span>, and references therein. See <a href="https://m-clark.github.io/docs/clustered/">Michael Clarck’s</a> guide for various ways of dealing with correlations within groups. For the geo-spatial view and terminology of correlated data, see <span class="citation">Christakos (<a href="#ref-christakos2000modern">2000</a>)</span>, <span class="citation">Diggle, Tawn, and Moyeed (<a href="#ref-diggle1998model">1998</a>)</span>, <span class="citation">Allard (<a href="#ref-allard2013j">2013</a>)</span>, and <span class="citation">Cressie and Wikle (<a href="#ref-cressie2015statistics">2015</a>)</span>.</p>
+<p>Most of the examples in this chapter are from the documentation of the <strong>lme4</strong> package <span class="citation">(Bates et al. <a href="#ref-lme4">2015</a>)</span>.
+For a general and very applied treatment, see <span class="citation">Pinero and Bates (<a href="#ref-pinero2000mixed">2000</a>)</span>.
+As usual, a hands on view can be found in <span class="citation">Venables and Ripley (<a href="#ref-venables2013modern">2013</a>)</span>, and also in an excellent blog post by <a href="http://rpsychologist.com/r-guide-longitudinal-lme-lmer">Kristoffer Magnusson</a>
+For a more theoretical view see <span class="citation">Weiss (<a href="#ref-weiss2005modeling">2005</a>)</span> or <span class="citation">Searle, Casella, and McCulloch (<a href="#ref-searle2009variance">2009</a>)</span>.
+Sometimes it is unclear if an effect is random or fixed; on the difference between the two types of inference see the classics: <span class="citation">Eisenhart (<a href="#ref-eisenhart1947assumptions">1947</a>)</span>, <span class="citation">Kempthorne (<a href="#ref-kempthorne1975fixed">1975</a>)</span>, and the more recent <span class="citation">Rosset and Tibshirani (<a href="#ref-rosset2018fixed">2018</a>)</span>.
+For an interactive, beatiful visualization of the shrinkage introduced by mixed models, see <a href="http://m-clark.github.io/posts/2019-05-14-shrinkage-in-mixed-models/">Michael Clark’s blog</a>.
+For more on predictions in linear mixed models see <span class="citation">Robinson (<a href="#ref-robinson1991blup">1991</a>)</span>, <span class="citation">Rabinowicz and Rosset (<a href="#ref-rabinowicz2018assessing">2018</a>)</span>, and references therein.
+See <a href="https://m-clark.github.io/docs/clustered/">Michael Clarck’s</a> guide for various ways of dealing with correlations within groups.
+For the geo-spatial view and terminology of correlated data, see <span class="citation">Christakos (<a href="#ref-christakos2000modern">2000</a>)</span>, <span class="citation">Diggle, Tawn, and Moyeed (<a href="#ref-diggle1998model">1998</a>)</span>, <span class="citation">Allard (<a href="#ref-allard2013j">2013</a>)</span>, and <span class="citation">Cressie and Wikle (<a href="#ref-cressie2015statistics">2015</a>)</span>.</p>
 </div>
 <div id="practice-yourself-4" class="section level2">
 <h2><span class="header-section-number">8.7</span> Practice Yourself</h2>
@@ -946,7 +1095,7 @@ lattice<span class="op">::</span><span class="kw">levelplot</span>(the.cov)</cod
 <p>Allard, Denis. 2013. “J.-P. Chiles, P. Delfiner: Geostatistics: Modeling Spatial Uncertainty.” Springer.</p>
 </div>
 <div id="ref-lme4">
-<p>Bates, Douglas, Martin Mächler, Ben Bolker, and Steve Walker. 2015. “Fitting Linear Mixed-Effects Models Using lme4.” <em>Journal of Statistical Software</em> 67 (1): 1–48. doi:<a href="https://doi.org/10.18637/jss.v067.i01">10.18637/jss.v067.i01</a>.</p>
+<p>Bates, Douglas, Martin Mächler, Ben Bolker, and Steve Walker. 2015. “Fitting Linear Mixed-Effects Models Using lme4.” <em>Journal of Statistical Software</em> 67 (1): 1–48. <a href="https://doi.org/10.18637/jss.v067.i01">https://doi.org/10.18637/jss.v067.i01</a>.</p>
 </div>
 <div id="ref-bonat2018multiple">
 <p>Bonat, Wagner Hugo. 2018. “Multiple Response Variables Regression Models in R: The Mcglm Package.” <em>Journal of Statistical Software</em> 84 (1): 1–30.</p>
@@ -976,7 +1125,7 @@ lattice<span class="op">::</span><span class="kw">levelplot</span>(the.cov)</cod
 <p>Robinson, George K. 1991. “That Blup Is a Good Thing: The Estimation of Random Effects.” <em>Statistical Science</em>. JSTOR, 15–32.</p>
 </div>
 <div id="ref-rosset2018fixed">
-<p>Rosset, Saharon, and Ryan J Tibshirani. 2018. “From Fixed-X to Random-X Regression: Bias-Variance Decompositions, Covariance Penalties, and Prediction Error Estimation.” <em>Journal of the American Statistical Association</em>, no. just-accepted. Taylor &amp; Francis.</p>
+<p>Rosset, Saharon, and Ryan J Tibshirani. 2018. “From Fixed-X to Random-X Regression: Bias-Variance Decompositions, Covariance Penalties, and Prediction Error Estimation.” <em>Journal of the American Statistical Association</em>, nos. just-accepted. Taylor &amp; Francis.</p>
 </div>
 <div id="ref-searle2009variance">
 <p>Searle, Shayle R, George Casella, and Charles E McCulloch. 2009. <em>Variance Components</em>. Vol. 391. John Wiley &amp; Sons.</p>
@@ -991,7 +1140,7 @@ lattice<span class="op">::</span><span class="kw">levelplot</span>(the.cov)</cod
 <div class="footnotes">
 <hr />
 <ol start="15">
-<li id="fn15"><p>A.k.a. the <em>cluster effect</em>.<a href="lme.html#fnref15">↩</a></p></li>
+<li id="fn15"><p>A.k.a. the <em>cluster effect</em>.<a href="lme.html#fnref15" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -1050,7 +1199,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

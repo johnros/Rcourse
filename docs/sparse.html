@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-09-23" />
+<meta name="date" content="2019-09-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,50 +55,76 @@
 <link href="libs/ggiraphjs-0.1.0/styles.css" rel="stylesheet" />
 <script src="libs/ggiraphjs-0.1.0/ggiraphjs.min.js"></script>
 <script src="libs/girafe-binding-0.6.0/girafe.js"></script>
-<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
+<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -460,8 +486,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="sparse" class="section level1">
 <h1><span class="header-section-number">Chapter 14</span> Sparse Representations</h1>
-<p>Analyzing “bigdata” in R is a challenge because the workspace is memory resident, i.e., all your objects are stored in RAM. As a rule of thumb, fitting models requires about 5 times the size of the data. This means that if you have 1 GB of data, you might need about 5 GB to fit a linear models. We will discuss how to compute <em>out of RAM</em> in the Memory Efficiency Chapter <a href="memory.html#memory">15</a>. In this chapter, we discuss efficient representations of your data, so that it takes less memory. The fundamental idea, is that if your data is <em>sparse</em>, i.e., there are many zero entries in your data, then a naive <code>data.frame</code> or <code>matrix</code> will consume memory for all these zeroes. If, however, you have many recurring zeroes, it is more efficient to save only the non-zero entries.</p>
-<p>When we say <em>data</em>, we actually mean the <code>model.matrix</code>. The <code>model.matrix</code> is a matrix that R grows, converting all your factors to numeric variables that can be computed with. <em>Dummy coding</em> of your factors, for instance, is something that is done in your <code>model.matrix</code>. If you have a factor with many levels, you can imagine that after dummy coding it, many zeroes will be present.</p>
+<p>Analyzing “bigdata” in R is a challenge because the workspace is memory resident, i.e., all your objects are stored in RAM.
+As a rule of thumb, fitting models requires about 5 times the size of the data.
+This means that if you have 1 GB of data, you might need about 5 GB to fit a linear models.
+We will discuss how to compute <em>out of RAM</em> in the Memory Efficiency Chapter <a href="memory.html#memory">15</a>.
+In this chapter, we discuss efficient representations of your data, so that it takes less memory.
+The fundamental idea, is that if your data is <em>sparse</em>, i.e., there are many zero entries in your data, then a naive <code>data.frame</code> or <code>matrix</code> will consume memory for all these zeroes.
+If, however, you have many recurring zeroes, it is more efficient to save only the non-zero entries.</p>
+<p>When we say <em>data</em>, we actually mean the <code>model.matrix</code>.
+The <code>model.matrix</code> is a matrix that R grows, converting all your factors to numeric variables that can be computed with.
+<em>Dummy coding</em> of your factors, for instance, is something that is done in your <code>model.matrix</code>.
+If you have a factor with many levels, you can imagine that after dummy coding it, many zeroes will be present.</p>
 <p>The <strong>Matrix</strong> package replaces the <code>matrix</code> class, with several sparse representations of matrix objects.</p>
 <p>When using sparse representation, and the <strong>Matrix</strong> package, you will need an implementation of your favorite model fitting algorithm (e.g. <code>lm</code>) that is adapted to these sparse representations; otherwise, R will cast the sparse matrix into a regular (non-sparse) matrix, and you will have saved nothing in RAM.</p>
 
@@ -469,20 +504,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
  <span class="remark"><em>Remark. </em></span> If you are familiar with MATLAB you should know that one of the great capabilities of MATLAB, is the excellent treatment of sparse matrices with the <code>sparse</code> function.
 </div>
 
-<p>Before we go into details, here is a simple example. We will create a factor of letters with the <code>letters</code> function. Clearly, this factor can take only <span class="math inline">\(26\)</span> values. This means that <span class="math inline">\(25/26\)</span> of the <code>model.matrix</code> will be zeroes after dummy coding. We will compare the memory footprint of the naive <code>model.matrix</code> with the sparse representation of the same matrix.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
+<p>Before we go into details, here is a simple example.
+We will create a factor of letters with the <code>letters</code> function.
+Clearly, this factor can take only <span class="math inline">\(26\)</span> values.
+This means that <span class="math inline">\(25/26\)</span> of the <code>model.matrix</code> will be zeroes after dummy coding.
+We will compare the memory footprint of the naive <code>model.matrix</code> with the sparse representation of the same matrix.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)
 reps &lt;-<span class="st"> </span><span class="fl">1e6</span> <span class="co"># number of samples</span>
 y&lt;-<span class="kw">rnorm</span>(reps)
 x&lt;-<span class="st"> </span>letters <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">sample</span>(reps, <span class="dt">replace=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>factor</code></pre></div>
+<span class="st">  </span>factor</code></pre>
 <p>The object <code>x</code> is a factor of letters:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(x)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(x)</code></pre>
 <pre><code>## [1] n x z f a i
 ## Levels: a b c d e f g h i j k l m n o p q r s t u v w x y z</code></pre>
 <p>We dummy code <code>x</code> with the <code>model.matrix</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">X.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>x<span class="op">-</span><span class="dv">1</span>)
-<span class="kw">head</span>(X.<span class="dv">1</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">X<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(<span class="op">~</span>x<span class="dv">-1</span>)
+<span class="kw">head</span>(X<span class="fl">.1</span>)</code></pre>
 <pre><code>##   xa xb xc xd xe xf xg xh xi xj xk xl xm xn xo xp xq xr xs xt xu xv xw xx
 ## 1  0  0  0  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0  0  0  0  0  0  0
 ## 2  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1
@@ -498,9 +537,9 @@ x&lt;-<span class="st"> </span>letters <span class="op">%&gt;%</span><span class
 ## 5  0  0
 ## 6  0  0</code></pre>
 <p>We call <strong>MatrixModels</strong> for an implementation of <code>model.matrix</code> that supports sparse representations.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(MatrixModels))
-X.<span class="dv">2</span>&lt;-<span class="st"> </span><span class="kw">as</span>(x,<span class="st">&quot;sparseMatrix&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>t <span class="co"># Makes sparse dummy model.matrix</span>
-<span class="kw">head</span>(X.<span class="dv">2</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(MatrixModels))
+X<span class="fl">.2</span>&lt;-<span class="st"> </span><span class="kw">as</span>(x,<span class="st">&quot;sparseMatrix&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>t <span class="co"># Makes sparse dummy model.matrix</span>
+<span class="kw">head</span>(X<span class="fl">.2</span>)</code></pre>
 <pre><code>## 6 x 26 sparse Matrix of class &quot;dgCMatrix&quot;</code></pre>
 <pre><code>##    [[ suppressing 26 column names &#39;a&#39;, &#39;b&#39;, &#39;c&#39; ... ]]</code></pre>
 <pre><code>##                                                         
@@ -511,14 +550,14 @@ X.<span class="dv">2</span>&lt;-<span class="st"> </span><span class="kw">as</sp
 ## [5,] 1 . . . . . . . . . . . . . . . . . . . . . . . . .
 ## [6,] . . . . . . . . 1 . . . . . . . . . . . . . . . . .</code></pre>
 <p>Notice that the matrices have the same dimensions:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(X.<span class="dv">1</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(X<span class="fl">.1</span>)</code></pre>
 <pre><code>## [1] 1000000      26</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(X.<span class="dv">2</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(X<span class="fl">.2</span>)</code></pre>
 <pre><code>## [1] 1000000      26</code></pre>
 <p>The memory footprint of the matrices, given by the <code>pryr::object_size</code> function, are very very different.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pryr<span class="op">::</span><span class="kw">object_size</span>(X.<span class="dv">1</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">pryr<span class="op">::</span><span class="kw">object_size</span>(X<span class="fl">.1</span>)</code></pre>
 <pre><code>## 272 MB</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pryr<span class="op">::</span><span class="kw">object_size</span>(X.<span class="dv">2</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">pryr<span class="op">::</span><span class="kw">object_size</span>(X<span class="fl">.2</span>)</code></pre>
 <pre><code>## 12 MB</code></pre>
 <p>Things to note:</p>
 <ul>
@@ -526,41 +565,55 @@ X.<span class="dv">2</span>&lt;-<span class="st"> </span><span class="kw">as</sp
 <li>The <code>as(,&quot;sparseMatrix&quot;)</code> function grows the dummy variable representation of the factor <code>x</code>.</li>
 <li>The <strong>pryr</strong> package provides many facilities for inspecting the memory footprint of your objects and code.</li>
 </ul>
-<p>With a sparse representation, we not only saved on RAM, but also on the computing time of fitting a model. Here is the timing of a non sparse representation:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(lm.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>X.<span class="dv">1</span>)) </code></pre></div>
+<p>With a sparse representation, we not only saved on RAM, but also on the computing time of fitting a model.
+Here is the timing of a non sparse representation:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(lm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>X<span class="fl">.1</span>)) </code></pre>
 <pre><code>##    user  system elapsed 
 ##   2.149   0.414   2.561</code></pre>
-<p>Well actually, <code>lm</code> is a wrapper for the <code>lm.fit</code> function. If we override all the overhead of <code>lm</code>, and call <code>lm.fit</code> directly, we gain some time:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(lm.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lm.fit</span>(<span class="dt">y=</span>y, <span class="dt">x=</span>X.<span class="dv">1</span>))</code></pre></div>
+<p>Well actually, <code>lm</code> is a wrapper for the <code>lm.fit</code> function.
+If we override all the overhead of <code>lm</code>, and call <code>lm.fit</code> directly, we gain some time:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(lm<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm.fit</span>(<span class="dt">y=</span>y, <span class="dt">x=</span>X<span class="fl">.1</span>))</code></pre>
 <pre><code>##    user  system elapsed 
 ##   0.702   0.067   0.769</code></pre>
 <p>We now do the same with the sparse representation:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(lm.<span class="dv">2</span> &lt;-<span class="st"> </span>MatrixModels<span class="op">:::</span><span class="kw">lm.fit.sparse</span>(X.<span class="dv">2</span>,y))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(lm<span class="fl">.2</span> &lt;-<span class="st"> </span>MatrixModels<span class="op">:::</span><span class="kw">lm.fit.sparse</span>(X<span class="fl">.2</span>,y))</code></pre>
 <pre><code>##    user  system elapsed 
 ##   0.123   0.004   0.126</code></pre>
 <p>It is only left to verify that the returned coefficients are the same:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(lm.<span class="dv">2</span>, <span class="kw">unname</span>(lm.<span class="dv">1</span><span class="op">$</span>coefficients), <span class="dt">tolerance =</span> <span class="fl">1e-12</span>)</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(lm<span class="fl">.2</span>, <span class="kw">unname</span>(lm<span class="fl">.1</span><span class="op">$</span>coefficients), <span class="dt">tolerance =</span> <span class="fl">1e-12</span>)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <p>You can also visualize the non zero entries, i.e., the sparsity structure.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(X.<span class="dv">2</span>[<span class="dv">1</span><span class="op">:</span><span class="dv">26</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">26</span>])</code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-331-1.png" width="50%" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">image</span>(X<span class="fl">.2</span>[<span class="dv">1</span><span class="op">:</span><span class="dv">26</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">26</span>])</code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-332-1.png" width="50%" /></p>
 <div id="sparse-matrix-representations" class="section level2">
 <h2><span class="header-section-number">14.1</span> Sparse Matrix Representations</h2>
-<p>We first distinguish between the two main goals of the efficient representation: (i) efficient writing, i.e., modification; (ii) efficient reading, i.e., access. For our purposes, we will typically want efficient reading, since the <code>model.matrix</code> will not change while a model is being fitted.</p>
-<p>Representations designed for writing include the <em>dictionary of keys</em>, <em>list of lists</em>, and a <em>coordinate list</em>. Representations designed for efficient reading include the <em>compressed sparse row</em> and <em>compressed sparse column</em>.</p>
+<p>We first distinguish between the two main goals of the efficient representation:
+(i) efficient writing, i.e., modification;
+(ii) efficient reading, i.e., access.
+For our purposes, we will typically want efficient reading, since the <code>model.matrix</code> will not change while a model is being fitted.</p>
+<p>Representations designed for writing include the <em>dictionary of keys</em>, <em>list of lists</em>, and a <em>coordinate list</em>.
+Representations designed for efficient reading include the <em>compressed sparse row</em> and <em>compressed sparse column</em>.</p>
 <div id="coo" class="section level3">
 <h3><span class="header-section-number">14.1.1</span> Coordinate List Representation</h3>
-<p>A <em>coordinate list representation</em>, also known as <em>COO</em>, or <em>triplet represantation</em> is simply a list of the non zero entries. Each element in the list is a triplet of the row, column, and value, of each non-zero entry in the matrix. For instance the matrix <span class="math display">\[ \begin{bmatrix}
+<p>A <em>coordinate list representation</em>, also known as <em>COO</em>, or <em>triplet represantation</em> is simply a list of the non zero entries.
+Each element in the list is a triplet of the row, column, and value, of each non-zero entry in the matrix.
+For instance the matrix
+<span class="math display">\[ \begin{bmatrix}
 0 &amp; a_2 &amp; 0 \\
 0 &amp; 0 &amp; b_3 
-\end{bmatrix}  \]</span> will be <span class="math display">\[ \begin{bmatrix}
+\end{bmatrix}  \]</span>
+will be
+<span class="math display">\[ \begin{bmatrix}
 1 &amp; 2 &amp; a_2 \\
 2 &amp; 3 &amp; b_3 
 \end{bmatrix}.  \]</span></p>
 </div>
 <div id="compressed-row-oriented-representation" class="section level3">
 <h3><span class="header-section-number">14.1.2</span> Compressed Row Oriented Representation</h3>
-<p><em>Compressed row oriented representation</em>, also known as <em>compressed sparse row</em>, or <em>CSR</em>. <em>CSR</em> is similar to <em>COO</em> with a compressed row vector. Instead of holding the row of each non-zero entry, the row vector holds the locations in the colum vector where a row is increased. See the next illustration.</p>
+<p><em>Compressed row oriented representation</em>, also known as <em>compressed sparse row</em>, or <em>CSR</em>.
+<em>CSR</em> is similar to <em>COO</em> with a compressed row vector.
+Instead of holding the row of each non-zero entry, the row vector holds the locations in the colum vector where a row is increased.
+See the next illustration.</p>
 <div class="figure">
 <img src="art/crc.png" alt="The CSR data structure. From Shah and Gilbert (2004). Remember that MATLAB is written in C, where the indexing starts at 0, and not 1." />
 <p class="caption">The CSR data structure. From <span class="citation">Shah and Gilbert (<a href="#ref-shah2004sparse">2004</a>)</span>. Remember that MATLAB is written in C, where the indexing starts at <span class="math inline">\(0\)</span>, and not <span class="math inline">\(1\)</span>.</p>
@@ -568,11 +621,14 @@ X.<span class="dv">2</span>&lt;-<span class="st"> </span><span class="kw">as</sp
 </div>
 <div id="compressed-column-oriented-representation" class="section level3">
 <h3><span class="header-section-number">14.1.3</span> Compressed Column Oriented Representation</h3>
-<p>A <em>compressed column oriented representation</em>, also known as <em>compressed sparse column</em>, or <em>CSC</em>. In <em>CSC</em> the column vector is compressed. Unlike <em>CSR</em> where the row vector is compressed. The nature of statistical applications is such, that CSC representation is typically the most economical, justifying its popularity.</p>
+<p>A <em>compressed column oriented representation</em>, also known as <em>compressed sparse column</em>, or <em>CSC</em>.
+In <em>CSC</em> the column vector is compressed. Unlike <em>CSR</em> where the row vector is compressed.
+The nature of statistical applications is such, that CSC representation is typically the most economical, justifying its popularity.</p>
 </div>
 <div id="sparse-algorithms" class="section level3">
 <h3><span class="header-section-number">14.1.4</span> Sparse Algorithms</h3>
-<p>We will go into the details of some algorithms in the Numerical Linear Algebra Chapter <a href="algebra.html#algebra">17</a>. For our current purposes two things need to be emphasized:</p>
+<p>We will go into the details of some algorithms in the Numerical Linear Algebra Chapter <a href="algebra.html#algebra">17</a>.
+For our current purposes two things need to be emphasized:</p>
 <ol style="list-style-type: decimal">
 <li><p>Working with sparse representations requires using a function that is aware of the representation you are using.</p></li>
 <li><p>A mathematician may write <span class="math inline">\(Ax=b \Rightarrow x=A^{-1}b\)</span>. This is a <a href="https://en.wikipedia.org/wiki/Predicate_(mathematical_logic)">predicate</a> of <span class="math inline">\(x\)</span>,i.e., a property that <span class="math inline">\(x\)</span> satisfies, which helps with its analysis. A computer, however, would <strong>never</strong> compute <span class="math inline">\(A^{-1}\)</span> in order to find <span class="math inline">\(x\)</span>, but rather use one of many endlessly many numerical algorithms. A computer will typically “search” various <span class="math inline">\(x\)</span>’s until it finds the one that fulfils the predicate.</p></li>
@@ -583,7 +639,8 @@ X.<span class="dv">2</span>&lt;-<span class="st"> </span><span class="kw">as</sp
 <h2><span class="header-section-number">14.2</span> Sparse Matrices and Sparse Models in R</h2>
 <div id="the-matrix-package" class="section level3">
 <h3><span class="header-section-number">14.2.1</span> The Matrix Package</h3>
-<p>The <strong>Matrix</strong> package provides facilities to deal with real (stored as double precision), logical and so-called “pattern” (binary) dense and sparse matrices. There are provisions to provide integer and complex (stored as double precision complex) matrices.</p>
+<p>The <strong>Matrix</strong> package provides facilities to deal with real (stored as double precision), logical and so-called “pattern” (binary) dense and sparse matrices.
+There are provisions to provide integer and complex (stored as double precision complex) matrices.</p>
 <p>The sparse matrix classes include:</p>
 <ul>
 <li><code>TsparseMatrix</code>: a virtual class of the various sparse matrices in triplet representation.</li>
@@ -597,13 +654,18 @@ X.<span class="dv">2</span>&lt;-<span class="st"> </span><span class="kw">as</sp
 <li><code>dsCMatrix</code>: a <strong>symmetric</strong> sparse matrix of <strong>doubles</strong>, in <strong>CSC</strong> representation.</li>
 <li><code>dtCMatrix</code>: a <strong>triangular</strong> sparse matrix of <strong>doubles</strong>, in <strong>CSC</strong> representation.</li>
 </ul>
-<p>Why bother with distinguishing between the different shapes of the matrix? Because the more structure is assumed on a matrix, the more our (statistical) algorithms can be optimized. For our purposes <code>dgCMatrix</code> will be the most useful.</p>
+<p>Why bother with distinguishing between the different shapes of the matrix?
+Because the more structure is assumed on a matrix, the more our (statistical) algorithms can be optimized.
+For our purposes <code>dgCMatrix</code> will be the most useful.</p>
 </div>
 <div id="the-glmnet-package" class="section level3">
 <h3><span class="header-section-number">14.2.2</span> The glmnet Package</h3>
-<p>As previously stated, an efficient storage of the <code>model.matrix</code> is half of the story. We now need implementations of our favorite statistical algorithms that make use of this representation. At the time of writing, a very useful package that does that is the <strong>glmnet</strong> package, which allows to fit linear models, generalized linear models, with ridge, lasso, and elastic net regularization. The <strong>glmnet</strong> package allows all of this, using the sparse matrices of the <strong>Matrix</strong> package.</p>
+<p>As previously stated, an efficient storage of the <code>model.matrix</code> is half of the story.
+We now need implementations of our favorite statistical algorithms that make use of this representation.
+At the time of writing, a very useful package that does that is the <strong>glmnet</strong> package, which allows to fit linear models, generalized linear models, with ridge, lasso, and elastic net regularization.
+The <strong>glmnet</strong> package allows all of this, using the sparse matrices of the <strong>Matrix</strong> package.</p>
 <p>The following example is taken from <a href="http://www.johnmyleswhite.com/notebook/2011/10/31/using-sparse-matrices-in-r/">John Myles White’s blog</a>, and compares the runtime of fitting an OLS model, using <code>glmnet</code> with both sparse and dense matrix representations.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(<span class="st">&#39;glmnet&#39;</span>))
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(<span class="st">&#39;glmnet&#39;</span>))
 
 <span class="kw">set.seed</span>(<span class="dv">1</span>)
 performance &lt;-<span class="st"> </span><span class="kw">data.frame</span>()
@@ -644,7 +706,7 @@ performance &lt;-<span class="st"> </span><span class="kw">data.frame</span>()
                                                <span class="dt">SystemTime =</span> full.times[<span class="dv">2</span>],
                                                <span class="dt">ElapsedTime =</span> full.times[<span class="dv">3</span>],
                                                <span class="dt">Size =</span> full.size))
-}</code></pre></div>
+}</code></pre>
 <p>Things to note:</p>
 <ul>
 <li>The simulation calls <code>glmnet</code> twice. Once with the non-sparse object <code>x</code>, and once with its sparse version <code>sx</code>.</li>
@@ -652,22 +714,27 @@ performance &lt;-<span class="st"> </span><span class="kw">data.frame</span>()
 <li>Because <code>y</code> is continuous <code>glmnet</code> will fit a simple OLS model. We will see later how to use it to fit GLMs and use lasso, ridge, and elastic-net regularization.</li>
 </ul>
 <p>We now inspect the computing time, and the memory footprint, only to discover that sparse representations make a BIG difference.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(<span class="st">&#39;ggplot2&#39;</span>))
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(<span class="st">&#39;ggplot2&#39;</span>))
 <span class="kw">ggplot</span>(performance, <span class="kw">aes</span>(<span class="dt">x =</span> Format, <span class="dt">y =</span> ElapsedTime, <span class="dt">fill =</span> Format)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;bar&#39;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;errorbar&#39;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&#39;Elapsed Time in Seconds&#39;</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-332-1.png" width="50%" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(performance, <span class="kw">aes</span>(<span class="dt">x =</span> Format, <span class="dt">y =</span> Size <span class="op">/</span><span class="st"> </span><span class="dv">1000000</span>, <span class="dt">fill =</span> Format)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&#39;Elapsed Time in Seconds&#39;</span>) </code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-333-1.png" width="50%" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(performance, <span class="kw">aes</span>(<span class="dt">x =</span> Format, <span class="dt">y =</span> Size <span class="op">/</span><span class="st"> </span><span class="dv">1000000</span>, <span class="dt">fill =</span> Format)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;bar&#39;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">stat_summary</span>(<span class="dt">fun.data =</span> <span class="st">&#39;mean_cl_boot&#39;</span>, <span class="dt">geom =</span> <span class="st">&#39;errorbar&#39;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&#39;Matrix Size in MB&#39;</span>) </code></pre></div>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-333-1.png" width="50%" /></p>
-<p>How do we perform other types of regression with the <strong>glmnet</strong>? We just need to use the <code>family</code> and <code>alpha</code> arguments of <code>glmnet::glmnet</code>. The <code>family</code> argument governs the type of GLM to fit: logistic, Poisson, probit, or other types of GLM. The <code>alpha</code> argument controls the type of regularization. Set to <code>alpha=0</code> for ridge, <code>alpha=1</code> for lasso, and any value in between for elastic-net regularization.</p>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&#39;Matrix Size in MB&#39;</span>) </code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-334-1.png" width="50%" /></p>
+<p>How do we perform other types of regression with the <strong>glmnet</strong>?
+We just need to use the <code>family</code> and <code>alpha</code> arguments of <code>glmnet::glmnet</code>.
+The <code>family</code> argument governs the type of GLM to fit: logistic, Poisson, probit, or other types of GLM.
+The <code>alpha</code> argument controls the type of regularization. Set to <code>alpha=0</code> for ridge, <code>alpha=1</code> for lasso, and any value in between for elastic-net regularization.</p>
 </div>
 <div id="the-matrixmodels-package" class="section level3">
 <h3><span class="header-section-number">14.2.3</span> The MatrixModels Package</h3>
-<p>The <a href="https://cran.r-project.org/package=MatrixModels">MatrixModels</a> package is designed to fit various models (linear, non-linear, generalized) using sparse matries. The function <code>MatrixModels::glm4</code> can easily replace <code>stats::glm</code> for all your needs. Unlike <strong>glmnet</strong>, the <strong>MatrixModels</strong> package will not offer you model regularization.</p>
+<p>The <a href="https://cran.r-project.org/package=MatrixModels">MatrixModels</a> package is designed to fit various models (linear, non-linear, generalized) using sparse matries.
+The function <code>MatrixModels::glm4</code> can easily replace <code>stats::glm</code> for all your needs.
+Unlike <strong>glmnet</strong>, the <strong>MatrixModels</strong> package will not offer you model regularization.</p>
 </div>
 <div id="the-sparsem-package" class="section level3">
 <h3><span class="header-section-number">14.2.4</span> The SparseM Package</h3>
@@ -676,11 +743,16 @@ performance &lt;-<span class="st"> </span><span class="kw">data.frame</span>()
 </div>
 <div id="beyond-sparsity" class="section level2">
 <h2><span class="header-section-number">14.3</span> Beyond Sparsity</h2>
-<p>When you think of it, sparse matrix representations is nothing but a combo of lossless compression, with accompanying matrix algorithms. Can this combo be leveraged when matrices are not sparse? At the time of writing, I am unaware of R objects that explot this idea, but it is generally possible.</p>
+<p>When you think of it, sparse matrix representations is nothing but a combo of lossless compression, with accompanying matrix algorithms.
+Can this combo be leveraged when matrices are not sparse?
+At the time of writing, I am unaware of R objects that explot this idea, but it is generally possible.</p>
 </div>
 <div id="apache-arrow" class="section level2">
 <h2><span class="header-section-number">14.4</span> Apache Arrow</h2>
-<p>It is quite possible that your data contain redundancies, other than the number 0. In this case, you can still find efficient representations, but you will need something more general than CRC and the likes. Apache Arrow is a a set of C++ functions, for efficient representation of objects in memory. It can detect redundancies, and exploit them for efficient representation, but it can do much much more:</p>
+<p>It is quite possible that your data contain redundancies, other than the number 0.
+In this case, you can still find efficient representations, but you will need something more general than CRC and the likes.
+Apache Arrow is a a set of C++ functions, for efficient representation of objects in memory.
+It can detect redundancies, and exploit them for efficient representation, but it can do much much more:</p>
 <ul>
 <li>It is the technology underlying many <a href="https://arrow.apache.org/powered_by/">software suits</a>, and is supporteb by R and Python.</li>
 <li>The memory representation is designed for easy read/writes into disk or network. This means that saving your file, or sending it over the network, will require very little CPU. For optimal performance save it into <a href="https://en.wikipedia.org/wiki/Apache_Parquet">Apache Parquet</a> using <code>arrow::write_parquet</code>, or <a href="http://arrow.apache.org/blog/2019/08/08/r-package-on-cran/">Feather</a> file formats, using the <code>arrow::write_feather()</code> function. Read functions are also provided.</li>
@@ -689,12 +761,17 @@ performance &lt;-<span class="st"> </span><span class="kw">data.frame</span>()
 </div>
 <div id="bibliographic-notes-12" class="section level2">
 <h2><span class="header-section-number">14.5</span> Bibliographic Notes</h2>
-<p>The best place to start reading on sparse representations and algorithms is the <a href="https://cran.r-project.org/web/packages/Matrix/vignettes/Intro2Matrix.pdf">vignettes</a> of the <strong>Matrix</strong> package. <span class="citation">Gilbert, Moler, and Schreiber (<a href="#ref-gilbert1992sparse">1992</a>)</span> is also a great read for some general background. See <a href="http://netlib.org/linalg/html_templates/node90.html">here</a> for a blog-level review of sparse matrix formats. For the theory on solving sparse linear systems see <span class="citation">Davis (<a href="#ref-davis2006direct">2006</a>)</span>. For general numerical linear algebra see <span class="citation">Gentle (<a href="#ref-gentle2012numerical">2012</a>)</span>.</p>
+<p>The best place to start reading on sparse representations and algorithms is the <a href="https://cran.r-project.org/web/packages/Matrix/vignettes/Intro2Matrix.pdf">vignettes</a> of the <strong>Matrix</strong> package.
+<span class="citation">Gilbert, Moler, and Schreiber (<a href="#ref-gilbert1992sparse">1992</a>)</span> is also a great read for some general background.
+See <a href="http://netlib.org/linalg/html_templates/node90.html">here</a> for a blog-level review of sparse matrix formats.
+For the theory on solving sparse linear systems see <span class="citation">Davis (<a href="#ref-davis2006direct">2006</a>)</span>.
+For general numerical linear algebra see <span class="citation">Gentle (<a href="#ref-gentle2012numerical">2012</a>)</span>.</p>
 </div>
 <div id="practice-yourself-10" class="section level2">
 <h2><span class="header-section-number">14.6</span> Practice Yourself</h2>
 <ol style="list-style-type: decimal">
-<li><p>What is the CSC representation of the following matrix: <span class="math display">\[\begin{bmatrix}
+<li><p>What is the CSC representation of the following matrix:
+<span class="math display">\[\begin{bmatrix}
 0 &amp; 1 &amp; 0 \\
 0 &amp; 0 &amp; 6 \\
 1 &amp; 0 &amp; 1 
@@ -775,7 +852,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');

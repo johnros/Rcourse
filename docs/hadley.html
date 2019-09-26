@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-09-23" />
+<meta name="date" content="2019-09-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,50 +55,76 @@
 <link href="libs/ggiraphjs-0.1.0/styles.css" rel="stylesheet" />
 <script src="libs/ggiraphjs-0.1.0/ggiraphjs.min.js"></script>
 <script src="libs/girafe-binding-0.6.0/girafe.js"></script>
-<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
+<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -460,7 +486,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="hadley" class="section level1">
 <h1><span class="header-section-number">Chapter 21</span> The Hadleyverse</h1>
-<p>The <em>Hadleyverse</em>, short for “Hadley Wickham’s universe”, is a set of packages that make it easier to handle data. If you are developing packages, you should be careful since using these packages may create many dependencies and compatibility issues. If you are analyzing data, and the portability of your functions to other users, machines, and operating systems is not of a concern, you will LOVE these packages. The term Hadleyverse refers to <strong>all</strong> of Hadley’s packages, but here, we mention only a useful subset, which can be collectively installed via the <strong>tidyverse</strong> package:</p>
+<p>The <em>Hadleyverse</em>, short for “Hadley Wickham’s universe”, is a set of packages that make it easier to handle data.
+If you are developing packages, you should be careful since using these packages may create many dependencies and compatibility issues.
+If you are analyzing data, and the portability of your functions to other users, machines, and operating systems is not of a concern, you will LOVE these packages.
+The term Hadleyverse refers to <strong>all</strong> of Hadley’s packages, but here, we mention only a useful subset, which can be collectively installed via the <strong>tidyverse</strong> package:</p>
 <ul>
 <li><strong>ggplot2</strong> for data visualization. See the Plotting Chapter <a href="plotting.html#plotting">12</a>.</li>
 <li><strong>dplyr</strong> for data manipulation.</li>
@@ -471,12 +500,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <div id="readr" class="section level2">
 <h2><span class="header-section-number">21.1</span> readr</h2>
-<p>The <strong>readr</strong> package <span class="citation">(Wickham, Hester, and Francois <a href="#ref-readr">2016</a>)</span> replaces base functions for importing and exporting data such as <code>read.table</code>. It is faster, with a cleaner syntax.</p>
+<p>The <strong>readr</strong> package <span class="citation">(Wickham, Hester, and Francois <a href="#ref-readr">2016</a>)</span> replaces base functions for importing and exporting data such as <code>read.table</code>.
+It is faster, with a cleaner syntax.</p>
 <p>We will not go into the details and refer the reader to the official documentation <a href="http://readr.tidyverse.org/articles/readr.html">here</a> and the <a href="http://r4ds.had.co.nz/data-import.html">R for data sciecne</a> book.</p>
 </div>
 <div id="dplyr" class="section level2">
 <h2><span class="header-section-number">21.2</span> dplyr</h2>
-<p>When you think of data frame operations, think <strong>dplyr</strong> <span class="citation">(Wickham and Francois <a href="#ref-dplyr">2016</a>)</span>. Notable utilities in the package include:</p>
+<p>When you think of data frame operations, think <strong>dplyr</strong> <span class="citation">(Wickham and Francois <a href="#ref-dplyr">2016</a>)</span>.
+Notable utilities in the package include:</p>
 <ul>
 <li><code>select()</code> Select columns from a data frame.</li>
 <li><code>filter()</code> Filter rows according to some condition(s).</li>
@@ -489,11 +520,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>right_join(x,y,by=&quot;col&quot;)</code> return all rows from ‘y’, and all columns from ‘x’ and y. Rows in ‘y’ with no match in ‘x’ will have ‘NA’ values in the new columns. If there are multiple matches between ‘x’ and ‘y’, all combinations of the matches are returned.</li>
 <li><code>anti_join(x,y,by=&quot;col&quot;)</code> return all rows from ‘x’ where there are not matching values in ‘y’, keeping just columns from ‘x’.</li>
 </ul>
-<p>The following example involve <code>data.frame</code> objects, but <strong>dplyr</strong> can handle other classes. In particular <code>data.table</code>s from the <strong>data.table</strong> package <span class="citation">(Dowle and Srinivasan <a href="#ref-datatable">2017</a>)</span>, which is designed for very large data sets.</p>
-<p><strong>dplyr</strong> can work with data stored in a database. In which case, it will convert your command to the appropriate SQL syntax, and issue it to the database. This has the advantage that (a) you do not need to know the specific SQL implementation of your database, and (b), you can enjoy the optimized algorithms provided by the database supplier. For more on this, see the <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html">databses vignette</a>.</p>
-<p>The following examples are taken from <a href="https://github.com/justmarkham/dplyr-tutorial/blob/master/dplyr-tutorial.Rmd">Kevin Markham</a>. The <code>nycflights13::flights</code> has delay data for US flights.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nycflights13)
-flights</code></pre></div>
+<p>The following example involve <code>data.frame</code> objects, but <strong>dplyr</strong> can handle other classes.
+In particular <code>data.table</code>s from the <strong>data.table</strong> package <span class="citation">(Dowle and Srinivasan <a href="#ref-datatable">2017</a>)</span>, which is designed for very large data sets.</p>
+<p><strong>dplyr</strong> can work with data stored in a database.
+In which case, it will convert your command to the appropriate SQL syntax, and issue it to the database.
+This has the advantage that (a) you do not need to know the specific SQL implementation of your database, and (b), you can enjoy the optimized algorithms provided by the database supplier.
+For more on this, see the <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html">databses vignette</a>.</p>
+<p>The following examples are taken from <a href="https://github.com/justmarkham/dplyr-tutorial/blob/master/dplyr-tutorial.Rmd">Kevin Markham</a>.
+The <code>nycflights13::flights</code> has delay data for US flights.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nycflights13)
+flights</code></pre>
 <pre><code>## # A tibble: 336,776 x 19
 ##     year month   day dep_time sched_dep_time dep_delay arr_time
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
@@ -511,17 +547,19 @@ flights</code></pre></div>
 ## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
 ## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
 ## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
-<p>The data is of class <code>tbl_df</code> which is an extension of the <code>data.frame</code> class, designed for large data sets. Notice that the printing of <code>flights</code> is short, even without calling the <code>head</code> function. This is a feature of the <code>tbl_df</code> class ( <code>print(data.frame)</code> would try to load all the data, thus take a long time).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(flights) <span class="co"># a tbl_df is an extension of the data.frame class</span></code></pre></div>
+<p>The data is of class <code>tbl_df</code> which is an extension of the <code>data.frame</code> class, designed for large data sets.
+Notice that the printing of <code>flights</code> is short, even without calling the <code>head</code> function. This is a feature of the <code>tbl_df</code> class ( <code>print(data.frame)</code> would try to load all the data, thus take a long time).</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(flights) <span class="co"># a tbl_df is an extension of the data.frame class</span></code></pre>
 <pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
-<p>Let’s filter the observations from the first day of the first month. Notice how much better (i.e. readable) is the <strong>dplyr</strong> syntax, with piping, compared to the basic syntax.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights[flights<span class="op">$</span>month <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>flights<span class="op">$</span>day <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, ] <span class="co"># old style</span>
+<p>Let’s filter the observations from the first day of the first month.
+Notice how much better (i.e. readable) is the <strong>dplyr</strong> syntax, with piping, compared to the basic syntax.</p>
+<pre class="sourceCode r"><code class="sourceCode r">flights[flights<span class="op">$</span>month <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>flights<span class="op">$</span>day <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, ] <span class="co"># old style</span>
 
 <span class="kw">library</span>(dplyr) 
 <span class="kw">filter</span>(flights, month <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, day <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="co">#dplyr style</span>
-flights <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, day <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="co"># dplyr with piping.</span></code></pre></div>
+flights <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(month <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, day <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="co"># dplyr with piping.</span></code></pre>
 <p>More filtering.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(flights, month <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>month <span class="op">==</span><span class="st"> </span><span class="dv">2</span>) <span class="co"># First OR second month.</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filter</span>(flights, month <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>month <span class="op">==</span><span class="st"> </span><span class="dv">2</span>) <span class="co"># First OR second month.</span>
 <span class="kw">slice</span>(flights, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) <span class="co"># selects first ten rows.</span>
 
 <span class="kw">arrange</span>(flights, year, month, day) <span class="co"># sort</span>
@@ -555,28 +593,32 @@ flights <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">
   )
 <span class="co"># random subsample </span>
 <span class="kw">sample_n</span>(flights, <span class="dv">10</span>) 
-<span class="kw">sample_frac</span>(flights, <span class="fl">0.01</span>) </code></pre></div>
-<p>We now perform operations on subgroups. we group observations along the plane’s tail number (<code>tailnum</code>), and compute the count, average distance traveled, and average delay. We group with <code>group_by</code>, and compute subgroup statistics with <code>summarise</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">by_tailnum &lt;-<span class="st"> </span><span class="kw">group_by</span>(flights, tailnum)
+<span class="kw">sample_frac</span>(flights, <span class="fl">0.01</span>) </code></pre>
+<p>We now perform operations on subgroups.
+we group observations along the plane’s tail number (<code>tailnum</code>), and compute the count, average distance traveled, and average delay.
+We group with <code>group_by</code>, and compute subgroup statistics with <code>summarise</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">by_tailnum &lt;-<span class="st"> </span><span class="kw">group_by</span>(flights, tailnum)
 
 delay &lt;-<span class="st"> </span><span class="kw">summarise</span>(by_tailnum,
   <span class="dt">count =</span> <span class="kw">length</span>(),
   <span class="dt">avg.dist =</span> <span class="kw">mean</span>(distance, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),
   <span class="dt">avg.delay =</span> <span class="kw">mean</span>(arr_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))
 
-delay</code></pre></div>
-<p>We can group along several variables, with a hierarchy. We then collapse the hierarchy one by one.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">daily &lt;-<span class="st"> </span><span class="kw">group_by</span>(flights, year, month, day)
+delay</code></pre>
+<p>We can group along several variables, with a hierarchy.
+We then collapse the hierarchy one by one.</p>
+<pre class="sourceCode r"><code class="sourceCode r">daily &lt;-<span class="st"> </span><span class="kw">group_by</span>(flights, year, month, day)
 per_day   &lt;-<span class="st"> </span><span class="kw">summarise</span>(daily, <span class="dt">flights =</span> <span class="kw">n</span>())
 per_month &lt;-<span class="st"> </span><span class="kw">summarise</span>(per_day, <span class="dt">flights =</span> <span class="kw">sum</span>(flights))
-per_year  &lt;-<span class="st"> </span><span class="kw">summarise</span>(per_month, <span class="dt">flights =</span> <span class="kw">sum</span>(flights))</code></pre></div>
+per_year  &lt;-<span class="st"> </span><span class="kw">summarise</span>(per_month, <span class="dt">flights =</span> <span class="kw">sum</span>(flights))</code></pre>
 <p>Things to note:</p>
 <ul>
 <li>Every call to <code>summarise</code> collapses one level in the hierarchy of grouping. The output of <code>group_by</code> recalls the hierarchy of aggregation, and collapses along this hierarchy.</li>
 </ul>
-<p>We can use <strong>dplyr</strong> for two table operations, i.e., <em>joins</em>. For this, we join the flight data, with the airplane data in <code>airplanes</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr) 
-airlines  </code></pre></div>
+<p>We can use <strong>dplyr</strong> for two table operations, i.e., <em>joins</em>.
+For this, we join the flight data, with the airplane data in <code>airplanes</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr) 
+airlines  </code></pre>
 <pre><code>## # A tibble: 16 x 2
 ##    carrier name                       
 ##    &lt;chr&gt;   &lt;chr&gt;                      
@@ -596,11 +638,11 @@ airlines  </code></pre></div>
 ## 14 VX      Virgin America             
 ## 15 WN      Southwest Airlines Co.     
 ## 16 YV      Mesa Airlines Inc.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># select the subset of interesting flight data. </span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># select the subset of interesting flight data. </span>
 flights2 &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(year<span class="op">:</span>day, hour, origin, dest, tailnum, carrier) 
 
 <span class="co"># join on left table with automatic matching.</span>
-flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(airlines) </code></pre></div>
+flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(airlines) </code></pre>
 <pre><code>## Joining, by = &quot;carrier&quot;</code></pre>
 <pre><code>## # A tibble: 336,776 x 9
 ##     year month   day  hour origin dest  tailnum carrier name               
@@ -616,7 +658,7 @@ flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"
 ##  9  2013     1     1     6 JFK    MCO   N593JB  B6      JetBlue Airways    
 ## 10  2013     1     1     6 LGA    ORD   N3ALAA  AA      American Airlines …
 ## # … with 336,766 more rows</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(weather) </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(weather) </code></pre>
 <pre><code>## Joining, by = c(&quot;year&quot;, &quot;month&quot;, &quot;day&quot;, &quot;hour&quot;, &quot;origin&quot;)</code></pre>
 <pre><code>## # A tibble: 336,776 x 18
 ##     year month   day  hour origin dest  tailnum carrier  temp  dewp humid
@@ -634,8 +676,8 @@ flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"
 ## # … with 336,766 more rows, and 7 more variables: wind_dir &lt;dbl&gt;,
 ## #   wind_speed &lt;dbl&gt;, wind_gust &lt;dbl&gt;, precip &lt;dbl&gt;, pressure &lt;dbl&gt;,
 ## #   visib &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># join with named matching</span>
-flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(planes, <span class="dt">by =</span> <span class="st">&quot;tailnum&quot;</span>) </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># join with named matching</span>
+flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(planes, <span class="dt">by =</span> <span class="st">&quot;tailnum&quot;</span>) </code></pre>
 <pre><code>## # A tibble: 336,776 x 16
 ##    year.x month   day  hour origin dest  tailnum carrier year.y type 
 ##     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;
@@ -651,8 +693,8 @@ flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"
 ## 10   2013     1     1     6 LGA    ORD   N3ALAA  AA          NA &lt;NA&gt; 
 ## # … with 336,766 more rows, and 6 more variables: manufacturer &lt;chr&gt;,
 ## #   model &lt;chr&gt;, engines &lt;int&gt;, seats &lt;int&gt;, speed &lt;int&gt;, engine &lt;chr&gt;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># join with explicit column matching</span>
-flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(airports, <span class="dt">by=</span> <span class="kw">c</span>(<span class="st">&quot;dest&quot;</span> =<span class="st"> &quot;faa&quot;</span>)) </code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># join with explicit column matching</span>
+flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(airports, <span class="dt">by=</span> <span class="kw">c</span>(<span class="st">&quot;dest&quot;</span> =<span class="st"> &quot;faa&quot;</span>)) </code></pre>
 <pre><code>## # A tibble: 336,776 x 15
 ##     year month   day  hour origin dest  tailnum carrier name    lat   lon
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -669,46 +711,44 @@ flights2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"
 ## # … with 336,766 more rows, and 4 more variables: alt &lt;int&gt;, tz &lt;dbl&gt;,
 ## #   dst &lt;chr&gt;, tzone &lt;chr&gt;</code></pre>
 <p>Types of join with SQL equivalent.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create simple data</span>
-(df1 &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">y =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">1</span>))</code></pre></div>
-<pre><code>## Warning: `data_frame()` is deprecated, use `tibble()`.
-## This warning is displayed once per session.</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create simple data</span>
+(df1 &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">y =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">1</span>))</code></pre>
 <pre><code>## # A tibble: 2 x 2
 ##       x     y
 ##   &lt;dbl&gt; &lt;int&gt;
 ## 1     1     2
 ## 2     2     1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(df2 &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="dt">a =</span> <span class="dv">10</span>, <span class="dt">b =</span> <span class="st">&quot;a&quot;</span>))</code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r">(df2 &lt;-<span class="st"> </span><span class="kw">data_frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="dt">a =</span> <span class="dv">10</span>, <span class="dt">b =</span> <span class="st">&quot;a&quot;</span>))</code></pre>
 <pre><code>## # A tibble: 2 x 3
 ##       x     a b    
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
 ## 1     1    10 a    
 ## 2     3    10 a</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return only matched rows</span>
-df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">inner_join</span>(df2) <span class="co"># SELECT * FROM x JOIN y ON x.a = y.a</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return only matched rows</span>
+df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">inner_join</span>(df2) <span class="co"># SELECT * FROM x JOIN y ON x.a = y.a</span></code></pre>
 <pre><code>## Joining, by = &quot;x&quot;</code></pre>
 <pre><code>## # A tibble: 1 x 4
 ##       x     y     a b    
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
 ## 1     1     2    10 a</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return all rows in df1.</span>
-df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(df2) <span class="co"># SELECT * FROM x LEFT JOIN y ON x.a = y.a</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return all rows in df1.</span>
+df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(df2) <span class="co"># SELECT * FROM x LEFT JOIN y ON x.a = y.a</span></code></pre>
 <pre><code>## Joining, by = &quot;x&quot;</code></pre>
 <pre><code>## # A tibble: 2 x 4
 ##       x     y     a b    
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
 ## 1     1     2    10 a    
 ## 2     2     1    NA &lt;NA&gt;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return all rows in df2.</span>
-df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">right_join</span>(df2) <span class="co"># SELECT * FROM x RIGHT JOIN y ON x.a = y.a</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return all rows in df2.</span>
+df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">right_join</span>(df2) <span class="co"># SELECT * FROM x RIGHT JOIN y ON x.a = y.a</span></code></pre>
 <pre><code>## Joining, by = &quot;x&quot;</code></pre>
 <pre><code>## # A tibble: 2 x 4
 ##       x     y     a b    
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
 ## 1     1     2    10 a    
 ## 2     3    NA    10 a</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return all rows. </span>
-df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">full_join</span>(df2) <span class="co"># SELECT * FROM x FULL JOIN y ON x.a = y.a</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return all rows. </span>
+df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">full_join</span>(df2) <span class="co"># SELECT * FROM x FULL JOIN y ON x.a = y.a</span></code></pre>
 <pre><code>## Joining, by = &quot;x&quot;</code></pre>
 <pre><code>## # A tibble: 3 x 4
 ##       x     y     a b    
@@ -716,8 +756,8 @@ df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">full
 ## 1     1     2    10 a    
 ## 2     2     1    NA &lt;NA&gt; 
 ## 3     3    NA    10 a</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Like left_join, but returning only columns in df1</span>
-df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">semi_join</span>(df2, <span class="dt">by =</span> <span class="st">&quot;x&quot;</span>)  <span class="co"># SELECT * FROM x WHERE EXISTS (SELECT 1 FROM y WHERE x.a = y.a)</span></code></pre></div>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Like left_join, but returning only columns in df1</span>
+df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">semi_join</span>(df2, <span class="dt">by =</span> <span class="st">&quot;x&quot;</span>)  <span class="co"># SELECT * FROM x WHERE EXISTS (SELECT 1 FROM y WHERE x.a = y.a)</span></code></pre>
 <pre><code>## # A tibble: 1 x 2
 ##       x     y
 ##   &lt;dbl&gt; &lt;int&gt;
@@ -746,13 +786,13 @@ df1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">semi
 <h3>References</h3>
 <div id="refs" class="references">
 <div id="ref-datatable">
-<p>Dowle, Matt, and Arun Srinivasan. 2017. <em>Data.table: Extension of ‘Data.frame‘</em>. <a href="https://CRAN.R-project.org/package=data.table" class="uri">https://CRAN.R-project.org/package=data.table</a>.</p>
+<p>Dowle, Matt, and Arun Srinivasan. 2017. <em>Data.table: Extension of ‘Data.frame‘</em>. <a href="https://CRAN.R-project.org/package=data.table">https://CRAN.R-project.org/package=data.table</a>.</p>
 </div>
 <div id="ref-dplyr">
-<p>Wickham, Hadley, and Romain Francois. 2016. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr" class="uri">https://CRAN.R-project.org/package=dplyr</a>.</p>
+<p>Wickham, Hadley, and Romain Francois. 2016. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.</p>
 </div>
 <div id="ref-readr">
-<p>Wickham, Hadley, Jim Hester, and Romain Francois. 2016. <em>Readr: Read Tabular Data</em>. <a href="https://CRAN.R-project.org/package=readr" class="uri">https://CRAN.R-project.org/package=readr</a>.</p>
+<p>Wickham, Hadley, Jim Hester, and Romain Francois. 2016. <em>Readr: Read Tabular Data</em>. <a href="https://CRAN.R-project.org/package=readr">https://CRAN.R-project.org/package=readr</a>.</p>
 </div>
 </div>
             </section>
@@ -811,7 +851,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
