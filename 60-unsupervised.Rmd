@@ -500,19 +500,22 @@ abline(h=0, v=0, lty=2)
 text(ica.1$S, pos = 4, labels = rownames(USArrests.1))
 
 # Compare with PCA (first two PCs):
-arrows(x0 = ica.1$S[,1], y0 = ica.1$S[,2], x1 = pca.1$x[,2], y1 = pca.1$x[,1], col='red', pch=19, cex=0.5)
+arrows(x0 = ica.1$S[,1], y0 = ica.1$S[,2], 
+       x1 = -pca.1$x[,2], y1 = pca.1$x[,1], 
+       col='red', pch=19, cex=0.5)
 ```
 
 Things to note:
 
-- ICA is fitted with `fastICA::fastICA`.
+- We fit ICA with `fastICA::fastICA`. 
 - The ICA components, like any other rotated components, are different than the PCA components. 
+- The fastICA algorithm has a stochastic component. So the solution will be different at each re-run (making comparison to PCA harder).
 
 
 
 #### MDS
 
-Classical MDS, also compared with PCA.
+Classical MDS compared to PCA.
 ```{r MDS, results='hold', cache=TRUE}
 # We first need a dissimarity matrix/graph:
 state.disimilarity <- dist(USArrests.1)
@@ -530,13 +533,13 @@ points(pca.1$x[,1:2], col='red', pch=19, cex=0.5)
 
 Things to note:
 
-- We first compute a dissimilarity graph with `dist`. See the `cluster::daisy` function for more dissimilarity measures.
-- We learn the MDS embedding with `cmdscale`.
-- The embedding of PCA is the same as classical MDS with Euclidean distances. 
+- We first compute a dissimilarity graph with `stats::dist()`. See `cluster::daisy` for a wider variety of dissimilarity measures.
+- We learn the MDS embedding with `stats::cmdscale`.
+- Embedding with the first two components of PCA is exactly the same as classical MDS with Euclidean distances. 
 
 
 
-Let's try other strain functions for MDS, like Sammon's strain, and compare it with the PCs.
+Let's try other strain functions for MDS, like Sammon's stress, and compare it with PCA.
 ```{r SammonMDS, results='hold'}
 mds.2 <- MASS::sammon(state.disimilarity, trace = FALSE)
 plot(mds.2$points, pch = 19)
@@ -553,7 +556,7 @@ arrows(
 Things to note:
 
 - `MASS::sammon` does the embedding.
-- Sammon strain is different than PCA.
+- Sammon stress is different than PCA.
 
 
 
@@ -611,8 +614,6 @@ for(i in 1:9){
 
 
 The analysis is adapted from [Shruti Marwaha](https://rpubs.com/marwahsi/tnse).
-I start by dowloading and importing the famous digit data of .
-
 
 ```{r}
 numTrain <- 5e3 # Subset data for speed
@@ -642,7 +643,7 @@ text(tsne$Y, labels=train.sub.labs, col=colors[train.sub.labs])
 I am unaware of an R implementation of force-embedding.
 Maybe because of the interactive nature of the algorithm, that is not suited for R. 
 Force embedding is much more natural to interactive GUIs. 
-Here is a fun [javascript implementation](http://bl.ocks.org/eesur/be2abfb3155a38be4de4).
+Here is a link for a fun [javascript implementation](http://bl.ocks.org/eesur/be2abfb3155a38be4de4).
 
 
 
@@ -658,7 +659,7 @@ spca1$loadings
 
 Things to note: 
 
-- I used the `spca` function in the __elasticnet__ package.
+- I used the `elasticnet::spca` function.
 - Is the solutions sparse? Yes! PC2 depends on a single variable only: `Murder`.
 
 
@@ -677,22 +678,22 @@ text(rotated(kpc), pos = 4, labels = rownames(USArrests.2))
 
 Things to note:
 
-- kPCA is implemented in `kernlab::kpca`. `kernel=` governs the class of variable mappings allowed for the scoring. 
-- See `?'kpca-class'` or `?rotated` for help on available utility functions.
+- We used `kernlab::kpca` for kPCA. 
 - `rotated` projects the data on its principal components (the above "scores").
+- See `?'kpca-class'` or `?rotated` for help on available utility functions.
+- `kernel=` governs the class of feature mappings. 
 - `kpar=list(sigma=0.2)` provides parameters specific to each type of kernel. See `?kpca`.
 - `features=2` is the number of principal components (scores) to learn. 
-- You may notice the "Horseshoe" pattern of the kPCA embedding, a.k.a. "Croissants", or the _Guttman Effect_. The horseshoe is a recurring and old phenomenon. This phenomenon implies that the data has "structure". Alas, it is possible that this structure is merely due to the sampling scheme that introduced correlations. See [J. De Leeuw's online paper](https://rpubs.com/deleeuw/133786) for a review.
+- You may notice the "Horseshoe" pattern of the kPCA embedding, a.k.a. "Croissants", or the _Guttman Effect_. The horseshoe is known phenomenon in low dimensional visualizations. See [J. De Leeuw's online paper](https://rpubs.com/deleeuw/133786) for more details.
 
 
 
-#### MCA
+#### Multiple Correspondence Analysis (MCA)
 
 See @izenman2008modern.
 
 
-
-
+\pagebreak
 ## Clustering {#cluster}
 
 
@@ -707,7 +708,7 @@ It is still possible, however, to group simiar pictures together.
 ```{example, label="spam"}
 Consider the problem of spam detection. 
 It would be nice if each user could label several thousands emails, to apply a supervised learning approach to spam detection.
-This is an unrealistic demand, so a pre-clustering stage is useful: the user only needs to tag a couple dozens of homogenous clusters, before solving the supervised learning problem. 
+This is an unrealistic demand, so a _pre-clustering_ stage is useful: the user only needs to label a couple dozens of (hopefully homogenous) clusters, before solving the supervised learning problem. 
 ```
 
 
@@ -716,11 +717,11 @@ In clustering problems, we seek to group observations that are similar.
 There are many motivations for clustering:
 
 1. __Understanding__:
-The most common use of clustering is probably as a an exploratory step, to identify homogeneous groups in the data.
+The most common use of clustering is probably as a an exploratory step, to identify homogeneous groups in the data^[As such, you may wonder why clustering is part of machine learning at all? Maybe call it _machine-assisted human-learning_?].
 1. __Dimensionality reduction__:
 Clustering may be seen as a method for dimensionality reduction. 
 Unlike the approaches in the Dimensionality Reduction Section \@ref(dim-reduce), it does not compress __variables__ but rather __observations__. 
-Each group of homogeneous observations may then be represented as a single prototypical observation of the group.
+Each group of homogeneous observations may then be represented as a single _prototypical observation_ of the group. 
 1. __Pre-Labelling__:
 Clustering may be performed as a pre-processing step for supervised learning, when labeling all the samples is impossible due to "budget" constraints, like in Example \@ref(exm:spam). This is sometimes known as _pre-clustering_.
 
@@ -742,8 +743,9 @@ The gender in this example, is a _latent_ variable taking $K=2$ levels: male and
 
 A _finite mixture_ is the marginal distribution of $K$ distinct classes, when the class variable is _latent_.
 This is useful for clustering:
-We can assume the number of classes, $K$, and the distribution of each class. 
-We then use maximum likelihood to fit the mixture distribution, and finally, cluster by assigning observations to the most probable class.
+If we know the distribution of the sub-populations being mixed, we may simply cluster each data point to the most likely sub-group.
+Learning how is each sub-population disctirubted, when no class labels are available is no easy task, but it is possible. 
+For instance, by means of maximum likelihood.
 
 
 
@@ -754,13 +756,13 @@ We then use maximum likelihood to fit the mixture distribution, and finally, clu
 #### K-Means
 The _K-means_ algorithm is possibly the most popular clustering algorithm.
 The goal behind K-means clustering is finding a representative point for each of K clusters, and assign each data point to one of these clusters. 
-As each cluster has a representative point, this is also a _prototype method_.
+As each cluster has a representative point, this is also known as a _prototype method_.
 The clusters are defined so that they minimize the average Euclidean distance between all points to the center of the cluster.
 
 In K-means, the clusters are first defined, and then similarities computed. 
 This is thus a _top-down_ method.
 
-K-means clustering requires the raw features $X$ as inputs, and not only a similarity graph. 
+K-means clustering requires the raw features $X$ as inputs, and not only a similarity graph, $\mathcal{G}$. 
 This is evident when examining the algorithm below. 
 
 The k-means algorithm works as follows:
@@ -770,8 +772,9 @@ The k-means algorithm works as follows:
 1. While clusters keep changing:
     1. Compute the cluster centers as the average of their points.
     1. Assign each point to its closest cluster center (in Euclidean distance).
-1. Return Cluster assignments and means.
+1. Return cluster assignments and means.
 
+\bigskip
 
 ```{remark}
 If trained as a statistician, you may wonder- what population quantity is K-means actually estimating?
@@ -786,11 +789,11 @@ _K-means++_ is a fast version of K-means thanks to a smart initialization.
 #### K-Medoids
 
 If a Euclidean distance is inappropriate for a particular set of variables, or that robustness to corrupt observations is required, or that we wish to constrain the cluster centers to be actual observations, then the _K-Medoids_ algorithm is an adaptation of K-means that allows this.
-It is also known under the name _partition around medoids_ (PAM) clustering, suggesting its relation to [graph partitioning](https://en.wikipedia.org/wiki/Graph_partition).
+It is also known under the name _partition around medoids_ (PAM) clustering, suggesting _its relation to _graph partitioning_: a very important and well-studied problem in computer sciences. 
 
 The k-medoids algorithm works as follows.
 
-1. Given a dissimilarity graph.
+1. Given a dissimilarity graph, $\mathcal{G}$.
 1. Choose the number of clusters $K$.
 1. Arbitrarily assign points to clusters.
 1. While clusters keep changing:
@@ -798,6 +801,7 @@ The k-medoids algorithm works as follows.
     1. Assign each point to its closest cluster center.
 1. Return Cluster assignments and centers.
 
+\bigskip
 
 ```{remark}
 If trained as a statistician, you may wonder- what population quantity is K-medoids actually estimating?
@@ -810,13 +814,12 @@ See @small1990survey.
 #### Hirarchial Clustering
 Hierarchical clustering algorithms take dissimilarity graphs as inputs.
 Hierarchical clustering is a class of greedy _graph-partitioning_ algorithms. 
-Being hierarchical by design, they have the attractive property that the evolution of the clustering can be presented with a _dendogram_, i.e., a tree plot.  
-A particular advantage of these methods is that they do not require an a-priori choice of the number of cluster ($K$).
+Being hierarchical by design, they have the attractive property that the evolution of the clustering can be presented with a _dendogram_, i.e., a tree plot. Another advantage of these methods is that they do not require an a-priori choice of the number of cluster ($K$).
 
 Two main sub-classes of algorithms are _agglomerative_, and _divisive_.
 
 _Agglomerative clustering_ algorithms are __bottom-up__ algorithm which build clusters by joining smaller clusters. 
-To decide which clusters are joined at each iteration some measure of closeness between clusters is required. 
+To decide which clusters are joined at each iteration some measure of distance between clusters is required:
 
 - __Single Linkage__:
 Cluster distance is defined by the distance between the two __closest__ members.
@@ -829,12 +832,6 @@ Like Group Average, only using the median.
 
 _Divisive clustering_ algorithms are __top-down__ algorithm which build clusters by splitting larger clusters. 
 
-
-
-
-
-#### Fuzzy Clustering
-Can be thought of as a purely algorithmic view of the finite-mixture in Section \@ref(finite-mixture).
 
 
 
@@ -861,30 +858,6 @@ Things to note:
 - The visual inspection confirms that similar states have been assigned to the same cluster. 
 
 
-#### K-Means ++
-
-_K-Means++_ is a smart initialization for K-Means.
-The following code is taken from the [r-help](https://stat.ethz.ch/pipermail/r-help/2012-January/300051.html) mailing list.
-```{r kmeansPP, cache=TRUE}
-# Write my own K-means++ function.
-kmpp <- function(X, k) {
-  
-  n <- nrow(X)
-  C <- numeric(k)
-  C[1] <- sample(1:n, 1)
-  
-  for (i in 2:k) {
-    dm <- pracma::distmat(X, X[C, ])
-    pr <- apply(dm, 1, min); pr[C] <- 0
-    C[i] <- sample(1:n, 1, prob = pr)
-  }
-  
-  kmeans(X, X[C, ])
-}
-
-kmeans.2 <- kmpp(USArrests.1, k)
-head(kmeans.2$cluster)
-```
 
 #### K-Medoids
 Start by growing a distance graph with `dist` and then partition using `pam`.
@@ -937,7 +910,7 @@ plot(hirar.3, labels=rownames(USArrests.1), ylab="Distance")
 ```
 
 
-If we know how many clusters we want, we can use `cuttree` to get the class assignments. 
+If we know how many clusters we want, we can use `stats::cuttree` to get the class assignments. 
 
 ```{r}
 cut.2.2 <- cutree(hirar.2, k=2)
@@ -950,9 +923,9 @@ Because the length of a tree's branch is proportional to distances, long branche
 Here is a little simulation to demonstrate this:
 
 ```{r}
-n.groups <- 3
-data.p <- 10
-data.n <- 100
+n.groups <- 3 # set the number of groups
+data.p <- 10 # set the dimension of the data
+data.n <- 100 # set the number of samples
 
 # data with no separation between groups
 the.data.10 <- mvtnorm::rmvnorm(n = data.n, mean = rep(0,data.p))  
@@ -970,9 +943,9 @@ plot(hirar.11, ylab="Distance", main=paste('Strong Separation Between',n.groups,
 
 
 ## Bibliographic Notes
+An excellent reference on multivariate analysis (exploratory and inference) is @izenman2008modern. 
 For some theory of PCA see my [Dimensionality Reduction Class Notes](https://github.com/johnros/dim_reduce/blob/master/dim_reduce.pdf) and references therein.
 For a SUPERB, interactive, visual demonstration of dimensionality reduction, see [Christopher Olah's](http://colah.github.io/posts/2014-10-Visualizing-MNIST/) blog. 
-An excellent reference on multivariate analysis (exploratory and inference) is @izenman2008modern. 
 For t-SNE see the creator's site: [Laurens van der Maaten](https://lvdmaaten.github.io/tsne/).
 For an excellent book on kernel methods (RKHS) see @shawe2004kernel.
 For more on everything, see @friedman2001elements.

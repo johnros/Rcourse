@@ -9926,7 +9926,9 @@ Things to note:
 \KeywordTok{text}\NormalTok{(ica}\FloatTok{.1}\OperatorTok{$}\NormalTok{S, }\DataTypeTok{pos =} \DecValTok{4}\NormalTok{, }\DataTypeTok{labels =} \KeywordTok{rownames}\NormalTok{(USArrests}\FloatTok{.1}\NormalTok{))}
 
 \CommentTok{# Compare with PCA (first two PCs):}
-\KeywordTok{arrows}\NormalTok{(}\DataTypeTok{x0 =}\NormalTok{ ica}\FloatTok{.1}\OperatorTok{$}\NormalTok{S[,}\DecValTok{1}\NormalTok{], }\DataTypeTok{y0 =}\NormalTok{ ica}\FloatTok{.1}\OperatorTok{$}\NormalTok{S[,}\DecValTok{2}\NormalTok{], }\DataTypeTok{x1 =}\NormalTok{ pca}\FloatTok{.1}\OperatorTok{$}\NormalTok{x[,}\DecValTok{2}\NormalTok{], }\DataTypeTok{y1 =}\NormalTok{ pca}\FloatTok{.1}\OperatorTok{$}\NormalTok{x[,}\DecValTok{1}\NormalTok{], }\DataTypeTok{col=}\StringTok{'red'}\NormalTok{, }\DataTypeTok{pch=}\DecValTok{19}\NormalTok{, }\DataTypeTok{cex=}\FloatTok{0.5}\NormalTok{)}
+\KeywordTok{arrows}\NormalTok{(}\DataTypeTok{x0 =}\NormalTok{ ica}\FloatTok{.1}\OperatorTok{$}\NormalTok{S[,}\DecValTok{1}\NormalTok{], }\DataTypeTok{y0 =}\NormalTok{ ica}\FloatTok{.1}\OperatorTok{$}\NormalTok{S[,}\DecValTok{2}\NormalTok{], }
+       \DataTypeTok{x1 =} \OperatorTok{-}\NormalTok{pca}\FloatTok{.1}\OperatorTok{$}\NormalTok{x[,}\DecValTok{2}\NormalTok{], }\DataTypeTok{y1 =}\NormalTok{ pca}\FloatTok{.1}\OperatorTok{$}\NormalTok{x[,}\DecValTok{1}\NormalTok{], }
+       \DataTypeTok{col=}\StringTok{'red'}\NormalTok{, }\DataTypeTok{pch=}\DecValTok{19}\NormalTok{, }\DataTypeTok{cex=}\FloatTok{0.5}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -9937,15 +9939,17 @@ Things to note:
 \begin{itemize}
 \tightlist
 \item
-  ICA is fitted with \texttt{fastICA::fastICA}.
+  We fit ICA with \texttt{fastICA::fastICA}.
 \item
   The ICA components, like any other rotated components, are different than the PCA components.
+\item
+  The fastICA algorithm has a stochastic component. So the solution will be different at each re-run (making comparison to PCA harder).
 \end{itemize}
 
 \hypertarget{mds}{%
 \subsubsection{MDS}\label{mds}}
 
-Classical MDS, also compared with PCA.
+Classical MDS compared to PCA.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9971,14 +9975,14 @@ Things to note:
 \begin{itemize}
 \tightlist
 \item
-  We first compute a dissimilarity graph with \texttt{dist}. See the \texttt{cluster::daisy} function for more dissimilarity measures.
+  We first compute a dissimilarity graph with \texttt{stats::dist()}. See \texttt{cluster::daisy} for a wider variety of dissimilarity measures.
 \item
-  We learn the MDS embedding with \texttt{cmdscale}.
+  We learn the MDS embedding with \texttt{stats::cmdscale}.
 \item
-  The embedding of PCA is the same as classical MDS with Euclidean distances.
+  Embedding with the first two components of PCA is exactly the same as classical MDS with Euclidean distances.
 \end{itemize}
 
-Let's try other strain functions for MDS, like Sammon's strain, and compare it with the PCs.
+Let's try other strain functions for MDS, like Sammon's stress, and compare it with PCA.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10004,7 +10008,7 @@ Things to note:
 \item
   \texttt{MASS::sammon} does the embedding.
 \item
-  Sammon strain is different than PCA.
+  Sammon stress is different than PCA.
 \end{itemize}
 
 \hypertarget{t-sne-1}{%
@@ -10068,7 +10072,6 @@ Inspect some digits:
 \includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-257-1}
 
 The analysis is adapted from \href{https://rpubs.com/marwahsi/tnse}{Shruti Marwaha}.
-I start by dowloading and importing the famous digit data of .
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10101,7 +10104,7 @@ I start by dowloading and importing the famous digit data of .
 I am unaware of an R implementation of force-embedding.
 Maybe because of the interactive nature of the algorithm, that is not suited for R.
 Force embedding is much more natural to interactive GUIs.
-Here is a fun \href{http://bl.ocks.org/eesur/be2abfb3155a38be4de4}{javascript implementation}.
+Here is a link for a fun \href{http://bl.ocks.org/eesur/be2abfb3155a38be4de4}{javascript implementation}.
 
 \hypertarget{sparse-pca}{%
 \subsubsection{Sparse PCA}\label{sparse-pca}}
@@ -10128,7 +10131,7 @@ Things to note:
 \begin{itemize}
 \tightlist
 \item
-  I used the \texttt{spca} function in the \textbf{elasticnet} package.
+  I used the \texttt{elasticnet::spca} function.
 \item
   Is the solutions sparse? Yes! PC2 depends on a single variable only: \texttt{Murder}.
 \end{itemize}
@@ -10157,23 +10160,27 @@ Things to note:
 \begin{itemize}
 \tightlist
 \item
-  kPCA is implemented in \texttt{kernlab::kpca}. \texttt{kernel=} governs the class of variable mappings allowed for the scoring.
+  We used \texttt{kernlab::kpca} for kPCA.
+\item
+  \texttt{rotated} projects the data on its principal components (the above ``scores'').
 \item
   See \texttt{?\textquotesingle{}kpca-class\textquotesingle{}} or \texttt{?rotated} for help on available utility functions.
 \item
-  \texttt{rotated} projects the data on its principal components (the above ``scores'').
+  \texttt{kernel=} governs the class of feature mappings.
 \item
   \texttt{kpar=list(sigma=0.2)} provides parameters specific to each type of kernel. See \texttt{?kpca}.
 \item
   \texttt{features=2} is the number of principal components (scores) to learn.
 \item
-  You may notice the ``Horseshoe'' pattern of the kPCA embedding, a.k.a. ``Croissants'', or the \emph{Guttman Effect}. The horseshoe is a recurring and old phenomenon. This phenomenon implies that the data has ``structure''. Alas, it is possible that this structure is merely due to the sampling scheme that introduced correlations. See \href{https://rpubs.com/deleeuw/133786}{J. De Leeuw's online paper} for a review.
+  You may notice the ``Horseshoe'' pattern of the kPCA embedding, a.k.a. ``Croissants'', or the \emph{Guttman Effect}. The horseshoe is known phenomenon in low dimensional visualizations. See \href{https://rpubs.com/deleeuw/133786}{J. De Leeuw's online paper} for more details.
 \end{itemize}
 
-\hypertarget{mca}{%
-\subsubsection{MCA}\label{mca}}
+\hypertarget{multiple-correspondence-analysis-mca}{%
+\subsubsection{Multiple Correspondence Analysis (MCA)}\label{multiple-correspondence-analysis-mca}}
 
 See \citet{izenman2008modern}.
+
+\pagebreak
 
 \hypertarget{cluster}{%
 \section{Clustering}\label{cluster}}
@@ -10188,7 +10195,7 @@ It is still possible, however, to group simiar pictures together.
 \BeginKnitrBlock{example}
 \protect\hypertarget{exm:spam}{}{\label{exm:spam} }Consider the problem of spam detection.
 It would be nice if each user could label several thousands emails, to apply a supervised learning approach to spam detection.
-This is an unrealistic demand, so a pre-clustering stage is useful: the user only needs to tag a couple dozens of homogenous clusters, before solving the supervised learning problem.
+This is an unrealistic demand, so a \emph{pre-clustering} stage is useful: the user only needs to label a couple dozens of (hopefully homogenous) clusters, before solving the supervised learning problem.
 \EndKnitrBlock{example}
 
 In clustering problems, we seek to group observations that are similar.
@@ -10200,12 +10207,12 @@ There are many motivations for clustering:
 \tightlist
 \item
   \textbf{Understanding}:
-  The most common use of clustering is probably as a an exploratory step, to identify homogeneous groups in the data.
+  The most common use of clustering is probably as a an exploratory step, to identify homogeneous groups in the data\footnote{As such, you may wonder why clustering is part of machine learning at all? Maybe call it \emph{machine-assisted human-learning}?}.
 \item
   \textbf{Dimensionality reduction}:
   Clustering may be seen as a method for dimensionality reduction.
   Unlike the approaches in the Dimensionality Reduction Section \ref{dim-reduce}, it does not compress \textbf{variables} but rather \textbf{observations}.
-  Each group of homogeneous observations may then be represented as a single prototypical observation of the group.
+  Each group of homogeneous observations may then be represented as a single \emph{prototypical observation} of the group.
 \item
   \textbf{Pre-Labelling}:
   Clustering may be performed as a pre-processing step for supervised learning, when labeling all the samples is impossible due to ``budget'' constraints, like in Example \ref{exm:spam}. This is sometimes known as \emph{pre-clustering}.
@@ -10228,8 +10235,9 @@ The gender in this example, is a \emph{latent} variable taking \(K=2\) levels: m
 
 A \emph{finite mixture} is the marginal distribution of \(K\) distinct classes, when the class variable is \emph{latent}.
 This is useful for clustering:
-We can assume the number of classes, \(K\), and the distribution of each class.
-We then use maximum likelihood to fit the mixture distribution, and finally, cluster by assigning observations to the most probable class.
+If we know the distribution of the sub-populations being mixed, we may simply cluster each data point to the most likely sub-group.
+Learning how is each sub-population disctirubted, when no class labels are available is no easy task, but it is possible.
+For instance, by means of maximum likelihood.
 
 \hypertarget{purely-algorithmic-approaches-1}{%
 \subsection{Purely Algorithmic Approaches}\label{purely-algorithmic-approaches-1}}
@@ -10239,13 +10247,13 @@ We then use maximum likelihood to fit the mixture distribution, and finally, clu
 
 The \emph{K-means} algorithm is possibly the most popular clustering algorithm.
 The goal behind K-means clustering is finding a representative point for each of K clusters, and assign each data point to one of these clusters.
-As each cluster has a representative point, this is also a \emph{prototype method}.
+As each cluster has a representative point, this is also known as a \emph{prototype method}.
 The clusters are defined so that they minimize the average Euclidean distance between all points to the center of the cluster.
 
 In K-means, the clusters are first defined, and then similarities computed.
 This is thus a \emph{top-down} method.
 
-K-means clustering requires the raw features \(X\) as inputs, and not only a similarity graph.
+K-means clustering requires the raw features \(X\) as inputs, and not only a similarity graph, \(\mathcal{G}\).
 This is evident when examining the algorithm below.
 
 The k-means algorithm works as follows:
@@ -10269,8 +10277,10 @@ The k-means algorithm works as follows:
     Assign each point to its closest cluster center (in Euclidean distance).
   \end{enumerate}
 \item
-  Return Cluster assignments and means.
+  Return cluster assignments and means.
 \end{enumerate}
+
+\bigskip
 
 \BeginKnitrBlock{remark}
 \iffalse{} {Remark. } \fi{}If trained as a statistician, you may wonder- what population quantity is K-means actually estimating?
@@ -10287,7 +10297,7 @@ Principal points are points which are \emph{self consistent}, i.e., they are the
 \subsubsection{K-Medoids}\label{k-medoids}}
 
 If a Euclidean distance is inappropriate for a particular set of variables, or that robustness to corrupt observations is required, or that we wish to constrain the cluster centers to be actual observations, then the \emph{K-Medoids} algorithm is an adaptation of K-means that allows this.
-It is also known under the name \emph{partition around medoids} (PAM) clustering, suggesting its relation to \href{https://en.wikipedia.org/wiki/Graph_partition}{graph partitioning}.
+It is also known under the name \emph{partition around medoids} (PAM) clustering, suggesting \_its relation to \emph{graph partitioning}: a very important and well-studied problem in computer sciences.
 
 The k-medoids algorithm works as follows.
 
@@ -10295,7 +10305,7 @@ The k-medoids algorithm works as follows.
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Given a dissimilarity graph.
+  Given a dissimilarity graph, \(\mathcal{G}\).
 \item
   Choose the number of clusters \(K\).
 \item
@@ -10315,6 +10325,8 @@ The k-medoids algorithm works as follows.
   Return Cluster assignments and centers.
 \end{enumerate}
 
+\bigskip
+
 \BeginKnitrBlock{remark}
 \iffalse{} {Remark. } \fi{}If trained as a statistician, you may wonder- what population quantity is K-medoids actually estimating?
 The estimand of K-medoids is the median of their neighbourhood.
@@ -10327,13 +10339,12 @@ See \citet{small1990survey}.
 
 Hierarchical clustering algorithms take dissimilarity graphs as inputs.
 Hierarchical clustering is a class of greedy \emph{graph-partitioning} algorithms.
-Being hierarchical by design, they have the attractive property that the evolution of the clustering can be presented with a \emph{dendogram}, i.e., a tree plot.\\
-A particular advantage of these methods is that they do not require an a-priori choice of the number of cluster (\(K\)).
+Being hierarchical by design, they have the attractive property that the evolution of the clustering can be presented with a \emph{dendogram}, i.e., a tree plot. Another advantage of these methods is that they do not require an a-priori choice of the number of cluster (\(K\)).
 
 Two main sub-classes of algorithms are \emph{agglomerative}, and \emph{divisive}.
 
 \emph{Agglomerative clustering} algorithms are \textbf{bottom-up} algorithm which build clusters by joining smaller clusters.
-To decide which clusters are joined at each iteration some measure of closeness between clusters is required.
+To decide which clusters are joined at each iteration some measure of distance between clusters is required:
 
 \begin{itemize}
 \tightlist
@@ -10352,11 +10363,6 @@ To decide which clusters are joined at each iteration some measure of closeness 
 \end{itemize}
 
 \emph{Divisive clustering} algorithms are \textbf{top-down} algorithm which build clusters by splitting larger clusters.
-
-\hypertarget{fuzzy-clustering}{%
-\subsubsection{Fuzzy Clustering}\label{fuzzy-clustering}}
-
-Can be thought of as a purely algorithmic view of the finite-mixture in Section \ref{finite-mixture}.
 
 \hypertarget{clustering-in-r}{%
 \subsection{Clustering in R}\label{clustering-in-r}}
@@ -10398,40 +10404,6 @@ Things to note:
 \item
   The visual inspection confirms that similar states have been assigned to the same cluster.
 \end{itemize}
-
-\hypertarget{k-means-3}{%
-\subsubsection{K-Means ++}\label{k-means-3}}
-
-\emph{K-Means++} is a smart initialization for K-Means.
-The following code is taken from the \href{https://stat.ethz.ch/pipermail/r-help/2012-January/300051.html}{r-help} mailing list.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{# Write my own K-means++ function.}
-\NormalTok{kmpp <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(X, k) \{}
-  
-\NormalTok{  n <-}\StringTok{ }\KeywordTok{nrow}\NormalTok{(X)}
-\NormalTok{  C <-}\StringTok{ }\KeywordTok{numeric}\NormalTok{(k)}
-\NormalTok{  C[}\DecValTok{1}\NormalTok{] <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, }\DecValTok{1}\NormalTok{)}
-  
-  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{2}\OperatorTok{:}\NormalTok{k) \{}
-\NormalTok{    dm <-}\StringTok{ }\NormalTok{pracma}\OperatorTok{::}\KeywordTok{distmat}\NormalTok{(X, X[C, ])}
-\NormalTok{    pr <-}\StringTok{ }\KeywordTok{apply}\NormalTok{(dm, }\DecValTok{1}\NormalTok{, min); pr[C] <-}\StringTok{ }\DecValTok{0}
-\NormalTok{    C[i] <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n, }\DecValTok{1}\NormalTok{, }\DataTypeTok{prob =}\NormalTok{ pr)}
-\NormalTok{  \}}
-  
-  \KeywordTok{kmeans}\NormalTok{(X, X[C, ])}
-\NormalTok{\}}
-
-\NormalTok{kmeans}\FloatTok{.2}\NormalTok{ <-}\StringTok{ }\KeywordTok{kmpp}\NormalTok{(USArrests}\FloatTok{.1}\NormalTok{, k)}
-\KeywordTok{head}\NormalTok{(kmeans}\FloatTok{.2}\OperatorTok{$}\NormalTok{cluster)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##    Alabama     Alaska    Arizona   Arkansas California   Colorado 
-##          2          2          2          1          2          2
-\end{verbatim}
 
 \hypertarget{k-medoids-1}{%
 \subsubsection{K-Medoids}\label{k-medoids-1}}
@@ -10527,7 +10499,7 @@ Now with average linkage.
 
 \includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/average linkage-1}
 
-If we know how many clusters we want, we can use \texttt{cuttree} to get the class assignments.
+If we know how many clusters we want, we can use \texttt{stats::cuttree} to get the class assignments.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10548,9 +10520,9 @@ Here is a little simulation to demonstrate this:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{n.groups <-}\StringTok{ }\DecValTok{3}
-\NormalTok{data.p <-}\StringTok{ }\DecValTok{10}
-\NormalTok{data.n <-}\StringTok{ }\DecValTok{100}
+\NormalTok{n.groups <-}\StringTok{ }\DecValTok{3} \CommentTok{# set the number of groups}
+\NormalTok{data.p <-}\StringTok{ }\DecValTok{10} \CommentTok{# set the dimension of the data}
+\NormalTok{data.n <-}\StringTok{ }\DecValTok{100} \CommentTok{# set the number of samples}
 
 \CommentTok{# data with no separation between groups}
 \NormalTok{the.data}\FloatTok{.10}\NormalTok{ <-}\StringTok{ }\NormalTok{mvtnorm}\OperatorTok{::}\KeywordTok{rmvnorm}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ data.n, }\DataTypeTok{mean =} \KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,data.p))  }
@@ -10577,9 +10549,9 @@ Here is a little simulation to demonstrate this:
 \hypertarget{bibliographic-notes-9}{%
 \section{Bibliographic Notes}\label{bibliographic-notes-9}}
 
+An excellent reference on multivariate analysis (exploratory and inference) is \citet{izenman2008modern}.
 For some theory of PCA see my \href{https://github.com/johnros/dim_reduce/blob/master/dim_reduce.pdf}{Dimensionality Reduction Class Notes} and references therein.
 For a SUPERB, interactive, visual demonstration of dimensionality reduction, see \href{http://colah.github.io/posts/2014-10-Visualizing-MNIST/}{Christopher Olah's} blog.
-An excellent reference on multivariate analysis (exploratory and inference) is \citet{izenman2008modern}.
 For t-SNE see the creator's site: \href{https://lvdmaaten.github.io/tsne/}{Laurens van der Maaten}.
 For an excellent book on kernel methods (RKHS) see \citet{shawe2004kernel}.
 For more on everything, see \citet{friedman2001elements}.
