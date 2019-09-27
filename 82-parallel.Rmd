@@ -1,31 +1,46 @@
 # Parallel Computing {#parallel}
 
 You would think that because you have an expensive multicore computer your computations will speed up. 
-Well, no.
-At least not if you don't make sure they do.
+Well, no; unless you actively make sure of that. 
 By default, no matter how many cores you have, the operating system will allocate each R session to a single core. 
 
-For starters, we need to distinguish between two types of parallelism:
+To parallelize computations, we need to distinguish between two types of parallelism:
 
 1. __Explicit parallelism__: where the user handles the parallelisation. 
 1. __Implicit parallelism__: where the parallelisation is abstracted away from the user.
 
-Clearly, implicit parallelism is more desirable, but the state of mathematical computing is such that no sufficiently general implicit parallelism framework exists. 
-The [R Consortium](https://www.r-consortium.org/projects/awarded-projects) is currently financing a major project for a A "Unified Framework For Distributed Computing in R" so we can expect things to change soon. 
-In the meanwhile, most of the parallel implementations are explicit. 
+Clearly, implicit parallelism is more desirable.
+It is, however, very hard to design software that can parallelize any algorithm, while adapting to your hardware, operating system, and other the software running on your device. 
+A lot of parallelisation still has to be explicit, but stay tuned for technologies like [Ray](https://rise.cs.berkeley.edu/projects/ray/), [Apache Spark](https://spark.apache.org), [PyTorch](https://pytorch.org), and others, which are making great advances in handling parallelism for you. 
+Before we can understand what those do, we start with explicit parallism. 
 
 
+## When and How to Parallelise?
 
-## Implicit Parallelism
+Your computations are too slow.
+Should you store your data differently? 
+Should you buy more RAM?
+Should you parallelize locally? 
+Should you go cloud?
 
-We will not elaborate on implicit parallelism except mentioning the following:
+Unlike what some vendors will make you think, there is no one-size-fits-all solution to speed problems. 
+Solving a RAM bottleneck may consume more CPU. 
+Solving a CPU bottleneck may consume more RAM.
+Parallelisation means using multiple CPUs simultaneously. 
+It will thus aid with CPU bottlenecks, but may consume more RAM.
+Parallelising is thus ill advised when dealing with a RAM bottleneck. 
+When deciding if, and how, to parallelise, it is thus crucial that you diagnose your bottleneck. 
+The good news is- that diagnostics is not too hard.
+Here are a few pointers:
 
-- You can enjoy parallel linear algebra by replacing the linear algebra libraries with BLAS and LAPACK as described [here](https://www.r-bloggers.com/faster-r-through-better-blas/).
-- You should read the "Parallel computing: Implicit parallelism" section in the excellent [High Performance Computing](https://cran.r-project.org/web/views/HighPerformanceComputing.html) task view, for the latest developments in implicit parallelism.
+1. Always have a system monitor open. Windows users have their [Task Manager](https://en.wikipedia.org/wiki/Task_Manager_(Windows)); Linux users have [top](https://en.wikipedia.org/wiki/Top_(software)), or preferably, [htop](https://en.wikipedia.org/wiki/Htop); Mac users have the [Activity Monitor](https://www.howtogeek.com/227240/how-to-monitor-your-macs-health-with-activity-monitor/). The system monitor will inform you how many CPUs are being used, and how much RAM is being used.
+
 
 
 
 ## Explicit Parallelism
+
+
 
 R provides many frameworks for explicit parallelism.
 Because the parallelism is initiated by the user, we first need to decide __when to parallelize?__
@@ -43,10 +58,10 @@ It will allow us to:
 
 1. Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can then switch the underlying parallelisation mechanism. 
 
-1. Combine with the `big.matrix` object from Chapter \@ref(memory) for _shared memory parallisation_: all the machines may see the same data, so that we don't need to export objects from machine to machine. 
+1. Combine with the `big.matrix` object from Chapter \@ref(memory) for _shared memory parallelisation_: all the machines may see the same data, so that we don't need to export objects from machine to machine. 
 
 
-What do we mean by "switch the underlying parallesation mechanism"? 
+What do we mean by "switch the underlying parallelisation mechanism"? 
 It means there are several packages that will handle communication between machines. 
 Some are very general and will work on any cluster. 
 Some are more specific and will work only on a single multicore machine (not a cluster) with a particular operating system.
@@ -174,13 +189,38 @@ qs
 
 
 
+
+
+
+## Implicit Parallelism
+
+### Parallel Linear Algebra
+
+- You can enjoy parallel linear algebra by replacing the linear algebra libraries with BLAS and LAPACK as described [here](https://www.r-bloggers.com/faster-r-through-better-blas/).
+- You should read the "Parallel computing: Implicit parallelism" section in the excellent [High Performance Computing](https://cran.r-project.org/web/views/HighPerformanceComputing.html) task view, for the latest developments in implicit parallelism.
+
+
 ### Caution: Implicit with Explicit Parallelism
-A common problem when parallelizing is that the machines you invoked with __explicit__ parallelism, invoke other machines using __implicit__ parallelism. 
+A common problem when parallelising is that the machines you invoked with __explicit__ parallelism, invoke other machines using __implicit__ parallelism. 
 You then lose control of the number of machine being invoked, and the operating system spends most of its time managing resources, instead of doing your computations. 
 
 Modern linear algebra libraries may try to implicitly parallelize vector and matrix operations.
-To avoid this type of implicity parallelism within an explicit paralleliation, use the [RhpcBLASctl package](), and in particular  _evaRhpcBLASctl::blas_set_num_threads()_.
+To avoid this type of implicit parallelism within an explicit parallelisation, use the [RhpcBLASctl package](), and in particular  _evaRhpcBLASctl::blas_set_num_threads()_.
 In other cases, you should consult an expert. 
+
+
+
+
+### Parallel Learning from a Centralized File System
+
+
+### Parallel Learning from a Distributed File System
+
+
+
+
+
+
 
 
 

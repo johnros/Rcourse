@@ -12,7 +12,5 @@ for(i in 9:length(files)){
   bookdown::preview_chapter(files[i],"bookdown::pdf_book" )
   readline(prompt="Press [enter] to continue")
 }
-bookdown::preview_chapter(files[1],"bookdown::pdf_book" )
+bookdown::preview_chapter(files[15],"bookdown::pdf_book" )
 bookdown::preview_chapter(files[22],"bookdown::gitbook" )
-
-bookdown::preview_chapter('25-r-basics.Rmd',"bookdown::pdf_book" )

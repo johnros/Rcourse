@@ -128,7 +128,7 @@
 
 \title{R (BGU course)}
 \author{Jonathan D. Rosenblatt}
-\date{2019-09-26}
+\date{2019-09-27}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -13372,11 +13372,10 @@ For more on data analysis from disk, and not from RAM, see \href{https://www.pet
 \chapter{Parallel Computing}\label{parallel}}
 
 You would think that because you have an expensive multicore computer your computations will speed up.
-Well, no.
-At least not if you don't make sure they do.
+Well, no; unless you actively make sure of that.
 By default, no matter how many cores you have, the operating system will allocate each R session to a single core.
 
-For starters, we need to distinguish between two types of parallelism:
+To parallelize computations, we need to distinguish between two types of parallelism:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -13387,22 +13386,10 @@ For starters, we need to distinguish between two types of parallelism:
   \textbf{Implicit parallelism}: where the parallelisation is abstracted away from the user.
 \end{enumerate}
 
-Clearly, implicit parallelism is more desirable, but the state of mathematical computing is such that no sufficiently general implicit parallelism framework exists.
-The \href{https://www.r-consortium.org/projects/awarded-projects}{R Consortium} is currently financing a major project for a A ``Unified Framework For Distributed Computing in R'' so we can expect things to change soon.
-In the meanwhile, most of the parallel implementations are explicit.
-
-\hypertarget{implicit-parallelism}{%
-\section{Implicit Parallelism}\label{implicit-parallelism}}
-
-We will not elaborate on implicit parallelism except mentioning the following:
-
-\begin{itemize}
-\tightlist
-\item
-  You can enjoy parallel linear algebra by replacing the linear algebra libraries with BLAS and LAPACK as described \href{https://www.r-bloggers.com/faster-r-through-better-blas/}{here}.
-\item
-  You should read the ``Parallel computing: Implicit parallelism'' section in the excellent \href{https://cran.r-project.org/web/views/HighPerformanceComputing.html}{High Performance Computing} task view, for the latest developments in implicit parallelism.
-\end{itemize}
+Clearly, implicit parallelism is more desirable.
+It is, however, very hard to design software that can parallelize any algorithm, while adapting to your hardware, operating system, and other the software running on your device.
+A lot of parallelisation still has to be explicit, but stay tuned for technologies like \href{https://rise.cs.berkeley.edu/projects/ray/}{Ray}, \href{https://spark.apache.org}{Apache Spark}, \href{https://pytorch.org}{PyTorch}, and others, which are making great advances in handeling parallelizing for you.
+Before we can understand what those do, we start with explicit parallism.
 
 \hypertarget{explicit-parallelism}{%
 \section{Explicit Parallelism}\label{explicit-parallelism}}
@@ -13432,10 +13419,10 @@ It will allow us to:
 \item
   Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can then switch the underlying parallelisation mechanism.
 \item
-  Combine with the \texttt{big.matrix} object from Chapter \ref{memory} for \emph{shared memory parallisation}: all the machines may see the same data, so that we don't need to export objects from machine to machine.
+  Combine with the \texttt{big.matrix} object from Chapter \ref{memory} for \emph{shared memory parallelisation}: all the machines may see the same data, so that we don't need to export objects from machine to machine.
 \end{enumerate}
 
-What do we mean by ``switch the underlying parallesation mechanism''?
+What do we mean by ``switch the underlying parallelisation mechanism''?
 It means there are several packages that will handle communication between machines.
 Some are very general and will work on any cluster.
 Some are more specific and will work only on a single multicore machine (not a cluster) with a particular operating system.
@@ -13628,6 +13615,20 @@ We are all set up to loop, in parallel, and compute quantiles of \texttt{CAR\_LI
 ## result.6 518 796 995
 \end{verbatim}
 
+\hypertarget{implicit-parallelism}{%
+\section{Implicit Parallelism}\label{implicit-parallelism}}
+
+\hypertarget{parallel-linear-algebra}{%
+\subsection{Parallel Linear Algebra}\label{parallel-linear-algebra}}
+
+\begin{itemize}
+\tightlist
+\item
+  You can enjoy parallel linear algebra by replacing the linear algebra libraries with BLAS and LAPACK as described \href{https://www.r-bloggers.com/faster-r-through-better-blas/}{here}.
+\item
+  You should read the ``Parallel computing: Implicit parallelism'' section in the excellent \href{https://cran.r-project.org/web/views/HighPerformanceComputing.html}{High Performance Computing} task view, for the latest developments in implicit parallelism.
+\end{itemize}
+
 \hypertarget{caution-implicit-with-explicit-parallelism}{%
 \subsection{Caution: Implicit with Explicit Parallelism}\label{caution-implicit-with-explicit-parallelism}}
 
@@ -13637,6 +13638,12 @@ You then lose control of the number of machine being invoked, and the operating 
 Modern linear algebra libraries may try to implicitly parallelize vector and matrix operations.
 To avoid this type of implicity parallelism within an explicit paralleliation, use the \href{}{RhpcBLASctl package}, and in particular \emph{evaRhpcBLASctl::blas\_set\_num\_threads()}.
 In other cases, you should consult an expert.
+
+\hypertarget{parallel-learning-from-a-centralized-file-system}{%
+\subsection{Parallel Learning from a Centralized File System}\label{parallel-learning-from-a-centralized-file-system}}
+
+\hypertarget{parallel-learning-from-a-districuted-file-system}{%
+\subsection{Parallel Learning from a Districuted File System}\label{parallel-learning-from-a-districuted-file-system}}
 
 \hypertarget{bibliographic-notes-14}{%
 \section{Bibliographic Notes}\label{bibliographic-notes-14}}
