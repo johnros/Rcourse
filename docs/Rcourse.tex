@@ -128,7 +128,7 @@
 
 \title{R (BGU course)}
 \author{Jonathan D. Rosenblatt}
-\date{2019-09-27}
+\date{2019-09-28}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -13375,7 +13375,7 @@ You would think that because you have an expensive multicore computer your compu
 Well, no; unless you actively make sure of that.
 By default, no matter how many cores you have, the operating system will allocate each R session to a single core.
 
-To parallelize computations, we need to distinguish between two types of parallelism:
+To parallelise computations, we need to distinguish between two types of parallelism:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -13387,31 +13387,97 @@ To parallelize computations, we need to distinguish between two types of paralle
 \end{enumerate}
 
 Clearly, implicit parallelism is more desirable.
-It is, however, very hard to design software that can parallelize any algorithm, while adapting to your hardware, operating system, and other the software running on your device.
-A lot of parallelisation still has to be explicit, but stay tuned for technologies like \href{https://rise.cs.berkeley.edu/projects/ray/}{Ray}, \href{https://spark.apache.org}{Apache Spark}, \href{https://pytorch.org}{PyTorch}, and others, which are making great advances in handeling parallelizing for you.
-Before we can understand what those do, we start with explicit parallism.
+It is, however, very hard to design software that can parallelise any algorithm, while adapting to your hardware, operating system, and other the software running on your device.
+A lot of parallelisation still has to be explicit, but stay tuned for technologies like \href{https://rise.cs.berkeley.edu/projects/ray/}{Ray}, \href{https://spark.apache.org}{Apache Spark}, \href{https://flink.apache.org}{Apache Flink}, \href{https://chapel-lang.org}{Chapel}, \href{https://pytorch.org}{PyTorch}, and others, which are making great advances in handling parallelism for you.
+Before we can understand what those do, we start with explicit parallelism.
+
+\hypertarget{when-and-how-to-parallelise}{%
+\section{When and How to Parallelise?}\label{when-and-how-to-parallelise}}
+
+Your computations are too slow.
+Should you store your data differently?
+Should you buy more RAM?
+Should you parallelise locally?
+Should you go cloud?
+
+Unlike what some vendors will make you think, there is no one-size-fits-all solution to speed problems.
+Solving a RAM bottleneck may consume more CPU.
+Solving a CPU bottleneck may consume more RAM.
+Parallelisation means using multiple CPUs simultaneously.
+It will thus aid with CPU bottlenecks, but may consume more RAM.
+Parallelising is thus ill advised when dealing with a RAM bottleneck.
+Memory bottlenecks are released with sparsity (Chapter \ref{sparse}), or efficient memory usage (Chapter \ref{memory}).
+
+When deciding if, and how, to parallelise, it is crucial that you diagnose your bottleneck.
+The good news is- that diagnostics is not too hard.
+Here are a few pointers:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Always have a system monitor open. Windows users have their \href{https://en.wikipedia.org/wiki/Task_Manager_(Windows)}{Task Manager}; Linux users have \href{https://en.wikipedia.org/wiki/Top_(software)}{top}, or preferably, \href{https://en.wikipedia.org/wiki/Htop}{htop}; Mac users have the \href{https://www.howtogeek.com/227240/how-to-monitor-your-macs-health-with-activity-monitor/}{Activity Monitor}. The system monitor will inform you how many CPUs are being used, and how much RAM is being used.
+\item
+  If you escape your computation, and R takes a long time to respond, you are probably dealing with a RAM bottleneck.
+\item
+  Profile your code to detect how much RAM and CPU are consumed by each line of code. See Hadley's \href{http://adv-r.had.co.nz/Profiling.html}{guide}.
+\end{enumerate}
+
+\hypertarget{terminology}{%
+\section{Terminology}\label{terminology}}
+
+Here are some terms we will be needing.
+
+Hardware:
+
+\begin{itemize}
+\tightlist
+\item
+  {[}Cluster{]} A collection of interconnected computers.
+\item
+  {[}Node/Machine{]} A single physical machine in the cluster. Components of a single node do not communicate via the cluster's network, but rather, via the node's circuitry.
+\item
+  {[}Processor/Socket/CPU{]}
+\item
+  {[}Thread{]}
+\item
+  {[}RAM{]} Random Access Memory. One of many types of memory in a computer. Possibly the most relevant type of memory when computing with data.
+\item
+  {[}GPU{]} Graphical Processing Unit. A computing unit, separate from the CPU. Originally dedicated to graphics and gaming, thus its name. Currently, GPUs are extremely popular for fitting and servicing Deep Neural Networks.
+\item
+  {[}TPU{]} Tensor Processing Unit. A computing unit, dedicated to servicing and fitting Deep Neural Networks.
+\end{itemize}
+
+Software:
+
+\begin{itemize}
+\tightlist
+\item
+  {[}Process{]} A sequence of instructions in memory, with accompanying data. Various processes typically see different locations of memory. Interpreted languages like R, and Python operate on processes.
+\item
+  {[}Thread{]} A sub-sequence of instructions, within a process. Various threads in a process may see the same memory. Compiled languages like C, C++, may operate on threads.
+\end{itemize}
 
 \hypertarget{explicit-parallelism}{%
 \section{Explicit Parallelism}\label{explicit-parallelism}}
 
 R provides many frameworks for explicit parallelism.
-Because the parallelism is initiated by the user, we first need to decide \textbf{when to parallelize?}
-As a rule of thumb, you want to parallelise when you encounter a CPU bottleneck, and not a memory bottleneck.
-Memory bottlenecks are released with sparsity (Chapter \ref{sparse}), or efficient memory usage (Chapter \ref{memory}).
+Any such framework will include some communication protocol and abstraction layer.A communication protocol because different R sessions will be communication one with the other. An abstraction layer because providing the user will all the features and generality of the communication layer is needlessly cumbersome.
 
-Several ways to diagnose your bottleneck include:
+Communication standards include:
 
 \begin{itemize}
-\tightlist
 \item
-  Keep your Windows Task Manager, or Linux \texttt{top} open, and look for the CPU load, and RAM loads.
+  Parallel Virtual Machine (PVM): a communication protocol and software, developed the University of Tennessee, Oak Ridge National Laboratory and Emory University, and first released in 1989. Runs on Windows and Unix, thus allowing to compute on clusters running these two operating systems. Noways, it is mostly replaced by MPI.
 \item
-  The computation takes a long time, and when you stop it pressing ESC, R is immediately responsive. If it is not immediately responsive, you have a memory bottleneck.
+  Message Passing Interface (MPI): A communication protocol that has become the de-facto standard for communication in large distributed clusters. Particularly, for heterogeneous computing clusters with varying operating systems and hardware. The protocol has various software implementations such as \href{https://en.wikipedia.org/wiki/Open_MPI}{OpenMPI} and \href{https://en.wikipedia.org/wiki/MPICH}{MPICH}. Interestingly, large computing clusters use MPI, while modern BigData analysis platforms such as Spark, and Ray do not. Why is this? See Jonathan Dursi's excellent but controversial \href{https://www.dursi.ca/post/hpc-is-dying-and-mpi-is-killing-it.html}{blog post}.
 \item
-  Profile your code. See Hadley's \href{http://adv-r.had.co.nz/Profiling.html}{guide}.
+  Fork:
 \end{itemize}
 
-For reasons detailed in \citet{kane2013scalable}, we will present the \textbf{foreach} parallelisation package \citep{foreach}.
+\hypertarget{foreach}{%
+\subsection{Foreach}\label{foreach}}
+
+For reasons detailed in \citet{kane2013scalable}, we recommend the \textbf{foreach} parallelisation package \citep{foreach}.
 It will allow us to:
 
 \begin{enumerate}
@@ -13615,6 +13681,15 @@ We are all set up to loop, in parallel, and compute quantiles of \texttt{CAR\_LI
 ## result.6 518 796 995
 \end{verbatim}
 
+\hypertarget{parallel-1}{%
+\subsection{parallel}\label{parallel-1}}
+
+\hypertarget{rdsm}{%
+\subsection{Rdsm}\label{rdsm}}
+
+\hypertarget{pbdr}{%
+\subsection{pbdR}\label{pbdr}}
+
 \hypertarget{implicit-parallelism}{%
 \section{Implicit Parallelism}\label{implicit-parallelism}}
 
@@ -13632,18 +13707,21 @@ We are all set up to loop, in parallel, and compute quantiles of \texttt{CAR\_LI
 \hypertarget{caution-implicit-with-explicit-parallelism}{%
 \subsection{Caution: Implicit with Explicit Parallelism}\label{caution-implicit-with-explicit-parallelism}}
 
-A common problem when parallelizing is that the machines you invoked with \textbf{explicit} parallelism, invoke other machines using \textbf{implicit} parallelism.
+A common problem when parallelising is that the machines you invoked with \textbf{explicit} parallelism, invoke other machines using \textbf{implicit} parallelism.
 You then lose control of the number of machine being invoked, and the operating system spends most of its time managing resources, instead of doing your computations.
 
-Modern linear algebra libraries may try to implicitly parallelize vector and matrix operations.
-To avoid this type of implicity parallelism within an explicit paralleliation, use the \href{}{RhpcBLASctl package}, and in particular \emph{evaRhpcBLASctl::blas\_set\_num\_threads()}.
+Modern linear algebra libraries may try to implicitly parallelise vector and matrix operations.
+To avoid this type of implicit parallelism within an explicit parallelisation, use the \href{}{RhpcBLASctl package}, and in particular \emph{evaRhpcBLASctl::blas\_set\_num\_threads()}.
 In other cases, you should consult an expert.
 
 \hypertarget{parallel-learning-from-a-centralized-file-system}{%
 \subsection{Parallel Learning from a Centralized File System}\label{parallel-learning-from-a-centralized-file-system}}
 
-\hypertarget{parallel-learning-from-a-districuted-file-system}{%
-\subsection{Parallel Learning from a Districuted File System}\label{parallel-learning-from-a-districuted-file-system}}
+\hypertarget{parallel-learning-from-a-distributed-file-system}{%
+\subsection{Parallel Learning from a Distributed File System}\label{parallel-learning-from-a-distributed-file-system}}
+
+\hypertarget{spark}{%
+\subsubsection{Spark}\label{spark}}
 
 \hypertarget{bibliographic-notes-14}{%
 \section{Bibliographic Notes}\label{bibliographic-notes-14}}

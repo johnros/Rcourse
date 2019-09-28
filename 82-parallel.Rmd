@@ -4,15 +4,15 @@ You would think that because you have an expensive multicore computer your compu
 Well, no; unless you actively make sure of that. 
 By default, no matter how many cores you have, the operating system will allocate each R session to a single core. 
 
-To parallelize computations, we need to distinguish between two types of parallelism:
+To parallelise computations, we need to distinguish between two types of parallelism:
 
 1. __Explicit parallelism__: where the user handles the parallelisation. 
 1. __Implicit parallelism__: where the parallelisation is abstracted away from the user.
 
 Clearly, implicit parallelism is more desirable.
-It is, however, very hard to design software that can parallelize any algorithm, while adapting to your hardware, operating system, and other the software running on your device. 
-A lot of parallelisation still has to be explicit, but stay tuned for technologies like [Ray](https://rise.cs.berkeley.edu/projects/ray/), [Apache Spark](https://spark.apache.org), [PyTorch](https://pytorch.org), and others, which are making great advances in handling parallelism for you. 
-Before we can understand what those do, we start with explicit parallism. 
+It is, however, very hard to design software that can parallelise any algorithm, while adapting to your hardware, operating system, and other the software running on your device. 
+A lot of parallelisation still has to be explicit, but stay tuned for technologies like [Ray](https://rise.cs.berkeley.edu/projects/ray/), [Apache Spark](https://spark.apache.org), [Apache Flink](https://flink.apache.org), [Chapel](https://chapel-lang.org), [PyTorch](https://pytorch.org), and others, which are making great advances in handling parallelism for you. 
+Before we can understand what those do, we start with explicit parallelism. 
 
 
 ## When and How to Parallelise?
@@ -20,7 +20,7 @@ Before we can understand what those do, we start with explicit parallism.
 Your computations are too slow.
 Should you store your data differently? 
 Should you buy more RAM?
-Should you parallelize locally? 
+Should you parallelise locally? 
 Should you go cloud?
 
 Unlike what some vendors will make you think, there is no one-size-fits-all solution to speed problems. 
@@ -29,31 +29,73 @@ Solving a CPU bottleneck may consume more RAM.
 Parallelisation means using multiple CPUs simultaneously. 
 It will thus aid with CPU bottlenecks, but may consume more RAM.
 Parallelising is thus ill advised when dealing with a RAM bottleneck. 
-When deciding if, and how, to parallelise, it is thus crucial that you diagnose your bottleneck. 
+Memory bottlenecks are released with sparsity (Chapter \@ref(sparse)), or efficient memory usage (Chapter \@ref(memory)).
+
+When deciding if, and how, to parallelise, it is crucial that you diagnose your bottleneck. 
 The good news is- that diagnostics is not too hard.
 Here are a few pointers:
 
-1. Always have a system monitor open. Windows users have their [Task Manager](https://en.wikipedia.org/wiki/Task_Manager_(Windows)); Linux users have [top](https://en.wikipedia.org/wiki/Top_(software)), or preferably, [htop](https://en.wikipedia.org/wiki/Htop); Mac users have the [Activity Monitor](https://www.howtogeek.com/227240/how-to-monitor-your-macs-health-with-activity-monitor/). The system monitor will inform you how many CPUs are being used, and how much RAM is being used.
+1. Always have a system monitor open. Windows users have their [Task Manager](https://en.wikipedia.org/wiki/Task_Manager_(Windows)); Linux users have [top](https://en.wikipedia.org/wiki/Top_(software)), or preferably, [htop](https://en.wikipedia.org/wiki/Htop); Mac users have the [Activity Monitor](https://www.howtogeek.com/227240/how-to-monitor-your-macs-health-with-activity-monitor/). The system monitor will inform you how many CPUs are being used, and how much RAM is being used. 
 
+1. If you escape your computation, and R takes a long time to respond, you are probably dealing with a RAM bottleneck. 
+
+1. Profile your code to detect how much RAM and CPU are consumed by each line of code. See Hadley's [guide](http://adv-r.had.co.nz/Profiling.html).
+
+
+In the best possible scenario, the number of operations you can perform scales with the number of processors: $$time * processors = operations$$. 
+This is called _perfect scaling_. 
+It is rarely observed in practice, since parallelizing incurs some computational overhead: setting up environments, copying memory, ...
+For this reason, the typical speedup is sub-linear. 
+Computer scientists call this [Amdahl's law](https://en.wikipedia.org/wiki/Amdahl%27s_law).
+
+
+## Terminology
+
+Here are some terms we will be needing.
+
+### Hardware:
+
+- [Cluster] A collection of interconnected computers.
+- [Node/Machine] A single physical machine in the cluster. Components of a single node do not communicate via the cluster's network, but rather, via the node's circuitry. 
+- [Processor/Socket/CPU]
+- [Thread]
+- [RAM] Random Access Memory. One of many types of memory in a computer. Possibly the most relevant type of memory when computing with data. 
+- [GPU] Graphical Processing Unit. A computing unit, separate from the CPU. Originally dedicated to graphics and gaming, thus its name. Currently, GPUs are extremely popular for fitting and servicing Deep Neural Networks. 
+- [TPU] Tensor Processing Unit. A computing unit, dedicated to servicing and fitting Deep Neural Networks.
+
+
+### Software:
+
+- [Process] A sequence of instructions in memory, with accompanying data. Various processes typically see different locations of memory. Interpreted languages like R, and Python operate on processes.
+- [Thread] A sub-sequence of instructions, within a process. Various threads in a process may see the same memory. Compiled languages like C, C++, may operate on threads. 
+ 
+
+### Types of Parallelism
+
+- Data Parallel
+- Task Parallel
+
+Flynn's Taxonomy:
 
 
 
 ## Explicit Parallelism
 
-
-
 R provides many frameworks for explicit parallelism.
-Because the parallelism is initiated by the user, we first need to decide __when to parallelize?__
-As a rule of thumb, you want to parallelise when you encounter a CPU bottleneck, and not a memory bottleneck.
-Memory bottlenecks are released with sparsity (Chapter \@ref(sparse)), or efficient memory usage (Chapter \@ref(memory)).
+Any such framework will include some communication protocol and abstraction layer.A communication protocol because different R sessions will be communication one with the other. An abstraction layer because providing the user will all the features and generality of the communication layer is needlessly cumbersome.
 
-Several ways to diagnose your bottleneck include:
+Communication standards include:
 
-- Keep your Windows Task Manager, or Linux `top` open, and look for the CPU load, and RAM loads. 
-- The computation takes a long time, and when you stop it pressing ESC, R is immediately responsive. If it is not immediately responsive, you have a memory bottleneck.
-- Profile your code. See Hadley's [guide](http://adv-r.had.co.nz/Profiling.html).
+- Parallel Virtual Machine (PVM): a communication protocol and software, developed the University of Tennessee, Oak Ridge National Laboratory and Emory University, and first released in 1989. Runs on Windows and Unix, thus allowing to compute on clusters running these two operating systems. Noways, it is mostly replaced by MPI.
 
-For reasons detailed in @kane2013scalable, we will present the __foreach__ parallelisation package [@foreach]. 
+- Message Passing Interface (MPI): A communication protocol that has become the de-facto standard for communication in large distributed clusters. Particularly, for heterogeneous computing clusters with varying operating systems and hardware. The protocol has various software implementations such as [OpenMPI](https://en.wikipedia.org/wiki/Open_MPI) and [MPICH](https://en.wikipedia.org/wiki/MPICH). Interestingly, large computing clusters use MPI, while modern BigData analysis platforms such as Spark, and Ray do not. Why is this? See Jonathan Dursi's excellent but controversial [blog post](https://www.dursi.ca/post/hpc-is-dying-and-mpi-is-killing-it.html).
+
+- Fork:
+
+
+### Foreach 
+
+For reasons detailed in @kane2013scalable, we recommend the __foreach__ parallelisation package [@foreach]. 
 It will allow us to: 
 
 1. Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can then switch the underlying parallelisation mechanism. 
@@ -185,7 +227,14 @@ qs
 ```
 
 
+### parallel
 
+
+
+### Rdsm
+
+
+### pbdR
 
 
 
@@ -204,7 +253,7 @@ qs
 A common problem when parallelising is that the machines you invoked with __explicit__ parallelism, invoke other machines using __implicit__ parallelism. 
 You then lose control of the number of machine being invoked, and the operating system spends most of its time managing resources, instead of doing your computations. 
 
-Modern linear algebra libraries may try to implicitly parallelize vector and matrix operations.
+Modern linear algebra libraries may try to implicitly parallelise vector and matrix operations.
 To avoid this type of implicit parallelism within an explicit parallelisation, use the [RhpcBLASctl package](), and in particular  _evaRhpcBLASctl::blas_set_num_threads()_.
 In other cases, you should consult an expert. 
 
@@ -216,6 +265,8 @@ In other cases, you should consult an expert.
 
 ### Parallel Learning from a Distributed File System
 
+
+#### Spark
 
 
 
