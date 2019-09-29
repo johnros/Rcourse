@@ -72,8 +72,8 @@ Here are some terms we will be needing.
 
 ### Types of Parallelism
 
-- Data Parallel
-- Task Parallel
+- [Data Parallel] When performing differest tasks on the same data. 
+- [Task Parallel] When performing the same task, on different data. 
 
 Flynn's Taxonomy:
 
@@ -90,7 +90,22 @@ Communication standards include:
 
 - Message Passing Interface (MPI): A communication protocol that has become the de-facto standard for communication in large distributed clusters. Particularly, for heterogeneous computing clusters with varying operating systems and hardware. The protocol has various software implementations such as [OpenMPI](https://en.wikipedia.org/wiki/Open_MPI) and [MPICH](https://en.wikipedia.org/wiki/MPICH). Interestingly, large computing clusters use MPI, while modern BigData analysis platforms such as Spark, and Ray do not. Why is this? See Jonathan Dursi's excellent but controversial [blog post](https://www.dursi.ca/post/hpc-is-dying-and-mpi-is-killing-it.html).
 
-- Fork:
+- Fork: a mechanism, unique to Unix and Linux, that clones a process with accompanying instructions and data. Recall that processes do not share memory. Each process updates its own copy of the data. 
+
+- Spawn: a machanism, available under all operating systems, for a process to start an "offspring" process. It is quite similar to _fork_.
+
+
+
+### parallel
+The __parallel__ package, maintained by the R-core team, was introduced in 2011 to unify two popular parallisation packages: __snow__ and __multicore__.
+The __multicore__ package was designed to parallelise using the _fork_ mechanism, on Linux machines. 
+The __snow__ package was designed to parallise using the _spawn_ echanism, on all operating systems. 
+Servers/R-sessions started with __snow__ will not see the parent's data, which will have to be copied to sapwned sessions. 
+At least there is less data redundancy. 
+Spawning, unlike forking, can be done on remote machines, which communicate using MPI.
+
+
+
 
 
 ### Foreach 
@@ -227,8 +242,6 @@ qs
 ```
 
 
-### parallel
-
 
 
 ### Rdsm
@@ -249,7 +262,28 @@ qs
 - You should read the "Parallel computing: Implicit parallelism" section in the excellent [High Performance Computing](https://cran.r-project.org/web/views/HighPerformanceComputing.html) task view, for the latest developments in implicit parallelism.
 
 
+
+
+```{r}
+n <- 4*1024
+A <- matrix( rnorm(n*n), ncol=n, nrow=n )
+B <- matrix( rnorm(n*n), ncol=n, nrow=n )
+C <- A %*% B
+```
+
+![top at 657\% CPU!](art/Screenshot from 2019-09-28 20-25-48)
+
+
+In my system I have installed [OpenBLAS](https://en.wikipedia.org/wiki/OpenBLAS):
+```{r}
+extSoftVersion()["BLAS"]
+```
+
+
+
+
 ### Caution: Implicit with Explicit Parallelism
+
 A common problem when parallelising is that the machines you invoked with __explicit__ parallelism, invoke other machines using __implicit__ parallelism. 
 You then lose control of the number of machine being invoked, and the operating system spends most of its time managing resources, instead of doing your computations. 
 
@@ -258,6 +292,7 @@ To avoid this type of implicit parallelism within an explicit parallelisation, u
 In other cases, you should consult an expert. 
 
 
+### Parallel Data Munging with data.table
 
 
 ### Parallel Learning from a Centralized File System
