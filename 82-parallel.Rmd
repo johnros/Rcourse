@@ -158,7 +158,7 @@ Let's start with a simple example, taken from ["Getting Started with doParallel 
 
 ```{r}
 library(doParallel)
-cl <- makeCluster(2, type = 'PSOCK')
+cl <- makeCluster(2, type = 'SOCK')
 registerDoParallel(cl)
 result <- foreach(i=1:3) %dopar% sqrt(i)
 class(result)
@@ -264,33 +264,41 @@ qs
 
 #### Benchmarking backends
 
+In the following example, we compare the _fork_ mechanism, to the _socket_ mechanism.
+
 ```{r}
 airlines <- read.csv('data/2010_BSA_Carrier_PUF.csv')
 airlines$ind <- sample(1:10, size = nrow(airlines), replace = TRUE)
 
-FUN <- function(i) {
-        max(airlines[airlines$ind==i,'CAR_LINE_SRVC_CNT'])
-}
-FUN(2)
+timer <- function(i) max(airlines[airlines$ind==i,'CAR_LINE_SRVC_CNT'])
 
 library(doMC)
 registerDoMC(cores = 10)
-system.time(foreach (i=1:10, .combine = c) %dopar% FUN(i))
-         
+system.time(foreach (i=1:10, .combine = c) %dopar% timer(i))
+
+library(parallel)         
 library(doParallel)
 cl <- makeCluster(10, type="SOCK")
 registerDoParallel(cl)
-system.time(foreach (i=1:10, .combine = c) %dopar% FUN(i))
+system.time(foreach (i=1:10, .combine = c) %dopar% timer(i))
 stopCluster(cl)
-
-cl <- makeCluster(10, type="MPI")
-registerDoSNOW(cl)
-system.time(foreach (i=1:10, .combine = c) %dopar% FUN(i))
-stopCluster(cl)
-
-
-
 ```
+
+Things to note:
+
+- The clear victor is _fork_: sessions start faster, and computations finish faster. Sadly, we recall that _forking_ is impossible on Windows machines, or between-machines in a cluster.
+- We did not need to pass `airlines` to the different workers. `foreach` took care of that for us. 
+ 
+
+
+For fun, let's try the same with `data.table`....
+```{r}
+library(data.table)
+airlines.dt <- as.data.table(airlines)
+system.time(airlines.dt[,max(CAR_LINE_SRVC_CNT),ind])
+```
+No surprises there. 
+If you can store your data on a single machine, `data.table` is still the fastest for operating on data subsets. 
 
 
 
@@ -358,6 +366,12 @@ In other cases, you should consult an expert.
 
 #### Spark
 
+```{r}
+library(sparklyr)
+spark_install(version = "2.1.0")
+sc <- spark_connect(master = "local")
+
+```
 
 
 

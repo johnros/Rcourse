@@ -1,19 +1,22 @@
 # Launch
-#sudo docker run --rm -p 8787:8787 -v /home/johnros:/home/rstudio -e PASSWORD=tetris rocker/verse
-sudo docker run --rm \
--p 8787:8787 \
--v ~/workspace:/rstudio/workspace \
--v ~/.ssh:/rstudio/.ssh \
--v ~/.gitconfig:/rstudio/.gitconfig \
--e PASSWORD=tetris \
-rocker/verse
-
+# sudo docker run --rm -p 8787:8787 -v /home/johnros:/home/rstudio -e PASSWORD=tetris rocker/verse
 
 sudo docker run --rm \
 -p 8787:8787 \
 -v /home/johnros/:/home/rstudio \
 -e PASSWORD=tetris \
 rocker/verse
+
+
+sudo docker run --rm \
+-p 8787:8787 \
+-v ~/workspace:/home/rstudio/workspace \
+-v ~/.ssh:/home/rstudio/.ssh \
+-v ~/.gitconfig:/home/rstudio/.gitconfig \
+-e PASSWORD=tetris \
+rocker/verse
+
+
 
 
 
