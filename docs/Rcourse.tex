@@ -128,7 +128,7 @@
 
 \title{R (BGU course)}
 \author{Jonathan D. Rosenblatt}
-\date{2019-09-28}
+\date{2019-09-29}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -13360,6 +13360,7 @@ We do not cover this topic here, and refer the reader to the \textbf{RHipe}, \te
 \section{Bibliographic Notes}\label{bibliographic-notes-13}}
 
 An absolute SUPERB review on computing with big data is \citet{wang2015statistical}, and references therein (\citet{kane2013scalable} in particular).
+Michael Kane also reports \href{http://technodocbox.com/C_and_CPP/112025624-Massive-data-shared-and-distributed-memory-and-concurrent-programming-bigmemory-and-foreach.html}{his benchmarks} of in-memory, vs.~DBMS operations.
 Here is also an excellent talk by \href{http://www.columbia.edu/~sjm2186/EPIC_R/EPIC_R_BigData.pdf}{Charles DiMaggio}.
 For an up-to-date list of the packages that deal with memory constraints, see the \textbf{Large memory and out-of-memory data} section in the \href{https://cran.r-project.org/web/views/HighPerformanceComputing.html}{High Performance Computing} task view.
 For a list of resources to interface to DMBS, see the \href{https://cran.r-project.org/web/views/Databases.html}{Databases with R} task view.
@@ -13422,68 +13423,127 @@ Here are a few pointers:
   Profile your code to detect how much RAM and CPU are consumed by each line of code. See Hadley's \href{http://adv-r.had.co.nz/Profiling.html}{guide}.
 \end{enumerate}
 
+In the best possible scenario, the number of operations you can perform scales with the number of processors: \[time * processors = operations\].
+This is called \emph{perfect scaling}.
+It is rarely observed in practice, since parallelizing incurs some computational overhead: setting up environments, copying memory, \ldots{}
+For this reason, the typical speedup is sub-linear.
+Computer scientists call this \href{https://en.wikipedia.org/wiki/Amdahl\%27s_law}{Amdahl's law}.
+
 \hypertarget{terminology}{%
 \section{Terminology}\label{terminology}}
 
 Here are some terms we will be needing.
 
-Hardware:
+\hypertarget{hardware}{%
+\subsection{Hardware:}\label{hardware}}
 
 \begin{itemize}
 \tightlist
 \item
-  {[}Cluster{]} A collection of interconnected computers.
+  \textbf{Cluster:} A collection of interconnected computers.
 \item
-  {[}Node/Machine{]} A single physical machine in the cluster. Components of a single node do not communicate via the cluster's network, but rather, via the node's circuitry.
+  \textbf{Node/Machine:} A single physical machine in the cluster. Components of a single node do not communicate via the cluster's network, but rather, via the node's circuitry.
 \item
-  {[}Processor/Socket/CPU{]}
+  \textbf{Processor/Socket/CPU:}
 \item
-  {[}Thread{]}
+  \textbf{RAM:} Random Access Memory. One of many types of memory in a computer. Possibly the most relevant type of memory when computing with data.
 \item
-  {[}RAM{]} Random Access Memory. One of many types of memory in a computer. Possibly the most relevant type of memory when computing with data.
+  \textbf{GPU:} Graphical Processing Unit. A computing unit, separate from the CPU. Originally dedicated to graphics and gaming, thus its name. Currently, GPUs are extremely popular for fitting and servicing Deep Neural Networks.
 \item
-  {[}GPU{]} Graphical Processing Unit. A computing unit, separate from the CPU. Originally dedicated to graphics and gaming, thus its name. Currently, GPUs are extremely popular for fitting and servicing Deep Neural Networks.
-\item
-  {[}TPU{]} Tensor Processing Unit. A computing unit, dedicated to servicing and fitting Deep Neural Networks.
+  \textbf{TPU:} Tensor Processing Unit. A computing unit, dedicated to servicing and fitting Deep Neural Networks.
 \end{itemize}
 
-Software:
+\hypertarget{software}{%
+\subsection{Software:}\label{software}}
 
 \begin{itemize}
 \tightlist
 \item
-  {[}Process{]} A sequence of instructions in memory, with accompanying data. Various processes typically see different locations of memory. Interpreted languages like R, and Python operate on processes.
+  \textbf{Process:} A sequence of instructions in memory, with accompanying data. Various processes typically see different locations of memory. Interpreted languages like R, and Python operate on processes.
 \item
-  {[}Thread{]} A sub-sequence of instructions, within a process. Various threads in a process may see the same memory. Compiled languages like C, C++, may operate on threads.
+  \textbf{Thread:} A sub-sequence of instructions, within a process. Various threads in a process may see the same memory. Compiled languages like C, C++, may operate on threads.
 \end{itemize}
+
+\hypertarget{types-of-parallelism}{%
+\subsection{Types of Parallelism}\label{types-of-parallelism}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Data Parallel:} When performing differest tasks on the same data.
+\item
+  \textbf{Task Parallel:} When performing the same task, on different data.
+\end{itemize}
+
+Flynn's Taxonomy:
 
 \hypertarget{explicit-parallelism}{%
 \section{Explicit Parallelism}\label{explicit-parallelism}}
 
 R provides many frameworks for explicit parallelism.
-Any such framework will include some communication protocol and abstraction layer.A communication protocol because different R sessions will be communication one with the other. An abstraction layer because providing the user will all the features and generality of the communication layer is needlessly cumbersome.
+Any such framework will include the means for starting R (salve/worker) sessions, and the means for communicating between these sessions.
+Except for developpers, a typical user will probably be using some high-level R package which will abstract away these stages.
+A communication protocol because different R sessions will be communication one with the other. An abstraction layer because providing the user will all the features and generality of the communication layer is needlessly cumbersome.
 
-Communication standards include:
+Starting new R processes, a.k.a. slaves:
 
 \begin{itemize}
 \item
-  Parallel Virtual Machine (PVM): a communication protocol and software, developed the University of Tennessee, Oak Ridge National Laboratory and Emory University, and first released in 1989. Runs on Windows and Unix, thus allowing to compute on clusters running these two operating systems. Noways, it is mostly replaced by MPI.
+  R sessions/process may always be started using system calls. This creates \emph{child processes}, or \emph{spawn processes} that cannot access the data and instructions of the calling process.
 \item
-  Message Passing Interface (MPI): A communication protocol that has become the de-facto standard for communication in large distributed clusters. Particularly, for heterogeneous computing clusters with varying operating systems and hardware. The protocol has various software implementations such as \href{https://en.wikipedia.org/wiki/Open_MPI}{OpenMPI} and \href{https://en.wikipedia.org/wiki/MPICH}{MPICH}. Interestingly, large computing clusters use MPI, while modern BigData analysis platforms such as Spark, and Ray do not. Why is this? See Jonathan Dursi's excellent but controversial \href{https://www.dursi.ca/post/hpc-is-dying-and-mpi-is-killing-it.html}{blog post}.
-\item
-  Fork:
+  \textbf{Fork}: a mechanism, unique to Unix and Linux, that clones a process with accompanying instructions and data. All processes see the same memory in read-only state. Copies are made when data is changed by a process.
 \end{itemize}
+
+Inter-process communication standards:
+
+\begin{itemize}
+\item
+  \textbf{Socket}: data sent via a network interface. Put differently- information is sent between R processes as if these were different machines in a network. Information may be structured by the particular application, and does not abide to some
+\item
+  \textbf{Parallel Virtual Machine} (PVM): a communication protocol and software, developed the University of Tennessee, Oak Ridge National Laboratory and Emory University, and first released in 1989. Runs on Windows and Unix, thus allowing to compute on clusters running these two operating systems. Noways, it is mostly replaced by MPI. The same group responsible for PVM will later deliver \emph{Programming with Big Data in R} (\href{https://pbdr.org}{pbdR}): a whole ecosystem of packages for running R on large computing clusters.
+\item
+  \textbf{Message Passing Interface} (MPI): A communication protocol that has become the de-facto standard for communication in large distributed clusters. Particularly, for heterogeneous computing clusters with varying operating systems and hardware. The protocol has various software implementations such as \href{https://en.wikipedia.org/wiki/Open_MPI}{OpenMPI} and \href{https://en.wikipedia.org/wiki/MPICH}{MPICH}, \href{http://mpi.deino.net/}{Deino}, \href{https://en.wikipedia.org/wiki/LAM/MPI}{LAM/MPI}. Interestingly, large computing clusters use MPI, while modern BigData analysis platforms such as Spark, and Ray do not. Why is this? See Jonathan Dursi's excellent but controversial \href{https://www.dursi.ca/post/hpc-is-dying-and-mpi-is-killing-it.html}{blog post}.
+\item
+  \textbf{NetWorkSpaces} (NWS): A master-slave communication protocol where the master is not an R-session, but rather, an \emph{NWS server}.
+\end{itemize}
+
+For more on inter-process communication, see \href{https://en.wikipedia.org/wiki/Inter-process_communication}{Wiki}.
+
+\hypertarget{parallel-1}{%
+\subsection{parallel}\label{parallel-1}}
+
+The \textbf{parallel} package, maintained by the R-core team, was introduced in 2011 to unify two popular parallisation packages: \textbf{snow} and \textbf{multicore}.
+The \textbf{multicore} package was designed to parallelise using the \emph{fork} mechanism, on Linux machines.
+The \textbf{snow} package was designed to parallise using the \emph{spawn} echanism, on all operating systems.
+Servers/R-sessions started with \textbf{snow} will not see the parent's data, which will have to be copied to sapwned sessions.
+At least there is less data redundancy.
+Spawning, unlike forking, can be done on remote machines, which communicate using MPI.
 
 \hypertarget{foreach}{%
 \subsection{Foreach}\label{foreach}}
 
 For reasons detailed in \citet{kane2013scalable}, we recommend the \textbf{foreach} parallelisation package \citep{foreach}.
-It will allow us to:
+It allows us to:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can then switch the underlying parallelisation mechanism.
+  Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can later switch between paralliseation mechanisms.
+  Currently supported mechanisms include:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \emph{fork}: Called with the \emph{doMC} backend.
+  \item
+    \emph{MPI}, \emph{VPM}, \emph{NWS}: Called with the \emph{doSNOW} or \emph{doMPI} backends.
+  \item
+    \emph{futures}: Called with the \emph{doFuture} backend.
+  \item
+    \emph{redis}: Called with the \emph{doRedis} backend. Similar to NWS, only that data made available to different processes using \href{https://en.wikipedia.org/wiki/Redis}{Redis}.
+  \item
+    Future mechanism may also be supported.
+  \end{itemize}
 \item
   Combine with the \texttt{big.matrix} object from Chapter \ref{memory} for \emph{shared memory parallelisation}: all the machines may see the same data, so that we don't need to export objects from machine to machine.
 \end{enumerate}
@@ -13681,14 +13741,16 @@ We are all set up to loop, in parallel, and compute quantiles of \texttt{CAR\_LI
 ## result.6 518 796 995
 \end{verbatim}
 
-\hypertarget{parallel-1}{%
-\subsection{parallel}\label{parallel-1}}
-
 \hypertarget{rdsm}{%
 \subsection{Rdsm}\label{rdsm}}
 
 \hypertarget{pbdr}{%
 \subsection{pbdR}\label{pbdr}}
+
+Not on a single machine.
+\url{https://pbdr.org}
+
+The pbdMPI package provides S4 classes to directly interface MPI in order to support the Single Program/Multiple Data (SPMD) parallel programming style which is particularly useful for batch parallel execution. The pbdSLAP builds on this and uses scalable linear algebra packages (namely BLACS, PBLAS, and ScaLAPACK) in double precision based on ScaLAPACK version 2.0.2. The pbdBASE builds on these and provides the core classes and methods for distributed data types upon which the pbdDMAT builds to provide distributed dense matrices for ``Programming with Big Data''. The pbdNCDF4 package permits multiple processes to write to the same file (without manual synchronization) and supports terabyte-sized files. The pbdDEMO package provides examples for these packages, and a detailed vignette. The pbdPROF package profiles MPI communication SPMD code via MPI profiling libraries, such as fpmpi, mpiP, or TAU.
 
 \hypertarget{implicit-parallelism}{%
 \section{Implicit Parallelism}\label{implicit-parallelism}}
@@ -13704,6 +13766,34 @@ We are all set up to loop, in parallel, and compute quantiles of \texttt{CAR\_LI
   You should read the ``Parallel computing: Implicit parallelism'' section in the excellent \href{https://cran.r-project.org/web/views/HighPerformanceComputing.html}{High Performance Computing} task view, for the latest developments in implicit parallelism.
 \end{itemize}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n <-}\StringTok{ }\DecValTok{4}\OperatorTok{*}\DecValTok{1024}
+\NormalTok{A <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{( }\KeywordTok{rnorm}\NormalTok{(n}\OperatorTok{*}\NormalTok{n), }\DataTypeTok{ncol=}\NormalTok{n, }\DataTypeTok{nrow=}\NormalTok{n )}
+\NormalTok{B <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{( }\KeywordTok{rnorm}\NormalTok{(n}\OperatorTok{*}\NormalTok{n), }\DataTypeTok{ncol=}\NormalTok{n, }\DataTypeTok{nrow=}\NormalTok{n )}
+\NormalTok{C <-}\StringTok{ }\NormalTok{A }\OperatorTok{%*%}\StringTok{ }\NormalTok{B}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{art/Screenshot from 2019-09-28 20-25-48}
+\caption{top at 657\% CPU!}
+\end{figure}
+
+In my system I have installed \href{https://en.wikipedia.org/wiki/OpenBLAS}{OpenBLAS}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{extSoftVersion}\NormalTok{()[}\StringTok{"BLAS"}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                               BLAS 
+## "/usr/lib/libopenblasp-r0.2.19.so"
+\end{verbatim}
+
 \hypertarget{caution-implicit-with-explicit-parallelism}{%
 \subsection{Caution: Implicit with Explicit Parallelism}\label{caution-implicit-with-explicit-parallelism}}
 
@@ -13713,6 +13803,9 @@ You then lose control of the number of machine being invoked, and the operating 
 Modern linear algebra libraries may try to implicitly parallelise vector and matrix operations.
 To avoid this type of implicit parallelism within an explicit parallelisation, use the \href{}{RhpcBLASctl package}, and in particular \emph{evaRhpcBLASctl::blas\_set\_num\_threads()}.
 In other cases, you should consult an expert.
+
+\hypertarget{parallel-data-munging-with-data.table}{%
+\subsection{Parallel Data Munging with data.table}\label{parallel-data-munging-with-data.table}}
 
 \hypertarget{parallel-learning-from-a-centralized-file-system}{%
 \subsection{Parallel Learning from a Centralized File System}\label{parallel-learning-from-a-centralized-file-system}}
@@ -13730,6 +13823,7 @@ For a brief and excellent explanation on parallel computing in R see \citet{schm
 For a full review see \citet{chapple2016mastering}.
 For a blog-level introduction see \href{http://www.parallelr.com/r-with-parallel-computing/}{ParallelR}.
 For an up-to-date list of packages supporting parallel programming see the High Performance Computing \href{https://cran.r-project.org/web/views/HighPerformanceComputing.html}{R task view}.
+To understand how computers work in general, see \citet{bryant2015computer}.
 
 \hypertarget{practice-yourself-12}{%
 \section{Practice Yourself}\label{practice-yourself-12}}

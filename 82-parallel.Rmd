@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Parallel Computing {#parallel}
 
 You would think that because you have an expensive multicore computer your computations will speed up. 
@@ -87,28 +92,30 @@ A communication protocol because different R sessions will be communication one 
 
 Starting new R processes, a.k.a. slaves:
 
-- __Fork__: a mechanism, unique to Unix and Linux, that clones a process with accompanying instructions and data. Recall that processes do not share memory. Each process updates its own copy of the data. 
+- R sessions/process may always be started using system calls. This creates _child processes_, or _spawn processes_ that cannot access the data and instructions of the calling process. 
 
-- __Spawn__: a machanism, available under all operating systems, for a process to start an "offspring" process. It is quite similar to _fork_.
+- __Fork__: a mechanism, unique to Unix and Linux, that clones a process with accompanying instructions and data. All processes see the same memory in read-only state. Copies are made when data is changed by a process.
 
 
 Inter-process communication standards:
+
+- __Socket__: data sent via a network interface. Put differently- information is sent between R processes as if these were different machines in a network. Information may be structured by the particular application, and does not abide to some 
 
 - __Parallel Virtual Machine__ (PVM): a communication protocol and software, developed the University of Tennessee, Oak Ridge National Laboratory and Emory University, and first released in 1989. Runs on Windows and Unix, thus allowing to compute on clusters running these two operating systems. Noways, it is mostly replaced by MPI. The same group responsible for PVM will later deliver _Programming with Big Data in R_ ([pbdR](https://pbdr.org)): a whole ecosystem of packages for running R on large computing clusters. 
 
 - __Message Passing Interface__ (MPI): A communication protocol that has become the de-facto standard for communication in large distributed clusters. Particularly, for heterogeneous computing clusters with varying operating systems and hardware. The protocol has various software implementations such as [OpenMPI](https://en.wikipedia.org/wiki/Open_MPI) and [MPICH](https://en.wikipedia.org/wiki/MPICH), [Deino](http://mpi.deino.net/), [LAM/MPI](https://en.wikipedia.org/wiki/LAM/MPI). Interestingly, large computing clusters use MPI, while modern BigData analysis platforms such as Spark, and Ray do not. Why is this? See Jonathan Dursi's excellent but controversial [blog post](https://www.dursi.ca/post/hpc-is-dying-and-mpi-is-killing-it.html).
 
-- __NetWorkSpaces__ (NWS):
-
-- __Sockets__: 
+- __NetWorkSpaces__ (NWS): A master-slave communication protocol where the master is not an R-session, but rather, an _NWS server_. 
 
 
 
+For more on inter-process communication, see [Wiki](https://en.wikipedia.org/wiki/Inter-process_communication).
 
 
 
 
-### parallel
+### The parallel Package
+
 The __parallel__ package, maintained by the R-core team, was introduced in 2011 to unify two popular parallisation packages: __snow__ and __multicore__.
 The __multicore__ package was designed to parallelise using the _fork_ mechanism, on Linux machines. 
 The __snow__ package was designed to parallise using the _spawn_ echanism, on all operating systems. 
@@ -117,31 +124,31 @@ At least there is less data redundancy.
 Spawning, unlike forking, can be done on remote machines, which communicate using MPI.
 
 
+TOOD: add example.
 
 
 
-### Foreach 
+### The foreach Package
 
 For reasons detailed in @kane2013scalable, we recommend the __foreach__ parallelisation package [@foreach]. 
 It allows us to: 
 
-1. Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can later switch between _fork_, _MPI_, _VPM_, _NWS_, mechanisms. Future mechanism may also be supported. 
+1. Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can later switch between paralliseation mechanisms. 
+Currently supported mechanisms include:
+
+    - _fork_: Called with the _doMC_ backend. 
+    - _MPI_, _VPM_, _NWS_: Called with the _doSNOW_ or _doMPI_ backends. 
+    - _futures_: Called with the _doFuture_ backend. 
+    - _redis_: Called with the _doRedis_ backend. Similar to NWS, only that data made available to different processes using [Redis](https://en.wikipedia.org/wiki/Redis).
+   - Future mechanism may also be supported. 
 
 1. Combine with the `big.matrix` object from Chapter \@ref(memory) for _shared memory parallelisation_: all the machines may see the same data, so that we don't need to export objects from machine to machine. 
 
 
-What do we mean by "switch the underlying parallelisation mechanism"? 
-It means there are several packages that will handle communication between machines. 
-Some are very general and will work on any cluster. 
-Some are more specific and will work only on a single multicore machine (not a cluster) with a particular operating system.
-These mechanisms include __multicore__, __snow__, __parallel__, and __Rmpi__.
-The compatibility between these mechanisms and __foreach__ is provided by another set of packages:
-__doMC__ , __doMPI__, __doRedis__, __doParallel__, and __doSNOW__.
-
 
 ```{remark}
 I personally prefer the __multicore__ mechanism, with the __doMC__ adapter for __foreach__.
-I will not use this combo, however, because __multicore__ will not work on Windows machines.
+I will not use this combo, however, because __multicore__ will not work on Windows machines, and will not work over a network.
 I will thus use the more general __snow__ and __doParallel__ combo. 
 If you do happen to run on Linux, or Unix, you will want to replace all __doParallel__ functionality with __doMC__.
 ```
@@ -151,7 +158,7 @@ Let's start with a simple example, taken from ["Getting Started with doParallel 
 
 ```{r}
 library(doParallel)
-cl <- makeCluster(2)
+cl <- makeCluster(2, type = 'PSOCK')
 registerDoParallel(cl)
 result <- foreach(i=1:3) %dopar% sqrt(i)
 class(result)
@@ -255,8 +262,40 @@ qs
 
 
 
+#### Benchmarking backends
+
+```{r}
+airlines <- read.csv('data/2010_BSA_Carrier_PUF.csv')
+airlines$ind <- sample(1:10, size = nrow(airlines), replace = TRUE)
+
+FUN <- function(i) {
+        max(airlines[airlines$ind==i,'CAR_LINE_SRVC_CNT'])
+}
+FUN(2)
+
+library(doMC)
+registerDoMC(cores = 10)
+system.time(foreach (i=1:10, .combine = c) %dopar% FUN(i))
+         
+library(doParallel)
+cl <- makeCluster(10, type="SOCK")
+registerDoParallel(cl)
+system.time(foreach (i=1:10, .combine = c) %dopar% FUN(i))
+stopCluster(cl)
+
+cl <- makeCluster(10, type="MPI")
+registerDoSNOW(cl)
+system.time(foreach (i=1:10, .combine = c) %dopar% FUN(i))
+stopCluster(cl)
+
+
+
+```
+
+
 
 ### Rdsm
+
 
 
 ### pbdR

@@ -40,3 +40,6 @@ sudo docker login --username=johnros
 # Cleanup
 sudo docker system prune
 
+# Redis
+redis-server --daemonize yes
+
