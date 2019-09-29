@@ -30,6 +30,8 @@ docker ps
 sudo docker commit -m initializing 8bc442a61c9c verse_rcourse
 
 # Push to DockerHub
+sudo docker images
+sudo docker system prune
 sudo docker tag f7ed83713ccb johnros/rcourse:initialize
 sudo docker push johnros/rcourse
 

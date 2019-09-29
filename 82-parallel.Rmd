@@ -55,25 +55,24 @@ Here are some terms we will be needing.
 
 ### Hardware:
 
-- [Cluster] A collection of interconnected computers.
-- [Node/Machine] A single physical machine in the cluster. Components of a single node do not communicate via the cluster's network, but rather, via the node's circuitry. 
-- [Processor/Socket/CPU]
-- [Thread]
-- [RAM] Random Access Memory. One of many types of memory in a computer. Possibly the most relevant type of memory when computing with data. 
-- [GPU] Graphical Processing Unit. A computing unit, separate from the CPU. Originally dedicated to graphics and gaming, thus its name. Currently, GPUs are extremely popular for fitting and servicing Deep Neural Networks. 
-- [TPU] Tensor Processing Unit. A computing unit, dedicated to servicing and fitting Deep Neural Networks.
+- __Cluster:__ A collection of interconnected computers.
+- __Node/Machine:__ A single physical machine in the cluster. Components of a single node do not communicate via the cluster's network, but rather, via the node's circuitry. 
+- __Processor/Socket/CPU:__
+- __RAM:__ Random Access Memory. One of many types of memory in a computer. Possibly the most relevant type of memory when computing with data. 
+- __GPU:__ Graphical Processing Unit. A computing unit, separate from the CPU. Originally dedicated to graphics and gaming, thus its name. Currently, GPUs are extremely popular for fitting and servicing Deep Neural Networks. 
+- __TPU:__ Tensor Processing Unit. A computing unit, dedicated to servicing and fitting Deep Neural Networks.
 
 
 ### Software:
 
-- [Process] A sequence of instructions in memory, with accompanying data. Various processes typically see different locations of memory. Interpreted languages like R, and Python operate on processes.
-- [Thread] A sub-sequence of instructions, within a process. Various threads in a process may see the same memory. Compiled languages like C, C++, may operate on threads. 
+- __Process:__ A sequence of instructions in memory, with accompanying data. Various processes typically see different locations of memory. Interpreted languages like R, and Python operate on processes.
+- __Thread:__ A sub-sequence of instructions, within a process. Various threads in a process may see the same memory. Compiled languages like C, C++, may operate on threads. 
  
 
 ### Types of Parallelism
 
-- [Data Parallel] When performing differest tasks on the same data. 
-- [Task Parallel] When performing the same task, on different data. 
+- __Data Parallel:__ When performing differest tasks on the same data. 
+- __Task Parallel:__ When performing the same task, on different data. 
 
 Flynn's Taxonomy:
 
@@ -82,17 +81,30 @@ Flynn's Taxonomy:
 ## Explicit Parallelism
 
 R provides many frameworks for explicit parallelism.
-Any such framework will include some communication protocol and abstraction layer.A communication protocol because different R sessions will be communication one with the other. An abstraction layer because providing the user will all the features and generality of the communication layer is needlessly cumbersome.
+Any such framework will include the means for starting R (salve/worker) sessions, and the means for communicating between these sessions. 
+Except for developpers, a typical user will probably be using some high-level R package which will abstract away these stages. 
+A communication protocol because different R sessions will be communication one with the other. An abstraction layer because providing the user will all the features and generality of the communication layer is needlessly cumbersome.
 
-Communication standards include:
+Starting new R processes, a.k.a. slaves:
 
-- Parallel Virtual Machine (PVM): a communication protocol and software, developed the University of Tennessee, Oak Ridge National Laboratory and Emory University, and first released in 1989. Runs on Windows and Unix, thus allowing to compute on clusters running these two operating systems. Noways, it is mostly replaced by MPI.
+- __Fork__: a mechanism, unique to Unix and Linux, that clones a process with accompanying instructions and data. Recall that processes do not share memory. Each process updates its own copy of the data. 
 
-- Message Passing Interface (MPI): A communication protocol that has become the de-facto standard for communication in large distributed clusters. Particularly, for heterogeneous computing clusters with varying operating systems and hardware. The protocol has various software implementations such as [OpenMPI](https://en.wikipedia.org/wiki/Open_MPI) and [MPICH](https://en.wikipedia.org/wiki/MPICH). Interestingly, large computing clusters use MPI, while modern BigData analysis platforms such as Spark, and Ray do not. Why is this? See Jonathan Dursi's excellent but controversial [blog post](https://www.dursi.ca/post/hpc-is-dying-and-mpi-is-killing-it.html).
+- __Spawn__: a machanism, available under all operating systems, for a process to start an "offspring" process. It is quite similar to _fork_.
 
-- Fork: a mechanism, unique to Unix and Linux, that clones a process with accompanying instructions and data. Recall that processes do not share memory. Each process updates its own copy of the data. 
 
-- Spawn: a machanism, available under all operating systems, for a process to start an "offspring" process. It is quite similar to _fork_.
+Inter-process communication standards:
+
+- __Parallel Virtual Machine__ (PVM): a communication protocol and software, developed the University of Tennessee, Oak Ridge National Laboratory and Emory University, and first released in 1989. Runs on Windows and Unix, thus allowing to compute on clusters running these two operating systems. Noways, it is mostly replaced by MPI. The same group responsible for PVM will later deliver _Programming with Big Data in R_ ([pbdR](https://pbdr.org)): a whole ecosystem of packages for running R on large computing clusters. 
+
+- __Message Passing Interface__ (MPI): A communication protocol that has become the de-facto standard for communication in large distributed clusters. Particularly, for heterogeneous computing clusters with varying operating systems and hardware. The protocol has various software implementations such as [OpenMPI](https://en.wikipedia.org/wiki/Open_MPI) and [MPICH](https://en.wikipedia.org/wiki/MPICH), [Deino](http://mpi.deino.net/), [LAM/MPI](https://en.wikipedia.org/wiki/LAM/MPI). Interestingly, large computing clusters use MPI, while modern BigData analysis platforms such as Spark, and Ray do not. Why is this? See Jonathan Dursi's excellent but controversial [blog post](https://www.dursi.ca/post/hpc-is-dying-and-mpi-is-killing-it.html).
+
+- __NetWorkSpaces__ (NWS):
+
+- __Sockets__: 
+
+
+
+
 
 
 
@@ -111,9 +123,9 @@ Spawning, unlike forking, can be done on remote machines, which communicate usin
 ### Foreach 
 
 For reasons detailed in @kane2013scalable, we recommend the __foreach__ parallelisation package [@foreach]. 
-It will allow us to: 
+It allows us to: 
 
-1. Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can then switch the underlying parallelisation mechanism. 
+1. Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can later switch between _fork_, _MPI_, _VPM_, _NWS_, mechanisms. Future mechanism may also be supported. 
 
 1. Combine with the `big.matrix` object from Chapter \@ref(memory) for _shared memory parallelisation_: all the machines may see the same data, so that we don't need to export objects from machine to machine. 
 
@@ -248,6 +260,10 @@ qs
 
 
 ### pbdR
+Not on a single machine. 
+https://pbdr.org
+
+The pbdMPI package provides S4 classes to directly interface MPI in order to support the Single Program/Multiple Data (SPMD) parallel programming style which is particularly useful for batch parallel execution. The pbdSLAP builds on this and uses scalable linear algebra packages (namely BLACS, PBLAS, and ScaLAPACK) in double precision based on ScaLAPACK version 2.0.2. The pbdBASE builds on these and provides the core classes and methods for distributed data types upon which the pbdDMAT builds to provide distributed dense matrices for "Programming with Big Data". The pbdNCDF4 package permits multiple processes to write to the same file (without manual synchronization) and supports terabyte-sized files. The pbdDEMO package provides examples for these packages, and a detailed vignette. The pbdPROF package profiles MPI communication SPMD code via MPI profiling libraries, such as fpmpi, mpiP, or TAU.
 
 
 
@@ -318,6 +334,7 @@ For a full review see @chapple2016mastering.
 For a blog-level introduction see [ParallelR
 ](http://www.parallelr.com/r-with-parallel-computing/).
 For an up-to-date list of packages supporting parallel programming see the High Performance Computing [R task view](https://cran.r-project.org/web/views/HighPerformanceComputing.html).
+To understand how computers work in general, see @bryant2015computer.
 
 ## Practice Yourself
 
