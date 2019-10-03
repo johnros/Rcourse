@@ -416,8 +416,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.4.1" data-path="parallel.html"><a href="parallel.html#parallel-linear-algebra"><i class="fa fa-check"></i><b>16.4.1</b> Parallel Linear Algebra</a></li>
 <li class="chapter" data-level="16.4.2" data-path="parallel.html"><a href="parallel.html#nested-parallel"><i class="fa fa-check"></i><b>16.4.2</b> Caution: Implicit with Explicit Parallelism</a></li>
 <li class="chapter" data-level="16.4.3" data-path="parallel.html"><a href="parallel.html#parallel-data-munging-with-data.table"><i class="fa fa-check"></i><b>16.4.3</b> Parallel Data Munging with data.table</a></li>
-<li class="chapter" data-level="16.4.4" data-path="parallel.html"><a href="parallel.html#parallel-learning-from-a-centralized-file-system"><i class="fa fa-check"></i><b>16.4.4</b> Parallel Learning from a Centralized File System</a></li>
-<li class="chapter" data-level="16.4.5" data-path="parallel.html"><a href="parallel.html#parallel-learning-from-a-distributed-file-system"><i class="fa fa-check"></i><b>16.4.5</b> Parallel Learning from a Distributed File System</a></li>
+<li class="chapter" data-level="16.4.4" data-path="parallel.html"><a href="parallel.html#spark"><i class="fa fa-check"></i><b>16.4.4</b> Spark</a></li>
+<li class="chapter" data-level="16.4.5" data-path="parallel.html"><a href="parallel.html#h2o"><i class="fa fa-check"></i><b>16.4.5</b> H2O</a></li>
 </ul></li>
 <li class="chapter" data-level="16.5" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>16.5</b> Bibliographic Notes</a></li>
 <li class="chapter" data-level="16.6" data-path="parallel.html"><a href="parallel.html#practice-yourself-12"><i class="fa fa-check"></i><b>16.6</b> Practice Yourself</a></li>
@@ -832,7 +832,7 @@ First, we check how many threads <code>data.table</code> is setup to use?</p>
 
 <div class="remark">
  <span class="remark"><em>Remark. </em></span> An amazing feature of <code>data.table</code> is that it will not parallelize when called from a forked process.
-This behaviour will avoid the nested parallelism we cautioned from in @(nested-parallel).
+This behaviour will avoid the nested parallelism we cautioned from in <a href="parallel.html#nested-parallel">16.4.2</a>.
 </div>
 
 <p>Now let’s compare parallelised aggregations:</p>
@@ -861,68 +861,88 @@ k &lt;-<span class="st">  </span><span class="fl">1e4</span>
 <li>This example was cooked to emphasize the difference. You may not enjoy such speedups in all problems.</li>
 </ul>
 </div>
-<div id="parallel-learning-from-a-centralized-file-system" class="section level3">
-<h3><span class="header-section-number">16.4.4</span> Parallel Learning from a Centralized File System</h3>
-<p>Machine learning is different than data munging.
-Most machine learning problems are actually optimization problems, that are harder to parallelise than <em>JOIN</em>, or <em>COUNT</em> operations.
-It is not recommended that you explicitely parallelise your learning algorithms.
-Luckily, many packages do that for you.</p>
-<p>TODO: demonstrate package.</p>
-</div>
-<div id="parallel-learning-from-a-distributed-file-system" class="section level3">
-<h3><span class="header-section-number">16.4.5</span> Parallel Learning from a Distributed File System</h3>
-<div id="spark" class="section level4">
-<h4><span class="header-section-number">16.4.5.1</span> Spark</h4>
+<div id="spark" class="section level3">
+<h3><span class="header-section-number">16.4.4</span> Spark</h3>
+<p>Spark is the brainchild of Matei Zaharia, in 2009, as part of his PhD studies at University of California, Berkeley ’s AMPLab.
+To understand <em>Spark</em> need some backgroud.
+The software that manages files on your disk is the <a href="https://en.wikipedia.org/wiki/File_system">file system</a>.
+On personal computers, you may have have seens names like FAT32, NTFS, ext3, or others.
+Those are disk file systems.
+If your data is too big to be stored on a single disk, you may distibute it on several machines.
+When doing so, you will need a file systems that is designed for distributed clusters.
+A good <a href="https://en.wikipedia.org/wiki/Clustered_file_system">cluster file system</a>, is crucial for the performance of your cluster.
+Google’s file system, the <a href="https://en.wikipedia.org/wiki/File_system">Google File</a>, is part of Google power.
+If you are not at Google, you will not have access to this file system.
+Luckily, there are many other alternatives.
+The Hadoop File System, <a href="https://en.wikipedia.org/wiki/Apache_Hadoop">HDFS</a>, that started at Yahoo, and was ported to the Apache Foundation, is such an alternative.
+With the HDFS you can store files in a cluster, but for doing statistics with the data in these files, you need software that is compatible with the file system.
+Hadoop is such a software, but it was not designed for machine learning.
+Hadoop operates from the disk.
+Learning, which consistes of a lot iteratire algorithms run, requires fast and repeated data reads.
+This is the purpose of Spark.
+Spark is a data oriented computing environemnt over distributed file systems.
+While origianlyl linked to HDFS, it may run over many other distributed file systems, but also locally, as we now demonstrate.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Spark performance</span>
 <span class="kw">library</span>(sparklyr)
-<span class="kw">spark_install</span>(<span class="dt">version =</span> <span class="st">&quot;2.1.0&quot;</span>)</code></pre>
+<span class="kw">spark_install</span>(<span class="dt">version =</span> <span class="st">&quot;2.1.0&quot;</span>) <span class="co"># will download Spark on first run. </span></code></pre>
 <pre><code>## Spark 2.1.0 for Hadoop 2.7 or later already installed.</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
 sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>)</code></pre>
 <pre><code>## Re-using existing Spark connection to local</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">flights_tbl&lt;-<span class="st"> </span><span class="kw">copy_to</span>(<span class="dt">dest=</span>sc, <span class="dt">df=</span>flights, <span class="dt">name=</span><span class="st">&#39;flights&#39;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)
-
-<span class="kw">system.time</span>(delay&lt;-flights_tbl <span class="op">%&gt;%</span><span class="st"> </span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nycflights13)
+flights_tbl&lt;-<span class="st"> </span><span class="kw">copy_to</span>(<span class="dt">dest=</span>sc, <span class="dt">df=</span>flights, <span class="dt">name=</span><span class="st">&#39;flights&#39;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)
+<span class="kw">class</span>(flights_tbl)</code></pre>
+<pre><code>## [1] &quot;tbl_spark&quot; &quot;tbl_sql&quot;   &quot;tbl_lazy&quot;  &quot;tbl&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(delay&lt;-flights_tbl <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">              </span><span class="kw">group_by</span>(tailnum) <span class="op">%&gt;%</span>
 <span class="st">              </span><span class="kw">summarise</span>(<span class="dt">count=</span><span class="kw">n</span>(),<span class="dt">dist=</span><span class="kw">mean</span>(distance),<span class="dt">delay=</span><span class="kw">mean</span>(arr_delay)) <span class="op">%&gt;%</span>
 <span class="st">              </span><span class="kw">filter</span>(count<span class="op">&gt;</span><span class="dv">20</span>, dist<span class="op">&lt;</span><span class="dv">2000</span>, <span class="op">!</span><span class="kw">is.na</span>(delay)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">collect</span>())</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.371   0.361   1.051</code></pre>
+##   0.209   0.988   1.386</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Datatable performance</span>
 <span class="kw">library</span>(data.table)
 flight.DT &lt;-<span class="st"> </span><span class="kw">data.table</span>(flights)
 <span class="kw">system.time</span>(flight.DT[,.(<span class="dt">distance=</span><span class="kw">mean</span>(distance),<span class="dt">delay=</span><span class="kw">mean</span>(arr_delay),<span class="dt">count=</span>.N),<span class="dt">by=</span>tailnum][count<span class="op">&gt;</span><span class="dv">20</span> <span class="op">&amp;</span><span class="st"> </span>distance<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(delay)])</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.049   0.000   0.049</code></pre>
-<p>Again- if data fits in RAM, you cannot beat <code>data.table</code>.</p>
+##   0.047   0.000   0.013</code></pre>
+<p>Things to note:</p>
+<ul>
+<li>If data fits in RAM, you cannot beat <code>data.table</code>. But when your data gets too large to fit on disk, Spark is an excellent option.</li>
+<li><code>spark_install</code> will download and install <em>Spark</em> on your first run. Make sure to update the version number, as this text may be outdated by the time you read it.</li>
+<li>I used the <em>sparklyr</em> package from RStudio. There is an alternative package from Apache: <em>SparkR</em>.</li>
+<li><code>spark_connect</code> opens a connection to the Spark server.<br />
+</li>
+<li><code>copy_to</code> exports from R to Sprak. Typically, my data will already be waiting in Sprak, since the whole motivation is that it does not fit on y disk.</li>
+<li>When you have data in a connected Spark server, you can manage it using RStudio’s <a href="https://support.rstudio.com/hc/en-us/articles/115010915687-Using-RStudio-Connections">Connection pane</a>.</li>
+<li>I have used the <em>dplyr</em> syntax and not my favorite <em>data.table</em> syntax. This is just how <em>sparklyr</em> works.</li>
+</ul>
 </div>
-<div id="h2o" class="section level4">
-<h4><span class="header-section-number">16.4.5.2</span> H2O</h4>
-<p>Like <em>Spark</em>, H2O is not part of R, but a backend server, which R can connect too.
-Like <em>Spark</em>, H2O can be thought of as a library of efficient distributed learning algorithm, that run in-memory, where memory considerations and parallelisation have been taken care of for you.
+<div id="h2o" class="section level3">
+<h3><span class="header-section-number">16.4.5</span> H2O</h3>
+<p>The machine learning library/algorithms in <em>Spark</em> is called <em>Spark MLlib</em>.
+It has many popular learing algorithms, and keeps updating.
+One (of many) extension to <em>Spark</em> is H2O, which replaces <em>Spark MLlib</em>, with many more learning algorithms.
+H2O can be thought of as a library of efficient distributed learning algorithm, that run in-memory, where memory considerations and parallelisation have been taken care of for you.
 For a (massive) list of learning algorithms implemented in H2O, see <a href="http://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science.html#">their documentaion</a>.
-H2O may seemingly be a better version of <em>Spark</em>, but this is not quite true.
-They can complement eachother: H2O can connect to <em>Spark</em>, to speedup some of its computations.
-This is the purpose of <em>Sparkling Water</em> discussed in @(sparkling).
-We start with working on H2O directly.</p>
+H2O can run as a standalone server, or on top of Spark, so that it may use the <em>Spark data frames</em>. This is the purpose of <em>Sparkling Water</em> discussed in <a href="parallel.html#sparkling">16.4.5.1</a>.
+We start with working on H2O directly with the <code>h2o</code> package.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">#install.packages(&quot;h2o&quot;) </span>
-<span class="kw">library</span>(datasets)
 <span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(h2o))
 
 <span class="kw">h2o.init</span>(<span class="dt">nthreads=</span><span class="dv">2</span>) </code></pre>
 <pre><code>##  Connection successful!
 ## 
 ## R is connected to the H2O cluster: 
-##     H2O cluster uptime:         26 minutes 6 seconds 
+##     H2O cluster uptime:         22 minutes 33 seconds 
 ##     H2O cluster timezone:       Etc/UTC 
 ##     H2O data parsing timezone:  UTC 
 ##     H2O cluster version:        3.26.0.2 
 ##     H2O cluster version age:    2 months and 6 days  
-##     H2O cluster name:           H2O_started_from_R_rstudio_fdg572 
+##     H2O cluster name:           H2O_started_from_R_rstudio_iya260 
 ##     H2O cluster total nodes:    1 
-##     H2O cluster total memory:   3.41 GB 
+##     H2O cluster total memory:   3.28 GB 
 ##     H2O cluster total cores:    8 
-##     H2O cluster allowed cores:  8 
+##     H2O cluster allowed cores:  2 
 ##     H2O cluster healthy:        TRUE 
 ##     H2O Connection ip:          localhost 
 ##     H2O Connection port:        54321 
@@ -930,9 +950,8 @@ We start with working on H2O directly.</p>
 ##     H2O Internal Security:      FALSE 
 ##     H2O API Extensions:         Amazon S3, XGBoost, Algos, AutoML, Core V3, Core V4 
 ##     R Version:                  R version 3.6.1 (2019-07-05)</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(iris)
-
-iris.hex &lt;-<span class="st"> </span><span class="kw">as.h2o</span>(iris) <span class="co"># load to the H2O server</span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;spam&quot;</span>, <span class="dt">package =</span> <span class="st">&#39;ElemStatLearn&#39;</span>)
+spam.h2o &lt;-<span class="st"> </span><span class="kw">as.h2o</span>(spam, <span class="dt">destination_frame =</span> <span class="st">&quot;spam.hex&quot;</span>) <span class="co"># load to the H2O server</span></code></pre>
 <pre><code>## 
   |                                                                       
   |                                                                 |   0%
@@ -940,47 +959,55 @@ iris.hex &lt;-<span class="st"> </span><span class="kw">as.h2o</span>(iris) <spa
   |=================================================================| 100%</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">h2o.ls</span>() <span class="co"># check avaialbe data in the server</span></code></pre>
 <pre><code>##                                                                                key
-## 1                                                                 RTMP_sid_af57_12
-## 2                                                                 RTMP_sid_af57_14
-## 3                                                                  iris_sid_a644_1
-## 4                                                                  iris_sid_af57_8
-## 5                                                                 iris_sid_b0ed_15
-## 6 modelmetrics_our.rf@-4546232715385845070_on_RTMP_sid_af57_12@3922634038303041221
+## 1                                   /tmp/RtmpNchmOo/file1302cdf9379.csv_sid_aedc_4
+## 2                                   /tmp/RtmpNchmOo/file1306040cd44.csv_sid_aedc_2
+## 3                                   /tmp/RtmpNchmOo/file1306241cd6c.csv_sid_aedc_3
+## 4                                                                 RTMP_sid_a207_16
+## 5                                                                 RTMP_sid_a207_18
+## 6  modelmetrics_our.rf@3439884900265039158_on_RTMP_sid_a207_16@5817896328437830952
 ## 7                                                                           our.rf
-## 8                                       predictions_9a54_our.rf_on_RTMP_sid_a644_7
-## 9                                      predictions_b5ca_our.rf_on_RTMP_sid_af57_14</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">h2o.describe</span>(iris.hex) <span class="co"># the H2O version of summary()</span></code></pre>
-<pre><code>##          Label Type Missing Zeros PosInf NegInf Min Max     Mean     Sigma
-## 1 Sepal.Length real       0     0      0      0 4.3 7.9 5.843333 0.8280661
-## 2  Sepal.Width real       0     0      0      0 2.0 4.4 3.057333 0.4358663
-## 3 Petal.Length real       0     0      0      0 1.0 6.9 3.758000 1.7652982
-## 4  Petal.Width real       0     0      0      0 0.1 2.5 1.199333 0.7622377
-## 5      Species enum       0    50      0      0 0.0 2.0       NA        NA
+## 8                                      predictions_a070_our.rf_on_RTMP_sid_b2c8_12
+## 9                                      predictions_aae9_our.rf_on_RTMP_sid_a207_18
+## 10                                                                        spam.hex</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">h2o.describe</span>(spam.h2o) <span class="op">%&gt;%</span><span class="st"> </span>head <span class="co"># the H2O version of summary()</span></code></pre>
+<pre><code>##   Label Type Missing Zeros PosInf NegInf Min   Max       Mean     Sigma
+## 1   A.1 real       0  3548      0      0   0  4.54 0.10455336 0.3053576
+## 2   A.2 real       0  3703      0      0   0 14.28 0.21301456 1.2905752
+## 3   A.3 real       0  2713      0      0   0  5.10 0.28065638 0.5041429
+## 4   A.4 real       0  4554      0      0   0 42.81 0.06542491 1.3951514
+## 5   A.5 real       0  2853      0      0   0 10.00 0.31222343 0.6725128
+## 6   A.6 real       0  3602      0      0   0  5.88 0.09590089 0.2738241
 ##   Cardinality
 ## 1          NA
 ## 2          NA
 ## 3          NA
 ## 4          NA
-## 5           3</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">h2o.hist</span>(iris.hex<span class="op">$</span>Sepal.Length)</code></pre>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-366-1.png" width="50%" /></p>
+## 5          NA
+## 6          NA</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">h2o.table</span>(spam.h2o<span class="op">$</span>spam)</code></pre>
+<pre><code>##    spam Count
+## 1 email  2788
+## 2  spam  1813
+## 
+## [2 rows x 2 columns]</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Split to train and test</span>
-splits &lt;-<span class="st"> </span><span class="kw">h2o.splitFrame</span>(<span class="dt">data =</span> iris.hex, <span class="dt">ratios =</span> <span class="kw">c</span>(<span class="fl">0.8</span>))
+splits &lt;-<span class="st"> </span><span class="kw">h2o.splitFrame</span>(<span class="dt">data =</span> spam.h2o, <span class="dt">ratios =</span> <span class="kw">c</span>(<span class="fl">0.8</span>))
 train &lt;-<span class="st"> </span>splits[[<span class="dv">1</span>]]
 test &lt;-<span class="st"> </span>splits[[<span class="dv">2</span>]]
 
 <span class="co"># Fit a random forest</span>
 rf &lt;-<span class="st"> </span><span class="kw">h2o.randomForest</span>(
-  <span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;Sepal.Length&quot;</span>, <span class="st">&quot;Sepal.Width&quot;</span>, <span class="st">&quot;Petal.Length&quot;</span>, <span class="st">&quot;Petal.Width&quot;</span>),
-  <span class="dt">y =</span> <span class="kw">c</span>(<span class="st">&quot;Species&quot;</span>),
+  <span class="dt">x =</span> <span class="kw">names</span>(spam.h2o)[<span class="op">-</span><span class="dv">58</span>],
+  <span class="dt">y =</span> <span class="kw">c</span>(<span class="st">&quot;spam&quot;</span>),
   <span class="dt">training_frame =</span> train,
-  <span class="dt">model_id =</span> <span class="st">&quot;our.rf&quot;</span>,
-  <span class="dt">seed =</span> <span class="dv">1234</span>)</code></pre>
+  <span class="dt">model_id =</span> <span class="st">&quot;our.rf&quot;</span>)</code></pre>
 <pre><code>## 
   |                                                                       
   |                                                                 |   0%
   |                                                                       
-  |===================================                              |  54%
+  |=                                                                |   2%
+  |                                                                       
+  |=========================================================        |  88%
   |                                                                       
   |=================================================================| 100%</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Predict on test set</span>
@@ -990,16 +1017,25 @@ predictions &lt;-<span class="st"> </span><span class="kw">h2o.predict</span>(rf
   |                                                                 |   0%
   |                                                                       
   |=================================================================| 100%</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(predictions)</code></pre>
+<pre><code>##   predict      email      spam
+## 1    spam 0.10480000 0.8952000
+## 2    spam 0.10480000 0.8952000
+## 3    spam 0.38217545 0.6178246
+## 4    spam 0.29332110 0.7066789
+## 5    spam 0.03648682 0.9635132
+## 6    spam 0.08000000 0.9200000</code></pre>
 <p>Things to note:</p>
 <ul>
 <li>We did not install the H2O server; <code>install.packages(&quot;h2o&quot;)</code> did it for us.</li>
 <li><code>h2o.init</code> fires the H2O server. Use <code>nthreads</code> to manually control the number of threads, or use the defaults.</li>
 <li>H2O objects behave a lot like data.frame/tables.</li>
+<li>To compute on H2O objects, you need dedicated function. They typically start with “h2o” such as <code>h2o.table</code>, and <code>h2o.randomForest</code>.</li>
+<li><code>h2o.randomForest</code>, and other H2O functions, have their own syntax with many many options. Make sure to read <code>?h2o.randomForest</code>.</li>
 </ul>
-</div>
 <div id="sparkling" class="section level4">
-<h4><span class="header-section-number">16.4.5.3</span> Sparkling-Water</h4>
-<p>The <em>h2o</em> package (@(h2o)) works with <code>H2OFrame</code> class objects.
+<h4><span class="header-section-number">16.4.5.1</span> Sparkling-Water</h4>
+<p>The <em>h2o</em> package (<a href="parallel.html#h2o">16.4.5</a>) works with <code>H2OFrame</code> class objects.
 If your data is stored in Spark, it may be more natural to work with <em>Spark DataFrames</em> instead of <code>H2OFrame</code>s.
 This is exactly the purpose of the <a href="https://www.h2o.ai/products/h2o-sparkling-water/">Sparkling-Water</a> system.
 R users can connect to it using the <a href="http://docs.h2o.ai/sparkling-water/2.2/latest-stable/doc/rsparkling.html">RSparkling</a> package, written and maintained by H2O.</p>
