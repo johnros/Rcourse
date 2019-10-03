@@ -408,32 +408,42 @@ Things to note:
 - This example was cooked to emphasize the difference. You may not enjoy such speedups in all problems. 
 
 
-### Parallel Learning from a Centralized File System
-
-Machine learning is different than data munging. 
-Most machine learning problems are actually optimization problems, that are harder to parallelise than _JOIN_, or _COUNT_ operations.
-It is not recommended that you explicitely parallelise your learning algorithms. 
-Luckily, many packages do that for you.
-
-TODO: demonstrate package. 
-
-
-### Parallel Learning from a Distributed File System
 
 
 
+### Spark
+
+Spark is the brainchild of Matei Zaharia, in 2009, as part of his PhD studies at University of California, Berkeley 's AMPLab. 
+To understand _Spark_ need some backgroud.
+The software that manages files on your disk is the [file system](https://en.wikipedia.org/wiki/File_system).
+On personal computers, you may have have seens names like FAT32, NTFS, ext3, or others. 
+Those are disk file systems. 
+If your data is too big to be stored on a single disk, you may distibute it on several machines. 
+When doing so, you will need a file systems that is designed for distributed clusters. 
+A good [cluster file system](https://en.wikipedia.org/wiki/Clustered_file_system), is crucial for the performance of your cluster. 
+Google's file system, the [Google File](https://en.wikipedia.org/wiki/File_system), is part of Google power. 
+If you are not at Google, you will not have access to this file system. 
+Luckily, there are many other alternatives.
+The Hadoop File System, [HDFS](https://en.wikipedia.org/wiki/Apache_Hadoop), that started at Yahoo, and was ported to the Apache Foundation, is such an alternative. 
+With the HDFS you can store files in a cluster, but for doing statistics with the data in these files, you need software that is compatible with the file system.
+Hadoop is such a software, but it was not designed for machine learning. 
+Hadoop operates from the disk.
+Learning, which consistes of a lot iteratire algorithms run, requires fast and repeated data reads. 
+This is the purpose of Spark.
+Spark is a data oriented computing environemnt over distributed file systems. 
+While origianlyl linked to HDFS, it may run over many other distributed file systems, but also locally, as we now demonstrate. 
 
 
-#### Spark
 
 ```{r}
 # Spark performance
 library(sparklyr)
-spark_install(version = "2.1.0")
+spark_install(version = "2.1.0") # will download Spark on first run. 
 library(dplyr)
 sc <- spark_connect(master = "local")
+library(nycflights13)
 flights_tbl<- copy_to(dest=sc, df=flights, name='flights', overwrite = TRUE)
-
+class(flights_tbl)
 system.time(delay<-flights_tbl %>% 
               group_by(tailnum) %>%
               summarise(count=n(),dist=mean(distance),delay=mean(arr_delay)) %>%
@@ -446,13 +456,21 @@ flight.DT <- data.table(flights)
 system.time(flight.DT[,.(distance=mean(distance),delay=mean(arr_delay),count=.N),by=tailnum][count>20 & distance<2000 & !is.na(delay)])
 ```
 
-Again- if data fits in RAM, you cannot beat `data.table`.
+Things to note:
+
+- If data fits in RAM, you cannot beat `data.table`. But when your data gets too large to fit on disk, Spark is an excellent option. 
+- `spark_install` will download and install _Spark_ on your first run. Make sure to update the version number, as this text may be outdated by the time you read it. 
+- I used the _sparklyr_ package from RStudio. There is an alternative package from Apache: _SparkR_. 
+- `spark_connect` opens a connection to the Spark server.  
+- `copy_to` exports from R to Sprak. Typically, my data will already be waiting in Sprak, since the whole motivation is that it does not fit on y disk.
+- When you have data in a connected Spark server, you can manage it using RStudio's [Connection pane](https://support.rstudio.com/hc/en-us/articles/115010915687-Using-RStudio-Connections).
+- I have used the _dplyr_ syntax and not my favorite _data.table_ syntax. This is just how _sparklyr_ works.
 
 
 
-#### H2O {#h2o}
+### H2O {#h2o}
 
-The learning library in _Spark_ is called _Spark MLlib_.
+The machine learning library/algorithms in _Spark_ is called _Spark MLlib_.
 It has many popular learing algorithms, and keeps updating.
 One (of many) extension to _Spark_ is H2O, which replaces _Spark MLlib_, with many more learning algorithms.
 H2O can be thought of as a library of efficient distributed learning algorithm, that run in-memory, where memory considerations and parallelisation have been taken care of for you. 
@@ -462,32 +480,30 @@ We start with working on H2O directly with the `h2o` package.
 
 ```{r}
 #install.packages("h2o") 
-library(datasets)
 suppressPackageStartupMessages(library(h2o))
 
 h2o.init(nthreads=2) 
-data(iris)
-
-iris.hex <- as.h2o(iris) # load to the H2O server
+data("spam", package = 'ElemStatLearn')
+spam.h2o <- as.h2o(spam, destination_frame = "spam.hex") # load to the H2O server
 h2o.ls() # check avaialbe data in the server
-h2o.describe(iris.hex) # the H2O version of summary()
-h2o.hist(iris.hex$Sepal.Length)
+h2o.describe(spam.h2o) %>% head # the H2O version of summary()
+h2o.table(spam.h2o$spam)
 
 # Split to train and test
-splits <- h2o.splitFrame(data = iris.hex, ratios = c(0.8))
+splits <- h2o.splitFrame(data = spam.h2o, ratios = c(0.8))
 train <- splits[[1]]
 test <- splits[[2]]
 
 # Fit a random forest
 rf <- h2o.randomForest(
-  x = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
-  y = c("Species"),
+  x = names(spam.h2o)[-58],
+  y = c("spam"),
   training_frame = train,
-  model_id = "our.rf",
-  seed = 1234)
+  model_id = "our.rf")
 
 # Predict on test set
 predictions <- h2o.predict(rf, test)
+head(predictions)
 ```
 
 
@@ -496,6 +512,8 @@ Things to note:
 - We did not install the H2O server; `install.packages("h2o")` did it for us. 
 - `h2o.init` fires the H2O server. Use `nthreads` to manually control the number of threads, or use the defaults.
 - H2O objects behave a lot like data.frame/tables.
+- To compute on H2O objects, you need dedicated function. They typically start with "h2o" such as `h2o.table`, and `h2o.randomForest`.
+- `h2o.randomForest`, and other H2O functions, have their own syntax with many many options. Make sure to read `?h2o.randomForest`.
 
 
 
