@@ -3,22 +3,11 @@
 
 sudo docker run --rm \
 -p 8787:8787 \
--v /home/johnros/:/home/rstudio \
--e PASSWORD=tetris \
-rocker/verse
-
-
-sudo docker run --rm \
--p 8787:8787 \
 -v ~/workspace:/home/rstudio/workspace \
 -v ~/.ssh:/home/rstudio/.ssh \
 -v ~/.gitconfig:/home/rstudio/.gitconfig \
 -e PASSWORD=tetris \
-rocker/verse
-
-
-
-
+rocker/verse:3.6.1
 
 
 
@@ -30,7 +19,7 @@ docker run -d -p 8787:8787 -v $(pwd):/home/rstudio -e PASSWORD=yourpasswordhere 
 
 # Commit: 
 docker ps
-sudo docker commit -m initializing 8bc442a61c9c verse_rcourse
+sudo docker commit -m 'initializing' 8bc442a61c9c verse_rcourse
 
 # Push to DockerHub
 sudo docker images

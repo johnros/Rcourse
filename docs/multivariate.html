@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-09-26" />
+<meta name="date" content="2019-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,12 +49,12 @@
 
 <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
 <link href="libs/sequences-0.1/sequences.css" rel="stylesheet" />
-<script src="libs/sunburst-binding-2.1.0/sunburst.js"></script>
+<script src="libs/sunburst-binding-2.1.1/sunburst.js"></script>
 <script src="libs/d3-5.7.0/d3.min.js"></script>
 <script src="libs/d3-lasso-0.0.5/d3-lasso.min.js"></script>
 <link href="libs/ggiraphjs-0.1.0/styles.css" rel="stylesheet" />
 <script src="libs/ggiraphjs-0.1.0/ggiraphjs.min.js"></script>
-<script src="libs/girafe-binding-0.6.0/girafe.js"></script>
+<script src="libs/girafe-binding-0.6.1/girafe.js"></script>
 <script src="libs/plotly-binding-4.9.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
@@ -400,12 +400,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.12" data-path="memory.html"><a href="memory.html#practice-yourself-11"><i class="fa fa-check"></i><b>15.12</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
-<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Explicit Parallelism</a><ul>
-<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#when-and-how-to-parallelise"><i class="fa fa-check"></i><b>16.1</b> When and How to Parallelise?</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#terminology"><i class="fa fa-check"></i><b>16.2</b> Terminology</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#hardware"><i class="fa fa-check"></i><b>16.2.1</b> Hardware:</a></li>
+<li class="chapter" data-level="16.2.2" data-path="parallel.html"><a href="parallel.html#software"><i class="fa fa-check"></i><b>16.2.2</b> Software:</a></li>
+<li class="chapter" data-level="16.2.3" data-path="parallel.html"><a href="parallel.html#types-of-parallelism"><i class="fa fa-check"></i><b>16.2.3</b> Types of Parallelism</a></li>
 </ul></li>
-<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-12"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.3</b> Explicit Parallelism</a><ul>
+<li class="chapter" data-level="16.3.1" data-path="parallel.html"><a href="parallel.html#the-parallel-package"><i class="fa fa-check"></i><b>16.3.1</b> The parallel Package</a></li>
+<li class="chapter" data-level="16.3.2" data-path="parallel.html"><a href="parallel.html#the-foreach-package"><i class="fa fa-check"></i><b>16.3.2</b> The foreach Package</a></li>
+<li class="chapter" data-level="16.3.3" data-path="parallel.html"><a href="parallel.html#rdsm"><i class="fa fa-check"></i><b>16.3.3</b> Rdsm</a></li>
+<li class="chapter" data-level="16.3.4" data-path="parallel.html"><a href="parallel.html#pbdr"><i class="fa fa-check"></i><b>16.3.4</b> pbdR</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.4</b> Implicit Parallelism</a><ul>
+<li class="chapter" data-level="16.4.1" data-path="parallel.html"><a href="parallel.html#parallel-linear-algebra"><i class="fa fa-check"></i><b>16.4.1</b> Parallel Linear Algebra</a></li>
+<li class="chapter" data-level="16.4.2" data-path="parallel.html"><a href="parallel.html#nested-parallel"><i class="fa fa-check"></i><b>16.4.2</b> Caution: Implicit with Explicit Parallelism</a></li>
+<li class="chapter" data-level="16.4.3" data-path="parallel.html"><a href="parallel.html#parallel-data-munging-with-data.table"><i class="fa fa-check"></i><b>16.4.3</b> Parallel Data Munging with data.table</a></li>
+<li class="chapter" data-level="16.4.4" data-path="parallel.html"><a href="parallel.html#parallel-learning-from-a-centralized-file-system"><i class="fa fa-check"></i><b>16.4.4</b> Parallel Learning from a Centralized File System</a></li>
+<li class="chapter" data-level="16.4.5" data-path="parallel.html"><a href="parallel.html#parallel-learning-from-a-distributed-file-system"><i class="fa fa-check"></i><b>16.4.5</b> Parallel Learning from a Distributed File System</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>16.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="16.6" data-path="parallel.html"><a href="parallel.html#practice-yourself-12"><i class="fa fa-check"></i><b>16.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a><ul>
 <li class="chapter" data-level="17.1" data-path="algebra.html"><a href="algebra.html#lu-factorization"><i class="fa fa-check"></i><b>17.1</b> LU Factorization</a></li>
@@ -662,12 +677,12 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 }
 <span class="kw">hotellingOneSample</span>(x)</code></pre>
 <pre><code>## $statistic
-##          [,1]
-## [1,] 17.22438
+##         [,1]
+## [1,] 17.2908
 ## 
 ## $pvalue
 ##           [,1]
-## [1,] 0.5077323</code></pre>
+## [1,] 0.5032046</code></pre>
 <p>Things to note:</p>
 <ul>
 <li><code>stopifnot(n &gt; 5 * p)</code> is a little verification to check that the problem is indeed low dimensional. Otherwise, the <span class="math inline">\(\chi^2\)</span> approximation cannot be trusted.</li>
@@ -683,18 +698,18 @@ Personally, I would never trust a Hotelling test if <span class="math inline">\(
 ##  One-sample Hotelling test
 ## 
 ## data:  x
-## T2 = 17.22400, F = 0.79259, df1 = 18, df2 = 82, p-value = 0.703
+## T2 = 17.29080, F = 0.79565, df1 = 18, df2 = 82, p-value = 0.6996
 ## alternative hypothesis: true mean vector is not equal to (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)&#39; 
 ## 
 ## sample estimates:
-##                      [,1]       [,2]      [,3]       [,4]      [,5]
-## mean x-vector -0.01746212 0.03776332 0.1006145 -0.2083005 0.1026982
-##                      [,6]         [,7]       [,8]       [,9]       [,10]
-## mean x-vector -0.05220043 -0.009497987 -0.1139856 0.02851701 -0.03089953
-##                     [,11]      [,12]      [,13]      [,14]      [,15]
-## mean x-vector -0.02457798 -0.1270753 0.04717076 0.01683591 0.03085023
-##                   [,16]       [,17]     [,18]
-## mean x-vector 0.1499485 -0.07630663 0.1004852</code></pre>
+##                      [,1]        [,2]       [,3]       [,4]          [,5]
+## mean x-vector -0.07873775 -0.01076689 -0.1405859 -0.1342353 -0.0001891301
+##                     [,6]        [,7]      [,8]       [,9]     [,10]
+## mean x-vector 0.02827704 -0.06150607 0.1738199 0.09050526 0.1466331
+##                    [,11]      [,12]       [,13]      [,14]       [,15]
+## mean x-vector 0.04250519 -0.1199926 -0.06466205 -0.1061927 -0.02434599
+##                    [,16]      [,17]      [,18]
+## mean x-vector 0.02766206 0.08169893 0.02036132</code></pre>
 <p>Let’s do the same with Simes’:</p>
 <pre class="sourceCode r"><code class="sourceCode r">Simes &lt;-<span class="st"> </span><span class="cf">function</span>(x){
   p.vals &lt;-<span class="st"> </span><span class="kw">apply</span>(x, <span class="dv">2</span>, <span class="cf">function</span>(z) <span class="kw">t.test</span>(z)<span class="op">$</span>p.value) <span class="co"># Compute variable-wise pvalues</span>
@@ -704,21 +719,21 @@ Personally, I would never trust a Hotelling test if <span class="math inline">\(
 }
 <span class="kw">Simes</span>(x)</code></pre>
 <pre><code>##    pvalue 
-## 0.6398998</code></pre>
+## 0.8138511</code></pre>
 <p>And now we verify that both tests can indeed detect signal when present. Are p-values small enough to reject the “no signal” null hypothesis?</p>
 <pre class="sourceCode r"><code class="sourceCode r">mu &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dt">x =</span> <span class="dv">10</span><span class="op">/</span>p,<span class="dt">times=</span>p) <span class="co"># inject signal</span>
 x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt">n =</span> n, <span class="dt">mean =</span> mu)
 <span class="kw">hotellingOneSample</span>(x)</code></pre>
 <pre><code>## $statistic
 ##          [,1]
-## [1,] 686.8046
+## [1,] 536.6292
 ## 
 ## $pvalue
 ##               [,1]
-## [1,] 3.575926e-134</code></pre>
+## [1,] 2.037928e-102</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Simes</span>(x)</code></pre>
 <pre><code>##       pvalue 
-## 2.765312e-10</code></pre>
+## 3.473021e-08</code></pre>
 <p>… yes. All p-values are very small, so that all statistics can detect the non-null distribution.</p>
 </div>
 </div>
@@ -805,7 +820,7 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 p.values &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="dt">X =</span> x, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> t.pval) 
 p.values.BH &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.values, <span class="dt">method =</span> <span class="st">&#39;BH&#39;</span> )
 <span class="kw">which</span>(p.values.BH <span class="op">&lt;</span><span class="st"> </span>alpha)</code></pre>
-<pre><code>##  [1]  1  2  3  4  5  6  7  9 10 55</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 <p>Indeed- we are now able to detect that the first coordinates carry signal, because their respective coordinate-wise null hypotheses have been rejected.</p>
 </div>
 </div>

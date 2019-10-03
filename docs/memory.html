@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-09-26" />
+<meta name="date" content="2019-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,12 +49,12 @@
 
 <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
 <link href="libs/sequences-0.1/sequences.css" rel="stylesheet" />
-<script src="libs/sunburst-binding-2.1.0/sunburst.js"></script>
+<script src="libs/sunburst-binding-2.1.1/sunburst.js"></script>
 <script src="libs/d3-5.7.0/d3.min.js"></script>
 <script src="libs/d3-lasso-0.0.5/d3-lasso.min.js"></script>
 <link href="libs/ggiraphjs-0.1.0/styles.css" rel="stylesheet" />
 <script src="libs/ggiraphjs-0.1.0/ggiraphjs.min.js"></script>
-<script src="libs/girafe-binding-0.6.0/girafe.js"></script>
+<script src="libs/girafe-binding-0.6.1/girafe.js"></script>
 <script src="libs/plotly-binding-4.9.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
@@ -400,12 +400,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.12" data-path="memory.html"><a href="memory.html#practice-yourself-11"><i class="fa fa-check"></i><b>15.12</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
-<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Explicit Parallelism</a><ul>
-<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#when-and-how-to-parallelise"><i class="fa fa-check"></i><b>16.1</b> When and How to Parallelise?</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#terminology"><i class="fa fa-check"></i><b>16.2</b> Terminology</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#hardware"><i class="fa fa-check"></i><b>16.2.1</b> Hardware:</a></li>
+<li class="chapter" data-level="16.2.2" data-path="parallel.html"><a href="parallel.html#software"><i class="fa fa-check"></i><b>16.2.2</b> Software:</a></li>
+<li class="chapter" data-level="16.2.3" data-path="parallel.html"><a href="parallel.html#types-of-parallelism"><i class="fa fa-check"></i><b>16.2.3</b> Types of Parallelism</a></li>
 </ul></li>
-<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-12"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.3</b> Explicit Parallelism</a><ul>
+<li class="chapter" data-level="16.3.1" data-path="parallel.html"><a href="parallel.html#the-parallel-package"><i class="fa fa-check"></i><b>16.3.1</b> The parallel Package</a></li>
+<li class="chapter" data-level="16.3.2" data-path="parallel.html"><a href="parallel.html#the-foreach-package"><i class="fa fa-check"></i><b>16.3.2</b> The foreach Package</a></li>
+<li class="chapter" data-level="16.3.3" data-path="parallel.html"><a href="parallel.html#rdsm"><i class="fa fa-check"></i><b>16.3.3</b> Rdsm</a></li>
+<li class="chapter" data-level="16.3.4" data-path="parallel.html"><a href="parallel.html#pbdr"><i class="fa fa-check"></i><b>16.3.4</b> pbdR</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.4</b> Implicit Parallelism</a><ul>
+<li class="chapter" data-level="16.4.1" data-path="parallel.html"><a href="parallel.html#parallel-linear-algebra"><i class="fa fa-check"></i><b>16.4.1</b> Parallel Linear Algebra</a></li>
+<li class="chapter" data-level="16.4.2" data-path="parallel.html"><a href="parallel.html#nested-parallel"><i class="fa fa-check"></i><b>16.4.2</b> Caution: Implicit with Explicit Parallelism</a></li>
+<li class="chapter" data-level="16.4.3" data-path="parallel.html"><a href="parallel.html#parallel-data-munging-with-data.table"><i class="fa fa-check"></i><b>16.4.3</b> Parallel Data Munging with data.table</a></li>
+<li class="chapter" data-level="16.4.4" data-path="parallel.html"><a href="parallel.html#parallel-learning-from-a-centralized-file-system"><i class="fa fa-check"></i><b>16.4.4</b> Parallel Learning from a Centralized File System</a></li>
+<li class="chapter" data-level="16.4.5" data-path="parallel.html"><a href="parallel.html#parallel-learning-from-a-distributed-file-system"><i class="fa fa-check"></i><b>16.4.5</b> Parallel Learning from a Distributed File System</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>16.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="16.6" data-path="parallel.html"><a href="parallel.html#practice-yourself-12"><i class="fa fa-check"></i><b>16.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a><ul>
 <li class="chapter" data-level="17.1" data-path="algebra.html"><a href="algebra.html#lu-factorization"><i class="fa fa-check"></i><b>17.1</b> LU Factorization</a></li>
@@ -559,7 +574,7 @@ For these purposes, the facilities provided by <strong>base</strong>, <strong>st
 If the data is large, however, these facilities may be too slow.
 If your data fits into RAM, but speed bothers you, take a look at the <strong>data.table</strong> package.
 The syntax is less friendly than <strong>dplyr</strong>, but <strong>data.table</strong> is BLAZING FAST compared to competitors.
-Here is a little benchmark<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a>.</p>
+Here is a little benchmark<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a>.</p>
 <p>First, we setup the data.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)
 
@@ -593,6 +608,9 @@ Here is the timing for <strong>dplyr</strong>.</p>
 <pre><code>## The following objects are masked from &#39;package:data.table&#39;:
 ## 
 ##     between, first, last</code></pre>
+<pre><code>## The following objects are masked from &#39;package:lubridate&#39;:
+## 
+##     intersect, setdiff, union</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
 ## 
 ##     filter, lag</code></pre>
@@ -608,25 +626,25 @@ Here is the timing for <strong>dplyr</strong>.</p>
                  )
              )</code></pre>
 <pre><code>##    user  system elapsed 
-##   1.493   0.031   1.525</code></pre>
+##   0.785   0.028   0.813</code></pre>
 <p>And now the timing for <strong>data.table</strong>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_dt[ ,  .( <span class="dt">x1 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x1)), <span class="dt">x2 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x2)), <span class="dt">x3 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x3)) ), .(v1,v2)]
   )</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.636   0.057   0.606</code></pre>
+##   0.491   0.109   0.466</code></pre>
 <p>The winner is obvious.
 Let’s compare filtering (i.e. row subsets, i.e. SQL’s SELECT).</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(v1 <span class="op">==</span><span class="st"> &quot;1&quot;</span>) 
   )</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.350   0.084   0.543</code></pre>
+##   0.018   0.089   0.107</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_dt[v1 <span class="op">==</span><span class="st"> &quot;1&quot;</span>] 
   )</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.045   0.044   0.059</code></pre>
+##   0.047   0.085   0.101</code></pre>
 </div>
 </div>
 <div id="computing-from-a-database" class="section level2">
@@ -635,7 +653,7 @@ Let’s compare filtering (i.e. row subsets, i.e. SQL’s SELECT).</p>
 Several R packages provide interfaces to these DBMSs, such as <strong>sqldf</strong>, <strong>RDBI</strong>, <strong>RSQite</strong>.
 Some will even include the DBMS as part of the package itself.</p>
 <p>Storing your data in a DBMS has the advantage that you can typically rely on DBMS providers to include very efficient algorithms for the queries they support.
-On the downside, SQL queries may include a lot of summary statistics, but will rarely include model fitting<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a>.
+On the downside, SQL queries may include a lot of summary statistics, but will rarely include model fitting<a href="#fn28" class="footnote-ref" id="fnref28"><sup>28</sup></a>.
 This means that even for simple things like linear models, you will have to revert to R’s facilities– typically some sort of EMA with chunking from the DBMS.
 For this reason, and others, we prefer to compute from efficient file structures, as described in Section <a href="memory.html#file-structure">15.3</a>.</p>
 <p>If, however, you have a powerful DBMS around, or you only need summary statistics, or you are an SQL master, keep reading.</p>
@@ -760,8 +778,14 @@ First open a connection to the file, without actually importing it using the <co
                     <span class="dt">column_names =</span> <span class="kw">c</span>(<span class="st">&quot;sex&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;diagnose&quot;</span>, <span class="st">&quot;healthcare.procedure&quot;</span>, <span class="st">&quot;typeofservice&quot;</span>, <span class="st">&quot;service.count&quot;</span>, <span class="st">&quot;provider.type&quot;</span>, <span class="st">&quot;servicesprocessed&quot;</span>, <span class="st">&quot;place.served&quot;</span>, <span class="st">&quot;payment&quot;</span>, <span class="st">&quot;carrierline.count&quot;</span>), 
                     <span class="dt">skip =</span> <span class="dv">1</span>)</code></pre>
 <p>Now write the data to local storage as an ff data frame, using <code>laf_to_ffdf</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">data.ffdf &lt;-<span class="st"> </span>ffbase<span class="op">::</span><span class="kw">laf_to_ffdf</span>(<span class="dt">laf =</span> .dat)
-<span class="kw">head</span>(data.ffdf)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">data.ffdf &lt;-<span class="st"> </span>ffbase<span class="op">::</span><span class="kw">laf_to_ffdf</span>(<span class="dt">laf =</span> .dat)</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;ffbase&#39;:
+##   method   from
+##   [.ff     ff  
+##   [.ffdf   ff  
+##   [&lt;-.ff   ff  
+##   [&lt;-.ffdf ff</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(data.ffdf)</code></pre>
 <pre><code>## ffdf (all open) dim=c(2801660,6), dimorder=c(1,2) row.names=NULL
 ## ffdf virtual mapping
 ##                              PhysicalName VirtualVmode PhysicalVmode  AsIs
@@ -902,6 +926,7 @@ We do not cover this topic here, and refer the reader to the <strong>RHipe</stro
 <div id="bibliographic-notes-13" class="section level2">
 <h2><span class="header-section-number">15.11</span> Bibliographic Notes</h2>
 <p>An absolute SUPERB review on computing with big data is <span class="citation">Wang et al. (<a href="#ref-wang2015statistical">2015</a>)</span>, and references therein (<span class="citation">Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span> in particular).
+Michael Kane also reports <a href="http://technodocbox.com/C_and_CPP/112025624-Massive-data-shared-and-distributed-memory-and-concurrent-programming-bigmemory-and-foreach.html">his benchmarks</a> of in-memory, vs. DBMS operations.
 Here is also an excellent talk by <a href="http://www.columbia.edu/~sjm2186/EPIC_R/EPIC_R_BigData.pdf">Charles DiMaggio</a>.
 For an up-to-date list of the packages that deal with memory constraints, see the <strong>Large memory and out-of-memory data</strong> section in the <a href="https://cran.r-project.org/web/views/HighPerformanceComputing.html">High Performance Computing</a> task view.
 For a list of resources to interface to DMBS, see the <a href="https://cran.r-project.org/web/views/Databases.html">Databases with R</a> task view.
@@ -926,9 +951,9 @@ For more on data analysis from disk, and not from RAM, see <a href="https://www.
 </div>
 <div class="footnotes">
 <hr />
-<ol start="26">
-<li id="fn26"><p>The code was contributed by Liad Shekel.<a href="memory.html#fnref26" class="footnote-back">↩</a></p></li>
-<li id="fn27"><p>This is slowly changing. Indeed, Microsoft’s SQL Server 2016 is already providing <a href="https://blogs.technet.microsoft.com/dataplatforminsider/2016/03/29/in-database-advanced-analytics-with-r-in-sql-server-2016/">in-database-analytics</a>, and other will surely follow.<a href="memory.html#fnref27" class="footnote-back">↩</a></p></li>
+<ol start="27">
+<li id="fn27"><p>The code was contributed by Liad Shekel.<a href="memory.html#fnref27" class="footnote-back">↩</a></p></li>
+<li id="fn28"><p>This is slowly changing. Indeed, Microsoft’s SQL Server 2016 is already providing <a href="https://blogs.technet.microsoft.com/dataplatforminsider/2016/03/29/in-database-advanced-analytics-with-r-in-sql-server-2016/">in-database-analytics</a>, and other will surely follow.<a href="memory.html#fnref28" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>

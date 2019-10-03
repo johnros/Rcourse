@@ -8,3 +8,5 @@ packrat::status()
 packrat::snapshot()
 # packrat::clean()
 # packrat::off()
+
+# unlink("packrat/lib-R", recursive = TRUE)

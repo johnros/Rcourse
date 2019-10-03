@@ -262,43 +262,45 @@ qs
 
 
 
-#### Benchmarking backends
+#### Which Backend to Use?
 
 In the following example, we compare the _fork_ mechanism, to the _socket_ mechanism.
+The bottom line is- use _fork_ whenever possible. 
 
 ```{r}
-airlines <- read.csv('data/2010_BSA_Carrier_PUF.csv')
-airlines$ind <- sample(1:10, size = nrow(airlines), replace = TRUE)
+library(nycflights13)
+flights$ind <- sample(1:10, size = nrow(flights), replace = TRUE)
 
-timer <- function(i) max(airlines[airlines$ind==i,'CAR_LINE_SRVC_CNT'])
+timer <- function(i) max(flights[flights$ind==i,"distance"])
+timer(1)
 
 library(doMC)
 registerDoMC(cores = 10)
-system.time(foreach (i=1:10, .combine = c) %dopar% timer(i))
+system.time(foreach (i=1:10, .combine = 'c') %dopar% timer(i))
 
 library(parallel)         
 library(doParallel)
 cl <- makeCluster(10, type="SOCK")
 registerDoParallel(cl)
-system.time(foreach (i=1:10, .combine = c) %dopar% timer(i))
+system.time(foreach (i=1:10, .combine = 'c') %dopar% timer(i))
 stopCluster(cl)
 ```
 
 Things to note:
 
-- The clear victor is _fork_: sessions start faster, and computations finish faster. Sadly, we recall that _forking_ is impossible on Windows machines, or between-machines in a cluster.
-- We did not need to pass `airlines` to the different workers. `foreach` took care of that for us. 
+- The clear victor is _fork_: sessions start faster, and computations finish faster. Sadly, we recall that _forking_ is impossible on Windows machines, or in clusters that consist of several machines.
+- We did not need to pass `flights` to the different workers. `foreach` took care of that for us. 
  
 
 
 For fun, let's try the same with `data.table`....
 ```{r}
 library(data.table)
-airlines.dt <- as.data.table(airlines)
-system.time(airlines.dt[,max(CAR_LINE_SRVC_CNT),ind])
+flights.DT <- as.data.table(flights)
+system.time(flights.DT[,max(distance),ind])
 ```
 No surprises there. 
-If you can store your data on a single machine, `data.table` is still the fastest for operating on data subsets. 
+If you can store your data in RAM, `data.table` is still the fastest. 
 
 
 
@@ -334,7 +336,7 @@ B <- matrix( rnorm(n*n), ncol=n, nrow=n )
 C <- A %*% B
 ```
 
-![top at 657\% CPU!](art/Screenshot from 2019-09-28 20-25-48)
+![top at 657\% CPU!](art/Screenshot from 2019-09-28 20-25-48.png)
 
 
 In my system I have installed [OpenBLAS](https://en.wikipedia.org/wiki/OpenBLAS):
@@ -345,7 +347,7 @@ extSoftVersion()["BLAS"]
 
 
 
-### Caution: Implicit with Explicit Parallelism
+### Caution: Implicit with Explicit Parallelism {#nested-parallel}
 
 A common problem when parallelising is that the machines you invoked with __explicit__ parallelism, invoke other machines using __implicit__ parallelism. 
 You then lose control of the number of machine being invoked, and the operating system spends most of its time managing resources, instead of doing your computations. 
@@ -357,6 +359,38 @@ In other cases, you should consult an expert.
 
 ### Parallel Data Munging with data.table
 
+We have discussed `data.table` on various occasions.
+We now recall it to emphasize that various operations in `data.table` are done in parallel. 
+For instance, imports.
+First, we check how many threads `data.table` is setup to use?
+```{r}
+data.table::getDTthreads(verbose=TRUE) 
+```
+
+We then do the import and inspect CPU usage with the _top_ linux command.
+```{r}
+air <- fread('data/2010_BSA_Carrier_PUF.csv')
+```
+
+![CPU usage of fread(). The CPU usage is 301.7\%. This is because `data.table` is setup to use 4 threads simultanously. ](art/Screenshot from 2019-10-03 10-48-06.png)
+
+
+
+```{remark}
+An amazing feature of `data.table` is that it will not parallelize when called from a forked process. 
+This behaviour will avoid the nested parallelism we cautioned from in @\ref(nested-parallel).
+```
+
+Now let's compare parallelised aggregations:
+```{r}
+system.time(flight.DT[,.(distance=mean(distance),delay=mean(arr_delay),count=.N),by=tailnum][count>20 & distance<2000 & !is.na(delay)])
+
+setDTthreads(1)
+
+system.time(flight.DT[,.(distance=mean(distance),delay=mean(arr_delay),count=.N),by=tailnum][count>20 & distance<2000 & !is.na(delay)])
+```
+
+
 
 ### Parallel Learning from a Centralized File System
 
@@ -367,11 +401,26 @@ In other cases, you should consult an expert.
 #### Spark
 
 ```{r}
+# Spark performance
 library(sparklyr)
 spark_install(version = "2.1.0")
+library(dplyr)
 sc <- spark_connect(master = "local")
+flights_tbl<- copy_to(dest=sc, df=flights, name='flights', overwrite = TRUE)
 
+system.time(delay<-flights_tbl %>% 
+              group_by(tailnum) %>%
+              summarise(count=n(),dist=mean(distance),delay=mean(arr_delay)) %>%
+              filter(count>20, dist<2000, !is.na(delay)) %>% collect())
+
+
+# Datatable performance
+library(data.table)
+flight.DT <- data.table(flights)
+system.time(flight.DT[,.(distance=mean(distance),delay=mean(arr_delay),count=.N),by=tailnum][count>20 & distance<2000 & !is.na(delay)])
 ```
+
+Again- if data fits in RAM, you cannot beat `data.table`.
 
 
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-09-26" />
+<meta name="date" content="2019-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,12 +49,12 @@
 
 <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
 <link href="libs/sequences-0.1/sequences.css" rel="stylesheet" />
-<script src="libs/sunburst-binding-2.1.0/sunburst.js"></script>
+<script src="libs/sunburst-binding-2.1.1/sunburst.js"></script>
 <script src="libs/d3-5.7.0/d3.min.js"></script>
 <script src="libs/d3-lasso-0.0.5/d3-lasso.min.js"></script>
 <link href="libs/ggiraphjs-0.1.0/styles.css" rel="stylesheet" />
 <script src="libs/ggiraphjs-0.1.0/ggiraphjs.min.js"></script>
-<script src="libs/girafe-binding-0.6.0/girafe.js"></script>
+<script src="libs/girafe-binding-0.6.1/girafe.js"></script>
 <script src="libs/plotly-binding-4.9.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
@@ -400,12 +400,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.12" data-path="memory.html"><a href="memory.html#practice-yourself-11"><i class="fa fa-check"></i><b>15.12</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
-<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Explicit Parallelism</a><ul>
-<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#when-and-how-to-parallelise"><i class="fa fa-check"></i><b>16.1</b> When and How to Parallelise?</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#terminology"><i class="fa fa-check"></i><b>16.2</b> Terminology</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#hardware"><i class="fa fa-check"></i><b>16.2.1</b> Hardware:</a></li>
+<li class="chapter" data-level="16.2.2" data-path="parallel.html"><a href="parallel.html#software"><i class="fa fa-check"></i><b>16.2.2</b> Software:</a></li>
+<li class="chapter" data-level="16.2.3" data-path="parallel.html"><a href="parallel.html#types-of-parallelism"><i class="fa fa-check"></i><b>16.2.3</b> Types of Parallelism</a></li>
 </ul></li>
-<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-12"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.3</b> Explicit Parallelism</a><ul>
+<li class="chapter" data-level="16.3.1" data-path="parallel.html"><a href="parallel.html#the-parallel-package"><i class="fa fa-check"></i><b>16.3.1</b> The parallel Package</a></li>
+<li class="chapter" data-level="16.3.2" data-path="parallel.html"><a href="parallel.html#the-foreach-package"><i class="fa fa-check"></i><b>16.3.2</b> The foreach Package</a></li>
+<li class="chapter" data-level="16.3.3" data-path="parallel.html"><a href="parallel.html#rdsm"><i class="fa fa-check"></i><b>16.3.3</b> Rdsm</a></li>
+<li class="chapter" data-level="16.3.4" data-path="parallel.html"><a href="parallel.html#pbdr"><i class="fa fa-check"></i><b>16.3.4</b> pbdR</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.4</b> Implicit Parallelism</a><ul>
+<li class="chapter" data-level="16.4.1" data-path="parallel.html"><a href="parallel.html#parallel-linear-algebra"><i class="fa fa-check"></i><b>16.4.1</b> Parallel Linear Algebra</a></li>
+<li class="chapter" data-level="16.4.2" data-path="parallel.html"><a href="parallel.html#nested-parallel"><i class="fa fa-check"></i><b>16.4.2</b> Caution: Implicit with Explicit Parallelism</a></li>
+<li class="chapter" data-level="16.4.3" data-path="parallel.html"><a href="parallel.html#parallel-data-munging-with-data.table"><i class="fa fa-check"></i><b>16.4.3</b> Parallel Data Munging with data.table</a></li>
+<li class="chapter" data-level="16.4.4" data-path="parallel.html"><a href="parallel.html#parallel-learning-from-a-centralized-file-system"><i class="fa fa-check"></i><b>16.4.4</b> Parallel Learning from a Centralized File System</a></li>
+<li class="chapter" data-level="16.4.5" data-path="parallel.html"><a href="parallel.html#parallel-learning-from-a-distributed-file-system"><i class="fa fa-check"></i><b>16.4.5</b> Parallel Learning from a Distributed File System</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>16.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="16.6" data-path="parallel.html"><a href="parallel.html#practice-yourself-12"><i class="fa fa-check"></i><b>16.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a><ul>
 <li class="chapter" data-level="17.1" data-path="algebra.html"><a href="algebra.html#lu-factorization"><i class="fa fa-check"></i><b>17.1</b> LU Factorization</a></li>
@@ -615,8 +630,8 @@ groups &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv
 n &lt;-<span class="st"> </span><span class="kw">length</span>(groups)
 z0 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n.groups,<span class="dv">0</span>,<span class="dv">10</span>) <span class="co"># generate group effects</span>
 (z &lt;-<span class="st"> </span>z0[<span class="kw">as.numeric</span>(groups)]) <span class="co"># generate and inspect random group effects</span></code></pre>
-<pre><code>## [1]   8.901364   8.901364  -4.318889  -4.318889   9.708611   9.708611
-## [7] -10.693773 -10.693773</code></pre>
+<pre><code>## [1]  6.8635182  6.8635182  8.2853917  8.2853917  0.6861244  0.6861244
+## [7] -2.4415951 -2.4415951</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">epsilon &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># generate measurement error</span>
 
 <span class="co"># Generate data</span>
@@ -624,9 +639,8 @@ beta0 &lt;-<span class="st"> </span><span class="dv">2</span> <span class="co">#
 y &lt;-<span class="st"> </span>beta0 <span class="op">+</span><span class="st"> </span>z <span class="op">+</span><span class="st"> </span>epsilon <span class="co"># generate synthetic sample</span></code></pre>
 <p>We can now fit the linear and mixed models.</p>
 <pre class="sourceCode r"><code class="sourceCode r">lm<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>)  <span class="co"># fit a linear model assuming independence</span>
-<span class="kw">library</span>(lme4)</code></pre>
-<pre><code>## Loading required package: Matrix</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">lme<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">lmer</span>(y<span class="op">~</span><span class="dv">1</span><span class="op">|</span>groups) <span class="co"># fit a mixed-model that deals with the group dependence</span></code></pre>
+<span class="kw">library</span>(lme4)
+lme<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">lmer</span>(y<span class="op">~</span><span class="dv">1</span><span class="op">|</span>groups) <span class="co"># fit a mixed-model that deals with the group dependence</span></code></pre>
 <p>The summary of the linear model</p>
 <pre class="sourceCode r"><code class="sourceCode r">summary.lm<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">summary</span>(lm<span class="fl">.5</span>)
 summary.lm<span class="fl">.5</span></code></pre>
@@ -636,46 +650,48 @@ summary.lm<span class="fl">.5</span></code></pre>
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -13.949  -7.275   1.629   8.668  10.005 
+## -6.2932 -3.6148  0.5154  3.9928  5.1632 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)    3.317      3.500   0.948    0.375
+##             Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)    5.449      1.671   3.261   0.0138 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 9.898 on 7 degrees of freedom</code></pre>
+## Residual standard error: 4.726 on 7 degrees of freedom</code></pre>
 <p>The summary of the mixed-model</p>
 <pre class="sourceCode r"><code class="sourceCode r">summary.lme<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">summary</span>(lme<span class="fl">.5</span>)
 summary.lme<span class="fl">.5</span></code></pre>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: y ~ 1 | groups
 ## 
-## REML criterion at convergence: 41
+## REML criterion at convergence: 29.6
 ## 
 ## Scaled residuals: 
 ##      Min       1Q   Median       3Q      Max 
-## -1.15395 -0.50048  0.04306  0.55891  0.99797 
+## -1.08588 -0.61820  0.05879  0.53321  1.03325 
 ## 
 ## Random effects:
 ##  Groups   Name        Variance Std.Dev.
-##  groups   (Intercept) 111.962  10.581  
-##  Residual               2.012   1.418  
+##  groups   (Intercept) 25.6432  5.0639  
+##  Residual              0.3509  0.5924  
 ## Number of obs: 8, groups:  groups, 4
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept)    3.317      5.314   0.624</code></pre>
+## (Intercept)    5.449      2.541   2.145</code></pre>
 <p>Look at the standard error of the global mean, i.e., the intercept:
-for <code>lm</code> it is 3.4996374, and for <code>lme</code> it is 5.3143284.
+for <code>lm</code> it is 1.6707325, and for <code>lme</code> it is 2.5406034.
 Why this difference?
 Because <code>lm</code> treats the group effect<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> as a fixed while the mixed model treats the group effect as a source of noise/uncertainty.
 Clearly, inference using <code>lm</code> underestimates our uncertainty in the estimated population mean (<span class="math inline">\(\beta_0\)</span>).</p>
 <p>Now let’s adopt the paired t-test view, which removes the group mean, so that it implicitly ignores the between-group variability. Which is the model compatible with this view?</p>
 <pre class="sourceCode r"><code class="sourceCode r">diffs &lt;-<span class="st"> </span><span class="kw">tapply</span>(y, groups, diff) 
 diffs <span class="co"># Q:what is this estimating? A: epsilon+epsilon.</span></code></pre>
-<pre><code>##         1         2         3         4 
-## -1.411024 -1.598983 -1.493730  3.052394</code></pre>
+<pre><code>##           1           2           3           4 
+## -0.93093840 -0.07616235  1.25527764  0.59907581</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(diffs) <span class="co"># </span></code></pre>
-<pre><code>## [1] 2.278119</code></pre>
+<pre><code>## [1] 0.9358778</code></pre>
 <p>So we see that a paired t-test infers only against the within-group variability.
 Q:Is this a good think?
 A: depends…</p>
@@ -831,6 +847,12 @@ qrr2 &lt;-<span class="st"> </span>lattice<span class="op">::</span><span class=
 ## sample  5 449.22  89.844  297.09</code></pre>
 <p>Ugh! No p-values. Why is this? Because Doug Bates, the author of <strong>lme4</strong> makes a <a href="https://stat.ethz.ch/pipermail/r-help/2006-May/094765.html">strong argument</a> against current methods of computing p-values in mixed models. If you insist on an p-value, you may recur to other packages that provide that, at your own caution:</p>
 <pre class="sourceCode r"><code class="sourceCode r">car<span class="op">::</span><span class="kw">Anova</span>(lme.<span class="fl">2.2</span>) </code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;car&#39;:
+##   method                          from
+##   influence.merMod                lme4
+##   cooks.distance.influence.merMod lme4
+##   dfbeta.influence.merMod         lme4
+##   dfbetas.influence.merMod        lme4</code></pre>
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: diameter
@@ -963,8 +985,10 @@ This is because <strong>nlme</strong> allows to specify both a block-covariance 
 <li>From the summary, we see that a <code>Mare</code> random effect has also been added. Where is it specified? It is implied by the <code>random=</code> argument. Read <code>?lme</code> for further details.</li>
 </ul>
 <p>We can now inspect the contrivance implied by our model’s specification:</p>
-<pre class="sourceCode r"><code class="sourceCode r">the.cov &lt;-<span class="st"> </span>mgcv<span class="op">::</span><span class="kw">extract.lme.cov</span>(fm1Ovar.lme, <span class="dt">data =</span> Ovary) 
-lattice<span class="op">::</span><span class="kw">levelplot</span>(the.cov)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">the.cov &lt;-<span class="st"> </span>mgcv<span class="op">::</span><span class="kw">extract.lme.cov</span>(fm1Ovar.lme, <span class="dt">data =</span> Ovary) </code></pre>
+<pre><code>## Warning in model.matrix.default(~b$groups[[n.levels - i + 1]] - 1,
+## contrasts.arg = c(&quot;contr.treatment&quot;, : non-list contrasts argument ignored</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">lattice<span class="op">::</span><span class="kw">levelplot</span>(the.cov)</code></pre>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-218-1.png" width="50%" /></p>
 </div>
 <div id="extensions-1" class="section level2">

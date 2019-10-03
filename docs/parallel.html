@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-09-26" />
+<meta name="date" content="2019-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,12 +49,12 @@
 
 <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
 <link href="libs/sequences-0.1/sequences.css" rel="stylesheet" />
-<script src="libs/sunburst-binding-2.1.0/sunburst.js"></script>
+<script src="libs/sunburst-binding-2.1.1/sunburst.js"></script>
 <script src="libs/d3-5.7.0/d3.min.js"></script>
 <script src="libs/d3-lasso-0.0.5/d3-lasso.min.js"></script>
 <link href="libs/ggiraphjs-0.1.0/styles.css" rel="stylesheet" />
 <script src="libs/ggiraphjs-0.1.0/ggiraphjs.min.js"></script>
-<script src="libs/girafe-binding-0.6.0/girafe.js"></script>
+<script src="libs/girafe-binding-0.6.1/girafe.js"></script>
 <script src="libs/plotly-binding-4.9.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
@@ -400,12 +400,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.12" data-path="memory.html"><a href="memory.html#practice-yourself-11"><i class="fa fa-check"></i><b>15.12</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
-<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Explicit Parallelism</a><ul>
-<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#when-and-how-to-parallelise"><i class="fa fa-check"></i><b>16.1</b> When and How to Parallelise?</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#terminology"><i class="fa fa-check"></i><b>16.2</b> Terminology</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#hardware"><i class="fa fa-check"></i><b>16.2.1</b> Hardware:</a></li>
+<li class="chapter" data-level="16.2.2" data-path="parallel.html"><a href="parallel.html#software"><i class="fa fa-check"></i><b>16.2.2</b> Software:</a></li>
+<li class="chapter" data-level="16.2.3" data-path="parallel.html"><a href="parallel.html#types-of-parallelism"><i class="fa fa-check"></i><b>16.2.3</b> Types of Parallelism</a></li>
 </ul></li>
-<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-12"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.3</b> Explicit Parallelism</a><ul>
+<li class="chapter" data-level="16.3.1" data-path="parallel.html"><a href="parallel.html#the-parallel-package"><i class="fa fa-check"></i><b>16.3.1</b> The parallel Package</a></li>
+<li class="chapter" data-level="16.3.2" data-path="parallel.html"><a href="parallel.html#the-foreach-package"><i class="fa fa-check"></i><b>16.3.2</b> The foreach Package</a></li>
+<li class="chapter" data-level="16.3.3" data-path="parallel.html"><a href="parallel.html#rdsm"><i class="fa fa-check"></i><b>16.3.3</b> Rdsm</a></li>
+<li class="chapter" data-level="16.3.4" data-path="parallel.html"><a href="parallel.html#pbdr"><i class="fa fa-check"></i><b>16.3.4</b> pbdR</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.4</b> Implicit Parallelism</a><ul>
+<li class="chapter" data-level="16.4.1" data-path="parallel.html"><a href="parallel.html#parallel-linear-algebra"><i class="fa fa-check"></i><b>16.4.1</b> Parallel Linear Algebra</a></li>
+<li class="chapter" data-level="16.4.2" data-path="parallel.html"><a href="parallel.html#nested-parallel"><i class="fa fa-check"></i><b>16.4.2</b> Caution: Implicit with Explicit Parallelism</a></li>
+<li class="chapter" data-level="16.4.3" data-path="parallel.html"><a href="parallel.html#parallel-data-munging-with-data.table"><i class="fa fa-check"></i><b>16.4.3</b> Parallel Data Munging with data.table</a></li>
+<li class="chapter" data-level="16.4.4" data-path="parallel.html"><a href="parallel.html#parallel-learning-from-a-centralized-file-system"><i class="fa fa-check"></i><b>16.4.4</b> Parallel Learning from a Centralized File System</a></li>
+<li class="chapter" data-level="16.4.5" data-path="parallel.html"><a href="parallel.html#parallel-learning-from-a-distributed-file-system"><i class="fa fa-check"></i><b>16.4.5</b> Parallel Learning from a Distributed File System</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>16.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="16.6" data-path="parallel.html"><a href="parallel.html#practice-yourself-12"><i class="fa fa-check"></i><b>16.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a><ul>
 <li class="chapter" data-level="17.1" data-path="algebra.html"><a href="algebra.html#lu-factorization"><i class="fa fa-check"></i><b>17.1</b> LU Factorization</a></li>
@@ -487,61 +502,133 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="parallel" class="section level1">
 <h1><span class="header-section-number">Chapter 16</span> Parallel Computing</h1>
 <p>You would think that because you have an expensive multicore computer your computations will speed up.
-Well, no.
-At least not if you don’t make sure they do.
+Well, no; unless you actively make sure of that.
 By default, no matter how many cores you have, the operating system will allocate each R session to a single core.</p>
-<p>For starters, we need to distinguish between two types of parallelism:</p>
+<p>To parallelise computations, we need to distinguish between two types of parallelism:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Explicit parallelism</strong>: where the user handles the parallelisation.</li>
 <li><strong>Implicit parallelism</strong>: where the parallelisation is abstracted away from the user.</li>
 </ol>
-<p>Clearly, implicit parallelism is more desirable, but the state of mathematical computing is such that no sufficiently general implicit parallelism framework exists.
-The <a href="https://www.r-consortium.org/projects/awarded-projects">R Consortium</a> is currently financing a major project for a A “Unified Framework For Distributed Computing in R” so we can expect things to change soon.
-In the meanwhile, most of the parallel implementations are explicit.</p>
-<div id="implicit-parallelism" class="section level2">
-<h2><span class="header-section-number">16.1</span> Implicit Parallelism</h2>
-<p>We will not elaborate on implicit parallelism except mentioning the following:</p>
+<p>Clearly, implicit parallelism is more desirable.
+It is, however, very hard to design software that can parallelise any algorithm, while adapting to your hardware, operating system, and other the software running on your device.
+A lot of parallelisation still has to be explicit, but stay tuned for technologies like <a href="https://rise.cs.berkeley.edu/projects/ray/">Ray</a>, <a href="https://spark.apache.org">Apache Spark</a>, <a href="https://flink.apache.org">Apache Flink</a>, <a href="https://chapel-lang.org">Chapel</a>, <a href="https://pytorch.org">PyTorch</a>, and others, which are making great advances in handling parallelism for you.
+Before we can understand what those do, we start with explicit parallelism.</p>
+<div id="when-and-how-to-parallelise" class="section level2">
+<h2><span class="header-section-number">16.1</span> When and How to Parallelise?</h2>
+<p>Your computations are too slow.
+Should you store your data differently?
+Should you buy more RAM?
+Should you parallelise locally?
+Should you go cloud?</p>
+<p>Unlike what some vendors will make you think, there is no one-size-fits-all solution to speed problems.
+Solving a RAM bottleneck may consume more CPU.
+Solving a CPU bottleneck may consume more RAM.
+Parallelisation means using multiple CPUs simultaneously.
+It will thus aid with CPU bottlenecks, but may consume more RAM.
+Parallelising is thus ill advised when dealing with a RAM bottleneck.
+Memory bottlenecks are released with sparsity (Chapter <a href="sparse.html#sparse">14</a>), or efficient memory usage (Chapter <a href="memory.html#memory">15</a>).</p>
+<p>When deciding if, and how, to parallelise, it is crucial that you diagnose your bottleneck.
+The good news is- that diagnostics is not too hard.
+Here are a few pointers:</p>
+<ol style="list-style-type: decimal">
+<li><p>Always have a system monitor open. Windows users have their <a href="https://en.wikipedia.org/wiki/Task_Manager_(Windows)">Task Manager</a>; Linux users have <a href="https://en.wikipedia.org/wiki/Top_(software)">top</a>, or preferably, <a href="https://en.wikipedia.org/wiki/Htop">htop</a>; Mac users have the <a href="https://www.howtogeek.com/227240/how-to-monitor-your-macs-health-with-activity-monitor/">Activity Monitor</a>. The system monitor will inform you how many CPUs are being used, and how much RAM is being used.</p></li>
+<li><p>If you escape your computation, and R takes a long time to respond, you are probably dealing with a RAM bottleneck.</p></li>
+<li><p>Profile your code to detect how much RAM and CPU are consumed by each line of code. See Hadley’s <a href="http://adv-r.had.co.nz/Profiling.html">guide</a>.</p></li>
+</ol>
+<p>In the best possible scenario, the number of operations you can perform scales with the number of processors: <span class="math display">\[time * processors = operations\]</span>.
+This is called <em>perfect scaling</em>.
+It is rarely observed in practice, since parallelizing incurs some computational overhead: setting up environments, copying memory, …
+For this reason, the typical speedup is sub-linear.
+Computer scientists call this <a href="https://en.wikipedia.org/wiki/Amdahl%27s_law">Amdahl’s law</a>.</p>
+</div>
+<div id="terminology" class="section level2">
+<h2><span class="header-section-number">16.2</span> Terminology</h2>
+<p>Here are some terms we will be needing.</p>
+<div id="hardware" class="section level3">
+<h3><span class="header-section-number">16.2.1</span> Hardware:</h3>
 <ul>
-<li>You can enjoy parallel linear algebra by replacing the linear algebra libraries with BLAS and LAPACK as described <a href="https://www.r-bloggers.com/faster-r-through-better-blas/">here</a>.</li>
-<li>You should read the “Parallel computing: Implicit parallelism” section in the excellent <a href="https://cran.r-project.org/web/views/HighPerformanceComputing.html">High Performance Computing</a> task view, for the latest developments in implicit parallelism.</li>
+<li><strong>Cluster:</strong> A collection of interconnected computers.</li>
+<li><strong>Node/Machine:</strong> A single physical machine in the cluster. Components of a single node do not communicate via the cluster’s network, but rather, via the node’s circuitry.</li>
+<li><strong>Processor/Socket/CPU:</strong></li>
+<li><strong>RAM:</strong> Random Access Memory. One of many types of memory in a computer. Possibly the most relevant type of memory when computing with data.</li>
+<li><strong>GPU:</strong> Graphical Processing Unit. A computing unit, separate from the CPU. Originally dedicated to graphics and gaming, thus its name. Currently, GPUs are extremely popular for fitting and servicing Deep Neural Networks.</li>
+<li><strong>TPU:</strong> Tensor Processing Unit. A computing unit, dedicated to servicing and fitting Deep Neural Networks.</li>
 </ul>
 </div>
-<div id="explicit-parallelism" class="section level2">
-<h2><span class="header-section-number">16.2</span> Explicit Parallelism</h2>
-<p>R provides many frameworks for explicit parallelism.
-Because the parallelism is initiated by the user, we first need to decide <strong>when to parallelize?</strong>
-As a rule of thumb, you want to parallelise when you encounter a CPU bottleneck, and not a memory bottleneck.
-Memory bottlenecks are released with sparsity (Chapter <a href="sparse.html#sparse">14</a>), or efficient memory usage (Chapter <a href="memory.html#memory">15</a>).</p>
-<p>Several ways to diagnose your bottleneck include:</p>
+<div id="software" class="section level3">
+<h3><span class="header-section-number">16.2.2</span> Software:</h3>
 <ul>
-<li>Keep your Windows Task Manager, or Linux <code>top</code> open, and look for the CPU load, and RAM loads.</li>
-<li>The computation takes a long time, and when you stop it pressing ESC, R is immediately responsive. If it is not immediately responsive, you have a memory bottleneck.</li>
-<li>Profile your code. See Hadley’s <a href="http://adv-r.had.co.nz/Profiling.html">guide</a>.</li>
+<li><strong>Process:</strong> A sequence of instructions in memory, with accompanying data. Various processes typically see different locations of memory. Interpreted languages like R, and Python operate on processes.</li>
+<li><strong>Thread:</strong> A sub-sequence of instructions, within a process. Various threads in a process may see the same memory. Compiled languages like C, C++, may operate on threads.</li>
 </ul>
-<p>For reasons detailed in <span class="citation">Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span>, we will present the <strong>foreach</strong> parallelisation package <span class="citation">(Analytics and Weston <a href="#ref-foreach">2015</a>)</span>.
-It will allow us to:</p>
+</div>
+<div id="types-of-parallelism" class="section level3">
+<h3><span class="header-section-number">16.2.3</span> Types of Parallelism</h3>
+<ul>
+<li><strong>Data Parallel:</strong> When performing differest tasks on the same data.</li>
+<li><strong>Task Parallel:</strong> When performing the same task, on different data.</li>
+</ul>
+<p>Flynn’s Taxonomy:</p>
+</div>
+</div>
+<div id="explicit-parallelism" class="section level2">
+<h2><span class="header-section-number">16.3</span> Explicit Parallelism</h2>
+<p>R provides many frameworks for explicit parallelism.
+Any such framework will include the means for starting R (salve/worker) sessions, and the means for communicating between these sessions.
+Except for developpers, a typical user will probably be using some high-level R package which will abstract away these stages.
+A communication protocol because different R sessions will be communication one with the other. An abstraction layer because providing the user will all the features and generality of the communication layer is needlessly cumbersome.</p>
+<p>Starting new R processes, a.k.a. slaves:</p>
+<ul>
+<li><p>R sessions/process may always be started using system calls. This creates <em>child processes</em>, or <em>spawn processes</em> that cannot access the data and instructions of the calling process.</p></li>
+<li><p><strong>Fork</strong>: a mechanism, unique to Unix and Linux, that clones a process with accompanying instructions and data. All processes see the same memory in read-only state. Copies are made when data is changed by a process.</p></li>
+</ul>
+<p>Inter-process communication standards:</p>
+<ul>
+<li><p><strong>Socket</strong>: data sent via a network interface. Put differently- information is sent between R processes as if these were different machines in a network. Information may be structured by the particular application, and does not abide to some</p></li>
+<li><p><strong>Parallel Virtual Machine</strong> (PVM): a communication protocol and software, developed the University of Tennessee, Oak Ridge National Laboratory and Emory University, and first released in 1989. Runs on Windows and Unix, thus allowing to compute on clusters running these two operating systems. Noways, it is mostly replaced by MPI. The same group responsible for PVM will later deliver <em>Programming with Big Data in R</em> (<a href="https://pbdr.org">pbdR</a>): a whole ecosystem of packages for running R on large computing clusters.</p></li>
+<li><p><strong>Message Passing Interface</strong> (MPI): A communication protocol that has become the de-facto standard for communication in large distributed clusters. Particularly, for heterogeneous computing clusters with varying operating systems and hardware. The protocol has various software implementations such as <a href="https://en.wikipedia.org/wiki/Open_MPI">OpenMPI</a> and <a href="https://en.wikipedia.org/wiki/MPICH">MPICH</a>, <a href="http://mpi.deino.net/">Deino</a>, <a href="https://en.wikipedia.org/wiki/LAM/MPI">LAM/MPI</a>. Interestingly, large computing clusters use MPI, while modern BigData analysis platforms such as Spark, and Ray do not. Why is this? See Jonathan Dursi’s excellent but controversial <a href="https://www.dursi.ca/post/hpc-is-dying-and-mpi-is-killing-it.html">blog post</a>.</p></li>
+<li><p><strong>NetWorkSpaces</strong> (NWS): A master-slave communication protocol where the master is not an R-session, but rather, an <em>NWS server</em>.</p></li>
+</ul>
+<p>For more on inter-process communication, see <a href="https://en.wikipedia.org/wiki/Inter-process_communication">Wiki</a>.</p>
+<div id="the-parallel-package" class="section level3">
+<h3><span class="header-section-number">16.3.1</span> The parallel Package</h3>
+<p>The <strong>parallel</strong> package, maintained by the R-core team, was introduced in 2011 to unify two popular parallisation packages: <strong>snow</strong> and <strong>multicore</strong>.
+The <strong>multicore</strong> package was designed to parallelise using the <em>fork</em> mechanism, on Linux machines.
+The <strong>snow</strong> package was designed to parallise using the <em>spawn</em> echanism, on all operating systems.
+Servers/R-sessions started with <strong>snow</strong> will not see the parent’s data, which will have to be copied to sapwned sessions.
+At least there is less data redundancy.
+Spawning, unlike forking, can be done on remote machines, which communicate using MPI.</p>
+<p>TOOD: add example.</p>
+</div>
+<div id="the-foreach-package" class="section level3">
+<h3><span class="header-section-number">16.3.2</span> The foreach Package</h3>
+<p>For reasons detailed in <span class="citation">Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span>, we recommend the <strong>foreach</strong> parallelisation package <span class="citation">(Analytics and Weston <a href="#ref-foreach">2015</a>)</span>.
+It allows us to:</p>
 <ol style="list-style-type: decimal">
-<li><p>Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can then switch the underlying parallelisation mechanism.</p></li>
-<li><p>Combine with the <code>big.matrix</code> object from Chapter <a href="memory.html#memory">15</a> for <em>shared memory parallisation</em>: all the machines may see the same data, so that we don’t need to export objects from machine to machine.</p></li>
+<li><p>Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can later switch between paralliseation mechanisms.
+Currently supported mechanisms include:</p>
+<ul>
+<li><em>fork</em>: Called with the <em>doMC</em> backend.</li>
+<li><em>MPI</em>, <em>VPM</em>, <em>NWS</em>: Called with the <em>doSNOW</em> or <em>doMPI</em> backends.</li>
+<li><em>futures</em>: Called with the <em>doFuture</em> backend.</li>
+<li><em>redis</em>: Called with the <em>doRedis</em> backend. Similar to NWS, only that data made available to different processes using <a href="https://en.wikipedia.org/wiki/Redis">Redis</a>.</li>
+<li>Future mechanism may also be supported.</li>
+</ul></li>
+<li><p>Combine with the <code>big.matrix</code> object from Chapter <a href="memory.html#memory">15</a> for <em>shared memory parallelisation</em>: all the machines may see the same data, so that we don’t need to export objects from machine to machine.</p></li>
 </ol>
-<p>What do we mean by “switch the underlying parallesation mechanism”?
-It means there are several packages that will handle communication between machines.
-Some are very general and will work on any cluster.
-Some are more specific and will work only on a single multicore machine (not a cluster) with a particular operating system.
-These mechanisms include <strong>multicore</strong>, <strong>snow</strong>, <strong>parallel</strong>, and <strong>Rmpi</strong>.
-The compatibility between these mechanisms and <strong>foreach</strong> is provided by another set of packages:
-<strong>doMC</strong> , <strong>doMPI</strong>, <strong>doRedis</strong>, <strong>doParallel</strong>, and <strong>doSNOW</strong>.</p>
 
 <div class="remark">
  <span class="remark"><em>Remark. </em></span> I personally prefer the <strong>multicore</strong> mechanism, with the <strong>doMC</strong> adapter for <strong>foreach</strong>.
-I will not use this combo, however, because <strong>multicore</strong> will not work on Windows machines.
+I will not use this combo, however, because <strong>multicore</strong> will not work on Windows machines, and will not work over a network.
 I will thus use the more general <strong>snow</strong> and <strong>doParallel</strong> combo.
 If you do happen to run on Linux, or Unix, you will want to replace all <strong>doParallel</strong> functionality with <strong>doMC</strong>.
 </div>
 
 <p>Let’s start with a simple example, taken from <a href="http://debian.mc.vanderbilt.edu/R/CRAN/web/packages/doParallel/vignettes/gettingstartedParallel.pdf">“Getting Started with doParallel and foreach”</a>.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(doParallel)
-cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(<span class="dv">2</span>)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(doParallel)</code></pre>
+<pre><code>## Loading required package: iterators</code></pre>
+<pre><code>## Loading required package: parallel</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(<span class="dv">2</span>, <span class="dt">type =</span> <span class="st">&#39;SOCK&#39;</span>)
 <span class="kw">registerDoParallel</span>(cl)
 result &lt;-<span class="st"> </span><span class="kw">foreach</span>(<span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="op">%dopar%</span><span class="st"> </span><span class="kw">sqrt</span>(i)
 <span class="kw">class</span>(result)</code></pre>
@@ -580,7 +667,7 @@ ptime &lt;-<span class="st"> </span><span class="kw">system.time</span>({
  })[<span class="dv">3</span>]
 ptime</code></pre>
 <pre><code>## elapsed 
-##  10.711</code></pre>
+##  11.521</code></pre>
 <p>Things to note:</p>
 <ul>
 <li>As usual, we use the <code>foreach</code> function with the <code>%dopar%</code> operator to loop in parallel.</li>
@@ -598,7 +685,7 @@ We only need to replace <code>%dopar%</code> with <code>%do%</code> to test.</p>
  })[<span class="dv">3</span>]
 stime</code></pre>
 <pre><code>## elapsed 
-##  20.965</code></pre>
+##  19.217</code></pre>
 <p>Yes. Parallelising is clearly faster.</p>
 <p>Let’s see how we can combine the power of <strong>bigmemory</strong> and <strong>foreach</strong> by creating a file mapped <code>big.matrix</code> object, which is shared by all machines.
 The following example is taken from <span class="citation">Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span>, and uses the <code>big.matrix</code> object we created in Chapter <a href="memory.html#memory">15</a>.</p>
@@ -606,8 +693,17 @@ The following example is taken from <span class="citation">Kane et al. (<a href=
 x &lt;-<span class="st"> </span><span class="kw">attach.big.matrix</span>(<span class="st">&quot;airline.desc&quot;</span>)
 
 <span class="kw">library</span>(foreach)
-<span class="kw">library</span>(doSNOW)
-cl &lt;-<span class="st"> </span><span class="kw">makeSOCKcluster</span>(<span class="kw">rep</span>(<span class="st">&quot;localhost&quot;</span>, <span class="dv">4</span>)) <span class="co"># make a cluster of 4 machines</span>
+<span class="kw">library</span>(doSNOW)</code></pre>
+<pre><code>## Loading required package: snow</code></pre>
+<pre><code>## 
+## Attaching package: &#39;snow&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:parallel&#39;:
+## 
+##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+##     clusterExport, clusterMap, clusterSplit, makeCluster,
+##     parApply, parCapply, parLapply, parRapply, parSapply,
+##     splitIndices, stopCluster</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">cl &lt;-<span class="st"> </span><span class="kw">makeSOCKcluster</span>(<span class="kw">rep</span>(<span class="st">&quot;localhost&quot;</span>, <span class="dv">4</span>)) <span class="co"># make a cluster of 4 machines</span>
 <span class="kw">registerDoSNOW</span>(cl) <span class="co"># register machines for foreach()</span></code></pre>
 <p>Get a “description” of the <code>big.matrix</code> object that will be used to call it from each machine.</p>
 <pre class="sourceCode r"><code class="sourceCode r">xdesc &lt;-<span class="st"> </span><span class="kw">describe</span>(x) </code></pre>
@@ -632,24 +728,164 @@ qs</code></pre>
 ## result.4 511 789 996
 ## result.5 511 790 996
 ## result.6 518 796 995</code></pre>
-<div id="caution-implicit-with-explicit-parallelism" class="section level3">
-<h3><span class="header-section-number">16.2.1</span> Caution: Implicit with Explicit Parallelism</h3>
-<p>A common problem when parallelizing is that the machines you invoked with <strong>explicit</strong> parallelism, invoke other machines using <strong>implicit</strong> parallelism.
+<div id="which-backend-to-use" class="section level4">
+<h4><span class="header-section-number">16.3.2.1</span> Which Backend to Use?</h4>
+<p>In the following example, we compare the <em>fork</em> mechanism, to the <em>socket</em> mechanism.
+The bottom line is- use <em>fork</em> whenever possible.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nycflights13)
+flights<span class="op">$</span>ind &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">size =</span> <span class="kw">nrow</span>(flights), <span class="dt">replace =</span> <span class="ot">TRUE</span>)
+
+timer &lt;-<span class="st"> </span><span class="cf">function</span>(i) <span class="kw">max</span>(flights[flights<span class="op">$</span>ind<span class="op">==</span>i,<span class="st">&quot;distance&quot;</span>])
+<span class="kw">timer</span>(<span class="dv">1</span>)</code></pre>
+<pre><code>## [1] 4983</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(doMC)
+<span class="kw">registerDoMC</span>(<span class="dt">cores =</span> <span class="dv">10</span>)
+<span class="kw">system.time</span>(<span class="kw">foreach</span> (<span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">.combine =</span> <span class="st">&#39;c&#39;</span>) <span class="op">%dopar%</span><span class="st"> </span><span class="kw">timer</span>(i))</code></pre>
+<pre><code>##    user  system elapsed 
+##   0.018   0.480   0.504</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(parallel)         
+<span class="kw">library</span>(doParallel)
+cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(<span class="dv">10</span>, <span class="dt">type=</span><span class="st">&quot;SOCK&quot;</span>)
+<span class="kw">registerDoParallel</span>(cl)
+<span class="kw">system.time</span>(<span class="kw">foreach</span> (<span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">.combine =</span> <span class="st">&#39;c&#39;</span>) <span class="op">%dopar%</span><span class="st"> </span><span class="kw">timer</span>(i))</code></pre>
+<pre><code>##    user  system elapsed 
+##   1.112   0.146   2.071</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stopCluster</span>(cl)</code></pre>
+<p>Things to note:</p>
+<ul>
+<li>The clear victor is <em>fork</em>: sessions start faster, and computations finish faster. Sadly, we recall that <em>forking</em> is impossible on Windows machines, or in clusters that consist of several machines.</li>
+<li>We did not need to pass <code>flights</code> to the different workers. <code>foreach</code> took care of that for us.</li>
+</ul>
+<p>For fun, let’s try the same with <code>data.table</code>….</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)
+flights.DT &lt;-<span class="st"> </span><span class="kw">as.data.table</span>(flights)
+<span class="kw">system.time</span>(flights.DT[,<span class="kw">max</span>(distance),ind])</code></pre>
+<pre><code>##    user  system elapsed 
+##   0.064   0.098   0.118</code></pre>
+<p>No surprises there.
+If you can store your data in RAM, <code>data.table</code> is still the fastest.</p>
+</div>
+</div>
+<div id="rdsm" class="section level3">
+<h3><span class="header-section-number">16.3.3</span> Rdsm</h3>
+</div>
+<div id="pbdr" class="section level3">
+<h3><span class="header-section-number">16.3.4</span> pbdR</h3>
+<p>Not on a single machine.
+<a href="https://pbdr.org" class="uri">https://pbdr.org</a></p>
+<p>The pbdMPI package provides S4 classes to directly interface MPI in order to support the Single Program/Multiple Data (SPMD) parallel programming style which is particularly useful for batch parallel execution. The pbdSLAP builds on this and uses scalable linear algebra packages (namely BLACS, PBLAS, and ScaLAPACK) in double precision based on ScaLAPACK version 2.0.2. The pbdBASE builds on these and provides the core classes and methods for distributed data types upon which the pbdDMAT builds to provide distributed dense matrices for “Programming with Big Data”. The pbdNCDF4 package permits multiple processes to write to the same file (without manual synchronization) and supports terabyte-sized files. The pbdDEMO package provides examples for these packages, and a detailed vignette. The pbdPROF package profiles MPI communication SPMD code via MPI profiling libraries, such as fpmpi, mpiP, or TAU.</p>
+</div>
+</div>
+<div id="implicit-parallelism" class="section level2">
+<h2><span class="header-section-number">16.4</span> Implicit Parallelism</h2>
+<div id="parallel-linear-algebra" class="section level3">
+<h3><span class="header-section-number">16.4.1</span> Parallel Linear Algebra</h3>
+<ul>
+<li>You can enjoy parallel linear algebra by replacing the linear algebra libraries with BLAS and LAPACK as described <a href="https://www.r-bloggers.com/faster-r-through-better-blas/">here</a>.</li>
+<li>You should read the “Parallel computing: Implicit parallelism” section in the excellent <a href="https://cran.r-project.org/web/views/HighPerformanceComputing.html">High Performance Computing</a> task view, for the latest developments in implicit parallelism.</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">4</span><span class="op">*</span><span class="dv">1024</span>
+A &lt;-<span class="st"> </span><span class="kw">matrix</span>( <span class="kw">rnorm</span>(n<span class="op">*</span>n), <span class="dt">ncol=</span>n, <span class="dt">nrow=</span>n )
+B &lt;-<span class="st"> </span><span class="kw">matrix</span>( <span class="kw">rnorm</span>(n<span class="op">*</span>n), <span class="dt">ncol=</span>n, <span class="dt">nrow=</span>n )
+C &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span>B</code></pre>
+<div class="figure">
+<img src="art/Screenshot%20from%202019-09-28%2020-25-48.png" alt="top at 657% CPU!" />
+<p class="caption">top at 657% CPU!</p>
+</div>
+<p>In my system I have installed <a href="https://en.wikipedia.org/wiki/OpenBLAS">OpenBLAS</a>:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">extSoftVersion</span>()[<span class="st">&quot;BLAS&quot;</span>]</code></pre>
+<pre><code>##                               BLAS 
+## &quot;/usr/lib/libopenblasp-r0.2.19.so&quot;</code></pre>
+</div>
+<div id="nested-parallel" class="section level3">
+<h3><span class="header-section-number">16.4.2</span> Caution: Implicit with Explicit Parallelism</h3>
+<p>A common problem when parallelising is that the machines you invoked with <strong>explicit</strong> parallelism, invoke other machines using <strong>implicit</strong> parallelism.
 You then lose control of the number of machine being invoked, and the operating system spends most of its time managing resources, instead of doing your computations.</p>
-<p>Modern linear algebra libraries may try to implicitly parallelize vector and matrix operations.
-To avoid this type of implicity parallelism within an explicit paralleliation, use the <a href="">RhpcBLASctl package</a>, and in particular <em>evaRhpcBLASctl::blas_set_num_threads()</em>.
+<p>Modern linear algebra libraries may try to implicitly parallelise vector and matrix operations.
+To avoid this type of implicit parallelism within an explicit parallelisation, use the <a href="">RhpcBLASctl package</a>, and in particular <em>evaRhpcBLASctl::blas_set_num_threads()</em>.
 In other cases, you should consult an expert.</p>
+</div>
+<div id="parallel-data-munging-with-data.table" class="section level3">
+<h3><span class="header-section-number">16.4.3</span> Parallel Data Munging with data.table</h3>
+<p>We have discussed <code>data.table</code> on various occasions.
+We now recall it to emphasize that various operations in <code>data.table</code> are done in parallel.
+For instance, imports.
+First, we check how many threads <code>data.table</code> is setup to use?</p>
+<pre class="sourceCode r"><code class="sourceCode r">data.table<span class="op">::</span><span class="kw">getDTthreads</span>(<span class="dt">verbose=</span><span class="ot">TRUE</span>) </code></pre>
+<pre><code>## omp_get_num_procs()==8
+## R_DATATABLE_NUM_PROCS_PERCENT==&quot;&quot; (default 50)
+## R_DATATABLE_NUM_THREADS==&quot;&quot;
+## omp_get_thread_limit()==2147483647
+## omp_get_max_threads()==1
+## OMP_THREAD_LIMIT==&quot;&quot;
+## OMP_NUM_THREADS==&quot;&quot;
+## data.table is using 4 threads. This is set on startup, and by setDTthreads(). See ?setDTthreads.
+## RestoreAfterFork==true</code></pre>
+<pre><code>## [1] 4</code></pre>
+<p>We then do the import and inspect CPU usage with the <em>top</em> linux command.</p>
+<pre class="sourceCode r"><code class="sourceCode r">air &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st">&#39;data/2010_BSA_Carrier_PUF.csv&#39;</span>)</code></pre>
+<div class="figure">
+<img src="art/Screenshot%20from%202019-10-03%2010-48-06.png" alt="CPU usage of fread(). The CPU usage is 301.7%. This is because data.table is setup to use 4 threads simultanously." />
+<p class="caption">CPU usage of fread(). The CPU usage is 301.7%. This is because <code>data.table</code> is setup to use 4 threads simultanously.</p>
+</div>
+
+<div class="remark">
+ <span class="remark"><em>Remark. </em></span> An amazing feature of <code>data.table</code> is that it will not parallelize when called from a forked process.
+This behaviour will avoid the nested parallelism we cautioned from in @(nested-parallel).
+</div>
+
+<p>Now let’s compare parallelised aggregations:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(flight.DT[,.(<span class="dt">distance=</span><span class="kw">mean</span>(distance),<span class="dt">delay=</span><span class="kw">mean</span>(arr_delay),<span class="dt">count=</span>.N),<span class="dt">by=</span>tailnum][count<span class="op">&gt;</span><span class="dv">20</span> <span class="op">&amp;</span><span class="st"> </span>distance<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(delay)])</code></pre>
+<pre><code>##    user  system elapsed 
+##   0.059   0.000   0.034</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setDTthreads</span>(<span class="dv">1</span>)
+
+<span class="kw">system.time</span>(flight.DT[,.(<span class="dt">distance=</span><span class="kw">mean</span>(distance),<span class="dt">delay=</span><span class="kw">mean</span>(arr_delay),<span class="dt">count=</span>.N),<span class="dt">by=</span>tailnum][count<span class="op">&gt;</span><span class="dv">20</span> <span class="op">&amp;</span><span class="st"> </span>distance<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(delay)])</code></pre>
+<pre><code>##    user  system elapsed 
+##   0.047   0.000   0.047</code></pre>
+</div>
+<div id="parallel-learning-from-a-centralized-file-system" class="section level3">
+<h3><span class="header-section-number">16.4.4</span> Parallel Learning from a Centralized File System</h3>
+</div>
+<div id="parallel-learning-from-a-distributed-file-system" class="section level3">
+<h3><span class="header-section-number">16.4.5</span> Parallel Learning from a Distributed File System</h3>
+<div id="spark" class="section level4">
+<h4><span class="header-section-number">16.4.5.1</span> Spark</h4>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Spark performance</span>
+<span class="kw">library</span>(sparklyr)
+<span class="kw">spark_install</span>(<span class="dt">version =</span> <span class="st">&quot;2.1.0&quot;</span>)</code></pre>
+<pre><code>## Spark 2.1.0 for Hadoop 2.7 or later already installed.</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>)</code></pre>
+<pre><code>## Re-using existing Spark connection to local</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">flights_tbl&lt;-<span class="st"> </span><span class="kw">copy_to</span>(<span class="dt">dest=</span>sc, <span class="dt">df=</span>flights, <span class="dt">name=</span><span class="st">&#39;flights&#39;</span>, <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)
+
+<span class="kw">system.time</span>(delay&lt;-flights_tbl <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">              </span><span class="kw">group_by</span>(tailnum) <span class="op">%&gt;%</span>
+<span class="st">              </span><span class="kw">summarise</span>(<span class="dt">count=</span><span class="kw">n</span>(),<span class="dt">dist=</span><span class="kw">mean</span>(distance),<span class="dt">delay=</span><span class="kw">mean</span>(arr_delay)) <span class="op">%&gt;%</span>
+<span class="st">              </span><span class="kw">filter</span>(count<span class="op">&gt;</span><span class="dv">20</span>, dist<span class="op">&lt;</span><span class="dv">2000</span>, <span class="op">!</span><span class="kw">is.na</span>(delay)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">collect</span>())</code></pre>
+<pre><code>##    user  system elapsed 
+##   0.371   0.361   1.051</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Datatable performance</span>
+<span class="kw">library</span>(data.table)
+flight.DT &lt;-<span class="st"> </span><span class="kw">data.table</span>(flights)
+<span class="kw">system.time</span>(flight.DT[,.(<span class="dt">distance=</span><span class="kw">mean</span>(distance),<span class="dt">delay=</span><span class="kw">mean</span>(arr_delay),<span class="dt">count=</span>.N),<span class="dt">by=</span>tailnum][count<span class="op">&gt;</span><span class="dv">20</span> <span class="op">&amp;</span><span class="st"> </span>distance<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(delay)])</code></pre>
+<pre><code>##    user  system elapsed 
+##   0.049   0.000   0.049</code></pre>
+<p>Again- if data fits in RAM, you cannot beat <code>data.table</code>.</p>
+</div>
 </div>
 </div>
 <div id="bibliographic-notes-14" class="section level2">
-<h2><span class="header-section-number">16.3</span> Bibliographic Notes</h2>
+<h2><span class="header-section-number">16.5</span> Bibliographic Notes</h2>
 <p>For a brief and excellent explanation on parallel computing in R see <span class="citation">Schmidberger et al. (<a href="#ref-schmidberger2009state">2009</a>)</span>.
 For a full review see <span class="citation">Chapple et al. (<a href="#ref-chapple2016mastering">2016</a>)</span>.
 For a blog-level introduction see <a href="http://www.parallelr.com/r-with-parallel-computing/">ParallelR</a>.
-For an up-to-date list of packages supporting parallel programming see the High Performance Computing <a href="https://cran.r-project.org/web/views/HighPerformanceComputing.html">R task view</a>.</p>
+For an up-to-date list of packages supporting parallel programming see the High Performance Computing <a href="https://cran.r-project.org/web/views/HighPerformanceComputing.html">R task view</a>.
+To understand how computers work in general, see <span class="citation">Bryant and O’Hallaron (<a href="#ref-bryant2015computer">2015</a>)</span>.</p>
 </div>
 <div id="practice-yourself-12" class="section level2">
-<h2><span class="header-section-number">16.4</span> Practice Yourself</h2>
+<h2><span class="header-section-number">16.6</span> Practice Yourself</h2>
 <p>Try DataCamp’s <a href="https://www.datacamp.com/courses/parallel-programming-in-r">Parallel Programming in R</a>.</p>
 
 </div>
@@ -658,6 +894,9 @@ For an up-to-date list of packages supporting parallel programming see the High 
 <div id="refs" class="references">
 <div id="ref-foreach">
 <p>Analytics, Revolution, and Steve Weston. 2015. <em>Foreach: Provides Foreach Looping Construct for R</em>. <a href="https://CRAN.R-project.org/package=foreach">https://CRAN.R-project.org/package=foreach</a>.</p>
+</div>
+<div id="ref-bryant2015computer">
+<p>Bryant, Randal E, and David R O’Hallaron. 2015. <em>Computer Systems: A Programmer’s Perspective Plus Masteringengineering with Pearson eText–Access Card Package</em>. Pearson.</p>
 </div>
 <div id="ref-chapple2016mastering">
 <p>Chapple, Simon R, Eilidh Troup, Thorsten Forster, and Terence Sloan. 2016. <em>Mastering Parallel Programming with R</em>. Packt Publishing Ltd.</p>

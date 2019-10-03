@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-09-26" />
+<meta name="date" content="2019-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,12 +49,12 @@
 
 <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
 <link href="libs/sequences-0.1/sequences.css" rel="stylesheet" />
-<script src="libs/sunburst-binding-2.1.0/sunburst.js"></script>
+<script src="libs/sunburst-binding-2.1.1/sunburst.js"></script>
 <script src="libs/d3-5.7.0/d3.min.js"></script>
 <script src="libs/d3-lasso-0.0.5/d3-lasso.min.js"></script>
 <link href="libs/ggiraphjs-0.1.0/styles.css" rel="stylesheet" />
 <script src="libs/ggiraphjs-0.1.0/ggiraphjs.min.js"></script>
-<script src="libs/girafe-binding-0.6.0/girafe.js"></script>
+<script src="libs/girafe-binding-0.6.1/girafe.js"></script>
 <script src="libs/plotly-binding-4.9.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
@@ -400,12 +400,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.12" data-path="memory.html"><a href="memory.html#practice-yourself-11"><i class="fa fa-check"></i><b>15.12</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
-<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Explicit Parallelism</a><ul>
-<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#when-and-how-to-parallelise"><i class="fa fa-check"></i><b>16.1</b> When and How to Parallelise?</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#terminology"><i class="fa fa-check"></i><b>16.2</b> Terminology</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#hardware"><i class="fa fa-check"></i><b>16.2.1</b> Hardware:</a></li>
+<li class="chapter" data-level="16.2.2" data-path="parallel.html"><a href="parallel.html#software"><i class="fa fa-check"></i><b>16.2.2</b> Software:</a></li>
+<li class="chapter" data-level="16.2.3" data-path="parallel.html"><a href="parallel.html#types-of-parallelism"><i class="fa fa-check"></i><b>16.2.3</b> Types of Parallelism</a></li>
 </ul></li>
-<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-12"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.3</b> Explicit Parallelism</a><ul>
+<li class="chapter" data-level="16.3.1" data-path="parallel.html"><a href="parallel.html#the-parallel-package"><i class="fa fa-check"></i><b>16.3.1</b> The parallel Package</a></li>
+<li class="chapter" data-level="16.3.2" data-path="parallel.html"><a href="parallel.html#the-foreach-package"><i class="fa fa-check"></i><b>16.3.2</b> The foreach Package</a></li>
+<li class="chapter" data-level="16.3.3" data-path="parallel.html"><a href="parallel.html#rdsm"><i class="fa fa-check"></i><b>16.3.3</b> Rdsm</a></li>
+<li class="chapter" data-level="16.3.4" data-path="parallel.html"><a href="parallel.html#pbdr"><i class="fa fa-check"></i><b>16.3.4</b> pbdR</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.4</b> Implicit Parallelism</a><ul>
+<li class="chapter" data-level="16.4.1" data-path="parallel.html"><a href="parallel.html#parallel-linear-algebra"><i class="fa fa-check"></i><b>16.4.1</b> Parallel Linear Algebra</a></li>
+<li class="chapter" data-level="16.4.2" data-path="parallel.html"><a href="parallel.html#nested-parallel"><i class="fa fa-check"></i><b>16.4.2</b> Caution: Implicit with Explicit Parallelism</a></li>
+<li class="chapter" data-level="16.4.3" data-path="parallel.html"><a href="parallel.html#parallel-data-munging-with-data.table"><i class="fa fa-check"></i><b>16.4.3</b> Parallel Data Munging with data.table</a></li>
+<li class="chapter" data-level="16.4.4" data-path="parallel.html"><a href="parallel.html#parallel-learning-from-a-centralized-file-system"><i class="fa fa-check"></i><b>16.4.4</b> Parallel Learning from a Centralized File System</a></li>
+<li class="chapter" data-level="16.4.5" data-path="parallel.html"><a href="parallel.html#parallel-learning-from-a-distributed-file-system"><i class="fa fa-check"></i><b>16.4.5</b> Parallel Learning from a Distributed File System</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>16.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="16.6" data-path="parallel.html"><a href="parallel.html#practice-yourself-12"><i class="fa fa-check"></i><b>16.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a><ul>
 <li class="chapter" data-level="17.1" data-path="algebra.html"><a href="algebra.html#lu-factorization"><i class="fa fa-check"></i><b>17.1</b> LU Factorization</a></li>
@@ -885,10 +900,15 @@ fa<span class="fl">.1</span></code></pre>
 <p>Things to note:</p>
 <ul>
 <li>We perform FA with the <code>psych::principal</code> function. The <code>Principal Component Analysis</code> title is due to the fact that FA without rotations, is equivalent to PCA.</li>
-<li>The first factor (<code>fa.1$loadings</code>) has different weights than the first PC (<code>pca.1$rotation</code>) because of normalization. They are the same, however, in that the first PC, and the first factor, capture average crime levels.</li>
+<li>The first factor (<code>fa.1$loadings</code>) has different weights than the first PC (<code>pca.1$rotation</code>) because they have different normalizations. They have the same interpretation however: all weights of the first component are simiar, suggesting it merely captures the average crime rate.</li>
 </ul>
 <p>Graphical model fans will like the following plot, where the contribution of each variable to each factor is encoded in the width of the arrow.</p>
-<pre class="sourceCode r"><code class="sourceCode r">qgraph<span class="op">::</span><span class="kw">qgraph</span>(fa<span class="fl">.1</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">qgraph<span class="op">::</span><span class="kw">qgraph</span>(fa<span class="fl">.1</span><span class="op">$</span>loadings)</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;huge&#39;:
+##   method    from   
+##   plot.sim  BDgraph
+##   print.sim BDgraph</code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-255-1.png" width="50%" /></p>
 <p>Let’s add a rotation (Varimax), and note that the rotation has indeed changed the loadings of the variables, thus the interpretation of the factors.</p>
 <pre class="sourceCode r"><code class="sourceCode r">fa<span class="fl">.2</span> &lt;-<span class="st"> </span>psych<span class="op">::</span><span class="kw">principal</span>(USArrests<span class="fl">.1</span>, <span class="dt">nfactors =</span> <span class="dv">2</span>, <span class="dt">rotate =</span> <span class="st">&quot;varimax&quot;</span>)
 
@@ -919,17 +939,20 @@ fa<span class="fl">.2</span><span class="op">$</span>loadings</code></pre>
 <span class="kw">text</span>(ica<span class="fl">.1</span><span class="op">$</span>S, <span class="dt">pos =</span> <span class="dv">4</span>, <span class="dt">labels =</span> <span class="kw">rownames</span>(USArrests<span class="fl">.1</span>))
 
 <span class="co"># Compare with PCA (first two PCs):</span>
-<span class="kw">arrows</span>(<span class="dt">x0 =</span> ica<span class="fl">.1</span><span class="op">$</span>S[,<span class="dv">1</span>], <span class="dt">y0 =</span> ica<span class="fl">.1</span><span class="op">$</span>S[,<span class="dv">2</span>], <span class="dt">x1 =</span> pca<span class="fl">.1</span><span class="op">$</span>x[,<span class="dv">2</span>], <span class="dt">y1 =</span> pca<span class="fl">.1</span><span class="op">$</span>x[,<span class="dv">1</span>], <span class="dt">col=</span><span class="st">&#39;red&#39;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.5</span>)</code></pre>
+<span class="kw">arrows</span>(<span class="dt">x0 =</span> ica<span class="fl">.1</span><span class="op">$</span>S[,<span class="dv">1</span>], <span class="dt">y0 =</span> ica<span class="fl">.1</span><span class="op">$</span>S[,<span class="dv">2</span>], 
+       <span class="dt">x1 =</span> <span class="op">-</span>pca<span class="fl">.1</span><span class="op">$</span>x[,<span class="dv">2</span>], <span class="dt">y1 =</span> pca<span class="fl">.1</span><span class="op">$</span>x[,<span class="dv">1</span>], 
+       <span class="dt">col=</span><span class="st">&#39;red&#39;</span>, <span class="dt">pch=</span><span class="dv">19</span>, <span class="dt">cex=</span><span class="fl">0.5</span>)</code></pre>
 <p><img src="Rcourse_files/figure-html/ICA-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
-<li>ICA is fitted with <code>fastICA::fastICA</code>.</li>
+<li>We fit ICA with <code>fastICA::fastICA</code>.</li>
 <li>The ICA components, like any other rotated components, are different than the PCA components.</li>
+<li>The fastICA algorithm has a stochastic component. So the solution will be different at each re-run (making comparison to PCA harder).</li>
 </ul>
 </div>
 <div id="mds" class="section level4">
 <h4><span class="header-section-number">11.1.5.4</span> MDS</h4>
-<p>Classical MDS, also compared with PCA.</p>
+<p>Classical MDS compared to PCA.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We first need a dissimarity matrix/graph:</span>
 state.disimilarity &lt;-<span class="st"> </span><span class="kw">dist</span>(USArrests<span class="fl">.1</span>)
 
@@ -945,11 +968,11 @@ USArrests<span class="fl">.2</span> &lt;-<span class="st"> </span>USArrests[,<sp
 <p><img src="Rcourse_files/figure-html/MDS-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
-<li>We first compute a dissimilarity graph with <code>dist</code>. See the <code>cluster::daisy</code> function for more dissimilarity measures.</li>
-<li>We learn the MDS embedding with <code>cmdscale</code>.</li>
-<li>The embedding of PCA is the same as classical MDS with Euclidean distances.</li>
+<li>We first compute a dissimilarity graph with <code>stats::dist()</code>. See <code>cluster::daisy</code> for a wider variety of dissimilarity measures.</li>
+<li>We learn the MDS embedding with <code>stats::cmdscale</code>.</li>
+<li>Embedding with the first two components of PCA is exactly the same as classical MDS with Euclidean distances.</li>
 </ul>
-<p>Let’s try other strain functions for MDS, like Sammon’s strain, and compare it with the PCs.</p>
+<p>Let’s try other strain functions for MDS, like Sammon’s stress, and compare it with PCA.</p>
 <pre class="sourceCode r"><code class="sourceCode r">mds<span class="fl">.2</span> &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">sammon</span>(state.disimilarity, <span class="dt">trace =</span> <span class="ot">FALSE</span>)
 <span class="kw">plot</span>(mds<span class="fl">.2</span><span class="op">$</span>points, <span class="dt">pch =</span> <span class="dv">19</span>)
 <span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span>, <span class="dt">v=</span><span class="dv">0</span>, <span class="dt">lty=</span><span class="dv">2</span>)
@@ -964,7 +987,7 @@ USArrests<span class="fl">.2</span> &lt;-<span class="st"> </span>USArrests[,<sp
 <p>Things to note:</p>
 <ul>
 <li><code>MASS::sammon</code> does the embedding.</li>
-<li>Sammon strain is different than PCA.</li>
+<li>Sammon stress is different than PCA.</li>
 </ul>
 </div>
 <div id="t-sne-1" class="section level4">
@@ -1012,8 +1035,7 @@ ind &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv
 <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">9</span>){
   <span class="kw">show_digit</span>(train[ind[i],], <span class="dt">main=</span><span class="kw">paste</span>(<span class="st">&#39;Label= &#39;</span>,train<span class="op">$</span>y[ind[i]], <span class="dt">sep=</span><span class="st">&#39;&#39;</span>))  }</code></pre>
 <p><img src="Rcourse_files/figure-html/unnamed-chunk-257-1.png" width="50%" /></p>
-<p>The analysis is adapted from <a href="https://rpubs.com/marwahsi/tnse">Shruti Marwaha</a>.
-I start by dowloading and importing the famous digit data of .</p>
+<p>The analysis is adapted from <a href="https://rpubs.com/marwahsi/tnse">Shruti Marwaha</a>.</p>
 <pre class="sourceCode r"><code class="sourceCode r">numTrain &lt;-<span class="st"> </span><span class="fl">5e3</span> <span class="co"># Subset data for speed</span>
 rows &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(train), numTrain)
 train.sub &lt;-<span class="st"> </span>train[rows, <span class="op">-</span><span class="kw">which</span>(<span class="kw">names</span>(train)<span class="op">==</span><span class="st">&#39;y&#39;</span>)] <span class="op">%&gt;%</span><span class="st"> </span>as.matrix
@@ -1039,7 +1061,7 @@ colors &lt;-<span class="st"> </span><span class="kw">rainbow</span>(<span class
 <p>I am unaware of an R implementation of force-embedding.
 Maybe because of the interactive nature of the algorithm, that is not suited for R.
 Force embedding is much more natural to interactive GUIs.
-Here is a fun <a href="http://bl.ocks.org/eesur/be2abfb3155a38be4de4">javascript implementation</a>.</p>
+Here is a link for a fun <a href="http://bl.ocks.org/eesur/be2abfb3155a38be4de4">javascript implementation</a>.</p>
 </div>
 <div id="sparse-pca" class="section level4">
 <h4><span class="header-section-number">11.1.5.7</span> Sparse PCA</h4>
@@ -1048,13 +1070,13 @@ state.similarity &lt;-<span class="st"> </span>MASS<span class="op">::</span><sp
 
 spca1 &lt;-<span class="st"> </span>elasticnet<span class="op">::</span><span class="kw">spca</span>(state.similarity, <span class="dt">K=</span><span class="dv">2</span>, <span class="dt">type=</span><span class="st">&quot;Gram&quot;</span>, <span class="dt">sparse=</span><span class="st">&quot;penalty&quot;</span>, <span class="dt">trace=</span><span class="ot">FALSE</span>, <span class="dt">para=</span><span class="kw">c</span>(<span class="fl">0.06</span>,<span class="fl">0.16</span>))
 spca1<span class="op">$</span>loadings</code></pre>
-<pre><code>##                PC1 PC2
-## Murder  -0.1626431   1
-## Assault -0.8200474   0
-## Rape    -0.5486979   0</code></pre>
+<pre><code>##                 PC1 PC2
+## Murder  -0.74771432   0
+## Assault -0.66162752   0
+## Rape    -0.05632342  -1</code></pre>
 <p>Things to note:</p>
 <ul>
-<li>I used the <code>spca</code> function in the <strong>elasticnet</strong> package.</li>
+<li>I used the <code>elasticnet::spca</code> function.</li>
 <li>Is the solutions sparse? Yes! PC2 depends on a single variable only: <code>Murder</code>.</li>
 </ul>
 </div>
@@ -1080,17 +1102,19 @@ spca1<span class="op">$</span>loadings</code></pre>
 <p><img src="Rcourse_files/figure-html/kPCA-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
-<li>kPCA is implemented in <code>kernlab::kpca</code>. <code>kernel=</code> governs the class of variable mappings allowed for the scoring.</li>
-<li>See <code>?'kpca-class'</code> or <code>?rotated</code> for help on available utility functions.</li>
+<li>We used <code>kernlab::kpca</code> for kPCA.</li>
 <li><code>rotated</code> projects the data on its principal components (the above “scores”).</li>
+<li>See <code>?'kpca-class'</code> or <code>?rotated</code> for help on available utility functions.</li>
+<li><code>kernel=</code> governs the class of feature mappings.</li>
 <li><code>kpar=list(sigma=0.2)</code> provides parameters specific to each type of kernel. See <code>?kpca</code>.</li>
 <li><code>features=2</code> is the number of principal components (scores) to learn.</li>
-<li>You may notice the “Horseshoe” pattern of the kPCA embedding, a.k.a. “Croissants”, or the <em>Guttman Effect</em>. The horseshoe is a recurring and old phenomenon. This phenomenon implies that the data has “structure”. Alas, it is possible that this structure is merely due to the sampling scheme that introduced correlations. See <a href="https://rpubs.com/deleeuw/133786">J. De Leeuw’s online paper</a> for a review.</li>
+<li>You may notice the “Horseshoe” pattern of the kPCA embedding, a.k.a. “Croissants”, or the <em>Guttman Effect</em>. The horseshoe is known phenomenon in low dimensional visualizations. See <a href="https://rpubs.com/deleeuw/133786">J. De Leeuw’s online paper</a> for more details.</li>
 </ul>
 </div>
-<div id="mca" class="section level4">
-<h4><span class="header-section-number">11.1.5.9</span> MCA</h4>
+<div id="multiple-correspondence-analysis-mca" class="section level4">
+<h4><span class="header-section-number">11.1.5.9</span> Multiple Correspondence Analysis (MCA)</h4>
 <p>See <span class="citation">Izenman (<a href="#ref-izenman2008modern">2008</a>)</span>.</p>
+
 </div>
 </div>
 </div>
@@ -1108,18 +1132,18 @@ It is still possible, however, to group simiar pictures together.
 <div class="example">
 <span id="exm:spam" class="example"><strong>Example 11.7  </strong></span>Consider the problem of spam detection.
 It would be nice if each user could label several thousands emails, to apply a supervised learning approach to spam detection.
-This is an unrealistic demand, so a pre-clustering stage is useful: the user only needs to tag a couple dozens of homogenous clusters, before solving the supervised learning problem.
+This is an unrealistic demand, so a <em>pre-clustering</em> stage is useful: the user only needs to label a couple dozens of (hopefully homogenous) clusters, before solving the supervised learning problem.
 </div>
 
 <p>In clustering problems, we seek to group observations that are similar.</p>
 <p>There are many motivations for clustering:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Understanding</strong>:
-The most common use of clustering is probably as a an exploratory step, to identify homogeneous groups in the data.</li>
+The most common use of clustering is probably as a an exploratory step, to identify homogeneous groups in the data<a href="#fn25" class="footnote-ref" id="fnref25"><sup>25</sup></a>.</li>
 <li><strong>Dimensionality reduction</strong>:
 Clustering may be seen as a method for dimensionality reduction.
 Unlike the approaches in the Dimensionality Reduction Section <a href="unsupervised.html#dim-reduce">11.1</a>, it does not compress <strong>variables</strong> but rather <strong>observations</strong>.
-Each group of homogeneous observations may then be represented as a single prototypical observation of the group.</li>
+Each group of homogeneous observations may then be represented as a single <em>prototypical observation</em> of the group.</li>
 <li><strong>Pre-Labelling</strong>:
 Clustering may be performed as a pre-processing step for supervised learning, when labeling all the samples is impossible due to “budget” constraints, like in Example <a href="unsupervised.html#exm:spam">11.7</a>. This is sometimes known as <em>pre-clustering</em>.</li>
 </ol>
@@ -1138,8 +1162,9 @@ The gender in this example, is a <em>latent</em> variable taking <span class="ma
 
 <p>A <em>finite mixture</em> is the marginal distribution of <span class="math inline">\(K\)</span> distinct classes, when the class variable is <em>latent</em>.
 This is useful for clustering:
-We can assume the number of classes, <span class="math inline">\(K\)</span>, and the distribution of each class.
-We then use maximum likelihood to fit the mixture distribution, and finally, cluster by assigning observations to the most probable class.</p>
+If we know the distribution of the sub-populations being mixed, we may simply cluster each data point to the most likely sub-group.
+Learning how is each sub-population disctirubted, when no class labels are available is no easy task, but it is possible.
+For instance, by means of maximum likelihood.</p>
 </div>
 </div>
 <div id="purely-algorithmic-approaches-1" class="section level3">
@@ -1148,11 +1173,11 @@ We then use maximum likelihood to fit the mixture distribution, and finally, clu
 <h4><span class="header-section-number">11.2.2.1</span> K-Means</h4>
 <p>The <em>K-means</em> algorithm is possibly the most popular clustering algorithm.
 The goal behind K-means clustering is finding a representative point for each of K clusters, and assign each data point to one of these clusters.
-As each cluster has a representative point, this is also a <em>prototype method</em>.
+As each cluster has a representative point, this is also known as a <em>prototype method</em>.
 The clusters are defined so that they minimize the average Euclidean distance between all points to the center of the cluster.</p>
 <p>In K-means, the clusters are first defined, and then similarities computed.
 This is thus a <em>top-down</em> method.</p>
-<p>K-means clustering requires the raw features <span class="math inline">\(X\)</span> as inputs, and not only a similarity graph.
+<p>K-means clustering requires the raw features <span class="math inline">\(X\)</span> as inputs, and not only a similarity graph, <span class="math inline">\(\mathcal{G}\)</span>.
 This is evident when examining the algorithm below.</p>
 <p>The k-means algorithm works as follows:</p>
 <ol style="list-style-type: decimal">
@@ -1163,8 +1188,9 @@ This is evident when examining the algorithm below.</p>
 <li>Compute the cluster centers as the average of their points.</li>
 <li>Assign each point to its closest cluster center (in Euclidean distance).</li>
 </ol></li>
-<li>Return Cluster assignments and means.</li>
+<li>Return cluster assignments and means.</li>
 </ol>
+
 
 <div class="remark">
  <span class="remark"><em>Remark. </em></span> If trained as a statistician, you may wonder- what population quantity is K-means actually estimating?
@@ -1180,10 +1206,10 @@ Principal points are points which are <em>self consistent</em>, i.e., they are t
 <div id="k-medoids" class="section level4">
 <h4><span class="header-section-number">11.2.2.3</span> K-Medoids</h4>
 <p>If a Euclidean distance is inappropriate for a particular set of variables, or that robustness to corrupt observations is required, or that we wish to constrain the cluster centers to be actual observations, then the <em>K-Medoids</em> algorithm is an adaptation of K-means that allows this.
-It is also known under the name <em>partition around medoids</em> (PAM) clustering, suggesting its relation to <a href="https://en.wikipedia.org/wiki/Graph_partition">graph partitioning</a>.</p>
+It is also known under the name <em>partition around medoids</em> (PAM) clustering, suggesting _its relation to <em>graph partitioning</em>: a very important and well-studied problem in computer sciences.</p>
 <p>The k-medoids algorithm works as follows.</p>
 <ol style="list-style-type: decimal">
-<li>Given a dissimilarity graph.</li>
+<li>Given a dissimilarity graph, <span class="math inline">\(\mathcal{G}\)</span>.</li>
 <li>Choose the number of clusters <span class="math inline">\(K\)</span>.</li>
 <li>Arbitrarily assign points to clusters.</li>
 <li>While clusters keep changing:
@@ -1193,6 +1219,7 @@ It is also known under the name <em>partition around medoids</em> (PAM) clusteri
 </ol></li>
 <li>Return Cluster assignments and centers.</li>
 </ol>
+
 
 <div class="remark">
  <span class="remark"><em>Remark. </em></span> If trained as a statistician, you may wonder- what population quantity is K-medoids actually estimating?
@@ -1206,11 +1233,10 @@ See <span class="citation">Small (<a href="#ref-small1990survey">1990</a>)</span
 <h4><span class="header-section-number">11.2.2.4</span> Hirarchial Clustering</h4>
 <p>Hierarchical clustering algorithms take dissimilarity graphs as inputs.
 Hierarchical clustering is a class of greedy <em>graph-partitioning</em> algorithms.
-Being hierarchical by design, they have the attractive property that the evolution of the clustering can be presented with a <em>dendogram</em>, i.e., a tree plot.<br />
-A particular advantage of these methods is that they do not require an a-priori choice of the number of cluster (<span class="math inline">\(K\)</span>).</p>
+Being hierarchical by design, they have the attractive property that the evolution of the clustering can be presented with a <em>dendogram</em>, i.e., a tree plot. Another advantage of these methods is that they do not require an a-priori choice of the number of cluster (<span class="math inline">\(K\)</span>).</p>
 <p>Two main sub-classes of algorithms are <em>agglomerative</em>, and <em>divisive</em>.</p>
 <p><em>Agglomerative clustering</em> algorithms are <strong>bottom-up</strong> algorithm which build clusters by joining smaller clusters.
-To decide which clusters are joined at each iteration some measure of closeness between clusters is required.</p>
+To decide which clusters are joined at each iteration some measure of distance between clusters is required:</p>
 <ul>
 <li><strong>Single Linkage</strong>:
 Cluster distance is defined by the distance between the two <strong>closest</strong> members.</li>
@@ -1222,10 +1248,6 @@ Cluster distance is defined by the <strong>average</strong> distance between mem
 Like Group Average, only using the median.</li>
 </ul>
 <p><em>Divisive clustering</em> algorithms are <strong>top-down</strong> algorithm which build clusters by splitting larger clusters.</p>
-</div>
-<div id="fuzzy-clustering" class="section level4">
-<h4><span class="header-section-number">11.2.2.5</span> Fuzzy Clustering</h4>
-<p>Can be thought of as a purely algorithmic view of the finite-mixture in Section <a href="unsupervised.html#finite-mixture">11.2.1.1</a>.</p>
 </div>
 </div>
 <div id="clustering-in-r" class="section level3">
@@ -1247,33 +1269,8 @@ kmeans<span class="fl">.1</span> &lt;-<span class="st"> </span>stats<span class=
 <li>The visual inspection confirms that similar states have been assigned to the same cluster.</li>
 </ul>
 </div>
-<div id="k-means-3" class="section level4">
-<h4><span class="header-section-number">11.2.3.2</span> K-Means ++</h4>
-<p><em>K-Means++</em> is a smart initialization for K-Means.
-The following code is taken from the <a href="https://stat.ethz.ch/pipermail/r-help/2012-January/300051.html">r-help</a> mailing list.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Write my own K-means++ function.</span>
-kmpp &lt;-<span class="st"> </span><span class="cf">function</span>(X, k) {
-  
-  n &lt;-<span class="st"> </span><span class="kw">nrow</span>(X)
-  C &lt;-<span class="st"> </span><span class="kw">numeric</span>(k)
-  C[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>n, <span class="dv">1</span>)
-  
-  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>k) {
-    dm &lt;-<span class="st"> </span>pracma<span class="op">::</span><span class="kw">distmat</span>(X, X[C, ])
-    pr &lt;-<span class="st"> </span><span class="kw">apply</span>(dm, <span class="dv">1</span>, min); pr[C] &lt;-<span class="st"> </span><span class="dv">0</span>
-    C[i] &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>n, <span class="dv">1</span>, <span class="dt">prob =</span> pr)
-  }
-  
-  <span class="kw">kmeans</span>(X, X[C, ])
-}
-
-kmeans<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">kmpp</span>(USArrests<span class="fl">.1</span>, k)
-<span class="kw">head</span>(kmeans<span class="fl">.2</span><span class="op">$</span>cluster)</code></pre>
-<pre><code>##    Alabama     Alaska    Arizona   Arkansas California   Colorado 
-##          2          2          2          1          2          2</code></pre>
-</div>
 <div id="k-medoids-1" class="section level4">
-<h4><span class="header-section-number">11.2.3.3</span> K-Medoids</h4>
+<h4><span class="header-section-number">11.2.3.2</span> K-Medoids</h4>
 <p>Start by growing a distance graph with <code>dist</code> and then partition using <code>pam</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r">state.disimilarity &lt;-<span class="st"> </span><span class="kw">dist</span>(USArrests<span class="fl">.1</span>)
 kmed<span class="fl">.1</span> &lt;-<span class="st"> </span>cluster<span class="op">::</span><span class="kw">pam</span>(<span class="dt">x=</span> state.disimilarity, <span class="dt">k=</span><span class="dv">2</span>)
@@ -1293,7 +1290,7 @@ kmed<span class="fl">.1</span> &lt;-<span class="st"> </span>cluster<span class=
 </ul>
 </div>
 <div id="hirarchial-clustering-1" class="section level4">
-<h4><span class="header-section-number">11.2.3.4</span> Hirarchial Clustering</h4>
+<h4><span class="header-section-number">11.2.3.3</span> Hirarchial Clustering</h4>
 <p>We start with agglomerative clustering with single-linkage.</p>
 <pre class="sourceCode r"><code class="sourceCode r">hirar<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(state.disimilarity, <span class="dt">method=</span><span class="st">&#39;single&#39;</span>)
 <span class="kw">plot</span>(hirar<span class="fl">.1</span>, <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests<span class="fl">.1</span>), <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>)</code></pre>
@@ -1314,7 +1311,7 @@ Starting with complete linkage.</p>
 <pre class="sourceCode r"><code class="sourceCode r">hirar<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">hclust</span>(state.disimilarity, <span class="dt">method=</span><span class="st">&#39;average&#39;</span>)
 <span class="kw">plot</span>(hirar<span class="fl">.3</span>, <span class="dt">labels=</span><span class="kw">rownames</span>(USArrests<span class="fl">.1</span>), <span class="dt">ylab=</span><span class="st">&quot;Distance&quot;</span>)</code></pre>
 <p><img src="Rcourse_files/figure-html/average%20linkage-1.png" width="50%" /></p>
-<p>If we know how many clusters we want, we can use <code>cuttree</code> to get the class assignments.</p>
+<p>If we know how many clusters we want, we can use <code>stats::cuttree</code> to get the class assignments.</p>
 <pre class="sourceCode r"><code class="sourceCode r">cut.<span class="fl">2.2</span> &lt;-<span class="st"> </span><span class="kw">cutree</span>(hirar<span class="fl">.2</span>, <span class="dt">k=</span><span class="dv">2</span>)
 <span class="kw">head</span>(cut.<span class="fl">2.2</span>)</code></pre>
 <pre><code>##    Alabama     Alaska    Arizona   Arkansas California   Colorado 
@@ -1323,9 +1320,9 @@ Starting with complete linkage.</p>
 Just like the Scree Plot above, we can use a “knee heuristic”.
 Because the length of a tree’s branch is proportional to distances, long branches imply inhomogenous groups, while short branches imply homogeneous groups.
 Here is a little simulation to demonstrate this:</p>
-<pre class="sourceCode r"><code class="sourceCode r">n.groups &lt;-<span class="st"> </span><span class="dv">3</span>
-data.p &lt;-<span class="st"> </span><span class="dv">10</span>
-data.n &lt;-<span class="st"> </span><span class="dv">100</span>
+<pre class="sourceCode r"><code class="sourceCode r">n.groups &lt;-<span class="st"> </span><span class="dv">3</span> <span class="co"># set the number of groups</span>
+data.p &lt;-<span class="st"> </span><span class="dv">10</span> <span class="co"># set the dimension of the data</span>
+data.n &lt;-<span class="st"> </span><span class="dv">100</span> <span class="co"># set the number of samples</span>
 
 <span class="co"># data with no separation between groups</span>
 the.data<span class="fl">.10</span> &lt;-<span class="st"> </span>mvtnorm<span class="op">::</span><span class="kw">rmvnorm</span>(<span class="dt">n =</span> data.n, <span class="dt">mean =</span> <span class="kw">rep</span>(<span class="dv">0</span>,data.p))  
@@ -1344,9 +1341,9 @@ hirar<span class="fl">.11</span> &lt;-<span class="st"> </span><span class="kw">
 </div>
 <div id="bibliographic-notes-9" class="section level2">
 <h2><span class="header-section-number">11.3</span> Bibliographic Notes</h2>
-<p>For some theory of PCA see my <a href="https://github.com/johnros/dim_reduce/blob/master/dim_reduce.pdf">Dimensionality Reduction Class Notes</a> and references therein.
+<p>An excellent reference on multivariate analysis (exploratory and inference) is <span class="citation">Izenman (<a href="#ref-izenman2008modern">2008</a>)</span>.
+For some theory of PCA see my <a href="https://github.com/johnros/dim_reduce/blob/master/dim_reduce.pdf">Dimensionality Reduction Class Notes</a> and references therein.
 For a SUPERB, interactive, visual demonstration of dimensionality reduction, see <a href="http://colah.github.io/posts/2014-10-Visualizing-MNIST/">Christopher Olah’s</a> blog.
-An excellent reference on multivariate analysis (exploratory and inference) is <span class="citation">Izenman (<a href="#ref-izenman2008modern">2008</a>)</span>.
 For t-SNE see the creator’s site: <a href="https://lvdmaaten.github.io/tsne/">Laurens van der Maaten</a>.
 For an excellent book on kernel methods (RKHS) see <span class="citation">Shawe-Taylor and Cristianini (<a href="#ref-shawe2004kernel">2004</a>)</span>.
 For more on everything, see <span class="citation">Friedman, Hastie, and Tibshirani (<a href="#ref-friedman2001elements">2001</a>)</span>.
@@ -1417,6 +1414,7 @@ for more self practice.</p>
 <li id="fn22"><p>You are probably used to thinking of the <strong>dimension</strong> of linear spaces. We will not rigorously define what is the dimension of a manifold, but you may think of it as the number of free coordinates needed to navigate along the manifold.<a href="unsupervised.html#fnref22" class="footnote-back">↩</a></p></li>
 <li id="fn23"><p><a href="https://en.wikipedia.org/wiki/G_factor_(psychometrics)" class="uri">https://en.wikipedia.org/wiki/G_factor_(psychometrics)</a><a href="unsupervised.html#fnref23" class="footnote-back">↩</a></p></li>
 <li id="fn24"><p>Then again, it is possible that the true distances are the white matter fibers connecting going within the cortex, in which case, Euclidean distances are more appropriate than geodesic distances. We put that aside for now.<a href="unsupervised.html#fnref24" class="footnote-back">↩</a></p></li>
+<li id="fn25"><p>As such, you may wonder why clustering is part of machine learning at all? Maybe call it <em>machine-assisted human-learning</em>?<a href="unsupervised.html#fnref25" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>

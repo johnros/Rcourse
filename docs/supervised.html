@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-09-26" />
+<meta name="date" content="2019-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,12 +49,12 @@
 
 <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
 <link href="libs/sequences-0.1/sequences.css" rel="stylesheet" />
-<script src="libs/sunburst-binding-2.1.0/sunburst.js"></script>
+<script src="libs/sunburst-binding-2.1.1/sunburst.js"></script>
 <script src="libs/d3-5.7.0/d3.min.js"></script>
 <script src="libs/d3-lasso-0.0.5/d3-lasso.min.js"></script>
 <link href="libs/ggiraphjs-0.1.0/styles.css" rel="stylesheet" />
 <script src="libs/ggiraphjs-0.1.0/ggiraphjs.min.js"></script>
-<script src="libs/girafe-binding-0.6.0/girafe.js"></script>
+<script src="libs/girafe-binding-0.6.1/girafe.js"></script>
 <script src="libs/plotly-binding-4.9.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
@@ -400,12 +400,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.12" data-path="memory.html"><a href="memory.html#practice-yourself-11"><i class="fa fa-check"></i><b>15.12</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="parallel.html"><a href="parallel.html"><i class="fa fa-check"></i><b>16</b> Parallel Computing</a><ul>
-<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.1</b> Implicit Parallelism</a></li>
-<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.2</b> Explicit Parallelism</a><ul>
-<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#caution-implicit-with-explicit-parallelism"><i class="fa fa-check"></i><b>16.2.1</b> Caution: Implicit with Explicit Parallelism</a></li>
+<li class="chapter" data-level="16.1" data-path="parallel.html"><a href="parallel.html#when-and-how-to-parallelise"><i class="fa fa-check"></i><b>16.1</b> When and How to Parallelise?</a></li>
+<li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#terminology"><i class="fa fa-check"></i><b>16.2</b> Terminology</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#hardware"><i class="fa fa-check"></i><b>16.2.1</b> Hardware:</a></li>
+<li class="chapter" data-level="16.2.2" data-path="parallel.html"><a href="parallel.html#software"><i class="fa fa-check"></i><b>16.2.2</b> Software:</a></li>
+<li class="chapter" data-level="16.2.3" data-path="parallel.html"><a href="parallel.html#types-of-parallelism"><i class="fa fa-check"></i><b>16.2.3</b> Types of Parallelism</a></li>
 </ul></li>
-<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>16.3</b> Bibliographic Notes</a></li>
-<li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#practice-yourself-12"><i class="fa fa-check"></i><b>16.4</b> Practice Yourself</a></li>
+<li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#explicit-parallelism"><i class="fa fa-check"></i><b>16.3</b> Explicit Parallelism</a><ul>
+<li class="chapter" data-level="16.3.1" data-path="parallel.html"><a href="parallel.html#the-parallel-package"><i class="fa fa-check"></i><b>16.3.1</b> The parallel Package</a></li>
+<li class="chapter" data-level="16.3.2" data-path="parallel.html"><a href="parallel.html#the-foreach-package"><i class="fa fa-check"></i><b>16.3.2</b> The foreach Package</a></li>
+<li class="chapter" data-level="16.3.3" data-path="parallel.html"><a href="parallel.html#rdsm"><i class="fa fa-check"></i><b>16.3.3</b> Rdsm</a></li>
+<li class="chapter" data-level="16.3.4" data-path="parallel.html"><a href="parallel.html#pbdr"><i class="fa fa-check"></i><b>16.3.4</b> pbdR</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#implicit-parallelism"><i class="fa fa-check"></i><b>16.4</b> Implicit Parallelism</a><ul>
+<li class="chapter" data-level="16.4.1" data-path="parallel.html"><a href="parallel.html#parallel-linear-algebra"><i class="fa fa-check"></i><b>16.4.1</b> Parallel Linear Algebra</a></li>
+<li class="chapter" data-level="16.4.2" data-path="parallel.html"><a href="parallel.html#nested-parallel"><i class="fa fa-check"></i><b>16.4.2</b> Caution: Implicit with Explicit Parallelism</a></li>
+<li class="chapter" data-level="16.4.3" data-path="parallel.html"><a href="parallel.html#parallel-data-munging-with-data.table"><i class="fa fa-check"></i><b>16.4.3</b> Parallel Data Munging with data.table</a></li>
+<li class="chapter" data-level="16.4.4" data-path="parallel.html"><a href="parallel.html#parallel-learning-from-a-centralized-file-system"><i class="fa fa-check"></i><b>16.4.4</b> Parallel Learning from a Centralized File System</a></li>
+<li class="chapter" data-level="16.4.5" data-path="parallel.html"><a href="parallel.html#parallel-learning-from-a-distributed-file-system"><i class="fa fa-check"></i><b>16.4.5</b> Parallel Learning from a Distributed File System</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="parallel.html"><a href="parallel.html#bibliographic-notes-14"><i class="fa fa-check"></i><b>16.5</b> Bibliographic Notes</a></li>
+<li class="chapter" data-level="16.6" data-path="parallel.html"><a href="parallel.html#practice-yourself-12"><i class="fa fa-check"></i><b>16.6</b> Practice Yourself</a></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="algebra.html"><a href="algebra.html"><i class="fa fa-check"></i><b>17</b> Numerical Linear Algebra</a><ul>
 <li class="chapter" data-level="17.1" data-path="algebra.html"><a href="algebra.html#lu-factorization"><i class="fa fa-check"></i><b>17.1</b> LU Factorization</a></li>
@@ -781,7 +796,7 @@ errors &lt;-<span class="st"> </span><span class="ot">NULL</span>
 
 <span class="co"># Cross validated prediction error:</span>
 <span class="kw">MSE</span>(errors)</code></pre>
-<pre><code>## [1] 0.5742128</code></pre>
+<pre><code>## [1] 0.5404713</code></pre>
 <p>Let’s try all possible variable subsets, and choose the best performer with respect to the Cp criterion, which is an unbiased risk estimator.
 This is done with <code>leaps::regsubsets</code>.
 We see that the best performer has 3 predictors.</p>
@@ -961,11 +976,11 @@ logistic<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw
 (confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train<span class="op">$</span>spam))</code></pre>
 <pre><code>##           truth
 ## prediction email spam
-##      email  1778  167
-##      spam     66 1040</code></pre>
+##      email  1779  172
+##      spam     65 1035</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Train misclassification error</span>
 <span class="kw">missclassification</span>(confusion.train)</code></pre>
-<pre><code>## [1] 0.0763684</code></pre>
+<pre><code>## [1] 0.07767945</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test confusion matrix:</span>
 X.test.spam.scaled &lt;-<span class="st"> </span>X.test.spam <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sweep</span>(<span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">STATS =</span> means.spam, <span class="dt">FUN =</span> <span class="st">`</span><span class="dt">-</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">sweep</span>(<span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">STATS =</span> sds.spam, <span class="dt">FUN =</span> <span class="st">`</span><span class="dt">/</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span>as.matrix
@@ -974,11 +989,11 @@ X.test.spam.scaled &lt;-<span class="st"> </span>X.test.spam <span class="op">%&
 (confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>y.test.spam))</code></pre>
 <pre><code>##           truth
 ## prediction email spam
-##      email   885  110
-##      spam     59  496</code></pre>
+##      email   885  111
+##      spam     59  495</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test misclassification error:</span>
 <span class="kw">missclassification</span>(confusion.test)</code></pre>
-<pre><code>## [1] 0.1090323</code></pre>
+<pre><code>## [1] 0.1096774</code></pre>
 </div>
 <div id="svm" class="section level3">
 <h3><span class="header-section-number">10.2.2</span> SVM</h3>
@@ -1028,10 +1043,10 @@ nnet<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">nn
 
 <span class="co"># Train error:</span>
 <span class="kw">MSE</span>( <span class="kw">predict</span>(nnet<span class="fl">.1</span>)<span class="op">-</span><span class="st"> </span>prostate.train<span class="op">$</span>lcavol)</code></pre>
-<pre><code>## [1] 1.177099</code></pre>
+<pre><code>## [1] 1.176479</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test error:</span>
 <span class="kw">MSE</span>( <span class="kw">predict</span>(nnet<span class="fl">.1</span>, <span class="dt">newdata =</span> prostate.test)<span class="op">-</span><span class="st"> </span>prostate.test<span class="op">$</span>lcavol)</code></pre>
-<pre><code>## [1] 1.21175</code></pre>
+<pre><code>## [1] 1.489769</code></pre>
 <p>And nnet classification.</p>
 <pre class="sourceCode r"><code class="sourceCode r">nnet<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">nnet</span>(spam<span class="op">~</span>., <span class="dt">size=</span><span class="dv">5</span>, <span class="dt">data=</span>spam.train, <span class="dt">rang =</span> <span class="fl">0.1</span>, <span class="dt">decay =</span> <span class="fl">5e-4</span>, <span class="dt">maxit =</span> <span class="dv">1000</span>, <span class="dt">trace=</span><span class="ot">FALSE</span>)
 
@@ -1040,19 +1055,19 @@ nnet<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">nn
 (confusion.train &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.train, <span class="dt">truth=</span>spam.train<span class="op">$</span>spam))</code></pre>
 <pre><code>##           truth
 ## prediction email spam
-##      email  1806   59
-##      spam     38 1148</code></pre>
+##      email  1825   56
+##      spam     19 1151</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.train)</code></pre>
-<pre><code>## [1] 0.03179285</code></pre>
+<pre><code>## [1] 0.0245821</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test confusion matrix:</span>
 .predictions.test &lt;-<span class="st"> </span><span class="kw">predict</span>(nnet<span class="fl">.2</span>, <span class="dt">newdata =</span> spam.test, <span class="dt">type=</span><span class="st">&#39;class&#39;</span>) 
 (confusion.test &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="dt">prediction=</span>.predictions.test, <span class="dt">truth=</span>spam.test<span class="op">$</span>spam))</code></pre>
 <pre><code>##           truth
 ## prediction email spam
-##      email   897   64
-##      spam     47  542</code></pre>
+##      email   891   66
+##      spam     53  540</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">missclassification</span>(confusion.test)</code></pre>
-<pre><code>## [1] 0.0716129</code></pre>
+<pre><code>## [1] 0.07677419</code></pre>
 <div id="deep-neural-nets" class="section level4">
 <h4><span class="header-section-number">10.2.3.1</span> Deep Neural Nets</h4>
 <p>Deep-Neural-Networks are undoubtedly the “hottest” topic in machine-learning and artificial intelligence.
@@ -1069,13 +1084,8 @@ It is thus particularly useful when you believe that the predicted classes may c
 <h4><span class="header-section-number">10.2.4.1</span> The rpart Package</h4>
 <p>This view clarifies the name of the function <code>rpart</code>, which <em>recursively partitions</em> the feature space.</p>
 <p>We start with a regression tree.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rpart)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;rpart&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:survival&#39;:
-## 
-##     solder</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">tree<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">rpart</span>(lcavol<span class="op">~</span>., <span class="dt">data=</span>prostate.train)
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rpart)
+tree<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">rpart</span>(lcavol<span class="op">~</span>., <span class="dt">data=</span>prostate.train)
 
 <span class="co"># Train error:</span>
 <span class="kw">MSE</span>( <span class="kw">predict</span>(tree<span class="fl">.1</span>)<span class="op">-</span><span class="st"> </span>prostate.train<span class="op">$</span>lcavol)</code></pre>
@@ -1134,13 +1144,13 @@ tree<span class="fl">.3</span></code></pre>
 ## 
 ## No pre-processing
 ## Resampling: Cross-Validated (10 fold) 
-## Summary of sample sizes: 61, 60, 59, 60, 60, 61, ... 
+## Summary of sample sizes: 61, 59, 60, 60, 59, 60, ... 
 ## Resampling results across tuning parameters:
 ## 
 ##   cp          RMSE       Rsquared   MAE      
-##   0.04682924  0.9118374  0.5026786  0.7570798
-##   0.14815712  0.9899308  0.4690557  0.7972803
-##   0.44497285  1.1912870  0.3264172  1.0008574
+##   0.04682924  0.9668668  0.4461882  0.8228133
+##   0.14815712  1.0015301  0.3936400  0.8483732
+##   0.44497285  1.2100666  0.1678312  1.0055867
 ## 
 ## RMSE was used to select the optimal model using the smallest value.
 ## The final value used for the model was cp = 0.04682924.</code></pre>
@@ -1263,22 +1273,22 @@ rf<span class="fl">.1</span></code></pre>
 ## 
 ## No pre-processing
 ## Resampling: Cross-Validated (10 fold) 
-## Summary of sample sizes: 62, 59, 60, 60, 59, 61, ... 
+## Summary of sample sizes: 61, 60, 59, 61, 61, 59, ... 
 ## Resampling results across tuning parameters:
 ## 
 ##   mtry  RMSE       Rsquared   MAE      
-##   2     0.7885535  0.6520820  0.6684168
-##   5     0.7782809  0.6687843  0.6550590
-##   8     0.7894338  0.6665277  0.6626417
+##   2     0.7971605  0.6452185  0.6723825
+##   5     0.7718659  0.6603524  0.6454595
+##   8     0.7748043  0.6593911  0.6463712
 ## 
 ## RMSE was used to select the optimal model using the smallest value.
 ## The final value used for the model was mtry = 5.</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Train error:</span>
 <span class="kw">MSE</span>( <span class="kw">predict</span>(rf<span class="fl">.1</span>)<span class="op">-</span><span class="st"> </span>prostate.train<span class="op">$</span>lcavol)</code></pre>
-<pre><code>## [1] 0.1340291</code></pre>
+<pre><code>## [1] 0.139739</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Test error:</span>
 <span class="kw">MSE</span>( <span class="kw">predict</span>(rf<span class="fl">.1</span>, <span class="dt">newdata =</span> prostate.test)<span class="op">-</span><span class="st"> </span>prostate.test<span class="op">$</span>lcavol)</code></pre>
-<pre><code>## [1] 0.5147782</code></pre>
+<pre><code>## [1] 0.5341458</code></pre>
 <p>Some of the many many many packages that learn random-forests include: <a href="https://cran.r-project.org/package=randomForest">randomForest</a>, <a href="https://cran.r-project.org/package=ranger">ranger</a>.</p>
 </div>
 <div id="boosting" class="section level3">
