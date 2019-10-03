@@ -364,7 +364,8 @@ We now recall it to emphasize that various operations in `data.table` are done i
 For instance, imports.
 First, we check how many threads `data.table` is setup to use?
 ```{r}
-data.table::getDTthreads(verbose=TRUE) 
+library(data.table)
+getDTthreads(verbose=TRUE) 
 ```
 
 We then do the import and inspect CPU usage with the _top_ linux command.
@@ -378,24 +379,49 @@ air <- fread('data/2010_BSA_Carrier_PUF.csv')
 
 ```{remark}
 An amazing feature of `data.table` is that it will not parallelize when called from a forked process. 
-This behaviour will avoid the nested parallelism we cautioned from in @\ref(nested-parallel).
+This behaviour will avoid the nested parallelism we cautioned from in \@ref(nested-parallel).
 ```
 
 Now let's compare parallelised aggregations:
 ```{r}
-system.time(flight.DT[,.(distance=mean(distance),delay=mean(arr_delay),count=.N),by=tailnum][count>20 & distance<2000 & !is.na(delay)])
+n <-  5e6
+N <- n
+k <-  1e4
 
-setDTthreads(1)
+setDTthreads(threads = 0) # use all available cores
+getDTthreads() # print available threads
 
-system.time(flight.DT[,.(distance=mean(distance),delay=mean(arr_delay),count=.N),by=tailnum][count>20 & distance<2000 & !is.na(delay)])
+DT <-  data.table(x = rep_len(runif(n), N),
+                y = rep_len(runif(n), N),
+                grp = rep_len(sample(1:k, n, TRUE), N))
+
+system.time(DT[, .(a = 1L), by = "grp"])
+
+setDTthreads(threads = 1) # use a single thread
+
+system.time(DT[, .(a = 1L), by = "grp"])
 ```
 
+Things to note:
+
+- Parallel aggregation is indeed much faster. 
+- This example was cooked to emphasize the difference. You may not enjoy such speedups in all problems. 
 
 
 ### Parallel Learning from a Centralized File System
 
+Machine learning is different than data munging. 
+Most machine learning problems are actually optimization problems, that are harder to parallelise than _JOIN_, or _COUNT_ operations.
+It is not recommended that you explicitely parallelise your learning algorithms. 
+Luckily, many packages do that for you.
+
+TODO: demonstrate package. 
+
 
 ### Parallel Learning from a Distributed File System
+
+
+
 
 
 #### Spark
@@ -424,6 +450,62 @@ Again- if data fits in RAM, you cannot beat `data.table`.
 
 
 
+#### H2O {#h2o}
+
+The learning library in _Spark_ is called _Spark MLlib_.
+It has many popular learing algorithms, and keeps updating.
+One (of many) extension to _Spark_ is H2O, which replaces _Spark MLlib_, with many more learning algorithms.
+H2O can be thought of as a library of efficient distributed learning algorithm, that run in-memory, where memory considerations and parallelisation have been taken care of for you. 
+For a (massive) list of learning algorithms implemented in H2O, see [their documentaion](http://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science.html#).
+H2O can run as a standalone server, or on top of Spark, so that it may use the _Spark data frames_. This is the purpose of _Sparkling Water_ discussed in \@ref(sparkling).
+We start with working on H2O directly with the `h2o` package. 
+
+```{r}
+#install.packages("h2o") 
+library(datasets)
+suppressPackageStartupMessages(library(h2o))
+
+h2o.init(nthreads=2) 
+data(iris)
+
+iris.hex <- as.h2o(iris) # load to the H2O server
+h2o.ls() # check avaialbe data in the server
+h2o.describe(iris.hex) # the H2O version of summary()
+h2o.hist(iris.hex$Sepal.Length)
+
+# Split to train and test
+splits <- h2o.splitFrame(data = iris.hex, ratios = c(0.8))
+train <- splits[[1]]
+test <- splits[[2]]
+
+# Fit a random forest
+rf <- h2o.randomForest(
+  x = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"),
+  y = c("Species"),
+  training_frame = train,
+  model_id = "our.rf",
+  seed = 1234)
+
+# Predict on test set
+predictions <- h2o.predict(rf, test)
+```
+
+
+Things to note:
+
+- We did not install the H2O server; `install.packages("h2o")` did it for us. 
+- `h2o.init` fires the H2O server. Use `nthreads` to manually control the number of threads, or use the defaults.
+- H2O objects behave a lot like data.frame/tables.
+
+
+
+#### Sparkling-Water {#sparkling}
+
+The _h2o_ package (\@ref(h2o)) works with `H2OFrame` class objects. 
+If your data is stored in Spark, it may be more natural to work with  _Spark DataFrames_ instead of `H2OFrame`s.
+This is exactly the purpose of the [Sparkling-Water](https://www.h2o.ai/products/h2o-sparkling-water/) system. 
+R users can connect to it using the [RSparkling](http://docs.h2o.ai/sparkling-water/2.2/latest-stable/doc/rsparkling.html) package, written and maintained by H2O. 
+
 
 
 
@@ -437,6 +519,9 @@ For a blog-level introduction see [ParallelR
 ](http://www.parallelr.com/r-with-parallel-computing/).
 For an up-to-date list of packages supporting parallel programming see the High Performance Computing [R task view](https://cran.r-project.org/web/views/HighPerformanceComputing.html).
 To understand how computers work in general, see @bryant2015computer.
+For some theory of distributed machine learning, see @rosenblatt2016optimality.
+An excellent video explaining `data.table` and H2O, by the author of `data.table, is [this](https://www.youtube.com/watch?v=5X7h1rZGVs0).
+More benchmarks in [here](https://h2oai.github.io/db-benchmark/).
 
 ## Practice Yourself
 

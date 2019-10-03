@@ -811,7 +811,8 @@ In other cases, you should consult an expert.</p>
 We now recall it to emphasize that various operations in <code>data.table</code> are done in parallel.
 For instance, imports.
 First, we check how many threads <code>data.table</code> is setup to use?</p>
-<pre class="sourceCode r"><code class="sourceCode r">data.table<span class="op">::</span><span class="kw">getDTthreads</span>(<span class="dt">verbose=</span><span class="ot">TRUE</span>) </code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)
+<span class="kw">getDTthreads</span>(<span class="dt">verbose=</span><span class="ot">TRUE</span>) </code></pre>
 <pre><code>## omp_get_num_procs()==8
 ## R_DATATABLE_NUM_PROCS_PERCENT==&quot;&quot; (default 50)
 ## R_DATATABLE_NUM_THREADS==&quot;&quot;
@@ -819,9 +820,9 @@ First, we check how many threads <code>data.table</code> is setup to use?</p>
 ## omp_get_max_threads()==1
 ## OMP_THREAD_LIMIT==&quot;&quot;
 ## OMP_NUM_THREADS==&quot;&quot;
-## data.table is using 4 threads. This is set on startup, and by setDTthreads(). See ?setDTthreads.
+## data.table is using 1 threads. This is set on startup, and by setDTthreads(). See ?setDTthreads.
 ## RestoreAfterFork==true</code></pre>
-<pre><code>## [1] 4</code></pre>
+<pre><code>## [1] 1</code></pre>
 <p>We then do the import and inspect CPU usage with the <em>top</em> linux command.</p>
 <pre class="sourceCode r"><code class="sourceCode r">air &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st">&#39;data/2010_BSA_Carrier_PUF.csv&#39;</span>)</code></pre>
 <div class="figure">
@@ -835,17 +836,38 @@ This behaviour will avoid the nested parallelism we cautioned from in @(nested-p
 </div>
 
 <p>Now let’s compare parallelised aggregations:</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(flight.DT[,.(<span class="dt">distance=</span><span class="kw">mean</span>(distance),<span class="dt">delay=</span><span class="kw">mean</span>(arr_delay),<span class="dt">count=</span>.N),<span class="dt">by=</span>tailnum][count<span class="op">&gt;</span><span class="dv">20</span> <span class="op">&amp;</span><span class="st"> </span>distance<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(delay)])</code></pre>
-<pre><code>##    user  system elapsed 
-##   0.059   0.000   0.034</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setDTthreads</span>(<span class="dv">1</span>)
+<pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st">  </span><span class="fl">5e6</span>
+N &lt;-<span class="st"> </span>n
+k &lt;-<span class="st">  </span><span class="fl">1e4</span>
 
-<span class="kw">system.time</span>(flight.DT[,.(<span class="dt">distance=</span><span class="kw">mean</span>(distance),<span class="dt">delay=</span><span class="kw">mean</span>(arr_delay),<span class="dt">count=</span>.N),<span class="dt">by=</span>tailnum][count<span class="op">&gt;</span><span class="dv">20</span> <span class="op">&amp;</span><span class="st"> </span>distance<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(delay)])</code></pre>
+<span class="kw">setDTthreads</span>(<span class="dt">threads =</span> <span class="dv">0</span>) <span class="co"># use all available cores</span>
+<span class="kw">getDTthreads</span>() <span class="co"># print available threads</span></code></pre>
+<pre><code>## [1] 8</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">DT &lt;-<span class="st">  </span><span class="kw">data.table</span>(<span class="dt">x =</span> <span class="kw">rep_len</span>(<span class="kw">runif</span>(n), N),
+                <span class="dt">y =</span> <span class="kw">rep_len</span>(<span class="kw">runif</span>(n), N),
+                <span class="dt">grp =</span> <span class="kw">rep_len</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span>k, n, <span class="ot">TRUE</span>), N))
+
+<span class="kw">system.time</span>(DT[, .(<span class="dt">a =</span> 1L), <span class="dt">by =</span> <span class="st">&quot;grp&quot;</span>])</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.047   0.000   0.047</code></pre>
+##   0.426   0.027   0.109</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setDTthreads</span>(<span class="dt">threads =</span> <span class="dv">1</span>) <span class="co"># use a single thread</span>
+
+<span class="kw">system.time</span>(DT[, .(<span class="dt">a =</span> 1L), <span class="dt">by =</span> <span class="st">&quot;grp&quot;</span>])</code></pre>
+<pre><code>##    user  system elapsed 
+##   0.182   0.003   0.185</code></pre>
+<p>Things to note:</p>
+<ul>
+<li>Parallel aggregation is indeed much faster.</li>
+<li>This example was cooked to emphasize the difference. You may not enjoy such speedups in all problems.</li>
+</ul>
 </div>
 <div id="parallel-learning-from-a-centralized-file-system" class="section level3">
 <h3><span class="header-section-number">16.4.4</span> Parallel Learning from a Centralized File System</h3>
+<p>Machine learning is different than data munging.
+Most machine learning problems are actually optimization problems, that are harder to parallelise than <em>JOIN</em>, or <em>COUNT</em> operations.
+It is not recommended that you explicitely parallelise your learning algorithms.
+Luckily, many packages do that for you.</p>
+<p>TODO: demonstrate package.</p>
 </div>
 <div id="parallel-learning-from-a-distributed-file-system" class="section level3">
 <h3><span class="header-section-number">16.4.5</span> Parallel Learning from a Distributed File System</h3>
@@ -874,6 +896,114 @@ flight.DT &lt;-<span class="st"> </span><span class="kw">data.table</span>(fligh
 ##   0.049   0.000   0.049</code></pre>
 <p>Again- if data fits in RAM, you cannot beat <code>data.table</code>.</p>
 </div>
+<div id="h2o" class="section level4">
+<h4><span class="header-section-number">16.4.5.2</span> H2O</h4>
+<p>Like <em>Spark</em>, H2O is not part of R, but a backend server, which R can connect too.
+Like <em>Spark</em>, H2O can be thought of as a library of efficient distributed learning algorithm, that run in-memory, where memory considerations and parallelisation have been taken care of for you.
+For a (massive) list of learning algorithms implemented in H2O, see <a href="http://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science.html#">their documentaion</a>.
+H2O may seemingly be a better version of <em>Spark</em>, but this is not quite true.
+They can complement eachother: H2O can connect to <em>Spark</em>, to speedup some of its computations.
+This is the purpose of <em>Sparkling Water</em> discussed in @(sparkling).
+We start with working on H2O directly.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#install.packages(&quot;h2o&quot;) </span>
+<span class="kw">library</span>(datasets)
+<span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(h2o))
+
+<span class="kw">h2o.init</span>(<span class="dt">nthreads=</span><span class="dv">2</span>) </code></pre>
+<pre><code>##  Connection successful!
+## 
+## R is connected to the H2O cluster: 
+##     H2O cluster uptime:         26 minutes 6 seconds 
+##     H2O cluster timezone:       Etc/UTC 
+##     H2O data parsing timezone:  UTC 
+##     H2O cluster version:        3.26.0.2 
+##     H2O cluster version age:    2 months and 6 days  
+##     H2O cluster name:           H2O_started_from_R_rstudio_fdg572 
+##     H2O cluster total nodes:    1 
+##     H2O cluster total memory:   3.41 GB 
+##     H2O cluster total cores:    8 
+##     H2O cluster allowed cores:  8 
+##     H2O cluster healthy:        TRUE 
+##     H2O Connection ip:          localhost 
+##     H2O Connection port:        54321 
+##     H2O Connection proxy:       NA 
+##     H2O Internal Security:      FALSE 
+##     H2O API Extensions:         Amazon S3, XGBoost, Algos, AutoML, Core V3, Core V4 
+##     R Version:                  R version 3.6.1 (2019-07-05)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(iris)
+
+iris.hex &lt;-<span class="st"> </span><span class="kw">as.h2o</span>(iris) <span class="co"># load to the H2O server</span></code></pre>
+<pre><code>## 
+  |                                                                       
+  |                                                                 |   0%
+  |                                                                       
+  |=================================================================| 100%</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">h2o.ls</span>() <span class="co"># check avaialbe data in the server</span></code></pre>
+<pre><code>##                                                                                key
+## 1                                                                 RTMP_sid_af57_12
+## 2                                                                 RTMP_sid_af57_14
+## 3                                                                  iris_sid_a644_1
+## 4                                                                  iris_sid_af57_8
+## 5                                                                 iris_sid_b0ed_15
+## 6 modelmetrics_our.rf@-4546232715385845070_on_RTMP_sid_af57_12@3922634038303041221
+## 7                                                                           our.rf
+## 8                                       predictions_9a54_our.rf_on_RTMP_sid_a644_7
+## 9                                      predictions_b5ca_our.rf_on_RTMP_sid_af57_14</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">h2o.describe</span>(iris.hex) <span class="co"># the H2O version of summary()</span></code></pre>
+<pre><code>##          Label Type Missing Zeros PosInf NegInf Min Max     Mean     Sigma
+## 1 Sepal.Length real       0     0      0      0 4.3 7.9 5.843333 0.8280661
+## 2  Sepal.Width real       0     0      0      0 2.0 4.4 3.057333 0.4358663
+## 3 Petal.Length real       0     0      0      0 1.0 6.9 3.758000 1.7652982
+## 4  Petal.Width real       0     0      0      0 0.1 2.5 1.199333 0.7622377
+## 5      Species enum       0    50      0      0 0.0 2.0       NA        NA
+##   Cardinality
+## 1          NA
+## 2          NA
+## 3          NA
+## 4          NA
+## 5           3</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">h2o.hist</span>(iris.hex<span class="op">$</span>Sepal.Length)</code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-366-1.png" width="50%" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Split to train and test</span>
+splits &lt;-<span class="st"> </span><span class="kw">h2o.splitFrame</span>(<span class="dt">data =</span> iris.hex, <span class="dt">ratios =</span> <span class="kw">c</span>(<span class="fl">0.8</span>))
+train &lt;-<span class="st"> </span>splits[[<span class="dv">1</span>]]
+test &lt;-<span class="st"> </span>splits[[<span class="dv">2</span>]]
+
+<span class="co"># Fit a random forest</span>
+rf &lt;-<span class="st"> </span><span class="kw">h2o.randomForest</span>(
+  <span class="dt">x =</span> <span class="kw">c</span>(<span class="st">&quot;Sepal.Length&quot;</span>, <span class="st">&quot;Sepal.Width&quot;</span>, <span class="st">&quot;Petal.Length&quot;</span>, <span class="st">&quot;Petal.Width&quot;</span>),
+  <span class="dt">y =</span> <span class="kw">c</span>(<span class="st">&quot;Species&quot;</span>),
+  <span class="dt">training_frame =</span> train,
+  <span class="dt">model_id =</span> <span class="st">&quot;our.rf&quot;</span>,
+  <span class="dt">seed =</span> <span class="dv">1234</span>)</code></pre>
+<pre><code>## 
+  |                                                                       
+  |                                                                 |   0%
+  |                                                                       
+  |===================================                              |  54%
+  |                                                                       
+  |=================================================================| 100%</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Predict on test set</span>
+predictions &lt;-<span class="st"> </span><span class="kw">h2o.predict</span>(rf, test)</code></pre>
+<pre><code>## 
+  |                                                                       
+  |                                                                 |   0%
+  |                                                                       
+  |=================================================================| 100%</code></pre>
+<p>Things to note:</p>
+<ul>
+<li>We did not install the H2O server; <code>install.packages(&quot;h2o&quot;)</code> did it for us.</li>
+<li><code>h2o.init</code> fires the H2O server. Use <code>nthreads</code> to manually control the number of threads, or use the defaults.</li>
+<li>H2O objects behave a lot like data.frame/tables.</li>
+</ul>
+</div>
+<div id="sparkling" class="section level4">
+<h4><span class="header-section-number">16.4.5.3</span> Sparkling-Water</h4>
+<p>The <em>h2o</em> package (@(h2o)) works with <code>H2OFrame</code> class objects.
+If your data is stored in Spark, it may be more natural to work with <em>Spark DataFrames</em> instead of <code>H2OFrame</code>s.
+This is exactly the purpose of the <a href="https://www.h2o.ai/products/h2o-sparkling-water/">Sparkling-Water</a> system.
+R users can connect to it using the <a href="http://docs.h2o.ai/sparkling-water/2.2/latest-stable/doc/rsparkling.html">RSparkling</a> package, written and maintained by H2O.</p>
+</div>
 </div>
 </div>
 <div id="bibliographic-notes-14" class="section level2">
@@ -882,7 +1012,10 @@ flight.DT &lt;-<span class="st"> </span><span class="kw">data.table</span>(fligh
 For a full review see <span class="citation">Chapple et al. (<a href="#ref-chapple2016mastering">2016</a>)</span>.
 For a blog-level introduction see <a href="http://www.parallelr.com/r-with-parallel-computing/">ParallelR</a>.
 For an up-to-date list of packages supporting parallel programming see the High Performance Computing <a href="https://cran.r-project.org/web/views/HighPerformanceComputing.html">R task view</a>.
-To understand how computers work in general, see <span class="citation">Bryant and O’Hallaron (<a href="#ref-bryant2015computer">2015</a>)</span>.</p>
+To understand how computers work in general, see <span class="citation">Bryant and O’Hallaron (<a href="#ref-bryant2015computer">2015</a>)</span>.
+For some theory of distributed machine learning, see <span class="citation">J. D. Rosenblatt and Nadler (<a href="#ref-rosenblatt2016optimality">2016</a>)</span>.
+An excellent video explaining <code>data.table</code> and H2O, by the author of `data.table, is <a href="https://www.youtube.com/watch?v=5X7h1rZGVs0">this</a>.
+More benchmarks in <a href="https://h2oai.github.io/db-benchmark/">here</a>.</p>
 </div>
 <div id="practice-yourself-12" class="section level2">
 <h2><span class="header-section-number">16.6</span> Practice Yourself</h2>
@@ -903,6 +1036,9 @@ To understand how computers work in general, see <span class="citation">Bryant a
 </div>
 <div id="ref-kane2013scalable">
 <p>Kane, Michael J, John Emerson, Stephen Weston, and others. 2013. “Scalable Strategies for Computing with Massive Data.” <em>Journal of Statistical Software</em> 55 (14): 1–19.</p>
+</div>
+<div id="ref-rosenblatt2016optimality">
+<p>Rosenblatt, Jonathan D, and Boaz Nadler. 2016. “On the Optimality of Averaging in Distributed Statistical Learning.” <em>Information and Inference: A Journal of the IMA</em> 5 (4). Oxford University Press: 379–404.</p>
 </div>
 <div id="ref-schmidberger2009state">
 <p>Schmidberger, Markus, Martin Morgan, Dirk Eddelbuettel, Hao Yu, Luke Tierney, and Ulrich Mansmann. 2009. “State of the Art in Parallel Computing with R.” <em>Journal of Statistical Software</em> 47 (1).</p>
