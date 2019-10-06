@@ -3,11 +3,13 @@
 
 sudo docker run --rm \
 -p 8787:8787 \
+-p 4040:4040 \
 -v ~/workspace:/home/rstudio/workspace \
 -v ~/.ssh:/home/rstudio/.ssh \
+-v ~/spark:/home/rstudio/spark \
 -v ~/.gitconfig:/home/rstudio/.gitconfig \
 -e PASSWORD=tetris \
-rocker/verse:3.6.1
+rocker/verse
 
 
 

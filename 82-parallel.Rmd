@@ -9,24 +9,26 @@ You would think that because you have an expensive multicore computer your compu
 Well, no; unless you actively make sure of that. 
 By default, no matter how many cores you have, the operating system will allocate each R session to a single core. 
 
+You may wonder: why can't I just write code, and let R (or any other language) figure out what can be parallelised. 
+Well, that's not how things work.
+It is very hard to design software that can parallelise any algorithm, while adapting to your hardware, operating system, and other the software running on your device. 
+A lot of parallelisation still has to be explicit, but stay tuned for technologies like [Ray](https://rise.cs.berkeley.edu/projects/ray/), [Apache Spark](https://spark.apache.org), [Apache Flink](https://flink.apache.org), [Chapel](https://chapel-lang.org), [PyTorch](https://pytorch.org), and others, which are making great advances in handling parallelism for you. 
+
 To parallelise computations, we need to distinguish between two types of parallelism:
 
-1. __Explicit parallelism__: where the user handles the parallelisation. 
-1. __Implicit parallelism__: where the parallelisation is abstracted away from the user.
+1. __Parallel R__: where the parallelism is managed with R.
+1. __Parallel Extensions__: where R calls specialized libraries/routines/software that manage the parallelism themselves. 
 
-Clearly, implicit parallelism is more desirable.
-It is, however, very hard to design software that can parallelise any algorithm, while adapting to your hardware, operating system, and other the software running on your device. 
-A lot of parallelisation still has to be explicit, but stay tuned for technologies like [Ray](https://rise.cs.berkeley.edu/projects/ray/), [Apache Spark](https://spark.apache.org), [Apache Flink](https://flink.apache.org), [Chapel](https://chapel-lang.org), [PyTorch](https://pytorch.org), and others, which are making great advances in handling parallelism for you. 
-Before we can understand what those do, we start with explicit parallelism. 
 
 
 ## When and How to Parallelise?
 
 Your computations are too slow.
+Why is this?
 Should you store your data differently? 
+Should you use different software?
 Should you buy more RAM?
-Should you parallelise locally? 
-Should you go cloud?
+Should you "go cloud"?
 
 Unlike what some vendors will make you think, there is no one-size-fits-all solution to speed problems. 
 Solving a RAM bottleneck may consume more CPU. 
@@ -49,7 +51,7 @@ Here are a few pointers:
 
 In the best possible scenario, the number of operations you can perform scales with the number of processors: $$time * processors = operations$$. 
 This is called _perfect scaling_. 
-It is rarely observed in practice, since parallelizing incurs some computational overhead: setting up environments, copying memory, ...
+It is rarely observed in practice, since parallelising incurs some computational overhead: setting up environments, copying memory, ...
 For this reason, the typical speedup is sub-linear. 
 Computer scientists call this [Amdahl's law](https://en.wikipedia.org/wiki/Amdahl%27s_law).
 
@@ -76,18 +78,15 @@ Here are some terms we will be needing.
 
 ### Types of Parallelism
 
-- __Data Parallel:__ When performing differest tasks on the same data. 
+- __Data Parallel:__ When performing different tasks on the same data. 
 - __Task Parallel:__ When performing the same task, on different data. 
 
-Flynn's Taxonomy:
 
-
-
-## Explicit Parallelism
+## Parallel R
 
 R provides many frameworks for explicit parallelism.
 Any such framework will include the means for starting R (salve/worker) sessions, and the means for communicating between these sessions. 
-Except for developpers, a typical user will probably be using some high-level R package which will abstract away these stages. 
+Except for developers, a typical user will probably be using some high-level R package which will abstract away these stages. 
 A communication protocol because different R sessions will be communication one with the other. An abstraction layer because providing the user will all the features and generality of the communication layer is needlessly cumbersome.
 
 Starting new R processes, a.k.a. slaves:
@@ -118,8 +117,8 @@ For more on inter-process communication, see [Wiki](https://en.wikipedia.org/wik
 
 The __parallel__ package, maintained by the R-core team, was introduced in 2011 to unify two popular parallisation packages: __snow__ and __multicore__.
 The __multicore__ package was designed to parallelise using the _fork_ mechanism, on Linux machines. 
-The __snow__ package was designed to parallise using the _spawn_ echanism, on all operating systems. 
-Servers/R-sessions started with __snow__ will not see the parent's data, which will have to be copied to sapwned sessions. 
+The __snow__ package was designed to parallelise using the _spawn_ mechanism, on all operating systems. 
+Servers/R-sessions started with __snow__ will not see the parent's data, which will have to be copied to spawned sessions. 
 At least there is less data redundancy. 
 Spawning, unlike forking, can be done on remote machines, which communicate using MPI.
 
@@ -133,7 +132,7 @@ TOOD: add example.
 For reasons detailed in @kane2013scalable, we recommend the __foreach__ parallelisation package [@foreach]. 
 It allows us to: 
 
-1. Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can later switch between paralliseation mechanisms. 
+1. Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can later switch between parallelisation mechanisms. 
 Currently supported mechanisms include:
 
     - _fork_: Called with the _doMC_ backend. 
@@ -305,56 +304,47 @@ If you can store your data in RAM, `data.table` is still the fastest.
 
 
 ### Rdsm
-
+TODO
 
 
 ### pbdR
-Not on a single machine. 
-https://pbdr.org
-
-The pbdMPI package provides S4 classes to directly interface MPI in order to support the Single Program/Multiple Data (SPMD) parallel programming style which is particularly useful for batch parallel execution. The pbdSLAP builds on this and uses scalable linear algebra packages (namely BLACS, PBLAS, and ScaLAPACK) in double precision based on ScaLAPACK version 2.0.2. The pbdBASE builds on these and provides the core classes and methods for distributed data types upon which the pbdDMAT builds to provide distributed dense matrices for "Programming with Big Data". The pbdNCDF4 package permits multiple processes to write to the same file (without manual synchronization) and supports terabyte-sized files. The pbdDEMO package provides examples for these packages, and a detailed vignette. The pbdPROF package profiles MPI communication SPMD code via MPI profiling libraries, such as fpmpi, mpiP, or TAU.
+TODO
 
 
 
 
 
 
-## Implicit Parallelism
+## Parallel Extensions
+
+As we have seen, R can be used to write explicit parallel algorithms. 
+Some algorithms, however, are so basic that others have already written and published their parallel versions. 
+We call these _parallel extensions_.
+Linear algebra, and various machine learning algorithms are examples we now discuss.
+
 
 ### Parallel Linear Algebra
 
-- You can enjoy parallel linear algebra by replacing the linear algebra libraries with BLAS and LAPACK as described [here](https://www.r-bloggers.com/faster-r-through-better-blas/).
-- You should read the "Parallel computing: Implicit parallelism" section in the excellent [High Performance Computing](https://cran.r-project.org/web/views/HighPerformanceComputing.html) task view, for the latest developments in implicit parallelism.
+R ships with its own linear algebra algorithms, known as Basic Linear Algebra Subprograms: [BLAS](http://www.netlib.org/blas/).
+To learn the history of linear algebra in R, read @maechler20062nd. 
+For more details, see our Bibliographic notes. 
+As a user, you may actually replace the underlying linear algebra libraries in R. 
+There are actually many linear algebra libraries [out there](https://en.wikipedia.org/wiki/Comparison_of_linear_algebra_libraries).
+Cutting edge linear algebra libraries such as [OpenBLAS](https://github.com/xianyi/OpenBLAS), [Plasma](https://bitbucket.org/icl/plasma/src/default/), and Intel's [MKL](https://software.intel.com/en-us/mkl) for Intel processors (which you are probably using), will parallelise basic linear algebra operations for you. 
+This is very useful, since: (a) all machines today have multiple cores and (b) linear algebra is at the heart of all statistics and machine learning. 
+
+Installing these libraries requires some knowldge in system administration.
+It is quite simple under Ubuntu and Debian linux, and may be more comlicated otherwise. 
+Installing these is outside the scope of this text. 
+We will thus content ourselves with the following pointers:
+
+- Users can easily replace the BLAS libraries shipped with R, with other libraries. OpenBLAS, and MKL. These libraries will parallelise linear algebra for you.
+-This is easier to do under Ubuntu and Debian Linux, but possible in all systems. 
+- For specific tasks, such as machine learning, you may not need an all-pupose paralle linear algebra library. If you want machine learning in parallel, there are more specialized libraries. In the followig, we demonstrate Spark (\@ref(spark)), and H2O (\@(h2o)).
 
 
 
 
-```{r}
-n <- 4*1024
-A <- matrix( rnorm(n*n), ncol=n, nrow=n )
-B <- matrix( rnorm(n*n), ncol=n, nrow=n )
-C <- A %*% B
-```
-
-![top at 657\% CPU!](art/Screenshot from 2019-09-28 20-25-48.png)
-
-
-In my system I have installed [OpenBLAS](https://en.wikipedia.org/wiki/OpenBLAS):
-```{r}
-extSoftVersion()["BLAS"]
-```
-
-
-
-
-### Caution: Implicit with Explicit Parallelism {#nested-parallel}
-
-A common problem when parallelising is that the machines you invoked with __explicit__ parallelism, invoke other machines using __implicit__ parallelism. 
-You then lose control of the number of machine being invoked, and the operating system spends most of its time managing resources, instead of doing your computations. 
-
-Modern linear algebra libraries may try to implicitly parallelise vector and matrix operations.
-To avoid this type of implicit parallelism within an explicit parallelisation, use the [RhpcBLASctl package](), and in particular  _evaRhpcBLASctl::blas_set_num_threads()_.
-In other cases, you should consult an expert. 
 
 
 ### Parallel Data Munging with data.table
@@ -414,11 +404,11 @@ Things to note:
 ### Spark
 
 Spark is the brainchild of Matei Zaharia, in 2009, as part of his PhD studies at University of California, Berkeley 's AMPLab. 
-To understand _Spark_ need some backgroud.
+To understand _Spark_ need some background.
 The software that manages files on your disk is the [file system](https://en.wikipedia.org/wiki/File_system).
-On personal computers, you may have have seens names like FAT32, NTFS, ext3, or others. 
+On personal computers, you may have seen names like FAT32, NTFS, ext3, or others. 
 Those are disk file systems. 
-If your data is too big to be stored on a single disk, you may distibute it on several machines. 
+If your data is too big to be stored on a single disk, you may distribute it on several machines. 
 When doing so, you will need a file systems that is designed for distributed clusters. 
 A good [cluster file system](https://en.wikipedia.org/wiki/Clustered_file_system), is crucial for the performance of your cluster. 
 Google's file system, the [Google File](https://en.wikipedia.org/wiki/File_system), is part of Google power. 
@@ -428,51 +418,82 @@ The Hadoop File System, [HDFS](https://en.wikipedia.org/wiki/Apache_Hadoop), tha
 With the HDFS you can store files in a cluster, but for doing statistics with the data in these files, you need software that is compatible with the file system.
 Hadoop is such a software, but it was not designed for machine learning. 
 Hadoop operates from the disk.
-Learning, which consistes of a lot iteratire algorithms run, requires fast and repeated data reads. 
+Learning, which consists of a lot iterative algorithms run, requires fast and repeated data reads. 
 This is the purpose of Spark.
-Spark is a data oriented computing environemnt over distributed file systems. 
-While origianlyl linked to HDFS, it may run over many other distributed file systems, but also locally, as we now demonstrate. 
+Spark is a data oriented computing environment over distributed file systems. 
+While originality linked to HDFS, it may run over many other distributed file systems, but also locally, as we now demonstrate. 
 
 
+```{r, echo=FALSE}
+library(sparklyr)
+spark_install(version = "2.4.0") # will download Spark on first run. 
+sc <- spark_connect(master = "local")
+```
+
+Things to note:
+
+- `spark_install` will download and install _Spark_ on your first run. Make sure to update the version number, as this text may be outdated by the time you read it. 
+- I used the _sparklyr_ package from RStudio. There is an alternative package from Apache: _SparkR_. 
+- `spark_connect` opens a connection to the Spark server.  When working in a cluster, with many machines, the `master=` argumnt infrorms R which machine is the master, a.k.a. the "driver node". 
+- After running `spark_connect`, the connection to the Sprak server will appear in RStudio's [Connection pane](https://support.rstudio.com/hc/en-us/articles/115010915687-Using-RStudio-Connections).
+
+Let's load and aggregate some data:
 
 ```{r}
-# Spark performance
-library(sparklyr)
-spark_install(version = "2.1.0") # will download Spark on first run. 
-library(dplyr)
-sc <- spark_connect(master = "local")
 library(nycflights13)
 flights_tbl<- copy_to(dest=sc, df=flights, name='flights', overwrite = TRUE)
 class(flights_tbl)
+library(dplyr) 
 system.time(delay<-flights_tbl %>% 
               group_by(tailnum) %>%
-              summarise(count=n(),dist=mean(distance),delay=mean(arr_delay)) %>%
-              filter(count>20, dist<2000, !is.na(delay)) %>% collect())
+              summarise(
+                count=n(),dist=mean(distance),delay=mean(arr_delay)) %>%
+              filter(count>20, dist<2000, !is.na(delay)) %>% 
+              collect())
+delay
+```
+
+Things to note:
+
+- `copy_to` exports from R to Sprak. Typically, my data will already be waiting in Sprak, since the whole motivation is that it does not fit on y disk.
+- Notice the `collect` command at the end. As the name suggests, this will collect results from the various worker/slave machines.
+- I have used the _dplyr_ syntax and not my favorite _data.table_ syntax. This is because _sparklyr_ currently supports the _splyr_ syntax, or plain SQL with the _DBI_ package. 
 
 
-# Datatable performance
+
+To make the most of it, you will porbably be running Spark on some cluster.
+You should thus consult your cluster's documentation in order to connect to it. 
+In our particular case, the data is not very big so it fits into RAM.
+We can thus compare performance to `data.table`, only to re-discover, than if data fits in RAM, there is no beating `data.table`.
+
+
+```{r}
 library(data.table)
 flight.DT <- data.table(flights)
 system.time(flight.DT[,.(distance=mean(distance),delay=mean(arr_delay),count=.N),by=tailnum][count>20 & distance<2000 & !is.na(delay)])
 ```
 
-Things to note:
 
-- If data fits in RAM, you cannot beat `data.table`. But when your data gets too large to fit on disk, Spark is an excellent option. 
-- `spark_install` will download and install _Spark_ on your first run. Make sure to update the version number, as this text may be outdated by the time you read it. 
-- I used the _sparklyr_ package from RStudio. There is an alternative package from Apache: _SparkR_. 
-- `spark_connect` opens a connection to the Spark server.  
-- `copy_to` exports from R to Sprak. Typically, my data will already be waiting in Sprak, since the whole motivation is that it does not fit on y disk.
-- When you have data in a connected Spark server, you can manage it using RStudio's [Connection pane](https://support.rstudio.com/hc/en-us/articles/115010915687-Using-RStudio-Connections).
-- I have used the _dplyr_ syntax and not my favorite _data.table_ syntax. This is just how _sparklyr_ works.
+Let's disconnect from the Spark server.
+```{r}
+spark_disconnect(sc)
+```
+
+
+Spark comes with a set of learning algorithms called _MLLib_.
+Consult the [online documentation](http://spark.apache.org/docs/latest/ml-classification-regression.html) to see which are currently available. 
+If your data is happily stored in a distributed Spark cluster, and the algorithm you want to run is not available, you have too options: 
+(1) use extensions or (2) write your own. 
+
+Writing your own algorithm and dispatching it to Spark can be done a-la `apply` style with `sparklyr::spark_apply`. This, however, would typically be extremely inneficient. You are better off finding a Spark extension that does what you need. 
+See the _sparklyr_ [CRAN page](https://CRAN.R-project.org/package=sparklyr), and in particular the Reverse Depends section, to see which extensions are available. 
+One particular extension is [rsparkling](https://cran.r-project.org/web/packages/rsparkling/index.html), which allows you to apply H2O's massive library of learning algorithms, on data stored in Spark.
+We will not cover _sparklyr_ herein, but we will present (standalone) H2O.
 
 
 
 ### H2O {#h2o}
 
-The machine learning library/algorithms in _Spark_ is called _Spark MLlib_.
-It has many popular learing algorithms, and keeps updating.
-One (of many) extension to _Spark_ is H2O, which replaces _Spark MLlib_, with many more learning algorithms.
 H2O can be thought of as a library of efficient distributed learning algorithm, that run in-memory, where memory considerations and parallelisation have been taken care of for you. 
 For a (massive) list of learning algorithms implemented in H2O, see [their documentaion](http://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science.html#).
 H2O can run as a standalone server, or on top of Spark, so that it may use the _Spark data frames_. This is the purpose of _Sparkling Water_ discussed in \@ref(sparkling).
@@ -483,6 +504,7 @@ We start with working on H2O directly with the `h2o` package.
 suppressPackageStartupMessages(library(h2o))
 
 h2o.init(nthreads=2) 
+h2o.no_progress()
 data("spam", package = 'ElemStatLearn')
 spam.h2o <- as.h2o(spam, destination_frame = "spam.hex") # load to the H2O server
 h2o.ls() # check avaialbe data in the server
@@ -527,19 +549,34 @@ R users can connect to it using the [RSparkling](http://docs.h2o.ai/sparkling-wa
 
 
 
+## Caution: Nested Parallelism {#nested-parallel}
+
+A common problem when parallelising is that the cores/machines you invoked explicitely, invoke themselves other cores/machines. 
+Consider a user _forking_ multiple processes, which call each `data.table` itself invoking parallel processing. 
+This is called _nested parallelism_, which may cause you to lose control of the number of machine being invoked.
+The operating system will spend most of its time with house keeping, instead of doing your computations. 
+
+Luckily, `data.table` was designed to avoid this, but it may happen in general.
+If you are parallelising your linear algebra with OpenBLAS, you may control nested parallelism with the package [RhpcBLASctl package](https://cran.r-project.org/package=RhpcBLASctl).
+In other cases, you should be aware of this, and may need to consult an expert. 
 
 
 
 ## Bibliographic Notes
+To understand how computers work in general, see @bryant2015computer.
 For a brief and excellent explanation on parallel computing in R see @schmidberger2009state.
 For a full review see @chapple2016mastering.
 For a blog-level introduction see [ParallelR
 ](http://www.parallelr.com/r-with-parallel-computing/).
 For an up-to-date list of packages supporting parallel programming see the High Performance Computing [R task view](https://cran.r-project.org/web/views/HighPerformanceComputing.html).
-To understand how computers work in general, see @bryant2015computer.
 For some theory of distributed machine learning, see @rosenblatt2016optimality.
+
 An excellent video explaining `data.table` and H2O, by the author of `data.table, is [this](https://www.youtube.com/watch?v=5X7h1rZGVs0).
 More benchmarks in [here](https://h2oai.github.io/db-benchmark/).
+More on Spark with R inthe book [Mastering Apache Spark with R](https://therinspark.com).
+
+For a blog level introduction to linear algebra in R see [Joseph Rickert's entry](https://blog.revolutionanalytics.com/2013/08/r-and-linear-algebra.html).
+For a detailed discussion see @oancea2015accelerating.
 
 ## Practice Yourself
 
