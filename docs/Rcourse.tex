@@ -128,7 +128,7 @@
 
 \title{R (BGU course)}
 \author{Jonathan D. Rosenblatt}
-\date{2019-09-29}
+\date{2019-10-06}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -897,7 +897,7 @@ We can see its contents by calling it without arguments:
 ##     fill = TRUE, comment.char = "", ...) 
 ## read.table(file = file, header = header, sep = sep, quote = quote, 
 ##     dec = dec, fill = fill, comment.char = comment.char, ...)
-## <bytecode: 0x3e49070>
+## <bytecode: 0x55abe58f27c0>
 ## <environment: namespace:utils>
 \end{verbatim}
 
@@ -914,22 +914,10 @@ Here are some packages that I have currently loaded:
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] ".GlobalEnv"           "package:nycflights13" "package:doSNOW"      
-##  [4] "package:snow"         "package:doParallel"   "package:parallel"    
-##  [7] "package:iterators"    "package:biganalytics" "package:bigmemory"   
-## [10] "package:dplyr"        "package:biglm"        "package:DBI"         
-## [13] "package:MatrixModels" "package:plotly"       "package:kernlab"     
-## [16] "package:scales"       "package:plyr"         "package:class"       
-## [19] "package:rpart"        "package:nnet"         "package:e1071"       
-## [22] "package:glmnet"       "package:foreach"      "package:ellipse"     
-## [25] "package:nlme"         "package:lattice"      "package:lme4"        
-## [28] "package:Matrix"       "package:multcomp"     "package:TH.data"     
-## [31] "package:survival"     "package:mvtnorm"      "package:MASS"        
-## [34] "package:ggalluvial"   "package:ggplot2"      "package:hexbin"      
-## [37] "package:data.table"   "package:magrittr"     "tools:rstudio"       
-## [40] "package:stats"        "package:graphics"     "package:grDevices"   
-## [43] "package:utils"        "package:datasets"     "package:methods"     
-## [46] "Autoloads"            "package:base"
+##  [1] ".GlobalEnv"        "package:magrittr"  "tools:rstudio"    
+##  [4] "package:stats"     "package:graphics"  "package:grDevices"
+##  [7] "package:utils"     "package:datasets"  "package:methods"  
+## [10] "Autoloads"         "package:base"
 \end{verbatim}
 
 Other packages can be loaded via the \texttt{library} function, or downloaded from the internet using the \texttt{install.packages} function before loading with \texttt{library}.
@@ -1672,9 +1660,7 @@ The most basic of which is \texttt{lapply} which applies a function over all ele
 ## [1] "character"
 ## 
 ## [[3]]
-## [1] "standardGeneric"
-## attr(,"package")
-## [1] "methods"
+## [1] "function"
 \end{verbatim}
 
 \begin{Shaded}
@@ -1684,7 +1670,7 @@ The most basic of which is \texttt{lapply} which applies a function over all ele
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "numeric"         "character"       "standardGeneric"
+## [1] "numeric"   "character" "function"
 \end{verbatim}
 
 What is the function you are using requires some arguments?
@@ -2098,7 +2084,7 @@ Many functions are content aware, and adapt their behavior when dealing with dat
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "2019-03-31"
+## [1] "2019-10-03"
 \end{verbatim}
 
 \begin{Shaded}
@@ -2108,7 +2094,7 @@ Many functions are content aware, and adapt their behavior when dealing with dat
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "2019-04-01"
+## [1] "2019-10-04"
 \end{verbatim}
 
 \begin{Shaded}
@@ -2118,7 +2104,7 @@ Many functions are content aware, and adapt their behavior when dealing with dat
 \end{Shaded}
 
 \begin{verbatim}
-## Time difference of 25888 days
+## Time difference of 26074 days
 \end{verbatim}
 
 \begin{Shaded}
@@ -2210,8 +2196,8 @@ Generate sequences:
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "2019-03-27 22:25:09 IST" "2019-03-28 22:25:09 IST"
-## [3] "2019-03-29 23:25:09 IDT" "2019-03-30 23:25:09 IDT"
+## [1] "2019-10-03 10:04:50 UTC" "2019-10-04 10:04:50 UTC"
+## [3] "2019-10-05 10:04:50 UTC" "2019-10-06 10:04:50 UTC"
 \end{verbatim}
 
 \begin{Shaded}
@@ -2221,12 +2207,12 @@ Generate sequences:
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] "2019-03-27 22:25:09 IST" "2019-04-27 22:25:09 IDT"
-##  [3] "2019-05-27 22:25:09 IDT" "2019-06-27 22:25:09 IDT"
-##  [5] "2019-07-27 22:25:09 IDT" "2019-08-27 22:25:09 IDT"
-##  [7] "2019-09-27 22:25:09 IDT" "2019-10-27 22:25:09 IST"
-##  [9] "2019-11-27 22:25:09 IST" "2019-12-27 22:25:09 IST"
-## [11] "2020-01-27 22:25:09 IST" "2020-02-27 22:25:09 IST"
+##  [1] "2019-10-03 10:04:50 UTC" "2019-11-03 10:04:50 UTC"
+##  [3] "2019-12-03 10:04:50 UTC" "2020-01-03 10:04:50 UTC"
+##  [5] "2020-02-03 10:04:50 UTC" "2020-03-03 10:04:50 UTC"
+##  [7] "2020-04-03 10:04:50 UTC" "2020-05-03 10:04:50 UTC"
+##  [9] "2020-06-03 10:04:50 UTC" "2020-07-03 10:04:50 UTC"
+## [11] "2020-08-03 10:04:50 UTC" "2020-09-03 10:04:50 UTC"
 \end{verbatim}
 
 \hypertarget{lubridate-package}{%
@@ -2238,6 +2224,22 @@ You only need to specify the order of arguments, not their format:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(lubridate)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'lubridate'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:base':
+## 
+##     date
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{ymd}\NormalTok{(}\StringTok{"2017/01/31"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -2460,7 +2462,7 @@ Try the \href{https://github.com/r-lib/lobstr/blob/master/README.md}{lobstr} pac
 \end{Shaded}
 
 \begin{verbatim}
-## @1f076148 14 REALSXP g0c2 [NAM(3)] (len=2, tl=0) 7,10
+## @55abe9119d78 14 REALSXP g0c2 [NAM(7)] (len=2, tl=0) 7,10
 \end{verbatim}
 
 \hypertarget{vectors-and-matrix-products}{%
@@ -2725,7 +2727,7 @@ But a pure-R implementation will be much slower than \texttt{\%*\%}:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   6.445   0.007   6.452
+##  27.153   0.587  27.751
 \end{verbatim}
 
 \begin{Shaded}
@@ -2736,7 +2738,7 @@ But a pure-R implementation will be much slower than \texttt{\%*\%}:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##    0.22    0.14    0.36
+##   0.357   0.152   0.508
 \end{verbatim}
 
 \begin{Shaded}
@@ -2747,7 +2749,7 @@ But a pure-R implementation will be much slower than \texttt{\%*\%}:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.349   0.000   0.349
+##   0.538   0.018   0.168
 \end{verbatim}
 
 \begin{Shaded}
@@ -2779,6 +2781,15 @@ But a pure-R implementation will be much slower than \texttt{\%*\%}:
 \begin{verbatim}
 ## [1] TRUE
 \end{verbatim}
+
+\hypertarget{rstudio-projects}{%
+\section{RStudio Projects}\label{rstudio-projects}}
+
+A \emph{Projcet} is a feature of RStudio, not R.
+It allows you to organize the code, the data, and the supporting file of a whole project.
+This is very useful when you work on several machines, synched via Dropbox, git, or any other file synching service.
+Detailing the full benefits of a RStudio Project will require a lengthy digression.
+We merely point out that if you care about portability, and reproducibility, make sure to read the \href{https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects}{Projects documentation}.
 
 \hypertarget{bibliographic-notes-1}{%
 \section{Bibliographic Notes}\label{bibliographic-notes-1}}
@@ -2857,6 +2868,27 @@ Let's start with importing some freely available car sales data from \href{https
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(data.table)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## data.table 1.12.2 using 4 threads (see ?getDTthreads).  Latest news: r-datatable.com
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'data.table'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:lubridate':
+## 
+##     hour, isoweek, mday, minute, month, quarter, second, wday,
+##     week, yday, year
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(magrittr)}
 \NormalTok{auto <-}\StringTok{ }\KeywordTok{fread}\NormalTok{(}\StringTok{'data/autos.csv'}\NormalTok{)}
 \end{Highlighting}
@@ -2922,9 +2954,9 @@ Let's start with importing some freely available car sales data from \href{https
 
 \begin{verbatim}
 ##                    size isdir mode               mtime               ctime
-## data/autos.csv 68439217 FALSE  644 2019-02-24 23:52:04 2019-02-24 23:52:04
+## data/autos.csv 68439217 FALSE  644 2019-02-24 21:52:04 2019-02-24 21:52:04
 ##                              atime  uid  gid   uname  grname
-## data/autos.csv 2019-03-27 22:15:55 1000 1000 johnros johnros
+## data/autos.csv 2019-10-03 08:05:12 1000 1000 rstudio rstudio
 \end{verbatim}
 
 \begin{Shaded}
@@ -3616,7 +3648,6 @@ The \texttt{ChickWeight} data encodes the weight of various chicks. It is ``long
 \end{Shaded}
 
 \begin{verbatim}
-## Grouped Data: weight ~ Time | Chick
 ##   weight Time Chick Diet
 ## 1     42    0     1    1
 ## 2     51    2     1    1
@@ -3917,7 +3948,7 @@ As such, summaries of categorical variables will always start with the counting 
 \begin{verbatim}
 ## age
 ##   Old Young 
-##    10    12
+##    12    10
 \end{verbatim}
 
 If instead of the level counts you want the proportions, you can use \texttt{prop.table}
@@ -3987,15 +4018,15 @@ R offers several solutions: \texttt{table} is easier to compute with, and \textt
 ## 
 ##       drink
 ## gender Coffee Coke Sprite Tea Water
-##   Boy       0    3      1   0     0
-##   Girl      1    0      0   5     0
+##   Boy       2    1      1   0     0
+##   Girl      3    0      0   5     0
 ## 
 ## , , age = Young
 ## 
 ##       drink
 ## gender Coffee Coke Sprite Tea Water
-##   Boy       2    2      2   0     0
-##   Girl      3    0      0   2     1
+##   Boy       0    4      2   0     0
+##   Girl      1    0      0   2     1
 \end{verbatim}
 
 \begin{Shaded}
@@ -4008,12 +4039,12 @@ R offers several solutions: \texttt{table} is easier to compute with, and \textt
 \begin{verbatim}
 ##               age Old Young
 ## gender drink               
-## Boy    Coffee       0     2
-##        Coke         3     2
+## Boy    Coffee       2     0
+##        Coke         1     4
 ##        Sprite       1     2
 ##        Tea          0     0
 ##        Water        0     0
-## Girl   Coffee       1     3
+## Girl   Coffee       3     1
 ##        Coke         0     0
 ##        Sprite       0     0
 ##        Tea          5     2
@@ -4209,7 +4240,7 @@ Here is an R implementation
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.2080004
+## [1] 0.5755205
 \end{verbatim}
 
 Things to note:
@@ -4260,7 +4291,7 @@ Here are the R implementations
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.0203559
+## [1] -0.03381266
 \end{verbatim}
 
 \begin{Shaded}
@@ -4270,7 +4301,7 @@ Here are the R implementations
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.02380989
+## [1] -0.03641364
 \end{verbatim}
 
 \begin{Shaded}
@@ -4387,7 +4418,8 @@ If the variables represent a hierarchy, consider a \textbf{Sunburst Plot}:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/sunburst-1}
+\hypertarget{htmlwidget-b694ade7e88e2471bfb0}{}
+Legend
 
 \hypertarget{continuous-data}{%
 \subsection{Continuous Data}\label{continuous-data}}
@@ -4472,7 +4504,19 @@ The boxplot is designed to capture the main phenomena in the data, and simultane
 Another way to deal with a massive amount of data points, is to emphasize important points, and conceal non-important.
 This is the purpose of \textbf{circle-packing} (example from \href{https://www.r-graph-gallery.com/308-interactive-circle-packing/}{r-graph gallery}):
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-137-1}
+\begin{verbatim}
+## Registered S3 methods overwritten by 'ggplot2':
+##   method         from 
+##   [.quosures     rlang
+##   c.quosures     rlang
+##   print.quosures rlang
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: viridisLite
+\end{verbatim}
+
+\hypertarget{htmlwidget-050ab8343a08c822acaf}{}
 
 \hypertarget{visualizing-bivariate-continuous-data}{%
 \subsubsection{Visualizing Bivariate Continuous Data}\label{visualizing-bivariate-continuous-data}}
@@ -4817,6 +4861,22 @@ We will use the \texttt{whiteside} data from the \textbf{MASS} package, recordin
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(MASS) }\CommentTok{# load the package}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'MASS'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:packcircles':
+## 
+##     bacteria
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(data.table) }\CommentTok{# for some data manipulations}
 \KeywordTok{data}\NormalTok{(whiteside) }\CommentTok{# load the data}
 \KeywordTok{head}\NormalTok{(whiteside) }\CommentTok{# inspect the data}
@@ -5540,10 +5600,10 @@ Let's inspect the model
 ## Treatmentphysical           5.000e+00  5.774e-01   8.660 7.78e-08 ***
 ## Ageold                     -3.000e+00  8.165e-01  -3.674  0.00174 ** 
 ## Ageyoung                    3.000e+00  8.165e-01   3.674  0.00174 ** 
-## Treatmentmental:Ageold      4.246e-16  1.155e+00   0.000  1.00000    
-## Treatmentphysical:Ageold    1.034e-15  1.155e+00   0.000  1.00000    
-## Treatmentmental:Ageyoung   -3.126e-16  1.155e+00   0.000  1.00000    
-## Treatmentphysical:Ageyoung  5.128e-16  1.155e+00   0.000  1.00000    
+## Treatmentmental:Ageold      1.136e-16  1.155e+00   0.000  1.00000    
+## Treatmentphysical:Ageold    2.392e-16  1.155e+00   0.000  1.00000    
+## Treatmentmental:Ageyoung   -1.037e-15  1.155e+00   0.000  1.00000    
+## Treatmentphysical:Ageyoung  2.564e-16  1.155e+00   0.000  1.00000    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
@@ -5582,9 +5642,9 @@ This is done with the \texttt{anova} command.
 ## 
 ## Model 1: StressReduction ~ Treatment + Age
 ## Model 2: StressReduction ~ Treatment + Age + Treatment:Age - 1
-##   Res.Df RSS Df   Sum of Sq F Pr(>F)
+##   Res.Df RSS Df  Sum of Sq  F Pr(>F)
 ## 1     22  18                        
-## 2     18  18  4 -3.5527e-15
+## 2     18  18  4 7.1054e-15  0      1
 \end{verbatim}
 
 We see that \texttt{lm.3} is \textbf{not} (significantly) better than \texttt{lm.2}, so that we can conclude that there are no interactions: different ages have the same response to different treatments.
@@ -5617,6 +5677,34 @@ Let's test if the medical treatment, has in fact, the same effect as the physica
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(multcomp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: mvtnorm
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: survival
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: TH.data
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'TH.data'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:MASS':
+## 
+##     geyser
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{my.contrast <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{), }\DataTypeTok{nrow =}  \DecValTok{1}\NormalTok{)}
 \NormalTok{lm}\FloatTok{.4}\NormalTok{ <-}\StringTok{ }\KeywordTok{glht}\NormalTok{(lm}\FloatTok{.2}\NormalTok{, }\DataTypeTok{linfct=}\NormalTok{my.contrast)}
 \KeywordTok{summary}\NormalTok{(lm}\FloatTok{.4}\NormalTok{)}
@@ -6504,8 +6592,8 @@ We start with a small simulation demonstrating the importance of acknowledging y
 \end{Shaded}
 
 \begin{verbatim}
-## [1]   8.901364   8.901364  -4.318889  -4.318889   9.708611   9.708611
-## [7] -10.693773 -10.693773
+## [1]  6.8635182  6.8635182  8.2853917  8.2853917  0.6861244  0.6861244
+## [7] -2.4415951 -2.4415951
 \end{verbatim}
 
 \begin{Shaded}
@@ -6524,6 +6612,15 @@ We can now fit the linear and mixed models.
 \begin{Highlighting}[]
 \NormalTok{lm}\FloatTok{.5}\NormalTok{ <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\NormalTok{)  }\CommentTok{# fit a linear model assuming independence}
 \KeywordTok{library}\NormalTok{(lme4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: Matrix
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{lme}\FloatTok{.5}\NormalTok{ <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\OperatorTok{|}\NormalTok{groups) }\CommentTok{# fit a mixed-model that deals with the group dependence}
 \end{Highlighting}
 \end{Shaded}
@@ -6544,13 +6641,15 @@ The summary of the linear model
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -13.949  -7.275   1.629   8.668  10.005 
+## -6.2932 -3.6148  0.5154  3.9928  5.1632 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)
-## (Intercept)    3.317      3.500   0.948    0.375
+##             Estimate Std. Error t value Pr(>|t|)  
+## (Intercept)    5.449      1.671   3.261   0.0138 *
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 9.898 on 7 degrees of freedom
+## Residual standard error: 4.726 on 7 degrees of freedom
 \end{verbatim}
 
 The summary of the mixed-model
@@ -6566,25 +6665,25 @@ The summary of the mixed-model
 ## Linear mixed model fit by REML ['lmerMod']
 ## Formula: y ~ 1 | groups
 ## 
-## REML criterion at convergence: 41
+## REML criterion at convergence: 29.6
 ## 
 ## Scaled residuals: 
 ##      Min       1Q   Median       3Q      Max 
-## -1.15395 -0.50048  0.04306  0.55891  0.99797 
+## -1.08588 -0.61820  0.05879  0.53321  1.03325 
 ## 
 ## Random effects:
 ##  Groups   Name        Variance Std.Dev.
-##  groups   (Intercept) 111.962  10.581  
-##  Residual               2.012   1.418  
+##  groups   (Intercept) 25.6432  5.0639  
+##  Residual              0.3509  0.5924  
 ## Number of obs: 8, groups:  groups, 4
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept)    3.317      5.314   0.624
+## (Intercept)    5.449      2.541   2.145
 \end{verbatim}
 
 Look at the standard error of the global mean, i.e., the intercept:
-for \texttt{lm} it is 3.4996374, and for \texttt{lme} it is 5.3143284.
+for \texttt{lm} it is 1.6707325, and for \texttt{lme} it is 2.5406034.
 Why this difference?
 Because \texttt{lm} treats the group effect\footnote{A.k.a. the \emph{cluster effect}.} as a fixed while the mixed model treats the group effect as a source of noise/uncertainty.
 Clearly, inference using \texttt{lm} underestimates our uncertainty in the estimated population mean (\(\beta_0\)).
@@ -6599,8 +6698,8 @@ Now let's adopt the paired t-test view, which removes the group mean, so that it
 \end{Shaded}
 
 \begin{verbatim}
-##         1         2         3         4 
-## -1.411024 -1.598983 -1.493730  3.052394
+##           1           2           3           4 
+## -0.93093840 -0.07616235  1.25527764  0.59907581
 \end{verbatim}
 
 \begin{Shaded}
@@ -6610,7 +6709,7 @@ Now let's adopt the paired t-test view, which removes the group mean, so that it
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 2.278119
+## [1] 0.9358778
 \end{verbatim}
 
 So we see that a paired t-test infers only against the within-group variability.
@@ -6899,6 +6998,15 @@ Ugh! No p-values. Why is this? Because Doug Bates, the author of \textbf{lme4} m
 \end{Shaded}
 
 \begin{verbatim}
+## Registered S3 methods overwritten by 'car':
+##   method                          from
+##   influence.merMod                lme4
+##   cooks.distance.influence.merMod lme4
+##   dfbeta.influence.merMod         lme4
+##   dfbetas.influence.merMod        lme4
+\end{verbatim}
+
+\begin{verbatim}
 ## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: diameter
@@ -7027,6 +7135,22 @@ with an AR(1) temporal correlation, alongside random-effects, we take an example
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(nlme)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'nlme'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:lme4':
+## 
+##     lmList
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{head}\NormalTok{(nlme}\OperatorTok{::}\NormalTok{Ovary)}
 \end{Highlighting}
 \end{Shaded}
@@ -7108,6 +7232,16 @@ We can now inspect the contrivance implied by our model's specification:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{the.cov <-}\StringTok{ }\NormalTok{mgcv}\OperatorTok{::}\KeywordTok{extract.lme.cov}\NormalTok{(fm1Ovar.lme, }\DataTypeTok{data =}\NormalTok{ Ovary) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in model.matrix.default(~b$groups[[n.levels - i + 1]] - 1,
+## contrasts.arg = c("contr.treatment", : non-list contrasts argument ignored
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{lattice}\OperatorTok{::}\KeywordTok{levelplot}\NormalTok{(the.cov)}
 \end{Highlighting}
 \end{Shaded}
@@ -7351,6 +7485,17 @@ The next figure\footnote{My thanks to Efrat Vilneski for the figure.} illustrate
 \iffalse{} {Remark. } \fi{}The following figure may also be used to demonstrate the difference between Euclidean Distance and Mahalanobis Distance.
 \EndKnitrBlock{remark}
 
+\begin{verbatim}
+## 
+## Attaching package: 'ellipse'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:graphics':
+## 
+##     pairs
+\end{verbatim}
+
 \includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-221-1}
 
 \hypertarget{signal-detection}{%
@@ -7510,12 +7655,12 @@ Now make our own Hotelling function.
 
 \begin{verbatim}
 ## $statistic
-##          [,1]
-## [1,] 17.22438
+##         [,1]
+## [1,] 17.2908
 ## 
 ## $pvalue
 ##           [,1]
-## [1,] 0.5077323
+## [1,] 0.5032046
 \end{verbatim}
 
 Things to note:
@@ -7547,18 +7692,18 @@ Personally, I would never trust a Hotelling test if \(n\) is not much greater th
 ##  One-sample Hotelling test
 ## 
 ## data:  x
-## T2 = 17.22400, F = 0.79259, df1 = 18, df2 = 82, p-value = 0.703
+## T2 = 17.29080, F = 0.79565, df1 = 18, df2 = 82, p-value = 0.6996
 ## alternative hypothesis: true mean vector is not equal to (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)' 
 ## 
 ## sample estimates:
-##                      [,1]       [,2]      [,3]       [,4]      [,5]
-## mean x-vector -0.01746212 0.03776332 0.1006145 -0.2083005 0.1026982
-##                      [,6]         [,7]       [,8]       [,9]       [,10]
-## mean x-vector -0.05220043 -0.009497987 -0.1139856 0.02851701 -0.03089953
-##                     [,11]      [,12]      [,13]      [,14]      [,15]
-## mean x-vector -0.02457798 -0.1270753 0.04717076 0.01683591 0.03085023
-##                   [,16]       [,17]     [,18]
-## mean x-vector 0.1499485 -0.07630663 0.1004852
+##                      [,1]        [,2]       [,3]       [,4]          [,5]
+## mean x-vector -0.07873775 -0.01076689 -0.1405859 -0.1342353 -0.0001891301
+##                     [,6]        [,7]      [,8]       [,9]     [,10]
+## mean x-vector 0.02827704 -0.06150607 0.1738199 0.09050526 0.1466331
+##                    [,11]      [,12]       [,13]      [,14]       [,15]
+## mean x-vector 0.04250519 -0.1199926 -0.06466205 -0.1061927 -0.02434599
+##                    [,16]      [,17]      [,18]
+## mean x-vector 0.02766206 0.08169893 0.02036132
 \end{verbatim}
 
 Let's do the same with Simes':
@@ -7577,7 +7722,7 @@ Let's do the same with Simes':
 
 \begin{verbatim}
 ##    pvalue 
-## 0.6398998
+## 0.8138511
 \end{verbatim}
 
 And now we verify that both tests can indeed detect signal when present. Are p-values small enough to reject the ``no signal'' null hypothesis?
@@ -7593,11 +7738,11 @@ And now we verify that both tests can indeed detect signal when present. Are p-v
 \begin{verbatim}
 ## $statistic
 ##          [,1]
-## [1,] 686.8046
+## [1,] 536.6292
 ## 
 ## $pvalue
 ##               [,1]
-## [1,] 3.575926e-134
+## [1,] 2.037928e-102
 \end{verbatim}
 
 \begin{Shaded}
@@ -7608,7 +7753,7 @@ And now we verify that both tests can indeed detect signal when present. Are p-v
 
 \begin{verbatim}
 ##       pvalue 
-## 2.765312e-10
+## 3.473021e-08
 \end{verbatim}
 
 \ldots{} yes. All p-values are very small, so that all statistics can detect the non-null distribution.
@@ -7767,7 +7912,7 @@ We will artificially inject signal in the first 10 coordinates.
 \end{Shaded}
 
 \begin{verbatim}
-##  [1]  1  2  3  4  5  6  7  9 10 55
+##  [1]  1  2  3  4  5  6  7  8  9 10
 \end{verbatim}
 
 Indeed- we are now able to detect that the first coordinates carry signal, because their respective coordinate-wise null hypotheses have been rejected.
@@ -8269,7 +8414,7 @@ The following code is extremely inefficient, but easy to read.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.5742128
+## [1] 0.5404713
 \end{verbatim}
 
 Let's try all possible variable subsets, and choose the best performer with respect to the Cp criterion, which is an unbiased risk estimator.
@@ -8594,8 +8739,8 @@ Things to note:
 \begin{verbatim}
 ##           truth
 ## prediction email spam
-##      email  1778  167
-##      spam     66 1040
+##      email  1779  172
+##      spam     65 1035
 \end{verbatim}
 
 \begin{Shaded}
@@ -8606,7 +8751,7 @@ Things to note:
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.0763684
+## [1] 0.07767945
 \end{verbatim}
 
 \begin{Shaded}
@@ -8623,8 +8768,8 @@ Things to note:
 \begin{verbatim}
 ##           truth
 ## prediction email spam
-##      email   885  110
-##      spam     59  496
+##      email   885  111
+##      spam     59  495
 \end{verbatim}
 
 \begin{Shaded}
@@ -8635,7 +8780,7 @@ Things to note:
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1090323
+## [1] 0.1096774
 \end{verbatim}
 
 \hypertarget{svm}{%
@@ -8748,7 +8893,7 @@ We start with a nnet regression.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 1.177099
+## [1] 1.176479
 \end{verbatim}
 
 \begin{Shaded}
@@ -8759,7 +8904,7 @@ We start with a nnet regression.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 1.21175
+## [1] 1.489769
 \end{verbatim}
 
 And nnet classification.
@@ -8777,8 +8922,8 @@ And nnet classification.
 \begin{verbatim}
 ##           truth
 ## prediction email spam
-##      email  1806   59
-##      spam     38 1148
+##      email  1825   56
+##      spam     19 1151
 \end{verbatim}
 
 \begin{Shaded}
@@ -8788,7 +8933,7 @@ And nnet classification.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.03179285
+## [1] 0.0245821
 \end{verbatim}
 
 \begin{Shaded}
@@ -8802,8 +8947,8 @@ And nnet classification.
 \begin{verbatim}
 ##           truth
 ## prediction email spam
-##      email   897   64
-##      spam     47  542
+##      email   891   66
+##      spam     53  540
 \end{verbatim}
 
 \begin{Shaded}
@@ -8813,7 +8958,7 @@ And nnet classification.
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.0716129
+## [1] 0.07677419
 \end{verbatim}
 
 \hypertarget{deep-neural-nets}{%
@@ -8943,6 +9088,28 @@ learning algorithms to be precise.
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(caret)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'caret'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked _by_ '.GlobalEnv':
+## 
+##     R2
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:survival':
+## 
+##     cluster
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{# Control some training parameters}
 \NormalTok{train.control <-}\StringTok{ }\KeywordTok{trainControl}\NormalTok{(}\DataTypeTok{method =} \StringTok{"cv"}\NormalTok{,}
                            \DataTypeTok{number =} \DecValTok{10}\NormalTok{)}
@@ -8962,13 +9129,13 @@ learning algorithms to be precise.
 ## 
 ## No pre-processing
 ## Resampling: Cross-Validated (10 fold) 
-## Summary of sample sizes: 61, 60, 59, 60, 60, 61, ... 
+## Summary of sample sizes: 61, 59, 60, 60, 59, 60, ... 
 ## Resampling results across tuning parameters:
 ## 
 ##   cp          RMSE       Rsquared   MAE      
-##   0.04682924  0.9118374  0.5026786  0.7570798
-##   0.14815712  0.9899308  0.4690557  0.7972803
-##   0.44497285  1.1912870  0.3264172  1.0008574
+##   0.04682924  0.9668668  0.4461882  0.8228133
+##   0.14815712  1.0015301  0.3936400  0.8483732
+##   0.44497285  1.2100666  0.1678312  1.0055867
 ## 
 ## RMSE was used to select the optimal model using the smallest value.
 ## The final value used for the model was cp = 0.04682924.
@@ -9212,13 +9379,13 @@ It it an extremely successful algorithm, with very few tuning parameters, and ea
 ## 
 ## No pre-processing
 ## Resampling: Cross-Validated (10 fold) 
-## Summary of sample sizes: 62, 59, 60, 60, 59, 61, ... 
+## Summary of sample sizes: 61, 60, 59, 61, 61, 59, ... 
 ## Resampling results across tuning parameters:
 ## 
 ##   mtry  RMSE       Rsquared   MAE      
-##   2     0.7885535  0.6520820  0.6684168
-##   5     0.7782809  0.6687843  0.6550590
-##   8     0.7894338  0.6665277  0.6626417
+##   2     0.7971605  0.6452185  0.6723825
+##   5     0.7718659  0.6603524  0.6454595
+##   8     0.7748043  0.6593911  0.6463712
 ## 
 ## RMSE was used to select the optimal model using the smallest value.
 ## The final value used for the model was mtry = 5.
@@ -9232,7 +9399,7 @@ It it an extremely successful algorithm, with very few tuning parameters, and ea
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.1340291
+## [1] 0.139739
 \end{verbatim}
 
 \begin{Shaded}
@@ -9243,7 +9410,7 @@ It it an extremely successful algorithm, with very few tuning parameters, and ea
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.5147782
+## [1] 0.5341458
 \end{verbatim}
 
 Some of the many many many packages that learn random-forests include: \href{https://cran.r-project.org/package=randomForest}{randomForest}, \href{https://cran.r-project.org/package=ranger}{ranger}.
@@ -9729,6 +9896,28 @@ The \emph{bi-plot} is a useful way to visualize the output of PCA.
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+## 
+## Attaching package: 'plyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:lubridate':
+## 
+##     here
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'scales'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:viridis':
+## 
+##     viridis_pal
+\end{verbatim}
+
 \includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-252-1}
 
 Things to note:
@@ -9877,6 +10066,20 @@ Graphical model fans will like the following plot, where the contribution of eac
 \NormalTok{qgraph}\OperatorTok{::}\KeywordTok{qgraph}\NormalTok{(fa}\FloatTok{.1}\OperatorTok{$}\NormalTok{loadings)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## Registered S3 methods overwritten by 'BDgraph':
+##   method    from
+##   plot.sim  lava
+##   print.sim lava
+\end{verbatim}
+
+\begin{verbatim}
+## Registered S3 methods overwritten by 'huge':
+##   method    from   
+##   plot.sim  BDgraph
+##   print.sim BDgraph
+\end{verbatim}
 
 \includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-255-1}
 
@@ -10120,10 +10323,10 @@ Here is a link for a fun \href{http://bl.ocks.org/eesur/be2abfb3155a38be4de4}{ja
 \end{Shaded}
 
 \begin{verbatim}
-##                PC1 PC2
-## Murder  -0.1626431   1
-## Assault -0.8200474   0
-## Rape    -0.5486979   0
+##                 PC1 PC2
+## Murder  -0.74771432   0
+## Assault -0.66162752   0
+## Rape    -0.05632342  -1
 \end{verbatim}
 
 Things to note:
@@ -10142,6 +10345,28 @@ Things to note:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(kernlab)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'kernlab'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:scales':
+## 
+##     alpha
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:ggplot2':
+## 
+##     alpha
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{kpc <-}\StringTok{ }\KeywordTok{kpca}\NormalTok{(}\OperatorTok{~}\NormalTok{.,}\DataTypeTok{data=}\KeywordTok{as.data.frame}\NormalTok{(USArrests}\FloatTok{.1}\NormalTok{), }\DataTypeTok{kernel=}\StringTok{"rbfdot"}\NormalTok{, }\DataTypeTok{kpar=}\KeywordTok{list}\NormalTok{(}\DataTypeTok{sigma=}\FloatTok{0.2}\NormalTok{), }\DataTypeTok{features=}\DecValTok{2}\NormalTok{)}
 
 \KeywordTok{plot}\NormalTok{(}\KeywordTok{rotated}\NormalTok{(kpc),}
@@ -11471,6 +11696,46 @@ You can create nice interactive graphs using \texttt{plotly::plot\_ly}:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(plotly)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'plotly'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:plyr':
+## 
+##     arrange, mutate, rename, summarise
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:MASS':
+## 
+##     select
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:ggplot2':
+## 
+##     last_plot
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:stats':
+## 
+##     filter
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:graphics':
+## 
+##     layout
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{set.seed}\NormalTok{(}\DecValTok{100}\NormalTok{)}
 \NormalTok{d <-}\StringTok{ }\NormalTok{diamonds[}\KeywordTok{sample}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(diamonds), }\DecValTok{1000}\NormalTok{), ]}
 \end{Highlighting}
@@ -11493,7 +11758,7 @@ More conveniently, any \textbf{ggplot2} graph can be made interactive using \tex
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{htmlwidget-121c9fab5d2e067d98f4}{}
+\hypertarget{htmlwidget-614d84b925e39db30ed1}{}
 
 How about exporting \textbf{plotly} objects?
 Well, a \textbf{plotly} object is nothing more than a little web site: an HTML file.
@@ -11744,8 +12009,8 @@ This chunk will compile to the following output (after setting \texttt{eval=FALS
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] -1.4462875  0.3158558 -0.3427475 -1.9313531  0.2428210 -0.3627679
-##  [7]  2.4327289  0.5920912 -0.5762008  0.4066282
+##  [1] -1.4831493  1.4715570  0.1563814  0.1159138  0.4786086  1.4937581
+##  [7]  1.1720308  1.5981221 -2.2018453 -2.0068470
 \end{verbatim}
 
 Things to note:
@@ -11807,7 +12072,7 @@ For instance:
 will output
 
 \begin{quote}
-0.3378953 is a random Gaussian.
+0.6300902 is a random Gaussian.
 \end{quote}
 
 \hypertarget{bibtex}{%
@@ -12261,7 +12526,7 @@ The object \texttt{x} is a factor of letters:
 \end{Shaded}
 
 \begin{verbatim}
-## [1] l s q b h p
+## [1] n g q c z d
 ## Levels: a b c d e f g h i j k l m n o p q r s t u v w x y z
 \end{verbatim}
 
@@ -12276,18 +12541,18 @@ We dummy code \texttt{x} with the \texttt{model.matrix} function.
 
 \begin{verbatim}
 ##   xa xb xc xd xe xf xg xh xi xj xk xl xm xn xo xp xq xr xs xt xu xv xw xx
-## 1  0  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0  0  0  0  0  0  0  0  0
-## 2  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0  0
+## 1  0  0  0  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0  0  0  0  0  0  0
+## 2  0  0  0  0  0  0  1  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
 ## 3  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0  0  0  0
-## 4  0  1  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
-## 5  0  0  0  0  0  0  0  1  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
-## 6  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1  0  0  0  0  0  0  0  0
+## 4  0  0  1  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+## 5  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+## 6  0  0  0  1  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
 ##   xy xz
 ## 1  0  0
 ## 2  0  0
 ## 3  0  0
 ## 4  0  0
-## 5  0  0
+## 5  0  1
 ## 6  0  0
 \end{verbatim}
 
@@ -12311,12 +12576,12 @@ We call \textbf{MatrixModels} for an implementation of \texttt{model.matrix} tha
 
 \begin{verbatim}
 ##                                                         
-## [1,] . . . . . . . . . . . 1 . . . . . . . . . . . . . .
-## [2,] . . . . . . . . . . . . . . . . . . 1 . . . . . . .
+## [1,] . . . . . . . . . . . . . 1 . . . . . . . . . . . .
+## [2,] . . . . . . 1 . . . . . . . . . . . . . . . . . . .
 ## [3,] . . . . . . . . . . . . . . . . 1 . . . . . . . . .
-## [4,] . 1 . . . . . . . . . . . . . . . . . . . . . . . .
-## [5,] . . . . . . . 1 . . . . . . . . . . . . . . . . . .
-## [6,] . . . . . . . . . . . . . . . 1 . . . . . . . . . .
+## [4,] . . 1 . . . . . . . . . . . . . . . . . . . . . . .
+## [5,] . . . . . . . . . . . . . . . . . . . . . . . . . 1
+## [6,] . . . 1 . . . . . . . . . . . . . . . . . . . . . .
 \end{verbatim}
 
 Notice that the matrices have the same dimensions:
@@ -12392,7 +12657,7 @@ Here is the timing of a non sparse representation:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   2.326   0.458   2.783
+##   4.316   3.053   1.657
 \end{verbatim}
 
 Well actually, \texttt{lm} is a wrapper for the \texttt{lm.fit} function.
@@ -12406,7 +12671,7 @@ If we override all the overhead of \texttt{lm}, and call \texttt{lm.fit} directl
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.948   0.076   1.025
+##   2.119   2.273   0.875
 \end{verbatim}
 
 We now do the same with the sparse representation:
@@ -12419,7 +12684,7 @@ We now do the same with the sparse representation:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.177   0.004   0.181
+##   0.185   0.008   0.194
 \end{verbatim}
 
 It is only left to verify that the returned coefficients are the same:
@@ -12769,6 +13034,15 @@ The following if taken from the function's example.
 \NormalTok{chunk3<-trees[}\DecValTok{21}\OperatorTok{:}\DecValTok{31}\NormalTok{,]}
 
 \KeywordTok{library}\NormalTok{(biglm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: DBI
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{a <-}\StringTok{ }\KeywordTok{biglm}\NormalTok{(ff,chunk1)}
 \NormalTok{a <-}\StringTok{ }\KeywordTok{update}\NormalTok{(a,chunk2)}
 \NormalTok{a <-}\StringTok{ }\KeywordTok{update}\NormalTok{(a,chunk3)}
@@ -12848,6 +13122,59 @@ Here is the timing for \textbf{dplyr}.
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:plyr':
+## 
+##     arrange, count, desc, failwith, id, mutate, rename, summarise,
+##     summarize
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:nlme':
+## 
+##     collapse
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:MASS':
+## 
+##     select
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:data.table':
+## 
+##     between, first, last
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:lubridate':
+## 
+##     intersect, setdiff, union
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{system.time}\NormalTok{( tbl_df }\OperatorTok{%>%}\StringTok{ }
 \StringTok{               }\KeywordTok{group_by}\NormalTok{(v1,v2) }\OperatorTok{%>%}\StringTok{ }
 \StringTok{               }\KeywordTok{summarize}\NormalTok{(}
@@ -12861,7 +13188,7 @@ Here is the timing for \textbf{dplyr}.
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   1.457   0.032   1.489
+##   0.810   0.031   0.905
 \end{verbatim}
 
 And now the timing for \textbf{data.table}.
@@ -12876,7 +13203,7 @@ And now the timing for \textbf{data.table}.
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.716   0.049   0.752
+##   0.511   0.171   0.541
 \end{verbatim}
 
 The winner is obvious.
@@ -12892,7 +13219,7 @@ Let's compare filtering (i.e.~row subsets, i.e.~SQL's SELECT).
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.335   0.062   0.420
+##   0.020   0.101   0.121
 \end{verbatim}
 
 \begin{Shaded}
@@ -12905,7 +13232,7 @@ Let's compare filtering (i.e.~row subsets, i.e.~SQL's SELECT).
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.054   0.038   0.075
+##   0.045   0.106   0.123
 \end{verbatim}
 
 \hypertarget{computing-from-a-database}{%
@@ -13232,12 +13559,6 @@ We can verify that the \texttt{ffdf} data frame has a small RAM footprint.
 \end{Shaded}
 
 \begin{verbatim}
-## Registered S3 method overwritten by 'pryr':
-##   method      from
-##   print.bytes Rcpp
-\end{verbatim}
-
-\begin{verbatim}
 ## 392 kB
 \end{verbatim}
 
@@ -13376,30 +13697,31 @@ You would think that because you have an expensive multicore computer your compu
 Well, no; unless you actively make sure of that.
 By default, no matter how many cores you have, the operating system will allocate each R session to a single core.
 
+You may wonder: why can't I just write code, and let R (or any other language) figure out what can be parallelised.
+Well, that's not how things work.
+It is very hard to design software that can parallelise any algorithm, while adapting to your hardware, operating system, and other the software running on your device.
+A lot of parallelisation still has to be explicit, but stay tuned for technologies like \href{https://rise.cs.berkeley.edu/projects/ray/}{Ray}, \href{https://spark.apache.org}{Apache Spark}, \href{https://flink.apache.org}{Apache Flink}, \href{https://chapel-lang.org}{Chapel}, \href{https://pytorch.org}{PyTorch}, and others, which are making great advances in handling parallelism for you.
+
 To parallelise computations, we need to distinguish between two types of parallelism:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{Explicit parallelism}: where the user handles the parallelisation.
+  \textbf{Parallel R}: where the parallelism is managed with R. Discussed in Section \ref{parallel-r}.
 \item
-  \textbf{Implicit parallelism}: where the parallelisation is abstracted away from the user.
+  \textbf{Parallel Extensions}: where R calls specialized libraries/routines/software that manage the parallelism themselves. Discussed in Section \ref{parallel-extensions}.
 \end{enumerate}
-
-Clearly, implicit parallelism is more desirable.
-It is, however, very hard to design software that can parallelise any algorithm, while adapting to your hardware, operating system, and other the software running on your device.
-A lot of parallelisation still has to be explicit, but stay tuned for technologies like \href{https://rise.cs.berkeley.edu/projects/ray/}{Ray}, \href{https://spark.apache.org}{Apache Spark}, \href{https://flink.apache.org}{Apache Flink}, \href{https://chapel-lang.org}{Chapel}, \href{https://pytorch.org}{PyTorch}, and others, which are making great advances in handling parallelism for you.
-Before we can understand what those do, we start with explicit parallelism.
 
 \hypertarget{when-and-how-to-parallelise}{%
 \section{When and How to Parallelise?}\label{when-and-how-to-parallelise}}
 
 Your computations are too slow.
+Why is this?
 Should you store your data differently?
+Should you use different software?
 Should you buy more RAM?
-Should you parallelise locally?
-Should you go cloud?
+Should you ``go cloud''?
 
 Unlike what some vendors will make you think, there is no one-size-fits-all solution to speed problems.
 Solving a RAM bottleneck may consume more CPU.
@@ -13425,7 +13747,7 @@ Here are a few pointers:
 
 In the best possible scenario, the number of operations you can perform scales with the number of processors: \[time * processors = operations\].
 This is called \emph{perfect scaling}.
-It is rarely observed in practice, since parallelizing incurs some computational overhead: setting up environments, copying memory, \ldots{}
+It is rarely observed in practice, since parallelising incurs some computational overhead: setting up environments, copying memory, \ldots{}
 For this reason, the typical speedup is sub-linear.
 Computer scientists call this \href{https://en.wikipedia.org/wiki/Amdahl\%27s_law}{Amdahl's law}.
 
@@ -13470,19 +13792,17 @@ Here are some terms we will be needing.
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Data Parallel:} When performing differest tasks on the same data.
+  \textbf{Data Parallel:} When performing different tasks on the same data.
 \item
   \textbf{Task Parallel:} When performing the same task, on different data.
 \end{itemize}
 
-Flynn's Taxonomy:
-
-\hypertarget{explicit-parallelism}{%
-\section{Explicit Parallelism}\label{explicit-parallelism}}
+\hypertarget{parallel-r}{%
+\section{Parallel R}\label{parallel-r}}
 
 R provides many frameworks for explicit parallelism.
 Any such framework will include the means for starting R (salve/worker) sessions, and the means for communicating between these sessions.
-Except for developpers, a typical user will probably be using some high-level R package which will abstract away these stages.
+Except for developers, a typical user will probably be using some high-level R package which will abstract away these stages.
 A communication protocol because different R sessions will be communication one with the other. An abstraction layer because providing the user will all the features and generality of the communication layer is needlessly cumbersome.
 
 Starting new R processes, a.k.a. slaves:
@@ -13509,18 +13829,20 @@ Inter-process communication standards:
 
 For more on inter-process communication, see \href{https://en.wikipedia.org/wiki/Inter-process_communication}{Wiki}.
 
-\hypertarget{parallel-1}{%
-\subsection{parallel}\label{parallel-1}}
+\hypertarget{the-parallel-package}{%
+\subsection{The parallel Package}\label{the-parallel-package}}
 
 The \textbf{parallel} package, maintained by the R-core team, was introduced in 2011 to unify two popular parallisation packages: \textbf{snow} and \textbf{multicore}.
 The \textbf{multicore} package was designed to parallelise using the \emph{fork} mechanism, on Linux machines.
-The \textbf{snow} package was designed to parallise using the \emph{spawn} echanism, on all operating systems.
-Servers/R-sessions started with \textbf{snow} will not see the parent's data, which will have to be copied to sapwned sessions.
+The \textbf{snow} package was designed to parallelise using the \emph{spawn} mechanism, on all operating systems.
+Servers/R-sessions started with \textbf{snow} will not see the parent's data, which will have to be copied to spawned sessions.
 At least there is less data redundancy.
 Spawning, unlike forking, can be done on remote machines, which communicate using MPI.
 
-\hypertarget{foreach}{%
-\subsection{Foreach}\label{foreach}}
+TOOD: add example.
+
+\hypertarget{the-foreach-package}{%
+\subsection{The foreach Package}\label{the-foreach-package}}
 
 For reasons detailed in \citet{kane2013scalable}, we recommend the \textbf{foreach} parallelisation package \citep{foreach}.
 It allows us to:
@@ -13528,7 +13850,7 @@ It allows us to:
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can later switch between paralliseation mechanisms.
+  Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can later switch between parallelisation mechanisms.
   Currently supported mechanisms include:
 
   \begin{itemize}
@@ -13548,17 +13870,9 @@ It allows us to:
   Combine with the \texttt{big.matrix} object from Chapter \ref{memory} for \emph{shared memory parallelisation}: all the machines may see the same data, so that we don't need to export objects from machine to machine.
 \end{enumerate}
 
-What do we mean by ``switch the underlying parallelisation mechanism''?
-It means there are several packages that will handle communication between machines.
-Some are very general and will work on any cluster.
-Some are more specific and will work only on a single multicore machine (not a cluster) with a particular operating system.
-These mechanisms include \textbf{multicore}, \textbf{snow}, \textbf{parallel}, and \textbf{Rmpi}.
-The compatibility between these mechanisms and \textbf{foreach} is provided by another set of packages:
-\textbf{doMC} , \textbf{doMPI}, \textbf{doRedis}, \textbf{doParallel}, and \textbf{doSNOW}.
-
 \BeginKnitrBlock{remark}
 \iffalse{} {Remark. } \fi{}I personally prefer the \textbf{multicore} mechanism, with the \textbf{doMC} adapter for \textbf{foreach}.
-I will not use this combo, however, because \textbf{multicore} will not work on Windows machines.
+I will not use this combo, however, because \textbf{multicore} will not work on Windows machines, and will not work over a network.
 I will thus use the more general \textbf{snow} and \textbf{doParallel} combo.
 If you do happen to run on Linux, or Unix, you will want to replace all \textbf{doParallel} functionality with \textbf{doMC}.
 \EndKnitrBlock{remark}
@@ -13568,7 +13882,20 @@ Let's start with a simple example, taken from \href{http://debian.mc.vanderbilt.
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(doParallel)}
-\NormalTok{cl <-}\StringTok{ }\KeywordTok{makeCluster}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: iterators
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: parallel
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cl <-}\StringTok{ }\KeywordTok{makeCluster}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DataTypeTok{type =} \StringTok{'SOCK'}\NormalTok{)}
 \KeywordTok{registerDoParallel}\NormalTok{(cl)}
 \NormalTok{result <-}\StringTok{ }\KeywordTok{foreach}\NormalTok{(}\DataTypeTok{i=}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{) }\OperatorTok{%dopar%}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(i)}
 \KeywordTok{class}\NormalTok{(result)}
@@ -13638,7 +13965,7 @@ Bootstrapping means that in each iteration, we resample the data, and refit the 
 
 \begin{verbatim}
 ## elapsed 
-##  10.443
+##  13.556
 \end{verbatim}
 
 Things to note:
@@ -13671,7 +13998,7 @@ We only need to replace \texttt{\%dopar\%} with \texttt{\%do\%} to test.
 
 \begin{verbatim}
 ## elapsed 
-##    16.9
+##  19.459
 \end{verbatim}
 
 Yes. Parallelising is clearly faster.
@@ -13686,6 +14013,29 @@ The following example is taken from \citet{kane2013scalable}, and uses the \text
 
 \KeywordTok{library}\NormalTok{(foreach)}
 \KeywordTok{library}\NormalTok{(doSNOW)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: snow
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'snow'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:parallel':
+## 
+##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+##     clusterExport, clusterMap, clusterSplit, makeCluster,
+##     parApply, parCapply, parLapply, parRapply, parSapply,
+##     splitIndices, stopCluster
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{cl <-}\StringTok{ }\KeywordTok{makeSOCKcluster}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"localhost"}\NormalTok{, }\DecValTok{4}\NormalTok{)) }\CommentTok{# make a cluster of 4 machines}
 \KeywordTok{registerDoSNOW}\NormalTok{(cl) }\CommentTok{# register machines for foreach()}
 \end{Highlighting}
@@ -13741,89 +14091,574 @@ We are all set up to loop, in parallel, and compute quantiles of \texttt{CAR\_LI
 ## result.6 518 796 995
 \end{verbatim}
 
-\hypertarget{rdsm}{%
-\subsection{Rdsm}\label{rdsm}}
+\hypertarget{which-backend-to-use}{%
+\subsubsection{Which Backend to Use?}\label{which-backend-to-use}}
 
-\hypertarget{pbdr}{%
-\subsection{pbdR}\label{pbdr}}
+In the following example, we compare the \emph{fork} mechanism, to the \emph{socket} mechanism.
+The bottom line is- use \emph{fork} whenever possible.
 
-Not on a single machine.
-\url{https://pbdr.org}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(nycflights13)}
+\NormalTok{flights}\OperatorTok{$}\NormalTok{ind <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DataTypeTok{size =} \KeywordTok{nrow}\NormalTok{(flights), }\DataTypeTok{replace =} \OtherTok{TRUE}\NormalTok{)}
 
-The pbdMPI package provides S4 classes to directly interface MPI in order to support the Single Program/Multiple Data (SPMD) parallel programming style which is particularly useful for batch parallel execution. The pbdSLAP builds on this and uses scalable linear algebra packages (namely BLACS, PBLAS, and ScaLAPACK) in double precision based on ScaLAPACK version 2.0.2. The pbdBASE builds on these and provides the core classes and methods for distributed data types upon which the pbdDMAT builds to provide distributed dense matrices for ``Programming with Big Data''. The pbdNCDF4 package permits multiple processes to write to the same file (without manual synchronization) and supports terabyte-sized files. The pbdDEMO package provides examples for these packages, and a detailed vignette. The pbdPROF package profiles MPI communication SPMD code via MPI profiling libraries, such as fpmpi, mpiP, or TAU.
+\NormalTok{timer <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(i) }\KeywordTok{max}\NormalTok{(flights[flights}\OperatorTok{$}\NormalTok{ind}\OperatorTok{==}\NormalTok{i,}\StringTok{"distance"}\NormalTok{])}
+\KeywordTok{timer}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
-\hypertarget{implicit-parallelism}{%
-\section{Implicit Parallelism}\label{implicit-parallelism}}
+\begin{verbatim}
+## [1] 4983
+\end{verbatim}
 
-\hypertarget{parallel-linear-algebra}{%
-\subsection{Parallel Linear Algebra}\label{parallel-linear-algebra}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(doMC)}
+\KeywordTok{registerDoMC}\NormalTok{(}\DataTypeTok{cores =} \DecValTok{10}\NormalTok{)}
+\KeywordTok{system.time}\NormalTok{(}\KeywordTok{foreach}\NormalTok{ (}\DataTypeTok{i=}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DataTypeTok{.combine =} \StringTok{'c'}\NormalTok{) }\OperatorTok{%dopar%}\StringTok{ }\KeywordTok{timer}\NormalTok{(i))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    user  system elapsed 
+##   0.017   0.749   0.782
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(parallel)         }
+\KeywordTok{library}\NormalTok{(doParallel)}
+\NormalTok{cl <-}\StringTok{ }\KeywordTok{makeCluster}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DataTypeTok{type=}\StringTok{"SOCK"}\NormalTok{)}
+\KeywordTok{registerDoParallel}\NormalTok{(cl)}
+\KeywordTok{system.time}\NormalTok{(}\KeywordTok{foreach}\NormalTok{ (}\DataTypeTok{i=}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DataTypeTok{.combine =} \StringTok{'c'}\NormalTok{) }\OperatorTok{%dopar%}\StringTok{ }\KeywordTok{timer}\NormalTok{(i))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    user  system elapsed 
+##   1.080   0.200   2.118
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{stopCluster}\NormalTok{(cl)}
+\end{Highlighting}
+\end{Shaded}
+
+Things to note:
 
 \begin{itemize}
 \tightlist
 \item
-  You can enjoy parallel linear algebra by replacing the linear algebra libraries with BLAS and LAPACK as described \href{https://www.r-bloggers.com/faster-r-through-better-blas/}{here}.
+  The clear victor is \emph{fork}: sessions start faster, and computations finish faster. Sadly, we recall that \emph{forking} is impossible on Windows machines, or in clusters that consist of several machines.
 \item
-  You should read the ``Parallel computing: Implicit parallelism'' section in the excellent \href{https://cran.r-project.org/web/views/HighPerformanceComputing.html}{High Performance Computing} task view, for the latest developments in implicit parallelism.
+  We did not need to pass \texttt{flights} to the different workers. \texttt{foreach} took care of that for us.
 \end{itemize}
+
+For fun, let's try the same with \texttt{data.table}\ldots{}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{n <-}\StringTok{ }\DecValTok{4}\OperatorTok{*}\DecValTok{1024}
-\NormalTok{A <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{( }\KeywordTok{rnorm}\NormalTok{(n}\OperatorTok{*}\NormalTok{n), }\DataTypeTok{ncol=}\NormalTok{n, }\DataTypeTok{nrow=}\NormalTok{n )}
-\NormalTok{B <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{( }\KeywordTok{rnorm}\NormalTok{(n}\OperatorTok{*}\NormalTok{n), }\DataTypeTok{ncol=}\NormalTok{n, }\DataTypeTok{nrow=}\NormalTok{n )}
-\NormalTok{C <-}\StringTok{ }\NormalTok{A }\OperatorTok{%*%}\StringTok{ }\NormalTok{B}
+\KeywordTok{library}\NormalTok{(data.table)}
+\NormalTok{flights.DT <-}\StringTok{ }\KeywordTok{as.data.table}\NormalTok{(flights)}
+\KeywordTok{system.time}\NormalTok{(flights.DT[,}\KeywordTok{max}\NormalTok{(distance),ind])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    user  system elapsed 
+##   0.056   0.000   0.017
+\end{verbatim}
+
+No surprises there.
+If you can store your data in RAM, \texttt{data.table} is still the fastest.
+
+\hypertarget{rdsm}{%
+\subsection{Rdsm}\label{rdsm}}
+
+TODO
+
+\hypertarget{pbdr}{%
+\subsection{pbdR}\label{pbdr}}
+
+TODO
+
+\hypertarget{parallel-extensions}{%
+\section{Parallel Extensions}\label{parallel-extensions}}
+
+As we have seen, R can be used to write explicit parallel algorithms.
+Some algorithms, however, are so basic that others have already written and published their parallel versions.
+We call these \emph{parallel extensions}.
+Linear algebra, and various machine learning algorithms are examples we now discuss.
+
+\hypertarget{parallel-linear-algebra}{%
+\subsection{Parallel Linear Algebra}\label{parallel-linear-algebra}}
+
+R ships with its own linear algebra algorithms, known as Basic Linear Algebra Subprograms: \href{http://www.netlib.org/blas/}{BLAS}.
+To learn the history of linear algebra in R, read \citet{maechler20062nd}.
+For more details, see our Bibliographic notes.
+As a user, you may actually replace the underlying linear algebra libraries in R.
+There are actually many linear algebra libraries \href{https://en.wikipedia.org/wiki/Comparison_of_linear_algebra_libraries}{out there}.
+Cutting edge linear algebra libraries such as \href{https://github.com/xianyi/OpenBLAS}{OpenBLAS}, \href{https://bitbucket.org/icl/plasma/src/default/}{Plasma}, and Intel's \href{https://software.intel.com/en-us/mkl}{MKL} for Intel processors (which you are probably using), will parallelise basic linear algebra operations for you.
+This is very useful, since: (a) all machines today have multiple cores and (b) linear algebra is at the heart of all statistics and machine learning.
+
+Installing these libraries requires some knowldge in system administration.
+It is quite simple under Ubuntu and Debian linux, and may be more comlicated otherwise.
+Installing these is outside the scope of this text.
+We will thus content ourselves with the following pointers:
+
+\begin{itemize}
+\tightlist
+\item
+  Users can easily replace the BLAS libraries shipped with R, with other libraries. OpenBLAS, and MKL. These libraries will parallelise linear algebra for you.
+  -This is easier to do under Ubuntu and Debian Linux, but possible in all systems.
+\item
+  For specific tasks, such as machine learning, you may not need an all-pupose paralle linear algebra library. If you want machine learning in parallel, there are more specialized libraries. In the followig, we demonstrate Spark (\ref{spark}), and H2O (@(h2o)).
+\end{itemize}
+
+\hypertarget{parallel-data-munging-with-data.table}{%
+\subsection{Parallel Data Munging with data.table}\label{parallel-data-munging-with-data.table}}
+
+We have discussed \texttt{data.table} on various occasions.
+We now recall it to emphasize that various operations in \texttt{data.table} are done in parallel.
+For instance, imports.
+First, we check how many threads \texttt{data.table} is setup to use?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(data.table)}
+\KeywordTok{getDTthreads}\NormalTok{(}\DataTypeTok{verbose=}\OtherTok{TRUE}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## omp_get_num_procs()==8
+## R_DATATABLE_NUM_PROCS_PERCENT=="" (default 50)
+## R_DATATABLE_NUM_THREADS==""
+## omp_get_thread_limit()==2147483647
+## omp_get_max_threads()==8
+## OMP_THREAD_LIMIT==""
+## OMP_NUM_THREADS==""
+## data.table is using 4 threads. This is set on startup, and by setDTthreads(). See ?setDTthreads.
+## RestoreAfterFork==true
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 4
+\end{verbatim}
+
+We then do the import and inspect CPU usage with the \emph{top} linux command.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{air <-}\StringTok{ }\KeywordTok{fread}\NormalTok{(}\StringTok{'data/2010_BSA_Carrier_PUF.csv'}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{figure}
 \centering
-\includegraphics{art/Screenshot from 2019-09-28 20-25-48}
-\caption{top at 657\% CPU!}
+\includegraphics{art/Screenshot from 2019-10-03 10-48-06.png}
+\caption{CPU usage of fread(). The CPU usage is 301.7\%. This is because \texttt{data.table} is setup to use 4 threads simultanously.}
 \end{figure}
 
-In my system I have installed \href{https://en.wikipedia.org/wiki/OpenBLAS}{OpenBLAS}:
+\BeginKnitrBlock{remark}
+\iffalse{} {Remark. } \fi{}An amazing feature of \texttt{data.table} is that it will not parallelize when called from a forked process.
+This behaviour will avoid the nested parallelism we cautioned from in \ref{nested-parallel}.
+\EndKnitrBlock{remark}
+
+Now let's compare parallelised aggregations:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{extSoftVersion}\NormalTok{()[}\StringTok{"BLAS"}\NormalTok{]}
+\NormalTok{n <-}\StringTok{  }\FloatTok{5e6}
+\NormalTok{N <-}\StringTok{ }\NormalTok{n}
+\NormalTok{k <-}\StringTok{  }\FloatTok{1e4}
+
+\KeywordTok{setDTthreads}\NormalTok{(}\DataTypeTok{threads =} \DecValTok{0}\NormalTok{) }\CommentTok{# use all available cores}
+\KeywordTok{getDTthreads}\NormalTok{() }\CommentTok{# print available threads}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##                               BLAS 
-## "/usr/lib/libopenblasp-r0.2.19.so"
+## [1] 8
 \end{verbatim}
 
-\hypertarget{caution-implicit-with-explicit-parallelism}{%
-\subsection{Caution: Implicit with Explicit Parallelism}\label{caution-implicit-with-explicit-parallelism}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{DT <-}\StringTok{  }\KeywordTok{data.table}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{rep_len}\NormalTok{(}\KeywordTok{runif}\NormalTok{(n), N),}
+                \DataTypeTok{y =} \KeywordTok{rep_len}\NormalTok{(}\KeywordTok{runif}\NormalTok{(n), N),}
+                \DataTypeTok{grp =} \KeywordTok{rep_len}\NormalTok{(}\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{k, n, }\OtherTok{TRUE}\NormalTok{), N))}
 
-A common problem when parallelising is that the machines you invoked with \textbf{explicit} parallelism, invoke other machines using \textbf{implicit} parallelism.
-You then lose control of the number of machine being invoked, and the operating system spends most of its time managing resources, instead of doing your computations.
+\KeywordTok{system.time}\NormalTok{(DT[, .(}\DataTypeTok{a =}\NormalTok{ 1L), }\DataTypeTok{by =} \StringTok{"grp"}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
 
-Modern linear algebra libraries may try to implicitly parallelise vector and matrix operations.
-To avoid this type of implicit parallelism within an explicit parallelisation, use the \href{}{RhpcBLASctl package}, and in particular \emph{evaRhpcBLASctl::blas\_set\_num\_threads()}.
-In other cases, you should consult an expert.
+\begin{verbatim}
+##    user  system elapsed 
+##   0.428   0.002   0.078
+\end{verbatim}
 
-\hypertarget{parallel-data-munging-with-data.table}{%
-\subsection{Parallel Data Munging with data.table}\label{parallel-data-munging-with-data.table}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{setDTthreads}\NormalTok{(}\DataTypeTok{threads =} \DecValTok{1}\NormalTok{) }\CommentTok{# use a single thread}
 
-\hypertarget{parallel-learning-from-a-centralized-file-system}{%
-\subsection{Parallel Learning from a Centralized File System}\label{parallel-learning-from-a-centralized-file-system}}
+\KeywordTok{system.time}\NormalTok{(DT[, .(}\DataTypeTok{a =}\NormalTok{ 1L), }\DataTypeTok{by =} \StringTok{"grp"}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
 
-\hypertarget{parallel-learning-from-a-distributed-file-system}{%
-\subsection{Parallel Learning from a Distributed File System}\label{parallel-learning-from-a-distributed-file-system}}
+\begin{verbatim}
+##    user  system elapsed 
+##   0.145   0.000   0.144
+\end{verbatim}
+
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  Parallel aggregation is indeed much faster.
+\item
+  This example was cooked to emphasize the difference. You may not enjoy such speedups in all problems.
+\end{itemize}
 
 \hypertarget{spark}{%
-\subsubsection{Spark}\label{spark}}
+\subsection{Spark}\label{spark}}
+
+Spark is the brainchild of Matei Zaharia, in 2009, as part of his PhD studies at University of California, Berkeley 's AMPLab.
+To understand \emph{Spark} need some background.
+The software that manages files on your disk is the \href{https://en.wikipedia.org/wiki/File_system}{file system}.
+On personal computers, you may have seen names like FAT32, NTFS, ext3, or others.
+Those are disk file systems.
+If your data is too big to be stored on a single disk, you may distribute it on several machines.
+When doing so, you will need a file systems that is designed for distributed clusters.
+A good \href{https://en.wikipedia.org/wiki/Clustered_file_system}{cluster file system}, is crucial for the performance of your cluster.
+Google's file system, the \href{https://en.wikipedia.org/wiki/File_system}{Google File}, is part of Google power.
+If you are not at Google, you will not have access to this file system.
+Luckily, there are many other alternatives.
+The Hadoop File System, \href{https://en.wikipedia.org/wiki/Apache_Hadoop}{HDFS}, that started at Yahoo, and was ported to the Apache Foundation, is such an alternative.
+With the HDFS you can store files in a cluster, but for doing statistics with the data in these files, you need software that is compatible with the file system.
+Hadoop is such a software, but it was not designed for machine learning.
+Hadoop operates from the disk.
+Learning, which consists of a lot iterative algorithms run, requires fast and repeated data reads.
+This is the purpose of Spark.
+Spark is a data oriented computing environment over distributed file systems.
+While originality linked to HDFS, it may run over many other distributed file systems, but also locally, as we now demonstrate.
+
+\begin{verbatim}
+## Spark 2.4.0 for Hadoop 2.7 or later already installed.
+\end{verbatim}
+
+\begin{verbatim}
+## * Using Spark: 2.4.0
+\end{verbatim}
+
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{spark\_install} will download and install \emph{Spark} on your first run. Make sure to update the version number, as this text may be outdated by the time you read it.
+\item
+  I used the \emph{sparklyr} package from RStudio. There is an alternative package from Apache: \emph{SparkR}.
+\item
+  \texttt{spark\_connect} opens a connection to the Spark server. When working in a cluster, with many machines, the \texttt{master=} argumnt infrorms R which machine is the master, a.k.a. the ``driver node''.
+\item
+  After running \texttt{spark\_connect}, the connection to the Sprak server will appear in RStudio's \href{https://support.rstudio.com/hc/en-us/articles/115010915687-Using-RStudio-Connections}{Connection pane}.
+\end{itemize}
+
+Let's load and aggregate some data:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(nycflights13)}
+\NormalTok{flights_tbl<-}\StringTok{ }\KeywordTok{copy_to}\NormalTok{(}\DataTypeTok{dest=}\NormalTok{sc, }\DataTypeTok{df=}\NormalTok{flights, }\DataTypeTok{name=}\StringTok{'flights'}\NormalTok{, }\DataTypeTok{overwrite =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{class}\NormalTok{(flights_tbl)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "tbl_spark" "tbl_sql"   "tbl_lazy"  "tbl"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(dplyr) }
+\KeywordTok{system.time}\NormalTok{(delay<-flights_tbl }\OperatorTok{%>%}\StringTok{ }
+\StringTok{              }\KeywordTok{group_by}\NormalTok{(tailnum) }\OperatorTok{%>%}
+\StringTok{              }\KeywordTok{summarise}\NormalTok{(}
+                \DataTypeTok{count=}\KeywordTok{n}\NormalTok{(),}\DataTypeTok{dist=}\KeywordTok{mean}\NormalTok{(distance),}\DataTypeTok{delay=}\KeywordTok{mean}\NormalTok{(arr_delay)) }\OperatorTok{%>%}
+\StringTok{              }\KeywordTok{filter}\NormalTok{(count}\OperatorTok{>}\DecValTok{20}\NormalTok{, dist}\OperatorTok{<}\DecValTok{2000}\NormalTok{, }\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(delay)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{              }\KeywordTok{collect}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Missing values are always removed in SQL.
+## Use `mean(x, na.rm = TRUE)` to silence this warning
+## This warning is displayed only once per session.
+\end{verbatim}
+
+\begin{verbatim}
+##    user  system elapsed 
+##   0.193   0.283   1.394
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{delay}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2,961 x 4
+##    tailnum count  dist  delay
+##    <chr>   <dbl> <dbl>  <dbl>
+##  1 N24211    130 1330.  7.7  
+##  2 N793JB    283 1529.  4.72 
+##  3 N657JB    285 1286.  5.03 
+##  4 N633AA     24 1587. -0.625
+##  5 N9EAMQ    248  675.  9.24 
+##  6 N3GKAA     77 1247.  4.97 
+##  7 N997DL     63  868.  4.90 
+##  8 N318NB    202  814. -1.12 
+##  9 N651JB    261 1408.  7.58 
+## 10 N841UA     96 1208.  2.10 
+## # ... with 2,951 more rows
+\end{verbatim}
+
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{copy\_to} exports from R to Sprak. Typically, my data will already be waiting in Sprak, since the whole motivation is that it does not fit on y disk.
+\item
+  Notice the \texttt{collect} command at the end. As the name suggests, this will collect results from the various worker/slave machines.
+\item
+  I have used the \emph{dplyr} syntax and not my favorite \emph{data.table} syntax. This is because \emph{sparklyr} currently supports the \emph{splyr} syntax, or plain SQL with the \emph{DBI} package.
+\end{itemize}
+
+To make the most of it, you will porbably be running Spark on some cluster.
+You should thus consult your cluster's documentation in order to connect to it.
+In our particular case, the data is not very big so it fits into RAM.
+We can thus compare performance to \texttt{data.table}, only to re-discover, than if data fits in RAM, there is no beating \texttt{data.table}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(data.table)}
+\NormalTok{flight.DT <-}\StringTok{ }\KeywordTok{data.table}\NormalTok{(flights)}
+\KeywordTok{system.time}\NormalTok{(flight.DT[,.(}\DataTypeTok{distance=}\KeywordTok{mean}\NormalTok{(distance),}\DataTypeTok{delay=}\KeywordTok{mean}\NormalTok{(arr_delay),}\DataTypeTok{count=}\NormalTok{.N),}\DataTypeTok{by=}\NormalTok{tailnum][count}\OperatorTok{>}\DecValTok{20} \OperatorTok{&}\StringTok{ }\NormalTok{distance}\OperatorTok{<}\DecValTok{2000} \OperatorTok{&}\StringTok{ }\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(delay)])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    user  system elapsed 
+##   0.043   0.051   0.094
+\end{verbatim}
+
+Let's disconnect from the Spark server.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{spark_disconnect}\NormalTok{(sc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+Spark comes with a set of learning algorithms called \emph{MLLib}.
+Consult the \href{http://spark.apache.org/docs/latest/ml-classification-regression.html}{online documentation} to see which are currently available.
+If your data is happily stored in a distributed Spark cluster, and the algorithm you want to run is not available, you have too options:
+(1) use extensions or (2) write your own.
+
+Writing your own algorithm and dispatching it to Spark can be done a-la \texttt{apply} style with \texttt{sparklyr::spark\_apply}. This, however, would typically be extremely inneficient. You are better off finding a Spark extension that does what you need.
+See the \emph{sparklyr} \href{https://CRAN.R-project.org/package=sparklyr}{CRAN page}, and in particular the Reverse Depends section, to see which extensions are available.
+One particular extension is \href{https://cran.r-project.org/web/packages/rsparkling/index.html}{rsparkling}, which allows you to apply H2O's massive library of learning algorithms, on data stored in Spark.
+We will not cover \emph{sparklyr} herein, but we will present (standalone) H2O.
+
+\hypertarget{h2o}{%
+\subsection{H2O}\label{h2o}}
+
+H2O can be thought of as a library of efficient distributed learning algorithm, that run in-memory, where memory considerations and parallelisation have been taken care of for you.
+For a (massive) list of learning algorithms implemented in H2O, see \href{http://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science.html\#}{their documentaion}.
+H2O can run as a standalone server, or on top of Spark, so that it may use the \emph{Spark data frames}. This is the purpose of \emph{Sparkling Water} discussed in \ref{sparkling}.
+We start with working on H2O directly with the \texttt{h2o} package.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#install.packages("h2o") }
+\KeywordTok{suppressPackageStartupMessages}\NormalTok{(}\KeywordTok{library}\NormalTok{(h2o))}
+
+\KeywordTok{h2o.init}\NormalTok{(}\DataTypeTok{nthreads=}\DecValTok{2}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## H2O is not running yet, starting it now...
+## 
+## Note:  In case of errors look at the following log files:
+##     /tmp/Rtmp0cXDNK/h2o_rstudio_started_from_r.out
+##     /tmp/Rtmp0cXDNK/h2o_rstudio_started_from_r.err
+## 
+## 
+## Starting H2O JVM and connecting: . Connection successful!
+## 
+## R is connected to the H2O cluster: 
+##     H2O cluster uptime:         1 seconds 403 milliseconds 
+##     H2O cluster timezone:       Etc/UTC 
+##     H2O data parsing timezone:  UTC 
+##     H2O cluster version:        3.26.0.2 
+##     H2O cluster version age:    2 months and 9 days  
+##     H2O cluster name:           H2O_started_from_R_rstudio_gap243 
+##     H2O cluster total nodes:    1 
+##     H2O cluster total memory:   3.43 GB 
+##     H2O cluster total cores:    8 
+##     H2O cluster allowed cores:  2 
+##     H2O cluster healthy:        TRUE 
+##     H2O Connection ip:          localhost 
+##     H2O Connection port:        54321 
+##     H2O Connection proxy:       NA 
+##     H2O Internal Security:      FALSE 
+##     H2O API Extensions:         Amazon S3, XGBoost, Algos, AutoML, Core V3, Core V4 
+##     R Version:                  R version 3.6.1 (2019-07-05)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{h2o.no_progress}\NormalTok{()}
+\KeywordTok{data}\NormalTok{(}\StringTok{"spam"}\NormalTok{, }\DataTypeTok{package =} \StringTok{'ElemStatLearn'}\NormalTok{)}
+\NormalTok{spam.h2o <-}\StringTok{ }\KeywordTok{as.h2o}\NormalTok{(spam, }\DataTypeTok{destination_frame =} \StringTok{"spam.hex"}\NormalTok{) }\CommentTok{# load to the H2O server}
+\KeywordTok{h2o.ls}\NormalTok{() }\CommentTok{# check avaialbe data in the server}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        key
+## 1 spam.hex
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{h2o.describe}\NormalTok{(spam.h2o) }\OperatorTok{%>%}\StringTok{ }\NormalTok{head }\CommentTok{# the H2O version of summary()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Label Type Missing Zeros PosInf NegInf Min   Max       Mean     Sigma
+## 1   A.1 real       0  3548      0      0   0  4.54 0.10455336 0.3053576
+## 2   A.2 real       0  3703      0      0   0 14.28 0.21301456 1.2905752
+## 3   A.3 real       0  2713      0      0   0  5.10 0.28065638 0.5041429
+## 4   A.4 real       0  4554      0      0   0 42.81 0.06542491 1.3951514
+## 5   A.5 real       0  2853      0      0   0 10.00 0.31222343 0.6725128
+## 6   A.6 real       0  3602      0      0   0  5.88 0.09590089 0.2738241
+##   Cardinality
+## 1          NA
+## 2          NA
+## 3          NA
+## 4          NA
+## 5          NA
+## 6          NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{h2o.table}\NormalTok{(spam.h2o}\OperatorTok{$}\NormalTok{spam)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    spam Count
+## 1 email  2788
+## 2  spam  1813
+## 
+## [2 rows x 2 columns]
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Split to train and test}
+\NormalTok{splits <-}\StringTok{ }\KeywordTok{h2o.splitFrame}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ spam.h2o, }\DataTypeTok{ratios =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.8}\NormalTok{))}
+\NormalTok{train <-}\StringTok{ }\NormalTok{splits[[}\DecValTok{1}\NormalTok{]]}
+\NormalTok{test <-}\StringTok{ }\NormalTok{splits[[}\DecValTok{2}\NormalTok{]]}
+
+\CommentTok{# Fit a random forest}
+\NormalTok{rf <-}\StringTok{ }\KeywordTok{h2o.randomForest}\NormalTok{(}
+  \DataTypeTok{x =} \KeywordTok{names}\NormalTok{(spam.h2o)[}\OperatorTok{-}\DecValTok{58}\NormalTok{],}
+  \DataTypeTok{y =} \KeywordTok{c}\NormalTok{(}\StringTok{"spam"}\NormalTok{),}
+  \DataTypeTok{training_frame =}\NormalTok{ train,}
+  \DataTypeTok{model_id =} \StringTok{"our.rf"}\NormalTok{)}
+
+\CommentTok{# Predict on test set}
+\NormalTok{predictions <-}\StringTok{ }\KeywordTok{h2o.predict}\NormalTok{(rf, test)}
+\KeywordTok{head}\NormalTok{(predictions)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   predict      email      spam
+## 1    spam 0.00000000 1.0000000
+## 2    spam 0.08722807 0.9127719
+## 3    spam 0.36803019 0.6319698
+## 4    spam 0.00000000 1.0000000
+## 5    spam 0.04337186 0.9566281
+## 6    spam 0.07945029 0.9205497
+\end{verbatim}
+
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  We did not install the H2O server; \texttt{install.packages("h2o")} did it for us.
+\item
+  \texttt{h2o.init} fires the H2O server. Use \texttt{nthreads} to manually control the number of threads, or use the defaults.
+\item
+  H2O objects behave a lot like data.frame/tables.
+\item
+  To compute on H2O objects, you need dedicated function. They typically start with ``h2o'' such as \texttt{h2o.table}, and \texttt{h2o.randomForest}.
+\item
+  \texttt{h2o.randomForest}, and other H2O functions, have their own syntax with many many options. Make sure to read \texttt{?h2o.randomForest}.
+\end{itemize}
+
+\hypertarget{sparkling}{%
+\subsubsection{Sparkling-Water}\label{sparkling}}
+
+The \emph{h2o} package (\ref{h2o}) works with \texttt{H2OFrame} class objects.
+If your data is stored in Spark, it may be more natural to work with \emph{Spark DataFrames} instead of \texttt{H2OFrame}s.
+This is exactly the purpose of the \href{https://www.h2o.ai/products/h2o-sparkling-water/}{Sparkling-Water} system.
+R users can connect to it using the \href{http://docs.h2o.ai/sparkling-water/2.2/latest-stable/doc/rsparkling.html}{RSparkling} package, written and maintained by H2O.
+
+\hypertarget{nested-parallel}{%
+\section{Caution: Nested Parallelism}\label{nested-parallel}}
+
+A common problem when parallelising is that the cores/machines you invoked explicitely, invoke themselves other cores/machines.
+Consider a user \emph{forking} multiple processes, which call each \texttt{data.table} itself invoking parallel processing.
+This is called \emph{nested parallelism}, which may cause you to lose control of the number of machine being invoked.
+The operating system will spend most of its time with house keeping, instead of doing your computations.
+
+Luckily, \texttt{data.table} was designed to avoid this, but it may happen in general.
+If you are parallelising your linear algebra with OpenBLAS, you may control nested parallelism with the package \href{https://cran.r-project.org/package=RhpcBLASctl}{RhpcBLASctl package}.
+In other cases, you should be aware of this, and may need to consult an expert.
 
 \hypertarget{bibliographic-notes-14}{%
 \section{Bibliographic Notes}\label{bibliographic-notes-14}}
 
+To understand how computers work in general, see \citet{bryant2015computer}.
 For a brief and excellent explanation on parallel computing in R see \citet{schmidberger2009state}.
 For a full review see \citet{chapple2016mastering}.
 For a blog-level introduction see \href{http://www.parallelr.com/r-with-parallel-computing/}{ParallelR}.
 For an up-to-date list of packages supporting parallel programming see the High Performance Computing \href{https://cran.r-project.org/web/views/HighPerformanceComputing.html}{R task view}.
-To understand how computers work in general, see \citet{bryant2015computer}.
+For some theory of distributed machine learning, see \citet{rosenblatt2016optimality}.
+
+An excellent video explaining \texttt{data.table} and H2O, by the author of `data.table, is \href{https://www.youtube.com/watch?v=5X7h1rZGVs0}{this}.
+More benchmarks in \href{https://h2oai.github.io/db-benchmark/}{here}.
+More on Spark with R inthe book \href{https://therinspark.com}{Mastering Apache Spark with R}.
+
+For a blog level introduction to linear algebra in R see \href{https://blog.revolutionanalytics.com/2013/08/r-and-linear-algebra.html}{Joseph Rickert's entry}.
+For a detailed discussion see \citet{oancea2015accelerating}.
 
 \hypertarget{practice-yourself-12}{%
 \section{Practice Yourself}\label{practice-yourself-12}}
@@ -14093,7 +14928,7 @@ The \texttt{nycflights13::flights} has delay data for US flights.
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 336,776 x 19
+## # A tibble: 336,776 x 20
 ##     year month   day dep_time sched_dep_time dep_delay arr_time
 ##    <int> <int> <int>    <int>          <int>     <dbl>    <int>
 ##  1  2013     1     1      517            515         2      830
@@ -14106,10 +14941,10 @@ The \texttt{nycflights13::flights} has delay data for US flights.
 ##  8  2013     1     1      557            600        -3      709
 ##  9  2013     1     1      557            600        -3      838
 ## 10  2013     1     1      558            600        -2      753
-## # ... with 336,766 more rows, and 12 more variables: sched_arr_time <int>,
+## # ... with 336,766 more rows, and 13 more variables: sched_arr_time <int>,
 ## #   arr_delay <dbl>, carrier <chr>, flight <int>, tailnum <chr>,
 ## #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
-## #   minute <dbl>, time_hour <dttm>
+## #   minute <dbl>, time_hour <dttm>, ind <int>
 \end{verbatim}
 
 The data is of class \texttt{tbl\_df} which is an extension of the \texttt{data.frame} class, designed for large data sets.

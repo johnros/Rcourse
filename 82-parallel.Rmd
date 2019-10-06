@@ -16,8 +16,8 @@ A lot of parallelisation still has to be explicit, but stay tuned for technologi
 
 To parallelise computations, we need to distinguish between two types of parallelism:
 
-1. __Parallel R__: where the parallelism is managed with R.
-1. __Parallel Extensions__: where R calls specialized libraries/routines/software that manage the parallelism themselves. 
+1. __Parallel R__: where the parallelism is managed with R. Discussed in Section \@ref(parallel-r).
+1. __Parallel Extensions__: where R calls specialized libraries/routines/software that manage the parallelism themselves. Discussed in Section \@ref(parallel-extensions).
 
 
 
@@ -82,7 +82,7 @@ Here are some terms we will be needing.
 - __Task Parallel:__ When performing the same task, on different data. 
 
 
-## Parallel R
+## Parallel R {#parallel-r}
 
 R provides many frameworks for explicit parallelism.
 Any such framework will include the means for starting R (salve/worker) sessions, and the means for communicating between these sessions. 
@@ -315,7 +315,7 @@ TODO
 
 
 
-## Parallel Extensions
+## Parallel Extensions {#parallel-extensions}
 
 As we have seen, R can be used to write explicit parallel algorithms. 
 Some algorithms, however, are so basic that others have already written and published their parallel versions. 
@@ -340,7 +340,7 @@ We will thus content ourselves with the following pointers:
 
 - Users can easily replace the BLAS libraries shipped with R, with other libraries. OpenBLAS, and MKL. These libraries will parallelise linear algebra for you.
 -This is easier to do under Ubuntu and Debian Linux, but possible in all systems. 
-- For specific tasks, such as machine learning, you may not need an all-pupose paralle linear algebra library. If you want machine learning in parallel, there are more specialized libraries. In the followig, we demonstrate Spark (\@ref(spark)), and H2O (\@(h2o)).
+- For specific tasks, such as machine learning, you may not need an all-pupose paralle linear algebra library. If you want machine learning in parallel, there are more specialized libraries. In the followig, we demonstrate Spark (\@ref(spark)), and H2O (\@ref(h2o)).
 
 
 
@@ -424,7 +424,7 @@ Spark is a data oriented computing environment over distributed file systems.
 While originality linked to HDFS, it may run over many other distributed file systems, but also locally, as we now demonstrate. 
 
 
-```{r, echo=FALSE}
+```{r}
 library(sparklyr)
 spark_install(version = "2.4.0") # will download Spark on first run. 
 sc <- spark_connect(master = "local")
