@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-10-06" />
+<meta name="date" content="2019-10-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -405,13 +405,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.2" data-path="parallel.html"><a href="parallel.html#terminology"><i class="fa fa-check"></i><b>16.2</b> Terminology</a><ul>
 <li class="chapter" data-level="16.2.1" data-path="parallel.html"><a href="parallel.html#hardware"><i class="fa fa-check"></i><b>16.2.1</b> Hardware:</a></li>
 <li class="chapter" data-level="16.2.2" data-path="parallel.html"><a href="parallel.html#software"><i class="fa fa-check"></i><b>16.2.2</b> Software:</a></li>
-<li class="chapter" data-level="16.2.3" data-path="parallel.html"><a href="parallel.html#types-of-parallelism"><i class="fa fa-check"></i><b>16.2.3</b> Types of Parallelism</a></li>
 </ul></li>
 <li class="chapter" data-level="16.3" data-path="parallel.html"><a href="parallel.html#parallel-r"><i class="fa fa-check"></i><b>16.3</b> Parallel R</a><ul>
-<li class="chapter" data-level="16.3.1" data-path="parallel.html"><a href="parallel.html#the-parallel-package"><i class="fa fa-check"></i><b>16.3.1</b> The parallel Package</a></li>
-<li class="chapter" data-level="16.3.2" data-path="parallel.html"><a href="parallel.html#the-foreach-package"><i class="fa fa-check"></i><b>16.3.2</b> The foreach Package</a></li>
-<li class="chapter" data-level="16.3.3" data-path="parallel.html"><a href="parallel.html#rdsm"><i class="fa fa-check"></i><b>16.3.3</b> Rdsm</a></li>
-<li class="chapter" data-level="16.3.4" data-path="parallel.html"><a href="parallel.html#pbdr"><i class="fa fa-check"></i><b>16.3.4</b> pbdR</a></li>
+<li class="chapter" data-level="16.3.1" data-path="parallel.html"><a href="parallel.html#starting-a-new-r-processes"><i class="fa fa-check"></i><b>16.3.1</b> Starting a New R Processes</a></li>
+<li class="chapter" data-level="16.3.2" data-path="parallel.html"><a href="parallel.html#inter-process-communication"><i class="fa fa-check"></i><b>16.3.2</b> Inter-process Communication</a></li>
+<li class="chapter" data-level="16.3.3" data-path="parallel.html"><a href="parallel.html#the-parallel-package"><i class="fa fa-check"></i><b>16.3.3</b> The parallel Package</a></li>
+<li class="chapter" data-level="16.3.4" data-path="parallel.html"><a href="parallel.html#the-foreach-package"><i class="fa fa-check"></i><b>16.3.4</b> The foreach Package</a></li>
+<li class="chapter" data-level="16.3.5" data-path="parallel.html"><a href="parallel.html#rdsm"><i class="fa fa-check"></i><b>16.3.5</b> Rdsm</a></li>
+<li class="chapter" data-level="16.3.6" data-path="parallel.html"><a href="parallel.html#pbdr"><i class="fa fa-check"></i><b>16.3.6</b> pbdR</a></li>
 </ul></li>
 <li class="chapter" data-level="16.4" data-path="parallel.html"><a href="parallel.html#parallel-extensions"><i class="fa fa-check"></i><b>16.4</b> Parallel Extensions</a><ul>
 <li class="chapter" data-level="16.4.1" data-path="parallel.html"><a href="parallel.html#parallel-linear-algebra"><i class="fa fa-check"></i><b>16.4.1</b> Parallel Linear Algebra</a></li>
@@ -503,21 +504,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="parallel" class="section level1">
 <h1><span class="header-section-number">Chapter 16</span> Parallel Computing</h1>
 <p>You would think that because you have an expensive multicore computer your computations will speed up.
-Well, no; unless you actively make sure of that.
-By default, no matter how many cores you have, the operating system will allocate each R session to a single core.</p>
-<p>You may wonder: why can’t I just write code, and let R (or any other language) figure out what can be parallelised.
-Well, that’s not how things work.
+Well, unless you actively make sure of that, this will not happen.
+By default, the operating system will allocate each R session to a single core.
+You may wonder: why can’t I just write code, and let R (or any other language) figure out what can be parallelised.
+Sadly, that’s not how things work.
 It is very hard to design software that can parallelise any algorithm, while adapting to your hardware, operating system, and other the software running on your device.
 A lot of parallelisation still has to be explicit, but stay tuned for technologies like <a href="https://rise.cs.berkeley.edu/projects/ray/">Ray</a>, <a href="https://spark.apache.org">Apache Spark</a>, <a href="https://flink.apache.org">Apache Flink</a>, <a href="https://chapel-lang.org">Chapel</a>, <a href="https://pytorch.org">PyTorch</a>, and others, which are making great advances in handling parallelism for you.</p>
-<p>To parallelise computations, we need to distinguish between two types of parallelism:</p>
+<p>To parallelise computationsin with R, we will distinguish between two types of parallelism:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Parallel R</strong>: where the parallelism is managed with R. Discussed in Section <a href="parallel.html#parallel-r">16.3</a>.</li>
 <li><strong>Parallel Extensions</strong>: where R calls specialized libraries/routines/software that manage the parallelism themselves. Discussed in Section <a href="parallel.html#parallel-extensions">16.4</a>.</li>
 </ol>
 <div id="when-and-how-to-parallelise" class="section level2">
 <h2><span class="header-section-number">16.1</span> When and How to Parallelise?</h2>
-<p>Your computations are too slow.
-Why is this?
+<p>Your notice computations are too slow, and wonder “why is that?”
 Should you store your data differently?
 Should you use different software?
 Should you buy more RAM?
@@ -528,20 +528,20 @@ Solving a CPU bottleneck may consume more RAM.
 Parallelisation means using multiple CPUs simultaneously.
 It will thus aid with CPU bottlenecks, but may consume more RAM.
 Parallelising is thus ill advised when dealing with a RAM bottleneck.
-Memory bottlenecks are released with sparsity (Chapter <a href="sparse.html#sparse">14</a>), or efficient memory usage (Chapter <a href="memory.html#memory">15</a>).</p>
+Memory bottlenecks are released with efficient memory representations or out-of-memory algorithms (Chapters <a href="sparse.html#sparse">14</a> and <a href="memory.html#memory">15</a>).</p>
 <p>When deciding if, and how, to parallelise, it is crucial that you diagnose your bottleneck.
 The good news is- that diagnostics is not too hard.
 Here are a few pointers:</p>
 <ol style="list-style-type: decimal">
-<li><p>Always have a system monitor open. Windows users have their <a href="https://en.wikipedia.org/wiki/Task_Manager_(Windows)">Task Manager</a>; Linux users have <a href="https://en.wikipedia.org/wiki/Top_(software)">top</a>, or preferably, <a href="https://en.wikipedia.org/wiki/Htop">htop</a>; Mac users have the <a href="https://www.howtogeek.com/227240/how-to-monitor-your-macs-health-with-activity-monitor/">Activity Monitor</a>. The system monitor will inform you how many CPUs are being used, and how much RAM is being used.</p></li>
-<li><p>If you escape your computation, and R takes a long time to respond, you are probably dealing with a RAM bottleneck.</p></li>
+<li><p>You never drive without looking at your dashboard; you should never program without looking at your system monitors. Windows users have their <a href="https://en.wikipedia.org/wiki/Task_Manager_(Windows)">Task Manager</a>; Linux users have <a href="https://en.wikipedia.org/wiki/Top_(software)">top</a>, or preferably, <a href="https://en.wikipedia.org/wiki/Htop">htop</a>; Mac users have the <a href="https://www.howtogeek.com/227240/how-to-monitor-your-macs-health-with-activity-monitor/">Activity Monitor</a>. The system monitor will inform you how your RAM and CPUs are being used.</p></li>
+<li><p>If you forcefully terminate your computation, and R takes a long time to respond, you are probably dealing with a RAM bottleneck.</p></li>
 <li><p>Profile your code to detect how much RAM and CPU are consumed by each line of code. See Hadley’s <a href="http://adv-r.had.co.nz/Profiling.html">guide</a>.</p></li>
 </ol>
 <p>In the best possible scenario, the number of operations you can perform scales with the number of processors: <span class="math display">\[time * processors = operations\]</span>.
 This is called <em>perfect scaling</em>.
 It is rarely observed in practice, since parallelising incurs some computational overhead: setting up environments, copying memory, …
 For this reason, the typical speedup is sub-linear.
-Computer scientists call this <a href="https://en.wikipedia.org/wiki/Amdahl%27s_law">Amdahl’s law</a>.</p>
+Computer scientists call this <a href="https://en.wikipedia.org/wiki/Amdahl%27s_law">Amdahl’s law</a>; remember it.</p>
 </div>
 <div id="terminology" class="section level2">
 <h2><span class="header-section-number">16.2</span> Terminology</h2>
@@ -551,7 +551,7 @@ Computer scientists call this <a href="https://en.wikipedia.org/wiki/Amdahl%27s_
 <ul>
 <li><strong>Cluster:</strong> A collection of interconnected computers.</li>
 <li><strong>Node/Machine:</strong> A single physical machine in the cluster. Components of a single node do not communicate via the cluster’s network, but rather, via the node’s circuitry.</li>
-<li><strong>Processor/Socket/CPU:</strong></li>
+<li><strong>Processor/Socket/CPU/Core:</strong> The physical device in a computer that make computations. A modern laptop will have about 4-8 cores. A modern server may have hundreds of cores.</li>
 <li><strong>RAM:</strong> Random Access Memory. One of many types of memory in a computer. Possibly the most relevant type of memory when computing with data.</li>
 <li><strong>GPU:</strong> Graphical Processing Unit. A computing unit, separate from the CPU. Originally dedicated to graphics and gaming, thus its name. Currently, GPUs are extremely popular for fitting and servicing Deep Neural Networks.</li>
 <li><strong>TPU:</strong> Tensor Processing Unit. A computing unit, dedicated to servicing and fitting Deep Neural Networks.</li>
@@ -564,49 +564,51 @@ Computer scientists call this <a href="https://en.wikipedia.org/wiki/Amdahl%27s_
 <li><strong>Thread:</strong> A sub-sequence of instructions, within a process. Various threads in a process may see the same memory. Compiled languages like C, C++, may operate on threads.</li>
 </ul>
 </div>
-<div id="types-of-parallelism" class="section level3">
-<h3><span class="header-section-number">16.2.3</span> Types of Parallelism</h3>
-<ul>
-<li><strong>Data Parallel:</strong> When performing different tasks on the same data.</li>
-<li><strong>Task Parallel:</strong> When performing the same task, on different data.</li>
-</ul>
-</div>
 </div>
 <div id="parallel-r" class="section level2">
 <h2><span class="header-section-number">16.3</span> Parallel R</h2>
-<p>R provides many frameworks for explicit parallelism.
-Any such framework will include the means for starting R (salve/worker) sessions, and the means for communicating between these sessions.
-Except for developers, a typical user will probably be using some high-level R package which will abstract away these stages.
-A communication protocol because different R sessions will be communication one with the other. An abstraction layer because providing the user will all the features and generality of the communication layer is needlessly cumbersome.</p>
-<p>Starting new R processes, a.k.a. slaves:</p>
+<p>R provides many frameworks to parallelise execution.
+The operating system allocates each R session to a single process.
+Any parallelisation framework will include the means for starting R processes, and the means for communicating between these processes.<br />
+Except for developers, a typical user will probably use some high-level R package which will abstract away these stages.</p>
+<div id="starting-a-new-r-processes" class="section level3">
+<h3><span class="header-section-number">16.3.1</span> Starting a New R Processes</h3>
+<p>A R process may strat a new R process in various ways.
+The new process may be called a <em>child process</em>, a <em>slave</em> process, and many other names.
+Here are some mechanisms to start new processes.</p>
 <ul>
-<li><p>R sessions/process may always be started using system calls. This creates <em>child processes</em>, or <em>spawn processes</em> that cannot access the data and instructions of the calling process.</p></li>
-<li><p><strong>Fork</strong>: a mechanism, unique to Unix and Linux, that clones a process with accompanying instructions and data. All processes see the same memory in read-only state. Copies are made when data is changed by a process.</p></li>
+<li><p><strong>Fork</strong>: Imagine the operating system making a copy of the currently running R process.
+The <em>fork</em> mechanism, unique to Unix and Linux, clones a process with its accompanying instructions and data. All forked processes see the same memory in read-only mode. Copies of the data are made when the process needs to change the data.</p></li>
+<li><p><strong>System calls</strong>: Imagine R as a human user, that starts a new R session. This is not a <em>forked</em> porcess. The new process, called <em>spawn process</em> cannot access the data and instructions of the parent process.</p></li>
 </ul>
-<p>Inter-process communication standards:</p>
+</div>
+<div id="inter-process-communication" class="section level3">
+<h3><span class="header-section-number">16.3.2</span> Inter-process Communication</h3>
+<p>Now that you have various R processes running, how do they communicate?</p>
 <ul>
-<li><p><strong>Socket</strong>: data sent via a network interface. Put differently- information is sent between R processes as if these were different machines in a network. Information may be structured by the particular application, and does not abide to some</p></li>
-<li><p><strong>Parallel Virtual Machine</strong> (PVM): a communication protocol and software, developed the University of Tennessee, Oak Ridge National Laboratory and Emory University, and first released in 1989. Runs on Windows and Unix, thus allowing to compute on clusters running these two operating systems. Noways, it is mostly replaced by MPI. The same group responsible for PVM will later deliver <em>Programming with Big Data in R</em> (<a href="https://pbdr.org">pbdR</a>): a whole ecosystem of packages for running R on large computing clusters.</p></li>
-<li><p><strong>Message Passing Interface</strong> (MPI): A communication protocol that has become the de-facto standard for communication in large distributed clusters. Particularly, for heterogeneous computing clusters with varying operating systems and hardware. The protocol has various software implementations such as <a href="https://en.wikipedia.org/wiki/Open_MPI">OpenMPI</a> and <a href="https://en.wikipedia.org/wiki/MPICH">MPICH</a>, <a href="http://mpi.deino.net/">Deino</a>, <a href="https://en.wikipedia.org/wiki/LAM/MPI">LAM/MPI</a>. Interestingly, large computing clusters use MPI, while modern BigData analysis platforms such as Spark, and Ray do not. Why is this? See Jonathan Dursi’s excellent but controversial <a href="https://www.dursi.ca/post/hpc-is-dying-and-mpi-is-killing-it.html">blog post</a>.</p></li>
+<li><p><strong>Socket</strong>: imagine each R process as a standalone computer in the network. Data can be sent via a network interface. Unlike PVM, MPI and other standards, information sent does not need to be format in any particular way, provided that the reciever knows how it is formatted. This is not a problem when sending from R to R.</p></li>
+<li><p><strong>Parallel Virtual Machine</strong> (PVM): a communication protocol and software, developed the University of Tennessee, Oak Ridge National Laboratory and Emory University, and first released in 1989. Runs on Windows and Unix, thus allowing to compute on clusters running these two operating systems. Noways, it is mostly replaced by MPI. The same group responsible for PVM will later deliver <em>pbdR</em> <a href="parallel.html#pbdr">16.3.6</a>.</p></li>
+<li><p><strong>Message Passing Interface</strong> (MPI): A communication protocol that has become the de-facto standard for communication in large distributed clusters. Particularly, for heterogeneous computing clusters with varying operating systems and hardware. The protocol has various software implementations such as <a href="https://en.wikipedia.org/wiki/Open_MPI">OpenMPI</a> and <a href="https://en.wikipedia.org/wiki/MPICH">MPICH</a>, <a href="http://mpi.deino.net/">Deino</a>, <a href="https://en.wikipedia.org/wiki/LAM/MPI">LAM/MPI</a>. Interestingly, large computing clusters use MPI, while modern BigData analysis platforms such as Spark, and Ray do not. Why is this? See Jonathan Dursi’s excellent <a href="https://www.dursi.ca/post/hpc-is-dying-and-mpi-is-killing-it.html">blog post</a>.</p></li>
 <li><p><strong>NetWorkSpaces</strong> (NWS): A master-slave communication protocol where the master is not an R-session, but rather, an <em>NWS server</em>.</p></li>
 </ul>
 <p>For more on inter-process communication, see <a href="https://en.wikipedia.org/wiki/Inter-process_communication">Wiki</a>.</p>
+</div>
 <div id="the-parallel-package" class="section level3">
-<h3><span class="header-section-number">16.3.1</span> The parallel Package</h3>
+<h3><span class="header-section-number">16.3.3</span> The parallel Package</h3>
 <p>The <strong>parallel</strong> package, maintained by the R-core team, was introduced in 2011 to unify two popular parallisation packages: <strong>snow</strong> and <strong>multicore</strong>.
 The <strong>multicore</strong> package was designed to parallelise using the <em>fork</em> mechanism, on Linux machines.
-The <strong>snow</strong> package was designed to parallelise using the <em>spawn</em> mechanism, on all operating systems.
-Servers/R-sessions started with <strong>snow</strong> will not see the parent’s data, which will have to be copied to spawned sessions.
-At least there is less data redundancy.
-Spawning, unlike forking, can be done on remote machines, which communicate using MPI.</p>
+The <strong>snow</strong> package was designed to parallelise Socket, PVM, MPI, and NWS mechanisms.
+R processes started with <strong>snow</strong> are not forked, so they will not see the parent’s data.
+Data will have to be copied to child processes.
+The good news: <strong>snow</strong> can start R processes on Windows machines, or remotely machines in the cluster.</p>
 <p>TOOD: add example.</p>
 </div>
 <div id="the-foreach-package" class="section level3">
-<h3><span class="header-section-number">16.3.2</span> The foreach Package</h3>
+<h3><span class="header-section-number">16.3.4</span> The foreach Package</h3>
 <p>For reasons detailed in <span class="citation">Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span>, we recommend the <strong>foreach</strong> parallelisation package <span class="citation">(Analytics and Weston <a href="#ref-foreach">2015</a>)</span>.
 It allows us to:</p>
 <ol style="list-style-type: decimal">
-<li><p>Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can later switch between parallelisation mechanisms.
+<li><p>Decouple between the parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can later switch between parallelisation mechanisms.
 Currently supported mechanisms include:</p>
 <ul>
 <li><em>fork</em>: Called with the <em>doMC</em> backend.</li>
@@ -646,65 +648,44 @@ result &lt;-<span class="st"> </span><span class="kw">foreach</span>(<span class
 <p>Things to note:</p>
 <ul>
 <li><code>makeCluster</code> creates an object with the information our cluster.
-On a single machine it is very simple. On a cluster of machines, you will need to specify the i.p. addresses or other identifiers of the machines.</li>
+On a single machine it is very simple. On a cluster of machines, you will need to specify the <a href="https://en.wikipedia.org/wiki/IP_address">IP</a> addresses, or other identifier, of the machines.</li>
 <li><code>registerDoParallel</code> is used to inform the <strong>foreach</strong> package of the presence of our cluster.</li>
-<li>The <code>foreach</code> function handles the looping. In particular note the <code>%dopar</code> operator that ensures that looping is in parallel. <code>%dopar%</code> can be replaced by <code>%do%</code> if you want serial looping (like the <code>for</code> loop), for instance, for debugging.</li>
+<li>The <code>foreach</code> function handles the looping. In particular note the <code>%dopar%</code> operator that ensures that looping is in parallel. <code>%dopar%</code> can be replaced by <code>%do%</code> if you want serial looping (like the <code>for</code> loop), for instance, for debugging.</li>
 <li>The output of the various machines is collected by <code>foreach</code> to a list object.</li>
 <li>In this simple example, no data is shared between machines so we are not putting the shared memory capabilities to the test.</li>
 <li>We can check how many workers were involved using the <code>getDoParWorkers()</code> function.</li>
 <li>We can check the parallelisation mechanism used with the <code>getDoParName()</code> function.</li>
 </ul>
 <p>Here is a more involved example.
-We now try to make <a href="https://en.wikipedia.org/wiki/Bootstrapping_(statistics)">Bootstrap</a> inference on the coefficients of a logistic regression.
+We now try to make Bootstrap inference on the coefficients of a logistic regression.
 Bootstrapping means that in each iteration, we resample the data, and refit the model.</p>
 <pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span>iris[<span class="kw">which</span>(iris[,<span class="dv">5</span>] <span class="op">!=</span><span class="st"> &quot;setosa&quot;</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">5</span>)]
 trials &lt;-<span class="st"> </span><span class="fl">1e4</span>
-ptime &lt;-<span class="st"> </span><span class="kw">system.time</span>({
- r &lt;-<span class="st"> </span><span class="kw">foreach</span>(<span class="kw">icount</span>(trials), <span class="dt">.combine=</span>cbind) <span class="op">%dopar%</span><span class="st"> </span>{
- ind &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">100</span>, <span class="dv">100</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>)
- result1 &lt;-<span class="st"> </span><span class="kw">glm</span>(x[ind,<span class="dv">2</span>]<span class="op">~</span>x[ind,<span class="dv">1</span>], <span class="dt">family=</span><span class="kw">binomial</span>(logit))
- <span class="kw">coefficients</span>(result1)
- }
- })[<span class="dv">3</span>]
-ptime</code></pre>
-<pre><code>## elapsed 
-##  11.521</code></pre>
+r &lt;-<span class="st"> </span><span class="kw">foreach</span>(<span class="kw">icount</span>(trials), <span class="dt">.combine=</span>cbind) <span class="op">%dopar%</span><span class="st"> </span>{
+  ind &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">100</span>, <span class="dv">100</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>)
+  result1 &lt;-<span class="st"> </span><span class="kw">glm</span>(x[ind,<span class="dv">2</span>]<span class="op">~</span>x[ind,<span class="dv">1</span>], <span class="dt">family=</span><span class="kw">binomial</span>(logit))
+  <span class="kw">coefficients</span>(result1)
+}</code></pre>
 <p>Things to note:</p>
 <ul>
 <li>As usual, we use the <code>foreach</code> function with the <code>%dopar%</code> operator to loop in parallel.</li>
 <li>The <code>icounts</code> function generates a counter.</li>
 <li>The <code>.combine=cbind</code> argument tells the <code>foreach</code> function how to combine the output of different machines, so that the returned object is not the default list.</li>
+<li>To run a serial version, say for debugging, you only need to replace <code>%dopar%</code> with <code>%do%</code>.</li>
 </ul>
-<p>How long would that have taken in a simple (serial) loop?
-We only need to replace <code>%dopar%</code> with <code>%do%</code> to test.</p>
-<pre class="sourceCode r"><code class="sourceCode r">stime &lt;-<span class="st"> </span><span class="kw">system.time</span>({
- r &lt;-<span class="st"> </span><span class="kw">foreach</span>(<span class="kw">icount</span>(trials), <span class="dt">.combine=</span>cbind) <span class="op">%do%</span><span class="st"> </span>{
+<pre class="sourceCode r"><code class="sourceCode r"> r &lt;-<span class="st"> </span><span class="kw">foreach</span>(<span class="kw">icount</span>(trials), <span class="dt">.combine=</span>cbind) <span class="op">%do%</span><span class="st"> </span>{
  ind &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">100</span>, <span class="dv">100</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>)
  result1 &lt;-<span class="st"> </span><span class="kw">glm</span>(x[ind,<span class="dv">2</span>]<span class="op">~</span>x[ind,<span class="dv">1</span>], <span class="dt">family=</span><span class="kw">binomial</span>(logit))
  <span class="kw">coefficients</span>(result1)
- }
- })[<span class="dv">3</span>]
-stime</code></pre>
-<pre><code>## elapsed 
-##  19.217</code></pre>
-<p>Yes. Parallelising is clearly faster.</p>
+ }</code></pre>
 <p>Let’s see how we can combine the power of <strong>bigmemory</strong> and <strong>foreach</strong> by creating a file mapped <code>big.matrix</code> object, which is shared by all machines.
 The following example is taken from <span class="citation">Kane et al. (<a href="#ref-kane2013scalable">2013</a>)</span>, and uses the <code>big.matrix</code> object we created in Chapter <a href="memory.html#memory">15</a>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bigmemory)
 x &lt;-<span class="st"> </span><span class="kw">attach.big.matrix</span>(<span class="st">&quot;airline.desc&quot;</span>)
 
 <span class="kw">library</span>(foreach)
-<span class="kw">library</span>(doSNOW)</code></pre>
-<pre><code>## Loading required package: snow</code></pre>
-<pre><code>## 
-## Attaching package: &#39;snow&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:parallel&#39;:
-## 
-##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
-##     clusterExport, clusterMap, clusterSplit, makeCluster,
-##     parApply, parCapply, parLapply, parRapply, parSapply,
-##     splitIndices, stopCluster</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">cl &lt;-<span class="st"> </span><span class="kw">makeSOCKcluster</span>(<span class="kw">rep</span>(<span class="st">&quot;localhost&quot;</span>, <span class="dv">4</span>)) <span class="co"># make a cluster of 4 machines</span>
+<span class="kw">library</span>(doSNOW)
+cl &lt;-<span class="st"> </span><span class="kw">makeSOCKcluster</span>(<span class="kw">rep</span>(<span class="st">&quot;localhost&quot;</span>, <span class="dv">4</span>)) <span class="co"># make a cluster of 4 machines</span>
 <span class="kw">registerDoSNOW</span>(cl) <span class="co"># register machines for foreach()</span></code></pre>
 <p>Get a “description” of the <code>big.matrix</code> object that will be used to call it from each machine.</p>
 <pre class="sourceCode r"><code class="sourceCode r">xdesc &lt;-<span class="st"> </span><span class="kw">describe</span>(x) </code></pre>
@@ -730,7 +711,7 @@ qs</code></pre>
 ## result.5 511 790 996
 ## result.6 518 796 995</code></pre>
 <div id="which-backend-to-use" class="section level4">
-<h4><span class="header-section-number">16.3.2.1</span> Which Backend to Use?</h4>
+<h4><span class="header-section-number">16.3.4.1</span> Which Backend to Use?</h4>
 <p>In the following example, we compare the <em>fork</em> mechanism, to the <em>socket</em> mechanism.
 The bottom line is- use <em>fork</em> whenever possible.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nycflights13)
@@ -743,14 +724,14 @@ timer &lt;-<span class="st"> </span><span class="cf">function</span>(i) <span cl
 <span class="kw">registerDoMC</span>(<span class="dt">cores =</span> <span class="dv">10</span>)
 <span class="kw">system.time</span>(<span class="kw">foreach</span> (<span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">.combine =</span> <span class="st">&#39;c&#39;</span>) <span class="op">%dopar%</span><span class="st"> </span><span class="kw">timer</span>(i))</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.018   0.480   0.504</code></pre>
+##   0.061   0.402   0.462</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(parallel)         
 <span class="kw">library</span>(doParallel)
 cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(<span class="dv">10</span>, <span class="dt">type=</span><span class="st">&quot;SOCK&quot;</span>)
 <span class="kw">registerDoParallel</span>(cl)
 <span class="kw">system.time</span>(<span class="kw">foreach</span> (<span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">.combine =</span> <span class="st">&#39;c&#39;</span>) <span class="op">%dopar%</span><span class="st"> </span><span class="kw">timer</span>(i))</code></pre>
 <pre><code>##    user  system elapsed 
-##   1.112   0.146   2.071</code></pre>
+##   1.201   0.135   2.162</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stopCluster</span>(cl)</code></pre>
 <p>Things to note:</p>
 <ul>
@@ -762,17 +743,17 @@ cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(<span class
 flights.DT &lt;-<span class="st"> </span><span class="kw">as.data.table</span>(flights)
 <span class="kw">system.time</span>(flights.DT[,<span class="kw">max</span>(distance),ind])</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.064   0.098   0.118</code></pre>
+##   0.028   0.073   0.101</code></pre>
 <p>No surprises there.
 If you can store your data in RAM, <code>data.table</code> is still the fastest.</p>
 </div>
 </div>
 <div id="rdsm" class="section level3">
-<h3><span class="header-section-number">16.3.3</span> Rdsm</h3>
+<h3><span class="header-section-number">16.3.5</span> Rdsm</h3>
 <p>TODO</p>
 </div>
 <div id="pbdr" class="section level3">
-<h3><span class="header-section-number">16.3.4</span> pbdR</h3>
+<h3><span class="header-section-number">16.3.6</span> pbdR</h3>
 <p>TODO</p>
 </div>
 </div>
@@ -798,7 +779,7 @@ We will thus content ourselves with the following pointers:</p>
 <ul>
 <li>Users can easily replace the BLAS libraries shipped with R, with other libraries. OpenBLAS, and MKL. These libraries will parallelise linear algebra for you.
 -This is easier to do under Ubuntu and Debian Linux, but possible in all systems.</li>
-<li>For specific tasks, such as machine learning, you may not need an all-pupose paralle linear algebra library. If you want machine learning in parallel, there are more specialized libraries. In the followig, we demonstrate Spark (<a href="parallel.html#spark">16.4.3</a>), and H2O (@(h2o)).</li>
+<li>For specific tasks, such as machine learning, you may not need an all-pupose paralle linear algebra library. If you want machine learning in parallel, there are more specialized libraries. In the followig, we demonstrate Spark (<a href="parallel.html#spark">16.4.3</a>), and H2O (<a href="parallel.html#h2o">16.4.4</a>).</li>
 </ul>
 </div>
 <div id="parallel-data-munging-with-data.table" class="section level3">
@@ -845,12 +826,12 @@ k &lt;-<span class="st">  </span><span class="fl">1e4</span>
 
 <span class="kw">system.time</span>(DT[, .(<span class="dt">a =</span> 1L), <span class="dt">by =</span> <span class="st">&quot;grp&quot;</span>])</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.451   0.006   0.109</code></pre>
+##   0.402   0.031   0.072</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setDTthreads</span>(<span class="dt">threads =</span> <span class="dv">1</span>) <span class="co"># use a single thread</span>
 
 <span class="kw">system.time</span>(DT[, .(<span class="dt">a =</span> 1L), <span class="dt">by =</span> <span class="st">&quot;grp&quot;</span>])</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.181   0.000   0.181</code></pre>
+##   0.150   0.000   0.151</code></pre>
 <p>Things to note:</p>
 <ul>
 <li>Parallel aggregation is indeed much faster.</li>
@@ -878,7 +859,10 @@ Learning, which consists of a lot iterative algorithms run, requires fast and re
 This is the purpose of Spark.
 Spark is a data oriented computing environment over distributed file systems.
 While originality linked to HDFS, it may run over many other distributed file systems, but also locally, as we now demonstrate.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sparklyr)
+<span class="kw">spark_install</span>(<span class="dt">version =</span> <span class="st">&quot;2.4.0&quot;</span>) <span class="co"># will download Spark on first run. </span></code></pre>
 <pre><code>## Spark 2.4.0 for Hadoop 2.7 or later already installed.</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">sc &lt;-<span class="st"> </span><span class="kw">spark_connect</span>(<span class="dt">master =</span> <span class="st">&quot;local&quot;</span>)</code></pre>
 <pre><code>## * Using Spark: 2.4.0</code></pre>
 <p>Things to note:</p>
 <ul>
@@ -900,7 +884,7 @@ flights_tbl&lt;-<span class="st"> </span><span class="kw">copy_to</span>(<span c
 <span class="st">              </span><span class="kw">filter</span>(count<span class="op">&gt;</span><span class="dv">20</span>, dist<span class="op">&lt;</span><span class="dv">2000</span>, <span class="op">!</span><span class="kw">is.na</span>(delay)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">              </span><span class="kw">collect</span>())</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.287   2.772   3.467</code></pre>
+##   0.235   0.420   1.714</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">delay</code></pre>
 <pre><code>## # A tibble: 2,961 x 4
 ##    tailnum count  dist  delay
@@ -930,7 +914,7 @@ We can thus compare performance to <code>data.table</code>, only to re-discover,
 flight.DT &lt;-<span class="st"> </span><span class="kw">data.table</span>(flights)
 <span class="kw">system.time</span>(flight.DT[,.(<span class="dt">distance=</span><span class="kw">mean</span>(distance),<span class="dt">delay=</span><span class="kw">mean</span>(arr_delay),<span class="dt">count=</span>.N),<span class="dt">by=</span>tailnum][count<span class="op">&gt;</span><span class="dv">20</span> <span class="op">&amp;</span><span class="st"> </span>distance<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(delay)])</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.039   0.069   0.106</code></pre>
+##   0.040   0.074   0.111</code></pre>
 <p>Let’s disconnect from the Spark server.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">spark_disconnect</span>(sc)</code></pre>
 <pre><code>## NULL</code></pre>
@@ -956,14 +940,14 @@ We start with working on H2O directly with the <code>h2o</code> package.</p>
 <pre><code>##  Connection successful!
 ## 
 ## R is connected to the H2O cluster: 
-##     H2O cluster uptime:         24 minutes 8 seconds 
+##     H2O cluster uptime:         16 hours 37 minutes 
 ##     H2O cluster timezone:       Etc/UTC 
 ##     H2O data parsing timezone:  UTC 
 ##     H2O cluster version:        3.26.0.2 
-##     H2O cluster version age:    2 months and 9 days  
+##     H2O cluster version age:    2 months and 10 days  
 ##     H2O cluster name:           H2O_started_from_R_rstudio_gap243 
 ##     H2O cluster total nodes:    1 
-##     H2O cluster total memory:   3.42 GB 
+##     H2O cluster total memory:   3.34 GB 
 ##     H2O cluster total cores:    8 
 ##     H2O cluster allowed cores:  2 
 ##     H2O cluster healthy:        TRUE 
@@ -978,10 +962,14 @@ We start with working on H2O directly with the <code>h2o</code> package.</p>
 spam.h2o &lt;-<span class="st"> </span><span class="kw">as.h2o</span>(spam, <span class="dt">destination_frame =</span> <span class="st">&quot;spam.hex&quot;</span>) <span class="co"># load to the H2O server</span>
 <span class="kw">h2o.ls</span>() <span class="co"># check avaialbe data in the server</span></code></pre>
 <pre><code>##                                                                               key
-## 1 modelmetrics_our.rf@3820919188453068362_on_RTMP_sid_b4f9_4@-8879209604009432720
-## 2                                                                          our.rf
-## 3                                      predictions_8635_our.rf_on_RTMP_sid_b4f9_6
-## 4                                                                        spam.hex</code></pre>
+## 1                                                                RTMP_sid_834c_16
+## 2                                                                RTMP_sid_834c_18
+## 3 modelmetrics_our.rf@-458156088885637450_on_RTMP_sid_834c_16@1783194943144526592
+## 4                                                                          our.rf
+## 5                                      predictions_8635_our.rf_on_RTMP_sid_b4f9_6
+## 6                                     predictions_8693_our.rf_on_RTMP_sid_938d_12
+## 7                                     predictions_910c_our.rf_on_RTMP_sid_834c_18
+## 8                                                                        spam.hex</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">h2o.describe</span>(spam.h2o) <span class="op">%&gt;%</span><span class="st"> </span>head <span class="co"># the H2O version of summary()</span></code></pre>
 <pre><code>##   Label Type Missing Zeros PosInf NegInf Min   Max       Mean     Sigma
 ## 1   A.1 real       0  3548      0      0   0  4.54 0.10455336 0.3053576
@@ -1018,13 +1006,13 @@ rf &lt;-<span class="st"> </span><span class="kw">h2o.randomForest</span>(
 <span class="co"># Predict on test set</span>
 predictions &lt;-<span class="st"> </span><span class="kw">h2o.predict</span>(rf, test)
 <span class="kw">head</span>(predictions)</code></pre>
-<pre><code>##   predict     email      spam
-## 1    spam 0.0600000 0.9400000
-## 2    spam 0.2196667 0.7803333
-## 3    spam 0.1111488 0.8888512
-## 4    spam 0.0000000 1.0000000
-## 5    spam 0.0500000 0.9500000
-## 6   email 0.6989340 0.3010660</code></pre>
+<pre><code>##   predict      email      spam
+## 1    spam 0.02140711 0.9785929
+## 2    spam 0.02140711 0.9785929
+## 3   email 0.65295412 0.3470459
+## 4    spam 0.17855392 0.8214461
+## 5    spam 0.06021053 0.9397895
+## 6    spam 0.12973138 0.8702686</code></pre>
 <p>Things to note:</p>
 <ul>
 <li>We did not install the H2O server; <code>install.packages(&quot;h2o&quot;)</code> did it for us.</li>

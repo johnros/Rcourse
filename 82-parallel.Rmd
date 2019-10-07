@@ -6,15 +6,14 @@ editor_options:
 # Parallel Computing {#parallel}
 
 You would think that because you have an expensive multicore computer your computations will speed up. 
-Well, no; unless you actively make sure of that. 
-By default, no matter how many cores you have, the operating system will allocate each R session to a single core. 
-
+Well, unless you actively make sure of that, this will not happen.
+By default, the operating system will allocate each R session to a single core. 
 You may wonder: why can't I just write code, and let R (or any other language) figure out what can be parallelised. 
-Well, that's not how things work.
+Sadly, that's not how things work.
 It is very hard to design software that can parallelise any algorithm, while adapting to your hardware, operating system, and other the software running on your device. 
 A lot of parallelisation still has to be explicit, but stay tuned for technologies like [Ray](https://rise.cs.berkeley.edu/projects/ray/), [Apache Spark](https://spark.apache.org), [Apache Flink](https://flink.apache.org), [Chapel](https://chapel-lang.org), [PyTorch](https://pytorch.org), and others, which are making great advances in handling parallelism for you. 
 
-To parallelise computations, we need to distinguish between two types of parallelism:
+To parallelise computationsin with R, we will distinguish between two types of parallelism:
 
 1. __Parallel R__: where the parallelism is managed with R. Discussed in Section \@ref(parallel-r).
 1. __Parallel Extensions__: where R calls specialized libraries/routines/software that manage the parallelism themselves. Discussed in Section \@ref(parallel-extensions).
@@ -23,8 +22,7 @@ To parallelise computations, we need to distinguish between two types of paralle
 
 ## When and How to Parallelise?
 
-Your computations are too slow.
-Why is this?
+Your notice computations are too slow, and wonder "why is that?"
 Should you store your data differently? 
 Should you use different software?
 Should you buy more RAM?
@@ -36,15 +34,15 @@ Solving a CPU bottleneck may consume more RAM.
 Parallelisation means using multiple CPUs simultaneously. 
 It will thus aid with CPU bottlenecks, but may consume more RAM.
 Parallelising is thus ill advised when dealing with a RAM bottleneck. 
-Memory bottlenecks are released with sparsity (Chapter \@ref(sparse)), or efficient memory usage (Chapter \@ref(memory)).
+Memory bottlenecks are released with efficient memory representations or out-of-memory algorithms (Chapters \@ref(sparse) and \@ref(memory)).
 
 When deciding if, and how, to parallelise, it is crucial that you diagnose your bottleneck. 
 The good news is- that diagnostics is not too hard.
 Here are a few pointers:
 
-1. Always have a system monitor open. Windows users have their [Task Manager](https://en.wikipedia.org/wiki/Task_Manager_(Windows)); Linux users have [top](https://en.wikipedia.org/wiki/Top_(software)), or preferably, [htop](https://en.wikipedia.org/wiki/Htop); Mac users have the [Activity Monitor](https://www.howtogeek.com/227240/how-to-monitor-your-macs-health-with-activity-monitor/). The system monitor will inform you how many CPUs are being used, and how much RAM is being used. 
+1. You never drive without looking at your dashboard; you should never program without looking at your system monitors. Windows users have their [Task Manager](https://en.wikipedia.org/wiki/Task_Manager_(Windows)); Linux users have [top](https://en.wikipedia.org/wiki/Top_(software)), or preferably, [htop](https://en.wikipedia.org/wiki/Htop); Mac users have the [Activity Monitor](https://www.howtogeek.com/227240/how-to-monitor-your-macs-health-with-activity-monitor/). The system monitor will inform you how your RAM and CPUs are being used. 
 
-1. If you escape your computation, and R takes a long time to respond, you are probably dealing with a RAM bottleneck. 
+1. If you forcefully terminate your computation, and R takes a long time to respond, you are probably dealing with a RAM bottleneck. 
 
 1. Profile your code to detect how much RAM and CPU are consumed by each line of code. See Hadley's [guide](http://adv-r.had.co.nz/Profiling.html).
 
@@ -53,7 +51,7 @@ In the best possible scenario, the number of operations you can perform scales w
 This is called _perfect scaling_. 
 It is rarely observed in practice, since parallelising incurs some computational overhead: setting up environments, copying memory, ...
 For this reason, the typical speedup is sub-linear. 
-Computer scientists call this [Amdahl's law](https://en.wikipedia.org/wiki/Amdahl%27s_law).
+Computer scientists call this [Amdahl's law](https://en.wikipedia.org/wiki/Amdahl%27s_law); remember it.
 
 
 ## Terminology
@@ -64,7 +62,7 @@ Here are some terms we will be needing.
 
 - __Cluster:__ A collection of interconnected computers.
 - __Node/Machine:__ A single physical machine in the cluster. Components of a single node do not communicate via the cluster's network, but rather, via the node's circuitry. 
-- __Processor/Socket/CPU:__
+- __Processor/Socket/CPU/Core:__ The physical device in a computer that make computations. A modern laptop will have about 4-8 cores. A modern server may have hundreds of cores. 
 - __RAM:__ Random Access Memory. One of many types of memory in a computer. Possibly the most relevant type of memory when computing with data. 
 - __GPU:__ Graphical Processing Unit. A computing unit, separate from the CPU. Originally dedicated to graphics and gaming, thus its name. Currently, GPUs are extremely popular for fitting and servicing Deep Neural Networks. 
 - __TPU:__ Tensor Processing Unit. A computing unit, dedicated to servicing and fitting Deep Neural Networks.
@@ -75,34 +73,37 @@ Here are some terms we will be needing.
 - __Process:__ A sequence of instructions in memory, with accompanying data. Various processes typically see different locations of memory. Interpreted languages like R, and Python operate on processes.
 - __Thread:__ A sub-sequence of instructions, within a process. Various threads in a process may see the same memory. Compiled languages like C, C++, may operate on threads. 
  
-
-### Types of Parallelism
-
-- __Data Parallel:__ When performing different tasks on the same data. 
-- __Task Parallel:__ When performing the same task, on different data. 
-
+ 
 
 ## Parallel R {#parallel-r}
 
-R provides many frameworks for explicit parallelism.
-Any such framework will include the means for starting R (salve/worker) sessions, and the means for communicating between these sessions. 
-Except for developers, a typical user will probably be using some high-level R package which will abstract away these stages. 
-A communication protocol because different R sessions will be communication one with the other. An abstraction layer because providing the user will all the features and generality of the communication layer is needlessly cumbersome.
+R provides many frameworks to parallelise execution.
+The operating system allocates each R session to a single process. 
+Any parallelisation framework will include the means for starting R processes, and the means for communicating between these processes.  
+Except for developers, a typical user will probably use some high-level R package which will abstract away these stages. 
 
-Starting new R processes, a.k.a. slaves:
+### Starting a New R Processes
 
-- R sessions/process may always be started using system calls. This creates _child processes_, or _spawn processes_ that cannot access the data and instructions of the calling process. 
+A R process may strat a new R process in various ways. 
+The new process may be called a _child process_, a _slave_ process, and many other names. 
+Here are some mechanisms to start new processes.
 
-- __Fork__: a mechanism, unique to Unix and Linux, that clones a process with accompanying instructions and data. All processes see the same memory in read-only state. Copies are made when data is changed by a process.
+- __Fork__: Imagine the operating system making a copy of the currently running R process. 
+The _fork_ mechanism, unique to Unix and Linux, clones a process with its accompanying instructions and data. All forked processes see the same memory in read-only mode. Copies of the data are made when the process needs to change the data. 
+
+- __System calls__: Imagine R as a human user, that starts a new R session. This is not a _forked_ porcess. The new process, called _spawn process_ cannot access the data and instructions of the parent process. 
 
 
-Inter-process communication standards:
 
-- __Socket__: data sent via a network interface. Put differently- information is sent between R processes as if these were different machines in a network. Information may be structured by the particular application, and does not abide to some 
+### Inter-process Communication 
 
-- __Parallel Virtual Machine__ (PVM): a communication protocol and software, developed the University of Tennessee, Oak Ridge National Laboratory and Emory University, and first released in 1989. Runs on Windows and Unix, thus allowing to compute on clusters running these two operating systems. Noways, it is mostly replaced by MPI. The same group responsible for PVM will later deliver _Programming with Big Data in R_ ([pbdR](https://pbdr.org)): a whole ecosystem of packages for running R on large computing clusters. 
+Now that you have various R processes running, how do they communicate?
 
-- __Message Passing Interface__ (MPI): A communication protocol that has become the de-facto standard for communication in large distributed clusters. Particularly, for heterogeneous computing clusters with varying operating systems and hardware. The protocol has various software implementations such as [OpenMPI](https://en.wikipedia.org/wiki/Open_MPI) and [MPICH](https://en.wikipedia.org/wiki/MPICH), [Deino](http://mpi.deino.net/), [LAM/MPI](https://en.wikipedia.org/wiki/LAM/MPI). Interestingly, large computing clusters use MPI, while modern BigData analysis platforms such as Spark, and Ray do not. Why is this? See Jonathan Dursi's excellent but controversial [blog post](https://www.dursi.ca/post/hpc-is-dying-and-mpi-is-killing-it.html).
+- __Socket__: imagine each R process as a standalone computer in the network. Data can be sent via a network interface. Unlike PVM, MPI and other standards, information sent does not need to be format in any particular way, provided that the reciever knows how it is formatted. This is not a problem when sending from R to R.
+
+- __Parallel Virtual Machine__ (PVM): a communication protocol and software, developed the University of Tennessee, Oak Ridge National Laboratory and Emory University, and first released in 1989. Runs on Windows and Unix, thus allowing to compute on clusters running these two operating systems. Noways, it is mostly replaced by MPI. The same group responsible for PVM will later deliver _pbdR_ \@ref(pbdr).
+
+- __Message Passing Interface__ (MPI): A communication protocol that has become the de-facto standard for communication in large distributed clusters. Particularly, for heterogeneous computing clusters with varying operating systems and hardware. The protocol has various software implementations such as [OpenMPI](https://en.wikipedia.org/wiki/Open_MPI) and [MPICH](https://en.wikipedia.org/wiki/MPICH), [Deino](http://mpi.deino.net/), [LAM/MPI](https://en.wikipedia.org/wiki/LAM/MPI). Interestingly, large computing clusters use MPI, while modern BigData analysis platforms such as Spark, and Ray do not. Why is this? See Jonathan Dursi's excellent [blog post](https://www.dursi.ca/post/hpc-is-dying-and-mpi-is-killing-it.html).
 
 - __NetWorkSpaces__ (NWS): A master-slave communication protocol where the master is not an R-session, but rather, an _NWS server_. 
 
@@ -117,10 +118,10 @@ For more on inter-process communication, see [Wiki](https://en.wikipedia.org/wik
 
 The __parallel__ package, maintained by the R-core team, was introduced in 2011 to unify two popular parallisation packages: __snow__ and __multicore__.
 The __multicore__ package was designed to parallelise using the _fork_ mechanism, on Linux machines. 
-The __snow__ package was designed to parallelise using the _spawn_ mechanism, on all operating systems. 
-Servers/R-sessions started with __snow__ will not see the parent's data, which will have to be copied to spawned sessions. 
-At least there is less data redundancy. 
-Spawning, unlike forking, can be done on remote machines, which communicate using MPI.
+The __snow__ package was designed to parallelise Socket, PVM, MPI, and NWS mechanisms.
+R processes started with __snow__ are not forked, so they will not see the parent's data. 
+Data will have to be copied to child processes. 
+The good news: __snow__ can start R processes on Windows machines, or remotely machines in the cluster.
 
 
 TOOD: add example.
@@ -132,7 +133,7 @@ TOOD: add example.
 For reasons detailed in @kane2013scalable, we recommend the __foreach__ parallelisation package [@foreach]. 
 It allows us to: 
 
-1. Decouple between our parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can later switch between parallelisation mechanisms. 
+1. Decouple between the parallel algorithm and the parallelisation mechanism: we write parallelisable code once, and can later switch between parallelisation mechanisms. 
 Currently supported mechanisms include:
 
     - _fork_: Called with the _doMC_ backend. 
@@ -167,9 +168,9 @@ result
 Things to note:
 
 - `makeCluster` creates an object with the information our cluster. 
-On a single machine it is very simple. On a cluster of machines, you will need to specify the i.p. addresses or other identifiers of the machines. 
+On a single machine it is very simple. On a cluster of machines, you will need to specify the [IP](https://en.wikipedia.org/wiki/IP_address) addresses, or other identifier, of the machines. 
 - `registerDoParallel` is used to inform the __foreach__ package of the presence of our cluster. 
-- The `foreach` function handles the looping. In particular note the `%dopar` operator that ensures that looping is in parallel. `%dopar%` can be replaced by `%do%` if you want serial looping (like the `for` loop), for instance, for debugging. 
+- The `foreach` function handles the looping. In particular note the `%dopar%` operator that ensures that looping is in parallel. `%dopar%` can be replaced by `%do%` if you want serial looping (like the `for` loop), for instance, for debugging. 
 - The output of the various machines is collected by `foreach` to a list object. 
 - In this simple example, no data is shared between machines so we are not putting the shared memory capabilities to the test. 
 - We can check how many workers were involved using the `getDoParWorkers()` function.
@@ -177,20 +178,17 @@ On a single machine it is very simple. On a cluster of machines, you will need t
 
 
 Here is a more involved example.
-We now try to make [Bootstrap](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)) inference on the coefficients of a logistic regression.
+We now try to make Bootstrap inference on the coefficients of a logistic regression.
 Bootstrapping means that in each iteration, we resample the data, and refit the model. 
 
-```{r}
+```{r bootstrap-dopar, eval=FALSE}
 x <- iris[which(iris[,5] != "setosa"), c(1,5)]
 trials <- 1e4
-ptime <- system.time({
- r <- foreach(icount(trials), .combine=cbind) %dopar% {
- ind <- sample(100, 100, replace=TRUE)
- result1 <- glm(x[ind,2]~x[ind,1], family=binomial(logit))
- coefficients(result1)
- }
- })[3]
-ptime
+r <- foreach(icount(trials), .combine=cbind) %dopar% {
+  ind <- sample(100, 100, replace=TRUE)
+  result1 <- glm(x[ind,2]~x[ind,1], family=binomial(logit))
+  coefficients(result1)
+}
 ```
 
 Things to note:
@@ -198,24 +196,15 @@ Things to note:
 - As usual, we use the `foreach` function with the `%dopar%` operator to loop in parallel.
 - The `icounts` function generates a counter. 
 - The `.combine=cbind` argument tells the `foreach` function how to combine the output of different machines, so that the returned object is not the default list. 
+- To run a serial version, say for debugging, you only need to replace `%dopar%` with `%do%`.
 
-
-How long would that have taken in a simple (serial) loop? 
-We only need to replace `%dopar%` with `%do%` to test.
-
-```{r}
-stime <- system.time({
+```{r bootstrap-do, eval=FALSE}
  r <- foreach(icount(trials), .combine=cbind) %do% {
  ind <- sample(100, 100, replace=TRUE)
  result1 <- glm(x[ind,2]~x[ind,1], family=binomial(logit))
  coefficients(result1)
  }
- })[3]
-stime
 ```
-
-Yes. Parallelising is clearly faster.
-
 
 Let's see how we can combine the power of __bigmemory__ and __foreach__ by creating a file mapped `big.matrix` object, which is shared by all machines.
 The following example is taken from @kane2013scalable, and uses the `big.matrix` object we created in Chapter \@ref(memory).
@@ -303,11 +292,11 @@ If you can store your data in RAM, `data.table` is still the fastest.
 
 
 
-### Rdsm
+### Rdsm {#rdsm}
 TODO
 
 
-### pbdR
+### pbdR {#pbdr}
 TODO
 
 
