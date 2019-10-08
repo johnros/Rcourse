@@ -448,7 +448,7 @@ Things to note:
 
 - `spark_install` will download and install _Spark_ on your first run. Make sure to update the version number, since my text may be outdated by the time you read it. 
 - I used the _sparklyr_ package from RStudio. There is an alternative package from Apache: _SparkR_. 
-- `spark_connect` opens a connection to the Spark server.  When working in a cluster, with many machines, the `master=` argumnt infrorms R which machine is the master, a.k.a. the "driver node". 
+- `spark_connect` opens a connection to the (local) Spark server.  When working in a cluster, with many machines, the `master=` argumnt infrorms R which machine is the master, a.k.a. the "driver node". Consult your cluster's documentation for connection details.
 - After running `spark_connect`, the connection to the Sprak server will appear in RStudio's [Connection pane](https://support.rstudio.com/hc/en-us/articles/115010915687-Using-RStudio-Connections).
 
 Let's load and aggregate some data:
@@ -471,7 +471,7 @@ delay
 
 Things to note:
 
-- `copy_to` exports from R to Sprak. Typically, my data will already be waiting in Sprak, since the whole motivation is that it does not fit on y disk.
+- `copy_to` exports from R to Sprak. Typically, my data will already be waiting in Sprak, since the whole motivation is that it does not fit on my disk.
 - Notice the `collect` command at the end. As the name suggests, this will collect results from the various worker/slave machines.
 - I have used the _dplyr_ syntax and not my favorite _data.table_ syntax. This is because _sparklyr_ currently supports the _splyr_ syntax, or plain SQL with the _DBI_ package. 
 
@@ -503,24 +503,37 @@ If your data is happily stored in a distributed Spark cluster, and the algorithm
 
 Writing your own algorithm and dispatching it to Spark can be done a-la `apply` style with `sparklyr::spark_apply`. This, however, would typically be extremely inneficient. You are better off finding a Spark extension that does what you need. 
 See the _sparklyr_ [CRAN page](https://CRAN.R-project.org/package=sparklyr), and in particular the Reverse Depends section, to see which extensions are available. 
-One particular extension is [rsparkling](https://cran.r-project.org/web/packages/rsparkling/index.html), which allows you to apply H2O's massive library of learning algorithms, on data stored in Spark.
-We will not cover _sparklyr_ herein, but we will present (standalone) H2O.
+One particular extension is __rsparkling__, which allows you to apply H2O's massive library of learning algorithms, on data stored in Spark.
+We start by presenting H2O.
 
 
 
 ### H2O {#h2o}
 
 H2O can be thought of as a library of efficient distributed learning algorithm, that run in-memory, where memory considerations and parallelisation have been taken care of for you. 
+Another way to think of it is as a "machine learning service". 
 For a (massive) list of learning algorithms implemented in H2O, see [their documentaion](http://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science.html#).
-H2O can run as a standalone server, or on top of Spark, so that it may use the _Spark data frames_. This is the purpose of _Sparkling Water_ discussed in \@ref(sparkling).
-We start with working on H2O directly with the `h2o` package. 
+H2O can run as a standalone server, or on top of Spark, so that it may use the _Spark data frames_. 
+We start by working with H2O using H2O's own data structures, using `h2o` package. 
+We later discuss how to use H2O using Spark's data structures (\@ref(sparkling)).
 
-```{r}
+
+```{r h2o}
 #install.packages("h2o") 
-suppressPackageStartupMessages(library(h2o))
+library(h2o)
 
 h2o.init(nthreads=2) 
-h2o.no_progress()
+```
+
+Things to note:
+
+- We did not install the H2O server; `install.packages("h2o")` did it for us. 
+- `h2o.init` fires the H2O server. Use `nthreads` to manually control the number of threads, or use the defaults. "H2O cluster total cores" informs you of the number of potential cores. "H2O cluster allowed cores" was set by `nthreads`, and informs of the number of actual cores that will be used. 
+- Read `?h2o.init` for the (massive) list of configuration parameters available. 
+
+
+```{r}
+h2o.no_progress() # to supress progress bars. 
 data("spam", package = 'ElemStatLearn')
 spam.h2o <- as.h2o(spam, destination_frame = "spam.hex") # load to the H2O server
 h2o.ls() # check avaialbe data in the server
@@ -547,8 +560,6 @@ head(predictions)
 
 Things to note:
 
-- We did not install the H2O server; `install.packages("h2o")` did it for us. 
-- `h2o.init` fires the H2O server. Use `nthreads` to manually control the number of threads, or use the defaults.
 - H2O objects behave a lot like data.frame/tables.
 - To compute on H2O objects, you need dedicated function. They typically start with "h2o" such as `h2o.table`, and `h2o.randomForest`.
 - `h2o.randomForest`, and other H2O functions, have their own syntax with many many options. Make sure to read `?h2o.randomForest`.
@@ -567,13 +578,13 @@ R users can connect to it using the [RSparkling](http://docs.h2o.ai/sparkling-wa
 
 ## Caution: Nested Parallelism {#nested-parallel}
 
-A common problem when parallelising is that the cores/machines you invoked explicitely, invoke themselves other cores/machines. 
-Consider a user _forking_ multiple processes, which call each `data.table` itself invoking parallel processing. 
-This is called _nested parallelism_, which may cause you to lose control of the number of machine being invoked.
-The operating system will spend most of its time with house keeping, instead of doing your computations. 
+A common problem when parallelising is that the processes you invoke explicitely, may themselves invoke other processes. 
+Consider a user _forking_ multiple processes, each process calling `data.table`, which itself will invoke multiple threads. 
+This is called _nested parallelism_, and may cause you to lose control of the number of machine being invoked.
+The operating system will spend most of its time with housekeeping, instead of doing your computations. 
+Luckily, `data.table` was designed to avoid this.
 
-Luckily, `data.table` was designed to avoid this, but it may happen in general.
-If you are parallelising your linear algebra with OpenBLAS, you may control nested parallelism with the package [RhpcBLASctl package](https://cran.r-project.org/package=RhpcBLASctl).
+If you are parallelising your linear algebra with OpenBLAS, you may control nested parallelism with the package [RhpcBLASctl](https://cran.r-project.org/package=RhpcBLASctl).
 In other cases, you should be aware of this, and may need to consult an expert. 
 
 
@@ -589,11 +600,16 @@ For some theory of distributed machine learning, see @rosenblatt2016optimality.
 
 An excellent video explaining `data.table` and H2O, by the author of `data.table, is [this](https://www.youtube.com/watch?v=5X7h1rZGVs0).
 More benchmarks in [here](https://h2oai.github.io/db-benchmark/).
-More on Spark with R inthe book [Mastering Apache Spark with R](https://therinspark.com).
+More on Spark with R in [Mastering Apache Spark with R](https://therinspark.com).
 
 For a blog level introduction to linear algebra in R see [Joseph Rickert's entry](https://blog.revolutionanalytics.com/2013/08/r-and-linear-algebra.html).
 For a detailed discussion see @oancea2015accelerating.
 
+
+
+
 ## Practice Yourself
+TODO
+
 
 Try DataCamp's [Parallel Programming in R](https://www.datacamp.com/courses/parallel-programming-in-r).
