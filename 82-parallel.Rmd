@@ -194,7 +194,8 @@ r <- foreach(icount(trials), .combine=cbind) %dopar% {
 Things to note:
 
 - As usual, we use the `foreach` function with the `%dopar%` operator to loop in parallel.
-- The `icounts` function generates a counter. 
+- The `iterators::icount` function generates a counter that iterates over its argument. 
+- The object `x` is magically avaiable at all child processes, even though we did not _fork_ R. This is thanks to `forach` which guesses what data to pass to children. 
 - The `.combine=cbind` argument tells the `foreach` function how to combine the output of different machines, so that the returned object is not the default list. 
 - To run a serial version, say for debugging, you only need to replace `%dopar%` with `%do%`.
 
@@ -215,73 +216,76 @@ x <- attach.big.matrix("airline.desc")
 
 library(foreach)
 library(doSNOW)
-cl <- makeSOCKcluster(rep("localhost", 4)) # make a cluster of 4 machines
+cl <- makeSOCKcluster(names=rep("localhost", 4)) # make a cluster of 4 machines
 registerDoSNOW(cl) # register machines for foreach()
-```
-
-Get a "description" of the `big.matrix` object that will be used to call it from each machine.
-```{r}
 xdesc <- describe(x) 
-```
 
-Split the data along values of `BENE_AGE_CAT_CD`.
-```{r}
-G <- split(1:nrow(x), x[, "BENE_AGE_CAT_CD"]) 
-```
+G <- split(1:nrow(x), x[, "BENE_AGE_CAT_CD"]) # Split the data along `BENE_AGE_CAT_CD`.
 
-Define a function that computes quantiles of `CAR_LINE_ICD9_DGNS_CD`.
-```{r}
 GetDepQuantiles <- function(rows, data) {
- quantile(data[rows, "CAR_LINE_ICD9_DGNS_CD"], probs = c(0.5, 0.9, 0.99),
- na.rm = TRUE)
-}
-```
+ quantile(data[rows, "CAR_LINE_ICD9_DGNS_CD"], 
+          probs = c(0.5, 0.9, 0.99), 
+          na.rm = TRUE)
+} # Function to extract quantiles
 
-We are all set up to loop, in parallel, and compute quantiles of `CAR_LINE_ICD9_DGNS_CD` for each value of `BENE_AGE_CAT_CD`.
-
-```{r}
 qs <- foreach(g = G, .combine = rbind) %dopar% {
- require("bigmemory")
+ library("bigmemory") 
  x <- attach.big.matrix(xdesc)
  GetDepQuantiles(rows = g, data = x)
-}
+} # get quantiles, in parallel
 qs
-```
-
-
-
-#### Which Backend to Use?
-
-In the following example, we compare the _fork_ mechanism, to the _socket_ mechanism.
-The bottom line is- use _fork_ whenever possible. 
-
-```{r}
-library(nycflights13)
-flights$ind <- sample(1:10, size = nrow(flights), replace = TRUE)
-
-timer <- function(i) max(flights[flights$ind==i,"distance"])
-timer(1)
-
-library(doMC)
-registerDoMC(cores = 10)
-system.time(foreach (i=1:10, .combine = 'c') %dopar% timer(i))
-
-library(parallel)         
-library(doParallel)
-cl <- makeCluster(10, type="SOCK")
-registerDoParallel(cl)
-system.time(foreach (i=1:10, .combine = 'c') %dopar% timer(i))
-stopCluster(cl)
 ```
 
 Things to note:
 
+- `bigmemory::attach.big.matrix` creates an R _big.matrix_ object from a matrix already existing on disk. See Section \@ref(bigmemory) for details. 
+- `snow::makeSOCKcluster` creates cluster of R processes communicating via sockets. 
+- `bigmemory::describe` recovres a pointer to the _big.matrix_ object, that will be used to call it from various child proceeses. 
+- Because R processes were not _forked_, each child need to load the __bigmemory__ package separately.
+
+Can only __big.matrix__ objects be used to share data between child processes?
+No. 
+There are many mechanism to share data. 
+We use __big.matrix__ merely for demonstration.
+
+
+
+
+
+#### Fork or Socket?
+
+On Linux and Unix machines you can use both the _fork_ mechanism of the __multicore__ package, and the _socket_ mechanism of the __snow__ package. 
+Which is preferable? _Fork_, if available. 
+Here is a quick comparison.
+
+```{r}
+library(nycflights13)
+flights$ind <- sample(1:10, size = nrow(flights), replace = TRUE) #split data to 10.
+
+timer <- function(i) max(flights[flights$ind==i,"distance"]) # an arbitrary function
+
+library(doMC)
+registerDoMC(cores = 10) # make a fork cluster
+system.time(foreach (i=1:10, .combine = 'c') %dopar% timer(i)) # time the fork cluster
+
+library(parallel)         
+library(doParallel)
+cl <- makeCluster(10, type="SOCK") # make a socket cluster. 
+registerDoParallel(cl)
+system.time(foreach (i=1:10, .combine = 'c') %dopar% timer(i)) # time the socket cluster
+stopCluster(cl) # close the cluster
+```
+
+Things to note:
+
+- `doMC::registerDoMC` was used to stard and register the forked cluster. 
+- `parallel::makeCluster` was used to stard the socket cluster. It was registered with `doParallel::registerDoParallel`.
+- After registering the cluster, the __foreach__ code is exactly the same.
 - The clear victor is _fork_: sessions start faster, and computations finish faster. Sadly, we recall that _forking_ is impossible on Windows machines, or in clusters that consist of several machines.
-- We did not need to pass `flights` to the different workers. `foreach` took care of that for us. 
- 
+- We did not need to pass `flights` to the different workers. `foreach::foreach` took care of that for us. 
 
 
-For fun, let's try the same with `data.table`....
+For fun, let's try the same with `data.table`.
 ```{r}
 library(data.table)
 flights.DT <- as.data.table(flights)
@@ -312,47 +316,53 @@ We call these _parallel extensions_.
 Linear algebra, and various machine learning algorithms are examples we now discuss.
 
 
+
+
 ### Parallel Linear Algebra
 
 R ships with its own linear algebra algorithms, known as Basic Linear Algebra Subprograms: [BLAS](http://www.netlib.org/blas/).
 To learn the history of linear algebra in R, read @maechler20062nd. 
 For more details, see our Bibliographic notes. 
-As a user, you may actually replace the underlying linear algebra libraries in R. 
-There are actually many linear algebra libraries [out there](https://en.wikipedia.org/wiki/Comparison_of_linear_algebra_libraries).
-Cutting edge linear algebra libraries such as [OpenBLAS](https://github.com/xianyi/OpenBLAS), [Plasma](https://bitbucket.org/icl/plasma/src/default/), and Intel's [MKL](https://software.intel.com/en-us/mkl) for Intel processors (which you are probably using), will parallelise basic linear algebra operations for you. 
-This is very useful, since: (a) all machines today have multiple cores and (b) linear algebra is at the heart of all statistics and machine learning. 
+BLAS will use a single core, even if your machines has many more. 
+There are many linear algebra libraries [out there](https://en.wikipedia.org/wiki/Comparison_of_linear_algebra_libraries), and you don't need to be a programmer to replace R's BLAS. 
+Cutting edge linear algebra libraries such as [OpenBLAS](https://github.com/xianyi/OpenBLAS), [Plasma](https://bitbucket.org/icl/plasma/src/default/), and Intel's [MKL](https://software.intel.com/en-us/mkl), will do your linear algebra while exploiting the many cores of your machine. 
+This is very useful, since all machines today have multiple cores, and linear algebra is at the heart of all statistics and machine learning. 
 
 Installing these libraries requires some knowldge in system administration.
-It is quite simple under Ubuntu and Debian linux, and may be more comlicated otherwise. 
+It is fairly simple under Ubuntu and Debian linux, and may be more comlicated on other operating systems. 
 Installing these is outside the scope of this text. 
 We will thus content ourselves with the following pointers:
 
-- Users can easily replace the BLAS libraries shipped with R, with other libraries. OpenBLAS, and MKL. These libraries will parallelise linear algebra for you.
--This is easier to do under Ubuntu and Debian Linux, but possible in all systems. 
+- Users can easily replace the BLAS libraries shipped with R, with other libraries such as OpenBLAS, and MKL. These will parallelise linear algebra for you.
+- Installation is easier for Ubuntu and Debian Linux, but possible in all systems. 
 - For specific tasks, such as machine learning, you may not need an all-pupose paralle linear algebra library. If you want machine learning in parallel, there are more specialized libraries. In the followig, we demonstrate Spark (\@ref(spark)), and H2O (\@ref(h2o)).
-
-
-
+- Read our word of caution on nested parallelism (\@ref(nested-parallel)) if you use parallel linear algebra within child R processes.
 
 
 
 ### Parallel Data Munging with data.table
 
-We have discussed `data.table` on various occasions.
-We now recall it to emphasize that various operations in `data.table` are done in parallel. 
-For instance, imports.
+We have discussed `data.table` in Chapter \@ref(datatable).
+We now recall it to emphasize that various operations in `data.table` are done in parallel, using [OpenMP](https://en.wikipedia.org/wiki/OpenMP).
+For instance, file imports can done in paralle: each thread is responsible to impot a subset of the file.
 First, we check how many threads `data.table` is setup to use?
 ```{r}
 library(data.table)
 getDTthreads(verbose=TRUE) 
 ```
 
-We then do the import and inspect CPU usage with the _top_ linux command.
+Things to note:
+
+- `data.table::getDTthreads` to get some info on my machine, and curent `data.table` setup. Use the `verbose=TRUE` flag for extra details. 
+- _omp_get_max_threads_ informs me how many threads are available in my machine. 
+- My current `data.table` configuraton is in the last line of the output. 
+
+We then import with `data.table::fread` and inspect CPU usage with the _top_ linux command.
 ```{r}
-air <- fread('data/2010_BSA_Carrier_PUF.csv')
+for(i in 1:100) air <- fread('data/2010_BSA_Carrier_PUF.csv')
 ```
 
-![CPU usage of fread(). The CPU usage is 301.7\%. This is because `data.table` is setup to use 4 threads simultanously. ](art/Screenshot from 2019-10-03 10-48-06.png)
+![The CPU usage of fread() is 384.4\%. This is because `data.table` is setup to use 4 threads simultanously. ](art/Screenshot from 2019-10-08 16-00-34.png)
 
 
 
@@ -361,7 +371,7 @@ An amazing feature of `data.table` is that it will not parallelize when called f
 This behaviour will avoid the nested parallelism we cautioned from in \@ref(nested-parallel).
 ```
 
-Now let's compare parallelised aggregations:
+After doing parallel imports, let's try parallel aggregation.
 ```{r}
 n <-  5e6
 N <- n
@@ -384,34 +394,49 @@ system.time(DT[, .(a = 1L), by = "grp"])
 Things to note:
 
 - Parallel aggregation is indeed much faster. 
+- Cores scaled by 8 fold. Time scaled by less. The scaling is not perfect. Remember Amdahl's law.
 - This example was cooked to emphasize the difference. You may not enjoy such speedups in all problems. 
 
-
+If the data does not fit in our RAM, we cannot enjoy `data.table`s. 
+If the data is so large that it does not fit into RAM^[Recall that you can buy servers wth 1TB of RAM and more. So we are talking about A LOT of data!], nor into your local disk, you will need to store, and compute with it, in a distributed cluster. 
+In the next section, we present a very popular system for storing, munging, and learning, with massive datasets.
 
 
 
 ### Spark
 
 Spark is the brainchild of Matei Zaharia, in 2009, as part of his PhD studies at University of California, Berkeley 's AMPLab. 
-To understand _Spark_ need some background.
+To understand _Spark_ we need some background.
+
 The software that manages files on your disk is the [file system](https://en.wikipedia.org/wiki/File_system).
-On personal computers, you may have seen names like FAT32, NTFS, ext3, or others. 
-Those are disk file systems. 
+On personal computers, you may have seen names like FAT32, NTFS, EXT3, or others. 
+Those are file systems for disks.
 If your data is too big to be stored on a single disk, you may distribute it on several machines. 
 When doing so, you will need a file systems that is designed for distributed clusters. 
 A good [cluster file system](https://en.wikipedia.org/wiki/Clustered_file_system), is crucial for the performance of your cluster. 
-Google's file system, the [Google File](https://en.wikipedia.org/wiki/File_system), is part of Google power. 
+Part of Google strength is in its powerful file system, the [Google File System](https://en.wikipedia.org/wiki/Google_File_System). 
 If you are not at Google, you will not have access to this file system. 
 Luckily, there are many other alternatives.
-The Hadoop File System, [HDFS](https://en.wikipedia.org/wiki/Apache_Hadoop), that started at Yahoo, and was ported to the Apache Foundation, is such an alternative. 
-With the HDFS you can store files in a cluster, but for doing statistics with the data in these files, you need software that is compatible with the file system.
-Hadoop is such a software, but it was not designed for machine learning. 
-Hadoop operates from the disk.
-Learning, which consists of a lot iterative algorithms run, requires fast and repeated data reads. 
-This is the purpose of Spark.
-Spark is a data oriented computing environment over distributed file systems. 
-While originality linked to HDFS, it may run over many other distributed file systems, but also locally, as we now demonstrate. 
+The Hadoop File System, [HDFS](https://en.wikipedia.org/wiki/Apache_Hadoop), that started at Yahoo, later donated to the Apache Foundation, is a popular alternative. 
+With the HDFS you can store files in a cluster.
 
+For doing statistics, you need software that is compatible with the file system.
+This is true for all file systems, and in particular, HDFS.
+A popular software suit that was designed to work with HDFS is _Hadoop_.
+Alas, Hadoop was not designed for machine learning. 
+Hadoop for reasons of fault tolerance, Hadoop stores its data disk.
+Machine learning consists of a lot iterative algorithms that requires fast and repeated data reads. 
+This is very slow if done from the disk.
+This is where _Spark_ comes in.
+Spark is a data oriented computing environment over distributed file systems. 
+Let's parse that:
+
+- "data oriented": designed for statistics and machine learning, which require a lot of data, that is mostly read and not written. 
+- "computing environment": it less general than a full blown programming language, but it allows you to extend it. 
+- "over distributed file systems": it ingests data that is stored in distributed clusters, managed by HDFS or other distributed file system. 
+
+Let's start a Spark server on our local machine to get a feeling of it.
+We will not run from a cluster, so that you may experiment with it yourself. 
 
 ```{r}
 library(sparklyr)
@@ -421,7 +446,7 @@ sc <- spark_connect(master = "local")
 
 Things to note:
 
-- `spark_install` will download and install _Spark_ on your first run. Make sure to update the version number, as this text may be outdated by the time you read it. 
+- `spark_install` will download and install _Spark_ on your first run. Make sure to update the version number, since my text may be outdated by the time you read it. 
 - I used the _sparklyr_ package from RStudio. There is an alternative package from Apache: _SparkR_. 
 - `spark_connect` opens a connection to the Spark server.  When working in a cluster, with many machines, the `master=` argumnt infrorms R which machine is the master, a.k.a. the "driver node". 
 - After running `spark_connect`, the connection to the Sprak server will appear in RStudio's [Connection pane](https://support.rstudio.com/hc/en-us/articles/115010915687-Using-RStudio-Connections).
@@ -436,7 +461,9 @@ library(dplyr)
 system.time(delay<-flights_tbl %>% 
               group_by(tailnum) %>%
               summarise(
-                count=n(),dist=mean(distance),delay=mean(arr_delay)) %>%
+                count=n(),
+                dist=mean(distance, na.rm=TRUE),
+                delay=mean(arr_delay, na.rm=TRUE)) %>%
               filter(count>20, dist<2000, !is.na(delay)) %>% 
               collect())
 delay
