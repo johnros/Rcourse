@@ -175,7 +175,7 @@ lattice::levelplot(x) # just looking at white noise.
 
 Now making our own Hotelling one-sample $T^2$ test using Eq.(\@ref(eq:hotelling-test)). 
 
-```{r}
+```{r hotelling-function}
 hotellingOneSample <- function(x, mu0=rep(0,ncol(x))){
   n <- nrow(x)
   p <- ncol(x)
@@ -199,13 +199,13 @@ Things to note:
 
 Just for verification, we compare our home made Hotelling's test, to the implementation in the __rrcov__ package. 
 The statistic is clearly OK, but our $\chi^2$ approximation of the distribution leaves room to desire. 
-Personally, I would never trust a Hotelling test if $n$ is not much greater than $p$, in which case I would use a high-dimensional adaptation (see Bibliography).
+Personally, I would never trust a Hotelling test if $n$ is not much greater than $p$, in which case the high-dimensional-statistics literature is worth consulting.
 
 ```{r}
 rrcov::T2.test(x)
 ```
 
-Let's do the same with Simes':
+Now write our own Simes' test, and verify that it indeed does not find signal that is not there.
 ```{r}
 Simes <- function(x){
   p.vals <- apply(x, 2, function(z) t.test(z)$p.value) # Compute variable-wise pvalues
@@ -226,21 +226,31 @@ Simes(x)
 
 ... yes. All p-values are very small, so that all statistics can detect the non-null distribution.
 
+
+
+
 ## Signal Counting 
 There are many ways to approach the _signal counting_ problem. 
-For the purposes of this book, however, we will not discuss them directly, and solve the signal counting problem as a signal identification problem: if we know __where__ $\mu$ departs from $\mu_0$, we only need to count coordinates to solve the signal counting problem. 
+For the purposes of this book, however, we will not discuss them directly, and solve the signal counting problem via the solution to a signal identification problem. 
+The rational is the following: if we know __where__ $\mu$ departs from $\mu_0$, we only need to count coordinates to solve the signal counting problem. 
 
-```{remark}
-In the sparsity or multiple-testing literature, what we call "signal counting" is known as "adapting to sparsit", or "adaptivity".
-```
+We now make the previous arguent a little more accurate.
+Assume you have a selection/identification algorithm, that selects coordinates in $\mu$.
+Denote with $R(\alpha)$ the number of selected coordiantes, where $\alpha$ is the coordinate-wise false positive rate. 
+Then $R(\alpha)$ includes approximately $\alpha p$ false positives. 
+Denote by $p_0$ the number of coordiantes that do not carry signal.
+Then $p_0 \approx p-(R(\alpha)-p_0 \, \alpha)$.
+Equating the two we have $$\hat p_0=\frac{p-R(\alpha)}{1-\alpha}.$$
+The number of coordinates in $\mu$ that truly carry signal is thus approximately $p-\hat p_0$, which is a solution to the signal counting problem. 
+
 
 ## Signal Identification {#identification}
-The problem of _signal identification_ is also known as _selective testing_, or more commonly as _multiple testing_.
 
+The problem of _signal identification_ is also known as a _selection problem_, or more commonly as _multiple testing_ problem.
 In the ANOVA literature, an identification stage will typically follow a detection stage.
 These are known as the _omnibus F test_, and _post-hoc_ tests, respectively.
-In the multiple testing literature there will typically be no preliminary detection stage. It is typically assumed that signal is present, and the only question is "where?"
-
+In the multiple testing literature it is quite rare to see a preliminary detection stage, becaues it is assumed that signal is there; it is merely a problem of how much, and where?
+I.e., counting and selecting, respectively.
 
 The first question when approaching a multiple testing problem is "what is an error"?
 Is an error declaring a coordinate in $\mu$ to be different than $\mu_0$ when it is actually not?
@@ -256,13 +266,12 @@ See the Wikipedia entry on [ROC](https://en.wikipedia.org/wiki/Receiver_operatin
 
 ### Signal Identification in R
 
-One (of many) ways to do signal identification involves the `stats::p.adjust` function.
+One (of many) ways to do signal identification with statistical guarantees involves the `stats::p.adjust` function.
 The function takes as inputs a $p$-vector of the variable-wise __p-values__. 
 Why do we start with variable-wise p-values, and not the full data set?
 
 a. Because we want to make inference variable-wise, so it is natural to start with variable-wise statistics. 
 a. Because we want to avoid dealing with covariances if possible. Computing variable-wise p-values does not require estimating covariances. 
-a. So that the identification problem is decoupled from the variable-wise inference problem, and may be applied much more generally than in the setup we presented. 
 
 We start be generating some high-dimensional multivariate data and computing the coordinate-wise (i.e. hypothesis-wise) p-value.
 
@@ -299,7 +308,8 @@ The workflow for identification has the same structure, regardless of the desire
 1. Compute an `adjusted p-value`. 
 1. Compare the adjusted p-value to the desired error level.
 
-If we want $FWER \leq 0.05$, meaning that we allow a $5\%$ probability of making any mistake, we will use the `method="holm"` argument of `p.adjust`.
+If we want $FWER \leq 0.05$, meaning that we allow a $5\%$ probability of making any mistake, we will use the `method="holm"` argument of `p.adjust`. 
+Recalling that our data currently has no signal we verify that, indeed, nothing is selected. 
 
 ```{r holm}
 alpha <- 0.05
@@ -308,6 +318,7 @@ which(p.values.holm < alpha)
 ```
 
 If we want $FDR \leq 0.05$, meaning that we allow the proportion of false discoveries to be no larger than $5\%$, we use the `method="BH"` argument of `p.adjust`.
+Again, nothing is selected because there is nothing to select.
 
 ```{r bh}
 alpha <- 0.05
@@ -354,10 +365,9 @@ For an R oriented introduction, see @everitt2011introduction.
 For more on the difficulties with high dimensional problems, see @bai1996effect.
 For some cutting edge solutions for testing in high-dimension, see @rosenblatt2016better and references therein.
 Simes' test is not very well known. It is introduced in @simes1986improved, and proven to control the type I error of detection under a PRDS type of dependence in @benjamini2001control.
-For more on multiple testing, and signal identification, see @efron2012large.
+For more on multiple testing, and signal identification, see @goeman2014multiple.
 For more on the choice of your error rate see @rosenblatt2013practitioner.
-For an excellent review on graphical models see @kalisch2014causal. 
-Everything you need on graphical models, Bayesian belief networks, and structure learning in R, is collected in the [Task View](https://cran.r-project.org/web/views/gR.html).
+
 
 
 ## Practice Yourself
