@@ -24,25 +24,21 @@ Here is the set of problems we will discuss, in order of their statistical diffi
 - __Signal Detection__: 
 a.k.a. _multivariate test_, or _global test_, or _omnibus test_.
 Where we test whether $\mu$ differs than some $\mu_0$. 
-In our example: "are the current measurement different than a typical one?"
+
 
 - __Signal Counting__: 
-Counting the number of elements in $\mu$ that differ from $\mu_0$, and for $\mu_0=0$ in particular.
-In our example: "how many measurements differ than their typical values?"
+a.k.a. _prevalence estimation_, or _$\pi_0$ estimation_. 
+Where we count the number of entries in $\mu$ that differ from $\mu_0$.
 
 - __Signal Identification__:
-a.k.a. _selection_, or _multiple testing_, i.e., testing which of the elements in $\mu$ differ from $\mu_0$ and for $\mu_0=0$ in particular. 
-In the ANOVA literature, this is known as a __post-hoc__ analysis.
-In our example: "which measurements differ than their typical values?"
+a.k.a. _selection_, or _multiple testing_.
+Where we infer which of the entries in $\mu$ differ from $\mu_0$. 
+In the ANOVA literature, this is known as a __post-hoc__ analysis, which follows an _omnibus test_.
 
-- __Signal estimation__: 
-Estimating the magnitudes of the departure of $\mu$ from $\mu_0$, and for $\mu_0=0$ in particular. 
-If estimation follows a _signal detection_ or _signal identification_ stage, this is known as a _selective estimation_ problem.
-In our example: "what is the value of the measurements that differ than their typical values?"
+- __Estimation__: 
+Estimating the magnitudes of entries in $\mu$, and their departure from $\mu_0$. 
+If estimation follows a _signal detection_ or _signal identification_ stage, this is known as _selective estimation_.
 
-- __Multivariate Regression__:
-a.k.a. _MANOVA_ in statistical literature, and _structured learning_ in the machine learning literature. 
-In our example: "what factors affect the physiological measurements?"
 
 
 ```{example, label='brain-imaging'}
@@ -62,52 +58,11 @@ In particular, $\mu$ of sick will differ from $\mu$ of healthy.
 ```{example, label='regression'}
 Consider the problem of the simplest multiple regression. 
 The estimated coefficient, $\hat \beta$ are a random vector.
-Regression theory tells us that its covariance is $(X'X)^{-1}\sigma^2$, and null mean of $\beta$.
+Regression theory tells us that its covariance is $Var[\hat \beta|X]=(X'X)^{-1}\sigma^2$, and null mean of $\beta$.
 We thus see that inference on the vector of regression coefficients, is nothing more than a multivaraite inference problem.
 ```
 
 
-```{remark}
-In the above, "signal" is defined in terms of $\mu$. 
-It is possible that the signal is not in the location, $\mu$, but rather in the covariance, $\Sigma$. 
-We do not discuss these problems here, and refer the reader to @nadler2008finite.
-```
-
-Another possible question is: does a multivariate analysis gives us something we cannot get from a mass-univariate analysis (i.e., a multivariate analysis on each variable separately).
-In Example \@ref(exm:icu) we could have just performed multiple univariate tests, and sign an alarm when any of the univariate detectors was triggered. 
-The reason we want a multivariate detector, and not multiple univariate detectors is that it is possible that each measurement alone is borderline, but together, the signal accumulates. 
-In our ICU example is may mean that the pulse is borderline, the body temperature is borderline, etc. Analyzed simultaneously, it is clear that the patient is in distress.
-
-The next figure^[My thanks to Efrat Vilneski for the figure.] illustrates the idea that some bi-variate measurements may seem ordinary univariately, while very anomalous when examined bi-variately. 
-
-
-```{remark}
-The following figure may also be used to demonstrate the difference between Euclidean Distance and Mahalanobis Distance. 
-```
-
-
-```{r, echo=FALSE}
-library(ellipse)
-library(ggplot2)
-library(MASS)
-
-samples<-1000 
-r<-0.8
-ds <- mvrnorm(samples, mu = c(0,0), Sigma = matrix(c(1,r,r,1), ncol = 2), empirical = TRUE)
-ds <- as.data.frame(ds)
-colnames(ds) <- c("x","y")
-
-
-ell_2s <- ellipse(cor(ds[,1], ds[,2]), scale=c(sd(ds[,1]),sd(ds[,2])), centre=c(mean(ds[,1]),mean(ds[,2])))
-ell_3s <- ellipse(cor(ds[,1], ds[,2]), scale=c(sd(ds[,1]),sd(ds[,2])), centre=c(mean(ds[,1]),mean(ds[,2])), level = 0.998)
-ell_2s  <- as.data.frame(ell_2s)
-ell_3s  <- as.data.frame(ell_3s)
-
-p <- ggplot(data=ds, aes(x=x, y=y)) + geom_point(size=1.5, alpha=.6) +
-  geom_path(data=ell_2s, aes(x=x, y=y), size=1, linetype=2)+
-  geom_path(data=ell_3s, aes(x=x, y=y), size=1, linetype=2)
-p
-```
 
 
 
