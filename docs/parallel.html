@@ -724,14 +724,14 @@ timer &lt;-<span class="st"> </span><span class="cf">function</span>(i) <span cl
 <span class="kw">registerDoMC</span>(<span class="dt">cores =</span> <span class="dv">10</span>) <span class="co"># make a fork cluster</span>
 <span class="kw">system.time</span>(<span class="kw">foreach</span> (<span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">.combine =</span> <span class="st">&#39;c&#39;</span>) <span class="op">%dopar%</span><span class="st"> </span><span class="kw">timer</span>(i)) <span class="co"># time the fork cluster</span></code></pre>
 <pre><code>##    user  system elapsed 
-##   0.010   0.476   0.491</code></pre>
+##   0.013   0.409   0.429</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(parallel)         
 <span class="kw">library</span>(doParallel)
 cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(<span class="dv">10</span>, <span class="dt">type=</span><span class="st">&quot;SOCK&quot;</span>) <span class="co"># make a socket cluster. </span>
 <span class="kw">registerDoParallel</span>(cl)
 <span class="kw">system.time</span>(<span class="kw">foreach</span> (<span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">.combine =</span> <span class="st">&#39;c&#39;</span>) <span class="op">%dopar%</span><span class="st"> </span><span class="kw">timer</span>(i)) <span class="co"># time the socket cluster</span></code></pre>
 <pre><code>##    user  system elapsed 
-##   1.106   0.151   2.057</code></pre>
+##   1.054   0.161   2.020</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stopCluster</span>(cl) <span class="co"># close the cluster</span></code></pre>
 <p>Things to note:</p>
 <ul>
@@ -746,7 +746,7 @@ cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(<span class
 flights.DT &lt;-<span class="st"> </span><span class="kw">as.data.table</span>(flights)
 <span class="kw">system.time</span>(flights.DT[,<span class="kw">max</span>(distance),ind])</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.056   0.000   0.017</code></pre>
+##   0.058   0.080   0.103</code></pre>
 <p>No surprises there.
 If you can store your data in RAM, <code>data.table</code> is still the fastest.</p>
 </div>
@@ -836,12 +836,12 @@ k &lt;-<span class="st">  </span><span class="fl">1e4</span>
 
 <span class="kw">system.time</span>(DT[, .(<span class="dt">a =</span> 1L), <span class="dt">by =</span> <span class="st">&quot;grp&quot;</span>])</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.460   0.007   0.078</code></pre>
+##   0.416   0.020   0.073</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setDTthreads</span>(<span class="dt">threads =</span> <span class="dv">1</span>) <span class="co"># use a single thread</span>
 
 <span class="kw">system.time</span>(DT[, .(<span class="dt">a =</span> 1L), <span class="dt">by =</span> <span class="st">&quot;grp&quot;</span>])</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.160   0.001   0.161</code></pre>
+##   0.147   0.000   0.146</code></pre>
 <p>Things to note:</p>
 <ul>
 <li>Parallel aggregation is indeed much faster.</li>
@@ -849,7 +849,7 @@ k &lt;-<span class="st">  </span><span class="fl">1e4</span>
 <li>This example was cooked to emphasize the difference. You may not enjoy such speedups in all problems.</li>
 </ul>
 <p>If the data does not fit in our RAM, we cannot enjoy <code>data.table</code>s.
-If the data is so large that it does not fit into RAM<a href="#fn30" class="footnote-ref" id="fnref30"><sup>30</sup></a>, nor into your local disk, you will need to store, and compute with it, in a distributed cluster.
+If the data is so large that it does not fit into RAM<a href="#fn29" class="footnote-ref" id="fnref29"><sup>29</sup></a>, nor into your local disk, you will need to store, and compute with it, in a distributed cluster.
 In the next section, we present a very popular system for storing, munging, and learning, with massive datasets.</p>
 </div>
 <div id="spark" class="section level3">
@@ -909,7 +909,7 @@ flights_tbl&lt;-<span class="st"> </span><span class="kw">copy_to</span>(<span c
 <span class="st">              </span><span class="kw">filter</span>(count<span class="op">&gt;</span><span class="dv">20</span>, dist<span class="op">&lt;</span><span class="dv">2000</span>, <span class="op">!</span><span class="kw">is.na</span>(delay)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">              </span><span class="kw">collect</span>())</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.242   0.541   1.569</code></pre>
+##   0.216   0.587   1.699</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">delay</code></pre>
 <pre><code>## # A tibble: 2,961 x 4
 ##    tailnum count  dist  delay
@@ -939,7 +939,7 @@ We can thus compare performance to <code>data.table</code>, only to re-discover,
 flight.DT &lt;-<span class="st"> </span><span class="kw">data.table</span>(flights)
 <span class="kw">system.time</span>(flight.DT[,.(<span class="dt">distance=</span><span class="kw">mean</span>(distance),<span class="dt">delay=</span><span class="kw">mean</span>(arr_delay),<span class="dt">count=</span>.N),<span class="dt">by=</span>tailnum][count<span class="op">&gt;</span><span class="dv">20</span> <span class="op">&amp;</span><span class="st"> </span>distance<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(delay)])</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.035   0.105   0.142</code></pre>
+##   0.031   0.000   0.031</code></pre>
 <p>Let’s disconnect from the Spark server.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">spark_disconnect</span>(sc)</code></pre>
 <pre><code>## NULL</code></pre>
@@ -964,27 +964,19 @@ We later discuss how to use H2O using Spark’s data structures (<a href="parall
 <span class="kw">library</span>(h2o)
 
 <span class="kw">h2o.init</span>(<span class="dt">nthreads=</span><span class="dv">2</span>) </code></pre>
-<pre><code>## 
-## H2O is not running yet, starting it now...
-## 
-## Note:  In case of errors look at the following log files:
-##     /tmp/Rtmp18cqHV/h2o_rstudio_started_from_r.out
-##     /tmp/Rtmp18cqHV/h2o_rstudio_started_from_r.err
-## 
-## 
-## Starting H2O JVM and connecting: . Connection successful!
+<pre><code>##  Connection successful!
 ## 
 ## R is connected to the H2O cluster: 
-##     H2O cluster uptime:         1 seconds 480 milliseconds 
+##     H2O cluster uptime:         1 minutes 38 seconds 
 ##     H2O cluster timezone:       Etc/UTC 
 ##     H2O data parsing timezone:  UTC 
 ##     H2O cluster version:        3.26.0.2 
 ##     H2O cluster version age:    2 months and 13 days  
-##     H2O cluster name:           H2O_started_from_R_rstudio_tfg739 
+##     H2O cluster name:           H2O_started_from_R_rstudio_kxj197 
 ##     H2O cluster total nodes:    1 
-##     H2O cluster total memory:   3.43 GB 
+##     H2O cluster total memory:   3.42 GB 
 ##     H2O cluster total cores:    8 
-##     H2O cluster allowed cores:  2 
+##     H2O cluster allowed cores:  8 
 ##     H2O cluster healthy:        TRUE 
 ##     H2O Connection ip:          localhost 
 ##     H2O Connection port:        54321 
@@ -1002,8 +994,13 @@ We later discuss how to use H2O using Spark’s data structures (<a href="parall
 <span class="kw">data</span>(<span class="st">&quot;spam&quot;</span>, <span class="dt">package =</span> <span class="st">&#39;ElemStatLearn&#39;</span>)
 spam.h2o &lt;-<span class="st"> </span><span class="kw">as.h2o</span>(spam, <span class="dt">destination_frame =</span> <span class="st">&quot;spam.hex&quot;</span>) <span class="co"># load to the H2O server</span>
 <span class="kw">h2o.ls</span>() <span class="co"># check avaialbe data in the server</span></code></pre>
-<pre><code>##        key
-## 1 spam.hex</code></pre>
+<pre><code>##                                                                               key
+## 1                                                                 RTMP_sid_a49b_4
+## 2                                                                 RTMP_sid_a49b_6
+## 3 modelmetrics_our.rf@-7135746841792491802_on_RTMP_sid_a49b_4@1783194943144526592
+## 4                                                                          our.rf
+## 5                                      predictions_8b59_our.rf_on_RTMP_sid_a49b_6
+## 6                                                                        spam.hex</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">h2o.describe</span>(spam.h2o) <span class="op">%&gt;%</span><span class="st"> </span>head <span class="co"># the H2O version of summary()</span></code></pre>
 <pre><code>##   Label Type Missing Zeros PosInf NegInf Min   Max       Mean     Sigma
 ## 1   A.1 real       0  3548      0      0   0  4.54 0.10455336 0.3053576
@@ -1040,13 +1037,13 @@ rf &lt;-<span class="st"> </span><span class="kw">h2o.randomForest</span>(
 <span class="co"># Predict on test set</span>
 predictions &lt;-<span class="st"> </span><span class="kw">h2o.predict</span>(rf, test)
 <span class="kw">head</span>(predictions)</code></pre>
-<pre><code>##   predict      email      spam
-## 1    spam 0.02074074 0.9792593
-## 2    spam 0.40076923 0.5992308
-## 3    spam 0.11395563 0.8860444
-## 4    spam 0.01003309 0.9899669
-## 5    spam 0.13355263 0.8664474
-## 6    spam 0.00000000 1.0000000</code></pre>
+<pre><code>##   predict       email      spam
+## 1    spam 0.040000000 0.9600000
+## 2    spam 0.003636364 0.9963636
+## 3   email 0.647725372 0.3522746
+## 4    spam 0.200811689 0.7991883
+## 5    spam 0.000000000 1.0000000
+## 6    spam 0.213333334 0.7866667</code></pre>
 <p>Things to note:</p>
 <ul>
 <li>H2O objects behave a lot like data.frame/tables.</li>
@@ -1122,8 +1119,8 @@ For a detailed discussion see <span class="citation">Oancea, Andrei, and Dragoes
 </div>
 <div class="footnotes">
 <hr />
-<ol start="30">
-<li id="fn30"><p>Recall that you can buy servers wth 1TB of RAM and more. So we are talking about A LOT of data!<a href="parallel.html#fnref30" class="footnote-back">↩</a></p></li>
+<ol start="29">
+<li id="fn29"><p>Recall that you can buy servers wth 1TB of RAM and more. So we are talking about A LOT of data!<a href="parallel.html#fnref29" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>

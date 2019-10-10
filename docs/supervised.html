@@ -577,7 +577,7 @@ This function is called the <em>loss</em>, and we denote it by <span class="math
 This is know as the <em>risk minimization problem</em>.</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-224" class="definition"><strong>Definition 10.1  (Risk Function)  </strong></span>The <em>risk function</em>, a.k.a. <em>generalization error</em>, or <em>test error</em>, is the population average loss of a predictor <span class="math inline">\(f\)</span>:
+<span id="def:unnamed-chunk-221" class="definition"><strong>Definition 10.1  (Risk Function)  </strong></span>The <em>risk function</em>, a.k.a. <em>generalization error</em>, or <em>test error</em>, is the population average loss of a predictor <span class="math inline">\(f\)</span>:
 <span class="math display">\[\begin{align}
   R(f):=\mathbb{E}_P[l(f(x),y)].
 \end{align}\]</span>
@@ -594,7 +594,7 @@ We thus state the <em>empirical</em> counterpart of <a href="supervised.html#eq:
 This is known as the <em>empirical risk miminization</em> problem (ERM).</p>
 
 <div class="definition">
-<span id="def:unnamed-chunk-225" class="definition"><strong>Definition 10.2  (Empirical Risk)  </strong></span>The <em>empirical risk function</em>, a.k.a. <em>in-sample error</em>, or <em>train error</em>, is the sample average loss of a predictor <span class="math inline">\(f\)</span>:
+<span id="def:unnamed-chunk-222" class="definition"><strong>Definition 10.2  (Empirical Risk)  </strong></span>The <em>empirical risk function</em>, a.k.a. <em>in-sample error</em>, or <em>train error</em>, is the sample average loss of a predictor <span class="math inline">\(f\)</span>:
 <span class="math display">\[\begin{align}
   R_n(f):= 1/n \sum_i l(f(x_i),y_i).
 \end{align}\]</span>
@@ -638,7 +638,7 @@ Because <span class="math inline">\(R_n(f)\)</span> is downward biased, we may a
 <li><p><strong>Linear hypotheses</strong>: such as linear models, GLMs, and (linear) support vector machines (SVM).</p></li>
 <li><p><strong>Neural networks</strong>: a.k.a. <em>feed-forward</em> neural nets, <em>artificial</em> neural nets, and the celebrated class of <em>deep</em> neural nets.</p></li>
 <li><strong>Tree</strong>: a.k.a. <em>decision rules</em>, is a class of hypotheses which can be stated as “if-then” rules.</li>
-<li><p><strong>Reproducing Kernel Hilbert Space</strong>: a.k.a. RKHS, is a subset of “the space of all functions<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a>” that is both large enough to capture very complicated relations, but small enough so that it is less prone to overfitting, and also surprisingly simple to compute with.</p></li>
+<li><p><strong>Reproducing Kernel Hilbert Space</strong>: a.k.a. RKHS, is a subset of “the space of all functions<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>” that is both large enough to capture very complicated relations, but small enough so that it is less prone to overfitting, and also surprisingly simple to compute with.</p></li>
 </ol>
 </div>
 <div id="common-complexity-penalties" class="section level3">
@@ -801,7 +801,7 @@ We see that the best performer has 3 predictors.</p>
 <li>The plot shows us which is the variable combination which is the best, i.e., has the smallest Cp.</li>
 <li>Scanning over all variable subsets is impossible when the number of variables is large.</li>
 </ul>
-<p>Instead of the Cp criterion, we now compute the train and test errors for all the possible predictor subsets<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a>.
+<p>Instead of the Cp criterion, we now compute the train and test errors for all the possible predictor subsets<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a>.
 In the resulting plot we can see overfitting in action.</p>
 <pre class="sourceCode r"><code class="sourceCode r">model.n &lt;-<span class="st"> </span>regfit.full <span class="op">%&gt;%</span><span class="st"> </span>summary <span class="op">%&gt;%</span><span class="st"> </span>length
 X.train.named &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(lcavol <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> prostate.train ) 
@@ -825,7 +825,7 @@ train.errors &lt;-<span class="st"> </span><span class="kw">rep</span>(<span cla
        <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;Training&quot;</span>, <span class="st">&quot;Validation&quot;</span>), 
        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;blue&quot;</span>), 
        <span class="dt">pch =</span> <span class="dv">19</span>)</code></pre>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-227-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-224-1.png" width="50%" /></p>
 <p>Checking all possible models is computationally very hard.
 <em>Forward selection</em> is a greedy approach that adds one variable at a time.</p>
 <pre class="sourceCode r"><code class="sourceCode r">ols<span class="fl">.0</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(lcavol<span class="op">~</span><span class="dv">1</span> ,<span class="dt">data =</span> prostate.train)
@@ -1087,7 +1087,7 @@ tree<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">rp
 <pre><code>## [1] 0.5623316</code></pre>
 <p>We can use the <strong>rpart.plot</strong> package to visualize and interpret the predictor.</p>
 <pre class="sourceCode r"><code class="sourceCode r">rpart.plot<span class="op">::</span><span class="kw">rpart.plot</span>(tree<span class="fl">.1</span>)</code></pre>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-232-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-229-1.png" width="50%" /></p>
 <p>Or the newer <a href="https://cran.r-project.org/web/packages/ggparty/vignettes/ggparty-graphic-partying.html">ggparty</a> package, for trees fitted with the <a href="https://cran.r-project.org/package=party">party</a> package.</p>
 <p>Trees are very prone to overfitting.
 To avoid this, we reduce a tree’s complexity by <em>pruning</em> it.
@@ -1136,13 +1136,13 @@ tree<span class="fl">.3</span></code></pre>
 ## 
 ## No pre-processing
 ## Resampling: Cross-Validated (10 fold) 
-## Summary of sample sizes: 60, 62, 60, 60, 60, 62, ... 
+## Summary of sample sizes: 61, 59, 60, 60, 59, 60, ... 
 ## Resampling results across tuning parameters:
 ## 
 ##   cp          RMSE       Rsquared   MAE      
-##   0.04682924  0.9481035  0.4675112  0.8209140
-##   0.14815712  0.9838260  0.4733215  0.7966996
-##   0.44497285  1.1676652  0.3745765  0.9531245
+##   0.04682924  0.9668668  0.4461882  0.8228133
+##   0.14815712  1.0015301  0.3936400  0.8483732
+##   0.44497285  1.2100666  0.1678312  1.0055867
 ## 
 ## RMSE was used to select the optimal model using the smallest value.
 ## The final value used for the model was cp = 0.04682924.</code></pre>
@@ -1379,9 +1379,9 @@ If you want to know about Deep-Nets in R see <a href="https://www.datacamp.com/c
 </div>
 <div class="footnotes">
 <hr />
-<ol start="20">
-<li id="fn20"><p>It is even a subset of the Hilbert space, itself a subset of the space of all functions.<a href="supervised.html#fnref20" class="footnote-back">↩</a></p></li>
-<li id="fn21"><p>Example taken from <a href="https://lagunita.stanford.edu/c4x/HumanitiesScience/StatLearning/asset/ch6.html" class="uri">https://lagunita.stanford.edu/c4x/HumanitiesScience/StatLearning/asset/ch6.html</a><a href="supervised.html#fnref21" class="footnote-back">↩</a></p></li>
+<ol start="19">
+<li id="fn19"><p>It is even a subset of the Hilbert space, itself a subset of the space of all functions.<a href="supervised.html#fnref19" class="footnote-back">↩</a></p></li>
+<li id="fn20"><p>Example taken from <a href="https://lagunita.stanford.edu/c4x/HumanitiesScience/StatLearning/asset/ch6.html" class="uri">https://lagunita.stanford.edu/c4x/HumanitiesScience/StatLearning/asset/ch6.html</a><a href="supervised.html#fnref20" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>

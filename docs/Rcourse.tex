@@ -2857,7 +2857,7 @@ You can also self practice with DataCamp's \href{https://www.datacamp.com/course
 \hypertarget{datatable}{%
 \chapter{data.table}\label{datatable}}
 
-\texttt{data.table} is an excellent extension of the \texttt{data.frame} class.
+\texttt{data.table} is an excellent extension of the \texttt{data.frame} class\footnote{Not to be confused with \texttt{DT::datatable()} which is an interface for interactive inspection of data tables in your browser.}.
 If used as a \texttt{data.frame} it will look and feel like a data frame.
 If, however, it is used with it's unique capabilities, it will prove faster and easier to manipulate.
 This is because \texttt{data.frame}s, like most of R objects, make a copy of themselves when modified.
@@ -6999,25 +6999,19 @@ Here is the set of problems we will discuss, in order of their statistical diffi
   \textbf{Signal Detection}:
   a.k.a. \emph{multivariate test}, or \emph{global test}, or \emph{omnibus test}.
   Where we test whether \(\mu\) differs than some \(\mu_0\).
-  In our example: ``are the current measurement different than a typical one?''
 \item
   \textbf{Signal Counting}:
-  Counting the number of elements in \(\mu\) that differ from \(\mu_0\), and for \(\mu_0=0\) in particular.
-  In our example: ``how many measurements differ than their typical values?''
+  a.k.a. \emph{prevalence estimation}, or \emph{\(\pi_0\) estimation}.
+  Where we count the number of entries in \(\mu\) that differ from \(\mu_0\).
 \item
   \textbf{Signal Identification}:
-  a.k.a. \emph{selection}, or \emph{multiple testing}, i.e., testing which of the elements in \(\mu\) differ from \(\mu_0\) and for \(\mu_0=0\) in particular.
-  In the ANOVA literature, this is known as a \textbf{post-hoc} analysis.
-  In our example: ``which measurements differ than their typical values?''
+  a.k.a. \emph{selection}, or \emph{multiple testing}.
+  Where we infer which of the entries in \(\mu\) differ from \(\mu_0\).
+  In the ANOVA literature, this is known as a \textbf{post-hoc} analysis, which follows an \emph{omnibus test}.
 \item
-  \textbf{Signal estimation}:
-  Estimating the magnitudes of the departure of \(\mu\) from \(\mu_0\), and for \(\mu_0=0\) in particular.
-  If estimation follows a \emph{signal detection} or \emph{signal identification} stage, this is known as a \emph{selective estimation} problem.
-  In our example: ``what is the value of the measurements that differ than their typical values?''
-\item
-  \textbf{Multivariate Regression}:
-  a.k.a. \emph{MANOVA} in statistical literature, and \emph{structured learning} in the machine learning literature.
-  In our example: ``what factors affect the physiological measurements?''
+  \textbf{Estimation}:
+  Estimating the magnitudes of entries in \(\mu\), and their departure from \(\mu_0\).
+  If estimation follows a \emph{signal detection} or \emph{signal identification} stage, this is known as \emph{selective estimation}.
 \end{itemize}
 
 \BeginKnitrBlock{example}
@@ -7036,28 +7030,9 @@ In particular, \(\mu\) of sick will differ from \(\mu\) of healthy.
 \BeginKnitrBlock{example}
 \protect\hypertarget{exm:regression}{}{\label{exm:regression} }Consider the problem of the simplest multiple regression.
 The estimated coefficient, \(\hat \beta\) are a random vector.
-Regression theory tells us that its covariance is \((X'X)^{-1}\sigma^2\), and null mean of \(\beta\).
+Regression theory tells us that its covariance is \(Var[\hat \beta|X]=(X'X)^{-1}\sigma^2\), and null mean of \(\beta\).
 We thus see that inference on the vector of regression coefficients, is nothing more than a multivaraite inference problem.
 \EndKnitrBlock{example}
-
-\BeginKnitrBlock{remark}
-\iffalse{} {Remark. } \fi{}In the above, ``signal'' is defined in terms of \(\mu\).
-It is possible that the signal is not in the location, \(\mu\), but rather in the covariance, \(\Sigma\).
-We do not discuss these problems here, and refer the reader to \citet{nadler2008finite}.
-\EndKnitrBlock{remark}
-
-Another possible question is: does a multivariate analysis gives us something we cannot get from a mass-univariate analysis (i.e., a multivariate analysis on each variable separately).
-In Example \ref{exm:icu} we could have just performed multiple univariate tests, and sign an alarm when any of the univariate detectors was triggered.
-The reason we want a multivariate detector, and not multiple univariate detectors is that it is possible that each measurement alone is borderline, but together, the signal accumulates.
-In our ICU example is may mean that the pulse is borderline, the body temperature is borderline, etc. Analyzed simultaneously, it is clear that the patient is in distress.
-
-The next figure\footnote{My thanks to Efrat Vilneski for the figure.} illustrates the idea that some bi-variate measurements may seem ordinary univariately, while very anomalous when examined bi-variately.
-
-\BeginKnitrBlock{remark}
-\iffalse{} {Remark. } \fi{}The following figure may also be used to demonstrate the difference between Euclidean Distance and Mahalanobis Distance.
-\EndKnitrBlock{remark}
-
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-209-1}
 
 \hypertarget{signal-detection}{%
 \section{Signal Detection}\label{signal-detection}}
@@ -7085,7 +7060,7 @@ We thus have
   T^2(x):= (\bar{x}-\mu_0)' Var[\bar{x}]^{-1} (\bar{x}-\mu_0),
   \label{eq:hotelling-test}
 \end{align}
-which is the definition of Hotelling's \(T^2\) test statistic.
+which is the definition of Hotelling's \(T^2\) one-sample test statistic.
 We typically denote the covariance between coordinates in \(x\) with \(\hat \Sigma(x)\), so that
 \(\widehat \Sigma_{k,l}:=\widehat {Cov}[x_k,x_l]=(n-1)^{-1} \sum (x_{k,i}-\bar x_k)(x_{l,i}-\bar x_l)\).
 Using the \(\Sigma\) notation, Eq.\eqref{eq:hotelling-test} becomes
@@ -7094,7 +7069,7 @@ Using the \(\Sigma\) notation, Eq.\eqref{eq:hotelling-test} becomes
 \end{align}
 which is the standard notation of Hotelling's test statistic.
 
-For inference, we need the null distribution of Hotelling's test statistic. For this we introduce some vocabulary\footnote{This vocabulary is not standard in the literature, so when you read a text, you need to verify yourself what the author means.}:
+For inference, we need the null distribution of Hotelling's test statistic. For this we introduce some vocabulary\footnote{This vocabulary is not standard in the literature, so when you read a text, you will need to verify yourself what the author means.}:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -7110,41 +7085,46 @@ For inference, we need the null distribution of Hotelling's test statistic. For 
 \item
   \textbf{Very High Dimension}:
   We call a problem \emph{very high dimensional} if \(p/n \to c\), where \(1<c<\infty\).
-  This means there are less observations than parameter.
+  This means there are less observations than parameters.
 \end{enumerate}
 
 Hotelling's \(T^2\) test can only be used in the low dimensional regime.
 For some intuition on this statement, think of taking \(n=20\) measurements of \(p=100\) physiological variables.
 We seemingly have \(20\) observations, but there are \(100\) unknown quantities in \(\mu\).
-Would you trust your conclusion that \(\bar x\) is different than \(\mu_0\) based on merely \(20\) observations.
-
-The above criticism is formalized in \citet{bai1996effect}.
-For modern applications, Hotelling's \(T^2\) is not recommended, since many modern alternatives have been made available. See \citet{rosenblatt2016better} and references for a review.
+Say you decide that \(\mu\) differs from \(\mu_0\) based on the coordinate with maximal difference between your data and \(\mu_0\).
+Do you know how much variability to expect of this maximum?
+Try comparing your intuition with a quick simulation.
+Did the variabilty of the maximum surprise you?
+Hotelling's \(T^2\) is not the same as the maxiumum, but the same intuition applies.
+This criticism is formalized in \citet{bai1996effect}.
+In modern applications, Hotelling's \(T^2\) is rarely recommended.
+Luckily, many modern alternatives are available.
+See \citet{rosenblatt2016better} for a review.
 
 \hypertarget{various-types-of-signal-to-detect}{%
 \subsection{Various Types of Signal to Detect}\label{various-types-of-signal-to-detect}}
 
 In the previous, we assumed that the signal is a departure of \(\mu\) from some \(\mu_0\).
-For vactor-valued data \(y\), that is distributed \(F\), we may define ``signal'' as any departure from some \(F_0\).
+For vactor-valued data \(y\), that is distributed \(\mathcal F\), we may define ``signal'' as any departure from some \(\mathcal F_0\).
 This is the multivaraite counterpart of goodness-of-fit (GOF) tests.
 
-Even when restricting ``signal'' to departures of \(\mu\) from \(\mu_0\), we may try to detect various types of signal:
+Even when restricting ``signal'' to departures of \(\mu\) from \(\mu_0\), ``signal'' may come in various forms:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{Dense Signal}: when the departure is in all coordinates of \(\mu\).
+  \textbf{Dense Signal}: when the departure is in a large number of coordinates of \(\mu\).
 \item
-  \textbf{Sparse Signal}: when the departure is in a subset of coordinates of \(\mu\).
+  \textbf{Sparse Signal}: when the departure is in a small number of coordinates of \(\mu\).
 \end{enumerate}
 
-A manufactoring motivation is consistent with a dense signal: if a manufacturing process has failed, we expect a change in many measurements (i.e.~coordinates of \(\mu\)).
-A brain-imaging motivation is consistent with a dense signal: if a region encodes cognitive function, we expect a change in many brain locations (i.e.~coordinates of \(\mu\).)
-A genetic motivation is consistent with a sparse signal: if susceptibility of disease is genetic, only a small subset of locations in the genome will encode it.
+Process control in a manufactoring plant, for instance, is consistent with a dense signal: if a manufacturing process has failed, we expect a change in many measurements (i.e.~coordinates of \(\mu\)).
+Detection of activation in brain imaging is consistent with a dense signal: if a region encodes cognitive function, we expect a change in many brain locations (i.e.~coordinates of \(\mu\).)
+Detection of disease encodig regions in the genome is consistent with a sparse signal: if susceptibility of disease is genetic, only a small subset of locations in the genome will encode it.
 
-Hotelling's \(T^2\) statistic is designed for dense signal.
-The following is a simple statistic designed for sparse signal.
+Hotelling's \(T^2\) statistic is best for dense signal.
+The next test, is a simple (and forgotten) test best with sparse signal.
 
 \hypertarget{simes-test}{%
 \subsection{Simes' Test}\label{simes-test}}
@@ -7170,14 +7150,19 @@ The statistic is defined vie the following algorithm:
 \hypertarget{signal-detection-with-r}{%
 \subsection{Signal Detection with R}\label{signal-detection-with-r}}
 
-Let's generate some data with no signal.
+We start with simulating some data with no signal.
+We will convince ourselves that Hotelling's and Simes' tests detect nothing, when nothing is present.
+We will then generate new data, after injecting some signal, i.e., making \(\mu\) depart from \(\mu_0=0\).
+We then convince ourselves, that both Hotelling's and Simes' tests, are indeed capable of detecting signal, when present.
+
+Generating null data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(mvtnorm)}
 \NormalTok{n <-}\StringTok{ }\DecValTok{100} \CommentTok{# observations}
 \NormalTok{p <-}\StringTok{ }\DecValTok{18} \CommentTok{# parameter dimension}
-\NormalTok{mu <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,p) }\CommentTok{# no signal}
+\NormalTok{mu <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,p) }\CommentTok{# no signal: mu=0}
 \NormalTok{x <-}\StringTok{ }\KeywordTok{rmvnorm}\NormalTok{(}\DataTypeTok{n =}\NormalTok{ n, }\DataTypeTok{mean =}\NormalTok{ mu)}
 \KeywordTok{dim}\NormalTok{(x)}
 \end{Highlighting}
@@ -7189,13 +7174,13 @@ Let's generate some data with no signal.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lattice}\OperatorTok{::}\KeywordTok{levelplot}\NormalTok{(x)}
+\NormalTok{lattice}\OperatorTok{::}\KeywordTok{levelplot}\NormalTok{(x) }\CommentTok{# just looking at white noise.}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-210-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-207-1}
 
-Now make our own Hotelling function.
+Now making our own Hotelling one-sample \(T^2\) test using Eq.(\eqref{eq:hotelling-test}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7216,12 +7201,12 @@ Now make our own Hotelling function.
 
 \begin{verbatim}
 ## $statistic
-##         [,1]
-## [1,] 17.2908
+##          [,1]
+## [1,] 24.84187
 ## 
 ## $pvalue
 ##           [,1]
-## [1,] 0.5032046
+## [1,] 0.1293344
 \end{verbatim}
 
 Things to note:
@@ -7253,18 +7238,18 @@ Personally, I would never trust a Hotelling test if \(n\) is not much greater th
 ##  One-sample Hotelling test
 ## 
 ## data:  x
-## T2 = 17.29080, F = 0.79565, df1 = 18, df2 = 82, p-value = 0.6996
+## T2 = 24.8419, F = 1.1431, df1 = 18, df2 = 82, p-value = 0.3282
 ## alternative hypothesis: true mean vector is not equal to (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)' 
 ## 
 ## sample estimates:
-##                      [,1]        [,2]       [,3]       [,4]          [,5]
-## mean x-vector -0.07873775 -0.01076689 -0.1405859 -0.1342353 -0.0001891301
-##                     [,6]        [,7]      [,8]       [,9]     [,10]
-## mean x-vector 0.02827704 -0.06150607 0.1738199 0.09050526 0.1466331
-##                    [,11]      [,12]       [,13]      [,14]       [,15]
-## mean x-vector 0.04250519 -0.1199926 -0.06466205 -0.1061927 -0.02434599
-##                    [,16]      [,17]      [,18]
-## mean x-vector 0.02766206 0.08169893 0.02036132
+##                      [,1]       [,2]      [,3]       [,4]       [,5]
+## mean x-vector -0.07290116 0.04028668 0.2203469 0.01712441 -0.0358492
+##                      [,6]        [,7]        [,8]        [,9]      [,10]
+## mean x-vector -0.04320694 -0.02833064 -0.08167407 -0.07292739 0.04349341
+##                   [,11]       [,12]      [,13]       [,14]       [,15]
+## mean x-vector 0.2511244 -0.01768377 0.01338767 -0.08521308 -0.04517903
+##                   [,16]      [,17]       [,18]
+## mean x-vector 0.0683442 -0.1694372 0.003240262
 \end{verbatim}
 
 Let's do the same with Simes':
@@ -7283,7 +7268,7 @@ Let's do the same with Simes':
 
 \begin{verbatim}
 ##    pvalue 
-## 0.8138511
+## 0.1412745
 \end{verbatim}
 
 And now we verify that both tests can indeed detect signal when present. Are p-values small enough to reject the ``no signal'' null hypothesis?
@@ -7298,12 +7283,12 @@ And now we verify that both tests can indeed detect signal when present. Are p-v
 
 \begin{verbatim}
 ## $statistic
-##          [,1]
-## [1,] 536.6292
+##         [,1]
+## [1,] 820.355
 ## 
 ## $pvalue
 ##               [,1]
-## [1,] 2.037928e-102
+## [1,] 1.475586e-162
 \end{verbatim}
 
 \begin{Shaded}
@@ -7314,7 +7299,7 @@ And now we verify that both tests can indeed detect signal when present. Are p-v
 
 \begin{verbatim}
 ##       pvalue 
-## 3.473021e-08
+## 1.297269e-09
 \end{verbatim}
 
 \ldots{} yes. All p-values are very small, so that all statistics can detect the non-null distribution.
@@ -7389,7 +7374,7 @@ We start be generating some high-dimensional multivariate data and computing the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-217-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-214-1}
 
 We now compute the pvalues of each coordinate.
 We use a coordinate-wise t-test.
@@ -7403,7 +7388,7 @@ Why a t-test? Because for the purpose of demonstration we want a simple test. In
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-218-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-215-1}
 
 Things to note:
 
@@ -7656,7 +7641,7 @@ The fundamental task in supervised (statistical) learning is to recover a hypoth
 This is know as the \emph{risk minimization problem}.
 
 \BeginKnitrBlock{definition}[Risk Function]
-\protect\hypertarget{def:unnamed-chunk-224}{}{\label{def:unnamed-chunk-224} \iffalse (Risk Function) \fi{} }The \emph{risk function}, a.k.a. \emph{generalization error}, or \emph{test error}, is the population average loss of a predictor \(f\):
+\protect\hypertarget{def:unnamed-chunk-221}{}{\label{def:unnamed-chunk-221} \iffalse (Risk Function) \fi{} }The \emph{risk function}, a.k.a. \emph{generalization error}, or \emph{test error}, is the population average loss of a predictor \(f\):
 \begin{align}
   R(f):=\mathbb{E}_P[l(f(x),y)].
 \end{align}
@@ -7674,7 +7659,7 @@ We thus state the \emph{empirical} counterpart of \eqref{eq:risk}, which consist
 This is known as the \emph{empirical risk miminization} problem (ERM).
 
 \BeginKnitrBlock{definition}[Empirical Risk]
-\protect\hypertarget{def:unnamed-chunk-225}{}{\label{def:unnamed-chunk-225} \iffalse (Empirical Risk) \fi{} }The \emph{empirical risk function}, a.k.a. \emph{in-sample error}, or \emph{train error}, is the sample average loss of a predictor \(f\):
+\protect\hypertarget{def:unnamed-chunk-222}{}{\label{def:unnamed-chunk-222} \iffalse (Empirical Risk) \fi{} }The \emph{empirical risk function}, a.k.a. \emph{in-sample error}, or \emph{train error}, is the sample average loss of a predictor \(f\):
 \begin{align}
   R_n(f):= 1/n \sum_i l(f(x_i),y_i).
 \end{align}
@@ -8038,7 +8023,7 @@ Plotting results.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-227-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-224-1}
 
 Checking all possible models is computationally very hard.
 \emph{Forward selection} is a greedy approach that adds one variable at a time.
@@ -8576,7 +8561,7 @@ We can use the \textbf{rpart.plot} package to visualize and interpret the predic
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-232-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-229-1}
 
 Or the newer \href{https://cran.r-project.org/web/packages/ggparty/vignettes/ggparty-graphic-partying.html}{ggparty} package, for trees fitted with the \href{https://cran.r-project.org/package=party}{party} package.
 
@@ -8668,13 +8653,13 @@ learning algorithms to be precise.
 ## 
 ## No pre-processing
 ## Resampling: Cross-Validated (10 fold) 
-## Summary of sample sizes: 61, 59, 60, 60, 59, 60, ... 
+## Summary of sample sizes: 60, 62, 60, 60, 60, 62, ... 
 ## Resampling results across tuning parameters:
 ## 
 ##   cp          RMSE       Rsquared   MAE      
-##   0.04682924  0.9668668  0.4461882  0.8228133
-##   0.14815712  1.0015301  0.3936400  0.8483732
-##   0.44497285  1.2100666  0.1678312  1.0055867
+##   0.04682924  0.9481035  0.4675112  0.8209140
+##   0.14815712  0.9838260  0.4733215  0.7966996
+##   0.44497285  1.1676652  0.3745765  0.9531245
 ## 
 ## RMSE was used to select the optimal model using the smallest value.
 ## The final value used for the model was cp = 0.04682924.
@@ -9255,7 +9240,7 @@ FA originates from the psychometric literature.
 We thus revisit the IQ (actually g-factor\footnote{\url{https://en.wikipedia.org/wiki/G_factor_(psychometrics)}}) Example \ref{exm:iq}:
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{exm:unnamed-chunk-238}{}{\label{exm:unnamed-chunk-238} }Assume \(n\) respondents answer \(p\) quantitative questions: \(x_i \in \mathbb{R}^p, i=1,\dots,n\).
+\protect\hypertarget{exm:unnamed-chunk-235}{}{\label{exm:unnamed-chunk-235} }Assume \(n\) respondents answer \(p\) quantitative questions: \(x_i \in \mathbb{R}^p, i=1,\dots,n\).
 Also assume, their responses are some linear function of a single personality attribute, \(s_i\).
 We can think of \(s_i\) as the subject's ``intelligence''.
 We thus have
@@ -9435,7 +9420,7 @@ The \emph{bi-plot} is a useful way to visualize the output of PCA.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-240-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-237-1}
 
 Things to note:
 
@@ -9468,7 +9453,7 @@ The scree plot suggests a PC1 alone captures about 0.8 of the variability in cri
 The next plot, is the classical class-room introduction to PCA.
 It shows that states are indeed arranged along a single line in the ``Assault-Murder'' plane. This line is PC1.
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-241-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-238-1}
 
 More implementations of PCA:
 
@@ -9584,7 +9569,7 @@ Graphical model fans will like the following plot, where the contribution of eac
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-243-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-240-1}
 
 Let's add a rotation (Varimax), and note that the rotation has indeed changed the loadings of the variables, thus the interpretation of the factors.
 
@@ -9775,7 +9760,7 @@ Inspect some digits:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-245-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-242-1}
 
 The analysis is adapted from \href{https://rpubs.com/marwahsi/tnse}{Shruti Marwaha}.
 
@@ -9802,7 +9787,7 @@ The analysis is adapted from \href{https://rpubs.com/marwahsi/tnse}{Shruti Marwa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-246-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-243-1}
 
 \hypertarget{force-embedding}{%
 \subsubsection{Force Embedding}\label{force-embedding}}
@@ -10238,7 +10223,7 @@ Here is a little simulation to demonstrate this:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-250-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-247-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10250,7 +10235,7 @@ Here is a little simulation to demonstrate this:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-250-2}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-247-2}
 
 \hypertarget{bibliographic-notes-9}{%
 \section{Bibliographic Notes}\label{bibliographic-notes-9}}
@@ -10366,7 +10351,7 @@ A simple scatter plot.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-251-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-248-1}
 
 Various types of plots.
 
@@ -10383,7 +10368,7 @@ Various types of plots.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-252-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-249-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10415,7 +10400,7 @@ Control the plotting characters with the \texttt{pch} argument, and size with th
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-253-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-250-1}
 
 Control the line's type with \texttt{lty} argument, and width with \texttt{lwd}.
 
@@ -10431,7 +10416,7 @@ Control the line's type with \texttt{lty} argument, and width with \texttt{lwd}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-254-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-251-1}
 
 Add line by slope and intercept with \texttt{abline}.
 
@@ -10444,7 +10429,7 @@ Add line by slope and intercept with \texttt{abline}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-255-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-252-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10457,7 +10442,7 @@ Add line by slope and intercept with \texttt{abline}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-256-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-253-1}
 
 Things to note:
 
@@ -10488,7 +10473,7 @@ Add other elements.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-257-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-254-1}
 
 Things to note:
 
@@ -10510,7 +10495,7 @@ Add a legend.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-258-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-255-1}
 
 Adjusting Axes with \texttt{xlim} and \texttt{ylim}.
 
@@ -10520,7 +10505,7 @@ Adjusting Axes with \texttt{xlim} and \texttt{ylim}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-259-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-256-1}
 
 Use \texttt{layout} for complicated plot layouts.
 
@@ -10541,7 +10526,7 @@ Use \texttt{layout} for complicated plot layouts.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-260-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-257-1}
 
 Always detach.
 
@@ -10628,7 +10613,7 @@ See \texttt{?pdf} and \texttt{?jpeg} for more info.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-265-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-262-1}
 
 Things to note:
 
@@ -10662,7 +10647,7 @@ Things to note:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-266-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-263-1}
 
 \hypertarget{arrows}{%
 \subsubsection{Arrows}\label{arrows}}
@@ -10680,7 +10665,7 @@ Things to note:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-267-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-264-1}
 
 \hypertarget{arrows-as-error-bars}{%
 \subsubsection{Arrows as error bars}\label{arrows-as-error-bars}}
@@ -10701,7 +10686,7 @@ Things to note:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-268-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-265-1}
 
 \hypertarget{histogram}{%
 \subsubsection{Histogram}\label{histogram}}
@@ -10718,7 +10703,7 @@ A histogram is nothing but a bunch of rectangle elements.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-269-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-266-1}
 
 \hypertarget{spiral-squares}{%
 \paragraph{Spiral Squares}\label{spiral-squares}}
@@ -10740,7 +10725,7 @@ A histogram is nothing but a bunch of rectangle elements.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-270-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-267-1}
 
 \hypertarget{circles}{%
 \subsubsection{Circles}\label{circles}}
@@ -10762,7 +10747,7 @@ Circles are just dense polygons.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-271-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-268-1}
 
 \hypertarget{spiral}{%
 \subsubsection{Spiral}\label{spiral}}
@@ -10781,7 +10766,7 @@ Circles are just dense polygons.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-272-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-269-1}
 
 \hypertarget{the-ggplot2-system}{%
 \section{The ggplot2 System}\label{the-ggplot2-system}}
@@ -10841,7 +10826,7 @@ The \texttt{nlme::Milk} dataset has the protein level of various cows, at variou
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-274-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-271-1}
 
 Things to note:
 
@@ -10868,7 +10853,7 @@ Let's add some color.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-275-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-272-1}
 
 The \texttt{color} argument tells R to use the variable \texttt{Diet} as the coloring.
 A legend is added by default.
@@ -10881,7 +10866,7 @@ If we wanted a fixed color, and not a variable dependent color, \texttt{color} w
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-276-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-273-1}
 
 Let's save the \textbf{ggplot2} object so we can reuse it.
 Notice it is not plotted.
@@ -10902,7 +10887,7 @@ Here, we add a smoothing line to the plot \texttt{p}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-278-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-275-1}
 
 Things to note:
 
@@ -10922,7 +10907,7 @@ To split the plot along some variable, we use faceting, done with the \texttt{fa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-279-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-276-1}
 
 Instead of faceting, we can add a layer of the mean of each \texttt{Diet} subgroup, connected by lines.
 
@@ -10932,7 +10917,7 @@ Instead of faceting, we can add a layer of the mean of each \texttt{Diet} subgro
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-280-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-277-1}
 
 Things to note:
 
@@ -10979,7 +10964,7 @@ To demonstrate the layers added with the \texttt{geoms\_*} functions, we start w
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-281-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-278-1}
 
 A bar plot.
 
@@ -10990,7 +10975,7 @@ A bar plot.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-282-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-279-1}
 
 A scatter plot.
 
@@ -11001,7 +10986,7 @@ A scatter plot.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-283-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-280-1}
 
 A smooth regression plot, reusing the \texttt{tp} object.
 
@@ -11011,7 +10996,7 @@ A smooth regression plot, reusing the \texttt{tp} object.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-284-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-281-1}
 
 And now, a simple line plot, reusing the \texttt{tp} object, and connecting lines along \texttt{Cow}.
 
@@ -11021,7 +11006,7 @@ And now, a simple line plot, reusing the \texttt{tp} object, and connecting line
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-285-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-282-1}
 
 The line plot is completely incomprehensible.
 Better look at boxplots along time (even if omitting the \texttt{Cow} information).
@@ -11032,7 +11017,7 @@ Better look at boxplots along time (even if omitting the \texttt{Cow} informatio
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-286-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-283-1}
 
 We can do some statistics for each subgroup.
 The following will compute the mean and standard errors of \texttt{protein} at each time point.
@@ -11044,7 +11029,7 @@ The following will compute the mean and standard errors of \texttt{protein} at e
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-287-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-284-1}
 
 Some popular statistical summaries, have gained their own functions:
 
@@ -11069,7 +11054,7 @@ For less popular statistical summaries, we may specify the statistical function 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-288-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-285-1}
 
 We can also define our own statistical summaries.
 
@@ -11081,7 +11066,7 @@ We can also define our own statistical summaries.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-289-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-286-1}
 
 \textbf{Faceting} allows to split the plotting along some variable.
 \texttt{face\_wrap} tells R to compute the number of columns and rows of plots automatically.
@@ -11094,7 +11079,7 @@ We can also define our own statistical summaries.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-290-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-287-1}
 
 \texttt{facet\_grid} forces the plot to appear allow rows or columns, using the \texttt{\textasciitilde{}} syntax.
 
@@ -11106,7 +11091,7 @@ We can also define our own statistical summaries.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-291-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-288-1}
 
 To control the looks of the plot, \textbf{ggplot2} uses \textbf{themes}.
 
@@ -11118,7 +11103,7 @@ To control the looks of the plot, \textbf{ggplot2} uses \textbf{themes}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-292-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-289-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -11129,7 +11114,7 @@ To control the looks of the plot, \textbf{ggplot2} uses \textbf{themes}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-293-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-290-1}
 
 Saving plots can be done using \texttt{ggplot2::ggsave}, or with \texttt{pdf} like the \textbf{graphics} plots:
 
@@ -11256,7 +11241,7 @@ A \href{https://www.youtube.com/watch?v=9Objw9Tvhb4\&feature=youtu.be}{video} by
 \end{Highlighting}
 \end{Shaded}
 
-  \includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-299-1}
+  \includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-296-1}
   ```
 \item
   Write a function that creates a boxplot from scratch. See how I built a line graph in Section \ref{fancy}.
@@ -11482,7 +11467,7 @@ which compiles into
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-304-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-301-1}
 
 Some useful code chunk options include:
 
@@ -12135,7 +12120,7 @@ You can also visualize the non zero entries, i.e., the sparsity structure.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-320-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-317-1}
 
 \hypertarget{sparse-matrix-representations}{%
 \section{Sparse Matrix Representations}\label{sparse-matrix-representations}}
@@ -12319,7 +12304,7 @@ We now inspect the computing time, and the memory footprint, only to discover th
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-321-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-318-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -12330,7 +12315,7 @@ We now inspect the computing time, and the memory footprint, only to discover th
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-322-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-319-1}
 
 How do we perform other types of regression with the \textbf{glmnet}?
 We just need to use the \texttt{family} and \texttt{alpha} arguments of \texttt{glmnet::glmnet}.
@@ -12569,7 +12554,7 @@ And now the timing for \textbf{data.table}.
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.812   0.147   0.829
+##   0.924   0.174   0.985
 \end{verbatim}
 
 The winner is obvious.
@@ -12585,7 +12570,7 @@ Let's compare filtering (i.e.~row subsets, i.e.~SQL's SELECT).
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.323   0.101   0.423
+##   0.328   0.119   0.461
 \end{verbatim}
 
 \begin{Shaded}
@@ -12598,7 +12583,7 @@ Let's compare filtering (i.e.~row subsets, i.e.~SQL's SELECT).
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.067   0.059   0.085
+##   0.073   0.060   0.104
 \end{verbatim}
 
 \hypertarget{computing-from-a-database}{%
@@ -13403,7 +13388,7 @@ Here is a quick comparison.
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.012   0.345   0.363
+##   0.005   0.376   0.387
 \end{verbatim}
 
 \begin{Shaded}
@@ -13418,7 +13403,7 @@ Here is a quick comparison.
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   1.065   0.185   2.039
+##   1.049   0.196   2.048
 \end{verbatim}
 
 \begin{Shaded}
@@ -13455,7 +13440,7 @@ For fun, let's try the same with \texttt{data.table}.
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.065   0.070   0.095
+##   0.049   0.000   0.016
 \end{verbatim}
 
 No surprises there.
@@ -13598,7 +13583,7 @@ After doing parallel imports, let's try parallel aggregation.
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.421   0.020   0.075
+##   0.422   0.015   0.074
 \end{verbatim}
 
 \begin{Shaded}
@@ -13611,7 +13596,7 @@ After doing parallel imports, let's try parallel aggregation.
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.151   0.000   0.151
+##   0.158   0.001   0.159
 \end{verbatim}
 
 Things to note:
@@ -13724,7 +13709,7 @@ Let's load and aggregate some data:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.231   0.556   1.652
+##   0.362   0.703   2.424
 \end{verbatim}
 
 \begin{Shaded}
@@ -13777,7 +13762,7 @@ We can thus compare performance to \texttt{data.table}, only to re-discover, tha
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.040   0.095   0.135
+##   0.040   0.085   0.122
 \end{verbatim}
 
 Let's disconnect from the Spark server.
@@ -13822,27 +13807,19 @@ We later discuss how to use H2O using Spark's data structures (\ref{sparkling}).
 \end{Shaded}
 
 \begin{verbatim}
-## 
-## H2O is not running yet, starting it now...
-## 
-## Note:  In case of errors look at the following log files:
-##     /tmp/Rtmp6A7BJg/h2o_rstudio_started_from_r.out
-##     /tmp/Rtmp6A7BJg/h2o_rstudio_started_from_r.err
-## 
-## 
-## Starting H2O JVM and connecting: . Connection successful!
+##  Connection successful!
 ## 
 ## R is connected to the H2O cluster: 
-##     H2O cluster uptime:         1 seconds 414 milliseconds 
+##     H2O cluster uptime:         40 seconds 780 milliseconds 
 ##     H2O cluster timezone:       Etc/UTC 
 ##     H2O data parsing timezone:  UTC 
 ##     H2O cluster version:        3.26.0.2 
 ##     H2O cluster version age:    2 months and 13 days  
-##     H2O cluster name:           H2O_started_from_R_rstudio_tfg739 
+##     H2O cluster name:           H2O_started_from_R_rstudio_kxj197 
 ##     H2O cluster total nodes:    1 
-##     H2O cluster total memory:   3.43 GB 
+##     H2O cluster total memory:   3.42 GB 
 ##     H2O cluster total cores:    8 
-##     H2O cluster allowed cores:  2 
+##     H2O cluster allowed cores:  8 
 ##     H2O cluster healthy:        TRUE 
 ##     H2O Connection ip:          localhost 
 ##     H2O Connection port:        54321 
@@ -13874,11 +13851,8 @@ Things to note:
 \end{Shaded}
 
 \begin{verbatim}
-##                                                                             key
-## 1 modelmetrics_our.rf@2559081578406572886_on_RTMP_sid_8e5b_4@666463969419818392
-## 2                                                                        our.rf
-## 3                                    predictions_95c7_our.rf_on_RTMP_sid_8e5b_6
-## 4                                                                      spam.hex
+##        key
+## 1 spam.hex
 \end{verbatim}
 
 \begin{Shaded}
@@ -13939,13 +13913,13 @@ Things to note:
 \end{Shaded}
 
 \begin{verbatim}
-##   predict      email      spam
-## 1    spam 0.00000000 1.0000000
-## 2    spam 0.30161972 0.6983803
-## 3    spam 0.03178400 0.9682160
-## 4    spam 0.05328051 0.9467195
-## 5    spam 0.14000000 0.8600000
-## 6    spam 0.00000000 1.0000000
+##   predict       email      spam
+## 1    spam 0.004870813 0.9951292
+## 2    spam 0.004870813 0.9951292
+## 3   email 0.812635268 0.1873647
+## 4    spam 0.151767741 0.8482323
+## 5    spam 0.035483871 0.9645161
+## 6    spam 0.141016949 0.8589831
 \end{verbatim}
 
 Things to note:

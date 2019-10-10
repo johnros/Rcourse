@@ -510,23 +510,17 @@ Here is the set of problems we will discuss, in order of their statistical diffi
 <ul>
 <li><p><strong>Signal Detection</strong>:
 a.k.a. <em>multivariate test</em>, or <em>global test</em>, or <em>omnibus test</em>.
-Where we test whether <span class="math inline">\(\mu\)</span> differs than some <span class="math inline">\(\mu_0\)</span>.
-In our example: “Is the current average different than its typical values?”</p></li>
+Where we test whether <span class="math inline">\(\mu\)</span> differs than some <span class="math inline">\(\mu_0\)</span>.</p></li>
 <li><p><strong>Signal Counting</strong>:
 a.k.a. <em>prevalence estimation</em>, or <em><span class="math inline">\(\pi_0\)</span> estimation</em>.
-Where we counter the number of coordinates in <span class="math inline">\(\mu\)</span> that differ from <span class="math inline">\(\mu_0\)</span>.
-In our example: “How many (average) measurements differ than their typical values?”</p></li>
+Where we count the number of entries in <span class="math inline">\(\mu\)</span> that differ from <span class="math inline">\(\mu_0\)</span>.</p></li>
 <li><p><strong>Signal Identification</strong>:
-a.k.a. <em>selection</em>, or <em>multiple testing</em>, i.e., testing which of the elements in <span class="math inline">\(\mu\)</span> differ from <span class="math inline">\(\mu_0\)</span> and for <span class="math inline">\(\mu_0=0\)</span> in particular.
-In the ANOVA literature, this is known as a <strong>post-hoc</strong> analysis.
-In our example: “which measurements differ than their typical values?”</p></li>
+a.k.a. <em>selection</em>, or <em>multiple testing</em>.
+Where we infer which of the entries in <span class="math inline">\(\mu\)</span> differ from <span class="math inline">\(\mu_0\)</span>.
+In the ANOVA literature, this is known as a <strong>post-hoc</strong> analysis, which follows an <em>omnibus test</em>.</p></li>
 <li><p><strong>Estimation</strong>:
-Estimating the magnitudes of the departure of <span class="math inline">\(\mu\)</span> from <span class="math inline">\(\mu_0\)</span>, and for <span class="math inline">\(\mu_0=0\)</span> in particular.
-If estimation follows a <em>signal detection</em> or <em>signal identification</em> stage, this is known as a <em>selective estimation</em> problem.
-In our example: “what is the value of the measurements that differ than their typical values?”</p></li>
-<li><p><strong>Multivariate Regression</strong>:
-a.k.a. <em>MANOVA</em> in statistical literature, and <em>structured learning</em> in the machine learning literature.
-In our example: “what factors affect the physiological measurements?”</p></li>
+Estimating the magnitudes of entries in <span class="math inline">\(\mu\)</span>, and their departure from <span class="math inline">\(\mu_0\)</span>.
+If estimation follows a <em>signal detection</em> or <em>signal identification</em> stage, this is known as <em>selective estimation</em>.</p></li>
 </ul>
 
 <div class="example">
@@ -547,28 +541,10 @@ In particular, <span class="math inline">\(\mu\)</span> of sick will differ from
 <div class="example">
 <span id="exm:regression" class="example"><strong>Example 9.4  </strong></span>Consider the problem of the simplest multiple regression.
 The estimated coefficient, <span class="math inline">\(\hat \beta\)</span> are a random vector.
-Regression theory tells us that its covariance is <span class="math inline">\((X&#39;X)^{-1}\sigma^2\)</span>, and null mean of <span class="math inline">\(\beta\)</span>.
+Regression theory tells us that its covariance is <span class="math inline">\(Var[\hat \beta|X]=(X&#39;X)^{-1}\sigma^2\)</span>, and null mean of <span class="math inline">\(\beta\)</span>.
 We thus see that inference on the vector of regression coefficients, is nothing more than a multivaraite inference problem.
 </div>
 
-
-<div class="remark">
- <span class="remark"><em>Remark. </em></span> In the above, “signal” is defined in terms of <span class="math inline">\(\mu\)</span>.
-It is possible that the signal is not in the location, <span class="math inline">\(\mu\)</span>, but rather in the covariance, <span class="math inline">\(\Sigma\)</span>.
-We do not discuss these problems here, and refer the reader to <span class="citation">Nadler (<a href="#ref-nadler2008finite">2008</a>)</span>.
-</div>
-
-<p>Another possible question is: does a multivariate analysis gives us something we cannot get from a mass-univariate analysis (i.e., a multivariate analysis on each variable separately).
-In Example <a href="multivariate.html#exm:icu">9.1</a> we could have just performed multiple univariate tests, and sign an alarm when any of the univariate detectors was triggered.
-The reason we want a multivariate detector, and not multiple univariate detectors is that it is possible that each measurement alone is borderline, but together, the signal accumulates.
-In our ICU example is may mean that the pulse is borderline, the body temperature is borderline, etc. Analyzed simultaneously, it is clear that the patient is in distress.</p>
-<p>The next figure<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a> illustrates the idea that some bi-variate measurements may seem ordinary univariately, while very anomalous when examined bi-variately.</p>
-
-<div class="remark">
- <span class="remark"><em>Remark. </em></span> The following figure may also be used to demonstrate the difference between Euclidean Distance and Mahalanobis Distance.
-</div>
-
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-209-1.png" width="50%" /></p>
 <div id="signal-detection" class="section level2">
 <h2><span class="header-section-number">9.1</span> Signal Detection</h2>
 <p>Signal detection deals with the detection of the departure of <span class="math inline">\(\mu\)</span> from some <span class="math inline">\(\mu_0\)</span>, and especially, <span class="math inline">\(\mu_0=0\)</span>.
@@ -590,7 +566,7 @@ We thus have
   T^2(x):= (\bar{x}-\mu_0)&#39; Var[\bar{x}]^{-1} (\bar{x}-\mu_0),
   \tag{9.2}
 \end{align}\]</span>
-which is the definition of Hotelling’s <span class="math inline">\(T^2\)</span> test statistic.
+which is the definition of Hotelling’s <span class="math inline">\(T^2\)</span> one-sample test statistic.
 We typically denote the covariance between coordinates in <span class="math inline">\(x\)</span> with <span class="math inline">\(\hat \Sigma(x)\)</span>, so that
 <span class="math inline">\(\widehat \Sigma_{k,l}:=\widehat {Cov}[x_k,x_l]=(n-1)^{-1} \sum (x_{k,i}-\bar x_k)(x_{l,i}-\bar x_l)\)</span>.
 Using the <span class="math inline">\(\Sigma\)</span> notation, Eq.<a href="multivariate.html#eq:hotelling-test">(9.2)</a> becomes
@@ -598,7 +574,7 @@ Using the <span class="math inline">\(\Sigma\)</span> notation, Eq.<a href="mult
   T^2(x):= n (\bar{x}-\mu_0)&#39; \hat \Sigma(x)^{-1} (\bar{x}-\mu_0),
 \end{align}\]</span>
 which is the standard notation of Hotelling’s test statistic.</p>
-<p>For inference, we need the null distribution of Hotelling’s test statistic. For this we introduce some vocabulary<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a>:</p>
+<p>For inference, we need the null distribution of Hotelling’s test statistic. For this we introduce some vocabulary<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a>:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Low Dimension</strong>:
 We call a problem <em>low dimensional</em> if <span class="math inline">\(n \gg p\)</span>, i.e. <span class="math inline">\(p/n \approx 0\)</span>.
@@ -608,30 +584,36 @@ We call a problem <em>high dimensional</em> if <span class="math inline">\(p/n \
 This means there are more observations than parameters, but not many.</li>
 <li><strong>Very High Dimension</strong>:
 We call a problem <em>very high dimensional</em> if <span class="math inline">\(p/n \to c\)</span>, where <span class="math inline">\(1&lt;c&lt;\infty\)</span>.
-This means there are less observations than parameter.</li>
+This means there are less observations than parameters.</li>
 </ol>
 <p>Hotelling’s <span class="math inline">\(T^2\)</span> test can only be used in the low dimensional regime.
 For some intuition on this statement, think of taking <span class="math inline">\(n=20\)</span> measurements of <span class="math inline">\(p=100\)</span> physiological variables.
 We seemingly have <span class="math inline">\(20\)</span> observations, but there are <span class="math inline">\(100\)</span> unknown quantities in <span class="math inline">\(\mu\)</span>.
-Would you trust your conclusion that <span class="math inline">\(\bar x\)</span> is different than <span class="math inline">\(\mu_0\)</span> based on merely <span class="math inline">\(20\)</span> observations.</p>
-<p>The above criticism is formalized in <span class="citation">Bai and Saranadasa (<a href="#ref-bai1996effect">1996</a>)</span>.
-For modern applications, Hotelling’s <span class="math inline">\(T^2\)</span> is not recommended, since many modern alternatives have been made available. See <span class="citation">J. Rosenblatt, Gilron, and Mukamel (<a href="#ref-rosenblatt2016better">2016</a>)</span> and references for a review.</p>
+Say you decide that <span class="math inline">\(\mu\)</span> differs from <span class="math inline">\(\mu_0\)</span> based on the coordinate with maximal difference between your data and <span class="math inline">\(\mu_0\)</span>.
+Do you know how much variability to expect of this maximum?
+Try comparing your intuition with a quick simulation.
+Did the variabilty of the maximum surprise you?
+Hotelling’s <span class="math inline">\(T^2\)</span> is not the same as the maxiumum, but the same intuition applies.
+This criticism is formalized in <span class="citation">Bai and Saranadasa (<a href="#ref-bai1996effect">1996</a>)</span>.
+In modern applications, Hotelling’s <span class="math inline">\(T^2\)</span> is rarely recommended.
+Luckily, many modern alternatives are available.
+See <span class="citation">J. Rosenblatt, Gilron, and Mukamel (<a href="#ref-rosenblatt2016better">2016</a>)</span> for a review.</p>
 </div>
 <div id="various-types-of-signal-to-detect" class="section level3">
 <h3><span class="header-section-number">9.1.2</span> Various Types of Signal to Detect</h3>
 <p>In the previous, we assumed that the signal is a departure of <span class="math inline">\(\mu\)</span> from some <span class="math inline">\(\mu_0\)</span>.
-For vactor-valued data <span class="math inline">\(y\)</span>, that is distributed <span class="math inline">\(F\)</span>, we may define “signal” as any departure from some <span class="math inline">\(F_0\)</span>.
+For vactor-valued data <span class="math inline">\(y\)</span>, that is distributed <span class="math inline">\(\mathcal F\)</span>, we may define “signal” as any departure from some <span class="math inline">\(\mathcal F_0\)</span>.
 This is the multivaraite counterpart of goodness-of-fit (GOF) tests.</p>
-<p>Even when restricting “signal” to departures of <span class="math inline">\(\mu\)</span> from <span class="math inline">\(\mu_0\)</span>, we may try to detect various types of signal:</p>
+<p>Even when restricting “signal” to departures of <span class="math inline">\(\mu\)</span> from <span class="math inline">\(\mu_0\)</span>, “signal” may come in various forms:</p>
 <ol style="list-style-type: decimal">
-<li><strong>Dense Signal</strong>: when the departure is in all coordinates of <span class="math inline">\(\mu\)</span>.</li>
-<li><strong>Sparse Signal</strong>: when the departure is in a subset of coordinates of <span class="math inline">\(\mu\)</span>.</li>
+<li><strong>Dense Signal</strong>: when the departure is in a large number of coordinates of <span class="math inline">\(\mu\)</span>.</li>
+<li><strong>Sparse Signal</strong>: when the departure is in a small number of coordinates of <span class="math inline">\(\mu\)</span>.</li>
 </ol>
-<p>A manufactoring motivation is consistent with a dense signal: if a manufacturing process has failed, we expect a change in many measurements (i.e. coordinates of <span class="math inline">\(\mu\)</span>).
-A brain-imaging motivation is consistent with a dense signal: if a region encodes cognitive function, we expect a change in many brain locations (i.e. coordinates of <span class="math inline">\(\mu\)</span>.)
-A genetic motivation is consistent with a sparse signal: if susceptibility of disease is genetic, only a small subset of locations in the genome will encode it.</p>
-<p>Hotelling’s <span class="math inline">\(T^2\)</span> statistic is designed for dense signal.
-The following is a simple statistic designed for sparse signal.</p>
+<p>Process control in a manufactoring plant, for instance, is consistent with a dense signal: if a manufacturing process has failed, we expect a change in many measurements (i.e. coordinates of <span class="math inline">\(\mu\)</span>).
+Detection of activation in brain imaging is consistent with a dense signal: if a region encodes cognitive function, we expect a change in many brain locations (i.e. coordinates of <span class="math inline">\(\mu\)</span>.)
+Detection of disease encodig regions in the genome is consistent with a sparse signal: if susceptibility of disease is genetic, only a small subset of locations in the genome will encode it.</p>
+<p>Hotelling’s <span class="math inline">\(T^2\)</span> statistic is best for dense signal.
+The next test, is a simple (and forgotten) test best with sparse signal.</p>
 </div>
 <div id="simes-test" class="section level3">
 <h3><span class="header-section-number">9.1.3</span> Simes’ Test</h3>
@@ -647,17 +629,21 @@ The statistic is defined vie the following algorithm:</p>
 </div>
 <div id="signal-detection-with-r" class="section level3">
 <h3><span class="header-section-number">9.1.4</span> Signal Detection with R</h3>
-<p>Let’s generate some data with no signal.</p>
+<p>We start with simulating some data with no signal.
+We will convince ourselves that Hotelling’s and Simes’ tests detect nothing, when nothing is present.
+We will then generate new data, after injecting some signal, i.e., making <span class="math inline">\(\mu\)</span> depart from <span class="math inline">\(\mu_0=0\)</span>.
+We then convince ourselves, that both Hotelling’s and Simes’ tests, are indeed capable of detecting signal, when present.</p>
+<p>Generating null data:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mvtnorm)
 n &lt;-<span class="st"> </span><span class="dv">100</span> <span class="co"># observations</span>
 p &lt;-<span class="st"> </span><span class="dv">18</span> <span class="co"># parameter dimension</span>
-mu &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,p) <span class="co"># no signal</span>
+mu &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>,p) <span class="co"># no signal: mu=0</span>
 x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt">n =</span> n, <span class="dt">mean =</span> mu)
 <span class="kw">dim</span>(x)</code></pre>
 <pre><code>## [1] 100  18</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r">lattice<span class="op">::</span><span class="kw">levelplot</span>(x)</code></pre>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-210-1.png" width="50%" /></p>
-<p>Now make our own Hotelling function.</p>
+<pre class="sourceCode r"><code class="sourceCode r">lattice<span class="op">::</span><span class="kw">levelplot</span>(x) <span class="co"># just looking at white noise.</span></code></pre>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-207-1.png" width="50%" /></p>
+<p>Now making our own Hotelling one-sample <span class="math inline">\(T^2\)</span> test using Eq.(<a href="multivariate.html#eq:hotelling-test">(9.2)</a>).</p>
 <pre class="sourceCode r"><code class="sourceCode r">hotellingOneSample &lt;-<span class="st"> </span><span class="cf">function</span>(x, <span class="dt">mu0=</span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="kw">ncol</span>(x))){
   n &lt;-<span class="st"> </span><span class="kw">nrow</span>(x)
   p &lt;-<span class="st"> </span><span class="kw">ncol</span>(x)
@@ -671,12 +657,12 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 }
 <span class="kw">hotellingOneSample</span>(x)</code></pre>
 <pre><code>## $statistic
-##         [,1]
-## [1,] 17.2908
+##          [,1]
+## [1,] 17.94698
 ## 
 ## $pvalue
 ##           [,1]
-## [1,] 0.5032046</code></pre>
+## [1,] 0.4591507</code></pre>
 <p>Things to note:</p>
 <ul>
 <li><code>stopifnot(n &gt; 5 * p)</code> is a little verification to check that the problem is indeed low dimensional. Otherwise, the <span class="math inline">\(\chi^2\)</span> approximation cannot be trusted.</li>
@@ -692,18 +678,18 @@ Personally, I would never trust a Hotelling test if <span class="math inline">\(
 ##  One-sample Hotelling test
 ## 
 ## data:  x
-## T2 = 17.29080, F = 0.79565, df1 = 18, df2 = 82, p-value = 0.6996
+## T2 = 17.94698, F = 0.82584, df1 = 18, df2 = 82, p-value = 0.6653
 ## alternative hypothesis: true mean vector is not equal to (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)&#39; 
 ## 
 ## sample estimates:
-##                      [,1]        [,2]       [,3]       [,4]          [,5]
-## mean x-vector -0.07873775 -0.01076689 -0.1405859 -0.1342353 -0.0001891301
-##                     [,6]        [,7]      [,8]       [,9]     [,10]
-## mean x-vector 0.02827704 -0.06150607 0.1738199 0.09050526 0.1466331
-##                    [,11]      [,12]       [,13]      [,14]       [,15]
-## mean x-vector 0.04250519 -0.1199926 -0.06466205 -0.1061927 -0.02434599
-##                    [,16]      [,17]      [,18]
-## mean x-vector 0.02766206 0.08169893 0.02036132</code></pre>
+##                       [,1]       [,2]      [,3]       [,4]        [,5]
+## mean x-vector -0.002990837 0.06118945 0.2153931 -0.0487018 -0.06665223
+##                    [,6]       [,7]       [,8]        [,9]      [,10]
+## mean x-vector 0.1297716 0.04790746 0.08328193 -0.08511783 0.02627395
+##                     [,11]     [,12]     [,13]      [,14]      [,15]
+## mean x-vector -0.09120245 0.1603455 0.1298308 0.08406651 -0.0559366
+##                    [,16]       [,17]      [,18]
+## mean x-vector 0.03307495 -0.04411712 -0.1185427</code></pre>
 <p>Let’s do the same with Simes’:</p>
 <pre class="sourceCode r"><code class="sourceCode r">Simes &lt;-<span class="st"> </span><span class="cf">function</span>(x){
   p.vals &lt;-<span class="st"> </span><span class="kw">apply</span>(x, <span class="dv">2</span>, <span class="cf">function</span>(z) <span class="kw">t.test</span>(z)<span class="op">$</span>p.value) <span class="co"># Compute variable-wise pvalues</span>
@@ -713,21 +699,21 @@ Personally, I would never trust a Hotelling test if <span class="math inline">\(
 }
 <span class="kw">Simes</span>(x)</code></pre>
 <pre><code>##    pvalue 
-## 0.8138511</code></pre>
+## 0.4937222</code></pre>
 <p>And now we verify that both tests can indeed detect signal when present. Are p-values small enough to reject the “no signal” null hypothesis?</p>
 <pre class="sourceCode r"><code class="sourceCode r">mu &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dt">x =</span> <span class="dv">10</span><span class="op">/</span>p,<span class="dt">times=</span>p) <span class="co"># inject signal</span>
 x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt">n =</span> n, <span class="dt">mean =</span> mu)
 <span class="kw">hotellingOneSample</span>(x)</code></pre>
 <pre><code>## $statistic
 ##          [,1]
-## [1,] 536.6292
+## [1,] 804.2087
 ## 
 ## $pvalue
 ##               [,1]
-## [1,] 2.037928e-102</code></pre>
+## [1,] 4.038321e-159</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">Simes</span>(x)</code></pre>
-<pre><code>##       pvalue 
-## 3.473021e-08</code></pre>
+<pre><code>##      pvalue 
+## 2.76579e-10</code></pre>
 <p>… yes. All p-values are very small, so that all statistics can detect the non-null distribution.</p>
 </div>
 </div>
@@ -776,14 +762,14 @@ x &lt;-<span class="st"> </span><span class="kw">rmvnorm</span>(<span class="dt"
 <span class="kw">dim</span>(x)</code></pre>
 <pre><code>## [1]  10 100</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">lattice<span class="op">::</span><span class="kw">levelplot</span>(x)</code></pre>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-217-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-214-1.png" width="50%" /></p>
 <p>We now compute the pvalues of each coordinate.
 We use a coordinate-wise t-test.
 Why a t-test? Because for the purpose of demonstration we want a simple test. In reality, you may use any test that returns valid p-values.</p>
 <pre class="sourceCode r"><code class="sourceCode r">t.pval &lt;-<span class="st"> </span><span class="cf">function</span>(y) <span class="kw">t.test</span>(y)<span class="op">$</span>p.value
 p.values &lt;-<span class="st"> </span><span class="kw">apply</span>(<span class="dt">X =</span> x, <span class="dt">MARGIN =</span> <span class="dv">2</span>, <span class="dt">FUN =</span> t.pval) 
 <span class="kw">plot</span>(p.values, <span class="dt">type=</span><span class="st">&#39;h&#39;</span>)</code></pre>
-<p><img src="Rcourse_files/figure-html/unnamed-chunk-218-1.png" width="50%" /></p>
+<p><img src="Rcourse_files/figure-html/unnamed-chunk-215-1.png" width="50%" /></p>
 <p>Things to note:</p>
 <ul>
 <li><code>t.pval</code> is a function that merely returns the p-value of a t.test.</li>
@@ -824,7 +810,7 @@ p.values.BH &lt;-<span class="st"> </span><span class="kw">p.adjust</span>(p.val
 This is not the case, however, if we estimate only the elements that were selected because they were significant (or any other data-dependent criterion).
 Clearly, estimating only significant entries will introduce a bias in the estimation.
 In the statistical literature, this is known as <em>selection bias</em>.
-Selection bias also occurs when you perform inference on regression coefficients after some model selection, say, with a lasso, or a forward search<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>.</p>
+Selection bias also occurs when you perform inference on regression coefficients after some model selection, say, with a lasso, or a forward search<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a>.</p>
 <p>Selective inference is a complicated and active research topic so we will not offer any off-the-shelf solution to the matter.
 The curious reader is invited to read <span class="citation">Rosenblatt and Benjamini (<a href="#ref-rosenblatt2014selective">2014</a>)</span>, <span class="citation">Javanmard and Montanari (<a href="#ref-javanmard2014confidence">2014</a>)</span>, or <a href="http://www.stat.berkeley.edu/~wfithian/">Will Fithian’s</a> PhD thesis <span class="citation">(Fithian <a href="#ref-fithian2015topics">2015</a>)</span> for more on the topic.</p>
 </div>
@@ -891,9 +877,6 @@ multi&lt;-<span class="st">  </span><span class="kw">rmvnorm</span>(<span class=
 <div id="ref-kalisch2014causal">
 <p>Kalisch, Markus, and Peter Bühlmann. 2014. “Causal Structure Learning and Inference: A Selective Review.” <em>Quality Technology &amp; Quantitative Management</em> 11 (1). Taylor &amp; Francis: 3–21.</p>
 </div>
-<div id="ref-nadler2008finite">
-<p>Nadler, Boaz. 2008. “Finite Sample Approximation Results for Principal Component Analysis: A Matrix Perturbation Approach.” <em>The Annals of Statistics</em>. JSTOR, 2791–2817.</p>
-</div>
 <div id="ref-rosenblatt2013practitioner">
 <p>Rosenblatt, Jonathan. 2013. “A Practitioner’s Guide to Multiple Testing Error Rates.” <em>arXiv Preprint arXiv:1304.4920</em>.</p>
 </div>
@@ -910,9 +893,8 @@ multi&lt;-<span class="st">  </span><span class="kw">rmvnorm</span>(<span class=
 <div class="footnotes">
 <hr />
 <ol start="17">
-<li id="fn17"><p>My thanks to Efrat Vilneski for the figure.<a href="multivariate.html#fnref17" class="footnote-back">↩</a></p></li>
-<li id="fn18"><p>This vocabulary is not standard in the literature, so when you read a text, you need to verify yourself what the author means.<a href="multivariate.html#fnref18" class="footnote-back">↩</a></p></li>
-<li id="fn19"><p>You might find this shocking, but it does mean that you cannot trust the <code>summary</code> table of a model that was selected from a multitude of models.<a href="multivariate.html#fnref19" class="footnote-back">↩</a></p></li>
+<li id="fn17"><p>This vocabulary is not standard in the literature, so when you read a text, you will need to verify yourself what the author means.<a href="multivariate.html#fnref17" class="footnote-back">↩</a></p></li>
+<li id="fn18"><p>You might find this shocking, but it does mean that you cannot trust the <code>summary</code> table of a model that was selected from a multitude of models.<a href="multivariate.html#fnref18" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>

@@ -88,7 +88,7 @@ We thus have
   T^2(x):= (\bar{x}-\mu_0)' Var[\bar{x}]^{-1} (\bar{x}-\mu_0),
   (\#eq:hotelling-test)
 \end{align}
-which is the definition of Hotelling's $T^2$ test statistic. 
+which is the definition of Hotelling's $T^2$ one-sample test statistic. 
 We typically denote the covariance between coordinates in $x$ with $\hat \Sigma(x)$, so that 
 $\widehat \Sigma_{k,l}:=\widehat {Cov}[x_k,x_l]=(n-1)^{-1} \sum (x_{k,i}-\bar x_k)(x_{l,i}-\bar x_l)$.
 Using the $\Sigma$ notation, Eq.\@ref(eq:hotelling-test) becomes 
@@ -97,7 +97,7 @@ Using the $\Sigma$ notation, Eq.\@ref(eq:hotelling-test) becomes
 \end{align}
 which is the standard notation of Hotelling's test statistic.
 
-For inference, we need the null distribution of Hotelling's test statistic. For this we introduce some vocabulary^[This vocabulary is not standard in the literature, so when you read a text, you need to verify yourself what the author means.]:
+For inference, we need the null distribution of Hotelling's test statistic. For this we introduce some vocabulary^[This vocabulary is not standard in the literature, so when you read a text, you will need to verify yourself what the author means.]:
 
 1. __Low Dimension__:
 We call a problem _low dimensional_ if $n \gg p$, i.e. $p/n \approx 0$.
@@ -107,33 +107,38 @@ We call a problem _high dimensional_ if $p/n \to c$, where $c\in (0,1)$.
 This means there are more observations than parameters, but not many.
 1. __Very High Dimension__: 
 We call a problem _very high dimensional_ if $p/n \to c$, where $1<c<\infty$.
-This means there are less observations than parameter.
+This means there are less observations than parameters.
 
 Hotelling's $T^2$ test can only be used in the low dimensional regime. 
 For some intuition on this statement, think of taking $n=20$ measurements of $p=100$ physiological variables. 
 We seemingly have $20$ observations, but there are $100$ unknown quantities in $\mu$. 
-Would you trust your conclusion that $\bar x$ is different than $\mu_0$ based on merely $20$ observations. 
-
-The above criticism is formalized in @bai1996effect. 
-For modern applications, Hotelling's $T^2$ is not recommended, since many modern alternatives have been made available. See @rosenblatt2016better and references for a review.
+Say you decide that $\mu$ differs from $\mu_0$ based on the coordinate with maximal difference between your data and $\mu_0$. 
+Do you know how much variability to expect of this maximum? 
+Try comparing your intuition with a quick simulation.
+Did the variabilty of the maximum surprise you? 
+Hotelling's $T^2$ is not the same as the maxiumum, but the same intuition applies. 
+This criticism is formalized in @bai1996effect. 
+In modern applications, Hotelling's $T^2$ is rarely recommended.
+Luckily, many modern alternatives are available. 
+See @rosenblatt2016better for a review.
 
 
 ### Various Types of Signal to Detect
 In the previous, we assumed that the signal is a departure of $\mu$ from some $\mu_0$. 
-For vactor-valued data $y$, that is distributed $F$, we may define "signal" as any departure from some $F_0$. 
+For vactor-valued data $y$, that is distributed $\mathcal F$, we may define "signal" as any departure from some $\mathcal F_0$. 
 This is the multivaraite counterpart of goodness-of-fit (GOF) tests. 
 
-Even when restricting "signal" to departures of $\mu$ from $\mu_0$, we may try to detect various types of signal:
+Even when restricting "signal" to departures of $\mu$ from $\mu_0$, "signal" may come in various forms:
 
-1. __Dense Signal__: when the departure is in all coordinates of $\mu$. 
-1. __Sparse Signal__: when the departure is in a subset of coordinates of $\mu$.
+1. __Dense Signal__: when the departure is in a large number of coordinates of $\mu$. 
+1. __Sparse Signal__: when the departure is in a small number of coordinates of $\mu$.
 
-A manufactoring motivation is consistent with a dense signal: if a manufacturing process has failed, we expect a change in many measurements (i.e. coordinates of $\mu$). 
-A brain-imaging motivation is consistent with a dense signal: if a region encodes cognitive function, we expect a change in many brain locations (i.e. coordinates of $\mu$.)
-A genetic motivation is consistent with a sparse signal: if susceptibility of disease is genetic, only a small subset of locations in the genome will encode it. 
+Process control in a manufactoring plant, for instance, is consistent with a dense signal: if a manufacturing process has failed, we expect a change in many measurements (i.e. coordinates of $\mu$). 
+Detection of activation in brain imaging is consistent with a dense signal: if a region encodes cognitive function, we expect a change in many brain locations (i.e. coordinates of $\mu$.)
+Detection of disease encodig regions in the genome is consistent with a sparse signal: if susceptibility of disease is genetic, only a small subset of locations in the genome will encode it. 
 
-Hotelling's $T^2$ statistic is designed for dense signal. 
-The following is a simple statistic designed for sparse signal.
+Hotelling's $T^2$ statistic is best for dense signal. 
+The next test, is a simple (and forgotten) test best with sparse signal.
 
 
 ### Simes' Test
@@ -151,19 +156,24 @@ The statistic is defined vie the following algorithm:
 
 ### Signal Detection with R
 
-Let's generate some data with no signal.
+We start with simulating some data with no signal.
+We  will convince ourselves that Hotelling's and Simes' tests detect nothing, when nothing is present.
+We will then generate new data, after injecting some signal, i.e., making $\mu$ depart from $\mu_0=0$. 
+We then convince ourselves, that both Hotelling's and Simes' tests, are indeed capable of detecting signal, when present. 
+
+Generating null data:
 
 ```{r}
 library(mvtnorm)
 n <- 100 # observations
 p <- 18 # parameter dimension
-mu <- rep(0,p) # no signal
+mu <- rep(0,p) # no signal: mu=0
 x <- rmvnorm(n = n, mean = mu)
 dim(x)
-lattice::levelplot(x)
+lattice::levelplot(x) # just looking at white noise.
 ```
 
-Now make our own Hotelling function.
+Now making our own Hotelling one-sample $T^2$ test using Eq.(\@ref(eq:hotelling-test)). 
 
 ```{r}
 hotellingOneSample <- function(x, mu0=rep(0,ncol(x))){

@@ -565,7 +565,7 @@ For these purposes, the facilities provided by <strong>base</strong>, <strong>st
 If the data is large, however, these facilities may be too slow.
 If your data fits into RAM, but speed bothers you, take a look at the <strong>data.table</strong> package.
 The syntax is less friendly than <strong>dplyr</strong>, but <strong>data.table</strong> is BLAZING FAST compared to competitors.
-Here is a little benchmark<a href="#fn28" class="footnote-ref" id="fnref28"><sup>28</sup></a>.</p>
+Here is a little benchmark<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a>.</p>
 <p>First, we setup the data.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)
 
@@ -599,19 +599,19 @@ Here is the timing for <strong>dplyr</strong>.</p>
   tbl_dt[ ,  .( <span class="dt">x1 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x1)), <span class="dt">x2 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x2)), <span class="dt">x3 =</span> <span class="kw">sum</span>(<span class="kw">abs</span>(x3)) ), .(v1,v2)]
   )</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.455   0.108   0.439</code></pre>
+##   0.850   0.144   0.866</code></pre>
 <p>The winner is obvious.
 Let’s compare filtering (i.e. row subsets, i.e. SQL’s SELECT).</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(v1 <span class="op">==</span><span class="st"> &quot;1&quot;</span>) 
   )</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.020   0.085   0.105</code></pre>
+##   0.321   0.111   0.432</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>( 
   tbl_dt[v1 <span class="op">==</span><span class="st"> &quot;1&quot;</span>] 
   )</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.057   0.078   0.099</code></pre>
+##   0.047   0.073   0.089</code></pre>
 </div>
 </div>
 <div id="computing-from-a-database" class="section level2">
@@ -620,7 +620,7 @@ Let’s compare filtering (i.e. row subsets, i.e. SQL’s SELECT).</p>
 Several R packages provide interfaces to these DBMSs, such as <strong>sqldf</strong>, <strong>RDBI</strong>, <strong>RSQite</strong>.
 Some will even include the DBMS as part of the package itself.</p>
 <p>Storing your data in a DBMS has the advantage that you can typically rely on DBMS providers to include very efficient algorithms for the queries they support.
-On the downside, SQL queries may include a lot of summary statistics, but will rarely include model fitting<a href="#fn29" class="footnote-ref" id="fnref29"><sup>29</sup></a>.
+On the downside, SQL queries may include a lot of summary statistics, but will rarely include model fitting<a href="#fn28" class="footnote-ref" id="fnref28"><sup>28</sup></a>.
 This means that even for simple things like linear models, you will have to revert to R’s facilities– typically some sort of EMA with chunking from the DBMS.
 For this reason, and others, we prefer to compute from efficient file structures, as described in Section <a href="memory.html#file-structure">15.3</a>.</p>
 <p>If, however, you have a powerful DBMS around, or you only need summary statistics, or you are an SQL master, keep reading.</p>
@@ -912,9 +912,9 @@ For more on data analysis from disk, and not from RAM, see <a href="https://www.
 </div>
 <div class="footnotes">
 <hr />
-<ol start="28">
-<li id="fn28"><p>The code was contributed by Liad Shekel.<a href="memory.html#fnref28" class="footnote-back">↩</a></p></li>
-<li id="fn29"><p>This is slowly changing. Indeed, Microsoft’s SQL Server 2016 is already providing <a href="https://blogs.technet.microsoft.com/dataplatforminsider/2016/03/29/in-database-advanced-analytics-with-r-in-sql-server-2016/">in-database-analytics</a>, and other will surely follow.<a href="memory.html#fnref29" class="footnote-back">↩</a></p></li>
+<ol start="27">
+<li id="fn27"><p>The code was contributed by Liad Shekel.<a href="memory.html#fnref27" class="footnote-back">↩</a></p></li>
+<li id="fn28"><p>This is slowly changing. Indeed, Microsoft’s SQL Server 2016 is already providing <a href="https://blogs.technet.microsoft.com/dataplatforminsider/2016/03/29/in-database-advanced-analytics-with-r-in-sql-server-2016/">in-database-analytics</a>, and other will surely follow.<a href="memory.html#fnref28" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
