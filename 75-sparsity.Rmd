@@ -9,7 +9,7 @@ Analyzing "bigdata" in R is a challenge because the workspace is memory resident
 As a rule of thumb, fitting models requires about 5 times the size of the data. 
 This means that if you have 1 GB of data, you might need about 5 GB to fit a linear models.
 We will discuss how to compute _out of RAM_  in the Memory Efficiency Chapter \@ref(memory).
-In this chapter, we discuss efficient representations of your data, so that it takes less memory.
+In this chapter, we discuss efficient representations of your data, so that it consumes less RAM.
 The fundamental idea, is that if your data is _sparse_, i.e., there are many zero entries in your data, then a naive `data.frame` or `matrix` will consume memory for all these zeroes. 
 If, however, you have many recurring zeroes, it is more efficient to save only the non-zero entries.
 
@@ -17,6 +17,10 @@ When we say _data_, we actually mean the `model.matrix`.
 The `model.matrix` is a matrix that R grows, converting all your factors to numeric variables that can be computed with.
 _Dummy coding_ of your factors, for instance, is something that is done in your `model.matrix`.
 If you have a factor with many levels, you can imagine that after dummy coding it, many zeroes will be present.
+
+
+
+## Introduction to Sparse Matrices
 
 The __Matrix__ package replaces the `matrix` class, with several sparse representations of matrix objects. 
 
@@ -59,9 +63,10 @@ head(X.1)
 We call __MatrixModels__ for an implementation of `model.matrix` that supports sparse representations.
 
 ```{r make X2, cache=TRUE}
-library(MatrixModels)
-X.2<- as(x,"sparseMatrix") %>% t # Makes sparse dummy model.matrix
+library(Matrix)
+X.2<- sparse.model.matrix(~x-1) # Makes sparse dummy model.matrix
 head(X.2)
+class(X.2)
 ```
 
 Notice that the matrices have the same dimensions:
@@ -81,11 +86,11 @@ pryr::object_size(X.2)
 Things to note:
 
 - The sparse representation takes a whole lot less memory than the non sparse. 
-- The `as(,"sparseMatrix")` function grows the dummy variable representation of the factor `x`.
+- `Matrix::sparse.model.matrix` grows the dummy variable representation of the factor `x`, and stores it as a sparse matrix object. 
 - The __pryr__ package provides many facilities for inspecting the memory footprint of your objects and code. 
 
 
-With a sparse representation, we not only saved on RAM, but also on the computing time of fitting a model.
+With a sparse representation, we will not only spare some RAM, but also shorten the time to fit a model. This is because we will not be summing zeroes. 
 Here is the timing of a non sparse representation:
 
 ```{r nonSparse lm, cache=TRUE, dependson='make X1'}
@@ -111,7 +116,7 @@ It is only left to verify that the returned coefficients are the same:
 all.equal(lm.2, unname(lm.1$coefficients), tolerance = 1e-12)
 ```
 
-You can also visualize the non zero entries, i.e., the sparsity structure.
+You can also visualize the non zero entries, i.e., the _sparsity structure_.
 
 ```{r}
 image(X.2[1:26,1:26])
@@ -119,19 +124,19 @@ image(X.2[1:26,1:26])
 
 
 
-## Sparse Matrix Representations
+## Efficient Memory Representation
 
 We first distinguish between the two main goals of the efficient representation:
 (i) efficient writing, i.e., modification; 
 (ii) efficient reading, i.e., access. 
-For our purposes, we will typically want efficient reading, since the `model.matrix` will not change while a model is being fitted.
+For statistics and machine learning, we will typically want efficient reading, since the `model.matrix` does not change while a model is being fit.
 
-Representations designed for writing include the _dictionary of keys_, _list of lists_, and a _coordinate list_. 
-Representations designed for efficient reading include the _compressed sparse row_ and _compressed sparse column_.
+Efficient representations for writing include the _dictionary of keys_, _list of lists_, and a _coordinate list_. 
+Efficient representations for reading include the _compressed sparse row_ and _compressed sparse column_.
 
 
 ### Coordinate List Representation {#coo}
-A _coordinate list representation_, also known as _COO_, or _triplet represantation_ is simply a list of the non zero entries. 
+A _coordinate list representation_, also known as _COO_, or _triplet representation_ is simply a list of the non zero entries. 
 Each element in the list is a triplet of the row, column, and value, of each non-zero entry in the matrix. 
 For instance the matrix 
 $$ \begin{bmatrix}
@@ -147,7 +152,7 @@ $$ \begin{bmatrix}
 ### Compressed Row Oriented Representation 
 _Compressed row oriented representation_, also known as _compressed sparse row_, or _CSR_.
 _CSR_ is similar to _COO_ with a compressed row vector.
-Instead of holding the row of each non-zero entry, the row vector holds the locations in the colum vector where a row is increased. 
+Instead of holding the row of each non-zero entry, the row vector holds the locations in the column vector where a row is increased. 
 See the next illustration.
 
 ![The CSR data structure. From @shah2004sparse. Remember that MATLAB is written in C, where the indexing starts at $0$, and not $1$.](art/crc.png)
@@ -164,14 +169,14 @@ The nature of statistical applications is such, that CSC representation is typic
 
 
 
-### Sparse Algorithms
+### Algorithms for Sparse Matrices
 
-We will go into the details of some algorithms in the Numerical Linear Algebra Chapter \@ref(algebra).
-For our current purposes two things need to be emphasized:
+Working with sparse representations requires using a algorithms, i.e. functions, that are aware of the representation you are using. 
+We will not go into the details of numerical linear algebra, with/without sparse representation. 
+We merely note that you need to make sure that the functions you use, are aware of the way your data is represented. 
+If you do not, R will either try to cast a sparse matrix as a regular/dense matrix, and you will have gained nothing. 
+Alternatively, you will just get an error. 
 
-1. Working with sparse representations requires using a function that is aware of the representation you are using. 
-
-1. A mathematician may write $Ax=b \Rightarrow x=A^{-1}b$. This is a [predicate](https://en.wikipedia.org/wiki/Predicate_(mathematical_logic)) of $x$,i.e., a property that $x$ satisfies, which helps with its analysis. A computer, however, would __never__ compute $A^{-1}$ in order to find $x$, but rather use one of many endlessly many numerical algorithms. A computer will  typically "search" various  $x$'s until it finds the one that fulfils the predicate. 
 
 
 
@@ -182,7 +187,7 @@ For our current purposes two things need to be emphasized:
 ### The Matrix Package
 
 The __Matrix__ package provides facilities to deal with real (stored as double precision), logical and so-called "pattern" (binary) dense and sparse matrices. 
-There are provisions to provide integer and complex (stored as double precision complex) matrices.
+There are provisions for integer and complex (stored as double precision complex) matrices.
 
 The sparse matrix classes include:
 
@@ -199,7 +204,7 @@ For matrices of real numbers, stored in _double precision_, the __Matrix__ packa
 
 Why bother with distinguishing between the different shapes of the matrix?
 Because the more structure is assumed on a matrix, the more our (statistical) algorithms can be optimized. 
-For our purposes `dgCMatrix` will be the most useful.
+For our purposes `dgCMatrix` will be the most useful, i.e., a sparse matrix, in double precision, without any further structure assumed. 
 
 
 
@@ -209,8 +214,8 @@ For our purposes `dgCMatrix` will be the most useful.
 ### The glmnet Package
 
 As previously stated, an efficient storage of the `model.matrix` is half of the story.
-We now need implementations of our favorite statistical algorithms that make use of this representation. 
-At the time of writing, a very useful package that does that is the __glmnet__ package, which allows to fit linear models, generalized linear models, with ridge, lasso, and elastic net regularization. 
+We also need implementations of our favorite statistical algorithms that make use of this representation. 
+A very useful package that does that is the __glmnet__ package, which allows to fit linear models, generalized linear models, with ridge, lasso, and elastic-net regularization. 
 The __glmnet__ package allows all of this, using the sparse matrices of the __Matrix__ package. 
 
 The following example is taken from [John Myles White's blog](http://www.johnmyleswhite.com/notebook/2011/10/31/using-sparse-matrices-in-r/), and compares the runtime of fitting an OLS model, using `glmnet` with both sparse and dense matrix representations. 
@@ -291,36 +296,21 @@ The `alpha` argument controls the type of regularization. Set to `alpha=0` for r
 
 
 
-### The MatrixModels Package
-The [MatrixModels](https://cran.r-project.org/package=MatrixModels) package is designed to fit various models (linear, non-linear, generalized) using sparse matries. 
-The function `MatrixModels::glm4` can easily replace `stats::glm` for all your needs. 
-Unlike __glmnet__, the __MatrixModels__ package will not offer you model regularization.
-
-
-
-### The SparseM Package
-Basic linear algebra with sparse matrices. 
-
-
-## Beyond Sparsity
-When you think of it, sparse matrix representations is nothing but a combo of lossless compression, with accompanying matrix algorithms. 
-Can this combo be leveraged when matrices are not sparse? 
-At the time of writing, I am unaware of R objects that explot this idea, but it is generally possible. 
 
 
 
 
+## Beyond Sparsity and Apache Arrow
+It is quite possible that your data contain redundancies, other than the occurrences of the number 0.
+We would not call it _sparse_, but there is still room for its efficient representation in memory. 
+_Apache Arrow_ is a a set of C++ functions, for efficient representation of objects in memory.
+Just like the __Matrix__ package, it can detect these redundancies and exploit them for efficient memory representation.
+It can actually do much more, and it is definitely a technology to follow. 
 
-## Apache Arrow
-It is quite possible that your data contain redundancies, other than the number 0.
-In this case, you can still find efficient representations, but you will need something more general than CRC and the likes. 
-Apache Arrow is a a set of C++ functions, for efficient representation of objects in memory.
-It can detect redundancies, and exploit them for efficient representation, but it can do much much more:
+- The memory representation is designed for easy read/writes into disk or network. This means that saving your file, or sending it over the network, will require very little CPU.
+- It is supported by R and Python, making data exchanges between the two possible, and fast (see previous item). For optimal performance save it into [Apache Parquet](https://en.wikipedia.org/wiki/Apache_Parquet) using `arrow::write_parquet`, or [Feather](http://arrow.apache.org/blog/2019/08/08/r-package-on-cran/) file formats, using the `arrow::write_feather()` function. Read functions are also provided. 
+- The previous benefits extend to many other [software suits](https://arrow.apache.org/powered_by/) that support this format. 
 
-- It is the technology underlying many [software suits](https://arrow.apache.org/powered_by/), and is supporteb by R and Python.
-- The memory representation is designed for easy read/writes into disk or network. This means that saving your file, or sending it over the network, will require very little CPU. For optimal performance save it into [Apache Parquet](https://en.wikipedia.org/wiki/Apache_Parquet) using `arrow::write_parquet`, or [Feather](http://arrow.apache.org/blog/2019/08/08/r-package-on-cran/) file formats, using the `arrow::write_feather()` function. Read functions are also provided. 
-
-Arrow is a very exciting technology, and will certainly become dominant in the near future. 
 
 
 ## Bibliographic Notes

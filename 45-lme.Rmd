@@ -7,8 +7,8 @@ editor_options:
 
 ```{example, label='dependence', name="Dependent Samples on the Mean"}
 Consider inference on a population's mean.
-Supposdly, more observations imply more infotmation. This, however, is not the case if samples are completely dependant. More observations do not add any new information.
-From this example one may think that dependence reduces information. This is a false intuitiont: negative correlations imply oscilations about the mean, so they are actually more informative on the mean than independent observations. 
+Supposedly, more observations imply more information. This, however, is not the case if samples are completely dependent. More observations do not add any new information.
+From this example one may think that dependence reduces information. This is a false intuition: negative correlations imply oscillations about the mean, so they are actually more informative on the mean than independent observations. 
 ```
 
 
@@ -38,8 +38,8 @@ We want to study the fixed effect of time: before versus after.
 Bottle caps are produced by several machines.
 Clearly there is variablity in the diameters within-machine and between-machines.
 Given a sample of bottle caps from many machines, we could standardize measurements by removing each machine's average.
-This implies we treat machines as fixed effects, substract them, and consider within-machine variability is the only source of variability. The substration of the machine effect, removed information on between-machine variability.  
-Alternatively, we could consider between-machine variability as another source of uncertainty when inferring on the temporal fixed effect. In which case, would not substract the machine-effect, bur rather, treat it as a random-effect, in the LMM framework.
+This implies we treat machines as fixed effects, subtract them, and consider within-machine variability is the only source of variability. The subtraction of the machine effect, removed information on between-machine variability.  
+Alternatively, we could consider between-machine variability as another source of uncertainty when inferring on the temporal fixed effect. In which case, would not subtract the machine-effect, bur rather, treat it as a random-effect, in the LMM framework.
 ```
 
 
@@ -68,7 +68,7 @@ Because we may have both _fixed effects_ we want to estimate and remove, and _ra
 - __Variance Components__: 
 Because as the examples show, variance has more than a single source (like in the Linear Models of Chapter \@ref(lm)).
 
-- __Hirarchial Models__: 
+- __Hierarchical Models__: 
 Because as Example \@ref(exm:random-effects) demonstrates, we can think of the sampling as hierarchical-- first sample a subject, and then sample its response. 
 
 - __Multilevel Analysis__:
@@ -118,7 +118,7 @@ In our diet example (\@ref(exm:random-effects)) the diet is the fixed effect and
 
 Notice that we state $y|x,z$ merely as a convenient way to do inference on $y|x$.
 We could, instead, specify $Var[y|x]$ directly. 
-The second approach seems less convinient. 
+The second approach seems less convenient. 
 This is the power of LMMs! 
 We specify the covariance not via the matrix $Var[z'u|x]$, or $Var[y|x]$, but rather via the sampling hierarchy.
 
@@ -196,8 +196,8 @@ This is that false-sense of security we may have when ignoring correlations.
 #### Relation to Paired t-test
 
 Recall the paired t-test.
-Our two-sample--per-group example of the LMM is awfully similar to a pairted t-test.
-It would be quite troubeling if the well-known t-test and the oh-so-powerful LMM would lead to diverging conclusions.
+Our two-sample--per-group example of the LMM is awfully similar to a paired t-test.
+It would be quite troubling if the well-known t-test and the oh-so-powerful LMM would lead to diverging conclusions.
 In the previous, we inferred on the global mean; a quantity that cancels out when pairing. For a fair comparison, let's infer on some temporal effect. 
 Compare the t-statistic below, to the `t value` in the summary of `lme.6`.
 Luckily, as we demonstrate, the paired t-test and the LMM are equivalent.
@@ -231,8 +231,8 @@ lattice::dotplot(Yield~Batch)
 ```
 
 The plot confirms that `Yield` varies between `Batch`s.
-We do not want to study this batch effect, but we want our inference to apply to new, unseen, batches^[Think: why bother treating the `Batch` effect as noise? Should we now just substract `Batch` effects? This is not a trick question.]. 
-We thus need to account for the two sources of variability when infering on the (global) mean: the within-batch variability, and the between-batch variability 
+We do not want to study this batch effect, but we want our inference to apply to new, unseen, batches^[Think: why bother treating the `Batch` effect as noise? Should we now just subtract `Batch` effects? This is not a trick question.]. 
+We thus need to account for the two sources of variability when inferring on the (global) mean: the within-batch variability, and the between-batch variability 
 We thus fit a mixed model, with an intercept and random batch effect.
 
 ```{r random intercept}
@@ -242,7 +242,7 @@ summary(lme.1)
 
 Things to note:
 
-- The syntax `Yield ~ (1|Batch)` tells `lme4::lmer` to fit a model with a global intercept (`1`) and a random Batch effect (`1|Batch`). The `|` operator is the cornerstone of random effect modelng with `lme4::lmer`. 
+- The syntax `Yield ~ (1|Batch)` tells `lme4::lmer` to fit a model with a global intercept (`1`) and a random Batch effect (`1|Batch`). The `|` operator is the cornerstone of random effect modeling with `lme4::lmer`. 
 - `1+` isn't really needed. `lme4::lmer`, like `stats::lm` adds it be default. We put it there to remind you it is implied. 
 - As usual, `summary` is content aware and has a different behavior for `lme` class objects.
 - The output distinguishes between random effects ($u$), a source of variability, and fixed effect ($\beta$), which we want to study. The mean of the random effect is not reported because it is unassumingly 0.
@@ -282,7 +282,7 @@ Things to note:
 
 - `~Days` specifies the fixed effect. 
 - We used the `(Days|Subject)` syntax to tell `lme4::lmer` we want to fit the model `~Days` within each subject. Just like when modeling with `stats::lm`, `(Days|Subject)` is interpreted as `(1+Days|Subject)`, so we get a random intercept and slope, per subject.
-- Were we not interested in standard erors, `stats::lm(Reaction~Days*Subject)` would have returned (alomst) the same effects. Why "almost"? See below... 
+- Were we not interested in standard errors, `stats::lm(Reaction~Days*Subject)` would have returned (almost) the same effects. Why "almost"? See below... 
 
 
 The fixed day effect is:
@@ -304,7 +304,7 @@ In the words of John Tukey: "we borrow strength over subjects".
 If the normality assumption is true, this is very good news.
 If, on the other hand, you have a lot of samples per subject, and you don't need to "borrow strength" from one subject to another, you can simply fit within-subject linear models without the mixed-models machinery.
 This will avoid any assumptions on the distribution of effects over subjects. 
-For a full discussion of the pro's and con's of hirarchial mixed models, consult our Bibliographic Notes. 
+For a full discussion of the pro's and con's of hierarchical mixed models, consult our Bibliographic Notes. 
 
 To demonstrate the "strength borrowing", here is a comparison of the lme, versus the effects of fitting a linear model to each subject separately. 
 
@@ -378,7 +378,7 @@ print(xyplot(Reaction ~ Days | Subject, sleepstudy, aspect = "xy",
 
 
 ### Sparsity and Memory Efficiency
-In Chapter \@ref(sparse) we discuss how to efficienty represent matrices in memory. 
+In Chapter \@ref(sparse) we discuss how to efficiently represent matrices in memory. 
 At this point we can already hint that the covariance matrices implied by LMMs are sparse. This fact is exploited in the __lme4__ package, making it very efficient computationally. 
 
 
@@ -389,13 +389,13 @@ As previously stated, a hierarchical model of the type $y=x'\beta+z'u+\epsilon$ 
 The hierarchical sampling scheme implies correlations in blocks. 
 What if correlations do not have a block structure? 
 Temporal data or spatial data, for instance, tend to present correlations that decay smoothly in time/space.
-These correlations cannot be represented via a hirarchial sampling scheme.
+These correlations cannot be represented via a hierarchical sampling scheme.
 
 One way to go about, is to find a dedicated package for space/time data. 
 For instance, in the [Spatio-Temporal Data](https://cran.r-project.org/web/views/SpatioTemporal.html) task view, or the [Ecological and Environmental](https://cran.r-project.org/web/views/Environmetrics.html) task view. 
 
 Instead, we will show how to solve this matter using the __nlme__ package. 
-This is because __nlme__ allows to compond the blocks of covariance of LMMs, with the smoothly decaying covariances of space/time models.
+This is because __nlme__ allows to compound the blocks of covariance of LMMs, with the smoothly decaying covariances of space/time models.
 
 We now use an example from the help of `nlme::corAR1`.
 The `nlme::Ovary` data is panel data of number of ovarian follicles in different mares (female horse), at various times.  
@@ -441,7 +441,7 @@ lattice::levelplot(the.cov,
 
 As previously stated, random effects are nothing more than a convenient way to specify covariances within a level of a random effect, i.e., within a group/cluster.
 This is also the motivation underlying _cluster robust_ inference, which is immensely popular with econometricians, but less so elsewhere. 
-With cluster robust inference, we assume a model of type $y=f(x)+\varepsilon$; unlike LMMs we assume indpenedence (conditonal on $x$), but we allow $\varepsilon$ within clusters defined by $x$.
+With cluster robust inference, we assume a model of type $y=f(x)+\varepsilon$; unlike LMMs we assume independence (conditional on $x$), but we allow $\varepsilon$ within clusters defined by $x$.
 For a longer comparison between the two approaches, see [Michael Clarck's guide](https://m-clark.github.io/docs/clustered/).
 
 
@@ -482,7 +482,7 @@ For a general and very applied treatment, see @pinero2000mixed.
 As usual, a hands on view can be found in @venables2013modern, and also in an excellent blog post by [Kristoffer Magnusson](http://rpsychologist.com/r-guide-longitudinal-lme-lmer)
 For a more theoretical view see @weiss2005modeling or @searle2009variance.
 Sometimes it is unclear if an effect is random or fixed; on the difference between the two types of inference see the classics: @eisenhart1947assumptions, @kempthorne1975fixed, and the more recent @rosset2018fixed.
-For an interactive, beatiful visualization of the shrinkage introduced by mixed models, see [Michael Clark's blog](http://m-clark.github.io/posts/2019-05-14-shrinkage-in-mixed-models/).
+For an interactive, beautiful visualization of the shrinkage introduced by mixed models, see [Michael Clark's blog](http://m-clark.github.io/posts/2019-05-14-shrinkage-in-mixed-models/).
 For more on predictions in linear mixed models see @robinson1991blup, @rabinowicz2018assessing, and references therein.
 See [Michael Clarck's](https://m-clark.github.io/docs/clustered/) guide for various ways of dealing with correlations within groups.
 For the geo-spatial view and terminology of correlated data, see @christakos2000modern, @diggle1998model, @allard2013j, and @cressie2015statistics.

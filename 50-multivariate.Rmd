@@ -115,8 +115,8 @@ We seemingly have $20$ observations, but there are $100$ unknown quantities in $
 Say you decide that $\mu$ differs from $\mu_0$ based on the coordinate with maximal difference between your data and $\mu_0$. 
 Do you know how much variability to expect of this maximum? 
 Try comparing your intuition with a quick simulation.
-Did the variabilty of the maximum surprise you? 
-Hotelling's $T^2$ is not the same as the maxiumum, but the same intuition applies. 
+Did the variability of the maximum surprise you? 
+Hotelling's $T^2$ is not the same as the maximum, but the same intuition applies. 
 This criticism is formalized in @bai1996effect. 
 In modern applications, Hotelling's $T^2$ is rarely recommended.
 Luckily, many modern alternatives are available. 
@@ -125,7 +125,7 @@ See @rosenblatt2016better for a review.
 
 ### Various Types of Signal to Detect
 In the previous, we assumed that the signal is a departure of $\mu$ from some $\mu_0$. 
-For vactor-valued data $y$, that is distributed $\mathcal F$, we may define "signal" as any departure from some $\mathcal F_0$. 
+For vector-valued data $y$, that is distributed $\mathcal F$, we may define "signal" as any departure from some $\mathcal F_0$. 
 This is the multivaraite counterpart of goodness-of-fit (GOF) tests. 
 
 Even when restricting "signal" to departures of $\mu$ from $\mu_0$, "signal" may come in various forms:
@@ -133,9 +133,9 @@ Even when restricting "signal" to departures of $\mu$ from $\mu_0$, "signal" may
 1. __Dense Signal__: when the departure is in a large number of coordinates of $\mu$. 
 1. __Sparse Signal__: when the departure is in a small number of coordinates of $\mu$.
 
-Process control in a manufactoring plant, for instance, is consistent with a dense signal: if a manufacturing process has failed, we expect a change in many measurements (i.e. coordinates of $\mu$). 
+Process control in a manufacturing plant, for instance, is consistent with a dense signal: if a manufacturing process has failed, we expect a change in many measurements (i.e. coordinates of $\mu$). 
 Detection of activation in brain imaging is consistent with a dense signal: if a region encodes cognitive function, we expect a change in many brain locations (i.e. coordinates of $\mu$.)
-Detection of disease encodig regions in the genome is consistent with a sparse signal: if susceptibility of disease is genetic, only a small subset of locations in the genome will encode it. 
+Detection of disease encoding regions in the genome is consistent with a sparse signal: if susceptibility of disease is genetic, only a small subset of locations in the genome will encode it. 
 
 Hotelling's $T^2$ statistic is best for dense signal. 
 The next test, is a simple (and forgotten) test best with sparse signal.
@@ -234,11 +234,11 @@ There are many ways to approach the _signal counting_ problem.
 For the purposes of this book, however, we will not discuss them directly, and solve the signal counting problem via the solution to a signal identification problem. 
 The rational is the following: if we know __where__ $\mu$ departs from $\mu_0$, we only need to count coordinates to solve the signal counting problem. 
 
-We now make the previous arguent a little more accurate.
+We now make the previous argument a little more accurate.
 Assume you have a selection/identification algorithm, that selects coordinates in $\mu$.
-Denote with $R(\alpha)$ the number of selected coordiantes, where $\alpha$ is the coordinate-wise false positive rate. 
+Denote with $R(\alpha)$ the number of selected coordinates, where $\alpha$ is the coordinate-wise false positive rate. 
 Then $R(\alpha)$ includes approximately $\alpha p$ false positives. 
-Denote by $p_0$ the number of coordiantes that do not carry signal.
+Denote by $p_0$ the number of coordinates that do not carry signal.
 Then $p_0 \approx p-(R(\alpha)-p_0 \, \alpha)$.
 Equating the two we have $$\hat p_0=\frac{p-R(\alpha)}{1-\alpha}.$$
 The number of coordinates in $\mu$ that truly carry signal is thus approximately $p-\hat p_0$, which is a solution to the signal counting problem. 
@@ -249,7 +249,7 @@ The number of coordinates in $\mu$ that truly carry signal is thus approximately
 The problem of _signal identification_ is also known as a _selection problem_, or more commonly as _multiple testing_ problem.
 In the ANOVA literature, an identification stage will typically follow a detection stage.
 These are known as the _omnibus F test_, and _post-hoc_ tests, respectively.
-In the multiple testing literature it is quite rare to see a preliminary detection stage, becaues it is assumed that signal is there; it is merely a problem of how much, and where?
+In the multiple testing literature it is quite rare to see a preliminary detection stage, because it is assumed that signal is there; it is merely a problem of how much, and where?
 I.e., counting and selecting, respectively.
 
 The first question when approaching a multiple testing problem is "what is an error"?
