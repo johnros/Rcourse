@@ -453,7 +453,7 @@ Things to note:
 The `glmnet` package is an excellent package that provides ridge, LASSO, and elastic net regularization, for all GLMs, so for linear models in particular.
 
 ```{r Ridge-II, cache=TRUE, dependson='preprocessing'}
-suppressMessages(library(glmnet))
+library(glmnet)
 
 means <- apply(X.train, 2, mean)
 sds <- apply(X.train, 2, sd)

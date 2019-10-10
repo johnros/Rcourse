@@ -14,23 +14,24 @@ We start with an example.
 Consider the problem of a patient monitored in the intensive care unit. 
 At every minute the monitor takes $p$ physiological measurements: blood pressure, body temperature, etc.
 The total number of minutes in our data is $n$, so that in total, we have $n \times p$ measurements, arranged in a matrix. 
-We also know the typical measurements for this patient when healthy: $\mu_0$.
+We also know the typical $p$-vector of typical measurements for this patient when healthy, denoted $\mu_0$.
 ```
 
 Formally, let $y$ be single (random) measurement of a $p$-variate random vector.
 Denote $\mu:=E[y]$.
 Here is the set of problems we will discuss, in order of their statistical difficulty. 
 
-- __Signal detection__: 
-a.k.a. _multivariate hypothesis testing_, i.e., testing if $\mu$ equals $\mu_0$ and for $\mu_0=0$ in particular. 
+- __Signal Detection__: 
+a.k.a. _multivariate test_, or _global test_, or _omnibus test_.
+Where we test whether $\mu$ differs than some $\mu_0$. 
 In our example: "are the current measurement different than a typical one?"
 
-- __Signal counting__: 
+- __Signal Counting__: 
 Counting the number of elements in $\mu$ that differ from $\mu_0$, and for $\mu_0=0$ in particular.
 In our example: "how many measurements differ than their typical values?"
 
-- __Signal identification__:
-a.k.a. _multiple testing_, i.e., testing which of the elements in $\mu$ differ from $\mu_0$ and for $\mu_0=0$ in particular. 
+- __Signal Identification__:
+a.k.a. _selection_, or _multiple testing_, i.e., testing which of the elements in $\mu$ differ from $\mu_0$ and for $\mu_0=0$ in particular. 
 In the ANOVA literature, this is known as a __post-hoc__ analysis.
 In our example: "which measurements differ than their typical values?"
 
@@ -399,8 +400,8 @@ Everything you need on graphical models, Bayesian belief networks, and structure
 1. Generate multivariate data with:
     ```{r}
 set.seed(3)
-mean<-rexp(50,6)
-multi<-  rmvnorm(n = 100, mean = mean) 
+mu<-rexp(50,6)
+multi<-  rmvnorm(n = 100, mean = mu) 
 ```
     a. Use Hotelling's test to determine if $\mu$ equals $\mu_0=0$. Can you detect the signal? 
     a. Perform t.test on each variable and extract the p-value. Try to identify visually the variables which depart from $\mu_0$.

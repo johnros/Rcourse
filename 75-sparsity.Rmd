@@ -59,7 +59,7 @@ head(X.1)
 We call __MatrixModels__ for an implementation of `model.matrix` that supports sparse representations.
 
 ```{r make X2, cache=TRUE}
-suppressPackageStartupMessages(library(MatrixModels))
+library(MatrixModels)
 X.2<- as(x,"sparseMatrix") %>% t # Makes sparse dummy model.matrix
 head(X.2)
 ```
@@ -215,7 +215,7 @@ The __glmnet__ package allows all of this, using the sparse matrices of the __Ma
 
 The following example is taken from [John Myles White's blog](http://www.johnmyleswhite.com/notebook/2011/10/31/using-sparse-matrices-in-r/), and compares the runtime of fitting an OLS model, using `glmnet` with both sparse and dense matrix representations. 
 ```{r sparse glmnet simulation, cache=TRUE}
-suppressPackageStartupMessages(library('glmnet'))
+library('glmnet')
 
 set.seed(1)
 performance <- data.frame()
@@ -269,7 +269,7 @@ Things to note:
 We now inspect the computing time, and the memory footprint, only to discover that sparse representations make a BIG difference. 
 
 ```{r}
-suppressPackageStartupMessages(library('ggplot2'))
+library('ggplot2')
 ggplot(performance, aes(x = Format, y = ElapsedTime, fill = Format)) +
   stat_summary(fun.data = 'mean_cl_boot', geom = 'bar') +
   stat_summary(fun.data = 'mean_cl_boot', geom = 'errorbar') +

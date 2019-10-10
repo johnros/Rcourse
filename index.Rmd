@@ -12,11 +12,8 @@ always_allow_html: yes
 ---
 
 ```{r knitr defaults, echo=FALSE}
-knitr::opts_chunk$set(out.width='50%')
-knitr::opts_chunk$set(cache = TRUE)
+knitr::opts_chunk$set(out.width='50%', message=FALSE, warning=FALSE, cache = TRUE)
 set.seed(1)
-new.library <- function(x) suppressPackageStartupMessages(library(x))
-library <- new.library
 ```
 
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Jonathan D. Rosenblatt" />
 
 
-<meta name="date" content="2019-10-08" />
+<meta name="date" content="2019-10-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,10 +55,15 @@
 <link href="libs/ggiraphjs-0.1.0/styles.css" rel="stylesheet" />
 <script src="libs/ggiraphjs-0.1.0/ggiraphjs.min.js"></script>
 <script src="libs/girafe-binding-0.6.1/girafe.js"></script>
-<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.9/datatables.js"></script>
+<link href="libs/dt-core-1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.19/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.19/js/jquery.dataTables.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
 
@@ -669,7 +674,8 @@ r &lt;-<span class="st"> </span><span class="kw">foreach</span>(<span class="kw"
 <p>Things to note:</p>
 <ul>
 <li>As usual, we use the <code>foreach</code> function with the <code>%dopar%</code> operator to loop in parallel.</li>
-<li>The <code>icounts</code> function generates a counter.</li>
+<li>The <code>iterators::icount</code> function generates a counter that iterates over its argument.</li>
+<li>The object <code>x</code> is magically avaiable at all child processes, even though we did not <em>fork</em> R. This is thanks to <code>forach</code> which guesses what data to pass to children.</li>
 <li>The <code>.combine=cbind</code> argument tells the <code>foreach</code> function how to combine the output of different machines, so that the returned object is not the default list.</li>
 <li>To run a serial version, say for debugging, you only need to replace <code>%dopar%</code> with <code>%do%</code>.</li>
 </ul>
@@ -685,23 +691,23 @@ x &lt;-<span class="st"> </span><span class="kw">attach.big.matrix</span>(<span 
 
 <span class="kw">library</span>(foreach)
 <span class="kw">library</span>(doSNOW)
-cl &lt;-<span class="st"> </span><span class="kw">makeSOCKcluster</span>(<span class="kw">rep</span>(<span class="st">&quot;localhost&quot;</span>, <span class="dv">4</span>)) <span class="co"># make a cluster of 4 machines</span>
-<span class="kw">registerDoSNOW</span>(cl) <span class="co"># register machines for foreach()</span></code></pre>
-<p>Get a “description” of the <code>big.matrix</code> object that will be used to call it from each machine.</p>
-<pre class="sourceCode r"><code class="sourceCode r">xdesc &lt;-<span class="st"> </span><span class="kw">describe</span>(x) </code></pre>
-<p>Split the data along values of <code>BENE_AGE_CAT_CD</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">G &lt;-<span class="st"> </span><span class="kw">split</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(x), x[, <span class="st">&quot;BENE_AGE_CAT_CD&quot;</span>]) </code></pre>
-<p>Define a function that computes quantiles of <code>CAR_LINE_ICD9_DGNS_CD</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">GetDepQuantiles &lt;-<span class="st"> </span><span class="cf">function</span>(rows, data) {
- <span class="kw">quantile</span>(data[rows, <span class="st">&quot;CAR_LINE_ICD9_DGNS_CD&quot;</span>], <span class="dt">probs =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.9</span>, <span class="fl">0.99</span>),
- <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
-}</code></pre>
-<p>We are all set up to loop, in parallel, and compute quantiles of <code>CAR_LINE_ICD9_DGNS_CD</code> for each value of <code>BENE_AGE_CAT_CD</code>.</p>
-<pre class="sourceCode r"><code class="sourceCode r">qs &lt;-<span class="st"> </span><span class="kw">foreach</span>(<span class="dt">g =</span> G, <span class="dt">.combine =</span> rbind) <span class="op">%dopar%</span><span class="st"> </span>{
- <span class="kw">require</span>(<span class="st">&quot;bigmemory&quot;</span>)
+cl &lt;-<span class="st"> </span><span class="kw">makeSOCKcluster</span>(<span class="dt">names=</span><span class="kw">rep</span>(<span class="st">&quot;localhost&quot;</span>, <span class="dv">4</span>)) <span class="co"># make a cluster of 4 machines</span>
+<span class="kw">registerDoSNOW</span>(cl) <span class="co"># register machines for foreach()</span>
+xdesc &lt;-<span class="st"> </span><span class="kw">describe</span>(x) 
+
+G &lt;-<span class="st"> </span><span class="kw">split</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(x), x[, <span class="st">&quot;BENE_AGE_CAT_CD&quot;</span>]) <span class="co"># Split the data along `BENE_AGE_CAT_CD`.</span>
+
+GetDepQuantiles &lt;-<span class="st"> </span><span class="cf">function</span>(rows, data) {
+ <span class="kw">quantile</span>(data[rows, <span class="st">&quot;CAR_LINE_ICD9_DGNS_CD&quot;</span>], 
+          <span class="dt">probs =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.9</span>, <span class="fl">0.99</span>), 
+          <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+} <span class="co"># Function to extract quantiles</span>
+
+qs &lt;-<span class="st"> </span><span class="kw">foreach</span>(<span class="dt">g =</span> G, <span class="dt">.combine =</span> rbind) <span class="op">%dopar%</span><span class="st"> </span>{
+ <span class="kw">library</span>(<span class="st">&quot;bigmemory&quot;</span>) 
  x &lt;-<span class="st"> </span><span class="kw">attach.big.matrix</span>(xdesc)
  <span class="kw">GetDepQuantiles</span>(<span class="dt">rows =</span> g, <span class="dt">data =</span> x)
-}
+} <span class="co"># get quantiles, in parallel</span>
 qs</code></pre>
 <pre><code>##          50% 90% 99%
 ## result.1 558 793 996
@@ -710,40 +716,54 @@ qs</code></pre>
 ## result.4 511 789 996
 ## result.5 511 790 996
 ## result.6 518 796 995</code></pre>
-<div id="which-backend-to-use" class="section level4">
-<h4><span class="header-section-number">16.3.4.1</span> Which Backend to Use?</h4>
-<p>In the following example, we compare the <em>fork</em> mechanism, to the <em>socket</em> mechanism.
-The bottom line is- use <em>fork</em> whenever possible.</p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nycflights13)
-flights<span class="op">$</span>ind &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">size =</span> <span class="kw">nrow</span>(flights), <span class="dt">replace =</span> <span class="ot">TRUE</span>)
-
-timer &lt;-<span class="st"> </span><span class="cf">function</span>(i) <span class="kw">max</span>(flights[flights<span class="op">$</span>ind<span class="op">==</span>i,<span class="st">&quot;distance&quot;</span>])
-<span class="kw">timer</span>(<span class="dv">1</span>)</code></pre>
-<pre><code>## [1] 4983</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(doMC)
-<span class="kw">registerDoMC</span>(<span class="dt">cores =</span> <span class="dv">10</span>)
-<span class="kw">system.time</span>(<span class="kw">foreach</span> (<span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">.combine =</span> <span class="st">&#39;c&#39;</span>) <span class="op">%dopar%</span><span class="st"> </span><span class="kw">timer</span>(i))</code></pre>
-<pre><code>##    user  system elapsed 
-##   0.061   0.402   0.462</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(parallel)         
-<span class="kw">library</span>(doParallel)
-cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(<span class="dv">10</span>, <span class="dt">type=</span><span class="st">&quot;SOCK&quot;</span>)
-<span class="kw">registerDoParallel</span>(cl)
-<span class="kw">system.time</span>(<span class="kw">foreach</span> (<span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">.combine =</span> <span class="st">&#39;c&#39;</span>) <span class="op">%dopar%</span><span class="st"> </span><span class="kw">timer</span>(i))</code></pre>
-<pre><code>##    user  system elapsed 
-##   1.201   0.135   2.162</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stopCluster</span>(cl)</code></pre>
 <p>Things to note:</p>
 <ul>
-<li>The clear victor is <em>fork</em>: sessions start faster, and computations finish faster. Sadly, we recall that <em>forking</em> is impossible on Windows machines, or in clusters that consist of several machines.</li>
-<li>We did not need to pass <code>flights</code> to the different workers. <code>foreach</code> took care of that for us.</li>
+<li><code>bigmemory::attach.big.matrix</code> creates an R <em>big.matrix</em> object from a matrix already existing on disk. See Section <a href="memory.html#bigmemory">15.3.1</a> for details.</li>
+<li><code>snow::makeSOCKcluster</code> creates cluster of R processes communicating via sockets.</li>
+<li><code>bigmemory::describe</code> recovres a pointer to the <em>big.matrix</em> object, that will be used to call it from various child proceeses.</li>
+<li>Because R processes were not <em>forked</em>, each child need to load the <strong>bigmemory</strong> package separately.</li>
 </ul>
-<p>For fun, let’s try the same with <code>data.table</code>….</p>
+<p>Can only <strong>big.matrix</strong> objects be used to share data between child processes?
+No.
+There are many mechanism to share data.
+We use <strong>big.matrix</strong> merely for demonstration.</p>
+<div id="fork-or-socket" class="section level4">
+<h4><span class="header-section-number">16.3.4.1</span> Fork or Socket?</h4>
+<p>On Linux and Unix machines you can use both the <em>fork</em> mechanism of the <strong>multicore</strong> package, and the <em>socket</em> mechanism of the <strong>snow</strong> package.
+Which is preferable? <em>Fork</em>, if available.
+Here is a quick comparison.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nycflights13)
+flights<span class="op">$</span>ind &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">size =</span> <span class="kw">nrow</span>(flights), <span class="dt">replace =</span> <span class="ot">TRUE</span>) <span class="co">#split data to 10.</span>
+
+timer &lt;-<span class="st"> </span><span class="cf">function</span>(i) <span class="kw">max</span>(flights[flights<span class="op">$</span>ind<span class="op">==</span>i,<span class="st">&quot;distance&quot;</span>]) <span class="co"># an arbitrary function</span>
+
+<span class="kw">library</span>(doMC)
+<span class="kw">registerDoMC</span>(<span class="dt">cores =</span> <span class="dv">10</span>) <span class="co"># make a fork cluster</span>
+<span class="kw">system.time</span>(<span class="kw">foreach</span> (<span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">.combine =</span> <span class="st">&#39;c&#39;</span>) <span class="op">%dopar%</span><span class="st"> </span><span class="kw">timer</span>(i)) <span class="co"># time the fork cluster</span></code></pre>
+<pre><code>##    user  system elapsed 
+##   0.049   0.240   0.287</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(parallel)         
+<span class="kw">library</span>(doParallel)
+cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(<span class="dv">10</span>, <span class="dt">type=</span><span class="st">&quot;SOCK&quot;</span>) <span class="co"># make a socket cluster. </span>
+<span class="kw">registerDoParallel</span>(cl)
+<span class="kw">system.time</span>(<span class="kw">foreach</span> (<span class="dt">i=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">.combine =</span> <span class="st">&#39;c&#39;</span>) <span class="op">%dopar%</span><span class="st"> </span><span class="kw">timer</span>(i)) <span class="co"># time the socket cluster</span></code></pre>
+<pre><code>##    user  system elapsed 
+##   1.198   0.129   2.140</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stopCluster</span>(cl) <span class="co"># close the cluster</span></code></pre>
+<p>Things to note:</p>
+<ul>
+<li><code>doMC::registerDoMC</code> was used to stard and register the forked cluster.</li>
+<li><code>parallel::makeCluster</code> was used to stard the socket cluster. It was registered with <code>doParallel::registerDoParallel</code>.</li>
+<li>After registering the cluster, the <strong>foreach</strong> code is exactly the same.</li>
+<li>The clear victor is <em>fork</em>: sessions start faster, and computations finish faster. Sadly, we recall that <em>forking</em> is impossible on Windows machines, or in clusters that consist of several machines.</li>
+<li>We did not need to pass <code>flights</code> to the different workers. <code>foreach::foreach</code> took care of that for us.</li>
+</ul>
+<p>For fun, let’s try the same with <code>data.table</code>.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)
 flights.DT &lt;-<span class="st"> </span><span class="kw">as.data.table</span>(flights)
 <span class="kw">system.time</span>(flights.DT[,<span class="kw">max</span>(distance),ind])</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.028   0.073   0.101</code></pre>
+##   0.024   0.046   0.069</code></pre>
 <p>No surprises there.
 If you can store your data in RAM, <code>data.table</code> is still the fastest.</p>
 </div>
@@ -768,25 +788,26 @@ Linear algebra, and various machine learning algorithms are examples we now disc
 <p>R ships with its own linear algebra algorithms, known as Basic Linear Algebra Subprograms: <a href="http://www.netlib.org/blas/">BLAS</a>.
 To learn the history of linear algebra in R, read <span class="citation">Maechler and Bates (<a href="#ref-maechler20062nd">2006</a>)</span>.
 For more details, see our Bibliographic notes.
-As a user, you may actually replace the underlying linear algebra libraries in R.
-There are actually many linear algebra libraries <a href="https://en.wikipedia.org/wiki/Comparison_of_linear_algebra_libraries">out there</a>.
-Cutting edge linear algebra libraries such as <a href="https://github.com/xianyi/OpenBLAS">OpenBLAS</a>, <a href="https://bitbucket.org/icl/plasma/src/default/">Plasma</a>, and Intel’s <a href="https://software.intel.com/en-us/mkl">MKL</a> for Intel processors (which you are probably using), will parallelise basic linear algebra operations for you.
-This is very useful, since: (a) all machines today have multiple cores and (b) linear algebra is at the heart of all statistics and machine learning.</p>
+BLAS will use a single core, even if your machines has many more.
+There are many linear algebra libraries <a href="https://en.wikipedia.org/wiki/Comparison_of_linear_algebra_libraries">out there</a>, and you don’t need to be a programmer to replace R’s BLAS.
+Cutting edge linear algebra libraries such as <a href="https://github.com/xianyi/OpenBLAS">OpenBLAS</a>, <a href="https://bitbucket.org/icl/plasma/src/default/">Plasma</a>, and Intel’s <a href="https://software.intel.com/en-us/mkl">MKL</a>, will do your linear algebra while exploiting the many cores of your machine.
+This is very useful, since all machines today have multiple cores, and linear algebra is at the heart of all statistics and machine learning.</p>
 <p>Installing these libraries requires some knowldge in system administration.
-It is quite simple under Ubuntu and Debian linux, and may be more comlicated otherwise.
+It is fairly simple under Ubuntu and Debian linux, and may be more comlicated on other operating systems.
 Installing these is outside the scope of this text.
 We will thus content ourselves with the following pointers:</p>
 <ul>
-<li>Users can easily replace the BLAS libraries shipped with R, with other libraries. OpenBLAS, and MKL. These libraries will parallelise linear algebra for you.
--This is easier to do under Ubuntu and Debian Linux, but possible in all systems.</li>
+<li>Users can easily replace the BLAS libraries shipped with R, with other libraries such as OpenBLAS, and MKL. These will parallelise linear algebra for you.</li>
+<li>Installation is easier for Ubuntu and Debian Linux, but possible in all systems.</li>
 <li>For specific tasks, such as machine learning, you may not need an all-pupose paralle linear algebra library. If you want machine learning in parallel, there are more specialized libraries. In the followig, we demonstrate Spark (<a href="parallel.html#spark">16.4.3</a>), and H2O (<a href="parallel.html#h2o">16.4.4</a>).</li>
+<li>Read our word of caution on nested parallelism (<a href="parallel.html#nested-parallel">16.5</a>) if you use parallel linear algebra within child R processes.</li>
 </ul>
 </div>
 <div id="parallel-data-munging-with-data.table" class="section level3">
 <h3><span class="header-section-number">16.4.2</span> Parallel Data Munging with data.table</h3>
-<p>We have discussed <code>data.table</code> on various occasions.
-We now recall it to emphasize that various operations in <code>data.table</code> are done in parallel.
-For instance, imports.
+<p>We have discussed <code>data.table</code> in Chapter <a href="datatable.html#datatable">4</a>.
+We now recall it to emphasize that various operations in <code>data.table</code> are done in parallel, using <a href="https://en.wikipedia.org/wiki/OpenMP">OpenMP</a>.
+For instance, file imports can done in paralle: each thread is responsible to impot a subset of the file.
 First, we check how many threads <code>data.table</code> is setup to use?</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(data.table)
 <span class="kw">getDTthreads</span>(<span class="dt">verbose=</span><span class="ot">TRUE</span>) </code></pre>
@@ -800,11 +821,17 @@ First, we check how many threads <code>data.table</code> is setup to use?</p>
 ## data.table is using 1 threads. This is set on startup, and by setDTthreads(). See ?setDTthreads.
 ## RestoreAfterFork==true</code></pre>
 <pre><code>## [1] 1</code></pre>
-<p>We then do the import and inspect CPU usage with the <em>top</em> linux command.</p>
-<pre class="sourceCode r"><code class="sourceCode r">air &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st">&#39;data/2010_BSA_Carrier_PUF.csv&#39;</span>)</code></pre>
+<p>Things to note:</p>
+<ul>
+<li><code>data.table::getDTthreads</code> to get some info on my machine, and curent <code>data.table</code> setup. Use the <code>verbose=TRUE</code> flag for extra details.</li>
+<li><em>omp_get_max_threads</em> informs me how many threads are available in my machine.</li>
+<li>My current <code>data.table</code> configuraton is in the last line of the output.</li>
+</ul>
+<p>We then import with <code>data.table::fread</code> and inspect CPU usage with the <em>top</em> linux command.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">100</span>) air &lt;-<span class="st"> </span><span class="kw">fread</span>(<span class="st">&#39;data/2010_BSA_Carrier_PUF.csv&#39;</span>)</code></pre>
 <div class="figure">
-<img src="art/Screenshot%20from%202019-10-03%2010-48-06.png" alt="CPU usage of fread(). The CPU usage is 301.7%. This is because data.table is setup to use 4 threads simultanously." />
-<p class="caption">CPU usage of fread(). The CPU usage is 301.7%. This is because <code>data.table</code> is setup to use 4 threads simultanously.</p>
+<img src="art/Screenshot%20from%202019-10-08%2016-00-34.png" alt="The CPU usage of fread() is 384.4%. This is because data.table is setup to use 4 threads simultanously." />
+<p class="caption">The CPU usage of fread() is 384.4%. This is because <code>data.table</code> is setup to use 4 threads simultanously.</p>
 </div>
 
 <div class="remark">
@@ -812,7 +839,7 @@ First, we check how many threads <code>data.table</code> is setup to use?</p>
 This behaviour will avoid the nested parallelism we cautioned from in <a href="parallel.html#nested-parallel">16.5</a>.
 </div>
 
-<p>Now let’s compare parallelised aggregations:</p>
+<p>After doing parallel imports, let’s try parallel aggregation.</p>
 <pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st">  </span><span class="fl">5e6</span>
 N &lt;-<span class="st"> </span>n
 k &lt;-<span class="st">  </span><span class="fl">1e4</span>
@@ -826,39 +853,54 @@ k &lt;-<span class="st">  </span><span class="fl">1e4</span>
 
 <span class="kw">system.time</span>(DT[, .(<span class="dt">a =</span> 1L), <span class="dt">by =</span> <span class="st">&quot;grp&quot;</span>])</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.402   0.031   0.072</code></pre>
+##   0.422   0.012   0.073</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">setDTthreads</span>(<span class="dt">threads =</span> <span class="dv">1</span>) <span class="co"># use a single thread</span>
 
 <span class="kw">system.time</span>(DT[, .(<span class="dt">a =</span> 1L), <span class="dt">by =</span> <span class="st">&quot;grp&quot;</span>])</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.150   0.000   0.151</code></pre>
+##   0.143   0.004   0.147</code></pre>
 <p>Things to note:</p>
 <ul>
 <li>Parallel aggregation is indeed much faster.</li>
+<li>Cores scaled by 8 fold. Time scaled by less. The scaling is not perfect. Remember Amdahl’s law.</li>
 <li>This example was cooked to emphasize the difference. You may not enjoy such speedups in all problems.</li>
 </ul>
+<p>If the data does not fit in our RAM, we cannot enjoy <code>data.table</code>s.
+If the data is so large that it does not fit into RAM<a href="#fn29" class="footnote-ref" id="fnref29"><sup>29</sup></a>, nor into your local disk, you will need to store, and compute with it, in a distributed cluster.
+In the next section, we present a very popular system for storing, munging, and learning, with massive datasets.</p>
 </div>
 <div id="spark" class="section level3">
 <h3><span class="header-section-number">16.4.3</span> Spark</h3>
 <p>Spark is the brainchild of Matei Zaharia, in 2009, as part of his PhD studies at University of California, Berkeley ’s AMPLab.
-To understand <em>Spark</em> need some background.
-The software that manages files on your disk is the <a href="https://en.wikipedia.org/wiki/File_system">file system</a>.
-On personal computers, you may have seen names like FAT32, NTFS, ext3, or others.
-Those are disk file systems.
+To understand <em>Spark</em> we need some background.</p>
+<p>The software that manages files on your disk is the <a href="https://en.wikipedia.org/wiki/File_system">file system</a>.
+On personal computers, you may have seen names like FAT32, NTFS, EXT3, or others.
+Those are file systems for disks.
 If your data is too big to be stored on a single disk, you may distribute it on several machines.
 When doing so, you will need a file systems that is designed for distributed clusters.
 A good <a href="https://en.wikipedia.org/wiki/Clustered_file_system">cluster file system</a>, is crucial for the performance of your cluster.
-Google’s file system, the <a href="https://en.wikipedia.org/wiki/File_system">Google File</a>, is part of Google power.
+Part of Google strength is in its powerful file system, the <a href="https://en.wikipedia.org/wiki/Google_File_System">Google File System</a>.
 If you are not at Google, you will not have access to this file system.
 Luckily, there are many other alternatives.
-The Hadoop File System, <a href="https://en.wikipedia.org/wiki/Apache_Hadoop">HDFS</a>, that started at Yahoo, and was ported to the Apache Foundation, is such an alternative.
-With the HDFS you can store files in a cluster, but for doing statistics with the data in these files, you need software that is compatible with the file system.
-Hadoop is such a software, but it was not designed for machine learning.
-Hadoop operates from the disk.
-Learning, which consists of a lot iterative algorithms run, requires fast and repeated data reads.
-This is the purpose of Spark.
+The Hadoop File System, <a href="https://en.wikipedia.org/wiki/Apache_Hadoop">HDFS</a>, that started at Yahoo, later donated to the Apache Foundation, is a popular alternative.
+With the HDFS you can store files in a cluster.</p>
+<p>For doing statistics, you need software that is compatible with the file system.
+This is true for all file systems, and in particular, HDFS.
+A popular software suit that was designed to work with HDFS is <em>Hadoop</em>.
+Alas, Hadoop was not designed for machine learning.
+Hadoop for reasons of fault tolerance, Hadoop stores its data disk.
+Machine learning consists of a lot iterative algorithms that requires fast and repeated data reads.
+This is very slow if done from the disk.
+This is where <em>Spark</em> comes in.
 Spark is a data oriented computing environment over distributed file systems.
-While originality linked to HDFS, it may run over many other distributed file systems, but also locally, as we now demonstrate.</p>
+Let’s parse that:</p>
+<ul>
+<li>“data oriented”: designed for statistics and machine learning, which require a lot of data, that is mostly read and not written.</li>
+<li>“computing environment”: it less general than a full blown programming language, but it allows you to extend it.</li>
+<li>“over distributed file systems”: it ingests data that is stored in distributed clusters, managed by HDFS or other distributed file system.</li>
+</ul>
+<p>Let’s start a Spark server on our local machine to get a feeling of it.
+We will not run from a cluster, so that you may experiment with it yourself.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sparklyr)
 <span class="kw">spark_install</span>(<span class="dt">version =</span> <span class="st">&quot;2.4.0&quot;</span>) <span class="co"># will download Spark on first run. </span></code></pre>
 <pre><code>## Spark 2.4.0 for Hadoop 2.7 or later already installed.</code></pre>
@@ -866,9 +908,9 @@ While originality linked to HDFS, it may run over many other distributed file sy
 <pre><code>## * Using Spark: 2.4.0</code></pre>
 <p>Things to note:</p>
 <ul>
-<li><code>spark_install</code> will download and install <em>Spark</em> on your first run. Make sure to update the version number, as this text may be outdated by the time you read it.</li>
+<li><code>spark_install</code> will download and install <em>Spark</em> on your first run. Make sure to update the version number, since my text may be outdated by the time you read it.</li>
 <li>I used the <em>sparklyr</em> package from RStudio. There is an alternative package from Apache: <em>SparkR</em>.</li>
-<li><code>spark_connect</code> opens a connection to the Spark server. When working in a cluster, with many machines, the <code>master=</code> argumnt infrorms R which machine is the master, a.k.a. the “driver node”.</li>
+<li><code>spark_connect</code> opens a connection to the (local) Spark server. When working in a cluster, with many machines, the <code>master=</code> argumnt infrorms R which machine is the master, a.k.a. the “driver node”. Consult your cluster’s documentation for connection details.</li>
 <li>After running <code>spark_connect</code>, the connection to the Sprak server will appear in RStudio’s <a href="https://support.rstudio.com/hc/en-us/articles/115010915687-Using-RStudio-Connections">Connection pane</a>.</li>
 </ul>
 <p>Let’s load and aggregate some data:</p>
@@ -880,11 +922,13 @@ flights_tbl&lt;-<span class="st"> </span><span class="kw">copy_to</span>(<span c
 <span class="kw">system.time</span>(delay&lt;-flights_tbl <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">              </span><span class="kw">group_by</span>(tailnum) <span class="op">%&gt;%</span>
 <span class="st">              </span><span class="kw">summarise</span>(
-                <span class="dt">count=</span><span class="kw">n</span>(),<span class="dt">dist=</span><span class="kw">mean</span>(distance),<span class="dt">delay=</span><span class="kw">mean</span>(arr_delay)) <span class="op">%&gt;%</span>
+                <span class="dt">count=</span><span class="kw">n</span>(),
+                <span class="dt">dist=</span><span class="kw">mean</span>(distance, <span class="dt">na.rm=</span><span class="ot">TRUE</span>),
+                <span class="dt">delay=</span><span class="kw">mean</span>(arr_delay, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
 <span class="st">              </span><span class="kw">filter</span>(count<span class="op">&gt;</span><span class="dv">20</span>, dist<span class="op">&lt;</span><span class="dv">2000</span>, <span class="op">!</span><span class="kw">is.na</span>(delay)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">              </span><span class="kw">collect</span>())</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.235   0.420   1.714</code></pre>
+##   0.213   0.348   1.611</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">delay</code></pre>
 <pre><code>## # A tibble: 2,961 x 4
 ##    tailnum count  dist  delay
@@ -902,7 +946,7 @@ flights_tbl&lt;-<span class="st"> </span><span class="kw">copy_to</span>(<span c
 ## # … with 2,951 more rows</code></pre>
 <p>Things to note:</p>
 <ul>
-<li><code>copy_to</code> exports from R to Sprak. Typically, my data will already be waiting in Sprak, since the whole motivation is that it does not fit on y disk.</li>
+<li><code>copy_to</code> exports from R to Sprak. Typically, my data will already be waiting in Sprak, since the whole motivation is that it does not fit on my disk.</li>
 <li>Notice the <code>collect</code> command at the end. As the name suggests, this will collect results from the various worker/slave machines.</li>
 <li>I have used the <em>dplyr</em> syntax and not my favorite <em>data.table</em> syntax. This is because <em>sparklyr</em> currently supports the <em>splyr</em> syntax, or plain SQL with the <em>DBI</em> package.</li>
 </ul>
@@ -914,7 +958,7 @@ We can thus compare performance to <code>data.table</code>, only to re-discover,
 flight.DT &lt;-<span class="st"> </span><span class="kw">data.table</span>(flights)
 <span class="kw">system.time</span>(flight.DT[,.(<span class="dt">distance=</span><span class="kw">mean</span>(distance),<span class="dt">delay=</span><span class="kw">mean</span>(arr_delay),<span class="dt">count=</span>.N),<span class="dt">by=</span>tailnum][count<span class="op">&gt;</span><span class="dv">20</span> <span class="op">&amp;</span><span class="st"> </span>distance<span class="op">&lt;</span><span class="dv">2000</span> <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(delay)])</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.040   0.074   0.111</code></pre>
+##   0.031   0.000   0.031</code></pre>
 <p>Let’s disconnect from the Spark server.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">spark_disconnect</span>(sc)</code></pre>
 <pre><code>## NULL</code></pre>
@@ -924,30 +968,32 @@ If your data is happily stored in a distributed Spark cluster, and the algorithm
 (1) use extensions or (2) write your own.</p>
 <p>Writing your own algorithm and dispatching it to Spark can be done a-la <code>apply</code> style with <code>sparklyr::spark_apply</code>. This, however, would typically be extremely inneficient. You are better off finding a Spark extension that does what you need.
 See the <em>sparklyr</em> <a href="https://CRAN.R-project.org/package=sparklyr">CRAN page</a>, and in particular the Reverse Depends section, to see which extensions are available.
-One particular extension is <a href="https://cran.r-project.org/web/packages/rsparkling/index.html">rsparkling</a>, which allows you to apply H2O’s massive library of learning algorithms, on data stored in Spark.
-We will not cover <em>sparklyr</em> herein, but we will present (standalone) H2O.</p>
+One particular extension is <strong>rsparkling</strong>, which allows you to apply H2O’s massive library of learning algorithms, on data stored in Spark.
+We start by presenting H2O.</p>
 </div>
 <div id="h2o" class="section level3">
 <h3><span class="header-section-number">16.4.4</span> H2O</h3>
 <p>H2O can be thought of as a library of efficient distributed learning algorithm, that run in-memory, where memory considerations and parallelisation have been taken care of for you.
+Another way to think of it is as a “machine learning service”.
 For a (massive) list of learning algorithms implemented in H2O, see <a href="http://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science.html#">their documentaion</a>.
-H2O can run as a standalone server, or on top of Spark, so that it may use the <em>Spark data frames</em>. This is the purpose of <em>Sparkling Water</em> discussed in <a href="parallel.html#sparkling">16.4.4.1</a>.
-We start with working on H2O directly with the <code>h2o</code> package.</p>
+H2O can run as a standalone server, or on top of Spark, so that it may use the <em>Spark data frames</em>.
+We start by working with H2O using H2O’s own data structures, using <code>h2o</code> package.
+We later discuss how to use H2O using Spark’s data structures (<a href="parallel.html#sparkling">16.4.4.1</a>).</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">#install.packages(&quot;h2o&quot;) </span>
-<span class="kw">suppressPackageStartupMessages</span>(<span class="kw">library</span>(h2o))
+<span class="kw">library</span>(h2o)
 
 <span class="kw">h2o.init</span>(<span class="dt">nthreads=</span><span class="dv">2</span>) </code></pre>
 <pre><code>##  Connection successful!
 ## 
 ## R is connected to the H2O cluster: 
-##     H2O cluster uptime:         16 hours 37 minutes 
+##     H2O cluster uptime:         3 minutes 57 seconds 
 ##     H2O cluster timezone:       Etc/UTC 
 ##     H2O data parsing timezone:  UTC 
 ##     H2O cluster version:        3.26.0.2 
-##     H2O cluster version age:    2 months and 10 days  
-##     H2O cluster name:           H2O_started_from_R_rstudio_gap243 
+##     H2O cluster version age:    2 months and 13 days  
+##     H2O cluster name:           H2O_started_from_R_rstudio_tfg739 
 ##     H2O cluster total nodes:    1 
-##     H2O cluster total memory:   3.34 GB 
+##     H2O cluster total memory:   3.42 GB 
 ##     H2O cluster total cores:    8 
 ##     H2O cluster allowed cores:  2 
 ##     H2O cluster healthy:        TRUE 
@@ -957,19 +1003,23 @@ We start with working on H2O directly with the <code>h2o</code> package.</p>
 ##     H2O Internal Security:      FALSE 
 ##     H2O API Extensions:         Amazon S3, XGBoost, Algos, AutoML, Core V3, Core V4 
 ##     R Version:                  R version 3.6.1 (2019-07-05)</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">h2o.no_progress</span>()
+<p>Things to note:</p>
+<ul>
+<li>We did not install the H2O server; <code>install.packages(&quot;h2o&quot;)</code> did it for us.</li>
+<li><code>h2o.init</code> fires the H2O server. Use <code>nthreads</code> to manually control the number of threads, or use the defaults. “H2O cluster total cores” informs you of the number of potential cores. “H2O cluster allowed cores” was set by <code>nthreads</code>, and informs of the number of actual cores that will be used.</li>
+<li>Read <code>?h2o.init</code> for the (massive) list of configuration parameters available.</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">h2o.no_progress</span>() <span class="co"># to supress progress bars. </span>
 <span class="kw">data</span>(<span class="st">&quot;spam&quot;</span>, <span class="dt">package =</span> <span class="st">&#39;ElemStatLearn&#39;</span>)
 spam.h2o &lt;-<span class="st"> </span><span class="kw">as.h2o</span>(spam, <span class="dt">destination_frame =</span> <span class="st">&quot;spam.hex&quot;</span>) <span class="co"># load to the H2O server</span>
 <span class="kw">h2o.ls</span>() <span class="co"># check avaialbe data in the server</span></code></pre>
-<pre><code>##                                                                               key
-## 1                                                                RTMP_sid_834c_16
-## 2                                                                RTMP_sid_834c_18
-## 3 modelmetrics_our.rf@-458156088885637450_on_RTMP_sid_834c_16@1783194943144526592
-## 4                                                                          our.rf
-## 5                                      predictions_8635_our.rf_on_RTMP_sid_b4f9_6
-## 6                                     predictions_8693_our.rf_on_RTMP_sid_938d_12
-## 7                                     predictions_910c_our.rf_on_RTMP_sid_834c_18
-## 8                                                                        spam.hex</code></pre>
+<pre><code>##                                                                                key
+## 1                                                                  RTMP_sid_881d_4
+## 2                                                                  RTMP_sid_881d_6
+## 3 modelmetrics_our.rf@-1751033742274081190_on_RTMP_sid_881d_4@-6379617208209976032
+## 4                                                                           our.rf
+## 5                                       predictions_8a37_our.rf_on_RTMP_sid_881d_6
+## 6                                                                         spam.hex</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">h2o.describe</span>(spam.h2o) <span class="op">%&gt;%</span><span class="st"> </span>head <span class="co"># the H2O version of summary()</span></code></pre>
 <pre><code>##   Label Type Missing Zeros PosInf NegInf Min   Max       Mean     Sigma
 ## 1   A.1 real       0  3548      0      0   0  4.54 0.10455336 0.3053576
@@ -1007,16 +1057,14 @@ rf &lt;-<span class="st"> </span><span class="kw">h2o.randomForest</span>(
 predictions &lt;-<span class="st"> </span><span class="kw">h2o.predict</span>(rf, test)
 <span class="kw">head</span>(predictions)</code></pre>
 <pre><code>##   predict      email      spam
-## 1    spam 0.02140711 0.9785929
-## 2    spam 0.02140711 0.9785929
-## 3   email 0.65295412 0.3470459
-## 4    spam 0.17855392 0.8214461
-## 5    spam 0.06021053 0.9397895
-## 6    spam 0.12973138 0.8702686</code></pre>
+## 1    spam 0.04048016 0.9595198
+## 2    spam 0.01989192 0.9801081
+## 3   email 0.67141430 0.3285857
+## 4    spam 0.18010417 0.8198958
+## 5    spam 0.00000000 1.0000000
+## 6    spam 0.12818301 0.8718170</code></pre>
 <p>Things to note:</p>
 <ul>
-<li>We did not install the H2O server; <code>install.packages(&quot;h2o&quot;)</code> did it for us.</li>
-<li><code>h2o.init</code> fires the H2O server. Use <code>nthreads</code> to manually control the number of threads, or use the defaults.</li>
 <li>H2O objects behave a lot like data.frame/tables.</li>
 <li>To compute on H2O objects, you need dedicated function. They typically start with “h2o” such as <code>h2o.table</code>, and <code>h2o.randomForest</code>.</li>
 <li><code>h2o.randomForest</code>, and other H2O functions, have their own syntax with many many options. Make sure to read <code>?h2o.randomForest</code>.</li>
@@ -1032,12 +1080,12 @@ R users can connect to it using the <a href="http://docs.h2o.ai/sparkling-water/
 </div>
 <div id="nested-parallel" class="section level2">
 <h2><span class="header-section-number">16.5</span> Caution: Nested Parallelism</h2>
-<p>A common problem when parallelising is that the cores/machines you invoked explicitely, invoke themselves other cores/machines.
-Consider a user <em>forking</em> multiple processes, which call each <code>data.table</code> itself invoking parallel processing.
-This is called <em>nested parallelism</em>, which may cause you to lose control of the number of machine being invoked.
-The operating system will spend most of its time with house keeping, instead of doing your computations.</p>
-<p>Luckily, <code>data.table</code> was designed to avoid this, but it may happen in general.
-If you are parallelising your linear algebra with OpenBLAS, you may control nested parallelism with the package <a href="https://cran.r-project.org/package=RhpcBLASctl">RhpcBLASctl package</a>.
+<p>A common problem when parallelising is that the processes you invoke explicitely, may themselves invoke other processes.
+Consider a user <em>forking</em> multiple processes, each process calling <code>data.table</code>, which itself will invoke multiple threads.
+This is called <em>nested parallelism</em>, and may cause you to lose control of the number of machine being invoked.
+The operating system will spend most of its time with housekeeping, instead of doing your computations.
+Luckily, <code>data.table</code> was designed to avoid this.</p>
+<p>If you are parallelising your linear algebra with OpenBLAS, you may control nested parallelism with the package <a href="https://cran.r-project.org/package=RhpcBLASctl">RhpcBLASctl</a>.
 In other cases, you should be aware of this, and may need to consult an expert.</p>
 </div>
 <div id="bibliographic-notes-14" class="section level2">
@@ -1050,12 +1098,13 @@ For an up-to-date list of packages supporting parallel programming see the High 
 For some theory of distributed machine learning, see <span class="citation">J. D. Rosenblatt and Nadler (<a href="#ref-rosenblatt2016optimality">2016</a>)</span>.</p>
 <p>An excellent video explaining <code>data.table</code> and H2O, by the author of `data.table, is <a href="https://www.youtube.com/watch?v=5X7h1rZGVs0">this</a>.
 More benchmarks in <a href="https://h2oai.github.io/db-benchmark/">here</a>.
-More on Spark with R inthe book <a href="https://therinspark.com">Mastering Apache Spark with R</a>.</p>
+More on Spark with R in <a href="https://therinspark.com">Mastering Apache Spark with R</a>.</p>
 <p>For a blog level introduction to linear algebra in R see <a href="https://blog.revolutionanalytics.com/2013/08/r-and-linear-algebra.html">Joseph Rickert’s entry</a>.
 For a detailed discussion see <span class="citation">Oancea, Andrei, and Dragoescu (<a href="#ref-oancea2015accelerating">2015</a>)</span>.</p>
 </div>
 <div id="practice-yourself-12" class="section level2">
 <h2><span class="header-section-number">16.7</span> Practice Yourself</h2>
+<p>TODO</p>
 <p>Try DataCamp’s <a href="https://www.datacamp.com/courses/parallel-programming-in-r">Parallel Programming in R</a>.</p>
 
 </div>
@@ -1086,6 +1135,12 @@ For a detailed discussion see <span class="citation">Oancea, Andrei, and Dragoes
 <div id="ref-schmidberger2009state">
 <p>Schmidberger, Markus, Martin Morgan, Dirk Eddelbuettel, Hao Yu, Luke Tierney, and Ulrich Mansmann. 2009. “State of the Art in Parallel Computing with R.” <em>Journal of Statistical Software</em> 47 (1).</p>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="29">
+<li id="fn29"><p>Recall that you can buy servers wth 1TB of RAM and more. So we are talking about A LOT of data!<a href="parallel.html#fnref29" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
             </section>
 

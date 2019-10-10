@@ -128,7 +128,7 @@
 
 \title{R (BGU course)}
 \author{Jonathan D. Rosenblatt}
-\date{2019-10-08}
+\date{2019-10-10}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -897,7 +897,7 @@ We can see its contents by calling it without arguments:
 ##     fill = TRUE, comment.char = "", ...) 
 ## read.table(file = file, header = header, sep = sep, quote = quote, 
 ##     dec = dec, fill = fill, comment.char = comment.char, ...)
-## <bytecode: 0x55abe58f27c0>
+## <bytecode: 0x5632d75a08a8>
 ## <environment: namespace:utils>
 \end{verbatim}
 
@@ -914,10 +914,27 @@ Here are some packages that I have currently loaded:
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] ".GlobalEnv"        "package:magrittr"  "tools:rstudio"    
-##  [4] "package:stats"     "package:graphics"  "package:grDevices"
-##  [7] "package:utils"     "package:datasets"  "package:methods"  
-## [10] "Autoloads"         "package:base"
+##  [1] ".GlobalEnv"           "package:DT"           "package:usethis"     
+##  [4] "package:devtools"     "package:h2o"          "package:sparklyr"    
+##  [7] "package:doMC"         "package:nycflights13" "package:doSNOW"      
+## [10] "package:snow"         "package:doParallel"   "package:parallel"    
+## [13] "package:iterators"    "package:biganalytics" "package:bigmemory"   
+## [16] "package:dplyr"        "package:biglm"        "package:DBI"         
+## [19] "package:MatrixModels" "package:plotly"       "package:kernlab"     
+## [22] "package:scales"       "package:plyr"         "package:class"       
+## [25] "package:caret"        "package:rpart"        "package:nnet"        
+## [28] "package:e1071"        "package:glmnet"       "package:foreach"     
+## [31] "package:ellipse"      "package:nlme"         "package:lattice"     
+## [34] "package:lme4"         "package:Matrix"       "package:multcomp"    
+## [37] "package:TH.data"      "package:survival"     "package:mvtnorm"     
+## [40] "package:MASS"         "package:ggalluvial"   "package:hexbin"      
+## [43] "package:ggExtra"      "package:gdtools"      "package:ggiraph"     
+## [46] "package:viridis"      "package:viridisLite"  "package:ggplot2"     
+## [49] "package:packcircles"  "package:sunburstR"    "package:data.table"  
+## [52] "package:lubridate"    "package:magrittr"     "tools:rstudio"       
+## [55] "package:stats"        "package:graphics"     "package:grDevices"   
+## [58] "package:utils"        "package:datasets"     "package:methods"     
+## [61] "Autoloads"            "package:base"
 \end{verbatim}
 
 Other packages can be loaded via the \texttt{library} function, or downloaded from the internet using the \texttt{install.packages} function before loading with \texttt{library}.
@@ -1660,7 +1677,9 @@ The most basic of which is \texttt{lapply} which applies a function over all ele
 ## [1] "character"
 ## 
 ## [[3]]
-## [1] "function"
+## [1] "standardGeneric"
+## attr(,"package")
+## [1] "methods"
 \end{verbatim}
 
 \begin{Shaded}
@@ -1670,7 +1689,7 @@ The most basic of which is \texttt{lapply} which applies a function over all ele
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "numeric"   "character" "function"
+## [1] "numeric"         "character"       "standardGeneric"
 \end{verbatim}
 
 What is the function you are using requires some arguments?
@@ -2084,7 +2103,7 @@ Many functions are content aware, and adapt their behavior when dealing with dat
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "2019-10-03"
+## [1] "2019-10-10"
 \end{verbatim}
 
 \begin{Shaded}
@@ -2094,7 +2113,7 @@ Many functions are content aware, and adapt their behavior when dealing with dat
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "2019-10-04"
+## [1] "2019-10-11"
 \end{verbatim}
 
 \begin{Shaded}
@@ -2104,7 +2123,7 @@ Many functions are content aware, and adapt their behavior when dealing with dat
 \end{Shaded}
 
 \begin{verbatim}
-## Time difference of 26074 days
+## Time difference of 26081 days
 \end{verbatim}
 
 \begin{Shaded}
@@ -2196,8 +2215,8 @@ Generate sequences:
 \end{Shaded}
 
 \begin{verbatim}
-## [1] "2019-10-03 10:04:50 UTC" "2019-10-04 10:04:50 UTC"
-## [3] "2019-10-05 10:04:50 UTC" "2019-10-06 10:04:50 UTC"
+## [1] "2019-10-10 14:52:47 UTC" "2019-10-11 14:52:47 UTC"
+## [3] "2019-10-12 14:52:47 UTC" "2019-10-13 14:52:47 UTC"
 \end{verbatim}
 
 \begin{Shaded}
@@ -2207,12 +2226,12 @@ Generate sequences:
 \end{Shaded}
 
 \begin{verbatim}
-##  [1] "2019-10-03 10:04:50 UTC" "2019-11-03 10:04:50 UTC"
-##  [3] "2019-12-03 10:04:50 UTC" "2020-01-03 10:04:50 UTC"
-##  [5] "2020-02-03 10:04:50 UTC" "2020-03-03 10:04:50 UTC"
-##  [7] "2020-04-03 10:04:50 UTC" "2020-05-03 10:04:50 UTC"
-##  [9] "2020-06-03 10:04:50 UTC" "2020-07-03 10:04:50 UTC"
-## [11] "2020-08-03 10:04:50 UTC" "2020-09-03 10:04:50 UTC"
+##  [1] "2019-10-10 14:52:47 UTC" "2019-11-10 14:52:47 UTC"
+##  [3] "2019-12-10 14:52:47 UTC" "2020-01-10 14:52:47 UTC"
+##  [5] "2020-02-10 14:52:47 UTC" "2020-03-10 14:52:47 UTC"
+##  [7] "2020-04-10 14:52:47 UTC" "2020-05-10 14:52:47 UTC"
+##  [9] "2020-06-10 14:52:47 UTC" "2020-07-10 14:52:47 UTC"
+## [11] "2020-08-10 14:52:47 UTC" "2020-09-10 14:52:47 UTC"
 \end{verbatim}
 
 \hypertarget{lubridate-package}{%
@@ -2224,22 +2243,6 @@ You only need to specify the order of arguments, not their format:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(lubridate)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Attaching package: 'lubridate'
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:base':
-## 
-##     date
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{ymd}\NormalTok{(}\StringTok{"2017/01/31"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -2462,7 +2465,7 @@ Try the \href{https://github.com/r-lib/lobstr/blob/master/README.md}{lobstr} pac
 \end{Shaded}
 
 \begin{verbatim}
-## @55abe9119d78 14 REALSXP g0c2 [NAM(7)] (len=2, tl=0) 7,10
+## @5632defe0188 14 REALSXP g0c2 [NAM(7)] (len=2, tl=0) 7,10
 \end{verbatim}
 
 \hypertarget{vectors-and-matrix-products}{%
@@ -2727,7 +2730,7 @@ But a pure-R implementation will be much slower than \texttt{\%*\%}:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##  27.153   0.587  27.751
+##  20.826   0.049  20.874
 \end{verbatim}
 
 \begin{Shaded}
@@ -2738,7 +2741,7 @@ But a pure-R implementation will be much slower than \texttt{\%*\%}:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.357   0.152   0.508
+##   0.241   0.156   0.397
 \end{verbatim}
 
 \begin{Shaded}
@@ -2749,7 +2752,7 @@ But a pure-R implementation will be much slower than \texttt{\%*\%}:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.538   0.018   0.168
+##   0.518   0.014   0.159
 \end{verbatim}
 
 \begin{Shaded}
@@ -2868,41 +2871,10 @@ Let's start with importing some freely available car sales data from \href{https
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(data.table)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## data.table 1.12.2 using 4 threads (see ?getDTthreads).  Latest news: r-datatable.com
-\end{verbatim}
-
-\begin{verbatim}
-## 
-## Attaching package: 'data.table'
-\end{verbatim}
-
-\begin{verbatim}
-## The following objects are masked from 'package:lubridate':
-## 
-##     hour, isoweek, mday, minute, month, quarter, second, wday,
-##     week, yday, year
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(magrittr)}
 \NormalTok{auto <-}\StringTok{ }\KeywordTok{fread}\NormalTok{(}\StringTok{'data/autos.csv'}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## Warning in fread("data/autos.csv"): Found and resolved improper
-## quoting out-of-sample. First healed line 5263: <<2016-03-29
-## 16:46:46,"_SPARDOSE"______Polo_1_4___6N1___60PS___5Tuerer____FESTPREIS,privat,Angebot,
-## 500,control,limousine,1999,manuell,60,polo,150000,12,benzin,volkswagen,ja,
-## 2016-03-25 00:00:00,0,59581,2016-03-30 11:46:58>>. If the fields are
-## not quoted (e.g. field separator does not appear within any field), try
-## quote="" to avoid this warning.
-\end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2956,7 +2928,7 @@ Let's start with importing some freely available car sales data from \href{https
 ##                    size isdir mode               mtime               ctime
 ## data/autos.csv 68439217 FALSE  644 2019-02-24 21:52:04 2019-02-24 21:52:04
 ##                              atime  uid  gid   uname  grname
-## data/autos.csv 2019-10-03 08:05:12 1000 1000 rstudio rstudio
+## data/autos.csv 2019-10-10 14:54:41 1000 1000 rstudio rstudio
 \end{verbatim}
 
 \begin{Shaded}
@@ -3150,12 +3122,6 @@ Also, the \texttt{Tab} key will typically help you to fill in column names.
 \end{Shaded}
 
 \begin{verbatim}
-## Warning in gmean(price): The sum of an integer column for a group was more
-## than type 'integer' can hold so the result has been coerced to 'numeric'
-## automatically for convenience.
-\end{verbatim}
-
-\begin{verbatim}
 ##    vehicleType         V1
 ## 1:              20124.688
 ## 2:       coupe  25951.506
@@ -3268,12 +3234,6 @@ Use a \texttt{list()} instead of \texttt{c()}, within \texttt{data.table} comman
 \end{Shaded}
 
 \begin{verbatim}
-## Warning in gmean(price): The sum of an integer column for a group was more
-## than type 'integer' can hold so the result has been coerced to 'numeric'
-## automatically for convenience.
-\end{verbatim}
-
-\begin{verbatim}
 ##    vehicleType         V1        V2
 ## 1:              20124.688  71.23249
 ## 2:       coupe  25951.506 172.97614
@@ -3293,12 +3253,6 @@ You can add names to your new variables:
 \NormalTok{auto[,}\KeywordTok{list}\NormalTok{(}\DataTypeTok{Price=}\KeywordTok{mean}\NormalTok{(price), }\DataTypeTok{Power=}\KeywordTok{mean}\NormalTok{(powerPS)), by=vehicleType]}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## Warning in gmean(price): The sum of an integer column for a group was more
-## than type 'integer' can hold so the result has been coerced to 'numeric'
-## automatically for convenience.
-\end{verbatim}
 
 \begin{verbatim}
 ##    vehicleType      Price     Power
@@ -3322,12 +3276,6 @@ You can use \texttt{.()} to replace the longer \texttt{list()} command:
 \end{Shaded}
 
 \begin{verbatim}
-## Warning in gmean(price): The sum of an integer column for a group was more
-## than type 'integer' can hold so the result has been coerced to 'numeric'
-## automatically for convenience.
-\end{verbatim}
-
-\begin{verbatim}
 ##    vehicleType      Price     Power
 ## 1:              20124.688  71.23249
 ## 2:       coupe  25951.506 172.97614
@@ -3347,12 +3295,6 @@ And split by multiple variables:
 \NormalTok{auto[,.(}\DataTypeTok{Price=}\KeywordTok{mean}\NormalTok{(price), }\DataTypeTok{Power=}\KeywordTok{mean}\NormalTok{(powerPS)), by=.(vehicleType,fuelType)] }\OperatorTok{%>%}\StringTok{ }\NormalTok{head}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## Warning in gmean(price): The sum of an integer column for a group was more
-## than type 'integer' can hold so the result has been coerced to 'numeric'
-## automatically for convenience.
-\end{verbatim}
 
 \begin{verbatim}
 ##    vehicleType fuelType     Price     Power
@@ -3648,6 +3590,7 @@ The \texttt{ChickWeight} data encodes the weight of various chicks. It is ``long
 \end{Shaded}
 
 \begin{verbatim}
+## Grouped Data: weight ~ Time | Chick
 ##   weight Time Chick Diet
 ## 1     42    0     1    1
 ## 2     51    2     1    1
@@ -4418,7 +4361,7 @@ If the variables represent a hierarchy, consider a \textbf{Sunburst Plot}:
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{htmlwidget-b694ade7e88e2471bfb0}{}
+\hypertarget{htmlwidget-6d265d5f7c1d4c75e34c}{}
 Legend
 
 \hypertarget{continuous-data}{%
@@ -4504,19 +4447,7 @@ The boxplot is designed to capture the main phenomena in the data, and simultane
 Another way to deal with a massive amount of data points, is to emphasize important points, and conceal non-important.
 This is the purpose of \textbf{circle-packing} (example from \href{https://www.r-graph-gallery.com/308-interactive-circle-packing/}{r-graph gallery}):
 
-\begin{verbatim}
-## Registered S3 methods overwritten by 'ggplot2':
-##   method         from 
-##   [.quosures     rlang
-##   c.quosures     rlang
-##   print.quosures rlang
-\end{verbatim}
-
-\begin{verbatim}
-## Loading required package: viridisLite
-\end{verbatim}
-
-\hypertarget{htmlwidget-050ab8343a08c822acaf}{}
+\hypertarget{htmlwidget-68ba4bc22c69614c49b4}{}
 
 \hypertarget{visualizing-bivariate-continuous-data}{%
 \subsubsection{Visualizing Bivariate Continuous Data}\label{visualizing-bivariate-continuous-data}}
@@ -4861,22 +4792,6 @@ We will use the \texttt{whiteside} data from the \textbf{MASS} package, recordin
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(MASS) }\CommentTok{# load the package}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Attaching package: 'MASS'
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:packcircles':
-## 
-##     bacteria
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(data.table) }\CommentTok{# for some data manipulations}
 \KeywordTok{data}\NormalTok{(whiteside) }\CommentTok{# load the data}
 \KeywordTok{head}\NormalTok{(whiteside) }\CommentTok{# inspect the data}
@@ -5677,34 +5592,6 @@ Let's test if the medical treatment, has in fact, the same effect as the physica
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(multcomp)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Loading required package: mvtnorm
-\end{verbatim}
-
-\begin{verbatim}
-## Loading required package: survival
-\end{verbatim}
-
-\begin{verbatim}
-## Loading required package: TH.data
-\end{verbatim}
-
-\begin{verbatim}
-## 
-## Attaching package: 'TH.data'
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:MASS':
-## 
-##     geyser
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{my.contrast <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{), }\DataTypeTok{nrow =}  \DecValTok{1}\NormalTok{)}
 \NormalTok{lm}\FloatTok{.4}\NormalTok{ <-}\StringTok{ }\KeywordTok{glht}\NormalTok{(lm}\FloatTok{.2}\NormalTok{, }\DataTypeTok{linfct=}\NormalTok{my.contrast)}
 \KeywordTok{summary}\NormalTok{(lm}\FloatTok{.4}\NormalTok{)}
@@ -6434,43 +6321,43 @@ See DataCamp's \href{https://www.datacamp.com/courses/generalized-linear-models-
 
 \BeginKnitrBlock{example}[Dependent Samples on the Mean]
 \protect\hypertarget{exm:dependence}{}{\label{exm:dependence} \iffalse (Dependent Samples on the Mean) \fi{} }Consider inference on a population's mean.
-Supposdly, more observations imply more infotmation on the mean. This, however, is not the case if samples are completely dependant. More observations do not add any new information.
-From this example one may think that dependence is a bad thing. This is a false intuitiont: negative correlations imply oscilations about the mean, so they are actually more informative on the mean than independent observations.
+Supposdly, more observations imply more infotmation. This, however, is not the case if samples are completely dependant. More observations do not add any new information.
+From this example one may think that dependence reduces information. This is a false intuitiont: negative correlations imply oscilations about the mean, so they are actually more informative on the mean than independent observations.
 \EndKnitrBlock{example}
 
 \BeginKnitrBlock{example}[Repeated Measures]
 \protect\hypertarget{exm:repeated-measures}{}{\label{exm:repeated-measures} \iffalse (Repeated Measures) \fi{} }Consider a prospective study, i.e., data that originates from selecting a set of subjects and making measurements on them over time.
 Also assume that some subjects received some treatment, and other did not.
 When we want to infer on the population from which these subjects have been sampled, we need to recall that some series of observations came from the same subject.
-If we were to ignore the subject of origin, and treat each observation as an independent sample point, we will think we have more information in our data than we actually do.
-For a rough intuition, think of a case where observatiosn within subject are perfectly dependent.
+If we were to ignore the subject of origin, and treat each observation as an independent sample point, we will think we have more information on treatment effects than we actually do, i.e., we will have a false sense of security in our inference.
 \EndKnitrBlock{example}
 
-The sources of variability, i.e.~noise, are known in the statistical literature as ``random effects''.
+Sources of variability, i.e.~noise, are known in the statistical literature as ``random effects''.
 Specifying these sources determines the correlation structure in our measurements.
-In the simplest linear models of Chapter \ref{lm}, we thought of the variability as a measurement error, independent of anything else. This, however, is rarely the case when time or space are involved.
+In the simplest linear models of Chapter \ref{lm}, we thought of the variability as originating from measurement error, thus independent of anything else.
+No-correlation, and fixed variability is known as \emph{sphericity}.
+Sphericity is of great mathematical convenience, but quite often, unrealistic.
 
-The variability in our data is rarely the object of interest.
-It is merely the source of uncertainty in our measurements.
-The effects we want to infer on are assumingly non-random, thus known as ``fixed-effects''.
-A model which has several sources of variability, i.e.~random-effects, and several deterministic effects to study, i.e.~fixed-effects, is known as a ``mixed effects'' model.
+The effects we want to infer on are assumingly non-random, and known ``fixed-effects''.
+Sources of variability in our measurements, known as ``random-effects'' are usually not the object of interest.
+A model which has both random-effects, and fixed-effects, is known as a ``mixed effects'' model.
 If the model is also linear, it is known as a \emph{linear mixed model} (LMM).
-Here are some examples of such models.
+Here are some examples where LMMs arise.
 
 \BeginKnitrBlock{example}[Fixed and Random Machine Effect]
-\protect\hypertarget{exm:fixed-effects}{}{\label{exm:fixed-effects} \iffalse (Fixed and Random Machine Effect) \fi{} }Consider the problem of testing for a change in the distribution of diamteters of manufactured bottle caps.
-We want to study the (fixed) effect of time: before versus after.
+\protect\hypertarget{exm:fixed-effects}{}{\label{exm:fixed-effects} \iffalse (Fixed and Random Machine Effect) \fi{} }Consider a problem from industrial process control: testing for a change in diamteters of manufactured bottle caps.
+We want to study the fixed effect of time: before versus after.
 Bottle caps are produced by several machines.
 Clearly there is variablity in the diameters within-machine and between-machines.
-Given many measurements on many bottle caps from many machines, we could standardize measurements by removing each machine's average.
-This implies the within-machine variability is the only source of variability we care about, because the substration of the machine effect, removed information on the between-machine variability.\\
-Alternatively, we could treat the between-machine variability as another source of noise/uncertainty when inferring on the temporal fixed effect.
+Given a sample of bottle caps from many machines, we could standardize measurements by removing each machine's average.
+This implies we treat machines as fixed effects, substract them, and consider within-machine variability is the only source of variability. The substration of the machine effect, removed information on between-machine variability.\\
+Alternatively, we could consider between-machine variability as another source of uncertainty when inferring on the temporal fixed effect. In which case, would not substract the machine-effect, bur rather, treat it as a random-effect, in the LMM framework.
 \EndKnitrBlock{example}
 
 \BeginKnitrBlock{example}[Fixed and Random Subject Effect]
 \protect\hypertarget{exm:random-effects}{}{\label{exm:random-effects} \iffalse (Fixed and Random Subject Effect) \fi{} }Consider an experimenal design where each subject is given 2 types of diets, and his health condition is recorded.
 We could standardize over subjects by removing the subject-wise average, before comparing diets.
-This is what a paired t-test does.
+This is what a paired (t-)test does.
 This also implies the within-subject variability is the only source of variability we care about.
 Alternatively, for inference on the population of ``all subjects'' we need to adress the between-subject variability, and not only the within-subject variability.
 \EndKnitrBlock{example}
@@ -6505,13 +6392,6 @@ LMMs are so fundamental, that they have earned many names:
 \item
   \textbf{Panel Data}:
   Is the term typically used in econometric for such longitudinal data.
-\item
-  \textbf{MANOVA}:
-  Many of the problems that may be solved with a multivariate analysis of variance (MANOVA), may be solved with an LMM for reasons we detail in \ref{multivariate}.
-\item
-  \textbf{Structured Prediction}:
-  In the machine learning literature, predicting outcomes with structure, such as correlated vectors, is known as Structured Learning.
-  Because LMMs merely specify correlations, using a LMM for making predictions may be thought of as an instance of structured prediction.
 \end{itemize}
 
 Whether we are aiming to infer on a generative model's parameters, or to make predictions, there is no ``right'' nor ``wrong'' approach. Instead, there is always some implied measure of error, and an algorithm may be good, or bad, with respect to this measure (think of false and true positives, for instance).
@@ -6525,35 +6405,35 @@ We now emphasize:
 \item
   Like in previous chapters, by ``model'' we refer to the assumed generative distribution, i.e., the sampling distribution.
 \item
-  LMMs are a way to infer against the right level of variability.
-  Using a naive linear model (which assumes a single source of variability) instead of a mixed effects model, probably means your inference is overly anti-conservative.
-  Put differently, the uncertainty in your estimates is higher than the linear model from Chapter \ref{lm} may suggest.
-\item
-  In a LMM we will specify the dependence structure via the hierarchy in the sampling scheme (e.g.~caps within machine, students within class, etc.).
-  Not all dependency models can be specified in this way.
+  In a LMM we specify the dependence structure via the hierarchy in the sampling scheme E.g. caps within machine, students within class, etc.
+  Not all dependency models can be specified in this way!
   Dependency structures that are not hierarchical include temporal dependencies (\href{https://en.wikipedia.org/wiki/Autoregressive_model}{AR}, \href{https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average}{ARIMA}, \href{https://en.wikipedia.org/wiki/Autoregressive_conditional_heteroskedasticity}{ARCH} and GARCH), \href{https://en.wikipedia.org/wiki/Spatial_dependence}{spatial}, \href{https://en.wikipedia.org/wiki/Markov_chain}{Markov Chains}, and more.
   To specify dependency structures that are no hierarchical, see Chapter 8 in (the excellent) \citet{weiss2005modeling}.
 \item
-  If you are using the model merely for predictions, and not for inference on the fixed effects or variance components, then stating the generative distribution may be be useful, but not necessarily.
-  See the Supervised Learning Chapter \ref{supervised} for more on prediction problems.
-  Also recall that machine learning from non-independent observations (such as LMMs) is a delicate matter that is rarely treated in the literature.
+  If you are using LMMs for predictions, and not for inference on the fixed effects or variance components, then see the Supervised Learning Chapter \ref{supervised}.
+  Also recall that machine learning from non-independent observations (such as LMMs) is a delicate matter.
 \end{enumerate}
 
 \hypertarget{problem-setup-2}{%
 \section{Problem Setup}\label{problem-setup-2}}
 
+We denote an outcome with \(y\) and assume its sampling distribution is given by
 \begin{align}
   y|x,u = x'\beta + z'u + \varepsilon
   \label{eq:mixed-model}  
 \end{align}
-where \(x\) are the factors with fixed effects, \(\beta\), which we may want to study.
-The factors \(z\), with effects \(u\), are the random effects which contribute to variability.
+where \(x\) are the factors with (fixed) effects we want to study, and\(\beta\) denotes these effects.
+The factors \(z\), with effects \(u\), merely contribute to variability in \(y|x\).
+
 In our repeated measures example (\ref{exm:repeated-measures}) the treatment is a fixed effect, and the subject is a random effect.
 In our bottle-caps example (\ref{exm:fixed-effects}) the time (before vs.~after) is a fixed effect, and the machines may be either a fixed or a random effect (depending on the purpose of inference).
-In our diet example (\ref{exm:random-effects}) the diet is the fixed effect and the family is a random effect.
+In our diet example (\ref{exm:random-effects}) the diet is the fixed effect and the subject is a random effect.
 
-Notice that we state \(y|x,z\) merely as a convenient way to do inference on \(y|x\), instead of directly specifying \(Var[y|x]\).
-This is exactly the power of LMMs: we specify the covariance not via the matrix \(Var[y,z]\), but rather via the sampling hierarchy.
+Notice that we state \(y|x,z\) merely as a convenient way to do inference on \(y|x\).
+We could, instead, specify \(Var[y|x]\) directly.
+The second approach seems less convinient.
+This is the power of LMMs!
+We specify the covariance not via the matrix \(Var[z'u|x]\), or \(Var[y|x]\), but rather via the sampling hierarchy.
 
 Given a sample of \(n\) observations \((y_i,x_i,z_i)\) from model \eqref{eq:mixed-model}, we will want to estimate \((\beta,u)\).
 Under some assumption on the distribution of \(\varepsilon\) and \(z\), we can use \emph{maximum likelihood} (ML).
@@ -6562,31 +6442,31 @@ In the context of LMMs, however, ML is typically replaced with \emph{restricted 
 \hypertarget{non-linear-mixed-models}{%
 \subsection{Non-Linear Mixed Models}\label{non-linear-mixed-models}}
 
-The idea of random-effects can also be implemented for non-linear mean models. Formally, this means that \(y|x,z=f(x,z,\varepsilon)\) for some non-linear \(f\).
-This is known as \emph{non-linead-mixed-models}, which will not be discussed in this text.
+The idea of random-effects can also be extended to non-linear mean models.
+Formally, this means that \(y|x,z=f(x,z,\varepsilon)\) for some non-linear \(f\).
+This is known as \emph{non-linear-mixed-models}, which will not be discussed in this text.
 
 \hypertarget{generalized-linear-mixed-models-glmm}{%
 \subsection{Generalized Linear Mixed Models (GLMM)}\label{generalized-linear-mixed-models-glmm}}
 
 You can marry the ideas of random effects, with non-linear link functions, and non-Gaussian distribution of the response.
-These are known as \href{https://en.wikipedia.org/wiki/Generalized_linear_mixed_model}{Generalized Linear Mixed Models}.
-\href{http://glmm.wikidot.com/pkg-comparison}{Wikidot} has a nice comparison of several software suits for GLMMs.
-Also consider the \href{https://www.jstatsoft.org/article/view/v084i04}{mcglm} R pacakge \citep{bonat2018multiple}.
+These are known as \emph{Generalized Linear Mixed Models} (GLMM), which will not be discussed in this text.
 
-\hypertarget{mixed-models-with-r}{%
-\section{Mixed Models with R}\label{mixed-models-with-r}}
+\hypertarget{lmms-in-r}{%
+\section{LMMs in R}\label{lmms-in-r}}
 
-We will fit mixed models with the \texttt{lmer} function from the \textbf{lme4} package, written by the mixed-models Guru \href{http://www.stat.wisc.edu/~bates/}{Douglas Bates}.
-We start with a small simulation demonstrating the importance of acknowledging your sources of variability. Our demonstration consists of fitting a linear model that assumes independence, when data is clearly dependent.
+We will fit LMMs with the \texttt{lme4::lmer} function.
+The \textbf{lme4} is an excellent package, written by the mixed-models Guru \href{http://www.stat.wisc.edu/~bates/}{Douglas Bates}.
+We start with a small simulation demonstrating the importance of acknowledging your sources of variability.
+Our demonstration consists of fitting a linear model that assumes independence, when data is clearly dependent.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{# Simulation parameters}
 \NormalTok{n.groups <-}\StringTok{ }\DecValTok{4} \CommentTok{# number of groups}
-\NormalTok{n.repeats <-}\StringTok{ }\DecValTok{2} \CommentTok{# sample per group}
+\NormalTok{n.repeats <-}\StringTok{ }\DecValTok{2} \CommentTok{# samples per group}
 \NormalTok{groups <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\NormalTok{n.groups, }\DataTypeTok{each=}\NormalTok{n.repeats) }\OperatorTok{%>%}\StringTok{ }\NormalTok{as.factor}
 \NormalTok{n <-}\StringTok{ }\KeywordTok{length}\NormalTok{(groups)}
-\NormalTok{z0 <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(n.groups,}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{) }\CommentTok{# generate group effects}
+\NormalTok{z0 <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(n.groups, }\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{) }
 \NormalTok{(z <-}\StringTok{ }\NormalTok{z0[}\KeywordTok{as.numeric}\NormalTok{(groups)]) }\CommentTok{# generate and inspect random group effects}
 \end{Highlighting}
 \end{Shaded}
@@ -6600,28 +6480,22 @@ We start with a small simulation demonstrating the importance of acknowledging y
 \begin{Highlighting}[]
 \NormalTok{epsilon <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(n,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{) }\CommentTok{# generate measurement error}
 
-\CommentTok{# Generate data}
-\NormalTok{beta0 <-}\StringTok{ }\DecValTok{2} \CommentTok{# set global mean}
-\NormalTok{y <-}\StringTok{ }\NormalTok{beta0 }\OperatorTok{+}\StringTok{ }\NormalTok{z }\OperatorTok{+}\StringTok{ }\NormalTok{epsilon }\CommentTok{# generate synthetic sample}
+\NormalTok{beta0 <-}\StringTok{ }\DecValTok{2} \CommentTok{# this is the actual parameter of interest! The global mean.}
+
+\NormalTok{y <-}\StringTok{ }\NormalTok{beta0 }\OperatorTok{+}\StringTok{ }\NormalTok{z }\OperatorTok{+}\StringTok{ }\NormalTok{epsilon }\CommentTok{# sample from an LMM}
 \end{Highlighting}
 \end{Shaded}
 
-We can now fit the linear and mixed models.
+We can now fit the linear and LMM.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lm}\FloatTok{.5}\NormalTok{ <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\NormalTok{)  }\CommentTok{# fit a linear model assuming independence}
+\CommentTok{# fit a linear model assuming independence}
+\NormalTok{lm}\FloatTok{.5}\NormalTok{ <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\NormalTok{)  }
+
+\CommentTok{# fit a mixed-model that deals with the group dependence}
 \KeywordTok{library}\NormalTok{(lme4)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Loading required package: Matrix
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{lme}\FloatTok{.5}\NormalTok{ <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\OperatorTok{|}\NormalTok{groups) }\CommentTok{# fit a mixed-model that deals with the group dependence}
+\NormalTok{lme}\FloatTok{.5}\NormalTok{ <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(y}\OperatorTok{~}\DecValTok{1}\OperatorTok{|}\NormalTok{groups) }
 \end{Highlighting}
 \end{Shaded}
 
@@ -6652,7 +6526,7 @@ The summary of the linear model
 ## Residual standard error: 4.726 on 7 degrees of freedom
 \end{verbatim}
 
-The summary of the mixed-model
+The summary of the LMM
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6683,38 +6557,64 @@ The summary of the mixed-model
 \end{verbatim}
 
 Look at the standard error of the global mean, i.e., the intercept:
-for \texttt{lm} it is 1.6707325, and for \texttt{lme} it is 2.5406034.
+for \texttt{lm} it is 1.671, and for \texttt{lme} it is 2.541.
 Why this difference?
-Because \texttt{lm} treats the group effect\footnote{A.k.a. the \emph{cluster effect}.} as a fixed while the mixed model treats the group effect as a source of noise/uncertainty.
-Clearly, inference using \texttt{lm} underestimates our uncertainty in the estimated population mean (\(\beta_0\)).
+Because \texttt{lm} treats the group effect as fixed, while the mixed model treats the group effect as a source of noise/uncertainty.
+Inference using \texttt{lm} underestimates our uncertainty in the estimated population mean (\(\beta_0\)).
+This is that false-sense of security we may have when ignoring correlations.
 
-Now let's adopt the paired t-test view, which removes the group mean, so that it implicitly ignores the between-group variability. Which is the model compatible with this view?
+\hypertarget{relation-to-paired-t-test}{%
+\subsubsection{Relation to Paired t-test}\label{relation-to-paired-t-test}}
+
+Recall the paired t-test.
+Our two-sample--per-group example of the LMM is awfully similar to a pairted t-test.
+It would be quite troubeling if the well-known t-test and the oh-so-powerful LMM would lead to diverging conclusions.
+In the previous, we inferred on the global mean; a quantity that cancels out when pairing. For a fair comparison, let's infer on some temporal effect.
+Compare the t-statistic below, to the \texttt{t\ value} in the summary of \texttt{lme.6}.
+Luckily, as we demonstrate, the paired t-test and the LMM are equivalent.
+So if you follow authors like \citet{barr2013random} that recommend LMMs instead of pairing, remember, these things are sometimes equivalent.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{diffs <-}\StringTok{ }\KeywordTok{tapply}\NormalTok{(y, groups, diff) }
-\NormalTok{diffs }\CommentTok{# Q:what is this estimating? A: epsilon+epsilon.}
+\NormalTok{time.fixed.effect <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{'Before'}\NormalTok{,}\StringTok{'After'}\NormalTok{), }\DataTypeTok{times=}\DecValTok{4}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\NormalTok{factor}
+\KeywordTok{head}\NormalTok{(}\KeywordTok{cbind}\NormalTok{(y,groups,time.fixed.effect))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##           1           2           3           4 
-## -0.93093840 -0.07616235  1.25527764  0.59907581
+##              y groups time.fixed.effect
+## [1,]  9.076626      1                 2
+## [2,]  8.145687      1                 1
+## [3,] 10.611710      2                 2
+## [4,] 10.535547      2                 1
+## [5,]  2.526772      3                 2
+## [6,]  3.782050      3                 1
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{sd}\NormalTok{(diffs) }\CommentTok{# }
+\NormalTok{lme}\FloatTok{.6}\NormalTok{ <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(y}\OperatorTok{~}\NormalTok{time.fixed.effect}\OperatorTok{+}\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{groups)) }
+
+\KeywordTok{coef}\NormalTok{(}\KeywordTok{summary}\NormalTok{(lme}\FloatTok{.6}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.9358778
+##                           Estimate Std. Error    t value
+## (Intercept)              5.5544195  2.5513561  2.1770460
+## time.fixed.effectBefore -0.2118132  0.4679384 -0.4526518
 \end{verbatim}
 
-So we see that a paired t-test infers only against the within-group variability.
-Q:Is this a good think?
-A: depends\ldots{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(y}\OperatorTok{~}\NormalTok{time.fixed.effect, }\DataTypeTok{paired=}\OtherTok{TRUE}\NormalTok{)}\OperatorTok{$}\NormalTok{statistic}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         t 
+## 0.4526514
+\end{verbatim}
 
 \hypertarget{a-single-random-effect}{%
 \subsection{A Single Random Effect}\label{a-single-random-effect}}
@@ -6749,19 +6649,21 @@ And visually
 
 \includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-199-1}
 
-If we want to do inference on the (global) mean yield, we need to account for the two sources of variability: the within-batch variability, and the between-batch variability
+The plot confirms that \texttt{Yield} varies between \texttt{Batch}s.
+We do not want to study this batch effect, but we want our inference to apply to new, unseen, batches\footnote{Think: why bother treating the \texttt{Batch} effect as noise? Should we now just substract \texttt{Batch} effects? This is not a trick question.}.
+We thus need to account for the two sources of variability when infering on the (global) mean: the within-batch variability, and the between-batch variability
 We thus fit a mixed model, with an intercept and random batch effect.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lme}\FloatTok{.1}\NormalTok{<-}\StringTok{ }\KeywordTok{lmer}\NormalTok{( Yield }\OperatorTok{~}\StringTok{ }\DecValTok{1}  \OperatorTok{|}\StringTok{ }\NormalTok{Batch  , Dyestuff )}
+\NormalTok{lme}\FloatTok{.1}\NormalTok{<-}\StringTok{ }\KeywordTok{lmer}\NormalTok{( Yield }\OperatorTok{~}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{Batch)  , Dyestuff )}
 \KeywordTok{summary}\NormalTok{(lme}\FloatTok{.1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## Linear mixed model fit by REML ['lmerMod']
-## Formula: Yield ~ 1 | Batch
+## Formula: Yield ~ 1 + (1 | Batch)
 ##    Data: Dyestuff
 ## 
 ## REML criterion at convergence: 319.7
@@ -6786,244 +6688,27 @@ Things to note:
 \begin{itemize}
 \tightlist
 \item
-  The syntax \texttt{Yield\ \textasciitilde{}\ 1\ \ \textbar{}\ Batch} tells R to fit a model with a global intercept (\texttt{1}) and a random Batch effect (\texttt{\textbar{}Batch}). More on that later.
+  The syntax \texttt{Yield\ \textasciitilde{}\ (1\textbar{}Batch)} tells \texttt{lme4::lmer} to fit a model with a global intercept (\texttt{1}) and a random Batch effect (\texttt{1\textbar{}Batch}). The \texttt{\textbar{}} operator is the cornerstone of random effect modelng with \texttt{lme4::lmer}.
+\item
+  \texttt{1+} isn't really needed. \texttt{lme4::lmer}, like \texttt{stats::lm} adds it be default. We put it there to remind you it is implied.
 \item
   As usual, \texttt{summary} is content aware and has a different behavior for \texttt{lme} class objects.
 \item
   The output distinguishes between random effects (\(u\)), a source of variability, and fixed effect (\(\beta\)), which we want to study. The mean of the random effect is not reported because it is unassumingly 0.
 \item
-  Were we not interested in the variance components, and only in the coefficients or predictions, an (almost) equivalent \texttt{lm} formulation is \texttt{lm(Yield\ \textasciitilde{}\ Batch)}.
+  Were we not interested in standard errors, \texttt{lm(Yield\ \textasciitilde{}\ Batch)} would have returned the same (fixed) effects estimates.
 \end{itemize}
 
 Some utility functions let us query the \texttt{lme} object.
 The function \texttt{coef} will work, but will return a cumbersome output. Better use \texttt{fixef} to extract the fixed effects, and \texttt{ranef} to extract the random effects.
-The model matrix (of the fixed effects alone), can be extracted with \texttt{model.matrix}, and predictions made with \texttt{predict}.
-Note, however, that predictions with mixed-effect models are better treated as prediction problems as in the Supervised Learning Chapter \ref{supervised}, but are a very delicate matter.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{detach}\NormalTok{(Dyestuff)}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{multiple-random-effects}{%
-\subsection{Multiple Random Effects}\label{multiple-random-effects}}
-
-Let's make things more interesting by allowing more than one random effect.
-One-way ANOVA can be thought of as the fixed-effects counterpart of the single random effect.
-
-In the \texttt{Penicillin} data, we measured the diameter of spread of an organism, along the plate used (a to x), and penicillin type (A to F).
-We will now try to infer on the diameter of typical organism, and compute its variability over plates and Penicillin types.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{head}\NormalTok{(Penicillin)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##   diameter plate sample
-## 1       27     a      A
-## 2       23     a      B
-## 3       26     a      C
-## 4       23     a      D
-## 5       23     a      E
-## 6       21     a      F
-\end{verbatim}
-
-One sample per combination:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{attach}\NormalTok{(Penicillin)}
-\KeywordTok{table}\NormalTok{(sample, plate) }\CommentTok{# how many observations per plate & type?}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##       plate
-## sample a b c d e f g h i j k l m n o p q r s t u v w x
-##      A 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-##      B 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-##      C 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-##      D 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-##      E 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-##      F 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-\end{verbatim}
-
-And visually:
-
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-203-1}
-
-Let's fit a mixed-effects model with a random plate effect, and a random sample effect:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{lme}\FloatTok{.2}\NormalTok{ <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{ ( diameter }\OperatorTok{~}\StringTok{  }\DecValTok{1}  \OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{plate )}\OperatorTok{+}\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{sample) , Penicillin )}
-\KeywordTok{fixef}\NormalTok{(lme}\FloatTok{.2}\NormalTok{) }\CommentTok{# Fixed effects}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## (Intercept) 
-##    22.97222
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ranef}\NormalTok{(lme}\FloatTok{.2}\NormalTok{) }\CommentTok{# Random effects}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## $plate
-##   (Intercept)
-## a  0.80454389
-## b  0.80454389
-## c  0.18167120
-## d  0.33738937
-## e  0.02595303
-## f -0.44120149
-## g -1.37551052
-## h  0.80454389
-## i -0.75263783
-## j -0.75263783
-## k  0.96026206
-## l  0.49310755
-## m  1.42741658
-## n  0.49310755
-## o  0.96026206
-## p  0.02595303
-## q -0.28548332
-## r -0.28548332
-## s -1.37551052
-## t  0.96026206
-## u -0.90835601
-## v -0.28548332
-## w -0.59691966
-## x -1.21979235
-## 
-## $sample
-##   (Intercept)
-## A  2.18705819
-## B -1.01047625
-## C  1.93789966
-## D -0.09689498
-## E -0.01384214
-## F -3.00374447
-## 
-## with conditional variances for "plate" "sample"
-\end{verbatim}
-
-Things to note:
-
-\begin{itemize}
-\tightlist
-\item
-  The syntax \texttt{1+\ (1\textbar{}\ plate\ )\ +\ (1\textbar{}\ sample\ )} fits a global intercept (mean), a random plate effect, and a random sample effect.
-\item
-  Were we not interested in the variance components, an (almost) equivalent \texttt{lm} formulation is \texttt{lm(diameter\ \textasciitilde{}\ plate\ +\ sample)}.
-\item
-  The output of \texttt{ranef} is somewhat controversial. Think about it: Why would we want to plot the estimates of a random variable?
-\end{itemize}
-
-Since we have two random effects, we may compute the variability of the global mean (the only fixed effect) as we did before.
-Perhaps more interestingly, we can compute the variability in the response, for a particular plate or sample type.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{random.effect.lme2 <-}\StringTok{ }\KeywordTok{ranef}\NormalTok{(lme}\FloatTok{.2}\NormalTok{, }\DataTypeTok{condVar =} \OtherTok{TRUE}\NormalTok{) }
-\NormalTok{qrr2 <-}\StringTok{ }\NormalTok{lattice}\OperatorTok{::}\KeywordTok{dotplot}\NormalTok{(random.effect.lme2, }\DataTypeTok{strip =} \OtherTok{FALSE}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-Variability in response for each plate, over various sample types:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{print}\NormalTok{(qrr2[[}\DecValTok{1}\NormalTok{]]) }
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-206-1}
-
-Variability in response for each sample type, over the various plates:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{print}\NormalTok{(qrr2[[}\DecValTok{2}\NormalTok{]])  }
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-207-1}
-
-Things to note:
-
-\begin{itemize}
-\tightlist
-\item
-  The \texttt{condVar} argument of the \texttt{ranef} function tells R to compute the variability in response conditional on each random effect at a time.
-\item
-  The \texttt{dotplot} function, from the \textbf{lattice} package, is only there for the fancy plotting.
-\end{itemize}
-
-We used the penicillin example to demonstrate the incorporation of two random-effects. We could have, however, compared between penicillin types. For this matter, penicillin types are fixed effects to infer on, and not part of the uncertainty in the mean diameter. The appropriate model is the following:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{lme.}\FloatTok{2.2}\NormalTok{ <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{( diameter }\OperatorTok{~}\StringTok{  }\DecValTok{1}  \OperatorTok{+}\StringTok{ }\NormalTok{sample }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{plate) , Penicillin )}
-\end{Highlighting}
-\end{Shaded}
-
-I may now ask myself: does the \texttt{sample}, i.e.~penicillin, have any effect? This is what the ANOVA table typically gives us. The next table can be thought of as a ``repeated measures ANOVA'':
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{anova}\NormalTok{(lme.}\FloatTok{2.2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Analysis of Variance Table
-##        Df Sum Sq Mean Sq F value
-## sample  5 449.22  89.844  297.09
-\end{verbatim}
-
-Ugh! No p-values. Why is this? Because Doug Bates, the author of \textbf{lme4} makes a \href{https://stat.ethz.ch/pipermail/r-help/2006-May/094765.html}{strong argument} against current methods of computing p-values in mixed models. If you insist on an p-value, you may recur to other packages that provide that, at your own caution:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{car}\OperatorTok{::}\KeywordTok{Anova}\NormalTok{(lme.}\FloatTok{2.2}\NormalTok{) }
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Registered S3 methods overwritten by 'car':
-##   method                          from
-##   influence.merMod                lme4
-##   cooks.distance.influence.merMod lme4
-##   dfbeta.influence.merMod         lme4
-##   dfbetas.influence.merMod        lme4
-\end{verbatim}
-
-\begin{verbatim}
-## Analysis of Deviance Table (Type II Wald chisquare tests)
-## 
-## Response: diameter
-##         Chisq Df Pr(>Chisq)    
-## sample 1485.5  5  < 2.2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-\end{verbatim}
-
-\ldots{} and yes; the penicillin type has a significant effect on the diameter.
+The model matrix (of the fixed effects alone), can be extracted with \texttt{model.matrix}, and predictions with \texttt{predict}.
 
 \hypertarget{a-full-mixed-model}{%
 \subsection{A Full Mixed-Model}\label{a-full-mixed-model}}
 
 In the \texttt{sleepstudy} data, we recorded the reaction times to a series of tests (\texttt{Reaction}), after various subject (\texttt{Subject}) underwent various amounts of sleep deprivation (\texttt{Day}).
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-211-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-200-1}
 
 We now want to estimate the (fixed) effect of the days of sleep deprivation on response time, while allowing each subject to have his/hers own effect.
 Put differently, we want to estimate a \emph{random slope} for the effect of \texttt{day}.
@@ -7042,9 +6727,9 @@ Things to note:
 \item
   \texttt{\textasciitilde{}Days} specifies the fixed effect.
 \item
-  We used the \texttt{Days\textbar{}Subect} syntax to tell R we want to fit the model \texttt{\textasciitilde{}Days} within each subject.
+  We used the \texttt{(Days\textbar{}Subject)} syntax to tell \texttt{lme4::lmer} we want to fit the model \texttt{\textasciitilde{}Days} within each subject. Just like when modeling with \texttt{stats::lm}, \texttt{(Days\textbar{}Subject)} is interpreted as \texttt{(1+Days\textbar{}Subject)}, so we get a random intercept and slope, per subject.
 \item
-  Were we fitting the model for purposes of prediction only, an (almost) equivalent \texttt{lm} formulation is \texttt{lm(Reaction\textasciitilde{}Days*Subject)}.
+  Were we not interested in standard erors, \texttt{stats::lm(Reaction\textasciitilde{}Days*Subject)} would have returned (alomst) the same effects. Why ``almost''? See below\ldots{}
 \end{itemize}
 
 The fixed day effect is:
@@ -7064,93 +6749,67 @@ The variability in the average response (intercept) and day effect is
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ranef}\NormalTok{(lme}\FloatTok{.3}\NormalTok{)}
+\KeywordTok{ranef}\NormalTok{(lme}\FloatTok{.3}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{lapply}\NormalTok{(head)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ## $Subject
-##     (Intercept)        Days
-## 308   2.2575329   9.1992737
-## 309 -40.3942719  -8.6205161
-## 310 -38.9563542  -5.4495796
-## 330  23.6888704  -4.8141448
-## 331  22.2585409  -3.0696766
-## 332   9.0387625  -0.2720535
-## 333  16.8389833  -0.2233978
-## 334  -7.2320462   1.0745075
-## 335  -0.3326901 -10.7524799
-## 337  34.8865253   8.6290208
-## 349 -25.2080191   1.1730997
-## 350 -13.0694180   6.6142185
-## 351   4.5777099  -3.0152825
-## 352  20.8614523   3.5364062
-## 369   3.2750882   0.8722876
-## 370 -25.6110745   4.8222518
-## 371   0.8070591  -0.9881730
-## 372  12.3133491   1.2842380
-## 
-## with conditional variances for "Subject"
+##     (Intercept)       Days
+## 308    2.257533  9.1992737
+## 309  -40.394272 -8.6205161
+## 310  -38.956354 -5.4495796
+## 330   23.688870 -4.8141448
+## 331   22.258541 -3.0696766
+## 332    9.038763 -0.2720535
 \end{verbatim}
 
 Did we really need the whole \texttt{lme} machinery to fit a within-subject linear regression and then average over subjects?
-The answer is yes.
-The assumptions on the distribution of random effect, namely, that they are normally distributed, allows us to pool information from one subject to another. In the words of John Tukey: ``we borrow strength over subjects''.
-Is this a good thing? If the normality assumption is true, it certainly is.
+The short answer is that if we have a enough data for fitting each subject with it's own \texttt{lm}, we don't need \texttt{lme}.
+The longer answer is that the assumptions on the distribution of random effect, namely, that they are normally distributed, allow us to pool information from one subject to another.
+In the words of John Tukey: ``we borrow strength over subjects''.
+If the normality assumption is true, this is very good news.
 If, on the other hand, you have a lot of samples per subject, and you don't need to ``borrow strength'' from one subject to another, you can simply fit within-subject linear models without the mixed-models machinery.
+This will avoid any assumptions on the distribution of effects over subjects.
+For a full discussion of the pro's and con's of hirarchial mixed models, consult our Bibliographic Notes.
 
 To demonstrate the ``strength borrowing'', here is a comparison of the lme, versus the effects of fitting a linear model to each subject separately.
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-214-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-203-1}
 
 Here is a comparison of the random-day effect from \texttt{lme} versus a subject-wise linear model. They are not the same.
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-215-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-204-1}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{detach}\NormalTok{(Penicillin)}
-\end{Highlighting}
-\end{Shaded}
+\hypertarget{sparsity-and-memory-efficiency}{%
+\subsection{Sparsity and Memory Efficiency}\label{sparsity-and-memory-efficiency}}
+
+In Chapter \ref{sparse} we discuss how to efficienty represent matrices in memory.
+At this point we can already hint that the covariance matrices implied by LMMs are sparse. This fact is exploited in the \textbf{lme4} package, making it very efficient computationally.
 
 \hypertarget{serial}{%
-\section{Serial Correlations}\label{serial}}
+\section{Serial Correlations in Space/Time}\label{serial}}
 
-As previously stated, a hierarchical model is a very convenient way to state correlations.
-The hierarchical sampling scheme will always yield correlations in blocks.
-What is the correlation does not have a block structure?
-Like a smooth temporal decay for time-series, or a smooth spatial decay for geospatial data?
+As previously stated, a hierarchical model of the type \(y=x'\beta+z'u+\epsilon\) is a very convenient way to state the correlations of \(y|x\) instead of specifying the matrix \(Var[z'u+\epsilon|x]\) for various \(x\) and \(z\).
+The hierarchical sampling scheme implies correlations in blocks.
+What if correlations do not have a block structure?
+Temporal data or spatial data, for instance, tend to present correlations that decay smoothly in time/space.
+These correlations cannot be represented via a hirarchial sampling scheme.
 
-One way to go about, is to find a dedicated package.
+One way to go about, is to find a dedicated package for space/time data.
 For instance, in the \href{https://cran.r-project.org/web/views/SpatioTemporal.html}{Spatio-Temporal Data} task view, or the \href{https://cran.r-project.org/web/views/Environmetrics.html}{Ecological and Environmental} task view.
-Fans of vector-auto-regression should have a look at the \href{https://cran.r-project.org/package=vars}{vars} package.
 
 Instead, we will show how to solve this matter using the \textbf{nlme} package.
-This is because \textbf{nlme} allows to specify both a block-covariance structure using the mixed-models framework, and the smooth parametric covariances we find in temporal and spatial data.
+This is because \textbf{nlme} allows to compond the blocks of covariance of LMMs, with the smoothly decaying covariances of space/time models.
 
-The \texttt{nlme::Ovary} data is panel data of number of ovarian follicles in different mares (female horse), at various times.
-
-with an AR(1) temporal correlation, alongside random-effects, we take an example from the help of \texttt{nlme::corAR1}.
+We now use an example from the help of \texttt{nlme::corAR1}.
+The \texttt{nlme::Ovary} data is panel data of number of ovarian follicles in different mares (female horse), at various times.\\
+We fit a model with a random \texttt{Mare} effect, and correlations that decay geometrically in time.
+In the time-series literature, this is known as an \emph{auto-regression of order 1} model, or AR(1), in short.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(nlme)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Attaching package: 'nlme'
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:lme4':
-## 
-##     lmList
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{head}\NormalTok{(nlme}\OperatorTok{::}\NormalTok{Ovary)}
 \end{Highlighting}
 \end{Shaded}
@@ -7216,7 +6875,7 @@ Things to note:
 \begin{itemize}
 \tightlist
 \item
-  The fitting is done with the \texttt{nlme::lme} function, and not \texttt{lme4::lmer} (which does not allow for non blocked covariance models).
+  The fitting is done with the \texttt{nlme::lme} function, and not \texttt{lme4::lmer}.
 \item
   \texttt{sin(2*pi*Time)\ +\ cos(2*pi*Time)} is a fixed effect that captures seasonality.
 \item
@@ -7227,26 +6886,10 @@ Things to note:
   From the summary, we see that a \texttt{Mare} random effect has also been added. Where is it specified? It is implied by the \texttt{random=} argument. Read \texttt{?lme} for further details.
 \end{itemize}
 
-We can now inspect the contrivance implied by our model's specification:
+We can now inspect the contrivance implied by our model's specification.
+As expected, we see the blocks of non-null covariance within \texttt{Mare}, but unlike ``vanilla'' LMMs, the covariance within mare is not fixed. Rather, it decays geometrically with time.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{the.cov <-}\StringTok{ }\NormalTok{mgcv}\OperatorTok{::}\KeywordTok{extract.lme.cov}\NormalTok{(fm1Ovar.lme, }\DataTypeTok{data =}\NormalTok{ Ovary) }
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Warning in model.matrix.default(~b$groups[[n.levels - i + 1]] - 1,
-## contrasts.arg = c("contr.treatment", : non-list contrasts argument ignored
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{lattice}\OperatorTok{::}\KeywordTok{levelplot}\NormalTok{(the.cov)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-218-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-206-1}
 
 \hypertarget{extensions-1}{%
 \section{Extensions}\label{extensions-1}}
@@ -7254,101 +6897,27 @@ We can now inspect the contrivance implied by our model's specification:
 \hypertarget{cr-se}{%
 \subsection{Cluster Robust Standard Errors}\label{cr-se}}
 
-As previously stated, random effects are nothing more than a convenient way to specify dependencies within a level of a random effect, i.e., within a group/cluster.
+As previously stated, random effects are nothing more than a convenient way to specify covariances within a level of a random effect, i.e., within a group/cluster.
 This is also the motivation underlying \emph{cluster robust} inference, which is immensely popular with econometricians, but less so elsewhere.
-What is the difference between the two?
-
-Mixed models framework is a bona-fide generalization of cluster robust inference.
-This author thus recommends using the \textbf{lme4} and \textbf{nlme} packages for mixed models to deal with correlations within cluster.
-
+With cluster robust inference, we assume a model of type \(y=f(x)+\varepsilon\); unlike LMMs we assume indpenedence (conditonal on \(x\)), but we allow \(\varepsilon\) within clusters defined by \(x\).
 For a longer comparison between the two approaches, see \href{https://m-clark.github.io/docs/clustered/}{Michael Clarck's guide}.
 
 \hypertarget{linear-models-for-panel-data}{%
 \subsection{Linear Models for Panel Data}\label{linear-models-for-panel-data}}
 
 \textbf{nlme} and \textbf{lme4} will probably provide you with all the functionality you need for panel data.
-If, however, you are trained as an econometrist, prefer the econometric parlance, and are not using non-linead models, then the \href{https://cran.r-project.org/package=plm}{plm} and \href{https://www.jacob-long.com/post/panelr-intro/}{panelr} packages are just for you.
-In particular, it allows for cluster-robust covariance estimates, and \href{https://en.wikipedia.org/wiki/Durbin\%E2\%80\%93Wu\%E2\%80\%93Hausman_test}{Durbin--Wu--Hausman test} for random effects.
-The \textbf{plm} \href{https://cran.r-project.org/web/packages/plm/vignettes/plm.pdf}{package vignette} also has a comparison to the \textbf{nlme} package.
+If, however, you are trained as an econometrician, and prefer the econometric parlance, then the \href{https://cran.r-project.org/package=plm}{plm} and \href{https://www.jacob-long.com/post/panelr-intro/}{panelr} packages for panel linear models, are just for you.
+In particular, they allow for cluster-robust covariance estimates, and Durbin--Wu--Hausman test for random effects.
+The \textbf{plm} \href{https://cran.r-project.org/web/packages/plm/vignettes/plm.pdf}{package vignette} also has an interesting comparison to the \textbf{nlme} package.
 
 \hypertarget{testing-hypotheses-on-correlations}{%
 \subsection{Testing Hypotheses on Correlations}\label{testing-hypotheses-on-correlations}}
 
 After working so hard to model the correlations in observation, we may want to test if it was all required.
-Douglas Bates, the author of \textbf{nlme} and \textbf{lme4} wrote a famous cautionary note, \href{https://stat.ethz.ch/pipermail/r-help/2006-May/094765.html}{found here}, on hypothesis testing in mixed models.
-Many practitioners, however, do not adopt Doug's view.
+Douglas Bates, the author of \textbf{nlme} and \textbf{lme4} wrote a famous cautionary note, \href{https://stat.ethz.ch/pipermail/r-help/2006-May/094765.html}{found here}, on hypothesis testing in mixed models, in particular hypotheses on variance components.
+Many practitioners, however, did not adopt Doug's view.
 Many of the popular tests, particularly the ones in the econometric literature, can be found in the \textbf{plm} package (see Section 6 in the \href{https://cran.r-project.org/web/packages/plm/vignettes/plm.pdf}{package vignette}).
 These include tests for poolability, Hausman test, tests for serial correlations, tests for cross-sectional dependence, and unit root tests.
-
-\hypertarget{relation-to-other-estimators}{%
-\section{Relation to Other Estimators}\label{relation-to-other-estimators}}
-
-\hypertarget{fixed-effects-in-the-econometric-literature}{%
-\subsection{Fixed Effects in the Econometric Literature}\label{fixed-effects-in-the-econometric-literature}}
-
-Fixed effects in the statistical literature, as discussed herein, are different than those in the econometric literature.
-See Section 7 of the \textbf{plm} \href{https://cran.r-project.org/web/packages/plm/vignettes/plm.pdf}{package vignette} for a comparison.
-
-\hypertarget{relation-to-generalized-least-squares-gls}{%
-\subsection{Relation to Generalized Least Squares (GLS)}\label{relation-to-generalized-least-squares-gls}}
-
-GLS is the solution to a decorrelated least squares problem:
-\[\hat{\beta}_{GLS}:=argmin_\beta\{(X'\beta-y)'\Sigma^{-1}(X'\beta-y)'\}.\]
-This estimator can be viewed as a least squares estimator that accounts for correlations in the data.
-It is also a maximum likelihood estimator under a Gaussian error assumption.
-Viewed as the latter, then linear mixed models under a Gaussian error assumption, collapses to a GLS estimator.
-
-\hypertarget{relation-to-conditional-gaussian-fields}{%
-\subsection{Relation to Conditional Gaussian Fields}\label{relation-to-conditional-gaussian-fields}}
-
-In the geo-spatial literature, geo-located measurements are typically assumed to be sampled from a \emph{Gaussian Random Field}.
-All the models discussed in this chapter can be stated in terms of these random fields.
-In the random field nomenclature, the fixed effects are known as the \emph{drift}, or the \emph{mean field}, and the covariance in errors is known as the \emph{correlation function}.
-In other fields of literature the correlation function is known as a \emph{charachteristic function}, \emph{radial basis functions}, or \emph{kernel}.
-Assuming stationarity, these simplify to the \emph{power spectrum} via the \emph{Wiener--Khinchin theorem}.
-The predictions of such models may be found under the names of \emph{linear projection operators}, \emph{best linear unbiased prediction}, \emph{Kriging}, \emph{radial basis function interpolators}.
-
-\hypertarget{relation-to-empirical-risk-minimization-erm}{%
-\subsection{Relation to Empirical Risk Minimization (ERM)}\label{relation-to-empirical-risk-minimization-erm}}
-
-ERM is more general than mixed-models estimation since it allows loss functions that are not the (log) likelihood.
-ERM is less general than LMM, in that ERM (typically) does not account for correlations in the data.
-
-\hypertarget{relation-to-m-estimation}{%
-\subsection{Relation to M-Estimation}\label{relation-to-m-estimation}}
-
-M-estimation is term in the statistical literature for ERM.
-
-\hypertarget{relation-to-generalize-estimating-equations-gee}{%
-\subsection{Relation to Generalize Estimating Equations (GEE)}\label{relation-to-generalize-estimating-equations-gee}}
-
-The first order condition of the LMM problem returns a set of (non-linear) estimating equations.
-In this sense, GEE can be seen as more general than LMM in that the GEE need not be the derivative of the (log) likelihood.
-
-\hypertarget{manova}{%
-\subsection{Relation to MANOVA}\label{manova}}
-
-Multivariate analysis of variance (MANOVA) deals with the estimation of effect on \textbf{vector valued} outcomes.
-Put differently: in ANOVA the response, \(y\), is univariate.
-In MANOVA, the outcome is multivariate.
-MANOVA is useful when there are correlations among the entries of \(y\).
-Otherwise- one may simply solve many ANOVA problems, instead of a single MANOVA.
-
-Now assume that the outcome of a MANOVA is measurements of an individual at several time periods.
-The measurements are clearly correlated, so that MANOVA may be useful.
-But one may also treat the subject as a random effect, with a univariate response.
-We thus see that this seemingly MANOVA problem can be solved with the mixed models framework.
-
-What MANOVA problems cannot be solved with mixed models?
-There may be cases where the covariance of the multivariate outcome, \(y\), is very complicated.
-If the covariance in \(y\) may not be stated using a combination of random and fixed effects, then the covariance has to be stated explicitly.
-It is also possible to consider mixed-models with multivariate outcomes, i.e., a \emph{mixed MANOVA}, or \emph{hirarchial MANOVA}.
-The R functions we present herein permit this.
-
-\hypertarget{relation-to-seemingly-unrelated-equations-sur}{%
-\subsection{Relation to Seemingly Unrelated Equations (SUR)}\label{relation-to-seemingly-unrelated-equations-sur}}
-
-SUR is the econometric term for MANOVA.
 
 \hypertarget{bibliographic-notes-6}{%
 \section{Bibliographic Notes}\label{bibliographic-notes-6}}
@@ -7370,6 +6939,8 @@ For the geo-spatial view and terminology of correlated data, see \citet{christak
 \def\labelenumi{\arabic{enumi}.}
 \item
   Computing the variance of the sample mean given dependent correlations. How does it depend on the covariance between observations? When is the sample most informative on the population mean?
+\item
+  Think: when is a paired t-test not equivalent to an LMM with two measurements per group?
 \item
   Return to the \texttt{Penicillin} data set. Instead of fitting an LME model, fit an LM model with \texttt{lm}. I.e., treat all random effects as fixed.
 
@@ -7416,7 +6987,7 @@ We start with an example.
 \protect\hypertarget{exm:icu}{}{\label{exm:icu} }Consider the problem of a patient monitored in the intensive care unit.
 At every minute the monitor takes \(p\) physiological measurements: blood pressure, body temperature, etc.
 The total number of minutes in our data is \(n\), so that in total, we have \(n \times p\) measurements, arranged in a matrix.
-We also know the typical measurements for this patient when healthy: \(\mu_0\).
+We also know the typical \(p\)-vector of typical measurements for this patient when healthy, denoted \(\mu_0\).
 \EndKnitrBlock{example}
 
 Formally, let \(y\) be single (random) measurement of a \(p\)-variate random vector.
@@ -7425,16 +6996,17 @@ Here is the set of problems we will discuss, in order of their statistical diffi
 
 \begin{itemize}
 \item
-  \textbf{Signal detection}:
-  a.k.a. \emph{multivariate hypothesis testing}, i.e., testing if \(\mu\) equals \(\mu_0\) and for \(\mu_0=0\) in particular.
+  \textbf{Signal Detection}:
+  a.k.a. \emph{multivariate test}, or \emph{global test}, or \emph{omnibus test}.
+  Where we test whether \(\mu\) differs than some \(\mu_0\).
   In our example: ``are the current measurement different than a typical one?''
 \item
-  \textbf{Signal counting}:
+  \textbf{Signal Counting}:
   Counting the number of elements in \(\mu\) that differ from \(\mu_0\), and for \(\mu_0=0\) in particular.
   In our example: ``how many measurements differ than their typical values?''
 \item
-  \textbf{Signal identification}:
-  a.k.a. \emph{multiple testing}, i.e., testing which of the elements in \(\mu\) differ from \(\mu_0\) and for \(\mu_0=0\) in particular.
+  \textbf{Signal Identification}:
+  a.k.a. \emph{selection}, or \emph{multiple testing}, i.e., testing which of the elements in \(\mu\) differ from \(\mu_0\) and for \(\mu_0=0\) in particular.
   In the ANOVA literature, this is known as a \textbf{post-hoc} analysis.
   In our example: ``which measurements differ than their typical values?''
 \item
@@ -7485,18 +7057,7 @@ The next figure\footnote{My thanks to Efrat Vilneski for the figure.} illustrate
 \iffalse{} {Remark. } \fi{}The following figure may also be used to demonstrate the difference between Euclidean Distance and Mahalanobis Distance.
 \EndKnitrBlock{remark}
 
-\begin{verbatim}
-## 
-## Attaching package: 'ellipse'
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:graphics':
-## 
-##     pairs
-\end{verbatim}
-
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-221-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-209-1}
 
 \hypertarget{signal-detection}{%
 \section{Signal Detection}\label{signal-detection}}
@@ -7632,7 +7193,7 @@ Let's generate some data with no signal.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-222-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-210-1}
 
 Now make our own Hotelling function.
 
@@ -7828,7 +7389,7 @@ We start be generating some high-dimensional multivariate data and computing the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-229-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-217-1}
 
 We now compute the pvalues of each coordinate.
 We use a coordinate-wise t-test.
@@ -7842,7 +7403,7 @@ Why a t-test? Because for the purpose of demonstration we want a simple test. In
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-230-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-218-1}
 
 Things to note:
 
@@ -7953,8 +7514,8 @@ Everything you need on graphical models, Bayesian belief networks, and structure
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{set.seed}\NormalTok{(}\DecValTok{3}\NormalTok{)}
-\NormalTok{mean<-}\KeywordTok{rexp}\NormalTok{(}\DecValTok{50}\NormalTok{,}\DecValTok{6}\NormalTok{)}
-\NormalTok{multi<-}\StringTok{  }\KeywordTok{rmvnorm}\NormalTok{(}\DataTypeTok{n =} \DecValTok{100}\NormalTok{, }\DataTypeTok{mean =}\NormalTok{ mean) }
+\NormalTok{mu<-}\KeywordTok{rexp}\NormalTok{(}\DecValTok{50}\NormalTok{,}\DecValTok{6}\NormalTok{)}
+\NormalTok{multi<-}\StringTok{  }\KeywordTok{rmvnorm}\NormalTok{(}\DataTypeTok{n =} \DecValTok{100}\NormalTok{, }\DataTypeTok{mean =}\NormalTok{ mu) }
 \end{Highlighting}
 \end{Shaded}
 
@@ -8095,7 +7656,7 @@ The fundamental task in supervised (statistical) learning is to recover a hypoth
 This is know as the \emph{risk minimization problem}.
 
 \BeginKnitrBlock{definition}[Risk Function]
-\protect\hypertarget{def:unnamed-chunk-236}{}{\label{def:unnamed-chunk-236} \iffalse (Risk Function) \fi{} }The \emph{risk function}, a.k.a. \emph{generalization error}, or \emph{test error}, is the population average loss of a predictor \(f\):
+\protect\hypertarget{def:unnamed-chunk-224}{}{\label{def:unnamed-chunk-224} \iffalse (Risk Function) \fi{} }The \emph{risk function}, a.k.a. \emph{generalization error}, or \emph{test error}, is the population average loss of a predictor \(f\):
 \begin{align}
   R(f):=\mathbb{E}_P[l(f(x),y)].
 \end{align}
@@ -8113,7 +7674,7 @@ We thus state the \emph{empirical} counterpart of \eqref{eq:risk}, which consist
 This is known as the \emph{empirical risk miminization} problem (ERM).
 
 \BeginKnitrBlock{definition}[Empirical Risk]
-\protect\hypertarget{def:unnamed-chunk-237}{}{\label{def:unnamed-chunk-237} \iffalse (Empirical Risk) \fi{} }The \emph{empirical risk function}, a.k.a. \emph{in-sample error}, or \emph{train error}, is the sample average loss of a predictor \(f\):
+\protect\hypertarget{def:unnamed-chunk-225}{}{\label{def:unnamed-chunk-225} \iffalse (Empirical Risk) \fi{} }The \emph{empirical risk function}, a.k.a. \emph{in-sample error}, or \emph{train error}, is the sample average loss of a predictor \(f\):
 \begin{align}
   R_n(f):= 1/n \sum_i l(f(x_i),y_i).
 \end{align}
@@ -8477,7 +8038,7 @@ Plotting results.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-239-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-227-1}
 
 Checking all possible models is computationally very hard.
 \emph{Forward selection} is a greedy approach that adds one variable at a time.
@@ -8628,7 +8189,7 @@ The \texttt{glmnet} package is an excellent package that provides ridge, LASSO, 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{suppressMessages}\NormalTok{(}\KeywordTok{library}\NormalTok{(glmnet))}
+\KeywordTok{library}\NormalTok{(glmnet)}
 
 \NormalTok{means <-}\StringTok{ }\KeywordTok{apply}\NormalTok{(X.train, }\DecValTok{2}\NormalTok{, mean)}
 \NormalTok{sds <-}\StringTok{ }\KeywordTok{apply}\NormalTok{(X.train, }\DecValTok{2}\NormalTok{, sd)}
@@ -9015,7 +8576,7 @@ We can use the \textbf{rpart.plot} package to visualize and interpret the predic
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-244-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-232-1}
 
 Or the newer \href{https://cran.r-project.org/web/packages/ggparty/vignettes/ggparty-graphic-partying.html}{ggparty} package, for trees fitted with the \href{https://cran.r-project.org/package=party}{party} package.
 
@@ -9088,28 +8649,6 @@ learning algorithms to be precise.
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(caret)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Attaching package: 'caret'
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked _by_ '.GlobalEnv':
-## 
-##     R2
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:survival':
-## 
-##     cluster
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \CommentTok{# Control some training parameters}
 \NormalTok{train.control <-}\StringTok{ }\KeywordTok{trainControl}\NormalTok{(}\DataTypeTok{method =} \StringTok{"cv"}\NormalTok{,}
                            \DataTypeTok{number =} \DecValTok{10}\NormalTok{)}
@@ -9716,7 +9255,7 @@ FA originates from the psychometric literature.
 We thus revisit the IQ (actually g-factor\footnote{\url{https://en.wikipedia.org/wiki/G_factor_(psychometrics)}}) Example \ref{exm:iq}:
 
 \BeginKnitrBlock{example}
-\protect\hypertarget{exm:unnamed-chunk-250}{}{\label{exm:unnamed-chunk-250} }Assume \(n\) respondents answer \(p\) quantitative questions: \(x_i \in \mathbb{R}^p, i=1,\dots,n\).
+\protect\hypertarget{exm:unnamed-chunk-238}{}{\label{exm:unnamed-chunk-238} }Assume \(n\) respondents answer \(p\) quantitative questions: \(x_i \in \mathbb{R}^p, i=1,\dots,n\).
 Also assume, their responses are some linear function of a single personality attribute, \(s_i\).
 We can think of \(s_i\) as the subject's ``intelligence''.
 We thus have
@@ -9896,29 +9435,7 @@ The \emph{bi-plot} is a useful way to visualize the output of PCA.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## 
-## Attaching package: 'plyr'
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:lubridate':
-## 
-##     here
-\end{verbatim}
-
-\begin{verbatim}
-## 
-## Attaching package: 'scales'
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:viridis':
-## 
-##     viridis_pal
-\end{verbatim}
-
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-252-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-240-1}
 
 Things to note:
 
@@ -9951,7 +9468,7 @@ The scree plot suggests a PC1 alone captures about 0.8 of the variability in cri
 The next plot, is the classical class-room introduction to PCA.
 It shows that states are indeed arranged along a single line in the ``Assault-Murder'' plane. This line is PC1.
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-253-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-241-1}
 
 More implementations of PCA:
 
@@ -10067,21 +9584,7 @@ Graphical model fans will like the following plot, where the contribution of eac
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## Registered S3 methods overwritten by 'BDgraph':
-##   method    from
-##   plot.sim  lava
-##   print.sim lava
-\end{verbatim}
-
-\begin{verbatim}
-## Registered S3 methods overwritten by 'huge':
-##   method    from   
-##   plot.sim  BDgraph
-##   print.sim BDgraph
-\end{verbatim}
-
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-255-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-243-1}
 
 Let's add a rotation (Varimax), and note that the rotation has indeed changed the loadings of the variables, thus the interpretation of the factors.
 
@@ -10272,7 +9775,7 @@ Inspect some digits:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-257-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-245-1}
 
 The analysis is adapted from \href{https://rpubs.com/marwahsi/tnse}{Shruti Marwaha}.
 
@@ -10299,7 +9802,7 @@ The analysis is adapted from \href{https://rpubs.com/marwahsi/tnse}{Shruti Marwa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-258-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-246-1}
 
 \hypertarget{force-embedding}{%
 \subsubsection{Force Embedding}\label{force-embedding}}
@@ -10345,28 +9848,6 @@ Things to note:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(kernlab)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Attaching package: 'kernlab'
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:scales':
-## 
-##     alpha
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:ggplot2':
-## 
-##     alpha
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{kpc <-}\StringTok{ }\KeywordTok{kpca}\NormalTok{(}\OperatorTok{~}\NormalTok{.,}\DataTypeTok{data=}\KeywordTok{as.data.frame}\NormalTok{(USArrests}\FloatTok{.1}\NormalTok{), }\DataTypeTok{kernel=}\StringTok{"rbfdot"}\NormalTok{, }\DataTypeTok{kpar=}\KeywordTok{list}\NormalTok{(}\DataTypeTok{sigma=}\FloatTok{0.2}\NormalTok{), }\DataTypeTok{features=}\DecValTok{2}\NormalTok{)}
 
 \KeywordTok{plot}\NormalTok{(}\KeywordTok{rotated}\NormalTok{(kpc),}
@@ -10757,7 +10238,7 @@ Here is a little simulation to demonstrate this:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-262-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-250-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10769,7 +10250,7 @@ Here is a little simulation to demonstrate this:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-262-2}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-250-2}
 
 \hypertarget{bibliographic-notes-9}{%
 \section{Bibliographic Notes}\label{bibliographic-notes-9}}
@@ -10885,7 +10366,7 @@ A simple scatter plot.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-263-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-251-1}
 
 Various types of plots.
 
@@ -10902,7 +10383,7 @@ Various types of plots.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-264-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-252-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10934,7 +10415,7 @@ Control the plotting characters with the \texttt{pch} argument, and size with th
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-265-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-253-1}
 
 Control the line's type with \texttt{lty} argument, and width with \texttt{lwd}.
 
@@ -10950,7 +10431,7 @@ Control the line's type with \texttt{lty} argument, and width with \texttt{lwd}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-266-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-254-1}
 
 Add line by slope and intercept with \texttt{abline}.
 
@@ -10963,7 +10444,7 @@ Add line by slope and intercept with \texttt{abline}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-267-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-255-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10976,7 +10457,7 @@ Add line by slope and intercept with \texttt{abline}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-268-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-256-1}
 
 Things to note:
 
@@ -11007,7 +10488,7 @@ Add other elements.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-269-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-257-1}
 
 Things to note:
 
@@ -11029,7 +10510,7 @@ Add a legend.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-270-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-258-1}
 
 Adjusting Axes with \texttt{xlim} and \texttt{ylim}.
 
@@ -11039,7 +10520,7 @@ Adjusting Axes with \texttt{xlim} and \texttt{ylim}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-271-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-259-1}
 
 Use \texttt{layout} for complicated plot layouts.
 
@@ -11060,7 +10541,7 @@ Use \texttt{layout} for complicated plot layouts.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-272-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-260-1}
 
 Always detach.
 
@@ -11147,7 +10628,7 @@ See \texttt{?pdf} and \texttt{?jpeg} for more info.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-277-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-265-1}
 
 Things to note:
 
@@ -11181,7 +10662,7 @@ Things to note:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-278-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-266-1}
 
 \hypertarget{arrows}{%
 \subsubsection{Arrows}\label{arrows}}
@@ -11199,7 +10680,7 @@ Things to note:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-279-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-267-1}
 
 \hypertarget{arrows-as-error-bars}{%
 \subsubsection{Arrows as error bars}\label{arrows-as-error-bars}}
@@ -11220,7 +10701,7 @@ Things to note:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-280-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-268-1}
 
 \hypertarget{histogram}{%
 \subsubsection{Histogram}\label{histogram}}
@@ -11237,7 +10718,7 @@ A histogram is nothing but a bunch of rectangle elements.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-281-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-269-1}
 
 \hypertarget{spiral-squares}{%
 \paragraph{Spiral Squares}\label{spiral-squares}}
@@ -11259,7 +10740,7 @@ A histogram is nothing but a bunch of rectangle elements.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-282-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-270-1}
 
 \hypertarget{circles}{%
 \subsubsection{Circles}\label{circles}}
@@ -11281,7 +10762,7 @@ Circles are just dense polygons.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-283-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-271-1}
 
 \hypertarget{spiral}{%
 \subsubsection{Spiral}\label{spiral}}
@@ -11300,7 +10781,7 @@ Circles are just dense polygons.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-284-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-272-1}
 
 \hypertarget{the-ggplot2-system}{%
 \section{The ggplot2 System}\label{the-ggplot2-system}}
@@ -11360,7 +10841,7 @@ The \texttt{nlme::Milk} dataset has the protein level of various cows, at variou
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-286-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-274-1}
 
 Things to note:
 
@@ -11387,7 +10868,7 @@ Let's add some color.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-287-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-275-1}
 
 The \texttt{color} argument tells R to use the variable \texttt{Diet} as the coloring.
 A legend is added by default.
@@ -11400,7 +10881,7 @@ If we wanted a fixed color, and not a variable dependent color, \texttt{color} w
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-288-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-276-1}
 
 Let's save the \textbf{ggplot2} object so we can reuse it.
 Notice it is not plotted.
@@ -11421,7 +10902,7 @@ Here, we add a smoothing line to the plot \texttt{p}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-290-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-278-1}
 
 Things to note:
 
@@ -11441,7 +10922,7 @@ To split the plot along some variable, we use faceting, done with the \texttt{fa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-291-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-279-1}
 
 Instead of faceting, we can add a layer of the mean of each \texttt{Diet} subgroup, connected by lines.
 
@@ -11451,7 +10932,7 @@ Instead of faceting, we can add a layer of the mean of each \texttt{Diet} subgro
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-292-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-280-1}
 
 Things to note:
 
@@ -11498,7 +10979,7 @@ To demonstrate the layers added with the \texttt{geoms\_*} functions, we start w
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-293-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-281-1}
 
 A bar plot.
 
@@ -11509,7 +10990,7 @@ A bar plot.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-294-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-282-1}
 
 A scatter plot.
 
@@ -11520,7 +11001,7 @@ A scatter plot.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-295-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-283-1}
 
 A smooth regression plot, reusing the \texttt{tp} object.
 
@@ -11530,7 +11011,7 @@ A smooth regression plot, reusing the \texttt{tp} object.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-296-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-284-1}
 
 And now, a simple line plot, reusing the \texttt{tp} object, and connecting lines along \texttt{Cow}.
 
@@ -11540,7 +11021,7 @@ And now, a simple line plot, reusing the \texttt{tp} object, and connecting line
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-297-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-285-1}
 
 The line plot is completely incomprehensible.
 Better look at boxplots along time (even if omitting the \texttt{Cow} information).
@@ -11551,7 +11032,7 @@ Better look at boxplots along time (even if omitting the \texttt{Cow} informatio
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-298-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-286-1}
 
 We can do some statistics for each subgroup.
 The following will compute the mean and standard errors of \texttt{protein} at each time point.
@@ -11563,7 +11044,7 @@ The following will compute the mean and standard errors of \texttt{protein} at e
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-299-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-287-1}
 
 Some popular statistical summaries, have gained their own functions:
 
@@ -11588,7 +11069,7 @@ For less popular statistical summaries, we may specify the statistical function 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-300-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-288-1}
 
 We can also define our own statistical summaries.
 
@@ -11600,7 +11081,7 @@ We can also define our own statistical summaries.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-301-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-289-1}
 
 \textbf{Faceting} allows to split the plotting along some variable.
 \texttt{face\_wrap} tells R to compute the number of columns and rows of plots automatically.
@@ -11613,7 +11094,7 @@ We can also define our own statistical summaries.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-302-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-290-1}
 
 \texttt{facet\_grid} forces the plot to appear allow rows or columns, using the \texttt{\textasciitilde{}} syntax.
 
@@ -11625,7 +11106,7 @@ We can also define our own statistical summaries.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-303-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-291-1}
 
 To control the looks of the plot, \textbf{ggplot2} uses \textbf{themes}.
 
@@ -11637,7 +11118,7 @@ To control the looks of the plot, \textbf{ggplot2} uses \textbf{themes}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-304-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-292-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -11648,7 +11129,7 @@ To control the looks of the plot, \textbf{ggplot2} uses \textbf{themes}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-305-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-293-1}
 
 Saving plots can be done using \texttt{ggplot2::ggsave}, or with \texttt{pdf} like the \textbf{graphics} plots:
 
@@ -11696,46 +11177,6 @@ You can create nice interactive graphs using \texttt{plotly::plot\_ly}:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(plotly)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Attaching package: 'plotly'
-\end{verbatim}
-
-\begin{verbatim}
-## The following objects are masked from 'package:plyr':
-## 
-##     arrange, mutate, rename, summarise
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:MASS':
-## 
-##     select
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:ggplot2':
-## 
-##     last_plot
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:stats':
-## 
-##     filter
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:graphics':
-## 
-##     layout
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{set.seed}\NormalTok{(}\DecValTok{100}\NormalTok{)}
 \NormalTok{d <-}\StringTok{ }\NormalTok{diamonds[}\KeywordTok{sample}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(diamonds), }\DecValTok{1000}\NormalTok{), ]}
 \end{Highlighting}
@@ -11758,7 +11199,7 @@ More conveniently, any \textbf{ggplot2} graph can be made interactive using \tex
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{htmlwidget-614d84b925e39db30ed1}{}
+\hypertarget{htmlwidget-abd5ef66e818cfb51399}{}
 
 How about exporting \textbf{plotly} objects?
 Well, a \textbf{plotly} object is nothing more than a little web site: an HTML file.
@@ -11815,7 +11256,7 @@ A \href{https://www.youtube.com/watch?v=9Objw9Tvhb4\&feature=youtu.be}{video} by
 \end{Highlighting}
 \end{Shaded}
 
-  \includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-311-1}
+  \includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-299-1}
   ```
 \item
   Write a function that creates a boxplot from scratch. See how I built a line graph in Section \ref{fancy}.
@@ -12041,7 +11482,7 @@ which compiles into
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-316-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-304-1}
 
 Some useful code chunk options include:
 
@@ -12461,7 +11902,7 @@ See {[}\url{http://rmarkdown.rstudio.com/flexdashboard/}{]} for more info.
 For RMarkdown see \href{http://rmarkdown.rstudio.com/}{here}.
 For everything on \textbf{knitr} see \href{https://yihui.name/knitr/}{Yihui's blog}, or the book \citet{xie2015dynamic}.
 For a \textbf{bookdown} manual, see \citet{xie2016bookdown}.
-For a Shiny manual, see \citet{shiny}, the \href{http://shiny.rstudio.com/tutorial/}{RStudio tutorial}, or \href{http://zevross.com/blog/2016/04/19/r-powered-web-applications-with-shiny-a-tutorial-and-cheat-sheet-with-40-example-apps/}{Zev Ross's} excellent guide.
+For a Shiny manual, see \citet{shiny}, the \href{http://shiny.rstudio.com/tutorial/}{RStudio tutorial}, or \href{https://mastering-shiny.org}{Hadley's Book}.
 Video tutorials are available \href{https://www.rstudio.com/resources/webinars/shiny-developer-conference/}{here}.
 
 \hypertarget{practice-yourself-9}{%
@@ -12560,7 +12001,7 @@ We call \textbf{MatrixModels} for an implementation of \texttt{model.matrix} tha
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{suppressPackageStartupMessages}\NormalTok{(}\KeywordTok{library}\NormalTok{(MatrixModels))}
+\KeywordTok{library}\NormalTok{(MatrixModels)}
 \NormalTok{X}\FloatTok{.2}\NormalTok{<-}\StringTok{ }\KeywordTok{as}\NormalTok{(x,}\StringTok{"sparseMatrix"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\NormalTok{t }\CommentTok{# Makes sparse dummy model.matrix}
 \KeywordTok{head}\NormalTok{(X}\FloatTok{.2}\NormalTok{)}
 \end{Highlighting}
@@ -12568,13 +12009,6 @@ We call \textbf{MatrixModels} for an implementation of \texttt{model.matrix} tha
 
 \begin{verbatim}
 ## 6 x 26 sparse Matrix of class "dgCMatrix"
-\end{verbatim}
-
-\begin{verbatim}
-##    [[ suppressing 26 column names 'a', 'b', 'c' ... ]]
-\end{verbatim}
-
-\begin{verbatim}
 ##                                                         
 ## [1,] . . . . . . . . . . . . . 1 . . . . . . . . . . . .
 ## [2,] . . . . . . 1 . . . . . . . . . . . . . . . . . . .
@@ -12615,12 +12049,6 @@ The memory footprint of the matrices, given by the \texttt{pryr::object\_size} f
 \end{Shaded}
 
 \begin{verbatim}
-## Registered S3 method overwritten by 'pryr':
-##   method      from
-##   print.bytes Rcpp
-\end{verbatim}
-
-\begin{verbatim}
 ## 272 MB
 \end{verbatim}
 
@@ -12657,7 +12085,7 @@ Here is the timing of a non sparse representation:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   4.316   3.053   1.657
+##   4.879   3.216   2.172
 \end{verbatim}
 
 Well actually, \texttt{lm} is a wrapper for the \texttt{lm.fit} function.
@@ -12671,7 +12099,7 @@ If we override all the overhead of \texttt{lm}, and call \texttt{lm.fit} directl
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   2.119   2.273   0.875
+##   1.819   1.889   0.660
 \end{verbatim}
 
 We now do the same with the sparse representation:
@@ -12684,7 +12112,7 @@ We now do the same with the sparse representation:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.185   0.008   0.194
+##   0.157   0.062   0.218
 \end{verbatim}
 
 It is only left to verify that the returned coefficients are the same:
@@ -12707,7 +12135,7 @@ You can also visualize the non zero entries, i.e., the sparsity structure.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-332-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-320-1}
 
 \hypertarget{sparse-matrix-representations}{%
 \section{Sparse Matrix Representations}\label{sparse-matrix-representations}}
@@ -12822,7 +12250,7 @@ The following example is taken from \href{http://www.johnmyleswhite.com/notebook
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{suppressPackageStartupMessages}\NormalTok{(}\KeywordTok{library}\NormalTok{(}\StringTok{'glmnet'}\NormalTok{))}
+\KeywordTok{library}\NormalTok{(}\StringTok{'glmnet'}\NormalTok{)}
 
 \KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
 \NormalTok{performance <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{()}
@@ -12883,7 +12311,7 @@ We now inspect the computing time, and the memory footprint, only to discover th
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{suppressPackageStartupMessages}\NormalTok{(}\KeywordTok{library}\NormalTok{(}\StringTok{'ggplot2'}\NormalTok{))}
+\KeywordTok{library}\NormalTok{(}\StringTok{'ggplot2'}\NormalTok{)}
 \KeywordTok{ggplot}\NormalTok{(performance, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Format, }\DataTypeTok{y =}\NormalTok{ ElapsedTime, }\DataTypeTok{fill =}\NormalTok{ Format)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{stat_summary}\NormalTok{(}\DataTypeTok{fun.data =} \StringTok{'mean_cl_boot'}\NormalTok{, }\DataTypeTok{geom =} \StringTok{'bar'}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{stat_summary}\NormalTok{(}\DataTypeTok{fun.data =} \StringTok{'mean_cl_boot'}\NormalTok{, }\DataTypeTok{geom =} \StringTok{'errorbar'}\NormalTok{) }\OperatorTok{+}
@@ -12891,7 +12319,7 @@ We now inspect the computing time, and the memory footprint, only to discover th
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-333-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-321-1}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -12902,7 +12330,7 @@ We now inspect the computing time, and the memory footprint, only to discover th
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-334-1}
+\includegraphics[width=0.5\linewidth]{Rcourse_files/figure-latex/unnamed-chunk-322-1}
 
 How do we perform other types of regression with the \textbf{glmnet}?
 We just need to use the \texttt{family} and \texttt{alpha} arguments of \texttt{glmnet::glmnet}.
@@ -13034,15 +12462,6 @@ The following if taken from the function's example.
 \NormalTok{chunk3<-trees[}\DecValTok{21}\OperatorTok{:}\DecValTok{31}\NormalTok{,]}
 
 \KeywordTok{library}\NormalTok{(biglm)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Loading required package: DBI
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{a <-}\StringTok{ }\KeywordTok{biglm}\NormalTok{(ff,chunk1)}
 \NormalTok{a <-}\StringTok{ }\KeywordTok{update}\NormalTok{(a,chunk2)}
 \NormalTok{a <-}\StringTok{ }\KeywordTok{update}\NormalTok{(a,chunk3)}
@@ -13122,59 +12541,6 @@ Here is the timing for \textbf{dplyr}.
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(dplyr)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## 
-## Attaching package: 'dplyr'
-\end{verbatim}
-
-\begin{verbatim}
-## The following objects are masked from 'package:plyr':
-## 
-##     arrange, count, desc, failwith, id, mutate, rename, summarise,
-##     summarize
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:nlme':
-## 
-##     collapse
-\end{verbatim}
-
-\begin{verbatim}
-## The following object is masked from 'package:MASS':
-## 
-##     select
-\end{verbatim}
-
-\begin{verbatim}
-## The following objects are masked from 'package:data.table':
-## 
-##     between, first, last
-\end{verbatim}
-
-\begin{verbatim}
-## The following objects are masked from 'package:lubridate':
-## 
-##     intersect, setdiff, union
-\end{verbatim}
-
-\begin{verbatim}
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-\end{verbatim}
-
-\begin{verbatim}
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{system.time}\NormalTok{( tbl_df }\OperatorTok{%>%}\StringTok{ }
 \StringTok{               }\KeywordTok{group_by}\NormalTok{(v1,v2) }\OperatorTok{%>%}\StringTok{ }
 \StringTok{               }\KeywordTok{summarize}\NormalTok{(}
@@ -13188,7 +12554,7 @@ Here is the timing for \textbf{dplyr}.
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.810   0.031   0.905
+##   0.836   0.145   1.050
 \end{verbatim}
 
 And now the timing for \textbf{data.table}.
@@ -13203,7 +12569,7 @@ And now the timing for \textbf{data.table}.
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.511   0.171   0.541
+##   0.812   0.147   0.829
 \end{verbatim}
 
 The winner is obvious.
@@ -13219,7 +12585,7 @@ Let's compare filtering (i.e.~row subsets, i.e.~SQL's SELECT).
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.020   0.101   0.121
+##   0.323   0.101   0.423
 \end{verbatim}
 
 \begin{Shaded}
@@ -13232,7 +12598,7 @@ Let's compare filtering (i.e.~row subsets, i.e.~SQL's SELECT).
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.045   0.106   0.123
+##   0.067   0.059   0.085
 \end{verbatim}
 
 \hypertarget{computing-from-a-database}{%
@@ -13469,20 +12835,6 @@ Now write the data to local storage as an ff data frame, using \texttt{laf\_to\_
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{data.ffdf <-}\StringTok{ }\NormalTok{ffbase}\OperatorTok{::}\KeywordTok{laf_to_ffdf}\NormalTok{(}\DataTypeTok{laf =}\NormalTok{ .dat)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Registered S3 methods overwritten by 'ffbase':
-##   method   from
-##   [.ff     ff  
-##   [.ffdf   ff  
-##   [<-.ff   ff  
-##   [<-.ffdf ff
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{head}\NormalTok{(data.ffdf)}
 \end{Highlighting}
 \end{Shaded}
@@ -13878,19 +13230,6 @@ Let's start with a simple example, taken from \href{http://debian.mc.vanderbilt.
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(doParallel)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Loading required package: iterators
-\end{verbatim}
-
-\begin{verbatim}
-## Loading required package: parallel
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{cl <-}\StringTok{ }\KeywordTok{makeCluster}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DataTypeTok{type =} \StringTok{'SOCK'}\NormalTok{)}
 \KeywordTok{registerDoParallel}\NormalTok{(cl)}
 \NormalTok{result <-}\StringTok{ }\KeywordTok{foreach}\NormalTok{(}\DataTypeTok{i=}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{) }\OperatorTok{%dopar%}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(i)}
@@ -13963,7 +13302,9 @@ Things to note:
 \item
   As usual, we use the \texttt{foreach} function with the \texttt{\%dopar\%} operator to loop in parallel.
 \item
-  The \texttt{icounts} function generates a counter.
+  The \texttt{iterators::icount} function generates a counter that iterates over its argument.
+\item
+  The object \texttt{x} is magically avaiable at all child processes, even though we did not \emph{fork} R. This is thanks to \texttt{forach} which guesses what data to pass to children.
 \item
   The \texttt{.combine=cbind} argument tells the \texttt{foreach} function how to combine the output of different machines, so that the returned object is not the default list.
 \item
@@ -13990,47 +13331,23 @@ The following example is taken from \citet{kane2013scalable}, and uses the \text
 
 \KeywordTok{library}\NormalTok{(foreach)}
 \KeywordTok{library}\NormalTok{(doSNOW)}
-\NormalTok{cl <-}\StringTok{ }\KeywordTok{makeSOCKcluster}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"localhost"}\NormalTok{, }\DecValTok{4}\NormalTok{)) }\CommentTok{# make a cluster of 4 machines}
+\NormalTok{cl <-}\StringTok{ }\KeywordTok{makeSOCKcluster}\NormalTok{(}\DataTypeTok{names=}\KeywordTok{rep}\NormalTok{(}\StringTok{"localhost"}\NormalTok{, }\DecValTok{4}\NormalTok{)) }\CommentTok{# make a cluster of 4 machines}
 \KeywordTok{registerDoSNOW}\NormalTok{(cl) }\CommentTok{# register machines for foreach()}
-\end{Highlighting}
-\end{Shaded}
-
-Get a ``description'' of the \texttt{big.matrix} object that will be used to call it from each machine.
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{xdesc <-}\StringTok{ }\KeywordTok{describe}\NormalTok{(x) }
-\end{Highlighting}
-\end{Shaded}
 
-Split the data along values of \texttt{BENE\_AGE\_CAT\_CD}.
+\NormalTok{G <-}\StringTok{ }\KeywordTok{split}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(x), x[, }\StringTok{"BENE_AGE_CAT_CD"}\NormalTok{]) }\CommentTok{# Split the data along `BENE_AGE_CAT_CD`.}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{G <-}\StringTok{ }\KeywordTok{split}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(x), x[, }\StringTok{"BENE_AGE_CAT_CD"}\NormalTok{]) }
-\end{Highlighting}
-\end{Shaded}
-
-Define a function that computes quantiles of \texttt{CAR\_LINE\_ICD9\_DGNS\_CD}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{GetDepQuantiles <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(rows, data) \{}
- \KeywordTok{quantile}\NormalTok{(data[rows, }\StringTok{"CAR_LINE_ICD9_DGNS_CD"}\NormalTok{], }\DataTypeTok{probs =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.9}\NormalTok{, }\FloatTok{0.99}\NormalTok{),}
- \DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
+ \KeywordTok{quantile}\NormalTok{(data[rows, }\StringTok{"CAR_LINE_ICD9_DGNS_CD"}\NormalTok{], }
+          \DataTypeTok{probs =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.9}\NormalTok{, }\FloatTok{0.99}\NormalTok{), }
+          \DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{\} }\CommentTok{# Function to extract quantiles}
 
-We are all set up to loop, in parallel, and compute quantiles of \texttt{CAR\_LINE\_ICD9\_DGNS\_CD} for each value of \texttt{BENE\_AGE\_CAT\_CD}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{qs <-}\StringTok{ }\KeywordTok{foreach}\NormalTok{(}\DataTypeTok{g =}\NormalTok{ G, }\DataTypeTok{.combine =}\NormalTok{ rbind) }\OperatorTok{%dopar%}\StringTok{ }\NormalTok{\{}
- \KeywordTok{require}\NormalTok{(}\StringTok{"bigmemory"}\NormalTok{)}
+ \KeywordTok{library}\NormalTok{(}\StringTok{"bigmemory"}\NormalTok{) }
 \NormalTok{ x <-}\StringTok{ }\KeywordTok{attach.big.matrix}\NormalTok{(xdesc)}
  \KeywordTok{GetDepQuantiles}\NormalTok{(}\DataTypeTok{rows =}\NormalTok{ g, }\DataTypeTok{data =}\NormalTok{ x)}
-\NormalTok{\}}
+\NormalTok{\} }\CommentTok{# get quantiles, in parallel}
 \NormalTok{qs}
 \end{Highlighting}
 \end{Shaded}
@@ -14045,57 +13362,68 @@ We are all set up to loop, in parallel, and compute quantiles of \texttt{CAR\_LI
 ## result.6 518 796 995
 \end{verbatim}
 
-\hypertarget{which-backend-to-use}{%
-\subsubsection{Which Backend to Use?}\label{which-backend-to-use}}
+Things to note:
 
-In the following example, we compare the \emph{fork} mechanism, to the \emph{socket} mechanism.
-The bottom line is- use \emph{fork} whenever possible.
+\begin{itemize}
+\tightlist
+\item
+  \texttt{bigmemory::attach.big.matrix} creates an R \emph{big.matrix} object from a matrix already existing on disk. See Section \ref{bigmemory} for details.
+\item
+  \texttt{snow::makeSOCKcluster} creates cluster of R processes communicating via sockets.
+\item
+  \texttt{bigmemory::describe} recovres a pointer to the \emph{big.matrix} object, that will be used to call it from various child proceeses.
+\item
+  Because R processes were not \emph{forked}, each child need to load the \textbf{bigmemory} package separately.
+\end{itemize}
+
+Can only \textbf{big.matrix} objects be used to share data between child processes?
+No.
+There are many mechanism to share data.
+We use \textbf{big.matrix} merely for demonstration.
+
+\hypertarget{fork-or-socket}{%
+\subsubsection{Fork or Socket?}\label{fork-or-socket}}
+
+On Linux and Unix machines you can use both the \emph{fork} mechanism of the \textbf{multicore} package, and the \emph{socket} mechanism of the \textbf{snow} package.
+Which is preferable? \emph{Fork}, if available.
+Here is a quick comparison.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(nycflights13)}
-\NormalTok{flights}\OperatorTok{$}\NormalTok{ind <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DataTypeTok{size =} \KeywordTok{nrow}\NormalTok{(flights), }\DataTypeTok{replace =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{flights}\OperatorTok{$}\NormalTok{ind <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DataTypeTok{size =} \KeywordTok{nrow}\NormalTok{(flights), }\DataTypeTok{replace =} \OtherTok{TRUE}\NormalTok{) }\CommentTok{#split data to 10.}
 
-\NormalTok{timer <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(i) }\KeywordTok{max}\NormalTok{(flights[flights}\OperatorTok{$}\NormalTok{ind}\OperatorTok{==}\NormalTok{i,}\StringTok{"distance"}\NormalTok{])}
-\KeywordTok{timer}\NormalTok{(}\DecValTok{1}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\NormalTok{timer <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(i) }\KeywordTok{max}\NormalTok{(flights[flights}\OperatorTok{$}\NormalTok{ind}\OperatorTok{==}\NormalTok{i,}\StringTok{"distance"}\NormalTok{]) }\CommentTok{# an arbitrary function}
 
-\begin{verbatim}
-## [1] 4983
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(doMC)}
-\KeywordTok{registerDoMC}\NormalTok{(}\DataTypeTok{cores =} \DecValTok{10}\NormalTok{)}
-\KeywordTok{system.time}\NormalTok{(}\KeywordTok{foreach}\NormalTok{ (}\DataTypeTok{i=}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DataTypeTok{.combine =} \StringTok{'c'}\NormalTok{) }\OperatorTok{%dopar%}\StringTok{ }\KeywordTok{timer}\NormalTok{(i))}
+\KeywordTok{registerDoMC}\NormalTok{(}\DataTypeTok{cores =} \DecValTok{10}\NormalTok{) }\CommentTok{# make a fork cluster}
+\KeywordTok{system.time}\NormalTok{(}\KeywordTok{foreach}\NormalTok{ (}\DataTypeTok{i=}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DataTypeTok{.combine =} \StringTok{'c'}\NormalTok{) }\OperatorTok{%dopar%}\StringTok{ }\KeywordTok{timer}\NormalTok{(i)) }\CommentTok{# time the fork cluster}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.059   0.360   0.417
+##   0.012   0.345   0.363
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(parallel)         }
 \KeywordTok{library}\NormalTok{(doParallel)}
-\NormalTok{cl <-}\StringTok{ }\KeywordTok{makeCluster}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DataTypeTok{type=}\StringTok{"SOCK"}\NormalTok{)}
+\NormalTok{cl <-}\StringTok{ }\KeywordTok{makeCluster}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DataTypeTok{type=}\StringTok{"SOCK"}\NormalTok{) }\CommentTok{# make a socket cluster. }
 \KeywordTok{registerDoParallel}\NormalTok{(cl)}
-\KeywordTok{system.time}\NormalTok{(}\KeywordTok{foreach}\NormalTok{ (}\DataTypeTok{i=}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DataTypeTok{.combine =} \StringTok{'c'}\NormalTok{) }\OperatorTok{%dopar%}\StringTok{ }\KeywordTok{timer}\NormalTok{(i))}
+\KeywordTok{system.time}\NormalTok{(}\KeywordTok{foreach}\NormalTok{ (}\DataTypeTok{i=}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, }\DataTypeTok{.combine =} \StringTok{'c'}\NormalTok{) }\OperatorTok{%dopar%}\StringTok{ }\KeywordTok{timer}\NormalTok{(i)) }\CommentTok{# time the socket cluster}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   1.127   0.168   2.075
+##   1.065   0.185   2.039
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{stopCluster}\NormalTok{(cl)}
+\KeywordTok{stopCluster}\NormalTok{(cl) }\CommentTok{# close the cluster}
 \end{Highlighting}
 \end{Shaded}
 
@@ -14104,12 +13432,18 @@ Things to note:
 \begin{itemize}
 \tightlist
 \item
+  \texttt{doMC::registerDoMC} was used to stard and register the forked cluster.
+\item
+  \texttt{parallel::makeCluster} was used to stard the socket cluster. It was registered with \texttt{doParallel::registerDoParallel}.
+\item
+  After registering the cluster, the \textbf{foreach} code is exactly the same.
+\item
   The clear victor is \emph{fork}: sessions start faster, and computations finish faster. Sadly, we recall that \emph{forking} is impossible on Windows machines, or in clusters that consist of several machines.
 \item
-  We did not need to pass \texttt{flights} to the different workers. \texttt{foreach} took care of that for us.
+  We did not need to pass \texttt{flights} to the different workers. \texttt{foreach::foreach} took care of that for us.
 \end{itemize}
 
-For fun, let's try the same with \texttt{data.table}\ldots{}.
+For fun, let's try the same with \texttt{data.table}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -14121,7 +13455,7 @@ For fun, let's try the same with \texttt{data.table}\ldots{}.
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.024   0.000   0.024
+##   0.065   0.070   0.095
 \end{verbatim}
 
 No surprises there.
@@ -14151,31 +13485,34 @@ Linear algebra, and various machine learning algorithms are examples we now disc
 R ships with its own linear algebra algorithms, known as Basic Linear Algebra Subprograms: \href{http://www.netlib.org/blas/}{BLAS}.
 To learn the history of linear algebra in R, read \citet{maechler20062nd}.
 For more details, see our Bibliographic notes.
-As a user, you may actually replace the underlying linear algebra libraries in R.
-There are actually many linear algebra libraries \href{https://en.wikipedia.org/wiki/Comparison_of_linear_algebra_libraries}{out there}.
-Cutting edge linear algebra libraries such as \href{https://github.com/xianyi/OpenBLAS}{OpenBLAS}, \href{https://bitbucket.org/icl/plasma/src/default/}{Plasma}, and Intel's \href{https://software.intel.com/en-us/mkl}{MKL} for Intel processors (which you are probably using), will parallelise basic linear algebra operations for you.
-This is very useful, since: (a) all machines today have multiple cores and (b) linear algebra is at the heart of all statistics and machine learning.
+BLAS will use a single core, even if your machines has many more.
+There are many linear algebra libraries \href{https://en.wikipedia.org/wiki/Comparison_of_linear_algebra_libraries}{out there}, and you don't need to be a programmer to replace R's BLAS.
+Cutting edge linear algebra libraries such as \href{https://github.com/xianyi/OpenBLAS}{OpenBLAS}, \href{https://bitbucket.org/icl/plasma/src/default/}{Plasma}, and Intel's \href{https://software.intel.com/en-us/mkl}{MKL}, will do your linear algebra while exploiting the many cores of your machine.
+This is very useful, since all machines today have multiple cores, and linear algebra is at the heart of all statistics and machine learning.
 
 Installing these libraries requires some knowldge in system administration.
-It is quite simple under Ubuntu and Debian linux, and may be more comlicated otherwise.
+It is fairly simple under Ubuntu and Debian linux, and may be more comlicated on other operating systems.
 Installing these is outside the scope of this text.
 We will thus content ourselves with the following pointers:
 
 \begin{itemize}
 \tightlist
 \item
-  Users can easily replace the BLAS libraries shipped with R, with other libraries. OpenBLAS, and MKL. These libraries will parallelise linear algebra for you.
-  -This is easier to do under Ubuntu and Debian Linux, but possible in all systems.
+  Users can easily replace the BLAS libraries shipped with R, with other libraries such as OpenBLAS, and MKL. These will parallelise linear algebra for you.
+\item
+  Installation is easier for Ubuntu and Debian Linux, but possible in all systems.
 \item
   For specific tasks, such as machine learning, you may not need an all-pupose paralle linear algebra library. If you want machine learning in parallel, there are more specialized libraries. In the followig, we demonstrate Spark (\ref{spark}), and H2O (\ref{h2o}).
+\item
+  Read our word of caution on nested parallelism (\ref{nested-parallel}) if you use parallel linear algebra within child R processes.
 \end{itemize}
 
 \hypertarget{parallel-data-munging-with-data.table}{%
 \subsection{Parallel Data Munging with data.table}\label{parallel-data-munging-with-data.table}}
 
-We have discussed \texttt{data.table} on various occasions.
-We now recall it to emphasize that various operations in \texttt{data.table} are done in parallel.
-For instance, imports.
+We have discussed \texttt{data.table} in Chapter \ref{datatable}.
+We now recall it to emphasize that various operations in \texttt{data.table} are done in parallel, using \href{https://en.wikipedia.org/wiki/OpenMP}{OpenMP}.
+For instance, file imports can done in paralle: each thread is responsible to impot a subset of the file.
 First, we check how many threads \texttt{data.table} is setup to use?
 
 \begin{Shaded}
@@ -14190,18 +13527,30 @@ First, we check how many threads \texttt{data.table} is setup to use?
 ## R_DATATABLE_NUM_PROCS_PERCENT=="" (default 50)
 ## R_DATATABLE_NUM_THREADS==""
 ## omp_get_thread_limit()==2147483647
-## omp_get_max_threads()==8
+## omp_get_max_threads()==1
 ## OMP_THREAD_LIMIT==""
 ## OMP_NUM_THREADS==""
-## data.table is using 1 threads. This is set on startup, and by setDTthreads(). See ?setDTthreads.
+## data.table is using 4 threads. This is set on startup, and by setDTthreads(). See ?setDTthreads.
 ## RestoreAfterFork==true
 \end{verbatim}
 
 \begin{verbatim}
-## [1] 1
+## [1] 4
 \end{verbatim}
 
-We then do the import and inspect CPU usage with the \emph{top} linux command.
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{data.table::getDTthreads} to get some info on my machine, and curent \texttt{data.table} setup. Use the \texttt{verbose=TRUE} flag for extra details.
+\item
+  \emph{omp\_get\_max\_threads} informs me how many threads are available in my machine.
+\item
+  My current \texttt{data.table} configuraton is in the last line of the output.
+\end{itemize}
+
+We then import with \texttt{data.table::fread} and inspect CPU usage with the \emph{top} linux command.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -14211,8 +13560,8 @@ We then do the import and inspect CPU usage with the \emph{top} linux command.
 
 \begin{figure}
 \centering
-\includegraphics{art/Screenshot from 2019-10-03 10-48-06.png}
-\caption{CPU usage of fread(). The CPU usage is 301.7\%. This is because \texttt{data.table} is setup to use 4 threads simultanously.}
+\includegraphics{art/Screenshot from 2019-10-08 16-00-34.png}
+\caption{The CPU usage of fread() is 384.4\%. This is because \texttt{data.table} is setup to use 4 threads simultanously.}
 \end{figure}
 
 \BeginKnitrBlock{remark}
@@ -14220,7 +13569,7 @@ We then do the import and inspect CPU usage with the \emph{top} linux command.
 This behaviour will avoid the nested parallelism we cautioned from in \ref{nested-parallel}.
 \EndKnitrBlock{remark}
 
-Now let's compare parallelised aggregations:
+After doing parallel imports, let's try parallel aggregation.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -14249,7 +13598,7 @@ Now let's compare parallelised aggregations:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.440   0.005   0.076
+##   0.421   0.020   0.075
 \end{verbatim}
 
 \begin{Shaded}
@@ -14262,7 +13611,7 @@ Now let's compare parallelised aggregations:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.149   0.000   0.148
+##   0.151   0.000   0.151
 \end{verbatim}
 
 Things to note:
@@ -14272,63 +13621,75 @@ Things to note:
 \item
   Parallel aggregation is indeed much faster.
 \item
+  Cores scaled by 8 fold. Time scaled by less. The scaling is not perfect. Remember Amdahl's law.
+\item
   This example was cooked to emphasize the difference. You may not enjoy such speedups in all problems.
 \end{itemize}
+
+If the data does not fit in our RAM, we cannot enjoy \texttt{data.table}s.
+If the data is so large that it does not fit into RAM\footnote{Recall that you can buy servers wth 1TB of RAM and more. So we are talking about A LOT of data!}, nor into your local disk, you will need to store, and compute with it, in a distributed cluster.
+In the next section, we present a very popular system for storing, munging, and learning, with massive datasets.
 
 \hypertarget{spark}{%
 \subsection{Spark}\label{spark}}
 
 Spark is the brainchild of Matei Zaharia, in 2009, as part of his PhD studies at University of California, Berkeley 's AMPLab.
-To understand \emph{Spark} need some background.
+To understand \emph{Spark} we need some background.
+
 The software that manages files on your disk is the \href{https://en.wikipedia.org/wiki/File_system}{file system}.
-On personal computers, you may have seen names like FAT32, NTFS, ext3, or others.
-Those are disk file systems.
+On personal computers, you may have seen names like FAT32, NTFS, EXT3, or others.
+Those are file systems for disks.
 If your data is too big to be stored on a single disk, you may distribute it on several machines.
 When doing so, you will need a file systems that is designed for distributed clusters.
 A good \href{https://en.wikipedia.org/wiki/Clustered_file_system}{cluster file system}, is crucial for the performance of your cluster.
-Google's file system, the \href{https://en.wikipedia.org/wiki/File_system}{Google File}, is part of Google power.
+Part of Google strength is in its powerful file system, the \href{https://en.wikipedia.org/wiki/Google_File_System}{Google File System}.
 If you are not at Google, you will not have access to this file system.
 Luckily, there are many other alternatives.
-The Hadoop File System, \href{https://en.wikipedia.org/wiki/Apache_Hadoop}{HDFS}, that started at Yahoo, and was ported to the Apache Foundation, is such an alternative.
-With the HDFS you can store files in a cluster, but for doing statistics with the data in these files, you need software that is compatible with the file system.
-Hadoop is such a software, but it was not designed for machine learning.
-Hadoop operates from the disk.
-Learning, which consists of a lot iterative algorithms run, requires fast and repeated data reads.
-This is the purpose of Spark.
+The Hadoop File System, \href{https://en.wikipedia.org/wiki/Apache_Hadoop}{HDFS}, that started at Yahoo, later donated to the Apache Foundation, is a popular alternative.
+With the HDFS you can store files in a cluster.
+
+For doing statistics, you need software that is compatible with the file system.
+This is true for all file systems, and in particular, HDFS.
+A popular software suit that was designed to work with HDFS is \emph{Hadoop}.
+Alas, Hadoop was not designed for machine learning.
+Hadoop for reasons of fault tolerance, Hadoop stores its data disk.
+Machine learning consists of a lot iterative algorithms that requires fast and repeated data reads.
+This is very slow if done from the disk.
+This is where \emph{Spark} comes in.
 Spark is a data oriented computing environment over distributed file systems.
-While originality linked to HDFS, it may run over many other distributed file systems, but also locally, as we now demonstrate.
+Let's parse that:
+
+\begin{itemize}
+\tightlist
+\item
+  ``data oriented'': designed for statistics and machine learning, which require a lot of data, that is mostly read and not written.
+\item
+  ``computing environment'': it less general than a full blown programming language, but it allows you to extend it.
+\item
+  ``over distributed file systems'': it ingests data that is stored in distributed clusters, managed by HDFS or other distributed file system.
+\end{itemize}
+
+Let's start a Spark server on our local machine to get a feeling of it.
+We will not run from a cluster, so that you may experiment with it yourself.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(sparklyr)}
 \KeywordTok{spark_install}\NormalTok{(}\DataTypeTok{version =} \StringTok{"2.4.0"}\NormalTok{) }\CommentTok{# will download Spark on first run. }
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Spark 2.4.0 for Hadoop 2.7 or later already installed.
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{sc <-}\StringTok{ }\KeywordTok{spark_connect}\NormalTok{(}\DataTypeTok{master =} \StringTok{"local"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## * Using Spark: 2.4.0
-\end{verbatim}
 
 Things to note:
 
 \begin{itemize}
 \tightlist
 \item
-  \texttt{spark\_install} will download and install \emph{Spark} on your first run. Make sure to update the version number, as this text may be outdated by the time you read it.
+  \texttt{spark\_install} will download and install \emph{Spark} on your first run. Make sure to update the version number, since my text may be outdated by the time you read it.
 \item
   I used the \emph{sparklyr} package from RStudio. There is an alternative package from Apache: \emph{SparkR}.
 \item
-  \texttt{spark\_connect} opens a connection to the Spark server. When working in a cluster, with many machines, the \texttt{master=} argumnt infrorms R which machine is the master, a.k.a. the ``driver node''.
+  \texttt{spark\_connect} opens a connection to the (local) Spark server. When working in a cluster, with many machines, the \texttt{master=} argumnt infrorms R which machine is the master, a.k.a. the ``driver node''. Consult your cluster's documentation for connection details.
 \item
   After running \texttt{spark\_connect}, the connection to the Sprak server will appear in RStudio's \href{https://support.rstudio.com/hc/en-us/articles/115010915687-Using-RStudio-Connections}{Connection pane}.
 \end{itemize}
@@ -14353,7 +13714,9 @@ Let's load and aggregate some data:
 \KeywordTok{system.time}\NormalTok{(delay<-flights_tbl }\OperatorTok{%>%}\StringTok{ }
 \StringTok{              }\KeywordTok{group_by}\NormalTok{(tailnum) }\OperatorTok{%>%}
 \StringTok{              }\KeywordTok{summarise}\NormalTok{(}
-                \DataTypeTok{count=}\KeywordTok{n}\NormalTok{(),}\DataTypeTok{dist=}\KeywordTok{mean}\NormalTok{(distance),}\DataTypeTok{delay=}\KeywordTok{mean}\NormalTok{(arr_delay)) }\OperatorTok{%>%}
+                \DataTypeTok{count=}\KeywordTok{n}\NormalTok{(),}
+                \DataTypeTok{dist=}\KeywordTok{mean}\NormalTok{(distance, }\DataTypeTok{na.rm=}\OtherTok{TRUE}\NormalTok{),}
+                \DataTypeTok{delay=}\KeywordTok{mean}\NormalTok{(arr_delay, }\DataTypeTok{na.rm=}\OtherTok{TRUE}\NormalTok{)) }\OperatorTok{%>%}
 \StringTok{              }\KeywordTok{filter}\NormalTok{(count}\OperatorTok{>}\DecValTok{20}\NormalTok{, dist}\OperatorTok{<}\DecValTok{2000}\NormalTok{, }\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(delay)) }\OperatorTok{%>%}\StringTok{ }
 \StringTok{              }\KeywordTok{collect}\NormalTok{())}
 \end{Highlighting}
@@ -14361,7 +13724,7 @@ Let's load and aggregate some data:
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.190   0.208   1.320
+##   0.231   0.556   1.652
 \end{verbatim}
 
 \begin{Shaded}
@@ -14392,7 +13755,7 @@ Things to note:
 \begin{itemize}
 \tightlist
 \item
-  \texttt{copy\_to} exports from R to Sprak. Typically, my data will already be waiting in Sprak, since the whole motivation is that it does not fit on y disk.
+  \texttt{copy\_to} exports from R to Sprak. Typically, my data will already be waiting in Sprak, since the whole motivation is that it does not fit on my disk.
 \item
   Notice the \texttt{collect} command at the end. As the name suggests, this will collect results from the various worker/slave machines.
 \item
@@ -14414,7 +13777,7 @@ We can thus compare performance to \texttt{data.table}, only to re-discover, tha
 
 \begin{verbatim}
 ##    user  system elapsed 
-##   0.044   0.063   0.106
+##   0.040   0.095   0.135
 \end{verbatim}
 
 Let's disconnect from the Spark server.
@@ -14436,38 +13799,48 @@ If your data is happily stored in a distributed Spark cluster, and the algorithm
 
 Writing your own algorithm and dispatching it to Spark can be done a-la \texttt{apply} style with \texttt{sparklyr::spark\_apply}. This, however, would typically be extremely inneficient. You are better off finding a Spark extension that does what you need.
 See the \emph{sparklyr} \href{https://CRAN.R-project.org/package=sparklyr}{CRAN page}, and in particular the Reverse Depends section, to see which extensions are available.
-One particular extension is \href{https://cran.r-project.org/web/packages/rsparkling/index.html}{rsparkling}, which allows you to apply H2O's massive library of learning algorithms, on data stored in Spark.
-We will not cover \emph{sparklyr} herein, but we will present (standalone) H2O.
+One particular extension is \textbf{rsparkling}, which allows you to apply H2O's massive library of learning algorithms, on data stored in Spark.
+We start by presenting H2O.
 
 \hypertarget{h2o}{%
 \subsection{H2O}\label{h2o}}
 
 H2O can be thought of as a library of efficient distributed learning algorithm, that run in-memory, where memory considerations and parallelisation have been taken care of for you.
+Another way to think of it is as a ``machine learning service''.
 For a (massive) list of learning algorithms implemented in H2O, see \href{http://docs.h2o.ai/h2o/latest-stable/h2o-docs/data-science.html\#}{their documentaion}.
-H2O can run as a standalone server, or on top of Spark, so that it may use the \emph{Spark data frames}. This is the purpose of \emph{Sparkling Water} discussed in \ref{sparkling}.
-We start with working on H2O directly with the \texttt{h2o} package.
+H2O can run as a standalone server, or on top of Spark, so that it may use the \emph{Spark data frames}.
+We start by working with H2O using H2O's own data structures, using \texttt{h2o} package.
+We later discuss how to use H2O using Spark's data structures (\ref{sparkling}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{#install.packages("h2o") }
-\KeywordTok{suppressPackageStartupMessages}\NormalTok{(}\KeywordTok{library}\NormalTok{(h2o))}
+\KeywordTok{library}\NormalTok{(h2o)}
 
 \KeywordTok{h2o.init}\NormalTok{(}\DataTypeTok{nthreads=}\DecValTok{2}\NormalTok{) }
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##  Connection successful!
+## 
+## H2O is not running yet, starting it now...
+## 
+## Note:  In case of errors look at the following log files:
+##     /tmp/Rtmp6A7BJg/h2o_rstudio_started_from_r.out
+##     /tmp/Rtmp6A7BJg/h2o_rstudio_started_from_r.err
+## 
+## 
+## Starting H2O JVM and connecting: . Connection successful!
 ## 
 ## R is connected to the H2O cluster: 
-##     H2O cluster uptime:         16 hours 35 minutes 
+##     H2O cluster uptime:         1 seconds 414 milliseconds 
 ##     H2O cluster timezone:       Etc/UTC 
 ##     H2O data parsing timezone:  UTC 
 ##     H2O cluster version:        3.26.0.2 
-##     H2O cluster version age:    2 months and 10 days  
-##     H2O cluster name:           H2O_started_from_R_rstudio_gap243 
+##     H2O cluster version age:    2 months and 13 days  
+##     H2O cluster name:           H2O_started_from_R_rstudio_tfg739 
 ##     H2O cluster total nodes:    1 
-##     H2O cluster total memory:   3.34 GB 
+##     H2O cluster total memory:   3.43 GB 
 ##     H2O cluster total cores:    8 
 ##     H2O cluster allowed cores:  2 
 ##     H2O cluster healthy:        TRUE 
@@ -14479,9 +13852,21 @@ We start with working on H2O directly with the \texttt{h2o} package.
 ##     R Version:                  R version 3.6.1 (2019-07-05)
 \end{verbatim}
 
+Things to note:
+
+\begin{itemize}
+\tightlist
+\item
+  We did not install the H2O server; \texttt{install.packages("h2o")} did it for us.
+\item
+  \texttt{h2o.init} fires the H2O server. Use \texttt{nthreads} to manually control the number of threads, or use the defaults. ``H2O cluster total cores'' informs you of the number of potential cores. ``H2O cluster allowed cores'' was set by \texttt{nthreads}, and informs of the number of actual cores that will be used.
+\item
+  Read \texttt{?h2o.init} for the (massive) list of configuration parameters available.
+\end{itemize}
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{h2o.no_progress}\NormalTok{()}
+\KeywordTok{h2o.no_progress}\NormalTok{() }\CommentTok{# to supress progress bars. }
 \KeywordTok{data}\NormalTok{(}\StringTok{"spam"}\NormalTok{, }\DataTypeTok{package =} \StringTok{'ElemStatLearn'}\NormalTok{)}
 \NormalTok{spam.h2o <-}\StringTok{ }\KeywordTok{as.h2o}\NormalTok{(spam, }\DataTypeTok{destination_frame =} \StringTok{"spam.hex"}\NormalTok{) }\CommentTok{# load to the H2O server}
 \KeywordTok{h2o.ls}\NormalTok{() }\CommentTok{# check avaialbe data in the server}
@@ -14489,12 +13874,11 @@ We start with working on H2O directly with the \texttt{h2o} package.
 \end{Shaded}
 
 \begin{verbatim}
-##                                                                                 key
-## 1 modelmetrics_our.rf@-1923991345304340502_on_RTMP_sid_938d_10@-3708131863335734488
-## 2                                                                            our.rf
-## 3                                        predictions_8635_our.rf_on_RTMP_sid_b4f9_6
-## 4                                       predictions_8693_our.rf_on_RTMP_sid_938d_12
-## 5                                                                          spam.hex
+##                                                                             key
+## 1 modelmetrics_our.rf@2559081578406572886_on_RTMP_sid_8e5b_4@666463969419818392
+## 2                                                                        our.rf
+## 3                                    predictions_95c7_our.rf_on_RTMP_sid_8e5b_6
+## 4                                                                      spam.hex
 \end{verbatim}
 
 \begin{Shaded}
@@ -14556,22 +13940,18 @@ We start with working on H2O directly with the \texttt{h2o} package.
 
 \begin{verbatim}
 ##   predict      email      spam
-## 1    spam 0.03750946 0.9624905
-## 2    spam 0.02612057 0.9738794
-## 3   email 0.62399108 0.3760089
-## 4    spam 0.17028682 0.8297132
-## 5    spam 0.03125000 0.9687500
-## 6    spam 0.08666667 0.9133333
+## 1    spam 0.00000000 1.0000000
+## 2    spam 0.30161972 0.6983803
+## 3    spam 0.03178400 0.9682160
+## 4    spam 0.05328051 0.9467195
+## 5    spam 0.14000000 0.8600000
+## 6    spam 0.00000000 1.0000000
 \end{verbatim}
 
 Things to note:
 
 \begin{itemize}
 \tightlist
-\item
-  We did not install the H2O server; \texttt{install.packages("h2o")} did it for us.
-\item
-  \texttt{h2o.init} fires the H2O server. Use \texttt{nthreads} to manually control the number of threads, or use the defaults.
 \item
   H2O objects behave a lot like data.frame/tables.
 \item
@@ -14591,13 +13971,13 @@ R users can connect to it using the \href{http://docs.h2o.ai/sparkling-water/2.2
 \hypertarget{nested-parallel}{%
 \section{Caution: Nested Parallelism}\label{nested-parallel}}
 
-A common problem when parallelising is that the cores/machines you invoked explicitely, invoke themselves other cores/machines.
-Consider a user \emph{forking} multiple processes, which call each \texttt{data.table} itself invoking parallel processing.
-This is called \emph{nested parallelism}, which may cause you to lose control of the number of machine being invoked.
-The operating system will spend most of its time with house keeping, instead of doing your computations.
+A common problem when parallelising is that the processes you invoke explicitely, may themselves invoke other processes.
+Consider a user \emph{forking} multiple processes, each process calling \texttt{data.table}, which itself will invoke multiple threads.
+This is called \emph{nested parallelism}, and may cause you to lose control of the number of machine being invoked.
+The operating system will spend most of its time with housekeeping, instead of doing your computations.
+Luckily, \texttt{data.table} was designed to avoid this.
 
-Luckily, \texttt{data.table} was designed to avoid this, but it may happen in general.
-If you are parallelising your linear algebra with OpenBLAS, you may control nested parallelism with the package \href{https://cran.r-project.org/package=RhpcBLASctl}{RhpcBLASctl package}.
+If you are parallelising your linear algebra with OpenBLAS, you may control nested parallelism with the package \href{https://cran.r-project.org/package=RhpcBLASctl}{RhpcBLASctl}.
 In other cases, you should be aware of this, and may need to consult an expert.
 
 \hypertarget{bibliographic-notes-14}{%
@@ -14612,13 +13992,15 @@ For some theory of distributed machine learning, see \citet{rosenblatt2016optima
 
 An excellent video explaining \texttt{data.table} and H2O, by the author of `data.table, is \href{https://www.youtube.com/watch?v=5X7h1rZGVs0}{this}.
 More benchmarks in \href{https://h2oai.github.io/db-benchmark/}{here}.
-More on Spark with R inthe book \href{https://therinspark.com}{Mastering Apache Spark with R}.
+More on Spark with R in \href{https://therinspark.com}{Mastering Apache Spark with R}.
 
 For a blog level introduction to linear algebra in R see \href{https://blog.revolutionanalytics.com/2013/08/r-and-linear-algebra.html}{Joseph Rickert's entry}.
 For a detailed discussion see \citet{oancea2015accelerating}.
 
 \hypertarget{practice-yourself-12}{%
 \section{Practice Yourself}\label{practice-yourself-12}}
+
+TODO
 
 Try DataCamp's \href{https://www.datacamp.com/courses/parallel-programming-in-r}{Parallel Programming in R}.
 
@@ -15052,10 +14434,6 @@ For this, we join the flight data, with the airplane data in \texttt{airplanes}.
 \end{Shaded}
 
 \begin{verbatim}
-## Joining, by = "carrier"
-\end{verbatim}
-
-\begin{verbatim}
 ## # A tibble: 336,776 x 9
 ##     year month   day  hour origin dest  tailnum carrier name               
 ##    <int> <int> <int> <dbl> <chr>  <chr> <chr>   <chr>   <chr>              
@@ -15077,10 +14455,6 @@ For this, we join the flight data, with the airplane data in \texttt{airplanes}.
 \NormalTok{flights2 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{left_join}\NormalTok{(weather) }
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## Joining, by = c("year", "month", "day", "hour", "origin")
-\end{verbatim}
 
 \begin{verbatim}
 ## # A tibble: 336,776 x 18
@@ -15190,10 +14564,6 @@ Types of join with SQL equivalent.
 \end{Shaded}
 
 \begin{verbatim}
-## Joining, by = "x"
-\end{verbatim}
-
-\begin{verbatim}
 ## # A tibble: 1 x 4
 ##       x     y     a b    
 ##   <dbl> <int> <dbl> <chr>
@@ -15206,10 +14576,6 @@ Types of join with SQL equivalent.
 \NormalTok{df1 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{left_join}\NormalTok{(df2) }\CommentTok{# SELECT * FROM x LEFT JOIN y ON x.a = y.a}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## Joining, by = "x"
-\end{verbatim}
 
 \begin{verbatim}
 ## # A tibble: 2 x 4
@@ -15227,10 +14593,6 @@ Types of join with SQL equivalent.
 \end{Shaded}
 
 \begin{verbatim}
-## Joining, by = "x"
-\end{verbatim}
-
-\begin{verbatim}
 ## # A tibble: 2 x 4
 ##       x     y     a b    
 ##   <dbl> <int> <dbl> <chr>
@@ -15244,10 +14606,6 @@ Types of join with SQL equivalent.
 \NormalTok{df1 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{full_join}\NormalTok{(df2) }\CommentTok{# SELECT * FROM x FULL JOIN y ON x.a = y.a}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## Joining, by = "x"
-\end{verbatim}
 
 \begin{verbatim}
 ## # A tibble: 3 x 4

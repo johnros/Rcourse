@@ -359,7 +359,7 @@ Things to note:
 
 We then import with `data.table::fread` and inspect CPU usage with the _top_ linux command.
 ```{r}
-for(i in 1:100) air <- fread('data/2010_BSA_Carrier_PUF.csv')
+air <- fread('data/2010_BSA_Carrier_PUF.csv')
 ```
 
 ![The CPU usage of fread() is 384.4\%. This is because `data.table` is setup to use 4 threads simultanously. ](art/Screenshot from 2019-10-08 16-00-34.png)
