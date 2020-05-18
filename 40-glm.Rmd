@@ -307,7 +307,7 @@ For a less technical exposition, we refer to the usual @venables2013modern.
 1. Try using `lm` for analyzing the plant growth data in `weight.factor` as a function of `group` in the `PlantGrowth` data. 
 
 1. Generate some synthetic data for a logistic regression:
-    a. Generate two predictor variables of length $100$. They can be random from your favorite distribution.
+    a. Generate a $100 \times 2$ matrix, with two predictor variables of length $100$. They can be random from your favorite distribution.
     a. Fix `beta<- c(-1,2)`, and generate the response with:`rbinom(n=100,size=1,prob=exp(x %*% beta)/(1+exp(x %*% beta)))`. Think: why is this the model implied by the logistic regression?
     a. Fit a Logistic regression to your synthetic data using `glm`.
     a. Are the estimated coefficients similar to the true ones you used?
