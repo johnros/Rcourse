@@ -458,7 +458,6 @@ amap::acp()
 fa.1 <- psych::principal(USArrests.1, nfactors = 2, rotate = "none")
 fa.1
 biplot(fa.1, labels =  rownames(USArrests.1)) 
-
 ```
 
 Numeric comparison with PCA:
@@ -886,7 +885,7 @@ Things to note:
 
 We start with agglomerative clustering with single-linkage.
 ```{r HirarchialClustering}
-hirar.1 <- hclust(state.disimilarity, method='single')
+hirar.1 <- stats::hclust(state.disimilarity, method='single')
 plot(hirar.1, labels=rownames(USArrests.1), ylab="Distance")
 ```
 
@@ -937,7 +936,7 @@ hirar.10 <- hclust(data.disimilarity.10, method = "complete")
 plot(hirar.10, ylab="Distance", main='All from the same group')
 
 # data with strong separation between groups
-the.data.11 <-the.data.10 +sample(c(0,10,20), data.n, replace=TRUE) # Shift each group 
+the.data.11 <-the.data.10+sample(c(0,10,20), data.n, replace=TRUE) # Shift each group 
 data.disimilarity.11 <- dist(the.data.11)
 hirar.11 <- hclust(data.disimilarity.11, method = "complete")
 plot(hirar.11, ylab="Distance", main=paste('Strong Separation Between',n.groups, 'Groups'))

@@ -160,7 +160,7 @@ summary(glm.1)
 Things to note:
 
 - The `glm` function is our workhorse for all GLM models.
-- The `family` argument of `glm` tells R the respose variable is brenoulli, thus, performing a logistic regression.
+- The `family` argument of `glm` tells R the response variable is Brenoulli, thus, performing a logistic regression.
 - The `summary` function is content aware. It gives a different output for `glm` class objects than for other objects, such as the `lm` we saw in Chapter \@ref(lm). In fact, what `summary` does is merely call `summary.glm`. 
 - As usual, we get the coefficients table, but recall that they are to be interpreted as (log) odd-ratios, i.e., in "link scale". To return to probabilities ("response scale"), we will need to undo the logistic transformation.
 - As usual, we get the significance for the test of no-effect, versus a two-sided alternative. P-values are asymptotic, thus, only approximate (and can be very bad approximations in small samples). 
