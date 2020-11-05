@@ -93,7 +93,7 @@ qbinom(p=0.1718, size=10, prob=0.5) # For X~B(n=10, p=0.5) returns k such that P
 ```
 Generate random variables:
 ```{r}
-rbinom(n=10, size=10, prob=0.5)
+rbinom(n=100, size=10, prob=0.5)
 ```
 
 R has many built-in distributions. 
@@ -460,7 +460,7 @@ frame1[1, 2]  # exctract the element in the 1st row and 2nd column.
 
 Extract __column__ by index:
 ```{r}
-frame1[,1]      						
+frame1[1,]      						
 ```
 
 Extract column by name:
@@ -527,7 +527,7 @@ The `read.table` function is the main importing workhorse.
 It can import directly from the web.
 ```{r, eval=FALSE}
 URL <- 'http://statweb.stanford.edu/~tibs/ElemStatLearn/datasets/bone.data'
-tirgul1 <- read.table(URL)
+tirgul1 <- read.table(URL, header = TRUE)
 ```
 
 ```{r, echo=FALSE}
@@ -562,11 +562,11 @@ Let's write a simple file so that we have something to import
 ```{r}
 head(airquality) #  examine the data to export
 temp.file.name <- tempfile() # get some arbitrary file name
-write.csv(x = airquality, file = temp.file.name) # export
+write.csv(x = airquality, file = "C:/folder/file.csv") # export
 ```
 Now let's import the exported file. Being a .csv file, I can use `read.csv` instead of `read.table`. 
 ```{r}
-my.data<- read.csv(file=temp.file.name) # import
+my.data<- read.csv(file="") # import
 head(my.data) # verify import
 ```
 
@@ -664,7 +664,7 @@ my.sum.2 <- function(x, y , absolute=FALSE) {
   } 
   result
 }
-my.sum.2(-10,2,TRUE)
+my.sum.2(-10,2)
 ```
 
 Things to note:
@@ -706,9 +706,9 @@ for (i in 1:5){
 A slightly more advanced example, is vector multiplication
 ```{r, eval=FALSE}
 result <- 0
-n <- 1e3
+n <- 1e7
 x <- 1:n
-y <- (1:n)/n
+y <- x/n
 for(i in 1:n){
   result <- result+ x[i]*y[i]
 }
