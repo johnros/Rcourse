@@ -501,6 +501,12 @@ sds.spam <- apply(X.train.spam, 2, sd)
 X.train.spam.scaled <- X.train.spam %>% sweep(MARGIN = 2, STATS = means.spam, FUN = `-`) %>% 
   sweep(MARGIN = 2, STATS = sds.spam, FUN = `/`) %>% as.matrix
 
+# Al alternative expression, without using sweep():
+# X.train.spam.scaled <- X.train.spam
+# for(j in 1:ncol(X.train.spam)){
+#   X.train.spam.scaled[,j] <- (X.train.spam[,j]-mean(X.train.spam[,j])) / sd(X.train.spam[,j])
+# }
+
 logistic.2 <- cv.glmnet(x=X.train.spam.scaled, y=y.train.spam, family = "binomial", alpha = 0)
 ```
 
@@ -527,6 +533,7 @@ X.test.spam.scaled <- X.test.spam %>% sweep(MARGIN = 2, STATS = means.spam, FUN 
 # Test misclassification error:
 missclassification(confusion.test)
 ```
+
 
 ### SVM
 
@@ -572,7 +579,10 @@ We start with a nnet regression.
 
 ```{r NNET-regression, cache=TRUE}
 library(nnet)
-nnet.1 <- nnet(lcavol~., size=20, data=prostate.train, rang = 0.1, decay = 5e-4, maxit = 1000, trace=FALSE)
+nnet.1 <- nnet(lcavol~., 
+               size=20, 
+               data=prostate.train, 
+               rang = 0.1, decay = 5e-4, maxit = 1000, trace=FALSE)
 
 # Train error:
 MSE( predict(nnet.1)- prostate.train$lcavol)
@@ -691,6 +701,7 @@ Things to note:
 
 
 #### The parsnip package {#parsnip}
+
 At this point you may have noted that different R packages have differet interfaces to specify and fit models. 
 Wouldn't it be nice to have a unified language that allows to specify a model, indpendently of the undelying fitting libraries?
 This is percisely the purpose of [parsnip](https://github.com/tidymodels/parsnip), created by [Max Kuhn](https://twitter.com/topepos), the author of __caret__. 
@@ -699,6 +710,14 @@ This is much like __ggplot2__, where you specify a plot, save it, and dispatch i
 
 TODO: add code examples. 
 
+
+#### The MLPack package
+
+[mlpack](https://mlpack.org/) is a super-fast C++ library for machine learning. 
+The R package [mlpack](https://cran.r-project.org/package=mlpack) can replaces many existing learning libraries with its own efficient implementation.
+See [here](https://www.mlpack.org/doc/mlpack-git/r_documentation.html) for a list of implemented methods. 
+
+[TODO: add code example]
 
 ### K-nearest neighbour (KNN)
 
