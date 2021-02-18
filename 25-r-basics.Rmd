@@ -1078,12 +1078,30 @@ all.equal(a2,a3)
 
 ## RStudio Projects
 
-A _Projcet_ is a feature of RStudio, not R.
+A _Project_ is a feature of RStudio, not R.
 It allows you to organize the code, the data, and the supporting file of a whole project. 
 This is very useful when you work on several machines, synched via Dropbox, git, or any other file synching service. 
 Detailing the full benefits of a RStudio Project will require a lengthy digression.
 We merely point out that if you care about portability, and reproducibility, make sure to read the [Projects documentation](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects).
 
+
+### Package versions
+
+Are you concerned that a package may change while you are working on a project? 
+This may actually happed with open source software. 
+Especially for projects that take months or years. 
+It would be very nice if you could save the exact package version with each project, so that everytime you return to the project, you have the same package version you used to work with. 
+Luckily, this is indeed possible!
+This used to be possible with the [packrat package](https://rstudio.github.io/packrat/) package, which is nwo replaced with the [renv pacakge](https://rstudio.github.io/renv/articles/renv.html).
+
+
+
+## Modules versus packages
+
+R's package mechanism is very useful, and is one of the reasons for the popularity of R.
+Some users, however, do not like the `library()` mechanism, which may lead to name clashes, and may be too complicated if all you want is to re-use a couple of your functions in various projects.
+If you are one of those user, look for other moduling technologies in R. 
+Particularly: [box](https://github.com/klmr/box), [mvbutils](https://cran.r-project.org/package=mvbutils), [import](https://cran.r-project.org/package=import), and possibly others. 
 
 
 ## Bibliographic Notes
