@@ -46,6 +46,8 @@ If instead of the level counts you want the proportions, you can use `prop.table
 prop.table(table(gender))
 ```
 
+TODO: summarytools::freq()
+
 
 #### Summary of Bivariate Categorical Data
 
@@ -55,6 +57,9 @@ cbind(gender, drink) %>% head # bind vectors into matrix and inspect (`c` for co
 table1 <- table(gender, drink) # count frequencies of bivariate combinations
 table1										
 ```
+
+TODO: summarytools::ctable()
+
 
 #### Summary of Multivariate Categorical Data
 You may be wondering how does R handle tables with more than two dimensions.
@@ -184,6 +189,10 @@ Things to note:
 - A perfectly symmetric vector will return 0 because the median will be exactly on the midway.
 - It is bounded between -1 and 1 because of the denominator
 
+#### Univariate continous data- all in one
+
+TODO: stats::summary()  
+TODO: summarytools::descr()
 
 #### Summary of Bivariate Continuous Data
 When dealing with bivariate, or multivariate data, we can obviously compute univariate summaries for each variable separately. 
@@ -240,6 +249,10 @@ How would you define a robust covariance matrix?
 ```
 
 
+### All-in-one
+
+TODO: stats::summary()
+TODO: summarytools::dfSummary()
 
 
 
